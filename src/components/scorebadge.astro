@@ -1,0 +1,27 @@
+---
+import { getScoreColor } from "../lib/scoring";
+
+interface Props {
+  score: number;
+  label?: string;
+  size?: "sm" | "md" | "lg";
+}
+
+const { score, label = "", size = "md" } = Astro.props;
+const colorClass = getScoreColor(score);
+
+const sizeClasses = {
+  sm: "text-xs px-2 py-0.5",
+  md: "text-sm px-3 py-1",
+  lg: "text-lg px-4 py-2",
+};
+---
+
+<div class="inline-flex items-center gap-2">
+  <span class={`font-bold rounded-lg ${sizeClasses[size]} ${colorClass} bg-[var(--color-radar-surface)] border border-current/20`}>
+    {score}/100
+  </span>
+  {label && (
+    <span class="text-sm text-[var(--color-radar-text-muted)]">{label}</span>
+  )}
+</div>

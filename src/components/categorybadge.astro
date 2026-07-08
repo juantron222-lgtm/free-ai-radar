@@ -1,0 +1,23 @@
+---
+interface Props {
+  category: string;
+}
+
+const { category } = Astro.props;
+
+const catColors: Record<string, string> = {
+  "Imagen IA": "bg-purple-500/10 text-purple-400 border-purple-500/20",
+  "Vídeo IA": "bg-red-500/10 text-red-400 border-red-500/20",
+  "Voz IA": "bg-orange-500/10 text-orange-400 border-orange-500/20",
+  "Música IA": "bg-pink-500/10 text-pink-400 border-pink-500/20",
+  "Código": "bg-blue-500/10 text-blue-400 border-blue-500/20",
+  "Modelos open-source": "bg-cyan-500/10 text-cyan-400 border-cyan-500/20",
+  "Herramientas locales": "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+};
+
+const colorClass = catColors[category] || "bg-[var(--color-radar-accent)]/10 text-[var(--color-radar-accent-glow)] border-[var(--color-radar-accent)]/20";
+---
+
+<span class={`px-2.5 py-1 text-xs font-medium rounded-full border ${colorClass}`}>
+  {category}
+</span>

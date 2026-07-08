@@ -1,0 +1,1322 @@
+[
+  {
+    "id": "tool-001",
+    "name": "Stable Diffusion WebUI (AUTOMATIC1111)",
+    "slug": "stable-diffusion-webui",
+    "official_url": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
+    "category": "Imagen IA",
+    "subcategory": "Generación de imágenes local",
+    "description_short": "Interfaz web completa para Stable Diffusion con cientos de extensiones y control total sobre la generación de imágenes.",
+    "description_long": "AUTOMATIC1111 Stable Diffusion WebUI es la interfaz más popular para ejecutar Stable Diffusion localmente. Ofrece txt2img, img2img, inpainting, ControlNet, upscalers, entrenamiento LoRA, y un ecosistema masivo de extensiones comunitarias. Ideal para quien tiene GPU local (especialmente NVIDIA) y quiere el máximo control sin depender de servicios cloud.",
+    "free_type": "Gratis real",
+    "free_plan_summary": "100% gratuito y open-source. Sin límites de generación ni restricciones. Solo necesitas hardware compatible.",
+    "requires_signup": false,
+    "requires_credit_card": false,
+    "has_watermark": false,
+    "commercial_use": true,
+    "open_source": true,
+    "local_install": true,
+    "github_url": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
+    "pricing_url": "",
+    "docs_url": "https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki",
+    "source_urls": [
+      "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
+      "https://www.reddit.com/r/StableDiffusion/"
+    ],
+    "detected_at": "2024-01-15",
+    "last_checked_at": "2026-07-08",
+    "novelty_summary": "Sigue siendo el estándar de facto para generación de imágenes local con SD. Actualizaciones frecuentes y comunidad masiva.",
+    "use_cases": [
+      "Generación de imágenes ilimitada sin coste",
+      "Creación de assets para proyectos creativos",
+      "Experimentación con modelos y LoRAs",
+      "Inpainting y edición avanzada de imágenes"
+    ],
+    "limitations": [
+      "Requiere GPU NVIDIA con al menos 4GB VRAM",
+      "Instalación puede ser compleja para principiantes",
+      "No incluye modelos por defecto (hay que descargarlos)"
+    ],
+    "alternatives": [
+      "ComfyUI",
+      "Fooocus",
+      "InvokeAI"
+    ],
+    "verdict": "La mejor opción si tienes GPU local y quieres el máximo control sobre generación de imágenes. Curva de aprendizaje moderada pero recompensa enorme.",
+    "score_total": 89,
+    "score_free_real": 10,
+    "score_usefulness": 9,
+    "score_ease": 6,
+    "score_creator_potential": 9,
+    "score_transparency": 9,
+    "risk_level": "bajo",
+    "tags": [
+      "Merece probar",
+      "Ideal para creadores",
+      "Bueno para uso local",
+      "Open-source",
+      "Sin registro",
+      "Sin tarjeta"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "tool-002",
+    "name": "ComfyUI",
+    "slug": "comfyui",
+    "official_url": "https://github.com/comfyanonymous/ComfyUI",
+    "category": "Imagen IA",
+    "subcategory": "Generación de imágenes local",
+    "description_short": "Interfaz visual basada en nodos para Stable Diffusion con workflows reproducibles y control granular sobre cada paso del pipeline.",
+    "description_long": "ComfyUI es una interfaz de nodos para Stable Diffusion que permite construir pipelines visuales complejos arrastrando y conectando nodos. Perfecto para workflows avanzados que mezclan múltiples modelos, ControlNet, IP-Adapter, upscalers y más. Los workflows se pueden compartir como archivos JSON, facilitando la reproducibilidad. Menos amigable para principiantes pero mucho más potente para uso profesional.",
+    "free_type": "Gratis real",
+    "free_plan_summary": "100% gratuito y open-source. Sin límites. Todo el procesamiento es local.",
+    "requires_signup": false,
+    "requires_credit_card": false,
+    "has_watermark": false,
+    "commercial_use": true,
+    "open_source": true,
+    "local_install": true,
+    "github_url": "https://github.com/comfyanonymous/ComfyUI",
+    "pricing_url": "",
+    "docs_url": "https://comfyanonymous.github.io/ComfyUI_examples/",
+    "source_urls": [
+      "https://github.com/comfyanonymous/ComfyUI",
+      "https://www.reddit.com/r/comfyui/"
+    ],
+    "detected_at": "2024-02-20",
+    "last_checked_at": "2026-07-08",
+    "novelty_summary": "ComfyUI se ha convertido en el estándar profesional para workflows de imagen IA. Su enfoque nodal permite pipelines que ningún otro UI puede replicar.",
+    "use_cases": [
+      "Workflows complejos multi-modelo",
+      "Automatización de pipelines de generación",
+      "Prototipado rápido de nuevas técnicas",
+      "Producción profesional de imágenes IA"
+    ],
+    "limitations": [
+      "Curva de aprendizaje pronunciada (interfaz nodal)",
+      "Requiere GPU NVIDIA con VRAM adecuada",
+      "Los workflows complejos pueden ser difíciles de depurar"
+    ],
+    "alternatives": [
+      "AUTOMATIC1111 WebUI",
+      "Fooocus",
+      "InvokeAI"
+    ],
+    "verdict": "La herramienta definitiva para power users de imagen IA. Si estás dispuesto a invertir tiempo en aprender la interfaz nodal, no hay nada más potente.",
+    "score_total": 88,
+    "score_free_real": 10,
+    "score_usefulness": 9,
+    "score_ease": 5,
+    "score_creator_potential": 9,
+    "score_transparency": 9,
+    "risk_level": "bajo",
+    "tags": [
+      "Merece probar",
+      "Ideal para creadores",
+      "Bueno para uso local",
+      "Open-source",
+      "Sin registro",
+      "Sin tarjeta"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "tool-003",
+    "name": "Ollama",
+    "slug": "ollama",
+    "official_url": "https://ollama.com",
+    "category": "Modelos open-source",
+    "subcategory": "Ejecución local de LLMs",
+    "description_short": "Ejecuta modelos de lenguaje grandes (LLMs) localmente con un solo comando. Soporta Llama, Mistral, Gemma, Phi y docenas más.",
+    "description_long": "Ollama simplifica drásticamente la ejecución de LLMs open-source en local. Con comandos como 'ollama run llama3' puedes tener un chatbot funcionando en segundos. Soporta GPU acceleration (NVIDIA, AMD, Apple Silicon), cuantización, modelos personalizados via Modelfile, y una API REST compatible con OpenAI. Es la puerta de entrada al mundo de los LLMs locales.",
+    "free_type": "Gratis real",
+    "free_plan_summary": "100% gratuito y open-source. Sin límites de uso. Los modelos se descargan gratis desde ollama.com/library.",
+    "requires_signup": false,
+    "requires_credit_card": false,
+    "has_watermark": false,
+    "commercial_use": true,
+    "open_source": true,
+    "local_install": true,
+    "github_url": "https://github.com/ollama/ollama",
+    "pricing_url": "",
+    "docs_url": "https://github.com/ollama/ollama/tree/main/docs",
+    "source_urls": [
+      "https://ollama.com",
+      "https://github.com/ollama/ollama",
+      "https://www.reddit.com/r/LocalLLaMA/"
+    ],
+    "detected_at": "2023-10-15",
+    "last_checked_at": "2026-07-08",
+    "novelty_summary": "Ollama es ya el estándar indiscutible para ejecutar LLMs localmente. Su simplicidad y catálogo de modelos lo hacen imbatible.",
+    "use_cases": [
+      "Chatbot local privado sin enviar datos a la nube",
+      "Desarrollo de aplicaciones con LLMs locales",
+      "Experimentación con diferentes modelos open-source",
+      "Automatización con agentes IA locales"
+    ],
+    "limitations": [
+      "Rendimiento limitado por el hardware local",
+      "Modelos grandes (>13B) requieren mucha RAM/VRAM",
+      "No tiene interfaz gráfica oficial (solo CLI y API)"
+    ],
+    "alternatives": [
+      "LM Studio",
+      "llama.cpp",
+      "GPT4All"
+    ],
+    "verdict": "Imprescindible si quieres LLMs locales. La herramienta más fácil para empezar con IA local. Instalación en 2 minutos.",
+    "score_total": 90,
+    "score_free_real": 10,
+    "score_usefulness": 9,
+    "score_ease": 8,
+    "score_creator_potential": 8,
+    "score_transparency": 9,
+    "risk_level": "bajo",
+    "tags": [
+      "Merece probar",
+      "Bueno para uso local",
+      "Open-source",
+      "Sin registro",
+      "Sin tarjeta",
+      "Fácil de usar"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "tool-004",
+    "name": "LM Studio",
+    "slug": "lm-studio",
+    "official_url": "https://lmstudio.ai",
+    "category": "Modelos open-source",
+    "subcategory": "Ejecución local de LLMs",
+    "description_short": "Interfaz gráfica elegante para descargar y ejecutar LLMs localmente. Busca modelos de Hugging Face, descárgalos y chatea en segundos.",
+    "description_long": "LM Studio ofrece una experiencia de escritorio pulida para ejecutar LLMs locales. Incluye buscador de modelos integrado que indexa Hugging Face, descarga con un clic, chat multi-turno, servidor API local compatible con OpenAI, y configuración avanzada de GPU offloading. Ideal para quienes prefieren GUI sobre línea de comandos.",
+    "free_type": "Gratis real",
+    "free_plan_summary": "Gratuito para uso personal. La aplicación de escritorio es freeware. Sin límites de generación ni tokens.",
+    "requires_signup": false,
+    "requires_credit_card": false,
+    "has_watermark": false,
+    "commercial_use": "no_confirmado",
+    "open_source": false,
+    "local_install": true,
+    "github_url": "",
+    "pricing_url": "",
+    "docs_url": "https://lmstudio.ai/docs",
+    "source_urls": [
+      "https://lmstudio.ai",
+      "https://www.reddit.com/r/LocalLLaMA/"
+    ],
+    "detected_at": "2024-01-10",
+    "last_checked_at": "2026-07-08",
+    "novelty_summary": "LM Studio sigue siendo la GUI más pulida para LLMs locales. Su buscador de modelos integrado ahorra muchísimo tiempo.",
+    "use_cases": [
+      "Chat con LLMs locales sin tocar terminal",
+      "Descubrimiento y prueba rápida de modelos de Hugging Face",
+      "Servidor API local para desarrollo",
+      "Comparación side-by-side de modelos"
+    ],
+    "limitations": [
+      "No es open-source (freeware propietario)",
+      "Solo disponible para Windows, macOS y Linux x86",
+      "Rendimiento depende del hardware local"
+    ],
+    "alternatives": [
+      "Ollama",
+      "GPT4All",
+      "Jan"
+    ],
+    "verdict": "Excelente si prefieres GUI sobre terminal. El buscador de modelos integrado es su killer feature. Muy recomendable para empezar.",
+    "score_total": 85,
+    "score_free_real": 9,
+    "score_usefulness": 9,
+    "score_ease": 9,
+    "score_creator_potential": 7,
+    "score_transparency": 6,
+    "risk_level": "bajo",
+    "tags": [
+      "Merece probar",
+      "Bueno para uso local",
+      "Sin registro",
+      "Sin tarjeta",
+      "Fácil de usar"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "tool-005",
+    "name": "Fooocus",
+    "slug": "fooocus",
+    "official_url": "https://github.com/lllyasviel/Fooocus",
+    "category": "Imagen IA",
+    "subcategory": "Generación de imágenes local",
+    "description_short": "Generación de imágenes con Stable Diffusion simplificada al máximo. Enfocada en resultados de calidad sin complejidad técnica.",
+    "description_long": "Fooocus reinventa la experiencia de Stable Diffusion quitando toda la complejidad técnica. Sin prompts negativos, sin samplers, sin steps — solo escribe lo que quieres y obtén imágenes de calidad. Incorpora tecnología avanzada como SDXL, refinado automático, inpainting y upscaling, todo bajo una interfaz minimalista. Creado por el mismo autor de ControlNet (lllyasviel).",
+    "free_type": "Gratis real",
+    "free_plan_summary": "100% gratuito y open-source. Instalación en un clic. Sin límites de generación.",
+    "requires_signup": false,
+    "requires_credit_card": false,
+    "has_watermark": false,
+    "commercial_use": true,
+    "open_source": true,
+    "local_install": true,
+    "github_url": "https://github.com/lllyasviel/Fooocus",
+    "pricing_url": "",
+    "docs_url": "https://github.com/lllyasviel/Fooocus/blob/main/readme.md",
+    "source_urls": [
+      "https://github.com/lllyasviel/Fooocus",
+      "https://www.reddit.com/r/StableDiffusion/"
+    ],
+    "detected_at": "2023-08-15",
+    "last_checked_at": "2026-07-08",
+    "novelty_summary": "Fooocus sigue siendo la mejor opción para quien quiere resultados profesionales sin pelearse con la técnica. Ideal para principiantes.",
+    "use_cases": [
+      "Generación rápida de imágenes de calidad sin configuraciones",
+      "Primera herramienta para quien empieza con imagen IA local",
+      "Producción de imágenes con SDXL y refinado automático",
+      "Inpainting y edición con prompts simples"
+    ],
+    "limitations": [
+      "Menos control que ComfyUI o AUTOMATIC1111",
+      "Requiere GPU NVIDIA con al menos 4GB VRAM",
+      "Personalización avanzada limitada"
+    ],
+    "alternatives": [
+      "AUTOMATIC1111 WebUI",
+      "ComfyUI",
+      "InvokeAI"
+    ],
+    "verdict": "La mejor puerta de entrada a la generación de imágenes IA local. Resultados profesionales sin dolor. Del creador de ControlNet.",
+    "score_total": 89,
+    "score_free_real": 10,
+    "score_usefulness": 8,
+    "score_ease": 8,
+    "score_creator_potential": 8,
+    "score_transparency": 9,
+    "risk_level": "bajo",
+    "tags": [
+      "Merece probar",
+      "Ideal para creadores",
+      "Bueno para uso local",
+      "Open-source",
+      "Sin registro",
+      "Sin tarjeta",
+      "Fácil de usar"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "tool-006",
+    "name": "RunwayML",
+    "slug": "runwayml",
+    "official_url": "https://runwayml.com",
+    "category": "Vídeo IA",
+    "subcategory": "Generación y edición de vídeo",
+    "description_short": "Plataforma profesional de generación y edición de vídeo con IA. Gen2/Gen3 para vídeo generativo, motion brush, y herramientas de postproducción.",
+    "description_long": "RunwayML es una de las plataformas pioneras en vídeo generativo. Ofrece generación de vídeo texto-a-vídeo, edición con IA (motion brush, inpainting de vídeo, green screen automático), entrenamiento de modelos personalizados, y herramientas de colaboración para equipos creativos. Su modelo Gen-3 Alpha compite con Sora de OpenAI.",
+    "free_type": "Gratis limitado",
+    "free_plan_summary": "Plan gratuito con créditos mensuales limitados (~125 créditos). Suficiente para probar pero no para producción. Marca de agua en plan gratuito.",
+    "requires_signup": true,
+    "requires_credit_card": false,
+    "has_watermark": true,
+    "commercial_use": "parcial",
+    "open_source": false,
+    "local_install": false,
+    "github_url": "",
+    "pricing_url": "https://runwayml.com/pricing",
+    "docs_url": "https://docs.runwayml.com",
+    "source_urls": [
+      "https://runwayml.com",
+      "https://runwayml.com/pricing"
+    ],
+    "detected_at": "2023-06-01",
+    "last_checked_at": "2026-07-08",
+    "novelty_summary": "RunwayML continúa liderando el espacio de vídeo IA profesional. Gen-3 Alpha es uno de los modelos más avanzados disponibles.",
+    "use_cases": [
+      "Generación de clips de vídeo desde texto",
+      "Edici�n de v�deo con IA (motion brush, inpainting)",
+      "Prototipado rápido de contenido visual",
+      "Postproducción con herramientas de IA"
+    ],
+    "limitations": [
+      "Plan gratuito muy limitado en créditos",
+      "Marca de agua en plan gratuito",
+      "Los créditos se consumen rápido en resoluciones altas",
+      "No se ejecuta localmente (cloud-only)"
+    ],
+    "alternatives": [
+      "Pika Labs",
+      "Kling AI",
+      "Hailuo AI"
+    ],
+    "verdict": "Excelente para profesionales del vídeo, pero el plan gratuito es solo para probar. Si necesitas producción, necesitarás el plan de pago.",
+    "score_total": 52,
+    "score_free_real": 4,
+    "score_usefulness": 8,
+    "score_ease": 8,
+    "score_creator_potential": 8,
+    "score_transparency": 6,
+    "risk_level": "medio",
+    "tags": [
+      "Prometedor",
+      "Ideal para creadores",
+      "Bueno para vídeo",
+      "Gratis limitado"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "tool-007",
+    "name": "Pika Labs",
+    "slug": "pika-labs",
+    "official_url": "https://pika.art",
+    "category": "Vídeo IA",
+    "subcategory": "Generación de vídeo",
+    "description_short": "Generación de vídeos cortos desde texto o imagen con una interfaz web simple. Ideal para contenido rápido en redes sociales.",
+    "description_long": "Pika Labs permite generar vídeos cortos (3-10 segundos) a partir de descripciones de texto o imágenes de referencia. Su interfaz es extremadamente simple y los resultados son rápidos. La versión 2.0 mejoró significativamente la calidad y coherencia de los vídeos. Popular para crear contenido viral en redes sociales.",
+    "free_type": "Gratis limitado",
+    "free_plan_summary": "Plan gratuito con generaciones limitadas. Créditos diarios/semanales que se renuevan. Sin marca de agua en plan gratuito (confirmar vigencia).",
+    "requires_signup": true,
+    "requires_credit_card": false,
+    "has_watermark": "no_confirmado",
+    "commercial_use": "no_confirmado",
+    "open_source": false,
+    "local_install": false,
+    "github_url": "",
+    "pricing_url": "https://pika.art/pricing",
+    "docs_url": "",
+    "source_urls": [
+      "https://pika.art",
+      "https://www.reddit.com/r/aivideo/"
+    ],
+    "detected_at": "2024-03-10",
+    "last_checked_at": "2026-07-08",
+    "novelty_summary": "Pika 2.0 trajo mejoras significativas en calidad de vídeo. Sigue siendo una de las opciones más accesibles para vídeo IA.",
+    "use_cases": [
+      "Vídeos cortos para TikTok/Reels/Shorts",
+      "Prototipado rápido de ideas visuales",
+      "Contenido creativo para redes sociales",
+      "Animaciones simples desde imágenes estáticas"
+    ],
+    "limitations": [
+      "Vídeos muy cortos (3-10 segundos)",
+      "Control limitado sobre el resultado final",
+      "Créditos gratuitos limitados",
+      "Calidad variable según el prompt"
+    ],
+    "alternatives": [
+      "RunwayML",
+      "Kling AI",
+      "Hailuo AI"
+    ],
+    "verdict": "Buena opción para contenido rápido en redes sociales. La versión gratuita permite experimentar pero se queda corta para uso serio.",
+    "score_total": 57,
+    "score_free_real": 5,
+    "score_usefulness": 7,
+    "score_ease": 8,
+    "score_creator_potential": 7,
+    "score_transparency": 5,
+    "risk_level": "medio",
+    "tags": [
+      "Prometedor",
+      "Bueno para vídeo",
+      "Gratis limitado"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "tool-008",
+    "name": "Suno AI",
+    "slug": "suno-ai",
+    "official_url": "https://suno.com",
+    "category": "Música IA",
+    "subcategory": "Generación de música",
+    "description_short": "Genera canciones completas con letra, voz e instrumentación desde un prompt de texto. El líder indiscutible en música IA.",
+    "description_long": "Suno AI genera canciones completas — con voz, letra, melodía e instrumentación — a partir de una simple descripción de texto o incluso de tus propias letras. La calidad ha mejorado drásticamente con cada versión (v3, v3.5, v4), produciendo canciones que suenan sorprendentemente profesionales. Cubre prácticamente cualquier género musical.",
+    "free_type": "Gratis limitado",
+    "free_plan_summary": "Plan gratuito con ~50 créditos diarios (5 generaciones de 2 canciones cada una). Uso no comercial. Las canciones generadas son propiedad de Suno en plan gratuito.",
+    "requires_signup": true,
+    "requires_credit_card": false,
+    "has_watermark": false,
+    "commercial_use": false,
+    "open_source": false,
+    "local_install": false,
+    "github_url": "",
+    "pricing_url": "https://suno.com/pricing",
+    "docs_url": "",
+    "source_urls": [
+      "https://suno.com",
+      "https://www.reddit.com/r/SunoAI/"
+    ],
+    "detected_at": "2024-01-20",
+    "last_checked_at": "2026-07-08",
+    "novelty_summary": "Suno v4 elevó la calidad a niveles casi profesionales. La música IA ya no suena a 'música IA'.",
+    "use_cases": [
+      "Crear canciones para proyectos personales",
+      "Generar música de fondo para vídeos/podcasts",
+      "Experimentar con géneros musicales",
+      "Bocetos rápidos de ideas musicales"
+    ],
+    "limitations": [
+      "Plan gratuito no permite uso comercial",
+      "Créditos diarios limitados (50/día)",
+      "Las canciones del plan gratuito pertenecen a Suno",
+      "Menos control sobre estructura musical específica"
+    ],
+    "alternatives": [
+      "Udio",
+      "Stable Audio",
+      "AIVA"
+    ],
+    "verdict": "Impresionante para generar canciones rápidamente. El plan gratuito es generoso para experimentar, pero recuerda que no puedes usar las canciones comercialmente.",
+    "score_total": 67,
+    "score_free_real": 5,
+    "score_usefulness": 8,
+    "score_ease": 9,
+    "score_creator_potential": 8,
+    "score_transparency": 5,
+    "risk_level": "medio",
+    "tags": [
+      "Prometedor",
+      "Ideal para creadores",
+      "Fácil de usar",
+      "Gratis limitado"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "tool-009",
+    "name": "ElevenLabs",
+    "slug": "elevenlabs",
+    "official_url": "https://elevenlabs.io",
+    "category": "Voz IA",
+    "subcategory": "Síntesis y clonación de voz",
+    "description_short": "Síntesis de voz ultrarrealista con clonación de voz, texto a voz multilingüe y generación de efectos de sonido por IA.",
+    "description_long": "ElevenLabs es el estándar de oro en síntesis de voz IA. Ofrece texto a voz en decenas de idiomas con calidad casi indistinguible de una voz humana real. Permite clonar voces a partir de muestras de audio, generar locuciones con control de emoción y entonación, y crear efectos de sonido desde descripciones de texto. Usado por creadores de contenido, podcasts y audiobooks.",
+    "free_type": "Gratis limitado",
+    "free_plan_summary": "Plan gratuito con 10,000 caracteres/mes (~10 minutos de audio). Acceso a voces básicas. Sin clonación de voz en plan gratuito.",
+    "requires_signup": true,
+    "requires_credit_card": false,
+    "has_watermark": false,
+    "commercial_use": "parcial",
+    "open_source": false,
+    "local_install": false,
+    "github_url": "",
+    "pricing_url": "https://elevenlabs.io/pricing",
+    "docs_url": "https://elevenlabs.io/docs",
+    "source_urls": [
+      "https://elevenlabs.io",
+      "https://elevenlabs.io/pricing"
+    ],
+    "detected_at": "2023-03-01",
+    "last_checked_at": "2026-07-08",
+    "novelty_summary": "ElevenLabs mantiene su posición como líder indiscutible en voz IA. La calidad de síntesis sigue siendo la referencia del sector.",
+    "use_cases": [
+      "Locuciones para vídeos y podcasts",
+      "Narración de audiobooks",
+      "Voces para proyectos interactivos",
+      "Generación de efectos de sonido IA"
+    ],
+    "limitations": [
+      "Plan gratuito muy limitado (10K caracteres/mes)",
+      "Clonación de voz solo en planes de pago",
+      "No open-source ni ejecutable localmente",
+      "Voces premium bloqueadas en plan gratuito"
+    ],
+    "alternatives": [
+      "PlayHT",
+      "Murf AI",
+      "Coqui TTS (open-source)"
+    ],
+    "verdict": "Calidad de voz increíble pero el plan gratuito es testimonial. Ideal para probar, pero necesitarás pagar para uso real.",
+    "score_total": 57,
+    "score_free_real": 4,
+    "score_usefulness": 8,
+    "score_ease": 8,
+    "score_creator_potential": 7,
+    "score_transparency": 5,
+    "risk_level": "medio",
+    "tags": [
+      "Prometedor",
+      "Ideal para creadores",
+      "Fácil de usar",
+      "Gratis limitado"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "tool-010",
+    "name": "Leonardo AI",
+    "slug": "leonardo-ai",
+    "official_url": "https://leonardo.ai",
+    "category": "Imagen IA",
+    "subcategory": "Generación de imágenes cloud",
+    "description_short": "Plataforma cloud de generación de imágenes con modelos propios y fine-tuning. Muy popular en la comunidad de creadores de assets.",
+    "description_long": "Leonardo AI es una plataforma cloud especializada en generación de imágenes para creadores de contenido, juegos y diseño. Ofrece modelos propios optimizados, fine-tuning de modelos, generación de texturas y assets para videojuegos, canvas de edición con IA, y una comunidad activa que comparte modelos y recursos. Su plan gratuito es uno de los más generosos del mercado.",
+    "free_type": "Gratis limitado",
+    "free_plan_summary": "Plan gratuito con ~150 créditos diarios (se renuevan cada día). Acceso a la mayoría de modelos. Sin marca de agua. Uso comercial permitido en imágenes generadas.",
+    "requires_signup": true,
+    "requires_credit_card": false,
+    "has_watermark": false,
+    "commercial_use": true,
+    "open_source": false,
+    "local_install": false,
+    "github_url": "",
+    "pricing_url": "https://leonardo.ai/pricing",
+    "docs_url": "https://docs.leonardo.ai",
+    "source_urls": [
+      "https://leonardo.ai",
+      "https://www.reddit.com/r/leonardoai/"
+    ],
+    "detected_at": "2023-06-15",
+    "last_checked_at": "2026-07-08",
+    "novelty_summary": "Leonardo AI sigue ofreciendo uno de los mejores planes gratuitos para generación de imágenes, con créditos diarios generosos y calidad competitiva.",
+    "use_cases": [
+      "Generación de assets para videojuegos",
+      "Creación de imágenes para contenido digital",
+      "Fine-tuning de modelos con imágenes propias",
+      "Producción de imágenes para uso comercial"
+    ],
+    "limitations": [
+      "Créditos diarios limitados (~150/día)",
+      "No se ejecuta localmente (cloud-only)",
+      "Algunas funciones premium requieren suscripción",
+      "Propietario (no open-source)"
+    ],
+    "alternatives": [
+      "Civitai",
+      "Midjourney",
+      "Stable Diffusion WebUI (local)"
+    ],
+    "verdict": "Excelente plan gratuito con créditos diarios generosos. Permite uso comercial. Una de las mejores opciones cloud para imagen IA.",
+    "score_total": 74,
+    "score_free_real": 6,
+    "score_usefulness": 8,
+    "score_ease": 8,
+    "score_creator_potential": 8,
+    "score_transparency": 6,
+    "risk_level": "medio",
+    "tags": [
+      "Prometedor",
+      "Ideal para creadores",
+      "Fácil de usar",
+      "Gratis limitado"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "tool-011",
+    "name": "Perplexity AI",
+    "slug": "perplexity-ai",
+    "official_url": "https://www.perplexity.ai",
+    "category": "Investigación",
+    "subcategory": "Buscador conversacional con IA",
+    "description_short": "Buscador conversacional que combina búsqueda web en tiempo real con respuestas generadas por IA, incluyendo citas y fuentes verificables.",
+    "description_long": "Perplexity AI redefine la búsqueda web combinando resultados de búsqueda en tiempo real con generación de lenguaje natural. Cada respuesta incluye citas y enlaces a las fuentes originales, permitiendo verificar la información. Soporta múltiples modelos (GPT-4, Claude, Sonar), búsqueda de imágenes, subida de archivos para análisis, y colecciones de hilos de investigación. El plan gratuito usa el modelo Sonar propio.",
+    "free_type": "Gratis real",
+    "free_plan_summary": "Plan gratuito con búsquedas ilimitadas usando Sonar (modelo propio). Acceso a búsqueda web, citas, y subida de archivos. Sin necesidad de tarjeta.",
+    "requires_signup": false,
+    "requires_credit_card": false,
+    "has_watermark": false,
+    "commercial_use": true,
+    "open_source": false,
+    "local_install": false,
+    "github_url": "",
+    "pricing_url": "https://www.perplexity.ai/pricing",
+    "docs_url": "https://docs.perplexity.ai",
+    "source_urls": [
+      "https://www.perplexity.ai",
+      "https://www.perplexity.ai/pricing"
+    ],
+    "detected_at": "2023-08-01",
+    "last_checked_at": "2026-07-08",
+    "novelty_summary": "Perplexity mantiene su posición como el mejor buscador IA con fuentes verificables. El plan gratuito es genuinamente útil.",
+    "use_cases": [
+      "Investigación con fuentes verificables",
+      "Búsqueda web conversacional",
+      "Análisis de documentos con IA",
+      "Seguimiento de noticias y tendencias"
+    ],
+    "limitations": [
+      "Plan gratuito usa modelo Sonar (no GPT-4/Claude)",
+      "Subida de archivos limitada en plan gratuito",
+      "Algunas funciones Pro bloqueadas",
+      "No open-source ni ejecutable localmente"
+    ],
+    "alternatives": [
+      "ChatGPT Search",
+      "Google Gemini",
+      "You.com"
+    ],
+    "verdict": "El mejor buscador IA gratuito. Respuestas con fuentes citadas. Imprescindible para investigación online verificable.",
+    "score_total": 77,
+    "score_free_real": 8,
+    "score_usefulness": 8,
+    "score_ease": 9,
+    "score_creator_potential": 6,
+    "score_transparency": 7,
+    "risk_level": "bajo",
+    "tags": [
+      "Merece probar",
+      "Fácil de usar",
+      "Sin tarjeta"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "tool-012",
+    "name": "Claude",
+    "slug": "claude",
+    "official_url": "https://claude.ai",
+    "category": "Escritura",
+    "subcategory": "Asistente de escritura y análisis",
+    "description_short": "Asistente IA de Anthropic con razonamiento avanzado, ventana de contexto masiva y capacidad de análisis de documentos extensos.",
+    "description_long": "Claude, desarrollado por Anthropic, destaca por su capacidad de razonamiento matizado, escritura de alta calidad, y una ventana de contexto excepcionalmente grande que permite analizar libros enteros o bases de código completas. El plan gratuito ofrece acceso al modelo Claude 3.5 Sonnet (u versión equivalente en 2026) con límites de uso diarios generosos. Incluye subida de archivos, análisis de imágenes, y proyectos organizados.",
+    "free_type": "Gratis real",
+    "free_plan_summary": "Plan gratuito con acceso a Claude (modelo principal) con límites de uso diario. Sin necesidad de tarjeta de crédito. Suficiente para uso moderado.",
+    "requires_signup": true,
+    "requires_credit_card": false,
+    "has_watermark": false,
+    "commercial_use": true,
+    "open_source": false,
+    "local_install": false,
+    "github_url": "",
+    "pricing_url": "https://www.anthropic.com/pricing",
+    "docs_url": "https://docs.anthropic.com",
+    "source_urls": [
+      "https://claude.ai",
+      "https://www.anthropic.com"
+    ],
+    "detected_at": "2023-07-01",
+    "last_checked_at": "2026-07-08",
+    "novelty_summary": "Claude sigue siendo el referente en razonamiento profundo y manejo de contexto largo. Anthropic mantiene un generoso plan gratuito.",
+    "use_cases": [
+      "Escritura y edición de textos largos",
+      "Análisis de documentos extensos",
+      "Razonamiento y resolución de problemas complejos",
+      "Programación y revisión de código"
+    ],
+    "limitations": [
+      "Límite de mensajes diario en plan gratuito",
+      "No open-source ni ejecutable localmente",
+      "Requiere registro con email/teléfono",
+      "Menos funciones multimodales que ChatGPT"
+    ],
+    "alternatives": [
+      "ChatGPT",
+      "Google Gemini",
+      "HuggingChat"
+    ],
+    "verdict": "Excelente para escritura y análisis profundo. El plan gratuito es genuinamente útil para uso diario moderado. Muy recomendable.",
+    "score_total": 80,
+    "score_free_real": 7,
+    "score_usefulness": 9,
+    "score_ease": 9,
+    "score_creator_potential": 7,
+    "score_transparency": 7,
+    "risk_level": "bajo",
+    "tags": [
+      "Merece probar",
+      "Fácil de usar",
+      "Sin tarjeta"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "tool-013",
+    "name": "ChatGPT",
+    "slug": "chatgpt",
+    "official_url": "https://chat.openai.com",
+    "category": "Escritura",
+    "subcategory": "Chatbot y asistente IA generalista",
+    "description_short": "El asistente IA más popular del mundo. Acceso gratuito a GPT-4o mini con capacidades multimodales, búsqueda web, y generación de imágenes.",
+    "description_long": "ChatGPT de OpenAI es el asistente de IA más utilizado globalmente. El plan gratuito ofrece acceso a GPT-4o mini (o modelo equivalente en 2026) con capacidades de texto, visión, generación de imágenes (DALL-E), navegación web, análisis de datos, y GPTs personalizados. La app móvil permite conversación por voz. Los límites del plan gratuito se han vuelto más generosos con el tiempo.",
+    "free_type": "Gratis real",
+    "free_plan_summary": "Plan gratuito con acceso a GPT-4o mini (o equivalente), DALL-E básico, búsqueda web, y análisis de datos. Límites de uso diario. Sin tarjeta.",
+    "requires_signup": true,
+    "requires_credit_card": false,
+    "has_watermark": false,
+    "commercial_use": true,
+    "open_source": false,
+    "local_install": false,
+    "github_url": "",
+    "pricing_url": "https://openai.com/pricing",
+    "docs_url": "https://platform.openai.com/docs",
+    "source_urls": [
+      "https://chat.openai.com",
+      "https://openai.com"
+    ],
+    "detected_at": "2022-11-30",
+    "last_checked_at": "2026-07-08",
+    "novelty_summary": "ChatGPT sigue evolucionando con nuevas capacidades multimodales. El plan gratuito ahora es más generoso que nunca.",
+    "use_cases": [
+      "Asistente de escritura y brainstorming",
+      "Programación y debugging",
+      "Generación de imágenes con DALL-E",
+      "Análisis de datos y documentos"
+    ],
+    "limitations": [
+      "Límite de mensajes en plan gratuito (más restrictivo que Plus)",
+      "No open-source ni ejecutable localmente",
+      "Requiere registro con email",
+      "Modelo gratuito limitado vs GPT-4o completo"
+    ],
+    "alternatives": [
+      "Claude",
+      "Google Gemini",
+      "HuggingChat"
+    ],
+    "verdict": "El asistente IA más versátil con un plan gratuito sólido. Imprescindible en cualquier toolkit de IA gratuito.",
+    "score_total": 83,
+    "score_free_real": 7,
+    "score_usefulness": 9,
+    "score_ease": 10,
+    "score_creator_potential": 7,
+    "score_transparency": 6,
+    "risk_level": "bajo",
+    "tags": [
+      "Merece probar",
+      "Ideal para creadores",
+      "Fácil de usar",
+      "Sin tarjeta"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "tool-014",
+    "name": "Google Gemini",
+    "slug": "google-gemini",
+    "official_url": "https://gemini.google.com",
+    "category": "Escritura",
+    "subcategory": "Chatbot y asistente IA generalista",
+    "description_short": "Asistente IA de Google con integración nativa en el ecosistema Google (Gmail, Drive, Maps, YouTube) y acceso gratuito generoso.",
+    "description_long": "Gemini (anteriormente Bard) es el asistente IA de Google integrado profundamente con el ecosistema Google. El plan gratuito ofrece acceso al modelo Gemini con razonamiento avanzado, capacidades multimodales, y extensiones que le permiten interactuar con Gmail, Google Drive, Maps, YouTube y más. La integración nativa con servicios Google lo hace único entre los asistentes IA.",
+    "free_type": "Gratis real",
+    "free_plan_summary": "Plan gratuito generoso con acceso a Gemini (modelo principal). Integración con servicios Google. Generación de imágenes incluida. Sin tarjeta.",
+    "requires_signup": true,
+    "requires_credit_card": false,
+    "has_watermark": false,
+    "commercial_use": true,
+    "open_source": false,
+    "local_install": false,
+    "github_url": "",
+    "pricing_url": "https://one.google.com/about/ai-premium",
+    "docs_url": "https://ai.google.dev/gemini-api/docs",
+    "source_urls": [
+      "https://gemini.google.com",
+      "https://blog.google/technology/ai/"
+    ],
+    "detected_at": "2023-12-06",
+    "last_checked_at": "2026-07-08",
+    "novelty_summary": "Gemini ha evolucionado desde Bard hasta convertirse en un asistente robusto con integración única en el ecosistema Google.",
+    "use_cases": [
+      "Asistente integrado con Gmail, Drive y Calendar",
+      "Investigación con búsqueda de Google nativa",
+      "Escritura y edición colaborativa",
+      "Análisis de contenido multimedia (YouTube, imágenes)"
+    ],
+    "limitations": [
+      "Requiere cuenta de Google",
+      "No open-source ni ejecutable localmente",
+      "La integración con servicios Google puede ser invasiva",
+      "Menos preciso en razonamiento complejo que Claude"
+    ],
+    "alternatives": [
+      "ChatGPT",
+      "Claude",
+      "HuggingChat"
+    ],
+    "verdict": "Imbatible si vives en el ecosistema Google. La integración con Gmail, Drive y Maps es una ventaja única. Plan gratuito muy generoso.",
+    "score_total": 82,
+    "score_free_real": 7,
+    "score_usefulness": 9,
+    "score_ease": 10,
+    "score_creator_potential": 7,
+    "score_transparency": 6,
+    "risk_level": "bajo",
+    "tags": [
+      "Merece probar",
+      "Fácil de usar",
+      "Sin tarjeta"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "tool-015",
+    "name": "Hugging Face Spaces",
+    "slug": "hugging-face-spaces",
+    "official_url": "https://huggingface.co/spaces",
+    "category": "Modelos open-source",
+    "subcategory": "Demos y aplicaciones IA",
+    "description_short": "Plataforma para alojar y descubrir demos de IA gratuitas. Miles de aplicaciones de imagen, texto, audio y vídeo ejecutándose en la nube.",
+    "description_long": "Hugging Face Spaces permite a cualquiera alojar demos de modelos IA (con Gradio, Streamlit o Docker) de forma gratuita. Como usuario, puedes descubrir y probar miles de aplicaciones IA sin instalar nada: generadores de imágenes, chatbots, clonadores de voz, detectores de deepfakes, y mucho más. La comunidad sube nuevas demos constantemente. Es como una 'App Store' de IA gratuita.",
+    "free_type": "Gratis real",
+    "free_plan_summary": "Uso completamente gratuito. Navega y prueba miles de demos IA sin registro, sin límites y sin pagar. Alojar tus propias demos también es gratis.",
+    "requires_signup": false,
+    "requires_credit_card": false,
+    "has_watermark": false,
+    "commercial_use": "no_confirmado",
+    "open_source": true,
+    "local_install": false,
+    "github_url": "",
+    "pricing_url": "https://huggingface.co/pricing",
+    "docs_url": "https://huggingface.co/docs/hub/spaces",
+    "source_urls": [
+      "https://huggingface.co/spaces",
+      "https://huggingface.co"
+    ],
+    "detected_at": "2023-01-10",
+    "last_checked_at": "2026-07-08",
+    "novelty_summary": "Hugging Face Spaces es el mayor repositorio de demos IA gratuitas del mundo. Un recurso increíblemente valioso para descubrir herramientas.",
+    "use_cases": [
+      "Descubrir nuevas herramientas IA sin instalar nada",
+      "Probar modelos antes de descargarlos",
+      "Alojar tus propias demos de IA gratis",
+      "Aprender viendo implementaciones de la comunidad"
+    ],
+    "limitations": [
+      "Las demos pueden estar lentas si el Space está en CPU",
+      "Las demos pueden caerse si el creador no las mantiene",
+      "Calidad variable entre demos (depende del creador)",
+      "No es una herramienta única sino un repositorio"
+    ],
+    "alternatives": [
+      "Replicate",
+      "Pinokio",
+      "Google Colab"
+    ],
+    "verdict": "Un tesoro escondido. Miles de demos IA gratuitas para probar sin instalar nada. Explora, descubre y aprende.",
+    "score_total": 84,
+    "score_free_real": 9,
+    "score_usefulness": 8,
+    "score_ease": 7,
+    "score_creator_potential": 7,
+    "score_transparency": 9,
+    "risk_level": "bajo",
+    "tags": [
+      "Merece probar",
+      "Open-source",
+      "Sin registro",
+      "Sin tarjeta"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "tool-016",
+    "name": "Pinokio",
+    "slug": "pinokio",
+    "official_url": "https://pinokio.computer",
+    "category": "Herramientas locales",
+    "subcategory": "Instalador de herramientas IA",
+    "description_short": "Navegador e instalador de aplicaciones IA que automatiza la instalación de herramientas complejas con un solo clic.",
+    "description_long": "Pinokio es una herramienta única: un navegador/instalador que automatiza la descarga, instalación y configuración de aplicaciones IA complejas. En lugar de pelearte con Python, CUDA, dependencias y entornos virtuales, Pinokio lo hace todo automáticamente. Su catálogo incluye cientos de scripts para instalar Stable Diffusion WebUI, ComfyUI, FaceFusion, RVC, y muchas más herramientas locales.",
+    "free_type": "Gratis real",
+    "free_plan_summary": "100% gratuito. La aplicación Pinokio es gratis. Los scripts de instalación son open-source. Sin límites.",
+    "requires_signup": false,
+    "requires_credit_card": false,
+    "has_watermark": false,
+    "commercial_use": "no_confirmado",
+    "open_source": true,
+    "local_install": true,
+    "github_url": "https://github.com/pinokiocomputer/pinokio",
+    "pricing_url": "",
+    "docs_url": "https://docs.pinokio.computer",
+    "source_urls": [
+      "https://pinokio.computer",
+      "https://github.com/pinokiocomputer/pinokio"
+    ],
+    "detected_at": "2023-09-01",
+    "last_checked_at": "2026-07-08",
+    "novelty_summary": "Pinokio resuelve el mayor dolor de cabeza de la IA local: la instalación. Un clic y tienes cualquier herramienta funcionando.",
+    "use_cases": [
+      "Instalar herramientas IA complejas sin conocimientos técnicos",
+      "Explorar y descubrir nuevas herramientas IA locales",
+      "Gestionar múltiples instalaciones de IA desde un solo lugar",
+      "Evitar los dolores de cabeza de dependencias y entornos"
+    ],
+    "limitations": [
+      "Solo para herramientas locales (necesitas GPU)",
+      "Los scripts dependen de que la comunidad los mantenga",
+      "Puede descargar archivos muy grandes automáticamente",
+      "Interfaz a veces poco intuitiva"
+    ],
+    "alternatives": [
+      "Stability Matrix",
+      "Instalación manual",
+      "Docker"
+    ],
+    "verdict": "Revolucionario para quien quiere herramientas IA locales sin ser sysadmin. Instalación en un clic que ahorra horas de frustración.",
+    "score_total": 82,
+    "score_free_real": 10,
+    "score_usefulness": 8,
+    "score_ease": 7,
+    "score_creator_potential": 7,
+    "score_transparency": 8,
+    "risk_level": "bajo",
+    "tags": [
+      "Merece probar",
+      "Bueno para uso local",
+      "Open-source",
+      "Sin registro",
+      "Sin tarjeta"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "tool-017",
+    "name": "Replicate",
+    "slug": "replicate",
+    "official_url": "https://replicate.com",
+    "category": "APIs gratuitas",
+    "subcategory": "API de modelos IA",
+    "description_short": "Plataforma cloud para ejecutar modelos IA open-source via API. Miles de modelos disponibles con un free tier para experimentar.",
+    "description_long": "Replicate permite ejecutar miles de modelos IA open-source (Stable Diffusion, LLMs, upscalers, etc.) a través de una API simple, sin necesidad de GPU propia. Pagas solo por el tiempo de cómputo que usas, y hay cierta cantidad gratuita para empezar. Ideal para desarrolladores que quieren integrar IA en sus apps sin gestionar infraestructura.",
+    "free_type": "Demo limitada",
+    "free_plan_summary": "Free tier con créditos limitados para probar modelos. Las ejecuciones en CPU de modelos pequeños pueden ser muy baratas o gratuitas.",
+    "requires_signup": true,
+    "requires_credit_card": "no_confirmado",
+    "has_watermark": false,
+    "commercial_use": true,
+    "open_source": false,
+    "local_install": false,
+    "github_url": "https://github.com/replicate",
+    "pricing_url": "https://replicate.com/pricing",
+    "docs_url": "https://replicate.com/docs",
+    "source_urls": [
+      "https://replicate.com",
+      "https://replicate.com/pricing"
+    ],
+    "detected_at": "2023-04-01",
+    "last_checked_at": "2026-07-08",
+    "novelty_summary": "Replicate sigue siendo la plataforma más fácil para usar modelos IA open-source via API sin gestionar GPU.",
+    "use_cases": [
+      "Integrar IA en aplicaciones sin gestionar infraestructura",
+      "Probar modelos open-source sin descargarlos",
+      "Prototipado rápido de features con IA",
+      "Ejecutar modelos en cloud sin GPU local"
+    ],
+    "limitations": [
+      "Free tier muy limitado (créditos iniciales)",
+      "Los costes pueden escalar rápido con uso intensivo",
+      "Posible que requiera tarjeta para continuar tras free tier",
+      "No ejecución local (dependes de su infraestructura)"
+    ],
+    "alternatives": [
+      "Hugging Face Inference API",
+      "Modal",
+      "Google Colab"
+    ],
+    "verdict": "Excelente para desarrolladores que quieren probar modelos IA sin infraestructura. El free tier alcanza para experimentar pero no para producción.",
+    "score_total": 55,
+    "score_free_real": 5,
+    "score_usefulness": 8,
+    "score_ease": 7,
+    "score_creator_potential": 7,
+    "score_transparency": 6,
+    "risk_level": "medio",
+    "tags": [
+      "Prometedor",
+      "Solo demo"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "tool-018",
+    "name": "Civitai",
+    "slug": "civitai",
+    "official_url": "https://civitai.com",
+    "category": "Imagen IA",
+    "subcategory": "Comunidad y repositorio de modelos",
+    "description_short": "La mayor comunidad de modelos y recursos para Stable Diffusion. Descarga checkpoints, LoRAs, embeddings y comparte tus creaciones.",
+    "description_long": "Civitai es el repositorio comunitario más grande de modelos para Stable Diffusion. Aquí encuentras miles de checkpoints, LoRAs, Textual Inversions, y embeddings subidos por la comunidad, con previews, reviews y guías de uso. También ofrece generación de imágenes online gratuita con modelos de la comunidad, entrenamiento de LoRAs en cloud, y un sistema de 'buzz' (créditos gratuitos) para usar sus servicios.",
+    "free_type": "Gratis real",
+    "free_plan_summary": "Descarga ilimitada de modelos gratis. Generación online con buzz diario gratuito. Registro opcional para funciones sociales.",
+    "requires_signup": false,
+    "requires_credit_card": false,
+    "has_watermark": false,
+    "commercial_use": "parcial",
+    "open_source": false,
+    "local_install": false,
+    "github_url": "https://github.com/civitai",
+    "pricing_url": "",
+    "docs_url": "https://education.civitai.com",
+    "source_urls": [
+      "https://civitai.com",
+      "https://www.reddit.com/r/civitai/"
+    ],
+    "detected_at": "2023-02-01",
+    "last_checked_at": "2026-07-08",
+    "novelty_summary": "Civitai sigue siendo EL lugar para encontrar modelos de Stable Diffusion. La comunidad no para de crecer y la calidad de los recursos es increíble.",
+    "use_cases": [
+      "Descargar modelos, LoRAs y recursos para SD",
+      "Descubrir tendencias en generación de imágenes IA",
+      "Generar imágenes online sin instalar nada",
+      "Entrenar LoRAs en la nube (con buzz)"
+    ],
+    "limitations": [
+      "Algunos modelos requieren buzz para generación online",
+      "El contenido NSFW es común (configurar filtros)",
+      "No open-source como plataforma (aunque los modelos sí lo son)",
+      "La generación online es limitada comparada con uso local"
+    ],
+    "alternatives": [
+      "Hugging Face Models",
+      "Tensor.art",
+      "SeaArt"
+    ],
+    "verdict": "El GitHub de Stable Diffusion. Imprescindible para cualquiera que use imagen IA. La comunidad de modelos más grande del mundo.",
+    "score_total": 85,
+    "score_free_real": 9,
+    "score_usefulness": 8,
+    "score_ease": 8,
+    "score_creator_potential": 8,
+    "score_transparency": 7,
+    "risk_level": "bajo",
+    "tags": [
+      "Merece probar",
+      "Ideal para creadores",
+      "Fácil de usar",
+      "Sin tarjeta"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "tool-019",
+    "name": "Cursor",
+    "slug": "cursor",
+    "official_url": "https://cursor.com",
+    "category": "Código",
+    "subcategory": "Editor de código con IA",
+    "description_short": "Editor de código basado en VS Code con IA integrada que entiende tu proyecto completo, escribe, edita y depura código por ti.",
+    "description_long": "Cursor es un fork de VS Code con capacidades de IA profundamente integradas. El asistente entiende todo tu proyecto, puede editar múltiples archivos, predecir tu siguiente movimiento con Tab completions avanzadas, y mantener conversaciones sobre tu código base. Soporta múltiples modelos (GPT-4, Claude) y ofrece un plan gratuito (Hobby) con límites de uso mensuales generosos.",
+    "free_type": "Gratis real",
+    "free_plan_summary": "Plan Hobby gratuito con 2000 completions/mes y 50 requests premium. Suficiente para uso personal moderado. Sin tarjeta de crédito.",
+    "requires_signup": true,
+    "requires_credit_card": false,
+    "has_watermark": false,
+    "commercial_use": true,
+    "open_source": false,
+    "local_install": true,
+    "github_url": "",
+    "pricing_url": "https://cursor.com/pricing",
+    "docs_url": "https://docs.cursor.com",
+    "source_urls": [
+      "https://cursor.com",
+      "https://cursor.com/pricing"
+    ],
+    "detected_at": "2023-10-01",
+    "last_checked_at": "2026-07-08",
+    "novelty_summary": "Cursor se ha convertido en el editor de código con IA más popular, compitiendo directamente con GitHub Copilot y superándolo en muchas áreas.",
+    "use_cases": [
+      "Desarrollo de software asistido por IA",
+      "Refactorización y debugging de proyectos",
+      "Aprendizaje de programación con guía IA",
+      "Escritura de documentación y tests"
+    ],
+    "limitations": [
+      "Plan gratuito limitado a 2000 completions/mes",
+      "No open-source (fork propietario de VS Code)",
+      "Requests premium limitados en plan gratuito",
+      "El modelo gratuito es menos potente que los premium"
+    ],
+    "alternatives": [
+      "GitHub Copilot",
+      "Windsurf",
+      "Continue.dev"
+    ],
+    "verdict": "El mejor editor de código con IA. El plan gratuito es sorprendentemente generoso para uso personal. Revoluciona la forma de programar.",
+    "score_total": 78,
+    "score_free_real": 7,
+    "score_usefulness": 9,
+    "score_ease": 9,
+    "score_creator_potential": 8,
+    "score_transparency": 6,
+    "risk_level": "bajo",
+    "tags": [
+      "Merece probar",
+      "Ideal para creadores",
+      "Fácil de usar",
+      "Sin tarjeta"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "tool-020",
+    "name": "v0 by Vercel",
+    "slug": "v0-by-vercel",
+    "official_url": "https://v0.dev",
+    "category": "Código",
+    "subcategory": "Generación de interfaces de usuario",
+    "description_short": "Genera interfaces de usuario completas con React y Tailwind CSS a partir de descripciones en lenguaje natural. Output listo para producción.",
+    "description_long": "v0 by Vercel es un generador de UI que convierte descripciones de texto en componentes React completos con Tailwind CSS y shadcn/ui. Generas código limpio, responsive y listo para copiar y pegar en tu proyecto Next.js. Ideal para desarrolladores frontend que quieren prototipar rápido o generar componentes complejos sin escribirlos manualmente. El plan gratuito permite varias generaciones al día.",
+    "free_type": "Gratis limitado",
+    "free_plan_summary": "Plan gratuito con generaciones diarias limitadas (~5-10). Acceso a generación de UI con React + Tailwind. Sin necesidad de tarjeta.",
+    "requires_signup": true,
+    "requires_credit_card": false,
+    "has_watermark": false,
+    "commercial_use": true,
+    "open_source": false,
+    "local_install": false,
+    "github_url": "",
+    "pricing_url": "https://v0.dev/pricing",
+    "docs_url": "https://v0.dev/docs",
+    "source_urls": [
+      "https://v0.dev",
+      "https://vercel.com"
+    ],
+    "detected_at": "2023-09-15",
+    "last_checked_at": "2026-07-08",
+    "novelty_summary": "v0 sigue siendo la herramienta de referencia para generar UI con IA. La calidad del código generado es consistentemente alta.",
+    "use_cases": [
+      "Generación rápida de componentes React/Tailwind",
+      "Prototipado de interfaces de usuario",
+      "Aprendizaje de patrones de diseño con Tailwind",
+      "Creación de landing pages y dashboards"
+    ],
+    "limitations": [
+      "Generaciones diarias limitadas en plan gratuito",
+      "Enfocado en React/Tailwind (no otros frameworks)",
+      "No open-source",
+      "Requiere registro con cuenta de Vercel/GitHub"
+    ],
+    "alternatives": [
+      "Bolt.new",
+      "Lovable",
+      "Cursor"
+    ],
+    "verdict": "Excelente para desarrolladores frontend React. Las generaciones gratuitas son suficientes para prototipado. El código es de alta calidad.",
+    "score_total": 69,
+    "score_free_real": 6,
+    "score_usefulness": 8,
+    "score_ease": 9,
+    "score_creator_potential": 7,
+    "score_transparency": 5,
+    "risk_level": "medio",
+    "tags": [
+      "Prometedor",
+      "Ideal para creadores",
+      "Fácil de usar",
+      "Gratis limitado"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "tool-021",
+    "name": "Bolt.new",
+    "slug": "bolt-new",
+    "official_url": "https://bolt.new",
+    "category": "Código",
+    "subcategory": "Generación de aplicaciones full-stack",
+    "description_short": "Genera aplicaciones web full-stack completas desde una descripción.StackBlitz-powered, con preview en vivo y deploy en un clic.",
+    "description_long": "Bolt.new de StackBlitz permite crear aplicaciones web completas (frontend + backend) describiendo lo que quieres en lenguaje natural. Genera React, Next.js, Node.js y más, con un entorno de desarrollo completo en el navegador que incluye preview en vivo, terminal, y deploy a producción. Ideal para prototipos rápidos, MVPs, y herramientas internas sin configurar nada localmente.",
+    "free_type": "Gratis limitado",
+    "free_plan_summary": "Plan gratuito con tokens diarios limitados. Suficiente para varios prototipos pequeños al día. Sin tarjeta de crédito.",
+    "requires_signup": true,
+    "requires_credit_card": false,
+    "has_watermark": false,
+    "commercial_use": true,
+    "open_source": false,
+    "local_install": false,
+    "github_url": "",
+    "pricing_url": "https://bolt.new/pricing",
+    "docs_url": "",
+    "source_urls": [
+      "https://bolt.new",
+      "https://stackblitz.com"
+    ],
+    "detected_at": "2024-06-01",
+    "last_checked_at": "2026-07-08",
+    "novelty_summary": "Bolt.new ha crecido enormemente como la opción más rápida para crear apps completas desde cero sin configuración.",
+    "use_cases": [
+      "Creación de MVPs y prototipos en minutos",
+      "Herramientas internas para equipos",
+      "Aprendizaje de desarrollo web con IA",
+      "Landing pages y aplicaciones simples"
+    ],
+    "limitations": [
+      "Tokens diarios limitados en plan gratuito",
+      "No ideal para aplicaciones muy complejas",
+      "No open-source",
+      "Apps complejas pueden consumir tokens rápidamente"
+    ],
+    "alternatives": [
+      "v0 by Vercel",
+      "Lovable",
+      "Replit Agent"
+    ],
+    "verdict": "La forma más rápida de ir de idea a app funcionando. Los tokens gratuitos alcanzan para prototipos diarios. Muy recomendable.",
+    "score_total": 69,
+    "score_free_real": 6,
+    "score_usefulness": 8,
+    "score_ease": 9,
+    "score_creator_potential": 7,
+    "score_transparency": 5,
+    "risk_level": "medio",
+    "tags": [
+      "Prometedor",
+      "Ideal para creadores",
+      "Fácil de usar",
+      "Gratis limitado"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "tool-022",
+    "name": "Midjourney",
+    "slug": "midjourney",
+    "official_url": "https://www.midjourney.com",
+    "category": "Imagen IA",
+    "subcategory": "Generación de imágenes cloud",
+    "description_short": "El generador de imágenes IA con la calidad estética más alta del mercado. Pruebas gratuitas limitadas disponibles para nuevos usuarios.",
+    "description_long": "Midjourney es famoso por producir las imágenes IA de mayor calidad estética y artística. Su estilo característico es instantáneamente reconocible y muy valorado en industrias creativas. Aunque es principalmente de pago, ocasionalmente ofrece pruebas gratuitas limitadas (~25 generaciones) para nuevos usuarios. La calidad de sus imágenes justifica su reputación como el estándar de oro en imagen IA.",
+    "free_type": "Trial útil",
+    "free_plan_summary": "Sin plan gratuito permanente. Ocasionalmente ofrece trials de ~25 generaciones para nuevos usuarios. Después requiere suscripción (desde $10/mes).",
+    "requires_signup": true,
+    "requires_credit_card": false,
+    "has_watermark": false,
+    "commercial_use": "parcial",
+    "open_source": false,
+    "local_install": false,
+    "github_url": "",
+    "pricing_url": "https://www.midjourney.com/pricing",
+    "docs_url": "https://docs.midjourney.com",
+    "source_urls": [
+      "https://www.midjourney.com",
+      "https://www.reddit.com/r/midjourney/"
+    ],
+    "detected_at": "2022-07-12",
+    "last_checked_at": "2026-07-08",
+    "novelty_summary": "Midjourney mantiene su corona como el generador de imágenes con mejor calidad estética. El estándar de oro para imagen IA artística.",
+    "use_cases": [
+      "Creación de arte conceptual y visuales de alta calidad",
+      "Inspiración estética para proyectos creativos",
+      "Generación de imágenes con estilo artístico único",
+      "Referencias visuales para diseñadores y artistas"
+    ],
+    "limitations": [
+      "Sin plan gratuito permanente (solo trial para nuevos usuarios)",
+      "Requiere Discord (aunque la versión web está mejorando)",
+      "Requiere suscripción de pago tras el trial",
+      "No open-source ni ejecutable localmente"
+    ],
+    "alternatives": [
+      "Stable Diffusion + LoRAs (local, gratis)",
+      "Leonardo AI",
+      "DALL-E (via ChatGPT)"
+    ],
+    "verdict": "La mejor calidad estética en imagen IA, pero NO es gratuito más allá del trial inicial. Si buscas algo gratis y permanente, mira Stable Diffusion local.",
+    "score_total": 59,
+    "score_free_real": 3,
+    "score_usefulness": 9,
+    "score_ease": 8,
+    "score_creator_potential": 9,
+    "score_transparency": 5,
+    "risk_level": "medio",
+    "tags": [
+      "Prometedor",
+      "Ideal para creadores",
+      "Fácil de usar"
+    ],
+    "status": "active"
+  }
+]

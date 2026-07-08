@@ -1,0 +1,201 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Hero from "../components/Hero.astro";
+import SearchBar from "../components/SearchBar.astro";
+import FilterBar from "../components/FilterBar.astro";
+import ToolCard from "../components/ToolCard.astro";
+import Newsletter from "../components/Newsletter.astro";
+import toolsData from "../data/tools.json";
+
+const topTools = [...toolsData]
+  .sort((a, b) => b.score_total - a.score_total)
+  .slice(0, 6);
+
+const newestTools = [...toolsData]
+  .sort((a, b) => new Date(b.detected_at).getTime() - new Date(a.detected_at).getTime())
+  .slice(0, 6);
+
+const openSourceTools = toolsData.filter((t) => t.open_source === true || t.free_type === "Open-source").slice(0, 4);
+const freeCreditTools = toolsData.filter((t) => t.free_type === "Créditos gratis" || t.free_type === "Trial útil").slice(0, 4);
+---
+
+<BaseLayout title="Free AI Radar - Novedades de IA gratis, filtradas y explicadas">
+  <Header />
+
+  <main>
+    <Hero />
+
+    <!-- Gratis real vs Humo -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="text-center mb-8">
+        <h2 class="text-2xl font-bold text-[var(--color-radar-text)] mb-3">🎯 Gratis de verdad vs Humo</h2>
+        <p class="text-[var(--color-radar-text-muted)] max-w-2xl mx-auto">
+          No todo lo que se anuncia como "gratis" lo es. Así clasificamos cada herramienta para que sepas exactamente a qué atenerte.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div class="p-5 rounded-2xl bg-[var(--color-radar-card)] border border-green-500/20 hover:border-green-500/40 transition-all">
+          <div class="text-2xl mb-2">✅</div>
+          <h3 class="font-bold text-green-400 text-sm mb-1">Gratis real</h3>
+          <p class="text-xs text-[var(--color-radar-text-muted)] leading-relaxed">Usable sin pagar de forma continua. Sin trampas. Ej: Ollama, ComfyUI, ChatGPT free.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-[var(--color-radar-card)] border border-emerald-500/20 hover:border-emerald-500/40 transition-all">
+          <div class="text-2xl mb-2">🟢</div>
+          <h3 class="font-bold text-emerald-400 text-sm mb-1">Freemium decente</h3>
+          <p class="text-xs text-[var(--color-radar-text-muted)] leading-relaxed">Límites gratuitos realmente útiles. Puedes hacer cosas sin pagar. Ej: Leonardo AI, Suno.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-[var(--color-radar-card)] border border-yellow-500/20 hover:border-yellow-500/40 transition-all">
+          <div class="text-2xl mb-2">🟡</div>
+          <h3 class="font-bold text-yellow-400 text-sm mb-1">Créditos gratis</h3>
+          <p class="text-xs text-[var(--color-radar-text-muted)] leading-relaxed">Saldo inicial o créditos periódicos. Útil para probar. Ej: Replicate, RunwayML.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-[var(--color-radar-card)] border border-orange-500/20 hover:border-orange-500/40 transition-all">
+          <div class="text-2xl mb-2">⚠️</div>
+          <h3 class="font-bold text-orange-400 text-sm mb-1">Trial camuflado</h3>
+          <p class="text-xs text-[var(--color-radar-text-muted)] leading-relaxed">Parece gratis pero caduca, exige tarjeta o limita tanto que no sirve. Ej: Midjourney trial.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-[var(--color-radar-card)] border border-red-500/20 hover:border-red-500/40 transition-all">
+          <div class="text-2xl mb-2">💨</div>
+          <h3 class="font-bold text-red-400 text-sm mb-1">Humo probable</h3>
+          <p class="text-xs text-[var(--color-radar-text-muted)] leading-relaxed">Promesas grandes, límites confusos, poca información verificable. No pierdas el tiempo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search + Filters Section -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="flex flex-col md:flex-row gap-4 items-start justify-between mb-6">
+        <div>
+          <h2 class="text-2xl font-bold text-[var(--color-radar-text)]">Explora el radar</h2>
+          <p class="text-sm text-[var(--color-radar-text-muted)] mt-1">Filtra, busca y descubre herramientas IA gratuitas que merecen la pena.</p>
+        </div>
+        <SearchBar />
+      </div>
+      <FilterBar />
+    </section>
+
+    <!-- Top novedades gratis -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div class="flex items-center justify-between mb-5">
+        <div>
+          <h2 class="text-xl font-bold text-[var(--color-radar-text)]">🏆 Top novedades gratis</h2>
+          <p class="text-sm text-[var(--color-radar-text-muted)]">Las herramientas gratuitas mejor puntuadas según nuestro radar.</p>
+        </div>
+        <a href="/tools?sort=score" class="text-sm text-[var(--color-radar-accent-glow)] hover:underline">Ver todas &rarr;</a>
+      </div>
+      <div id="tools-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {topTools.map((tool) => <ToolCard tool={tool} />)}
+      </div>
+    </section>
+
+    <!-- Nuevas herramientas detectadas -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="flex items-center justify-between mb-5">
+        <div>
+          <h2 class="text-xl font-bold text-[var(--color-radar-text)]">🆕 Nuevas herramientas detectadas</h2>
+          <p class="text-sm text-[var(--color-radar-text-muted)]">Lo último que ha entrado en el radar.</p>
+        </div>
+        <a href="/tools?sort=newest" class="text-sm text-[var(--color-radar-accent-glow)] hover:underline">Ver todas &rarr;</a>
+      </div>
+      <div id="tools-grid-new" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {newestTools.map((tool) => <ToolCard tool={tool} />)}
+      </div>
+    </section>
+
+    <!-- Grid: Open-source + Créditos gratis -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Modelos open-source -->
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-bold text-[var(--color-radar-text)]">🔓 Modelos open-source recientes</h2>
+            <a href="/tools?free_type=Open-source" class="text-sm text-blue-400 hover:underline">Ver todos &rarr;</a>
+          </div>
+          <div class="space-y-3">
+            {openSourceTools.map((tool) => (
+              <a href={`/tools/${tool.slug}`} class="block bg-[var(--color-radar-card)] border border-[var(--color-radar-border)] rounded-xl p-4 hover:border-blue-500/30 transition-all">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h3 class="font-semibold text-[var(--color-radar-text)] text-sm">{tool.name}</h3>
+                    <p class="text-xs text-[var(--color-radar-text-muted)] mt-0.5 line-clamp-1">{tool.description_short}</p>
+                  </div>
+                  <span class="text-xs font-bold text-blue-400 bg-blue-500/10 px-2 py-1 rounded-lg">{tool.score_total}</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Créditos gratis / trials útiles -->
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-bold text-[var(--color-radar-text)]">🎁 Créditos gratis / trials útiles</h2>
+            <a href="/tools?free_type=Créditos%20gratis" class="text-sm text-yellow-400 hover:underline">Ver todos &rarr;</a>
+          </div>
+          <div class="space-y-3">
+            {freeCreditTools.map((tool) => (
+              <a href={`/tools/${tool.slug}`} class="block bg-[var(--color-radar-card)] border border-[var(--color-radar-border)] rounded-xl p-4 hover:border-yellow-500/30 transition-all">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h3 class="font-semibold text-[var(--color-radar-text)] text-sm">{tool.name}</h3>
+                    <p class="text-xs text-[var(--color-radar-text-muted)] mt-0.5 line-clamp-1">{tool.description_short}</p>
+                  </div>
+                  <span class="text-xs font-bold text-yellow-400 bg-yellow-500/10 px-2 py-1 rounded-lg">{tool.score_total}</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PWA Install -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="bg-[var(--color-radar-card)] border border-[var(--color-radar-border)] rounded-3xl p-8 md:p-12 max-w-4xl mx-auto">
+        <div class="flex flex-col md:flex-row gap-8 items-center">
+          <div class="flex-1">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--color-radar-accent)]/10 border border-[var(--color-radar-accent)]/20 text-sm text-[var(--color-radar-accent-glow)] mb-4">
+              📱 PWA instalable
+            </div>
+            <h2 class="text-2xl font-bold text-[var(--color-radar-text)] mb-3">Instala Free AI Radar en tu móvil</h2>
+            <p class="text-sm text-[var(--color-radar-text-muted)] mb-6">
+              Añade Free AI Radar a tu pantalla de inicio y consulta novedades de IA gratis como si fuera una app. Sin pasar por la tienda de aplicaciones.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="p-3 rounded-xl bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)]">
+                <span class="text-xs font-semibold text-[var(--color-radar-text)]">🤖 Android (Chrome)</span>
+                <ol class="text-xs text-[var(--color-radar-text-muted)] mt-2 space-y-1">
+                  <li>1. Abre el menú del navegador ⋮</li>
+                  <li>2. Toca "Instalar app" o "Añadir a pantalla de inicio"</li>
+                  <li>3. Confirma</li>
+                </ol>
+              </div>
+              <div class="p-3 rounded-xl bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)]">
+                <span class="text-xs font-semibold text-[var(--color-radar-text)]">🍎 iPhone (Safari)</span>
+                <ol class="text-xs text-[var(--color-radar-text-muted)] mt-2 space-y-1">
+                  <li>1. Toca el botón Compartir 📤</li>
+                  <li>2. Toca "Añadir a pantalla de inicio"</li>
+                  <li>3. Confirma</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+          <div class="flex-shrink-0 hidden md:block">
+            <div class="w-28 h-28 rounded-3xl bg-gradient-to-br from-[var(--color-radar-accent)] to-[var(--color-radar-purple)] flex items-center justify-center shadow-lg shadow-[var(--color-radar-accent)]/25">
+              <span class="text-white text-4xl font-extrabold">AI</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <Newsletter />
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

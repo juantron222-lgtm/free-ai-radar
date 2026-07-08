@@ -1,0 +1,68 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<BaseLayout
+  title="Sobre Free AI Radar"
+  description="Free AI Radar es un radar curado de herramientas, modelos y recursos de IA gratuitos o con free tier útil. Sin directorios infinitos, sin humo."
+>
+  <Header />
+
+  <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <a href="/" class="inline-flex items-center gap-1 text-sm text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-accent-glow)] transition-colors mb-6">
+      &larr; Volver al inicio
+    </a>
+
+    <h1 class="text-3xl md:text-4xl font-extrabold text-[var(--color-radar-text)] mb-6">Sobre Free AI Radar</h1>
+
+    <div class="prose prose-invert max-w-none space-y-6 text-[var(--color-radar-text-muted)] leading-relaxed">
+      <p class="text-lg text-[var(--color-radar-text)]">
+        Free AI Radar es un radar curado de herramientas, modelos y recursos de inteligencia artificial gratuitos o con free tier realmente útil.
+      </p>
+
+      <h2 class="text-xl font-bold text-[var(--color-radar-text)] mt-8 mb-3">Qué hacemos</h2>
+      <p>
+        Rastreamos, verificamos, clasificamos y puntuamos novedades de IA que se pueden usar sin pagar o con un plan gratuito que realmente sirve para algo. No pretendemos listar todas las herramientas de IA que existen. Eso sería un directorio infinito e inútil.
+      </p>
+      <p>
+        Nos centramos en herramientas que cumplen al menos uno de estos criterios:
+      </p>
+      <ul class="list-disc pl-5 space-y-1">
+        <li>Se pueden usar gratis de forma continua sin trampas.</li>
+        <li>Tienen un free tier con límites razonables y útiles.</li>
+        <li>Ofrecen créditos gratuitos o trial que permite evaluar la herramienta de verdad.</li>
+        <li>Son open-source y se pueden ejecutar localmente.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-[var(--color-radar-text)] mt-8 mb-3">Cómo clasificamos</h2>
+      <p>
+        Cada herramienta recibe una clasificación de gratuidad:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong class="text-green-400">Gratis real</strong> &mdash; usable sin pagar de forma continua. Sin trampas.</li>
+        <li><strong class="text-emerald-400">Freemium decente</strong> &mdash; límites gratuitos realmente útiles.</li>
+        <li><strong class="text-yellow-400">Créditos gratis</strong> &mdash; saldo inicial o créditos periódicos.</li>
+        <li><strong class="text-orange-400">Trial camuflado</strong> &mdash; parece gratis pero caduca o exige tarjeta.</li>
+        <li><strong class="text-red-400">Humo probable</strong> &mdash; promesas grandes, poca información verificable.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-[var(--color-radar-text)] mt-8 mb-3">Nuestro compromiso</h2>
+      <ul class="list-disc pl-5 space-y-1">
+        <li>No inventamos datos. Si no podemos confirmar algo, lo marcamos como "No confirmado".</li>
+        <li>Priorizamos precisión sobre cantidad.</li>
+        <li>Somos transparentes sobre nuestras fuentes y método de puntuación.</li>
+        <li>No estamos afiliados oficialmente a las herramientas listadas, salvo que se indique expresamente.</li>
+        <li>Los planes gratuitos cambian. Recomendamos verificar siempre en la web oficial de cada herramienta.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-[var(--color-radar-text)] mt-8 mb-3">Contacto</h2>
+      <p>
+        Si tienes sugerencias, correcciones o quieres proponer una herramienta para el radar, escríbenos a <a href="mailto:contacto@freeradar.ai" class="text-[var(--color-radar-accent-glow)] hover:underline">contacto@freeradar.ai</a>.
+      </p>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

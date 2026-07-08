@@ -1,0 +1,40 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="border-t border-[var(--color-radar-border)] bg-[var(--color-radar-surface)] mt-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-7 h-7 rounded-full bg-gradient-to-br from-[var(--color-radar-accent)] to-[var(--color-radar-purple)] flex items-center justify-center">
+            <span class="text-white text-xs font-bold">R</span>
+          </div>
+          <span class="font-bold text-[var(--color-radar-text)]">Free AI Radar</span>
+        </div>
+        <p class="text-sm text-[var(--color-radar-text-muted)] max-w-md">
+          Novedades de IA gratis, filtradas y explicadas. Sin directorios infinitos, sin humo y sin perder horas buscando.
+        </p>
+      </div>
+      <div>
+        <h4 class="font-semibold text-[var(--color-radar-text)] mb-3 text-sm">Navegar</h4>
+        <div class="flex flex-col gap-2">
+          <a href="/" class="text-sm text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-accent-glow)] transition-colors">Inicio</a>
+          <a href="/tools" class="text-sm text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-accent-glow)] transition-colors">Herramientas</a>
+          <a href="/creators" class="text-sm text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-accent-glow)] transition-colors">Creadores</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="font-semibold text-[var(--color-radar-text)] mb-3 text-sm">Info</h4>
+        <div class="flex flex-col gap-2">
+          <a href="/methodology" class="text-sm text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-accent-glow)] transition-colors">Metodología</a>
+          <a href="/about" class="text-sm text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-accent-glow)] transition-colors">Sobre</a>
+          <a href="/privacy" class="text-sm text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-accent-glow)] transition-colors">Privacidad</a>
+        </div>
+      </div>
+    </div>
+    <div class="mt-8 pt-6 border-t border-[var(--color-radar-border)] text-center text-xs text-[var(--color-radar-text-muted)]">
+      &copy; {currentYear} Free AI Radar. Datos verificados manualmente. No garantizamos exactitud de planes gratuitos &mdash; verifica siempre en la web oficial.
+    </div>
+  </div>
+</footer>

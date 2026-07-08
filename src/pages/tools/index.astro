@@ -1,0 +1,65 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import SearchBar from "../../components/SearchBar.astro";
+import FilterBar from "../../components/FilterBar.astro";
+import ToolCard from "../../components/ToolCard.astro";
+import toolsData from "../../data/tools.json";
+
+const allTools = [...toolsData].sort((a, b) => b.score_total - a.score_total);
+---
+
+<BaseLayout title="Novedades IA Gratis | Free AI Radar" description="Listado completo de herramientas, modelos y recursos de IA gratuitos. Filtrados, puntuados y con veredicto claro.">
+  <Header />
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="mb-8">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-[var(--color-radar-text)] mb-2">
+        📡 Todas las novedades
+      </h1>
+      <p class="text-[var(--color-radar-text-muted)]">
+        {allTools.length} herramientas rastreadas. Filtra por categoría, tipo de gratuidad y puntuación.
+      </p>
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-4 items-start justify-between mb-8">
+      <SearchBar />
+      <div class="text-sm text-[var(--color-radar-text-muted)]">
+        Mostrando <span id="visible-count" class="font-bold text-[var(--color-radar-text)]">{allTools.length}</span> herramientas
+      </div>
+    </div>
+
+    <div class="mb-8">
+      <FilterBar />
+    </div>
+
+    <div id="tools-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {allTools.map((tool) => <ToolCard tool={tool} />)}
+    </div>
+
+    {allTools.length === 0 && (
+      <div class="text-center py-20">
+        <p class="text-4xl mb-4">🔍</p>
+        <h2 class="text-xl font-bold text-[var(--color-radar-text)] mb-2">Sin resultados</h2>
+        <p class="text-[var(--color-radar-text-muted)]">Prueba a cambiar los filtros o la búsqueda.</p>
+      </div>
+    )}
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  // Update visible count when filters change
+  const observer = new MutationObserver(() => {
+    const visible = document.querySelectorAll('[data-tool-card]:not([style*="display: none"])').length;
+    const countEl = document.getElementById('visible-count');
+    if (countEl) countEl.textContent = String(visible);
+  });
+
+  const grid = document.getElementById('tools-grid');
+  if (grid) {
+    observer.observe(grid, { childList: true, subtree: true, attributes: true, attributeFilter: ['style'] });
+  }
+</script>

@@ -1,0 +1,27 @@
+---
+interface Props {
+  verdict: string;
+  riskLevel: string;
+}
+
+const { verdict, riskLevel } = Astro.props;
+
+const riskColors: Record<string, string> = {
+  bajo: "bg-green-500/10 text-green-400 border-green-500/20",
+  medio: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
+  alto: "bg-red-500/10 text-red-400 border-red-500/20",
+};
+
+const riskLabels: Record<string, string> = {
+  bajo: "✓ Veredicto positivo",
+  medio: "⚠ Veredicto mixto",
+  alto: "✗ Riesgo alto",
+};
+---
+
+<div class={`p-4 rounded-xl border ${riskColors[riskLevel] || riskColors.medio}`}>
+  <div class="flex items-center gap-2 mb-2">
+    <span class="text-xs font-semibold uppercase tracking-wide">{riskLabels[riskLevel] || "Veredicto"}</span>
+  </div>
+  <p class="text-sm font-medium">{verdict}</p>
+</div>

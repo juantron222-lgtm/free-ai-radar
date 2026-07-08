@@ -1,0 +1,64 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<BaseLayout
+  title="Política de Privacidad"
+  description="Política de privacidad de Free AI Radar. No requerimos cuenta, no procesamos pagos y no vendemos datos personales."
+>
+  <Header />
+
+  <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <a href="/" class="inline-flex items-center gap-1 text-sm text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-accent-glow)] transition-colors mb-6">
+      &larr; Volver al inicio
+    </a>
+
+    <h1 class="text-3xl md:text-4xl font-extrabold text-[var(--color-radar-text)] mb-6">Política de Privacidad</h1>
+
+    <p class="text-sm text-[var(--color-radar-text-muted)] mb-8">Última actualización: 8 de julio de 2026</p>
+
+    <div class="prose prose-invert max-w-none space-y-6 text-[var(--color-radar-text-muted)] leading-relaxed">
+      <h2 class="text-xl font-bold text-[var(--color-radar-text)] mt-6 mb-3">1. Datos que recopilamos</h2>
+      <p>
+        Free AI Radar <strong>no requiere registro ni creación de cuenta</strong>. Puedes usar toda la web sin proporcionar ningún dato personal.
+      </p>
+      <p>
+        Si en el futuro activamos una newsletter, solo utilizaremos tu dirección de email para enviarte las novedades semanales. No compartiremos ese email con terceros.
+      </p>
+
+      <h2 class="text-xl font-bold text-[var(--color-radar-text)] mt-6 mb-3">2. Pagos</h2>
+      <p>
+        Free AI Radar <strong>no procesa pagos</strong>. No almacenamos datos de tarjetas de crédito ni información financiera de ningún tipo.
+      </p>
+
+      <h2 class="text-xl font-bold text-[var(--color-radar-text)] mt-6 mb-3">3. Analítica</h2>
+      <p>
+        Actualmente no utilizamos servicios de analítica. En el futuro podríamos incorporar analítica básica y anónima (como Plausible o similar) para entender qué herramientas interesan más. Si lo hacemos, actualizaremos esta política.
+      </p>
+
+      <h2 class="text-xl font-bold text-[var(--color-radar-text)] mt-6 mb-3">4. Enlaces externos</h2>
+      <p>
+        Free AI Radar contiene enlaces a sitios web de terceros (las herramientas listadas). Cada uno de esos sitios tiene su propia política de privacidad. No somos responsables del tratamiento de datos que hagan esas webs.
+      </p>
+
+      <h2 class="text-xl font-bold text-[var(--color-radar-text)] mt-6 mb-3">5. Cookies</h2>
+      <p>
+        Free AI Radar no utiliza cookies propias. Los servicios de terceros que pudieran integrarse en el futuro (como fuentes de Google Fonts) pueden utilizar sus propias cookies.
+      </p>
+
+      <h2 class="text-xl font-bold text-[var(--color-radar-text)] mt-6 mb-3">6. Cambios en esta política</h2>
+      <p>
+        Si modificamos esta política de privacidad, actualizaremos la fecha de "última actualización" y publicaremos los cambios en esta misma página.
+      </p>
+
+      <h2 class="text-xl font-bold text-[var(--color-radar-text)] mt-6 mb-3">7. Contacto</h2>
+      <p>
+        Para cualquier duda sobre privacidad: <a href="mailto:privacidad@freeradar.ai" class="text-[var(--color-radar-accent-glow)] hover:underline">privacidad@freeradar.ai</a>.
+      </p>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

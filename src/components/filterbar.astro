@@ -1,0 +1,148 @@
+---
+const categories = [
+  "Imagen IA", "Vídeo IA", "Voz IA", "Música IA", "Código",
+  "Agentes IA", "Automatización", "Productividad", "Diseño", "Escritura",
+  "Marketing", "Cine IA", "Modelos open-source", "Herramientas locales",
+  "APIs gratuitas", "Investigación", "Educación",
+];
+
+const freeTypes = [
+  "Gratis real", "Freemium decente", "Créditos gratis", "Trial útil",
+  "Open-source", "Local", "Demo limitada", "Requiere tarjeta", "Humo probable",
+];
+
+const quickFilters = [
+  { label: "✅ Gratis real", param: "free_type", value: "Gratis real" },
+  { label: "🚫 Sin tarjeta", param: "no_card", value: "true" },
+  { label: "🔓 Open-source", param: "free_type", value: "Open-source" },
+  { label: "💻 Local", param: "free_type", value: "Local" },
+  { label: "🎬 Vídeo IA", param: "category", value: "Vídeo IA" },
+  { label: "🖼️ Imagen IA", param: "category", value: "Imagen IA" },
+  { label: "🎤 Voz IA", param: "category", value: "Voz IA" },
+  { label: "💻 Código", param: "category", value: "Código" },
+  { label: "🤖 Modelos locales", param: "category", value: "Modelos open-source" },
+  { label: "🎨 Para creadores", param: "creator", value: "true" },
+  { label: "⭐ Mejor puntuadas", param: "sort", value: "score" },
+  { label: "🆕 Nuevas esta semana", param: "sort", value: "newest" },
+];
+---
+
+<div class="space-y-4" id="filter-bar">
+  <!-- Quick filters -->
+  <div class="flex flex-wrap gap-2">
+    {quickFilters.map((f) => (
+      <button
+        class="filter-btn px-3 py-1.5 text-xs font-medium rounded-lg border border-[var(--color-radar-border)] text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-text)] hover:border-[var(--color-radar-accent)]/50 transition-all"
+        data-param={f.param}
+        data-value={f.value}
+      >
+        {f.label}
+      </button>
+    ))}
+  </div>
+
+  <!-- Category dropdown -->
+  <div class="flex flex-wrap gap-3">
+    <select
+      id="filter-category"
+      class="px-3 py-2 bg-[var(--color-radar-card)] border border-[var(--color-radar-border)] rounded-lg text-sm text-[var(--color-radar-text)] focus:outline-none focus:border-[var(--color-radar-accent)]"
+    >
+      <option value="">Todas las categorías</option>
+      {categories.map((cat) => (
+        <option value={cat}>{cat}</option>
+      ))}
+    </select>
+
+    <select
+      id="filter-free-type"
+      class="px-3 py-2 bg-[var(--color-radar-card)] border border-[var(--color-radar-border)] rounded-lg text-sm text-[var(--color-radar-text)] focus:outline-none focus:border-[var(--color-radar-accent)]"
+    >
+      <option value="">Todos los tipos de gratuidad</option>
+      {freeTypes.map((ft) => (
+        <option value={ft}>{ft}</option>
+      ))}
+    </select>
+
+    <select
+      id="filter-sort"
+      class="px-3 py-2 bg-[var(--color-radar-card)] border border-[var(--color-radar-border)] rounded-lg text-sm text-[var(--color-radar-text)] focus:outline-none focus:border-[var(--color-radar-accent)]"
+    >
+      <option value="score">Mejor puntuadas</option>
+      <option value="newest">Más recientes</option>
+      <option value="name">Alfabético</option>
+    </select>
+  </div>
+</div>
+
+<script>
+  function applyFilters() {
+    const category = (document.getElementById('filter-category') as HTMLSelectElement)?.value || '';
+    const freeType = (document.getElementById('filter-free-type') as HTMLSelectElement)?.value || '';
+    const sort = (document.getElementById('filter-sort') as HTMLSelectElement)?.value || 'score';
+
+    const cards = Array.from(document.querySelectorAll('[data-tool-card]')) as HTMLElement[];
+    let visible = cards;
+
+    visible.forEach(card => {
+      const cat = card.getAttribute('data-category') || '';
+      const ft = card.getAttribute('data-free-type') || '';
+      const matchCat = !category || cat === category;
+      const matchFt = !freeType || ft === freeType;
+      card.style.display = matchCat && matchFt ? '' : 'none';
+    });
+
+    visible = cards.filter(c => c.style.display !== 'none');
+    
+    const container = document.getElementById('tools-grid');
+    if (!container) return;
+
+    visible.sort((a, b) => {
+      if (sort === 'score') return parseInt(b.getAttribute('data-score') || '0') - parseInt(a.getAttribute('data-score') || '0');
+      if (sort === 'newest') return (b.getAttribute('data-date') || '').localeCompare(a.getAttribute('data-date') || '');
+      return (a.getAttribute('data-name') || '').localeCompare(b.getAttribute('data-name') || '');
+    });
+
+    visible.forEach(card => container.appendChild(card));
+  }
+
+  document.getElementById('filter-category')?.addEventListener('change', applyFilters);
+  document.getElementById('filter-free-type')?.addEventListener('change', applyFilters);
+  document.getElementById('filter-sort')?.addEventListener('change', applyFilters);
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const param = (btn as HTMLElement).dataset.param;
+      const value = (btn as HTMLElement).dataset.value;
+      if (param === 'category') {
+        (document.getElementById('filter-category') as HTMLSelectElement).value = value || '';
+      } else if (param === 'free_type') {
+        (document.getElementById('filter-free-type') as HTMLSelectElement).value = value || '';
+      } else if (param === 'sort') {
+        (document.getElementById('filter-sort') as HTMLSelectElement).value = value || '';
+      } else if (param === 'creator') {
+        // Filter by creator potential score >= 6
+        document.querySelectorAll('[data-tool-card]').forEach((card) => {
+          const el = card as HTMLElement;
+          const creatorScore = parseInt(el.getAttribute('data-creator') || '0');
+          el.style.display = creatorScore >= 6 ? '' : 'none';
+        });
+        return;
+      } else if (param === 'no_card') {
+        document.querySelectorAll('[data-tool-card]').forEach((card) => {
+          const el = card as HTMLElement;
+          const needsCard = el.getAttribute('data-card') === 'true';
+          el.style.display = needsCard ? 'none' : '';
+        });
+        return;
+      } else if (param === 'risk') {
+        document.querySelectorAll('[data-tool-card]').forEach((card) => {
+          const el = card as HTMLElement;
+          const risk = el.getAttribute('data-risk') || '';
+          el.style.display = value === 'bajo' ? (risk === 'bajo' ? '' : 'none') : '';
+        });
+        return;
+      }
+      applyFilters();
+    });
+  });
+</script>

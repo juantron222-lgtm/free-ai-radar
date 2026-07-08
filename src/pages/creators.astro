@@ -1,0 +1,94 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import ToolCard from "../components/ToolCard.astro";
+import toolsData from "../data/tools.json";
+
+const creatorCategories = ["Imagen IA", "Vídeo IA", "Voz IA", "Música IA", "Cine IA", "Diseño"];
+const creatorTools = toolsData
+  .filter((t) => {
+    const inCategory = creatorCategories.includes(t.category);
+    const highCreatorScore = (t.score_creator_potential || 0) >= 5;
+    return inCategory || highCreatorScore;
+  })
+  .sort((a, b) => b.score_creator_potential - a.score_creator_potential);
+
+const byCategory: Record<string, typeof toolsData> = {};
+creatorTools.forEach((t) => {
+  const cat = t.category;
+  if (!byCategory[cat]) byCategory[cat] = [];
+  byCategory[cat].push(t);
+});
+---
+
+<BaseLayout
+  title="Herramientas IA gratis para creadores de contenido"
+  description="Descubre las mejores herramientas de IA gratuitas para creadores de contenido: imagen, vídeo, voz, música y más. Filtradas, puntuadas y sin humo."
+>
+  <Header />
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <!-- Header -->
+    <div class="mb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-sm text-purple-400 mb-4">
+        🎨 Para creadores
+      </div>
+      <h1 class="text-3xl md:text-5xl font-extrabold text-[var(--color-radar-text)] mb-4">
+        Herramientas IA gratis para creadores de contenido
+      </h1>
+      <p class="text-lg text-[var(--color-radar-text-muted)] max-w-2xl">
+        Imagen, vídeo, voz, música, modelos locales y más. Solo herramientas gratuitas o con plan gratuito útil, filtradas por nuestro radar para que no pierdas el tiempo con humo.
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
+      <div class="p-4 rounded-xl bg-[var(--color-radar-card)] border border-[var(--color-radar-border)]">
+        <div class="text-2xl font-bold text-purple-400">{creatorTools.length}</div>
+        <div class="text-xs text-[var(--color-radar-text-muted)]">Herramientas para creadores</div>
+      </div>
+      <div class="p-4 rounded-xl bg-[var(--color-radar-card)] border border-[var(--color-radar-border)]">
+        <div class="text-2xl font-bold text-green-400">{creatorTools.filter(t => t.free_type === "Gratis real" || t.free_type === "Open-source" || t.free_type === "Local").length}</div>
+        <div class="text-xs text-[var(--color-radar-text-muted)]">Gratis real</div>
+      </div>
+      <div class="p-4 rounded-xl bg-[var(--color-radar-card)] border border-[var(--color-radar-border)]">
+        <div class="text-2xl font-bold text-blue-400">{creatorTools.filter(t => t.open_source === true || t.local_install === true).length}</div>
+        <div class="text-xs text-[var(--color-radar-text-muted)]">Open-source / Local</div>
+      </div>
+      <div class="p-4 rounded-xl bg-[var(--color-radar-card)] border border-[var(--color-radar-border)]">
+        <div class="text-2xl font-bold text-yellow-400">{creatorTools.filter(t => t.risk_level === "bajo").length}</div>
+        <div class="text-xs text-[var(--color-radar-text-muted)]">Riesgo bajo</div>
+      </div>
+    </div>
+
+    <!-- Categorías con herramientas -->
+    {Object.entries(byCategory).map(([category, tools]) => (
+      <section class="mb-12">
+        <h2 class="text-xl font-bold text-[var(--color-radar-text)] mb-4 flex items-center gap-2">
+          {category === "Imagen IA" && "🖼️"}
+          {category === "Vídeo IA" && "🎬"}
+          {category === "Voz IA" && "🎤"}
+          {category === "Música IA" && "🎵"}
+          {category === "Cine IA" && "🎥"}
+          {category === "Diseño" && "🎨"}
+          {category}
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {tools.map((tool) => <ToolCard tool={tool} />)}
+        </div>
+      </section>
+    ))}
+
+    <!-- Si no hay herramientas en alguna categoría común -->
+    {creatorTools.length === 0 && (
+      <div class="text-center py-20">
+        <p class="text-4xl mb-4">🎨</p>
+        <h2 class="text-xl font-bold text-[var(--color-radar-text)] mb-2">Próximamente</h2>
+        <p class="text-[var(--color-radar-text-muted)]">Estamos rastreando más herramientas para creadores.</p>
+      </div>
+    )}
+  </main>
+
+  <Footer />
+</BaseLayout>

@@ -1,0 +1,107 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<BaseLayout
+  title="Cómo puntuamos las herramientas"
+  description="Metodología de puntuación de Free AI Radar. Así evaluamos si una herramienta IA gratuita merece la pena o es humo."
+>
+  <Header />
+
+  <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <a href="/" class="inline-flex items-center gap-1 text-sm text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-accent-glow)] transition-colors mb-6">
+      &larr; Volver al inicio
+    </a>
+
+    <h1 class="text-3xl md:text-4xl font-extrabold text-[var(--color-radar-text)] mb-6">Cómo puntuamos las herramientas</h1>
+
+    <p class="text-lg text-[var(--color-radar-text-muted)] mb-8">
+      Nuestro sistema de puntuación evalúa cada herramienta en 6 dimensiones para generar una puntuación total de 0 a 100. Transparente, reproducible y sin misterios.
+    </p>
+
+    <div class="prose prose-invert max-w-none space-y-6 text-[var(--color-radar-text-muted)] leading-relaxed">
+      <h2 class="text-xl font-bold text-[var(--color-radar-text)] mt-8 mb-4">Dimensiones de puntuación</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 not-prose">
+        <div class="p-4 rounded-xl bg-[var(--color-radar-card)] border border-[var(--color-radar-border)]">
+          <h3 class="font-bold text-green-400 mb-1">🆓 Gratis real</h3>
+          <p class="text-xs text-[var(--color-radar-text-muted)]">0-10 puntos &times; 2.5 = <strong>máx 25</strong></p>
+          <p class="text-xs text-[var(--color-radar-text-muted)] mt-1">¿Se puede usar sin pagar de forma continua? ¿Sin trampas?</p>
+        </div>
+        <div class="p-4 rounded-xl bg-[var(--color-radar-card)] border border-[var(--color-radar-border)]">
+          <h3 class="font-bold text-blue-400 mb-1">🔧 Utilidad práctica</h3>
+          <p class="text-xs text-[var(--color-radar-text-muted)]">0-10 puntos &times; 2.5 = <strong>máx 25</strong></p>
+          <p class="text-xs text-[var(--color-radar-text-muted)] mt-1">¿Resuelve un problema real? ¿Es mejor que las alternativas?</p>
+        </div>
+        <div class="p-4 rounded-xl bg-[var(--color-radar-card)] border border-[var(--color-radar-border)]">
+          <h3 class="font-bold text-yellow-400 mb-1">👍 Facilidad de uso</h3>
+          <p class="text-xs text-[var(--color-radar-text-muted)]">0-10 puntos &times; 1.5 = <strong>máx 15</strong></p>
+          <p class="text-xs text-[var(--color-radar-text-muted)] mt-1">¿Se puede empezar a usar en minutos? ¿Sin configuraciones complejas?</p>
+        </div>
+        <div class="p-4 rounded-xl bg-[var(--color-radar-card)] border border-[var(--color-radar-border)]">
+          <h3 class="font-bold text-cyan-400 mb-1">🔍 Transparencia</h3>
+          <p class="text-xs text-[var(--color-radar-text-muted)]">0-10 puntos &times; 1.5 = <strong>máx 15</strong></p>
+          <p class="text-xs text-[var(--color-radar-text-muted)] mt-1">¿Los límites del plan gratuito están claros? ¿Sin letra pequeña escondida?</p>
+        </div>
+        <div class="p-4 rounded-xl bg-[var(--color-radar-card)] border border-[var(--color-radar-border)]">
+          <h3 class="font-bold text-purple-400 mb-1">🎨 Potencial para creadores</h3>
+          <p class="text-xs text-[var(--color-radar-text-muted)]">0-10 puntos &times; 1.0 = <strong>máx 10</strong></p>
+          <p class="text-xs text-[var(--color-radar-text-muted)] mt-1">¿Útil para creadores de contenido, filmmakers, diseñadores?</p>
+        </div>
+        <div class="p-4 rounded-xl bg-[var(--color-radar-card)] border border-[var(--color-radar-border)]">
+          <h3 class="font-bold text-indigo-400 mb-1">🕐 Actualidad</h3>
+          <p class="text-xs text-[var(--color-radar-text-muted)]">Base fija = <strong>10</strong></p>
+          <p class="text-xs text-[var(--color-radar-text-muted)] mt-1">Todas las herramientas parten con 10 puntos por entrar en el radar.</p>
+        </div>
+      </div>
+
+      <h2 class="text-xl font-bold text-[var(--color-radar-text)] mt-8 mb-3">Penalizaciones</h2>
+      <p>Restamos puntos cuando detectamos prácticas que dificultan el uso gratuito real:</p>
+
+      <div class="overflow-x-auto not-prose">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-[var(--color-radar-border)]">
+              <th class="text-left py-2 text-[var(--color-radar-text)]">Condición</th>
+              <th class="text-right py-2 text-red-400">Penalización</th>
+            </tr>
+          </thead>
+          <tbody class="text-[var(--color-radar-text-muted)]">
+            <tr class="border-b border-[var(--color-radar-border)]"><td class="py-2">Requiere tarjeta de crédito/débito</td><td class="text-right py-2 text-red-400 font-bold">-15</td></tr>
+            <tr class="border-b border-[var(--color-radar-border)]"><td class="py-2">Trial muy corto o demo muy limitada</td><td class="text-right py-2 text-red-400 font-bold">-10</td></tr>
+            <tr class="border-b border-[var(--color-radar-border)]"><td class="py-2">Marca de agua fuerte en contenido gratuito</td><td class="text-right py-2 text-red-400 font-bold">-10</td></tr>
+            <tr class="border-b border-[var(--color-radar-border)]"><td class="py-2">Límites del plan gratuito confusos o escondidos</td><td class="text-right py-2 text-red-400 font-bold">-10</td></tr>
+            <tr class="border-b border-[var(--color-radar-border)]"><td class="py-2">Transparencia muy baja (score &lt; 4/10)</td><td class="text-right py-2 text-red-400 font-bold">-15</td></tr>
+            <tr class="border-b border-[var(--color-radar-border)]"><td class="py-2">Mucho marketing y poca información verificable</td><td class="text-right py-2 text-red-400 font-bold">-15</td></tr>
+            <tr><td class="py-2">No se puede confirmar que sea gratis</td><td class="text-right py-2 text-red-400 font-bold">-20</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 class="text-xl font-bold text-[var(--color-radar-text)] mt-8 mb-3">Niveles de riesgo</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 not-prose">
+        <div class="p-4 rounded-xl bg-green-500/10 border border-green-500/20">
+          <h3 class="font-bold text-green-400">🟢 Riesgo bajo</h3>
+          <p class="text-sm text-[var(--color-radar-text-muted)]">≥ 75 puntos. Merece probar sin miedo.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/20">
+          <h3 class="font-bold text-yellow-400">🟡 Riesgo medio</h3>
+          <p class="text-sm text-[var(--color-radar-text-muted)]">45-74 puntos. Revisar condiciones con atención.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-red-500/10 border border-red-500/20">
+          <h3 class="font-bold text-red-400">🔴 Riesgo alto</h3>
+          <p class="text-sm text-[var(--color-radar-text-muted)]">&lt; 45 puntos. Humo probable. No recomendamos invertir tiempo.</p>
+        </div>
+      </div>
+
+      <h2 class="text-xl font-bold text-[var(--color-radar-text)] mt-8 mb-3">Nuestro principio fundamental</h2>
+      <p>
+        Preferimos decir "no confirmado" antes que inventar un dato. Si no podemos verificar que una herramienta es gratis, no diremos que lo es. La confianza se construye con honestidad, no con cantidad de herramientas listadas.
+      </p>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

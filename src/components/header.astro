@@ -1,0 +1,36 @@
+---
+const navItems = [
+  { href: "/", label: "Inicio" },
+  { href: "/tools", label: "Herramientas" },
+  { href: "/creators", label: "Creadores" },
+];
+---
+
+<header class="sticky top-0 z-50 bg-[var(--color-radar-bg)]/90 backdrop-blur-md border-b border-[var(--color-radar-border)]">
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3 group">
+      <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[var(--color-radar-accent)] to-[var(--color-radar-purple)] flex items-center justify-center">
+        <span class="text-white text-sm font-bold">R</span>
+      </div>
+      <span class="text-lg font-bold text-[var(--color-radar-text)] group-hover:text-[var(--color-radar-accent-glow)] transition-colors">
+        Free AI Radar
+      </span>
+    </a>
+    <div class="flex items-center gap-6">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class="text-sm text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-text)] transition-colors"
+        >
+          {item.label}
+        </a>
+      ))}
+      <a
+        href="/methodology"
+        class="px-4 py-2 bg-[var(--color-radar-accent)] text-white text-sm font-medium rounded-lg hover:bg-[var(--color-radar-accent-glow)] transition-colors"
+      >
+        Metodología
+      </a>
+    </div>
+  </nav>
+</header>

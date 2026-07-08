@@ -1,0 +1,33 @@
+---
+interface Props {
+  placeholder?: string;
+}
+
+const { placeholder = "Buscar herramienta o modelo..." } = Astro.props;
+---
+
+<div class="relative max-w-lg">
+  <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--color-radar-text-muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+  </svg>
+  <input
+    type="text"
+    id="search-input"
+    placeholder={placeholder}
+    class="w-full pl-10 pr-4 py-3 bg-[var(--color-radar-card)] border border-[var(--color-radar-border)] rounded-xl text-[var(--color-radar-text)] placeholder-[var(--color-radar-text-muted)] focus:outline-none focus:border-[var(--color-radar-accent)] focus:ring-1 focus:ring-[var(--color-radar-accent)]/50 transition-all"
+  />
+</div>
+
+<script>
+  const input = document.getElementById('search-input') as HTMLInputElement;
+  input?.addEventListener('input', () => {
+    const query = input.value.toLowerCase();
+    document.querySelectorAll('[data-tool-card]').forEach((card) => {
+      const el = card as HTMLElement;
+      const name = el.getAttribute('data-name')?.toLowerCase() || '';
+      const desc = el.getAttribute('data-desc')?.toLowerCase() || '';
+      const match = name.includes(query) || desc.includes(query);
+      el.style.display = query ? (match ? '' : 'none') : '';
+    });
+  });
+</script>

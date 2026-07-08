@@ -1,0 +1,49 @@
+---
+const interests = [
+  "Imagen IA", "Vídeo IA", "Voz IA", "Modelos locales",
+  "Herramientas para creadores", "Todo",
+];
+---
+
+<section id="newsletter" class="bg-gradient-to-br from-[var(--color-radar-surface)] to-[var(--color-radar-card)] border border-[var(--color-radar-border)] rounded-3xl p-8 md:p-12 max-w-4xl mx-auto">
+  <div class="text-center mb-8">
+    <h2 class="text-2xl md:text-3xl font-bold text-[var(--color-radar-text)] mb-3">
+      📡 Recibe cada semana las mejores novedades de IA gratis
+    </h2>
+    <p class="text-[var(--color-radar-text-muted)] max-w-lg mx-auto text-lg">
+      Filtradas y sin humo. Solo herramientas que merecen la pena.
+    </p>
+  </div>
+
+  <form class="max-w-md mx-auto space-y-4" onsubmit="event.preventDefault(); alert('Newsletter preparada. La integración real se activará en la siguiente fase.');">
+    <input
+      type="email"
+      placeholder="tu@email.com"
+      required
+      class="w-full px-4 py-3 bg-[var(--color-radar-bg)] border border-[var(--color-radar-border)] rounded-xl text-[var(--color-radar-text)] placeholder-[var(--color-radar-text-muted)] focus:outline-none focus:border-[var(--color-radar-accent)] transition-all"
+    />
+
+    <div>
+      <p class="text-sm text-[var(--color-radar-text-muted)] mb-2">Me interesa:</p>
+      <div class="flex flex-wrap gap-2">
+        {interests.map((interest) => (
+          <label class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[var(--color-radar-border)] text-xs text-[var(--color-radar-text-muted)] cursor-pointer hover:border-[var(--color-radar-accent)]/50 transition-all has-[:checked]:border-[var(--color-radar-accent)] has-[:checked]:bg-[var(--color-radar-accent)]/10 has-[:checked]:text-[var(--color-radar-accent-glow)]">
+            <input type="checkbox" class="accent-[var(--color-radar-accent)]" />
+            {interest}
+          </label>
+        ))}
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="w-full px-6 py-3 bg-[var(--color-radar-accent)] text-white font-semibold rounded-xl hover:bg-[var(--color-radar-accent-glow)] transition-all"
+    >
+      Suscribirse gratis
+    </button>
+
+    <p class="text-xs text-center text-[var(--color-radar-text-muted)]">
+      Sin spam. Te puedes dar de baja cuando quieras.
+    </p>
+  </form>
+</section>

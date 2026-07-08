@@ -1,0 +1,99 @@
+---
+import { getScoreColor, getScoreBgColor } from "../lib/scoring";
+
+interface Props {
+  tool: {
+    slug: string;
+    name: string;
+    category: string;
+    free_type: string;
+    description_short: string;
+    verdict: string;
+    score_total: number;
+    detected_at: string;
+    last_checked_at: string;
+    tags: string[];
+    risk_level: string;
+    open_source?: boolean | string;
+    requires_credit_card?: boolean | string;
+  };
+}
+
+const { tool } = Astro.props;
+const scoreColor = getScoreColor(tool.score_total);
+const scoreBg = getScoreBgColor(tool.score_total);
+const dateStr = tool.detected_at ? new Date(tool.detected_at).toLocaleDateString("es-ES", { year: "numeric", month: "short", day: "numeric" }) : "";
+---
+
+<div
+  class="group bg-[var(--color-radar-card)] border border-[var(--color-radar-border)] rounded-2xl p-5 hover:border-[var(--color-radar-accent)]/40 transition-all hover:shadow-lg hover:shadow-[var(--color-radar-accent)]/5"
+  data-tool-card
+  data-name={tool.name}
+  data-desc={tool.description_short}
+  data-category={tool.category}
+  data-free-type={tool.free_type}
+  data-score={String(tool.score_total)}
+  data-date={tool.detected_at}
+  data-risk={tool.risk_level}
+  data-creator={String(tool.score_creator_potential || 0)}
+  data-card={String(tool.requires_credit_card === true)}
+>
+  <!-- Top row: category + free type badges -->
+  <div class="flex items-center justify-between mb-3">
+    <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-[var(--color-radar-accent)]/10 text-[var(--color-radar-accent-glow)] border border-[var(--color-radar-accent)]/20">
+      {tool.category}
+    </span>
+    <div class="flex items-center gap-2">
+      {tool.open_source === true && (
+        <span class="px-2 py-0.5 text-[10px] font-medium rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">OSS</span>
+      )}
+      {tool.requires_credit_card === true && (
+        <span class="px-2 py-0.5 text-[10px] font-medium rounded-full bg-red-500/10 text-red-400 border border-red-500/20">💳</span>
+      )}
+      <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-[var(--color-radar-surface)] text-[var(--color-radar-text-muted)] border border-[var(--color-radar-border)]">
+        {tool.free_type}
+      </span>
+    </div>
+  </div>
+
+  <!-- Name + score -->
+  <div class="flex items-start justify-between mb-2">
+    <h3 class="text-lg font-bold text-[var(--color-radar-text)] group-hover:text-[var(--color-radar-accent-glow)] transition-colors">
+      <a href={`/tools/${tool.slug}`}>{tool.name}</a>
+    </h3>
+    <span class={`flex-shrink-0 px-2.5 py-1 rounded-lg text-sm font-bold ${scoreColor} ${scoreBg}`}>
+      {tool.score_total}
+    </span>
+  </div>
+
+  <!-- Description -->
+  <p class="text-sm text-[var(--color-radar-text-muted)] mb-3 line-clamp-2">
+    {tool.description_short}
+  </p>
+
+  <!-- Verdict -->
+  <p class="text-sm text-[var(--color-radar-text)] mb-3 line-clamp-1 italic opacity-80">
+    &ldquo;{tool.verdict}&rdquo;
+  </p>
+
+  <!-- Tags -->
+  <div class="flex flex-wrap gap-1.5 mb-3">
+    {tool.tags.slice(0, 3).map((tag) => (
+      <span class="px-2 py-0.5 text-[10px] font-medium rounded-md bg-[var(--color-radar-surface)] text-[var(--color-radar-text-muted)]">
+        {tag}
+      </span>
+    ))}
+  </div>
+
+  <!-- Bottom row -->
+  <div class="flex items-center justify-between pt-3 border-t border-[var(--color-radar-border)]">
+    <span class="text-xs text-[var(--color-radar-text-muted)]">
+      Detectado: {dateStr}
+    </span>
+    <div class="flex gap-2">
+      <a href={`/tools/${tool.slug}`} class="text-xs font-medium text-[var(--color-radar-accent-glow)] hover:underline">
+        Ver ficha &rarr;
+      </a>
+    </div>
+  </div>
+</div>
