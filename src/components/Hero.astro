@@ -1,8 +1,16 @@
 ---
+interface Props {
+  totalTools: number;
+  openSourceCount: number;
+  freeTypes: number;
+}
+
+const { totalTools, openSourceCount, freeTypes } = Astro.props;
+
 const stats = [
-  { value: "22", label: "Herramientas analizadas" },
-  { value: "5", label: "Tipos de gratuidad" },
-  { value: "0", label: "Herramientas con humo" },
+  { value: String(totalTools), label: "Herramientas analizadas" },
+  { value: String(freeTypes), label: "Tipos de gratuidad" },
+  { value: String(openSourceCount), label: "Open-source o locales" },
 ];
 ---
 
@@ -41,7 +49,7 @@ const stats = [
       </div>
     </div>
 
-    <!-- Stats -->
+    <!-- Stats dinámicas calculadas en index.astro desde tools.json -->
     <div class="flex flex-wrap gap-8 mt-12">
       {stats.map((stat) => (
         <div>

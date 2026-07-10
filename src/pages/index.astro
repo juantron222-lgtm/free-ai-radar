@@ -19,13 +19,20 @@ const newestTools = [...toolsData]
 
 const openSourceTools = toolsData.filter((t) => t.open_source === true || t.free_type === "Open-source").slice(0, 4);
 const freeCreditTools = toolsData.filter((t) => t.free_type === "Créditos gratis" || t.free_type === "Trial útil").slice(0, 4);
+
+// Stats dinámicas para el Hero — calculadas desde tools.json, no hardcodeadas
+const activeTools = toolsData.filter((t) => !t.status || t.status === "active");
+const totalTools = activeTools.length;
+const openSourceCount = activeTools.filter((t) => t.open_source === true || t.local_install === true).length;
+const freeTypes = new Set(activeTools.map((t) => t.free_type).filter(Boolean)).size;
+
 ---
 
 <BaseLayout title="Free AI Radar - Novedades de IA gratis, filtradas y explicadas">
   <Header />
 
   <main>
-    <Hero />
+    <Hero totalTools={totalTools} openSourceCount={openSourceCount} freeTypes={freeTypes} />
 
     <!-- Gratis real vs Humo -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

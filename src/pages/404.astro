@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<BaseLayout
+  title="Página no encontrada"
+  description="Esta ruta no existe, ha cambiado o ya no está disponible en Free AI Radar."
+>
+  <Header />
+
+  <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
+    <!-- Icono -->
+    <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-[var(--color-radar-card)] border border-[var(--color-radar-border)] mb-8 mx-auto">
+      <span class="text-5xl" aria-hidden="true">📡</span>
+    </div>
+
+    <h1 class="text-3xl md:text-4xl font-extrabold text-[var(--color-radar-text)] mb-4">
+      Página no encontrada
+    </h1>
+
+    <p class="text-[var(--color-radar-text-muted)] text-lg max-w-md mx-auto mb-10 leading-relaxed">
+      Esta ruta no existe, ha cambiado o ya no está disponible.
+    </p>
+
+    <!-- Acciones -->
+    <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
+      <a
+        href="/"
+        class="px-6 py-3 bg-[var(--color-radar-accent)] text-white font-semibold rounded-xl hover:bg-[var(--color-radar-accent-glow)] transition-all w-full sm:w-auto text-center"
+      >
+        📡 Volver al radar
+      </a>
+      <a
+        href="/tools"
+        class="px-6 py-3 bg-[var(--color-radar-card)] border border-[var(--color-radar-border)] text-[var(--color-radar-text)] font-semibold rounded-xl hover:border-[var(--color-radar-accent)]/50 transition-all w-full sm:w-auto text-center"
+      >
+        🔍 Explorar herramientas
+      </a>
+      <a
+        href="/creators"
+        class="px-6 py-3 text-[var(--color-radar-text-muted)] font-semibold rounded-xl hover:text-[var(--color-radar-text)] hover:bg-[var(--color-radar-card)] transition-all w-full sm:w-auto text-center"
+      >
+        🎨 Para creadores
+      </a>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

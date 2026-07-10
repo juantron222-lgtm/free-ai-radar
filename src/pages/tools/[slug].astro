@@ -39,10 +39,23 @@ const boolLabel = (val: boolean | string, trueLabel: string, falseLabel: string)
   if (val === false) return falseLabel;
   return "No confirmado";
 };
-const seoTitle = `${tool.name}: ${tool.description_short.split('.')[0]}`;
+
+// Genera un título SEO con un máximo de ~65 caracteres totales incluyendo "| Free AI Radar".
+// Prioriza: subcategoría → categoría → solo nombre.
+// No inventa información — usa únicamente campos confirmados del JSON.
+function buildSeoTitle(name: string, subcategory: string, category: string): string {
+  const MAX = 49; // 65 total − 16 de " | Free AI Radar"
+  const withSub = subcategory ? `${name}: ${subcategory}` : null;
+  const withCat = category ? `${name}: ${category}` : null;
+  if (withSub && withSub.length <= MAX) return withSub;
+  if (withCat && withCat.length <= MAX) return withCat;
+  return name.length <= MAX ? name : name.substring(0, MAX - 1);
+}
+
+const seoTitle = buildSeoTitle(tool.name, tool.subcategory, tool.category);
 ---
 
-<BaseLayout title={seoTitle} description={tool.description_short}>
+<BaseLayout title={seoTitle} description={tool.description_short} ogType="article">
   <Header />
 
   <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
