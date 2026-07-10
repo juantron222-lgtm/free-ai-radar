@@ -1,12 +1,27 @@
 const CACHE_NAME = 'free-ai-radar-v1';
 const ASSETS_TO_CACHE = [
   '/',
-  '/tools/',
-  '/creators/',
-  '/about/',
-  '/methodology/',
-  '/privacy/',
+  '/tools',
+  '/creators',
+  '/about',
+  '/methodology',
+  '/privacy',
 ];
+
+// Helper para buscar en cache normalizando la barra final
+async function matchCacheFlexible(request) {
+  const cachedResponse = await caches.match(request);
+  if (cachedResponse) return cachedResponse;
+
+  const url = new URL(request.url);
+  if (url.origin === self.location.origin && !url.pathname.match(/\.[a-z0-9]+$/i)) {
+    const alternativePath = url.pathname.endsWith('/') 
+      ? url.pathname.slice(0, -1) 
+      : url.pathname + '/';
+    return caches.match(alternativePath);
+  }
+  return null;
+}
 
 // Install: cache static assets
 self.addEventListener('install', (event) => {
@@ -45,7 +60,7 @@ self.addEventListener('fetch', (event) => {
           caches.open(CACHE_NAME).then((cache) => cache.put(request, cloned));
           return response;
         })
-        .catch(() => caches.match(request))
+        .catch(() => matchCacheFlexible(request))
     );
     return;
   }
@@ -64,6 +79,6 @@ self.addEventListener('fetch', (event) => {
 
   // Everything else: network-first
   event.respondWith(
-    fetch(request).catch(() => caches.match(request))
+    fetch(request).catch(() => matchCacheFlexible(request))
   );
 });

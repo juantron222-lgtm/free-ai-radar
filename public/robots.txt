@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://free-ai-radar-git-main-nada-de-pro.vercel.app/sitemap.xml

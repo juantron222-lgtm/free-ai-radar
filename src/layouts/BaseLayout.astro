@@ -28,5 +28,15 @@ const { title, description = "Novedades de IA gratis, filtradas y explicadas." }
   </head>
   <body class="bg-[var(--color-radar-bg)] text-[var(--color-radar-text)] min-h-screen">
     <slot />
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/sw.js").catch((error) => {
+            console.warn("Service Worker registration failed:", error);
+          });
+        });
+      }
+    </script>
   </body>
 </html>
+
