@@ -1,0 +1,392 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import comfyUiCloudData from "../data/comfyui-cloud.json";
+
+// Filtrar los servicios activos
+const services = comfyUiCloudData.filter((s) => !s.status || s.status === "active");
+
+const title = "ComfyUI sin gráfica: opciones cloud y online | Free AI Radar";
+const description = "Compara servicios cloud para ejecutar workflows de ComfyUI, generar imágenes y procesar Stable Diffusion desde el navegador sin una GPU potente.";
+---
+
+<BaseLayout title={title} description={description}>
+  <Header />
+
+  <!-- Hero Section (Radar visual de terminal premium) -->
+  <section class="relative overflow-hidden bg-[#070A0F] py-20 border-b border-[var(--color-radar-border)]">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(120,155,255,0.03),transparent_40%)]"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-8 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] text-xs font-semibold uppercase tracking-widest text-[var(--color-radar-secondary)]">
+            Guía de infraestructura cloud
+          </div>
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[var(--color-radar-text)] leading-tight tracking-tight font-sora">
+            Usa ComfyUI sin tener una GPU potente
+          </h1>
+          <p class="text-base sm:text-lg text-[var(--color-radar-text-muted)] max-w-2xl leading-relaxed">
+            Compara servicios cloud para ejecutar workflows, generar imágenes y probar ComfyUI desde el navegador de forma remota y sin límites de hardware.
+          </p>
+          <div class="flex flex-wrap gap-4 pt-2">
+            <a
+              href="#comparador"
+              class="px-6 py-3 bg-[var(--color-radar-accent)] hover:bg-[var(--color-radar-accent)]/80 text-[var(--color-radar-bg)] font-bold text-xs uppercase tracking-wider rounded-lg transition-colors focus-visible:outline-none"
+            >
+              Comparar servicios
+            </a>
+            <a
+              href="#guia-educativa"
+              class="px-6 py-3 bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] hover:border-[var(--color-radar-accent)]/40 text-[var(--color-radar-text)] font-bold text-xs uppercase tracking-wider rounded-lg transition-colors focus-visible:outline-none"
+            >
+              Aprender qué necesitas
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-4 flex justify-center">
+          <!-- Decoración tecnológica abstracta (Terminal serverless) -->
+          <div class="w-64 h-64 rounded-xl border border-[var(--color-radar-border)] bg-[var(--color-radar-surface)] p-5 flex flex-col justify-between font-mono text-[10px] text-[var(--color-radar-text-muted)] shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-24 h-24 bg-[var(--color-radar-secondary)]/5 rounded-full translate-x-8 -translate-y-8 blur-lg"></div>
+            <div class="flex items-center justify-between border-b border-[var(--color-radar-border)] pb-2">
+              <span class="text-[var(--color-radar-accent)] uppercase font-bold">Cloud Infrastructure</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-[var(--color-radar-accent)] animate-pulse"></span>
+            </div>
+            <div class="space-y-2 py-4 flex-1">
+              <div>$ ssh comfyui@cloud-gpu</div>
+              <div class="text-[var(--color-radar-text)]">> Connection established.</div>
+              <div>> Checking VRAM capacity... 24GB VRAM</div>
+              <div class="text-[var(--color-radar-accent)]">> Launching server on port 8188...</div>
+            </div>
+            <div class="border-t border-[var(--color-radar-border)] pt-2 flex items-center justify-between">
+              <span>LATENCY: 42ms</span>
+              <span>GPU: Nvidia L4 / A10G</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Explicación Breve -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+    <div class="space-y-4">
+      <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--color-radar-accent)]">Conceptos clave</span>
+      <h2 class="text-2xl font-extrabold text-[var(--color-radar-text)] font-sora">¿Qué significa ejecutar ComfyUI en la nube?</h2>
+      <p class="text-sm text-[var(--color-radar-text-muted)] leading-relaxed">
+        ComfyUI es una herramienta increíblemente potente, pero requiere tarjetas gráficas de gama alta (idealmente Nvidia con más de 8GB de VRAM) para funcionar de forma fluida a nivel local.
+      </p>
+      <p class="text-sm text-[var(--color-radar-text-muted)] leading-relaxed">
+        Los servicios cloud te permiten alquilar o usar servidores virtuales equipados con estas GPUs. Tú solo ves la interfaz gráfica en tu navegador web y envías las peticiones de generación, mientras que el renderizado pesado ocurre de forma remota en centros de datos.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="p-5 rounded-xl bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)]">
+        <h3 class="text-xs font-bold text-[var(--color-radar-text)] uppercase tracking-wider mb-2 font-sora">Para quién sirve</h3>
+        <p class="text-[11px] text-[var(--color-radar-text-muted)] leading-relaxed">Usuarios con portátiles ligeros, ordenadores de oficina, tablets, Macs sin chip Apple Silicon potente o tarjetas AMD/Intel con baja compatibilidad.</p>
+      </div>
+
+      <div class="p-5 rounded-xl bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)]">
+        <h3 class="text-xs font-bold text-[var(--color-radar-text)] uppercase tracking-wider mb-2 font-sora">Ventajas principales</h3>
+        <p class="text-[11px] text-[var(--color-radar-text-muted)] leading-relaxed">Cero instalación compleja, velocidad de renderizado extrema, consumo nulo de electricidad local y acceso inmediato a GPUs profesionales.</p>
+      </div>
+
+      <div class="p-5 rounded-xl bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] col-span-1 sm:col-span-2">
+        <h3 class="text-xs font-bold text-[var(--color-radar-text)] uppercase tracking-wider mb-2 font-sora">Créditos, suscripciones y pago por uso</h3>
+        <p class="text-[11px] text-[var(--color-radar-text-muted)] leading-relaxed">
+          Las plataformas se dividen en tres modelos: **créditos diarios gratuitos** (ideales para pruebas rápidas), **suscripciones fijas** (ideales para creadores constantes) y **pago por segundo** (pods dedicados donde solo pagas el tiempo exacto que la GPU está encendida).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparador Principal -->
+  <section id="comparador" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-[var(--color-radar-border)]">
+    <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div>
+        <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--color-radar-accent)]">Comparador online</span>
+        <h2 class="text-3xl font-extrabold text-[var(--color-radar-text)] mt-1 font-sora">Plataformas Cloud Evaluadas</h2>
+        <p class="text-xs text-[var(--color-radar-text-muted)] mt-1">Utiliza los filtros de abajo para encontrar la opción ideal según tus workflows y presupuesto.</p>
+      </div>
+    </div>
+
+    <!-- Filtros rápidos combinables (Lógica AND en cliente) -->
+    <div class="border border-[var(--color-radar-border)] rounded-xl bg-[var(--color-radar-surface)] p-5 mb-8">
+      <span class="text-[9px] font-bold uppercase tracking-widest text-[var(--color-radar-text-muted)] block mb-3">Filtrado lógico acumulativo</span>
+      <div class="flex flex-wrap gap-2" id="cloud-filters">
+        <button
+          type="button"
+          class="cloud-filter-btn px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded border border-[var(--color-radar-border)] text-[var(--color-radar-text-muted)] hover:border-[var(--color-radar-accent)]/30 hover:text-[var(--color-radar-text)] transition-all cursor-pointer"
+          data-filter="free"
+        >
+          Opción gratuita
+        </button>
+        <button
+          type="button"
+          class="cloud-filter-btn px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded border border-[var(--color-radar-border)] text-[var(--color-radar-text-muted)] hover:border-[var(--color-radar-accent)]/30 hover:text-[var(--color-radar-text)] transition-all cursor-pointer"
+          data-filter="no-card"
+        >
+          Sin tarjeta
+        </button>
+        <button
+          type="button"
+          class="cloud-filter-btn px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded border border-[var(--color-radar-border)] text-[var(--color-radar-text-muted)] hover:border-[var(--color-radar-accent)]/30 hover:text-[var(--color-radar-text)] transition-all cursor-pointer"
+          data-filter="imports"
+        >
+          Importa workflows
+        </button>
+        <button
+          type="button"
+          class="cloud-filter-btn px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded border border-[var(--color-radar-border)] text-[var(--color-radar-text-muted)] hover:border-[var(--color-radar-accent)]/30 hover:text-[var(--color-radar-text)] transition-all cursor-pointer"
+          data-filter="easy"
+        >
+          Para principiantes
+        </button>
+        <button
+          type="button"
+          class="cloud-filter-btn px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded border border-[var(--color-radar-border)] text-[var(--color-radar-text-muted)] hover:border-[var(--color-radar-accent)]/30 hover:text-[var(--color-radar-text)] transition-all cursor-pointer"
+          data-filter="nodes"
+        >
+          Nodos personalizados
+        </button>
+        <button
+          type="button"
+          class="cloud-filter-btn px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded border border-[var(--color-radar-border)] text-[var(--color-radar-text-muted)] hover:border-[var(--color-radar-accent)]/30 hover:text-[var(--color-radar-text)] transition-all cursor-pointer"
+          data-filter="payg"
+        >
+          Pago por uso / segundo
+        </button>
+        <button
+          type="button"
+          id="clear-cloud-filters"
+          class="px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded border border-red-500/20 text-red-400 hover:bg-red-500/5 transition-all cursor-pointer hidden"
+        >
+          Limpiar filtros
+        </button>
+      </div>
+    </div>
+
+    <!-- Lista de tarjetas del comparador -->
+    <div id="services-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {services.map((service) => (
+        <div
+          class="bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] rounded-xl p-6 flex flex-col justify-between space-y-6 relative group hover:border-[var(--color-radar-accent)]/20 transition-all duration-300"
+          data-service-card
+          data-free={String(service.free_type !== "Sin plan gratuito")}
+          data-no-card={String(service.requires_credit_card === false)}
+          data-imports={String(service.imports_workflows === true)}
+          data-easy={String(service.ease_level === "Fácil" || service.ease_level === "Medio")}
+          data-nodes={String(service.custom_nodes === "Sí" || service.custom_nodes === "parcial")}
+          data-payg={String(service.pricing_model.includes("Pago por uso") || service.pricing_model.includes("Pago por segundo"))}
+        >
+          <div class="space-y-4">
+            <!-- Fila superior -->
+            <div class="flex items-center justify-between border-b border-[var(--color-radar-border)] pb-3">
+              <div>
+                <h3 class="text-xl font-bold text-[var(--color-radar-text)] group-hover:text-[var(--color-radar-accent)] transition-colors font-sora">
+                  {service.name}
+                </h3>
+                <span class="text-[9px] font-bold uppercase tracking-widest text-[var(--color-radar-text-muted)]">
+                  Verificación: {service.verification_status === "verified" ? "Verificado" : service.verification_status === "partially_verified" ? "Parcial" : "Pendiente"}
+                </span>
+              </div>
+              <span class="px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider rounded bg-[#131B26] text-[var(--color-radar-text)] border border-[var(--color-radar-border)]">
+                {service.free_type}
+              </span>
+            </div>
+
+            <p class="text-xs text-[var(--color-radar-text-muted)] leading-relaxed">
+              {service.description_short}
+            </p>
+
+            <!-- Datos técnicos del comparador -->
+            <div class="grid grid-cols-2 gap-3 pt-2">
+              <div class="text-[10px]">
+                <span class="text-[var(--color-radar-text-muted)] block">Workflows:</span>
+                <span class="font-bold text-[var(--color-radar-text)]">{service.imports_workflows ? "Soporta importación JSON" : "No"}</span>
+              </div>
+              <div class="text-[10px]">
+                <span class="text-[var(--color-radar-text-muted)] block">Nodos Custom:</span>
+                <span class="font-bold text-[var(--color-radar-text)]">{service.custom_nodes === "Sí" ? "Soporte total" : service.custom_nodes === "parcial" ? "Soporte parcial" : "No permitido"}</span>
+              </div>
+              <div class="text-[10px]">
+                <span class="text-[var(--color-radar-text-muted)] block">Tarjeta requerida:</span>
+                <span class={`font-bold ${service.requires_credit_card === true ? 'text-[#FF7B8F]' : 'text-[#74F7C0]'}`}>
+                  {service.requires_credit_card === true ? "Sí" : service.requires_credit_card === false ? "No" : "No verificado"}
+                </span>
+              </div>
+              <div class="text-[10px]">
+                <span class="text-[var(--color-radar-text-muted)] block">Modelo de pago:</span>
+                <span class="font-bold text-[var(--color-radar-text)]">{service.pricing_model}</span>
+              </div>
+              <div class="text-[10px]">
+                <span class="text-[var(--color-radar-text-muted)] block">Almacenamiento:</span>
+                <span class="font-bold text-[var(--color-radar-text)]">{service.persistent_storage}</span>
+              </div>
+              <div class="text-[10px]">
+                <span class="text-[var(--color-radar-text-muted)] block">Dificultad:</span>
+                <span class="font-bold text-[var(--color-radar-text)]">{service.ease_level}</span>
+              </div>
+            </div>
+
+            <!-- Veredicto del radar -->
+            <div class="p-4 bg-[var(--color-radar-bg)] border-l-2 border-l-[var(--color-radar-accent)] rounded-r-lg text-xs">
+              <span class="text-[9px] font-bold uppercase tracking-widest text-[var(--color-radar-accent)] block mb-1">Veredicto del Radar</span>
+              <p class="text-[var(--color-radar-text)] italic leading-relaxed">&ldquo;{service.verdict}&rdquo;</p>
+            </div>
+            
+            <div class="text-[10px] text-[var(--color-radar-text-muted)] space-y-1">
+              <div><span class="font-semibold text-[var(--color-radar-text)]">Mejor para:</span> {service.best_for}</div>
+              <div><span class="font-semibold text-[var(--color-radar-text)]">Limitaciones:</span> {service.limitations}</div>
+            </div>
+          </div>
+
+          <!-- Pie de tarjeta: Última revisión y link -->
+          <div class="flex items-center justify-between pt-4 border-t border-[var(--color-radar-border)] text-[10px] text-[var(--color-radar-text-muted)]">
+            <span>Revisión: {service.last_checked_at}</span>
+            <a
+              href={service.official_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-xs font-bold uppercase tracking-wider text-[var(--color-radar-accent)] hover:underline"
+            >
+              Sitio oficial &rarr;
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Bloque Educativo (¿Qué opción te conviene?) -->
+  <section id="guia-educativa" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[var(--color-radar-border)]">
+    <div class="text-center mb-12">
+      <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--color-radar-accent)]">Guía de decisión</span>
+      <h2 class="text-3xl font-extrabold text-[var(--color-radar-text)] mt-1 font-sora">¿Qué opción te conviene?</h2>
+      <p class="text-sm text-[var(--color-radar-text-muted)] max-w-xl mx-auto mt-2 leading-relaxed">
+        Analizamos tu perfil de uso para ayudarte a elegir la infraestructura adecuada sin tirar tu dinero.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="p-6 bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] rounded-xl space-y-3">
+        <h3 class="font-bold text-sm text-[var(--color-radar-text)] uppercase tracking-wider font-sora">Solo quiero probar ComfyUI</h3>
+        <p class="text-xs text-[var(--color-radar-text-muted)] leading-relaxed">
+          Si nunca has usado la interfaz y quieres experimentar de forma interactiva con workflows preconfigurados, utiliza **RunningHub** o **SeaArt**. Sus planes de créditos diarios gratuitos son más que suficientes y no tienes que arriesgar datos de tarjeta.
+        </p>
+      </div>
+
+      <div class="p-6 bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] rounded-xl space-y-3">
+        <h3 class="font-bold text-sm text-[var(--color-radar-text)] uppercase tracking-wider font-sora">Quiero importar mis workflows</h3>
+        <p class="text-xs text-[var(--color-radar-text-muted)] leading-relaxed">
+          Si ya creaste workflows en local y los guardaste como JSON pero tu GPU tarda demasiado en renderizarlos, **RunningHub** permite cargarlos directamente en su panel y ejecutarlos de forma remota manteniendo los nodos estándar.
+        </p>
+      </div>
+
+      <div class="p-6 bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] rounded-xl space-y-3">
+        <h3 class="font-bold text-sm text-[var(--color-radar-text)] uppercase tracking-wider font-sora">Necesito nodos personalizados</h3>
+        <p class="text-xs text-[var(--color-radar-text-muted)] leading-relaxed">
+          Si tus workflows dependen de nodos de GitHub raros, modelos muy específicos o controladores ControlNet complejos, las opciones SaaS cerradas no te servirán. Necesitas desplegar un pod en **RunPod** donde tienes acceso total a consola y terminal.
+        </p>
+      </div>
+
+      <div class="p-6 bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] rounded-xl space-y-3">
+        <h3 class="font-bold text-sm text-[var(--color-radar-text)] uppercase tracking-wider font-sora">Quiero generar ocasionalmente</h3>
+        <p class="text-xs text-[var(--color-radar-text-muted)] leading-relaxed">
+          Si generas 10 o 20 imágenes de forma esporádica a la semana, las plataformas de créditos diarios (como **SeaArt** o **RunningHub**) son perfectas porque cubren tu cuota básica al 100% de forma gratis.
+        </p>
+      </div>
+
+      <div class="p-6 bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] rounded-xl space-y-3 col-span-1 md:col-span-2 lg:col-span-1">
+        <h3 class="font-bold text-sm text-[var(--color-radar-text)] uppercase tracking-wider font-sora">Quiero trabajar muchas horas</h3>
+        <p class="text-xs text-[var(--color-radar-text-muted)] leading-relaxed">
+          Si vas a estar 4 o 5 horas al día refinando imágenes, una suscripción SaaS se quedará sin créditos rápidamente. Te conviene recargar balance en **RunPod** e iniciar una GPU de precio bajo ($0.20/hora). Apaga el pod cuando no estés frente al monitor.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Aviso de Transparencia -->
+  <section class="max-w-4xl mx-auto px-4 py-8 text-center bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] rounded-xl mb-12">
+    <span class="text-[9px] font-bold uppercase tracking-widest text-[var(--color-radar-yellow)] block mb-1">Aviso de transparencia</span>
+    <p class="text-xs text-[var(--color-radar-text-muted)] leading-relaxed">
+      Los precios, créditos y límites pueden cambiar de forma constante. Free AI Radar revisa de forma manual y periódica las fuentes oficiales de cada proveedor, pero siempre conviene confirmar las condiciones comerciales vigentes antes de realizar cualquier tipo de pago.
+    </p>
+  </section>
+
+  <!-- Links a otras páginas -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 border-t border-[var(--color-radar-border)] flex flex-wrap gap-4 justify-between text-xs text-[var(--color-radar-text-muted)]">
+    <a href="/tools" class="hover:text-[var(--color-radar-accent)] transition-colors">&larr; Volver al listado general de herramientas</a>
+    <a href="/creators" class="hover:text-[var(--color-radar-accent)] transition-colors">Ver herramientas IA para creadores &rarr;</a>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  const activeFilters = new Set<string>();
+
+  const filterBtns = document.querySelectorAll('.cloud-filter-btn');
+  const clearBtn = document.getElementById('clear-cloud-filters');
+  const cards = document.querySelectorAll('[data-service-card]');
+
+  function updateFilterState() {
+    cards.forEach((card) => {
+      const cardEl = card as HTMLElement;
+      
+      const isFree = cardEl.dataset.free === 'true';
+      const isNoCard = cardEl.dataset.noCard === 'true';
+      const isImports = cardEl.dataset.imports === 'true';
+      const isEasy = cardEl.dataset.easy === 'true';
+      const isNodes = cardEl.dataset.nodes === 'true';
+      const isPayg = cardEl.dataset.payg === 'true';
+
+      let matches = true;
+
+      if (activeFilters.has('free') && !isFree) matches = false;
+      if (activeFilters.has('no-card') && !isNoCard) matches = false;
+      if (activeFilters.has('imports') && !isImports) matches = false;
+      if (activeFilters.has('easy') && !isEasy) matches = false;
+      if (activeFilters.has('nodes') && !isNodes) matches = false;
+      if (activeFilters.has('payg') && !isPayg) matches = false;
+
+      cardEl.style.display = matches ? '' : 'none';
+    });
+
+    if (activeFilters.size > 0) {
+      clearBtn?.classList.remove('hidden');
+    } else {
+      clearBtn?.classList.add('hidden');
+    }
+  }
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
+      if (!filter) return;
+
+      if (activeFilters.has(filter)) {
+        activeFilters.delete(filter);
+        btn.classList.remove('bg-[var(--color-radar-accent)]', 'text-[var(--color-radar-bg)]', 'border-[var(--color-radar-accent)]');
+        btn.classList.add('text-[var(--color-radar-text-muted)]', 'border-[var(--color-radar-border)]');
+      } else {
+        activeFilters.add(filter);
+        btn.classList.add('bg-[var(--color-radar-accent)]', 'text-[var(--color-radar-bg)]', 'border-[var(--color-radar-accent)]');
+        btn.classList.remove('text-[var(--color-radar-text-muted)]', 'border-[var(--color-radar-border)]');
+      }
+
+      updateFilterState();
+    });
+  });
+
+  clearBtn?.addEventListener('click', () => {
+    activeFilters.clear();
+    filterBtns.forEach((btn) => {
+      btn.classList.remove('bg-[var(--color-radar-accent)]', 'text-[var(--color-radar-bg)]', 'border-[var(--color-radar-accent)]');
+      btn.classList.add('text-[var(--color-radar-text-muted)]', 'border-[var(--color-radar-border)]');
+    });
+    updateFilterState();
+  });
+</script>
