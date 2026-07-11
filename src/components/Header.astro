@@ -3,34 +3,97 @@ const navItems = [
   { href: "/", label: "Inicio" },
   { href: "/tools", label: "Herramientas" },
   { href: "/creators", label: "Creadores" },
+  { href: "/methodology", label: "Metodología" },
 ];
 ---
 
-<header class="sticky top-0 z-50 bg-[var(--color-radar-bg)]/90 backdrop-blur-md border-b border-[var(--color-radar-border)]">
+<header class="sticky top-0 z-50 bg-[var(--color-radar-bg)]/80 backdrop-blur-md border-b border-[var(--color-radar-border)] transition-colors duration-300">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-3 group">
-      <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[var(--color-radar-accent)] to-[var(--color-radar-purple)] flex items-center justify-center">
-        <span class="text-white text-sm font-bold">R</span>
+    <!-- Brand / Logo -->
+    <a href="/" class="flex items-center gap-2.5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-radar-accent)] rounded-lg px-2 py-1 -ml-2 transition-all">
+      <div class="w-8 h-8 rounded-lg bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] flex items-center justify-center group-hover:border-[var(--color-radar-accent)]/40 transition-colors">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" class="w-4 h-4 shrink-0 text-[var(--color-radar-accent)] animate-pulse">
+          <circle cx="12" cy="12" r="9" stroke-dasharray="3 3" opacity="0.6"/>
+          <circle cx="12" cy="12" r="5"/>
+          <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+          <path d="M12 3v3M12 18v3M3 12h3M18 12h3" opacity="0.8"/>
+        </svg>
       </div>
-      <span class="text-lg font-bold text-[var(--color-radar-text)] group-hover:text-[var(--color-radar-accent-glow)] transition-colors">
+      <span class="text-sm font-bold tracking-wider uppercase text-[var(--color-radar-text)] group-hover:text-[var(--color-radar-accent)] transition-colors">
         Free AI Radar
       </span>
     </a>
-    <div class="flex items-center gap-6">
-      {navItems.map((item) => (
-        <a
-          href={item.href}
-          class="text-sm text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-text)] transition-colors"
-        >
-          {item.label}
-        </a>
-      ))}
+
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex items-center gap-8">
+      <div class="flex items-center gap-6">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class="text-xs font-semibold uppercase tracking-wider text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-text)] focus-visible:outline-none focus-visible:text-[var(--color-radar-text)] transition-colors"
+          >
+            {item.label}
+          </a>
+        ))}
+      </div>
+      
       <a
-        href="/methodology"
-        class="px-4 py-2 bg-[var(--color-radar-accent)] text-white text-sm font-medium rounded-lg hover:bg-[var(--color-radar-accent-glow)] transition-colors"
+        href="/tools"
+        class="px-4 py-2 bg-[var(--color-radar-accent)] hover:bg-[var(--color-radar-accent)]/80 text-[var(--color-radar-bg)] text-xs font-bold uppercase tracking-wider rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-radar-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-radar-bg)]"
       >
-        Metodología
+        Explorar
       </a>
     </div>
+
+    <!-- Mobile menu button -->
+    <button
+      type="button"
+      id="mobile-menu-btn"
+      class="md:hidden p-2 rounded-lg text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-text)] hover:bg-[var(--color-radar-surface)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-radar-accent)]"
+      aria-label="Abrir menú de navegación"
+      aria-expanded="false"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" class="w-6 h-6 shrink-0" id="hamburger-icon">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" class="w-6 h-6 shrink-0 hidden" id="close-icon">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
   </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-[var(--color-radar-border)] bg-[var(--color-radar-surface)] px-4 py-4 space-y-3">
+    {navItems.map((item) => (
+      <a
+        href={item.href}
+        class="block py-2 text-sm font-semibold uppercase tracking-wider text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-text)] focus-visible:outline-none"
+      >
+        {item.label}
+      </a>
+    ))}
+    <div class="pt-3 border-t border-[var(--color-radar-border)]">
+      <a
+        href="/tools"
+        class="block w-full py-2.5 bg-[var(--color-radar-accent)] hover:bg-[var(--color-radar-accent)]/80 text-[var(--color-radar-bg)] text-xs font-bold uppercase tracking-wider text-center rounded-lg focus-visible:outline-none"
+      >
+        Explorar
+      </a>
+    </div>
+  </div>
 </header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const hamburger = document.getElementById('hamburger-icon');
+  const close = document.getElementById('close-icon');
+
+  btn?.addEventListener('click', () => {
+    const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!isExpanded));
+    menu?.classList.toggle('hidden');
+    hamburger?.classList.toggle('hidden');
+    close?.classList.toggle('hidden');
+  });
+</script>
