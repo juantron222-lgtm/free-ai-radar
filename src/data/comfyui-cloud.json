@@ -1,0 +1,102 @@
+[
+  {
+    "id": "c-001",
+    "name": "RunningHub",
+    "slug": "runninghub",
+    "official_url": "https://www.runninghub.ai",
+    "description_short": "Plataforma en la nube especializada en ejecutar y compartir workflows de ComfyUI. Permite cargar tus propios archivos JSON y procesarlos con GPU remotas de forma muy rápida.",
+    "free_type": "Créditos diarios",
+    "free_summary": "Ofrece créditos diarios gratuitos al registrarse (renovados cada día) que permiten realizar docenas de generaciones básicas sin coste.",
+    "requires_signup": true,
+    "requires_credit_card": false,
+    "imports_workflows": true,
+    "custom_nodes": "parcial",
+    "persistent_storage": "No",
+    "pricing_model": "Suscripción / Créditos",
+    "ease_level": "Medio",
+    "best_for": "Usuarios que quieren ejecutar workflows estándar de ComfyUI sin instalar nada en local.",
+    "limitations": "No permite instalar libremente cualquier nodo personalizado que no esté en su catálogo pre-aprobado.",
+    "verdict": "La plataforma más amigable para ejecutar workflows existentes. Su plan gratuito diario es excelente para uso ocasional.",
+    "source_urls": [
+      "https://www.runninghub.ai/docs"
+    ],
+    "last_checked_at": "2026-07-11",
+    "verification_status": "partially_verified",
+    "status": "active"
+  },
+  {
+    "id": "c-002",
+    "name": "SeaArt ComfyUI",
+    "slug": "seaart",
+    "official_url": "https://www.seaart.ai",
+    "description_short": "Portal creativo de generación de imágenes que incluye un entorno de ejecución de ComfyUI en la nube, con una galería comunitaria de workflows interactivos.",
+    "free_type": "Créditos diarios",
+    "free_summary": "Otorga 150 de energía diaria gratis que se consume por cada generación. No requiere introducir datos bancarios.",
+    "requires_signup": true,
+    "requires_credit_card": false,
+    "imports_workflows": true,
+    "custom_nodes": "No",
+    "persistent_storage": "No",
+    "pricing_model": "Suscripción / Pago por uso",
+    "ease_level": "Fácil",
+    "best_for": "Probar workflows populares de la comunidad y realizar tareas rápidas sin configurar nodos.",
+    "limitations": "Muy cerrado. No permite instalar nodos personalizados propios y el consumo de energía en workflows complejos es elevado.",
+    "verdict": "Ideal para principiantes que buscan una interfaz de workflows ya construidos sin complicaciones técnicas.",
+    "source_urls": [
+      "https://www.seaart.ai"
+    ],
+    "last_checked_at": "2026-07-11",
+    "verification_status": "partially_verified",
+    "status": "active"
+  },
+  {
+    "id": "c-003",
+    "name": "RunPod (ComfyUI Pod)",
+    "slug": "runpod",
+    "official_url": "https://www.runpod.io",
+    "description_short": "Proveedor de GPU en la nube en pago por uso. Permite desplegar un contenedor (Pod) con ComfyUI preinstalado con un clic, dándote control total sobre el sistema de archivos.",
+    "free_type": "Sin plan gratuito",
+    "free_summary": "Es un servicio 100% de pago. Requiere recargar saldo mínimo (desde $5) para poder encender las instancias de GPU.",
+    "requires_signup": true,
+    "requires_credit_card": true,
+    "imports_workflows": true,
+    "custom_nodes": "Sí",
+    "persistent_storage": "Sí",
+    "pricing_model": "Pago por segundo",
+    "ease_level": "Difícil",
+    "best_for": "Creadores avanzados y profesionales que necesitan instalar cualquier nodo de GitHub, usar modelos de Civitai y generar durante horas.",
+    "limitations": "Requiere conocimientos de gestión de contenedores y redes. Si olvidas apagar la instancia, consumirá tu saldo.",
+    "verdict": "La mejor opción para uso profesional. Es increíblemente económico si se usa con eficiencia (GPUs desde $0.20/hora).",
+    "source_urls": [
+      "https://www.runpod.io/gpu-instance/pricing"
+    ],
+    "last_checked_at": "2026-07-11",
+    "verification_status": "verified",
+    "status": "active"
+  },
+  {
+    "id": "c-004",
+    "name": "Google Colab",
+    "slug": "google-colab",
+    "official_url": "https://colab.research.google.com",
+    "description_short": "Entorno de cuadernos Jupyter interactivos provisto por Google. Permite ejecutar código de Python y WebUIs directamente en servidores virtuales con GPU.",
+    "free_type": "Trial limitado",
+    "free_summary": "Tiene un nivel gratuito con acceso limitado a GPU, pero Google restringe la ejecución de WebUIs interactivas en el plan gratis, requiriendo Colab Pro para evitar desconexiones constantes.",
+    "requires_signup": true,
+    "requires_credit_card": false,
+    "imports_workflows": true,
+    "custom_nodes": "Sí",
+    "persistent_storage": "Sí",
+    "pricing_model": "Suscripción / Créditos",
+    "ease_level": "Medio",
+    "best_for": "Investigadores y usuarios que quieren ejecutar cuadernos preconfigurados de ComfyUI usando Google Drive para almacenar sus modelos.",
+    "limitations": "El tiempo de ejecución es inestable y las sesiones se cierran al haber inactividad. El plan gratuito prácticamente bloquea el uso prolongado de ComfyUI.",
+    "verdict": "Una opción clásica que sigue siendo útil con Colab Pro, pero es menos cómoda que los pods dedicados de RunPod.",
+    "source_urls": [
+      "https://colab.research.google.com/signup"
+    ],
+    "last_checked_at": "2026-07-11",
+    "verification_status": "verified",
+    "status": "active"
+  }
+]

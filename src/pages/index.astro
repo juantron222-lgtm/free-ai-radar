@@ -238,6 +238,30 @@ const freeTypes = new Set(activeToolsList.map((t) => t.free_type).filter(Boolean
       </div>
     </section>
 
+    <!-- ComfyUI sin GPU Callout (Radar editorial premium) -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] rounded-xl p-8 md:p-12 max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(116,247,192,0.02),transparent_45%)]"></div>
+        <div class="space-y-4 relative z-10 max-w-2xl">
+          <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--color-radar-accent)]">Ejecución en la nube</span>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-[var(--color-radar-text)] font-sora tracking-tight">
+            ¿Quieres usar ComfyUI sin gráfica?
+          </h2>
+          <p class="text-xs sm:text-sm text-[var(--color-radar-text-muted)] leading-relaxed">
+            Compara servicios cloud, créditos gratuitos y opciones para ejecutar workflows desde el navegador. Evita invertir en hardware costoso.
+          </p>
+        </div>
+        <div class="relative z-10 flex-shrink-0 self-start md:self-auto">
+          <a
+            href="/comfyui-sin-gpu"
+            class="px-6 py-3.5 bg-[var(--color-radar-accent)] hover:bg-[var(--color-radar-accent)]/80 text-[var(--color-radar-bg)] font-bold text-xs uppercase tracking-wider rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-radar-accent)]"
+          >
+            Ver ComfyUI sin GPU &rarr;
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- PWA Install (Diseño de terminal de producto SaaS) -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] rounded-xl p-8 md:p-12 max-w-5xl mx-auto">
