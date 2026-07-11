@@ -5,8 +5,10 @@ import Footer from "../components/Footer.astro";
 import ToolCard from "../components/ToolCard.astro";
 import toolsData from "../data/tools.json";
 
+const activeTools = toolsData.filter((t) => !t.status || t.status === "active");
+
 const creatorCategories = ["Imagen IA", "Vídeo IA", "Voz IA", "Música IA", "Cine IA", "Diseño"];
-const creatorTools = toolsData
+const creatorTools = activeTools
   .filter((t) => {
     const inCategory = creatorCategories.includes(t.category);
     const highCreatorScore = (t.score_creator_potential || 0) >= 5;
@@ -14,12 +16,23 @@ const creatorTools = toolsData
   })
   .sort((a, b) => b.score_creator_potential - a.score_creator_potential);
 
-const byCategory: Record<string, typeof toolsData> = {};
+const byCategory: Record<string, typeof activeTools> = {};
 creatorTools.forEach((t) => {
   const cat = t.category;
   if (!byCategory[cat]) byCategory[cat] = [];
   byCategory[cat].push(t);
 });
+
+// Iconos monocromáticos en formato SVG para las categorías de creadores
+const categoryIcons: Record<string, string> = {
+  "Imagen IA": `<svg class="w-5 h-5 text-[var(--color-radar-accent)]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`,
+  "Vídeo IA": `<svg class="w-5 h-5 text-[var(--color-radar-accent)]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>`,
+  "Voz IA": `<svg class="w-5 h-5 text-[var(--color-radar-accent)]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 1v11M19 8v2a7 7 0 0 1-14 0V8"/><line x1="12" y1="19" x2="12" y2="23"/></svg>`,
+  "Música IA": `<svg class="w-5 h-5 text-[var(--color-radar-accent)]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`,
+  "Cine IA": `<svg class="w-5 h-5 text-[var(--color-radar-accent)]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>`,
+  "Diseño": `<svg class="w-5 h-5 text-[var(--color-radar-accent)]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 2 12 22Z"/></svg>`,
+  "default": `<svg class="w-5 h-5 text-[var(--color-radar-accent)]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>`
+};
 ---
 
 <BaseLayout
@@ -28,64 +41,59 @@ creatorTools.forEach((t) => {
 >
   <Header />
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    <!-- Header -->
-    <div class="mb-10">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-sm text-purple-400 mb-4">
-        🎨 Para creadores
-      </div>
-      <h1 class="text-3xl md:text-5xl font-extrabold text-[var(--color-radar-text)] mb-4">
-        Herramientas IA gratis para creadores de contenido
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
+    <!-- Cabecera de la sección -->
+    <div class="pb-6 border-b border-[var(--color-radar-border)]">
+      <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--color-radar-accent)]">Portal de producción</span>
+      <h1 class="text-3xl md:text-5xl font-extrabold text-[var(--color-radar-text)] mt-1 mb-3 font-sora tracking-tight">
+        Herramientas IA gratis para creadores
       </h1>
-      <p class="text-lg text-[var(--color-radar-text-muted)] max-w-2xl">
-        Imagen, vídeo, voz, música, modelos locales y más. Solo herramientas gratuitas o con plan gratuito útil, filtradas por nuestro radar para que no pierdas el tiempo con humo.
+      <p class="text-xs sm:text-sm text-[var(--color-radar-text-muted)] max-w-xl">
+        Imagen, vídeo, voz, música, modelos locales y diseño. Filtramos las herramientas gratuitas más potentes del mercado útiles para la creación de assets de alta fidelidad.
       </p>
     </div>
 
-    <!-- Stats -->
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
-      <div class="p-4 rounded-xl bg-[var(--color-radar-card)] border border-[var(--color-radar-border)]">
-        <div class="text-2xl font-bold text-purple-400">{creatorTools.length}</div>
-        <div class="text-xs text-[var(--color-radar-text-muted)]">Herramientas para creadores</div>
+    <!-- Estadísticas dinámicas -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div class="p-4 rounded-xl bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)]">
+        <div class="text-2xl font-bold text-[var(--color-radar-accent)] font-sora tracking-tight">{creatorTools.length}</div>
+        <div class="text-[10px] font-bold uppercase tracking-wider text-[var(--color-radar-text-muted)] mt-1">Herramientas totales</div>
       </div>
-      <div class="p-4 rounded-xl bg-[var(--color-radar-card)] border border-[var(--color-radar-border)]">
-        <div class="text-2xl font-bold text-green-400">{creatorTools.filter(t => t.free_type === "Gratis real" || t.free_type === "Open-source" || t.free_type === "Local").length}</div>
-        <div class="text-xs text-[var(--color-radar-text-muted)]">Gratis real</div>
+      <div class="p-4 rounded-xl bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)]">
+        <div class="text-2xl font-bold text-[var(--color-radar-secondary)] font-sora tracking-tight">{creatorTools.filter(t => t.free_type === "Gratis real" || t.free_type === "Open-source" || t.free_type === "Local").length}</div>
+        <div class="text-[10px] font-bold uppercase tracking-wider text-[var(--color-radar-text-muted)] mt-1">Gratis real / Local</div>
       </div>
-      <div class="p-4 rounded-xl bg-[var(--color-radar-card)] border border-[var(--color-radar-border)]">
-        <div class="text-2xl font-bold text-blue-400">{creatorTools.filter(t => t.open_source === true || t.local_install === true).length}</div>
-        <div class="text-xs text-[var(--color-radar-text-muted)]">Open-source / Local</div>
+      <div class="p-4 rounded-xl bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)]">
+        <div class="text-2xl font-bold text-[var(--color-radar-text)] font-sora tracking-tight">{creatorTools.filter(t => t.open_source === true || t.local_install === true).length}</div>
+        <div class="text-[10px] font-bold uppercase tracking-wider text-[var(--color-radar-text-muted)] mt-1">Open-source / Local</div>
       </div>
-      <div class="p-4 rounded-xl bg-[var(--color-radar-card)] border border-[var(--color-radar-border)]">
-        <div class="text-2xl font-bold text-yellow-400">{creatorTools.filter(t => t.risk_level === "bajo").length}</div>
-        <div class="text-xs text-[var(--color-radar-text-muted)]">Riesgo bajo</div>
+      <div class="p-4 rounded-xl bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)]">
+        <div class="text-2xl font-bold text-[#74F7C0] font-sora tracking-tight">{creatorTools.filter(t => t.risk_level === "bajo").length}</div>
+        <div class="text-[10px] font-bold uppercase tracking-wider text-[var(--color-radar-text-muted)] mt-1">Riesgo bajo</div>
       </div>
     </div>
 
-    <!-- Categorías con herramientas -->
-    {Object.entries(byCategory).map(([category, tools]) => (
-      <section class="mb-12">
-        <h2 class="text-xl font-bold text-[var(--color-radar-text)] mb-4 flex items-center gap-2">
-          {category === "Imagen IA" && "🖼️"}
-          {category === "Vídeo IA" && "🎬"}
-          {category === "Voz IA" && "🎤"}
-          {category === "Música IA" && "🎵"}
-          {category === "Cine IA" && "🎥"}
-          {category === "Diseño" && "🎨"}
-          {category}
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {tools.map((tool) => <ToolCard tool={tool} />)}
-        </div>
-      </section>
-    ))}
+    <!-- Listado agrupado por categorías con iconos SVG -->
+    <div class="space-y-16">
+      {Object.entries(byCategory).map(([category, tools]) => (
+        <section class="space-y-6">
+          <div class="flex items-center gap-2.5 pb-2 border-b border-[var(--color-radar-border)]">
+            <span class="text-[var(--color-radar-accent)]" set:html={categoryIcons[category] || categoryIcons.default}></span>
+            <h2 class="text-xl font-bold text-[var(--color-radar-text)] font-sora tracking-tight">
+              {category}
+            </h2>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {tools.map((tool) => <ToolCard tool={tool} />)}
+          </div>
+        </section>
+      ))}
+    </div>
 
-    <!-- Si no hay herramientas en alguna categoría común -->
     {creatorTools.length === 0 && (
-      <div class="text-center py-20">
-        <p class="text-4xl mb-4">🎨</p>
-        <h2 class="text-xl font-bold text-[var(--color-radar-text)] mb-2">Próximamente</h2>
-        <p class="text-[var(--color-radar-text-muted)]">Estamos rastreando más herramientas para creadores.</p>
+      <div class="text-center py-20 bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] rounded-xl">
+        <h2 class="text-lg font-bold text-[var(--color-radar-text)] mb-2 font-sora">Próximamente</h2>
+        <p class="text-xs text-[var(--color-radar-text-muted)]">Estamos evaluando nuevas herramientas de producción audiovisual gratuitas.</p>
       </div>
     )}
   </main>

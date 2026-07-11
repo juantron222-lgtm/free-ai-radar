@@ -7,42 +7,46 @@ import FilterBar from "../../components/FilterBar.astro";
 import ToolCard from "../../components/ToolCard.astro";
 import toolsData from "../../data/tools.json";
 
-const allTools = [...toolsData].sort((a, b) => b.score_total - a.score_total);
+const activeTools = toolsData.filter((t) => !t.status || t.status === "active");
+const allTools = [...activeTools].sort((a, b) => b.score_total - a.score_total);
 ---
 
 <BaseLayout title="Novedades IA Gratis | Free AI Radar" description="Listado completo de herramientas, modelos y recursos de IA gratuitos. Filtrados, puntuados y con veredicto claro.">
   <Header />
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    <div class="mb-8">
-      <h1 class="text-3xl md:text-4xl font-extrabold text-[var(--color-radar-text)] mb-2">
-        📡 Todas las novedades
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
+    <!-- Cabecera de la sección -->
+    <div class="pb-6 border-b border-[var(--color-radar-border)]">
+      <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--color-radar-accent)]">Índice de herramientas</span>
+      <h1 class="text-3xl md:text-5xl font-extrabold text-[var(--color-radar-text)] mt-1 mb-2 font-sora tracking-tight">
+        Todas las novedades
       </h1>
-      <p class="text-[var(--color-radar-text-muted)]">
-        {allTools.length} herramientas rastreadas. Filtra por categoría, tipo de gratuidad y puntuación.
+      <p class="text-xs sm:text-sm text-[var(--color-radar-text-muted)] mt-1">
+        <span id="visible-count" class="font-bold text-[var(--color-radar-text)]">{allTools.length}</span> de {allTools.length} herramientas en el radar.
       </p>
     </div>
 
-    <div class="flex flex-col md:flex-row gap-4 items-start justify-between mb-8">
-      <SearchBar />
-      <div class="text-sm text-[var(--color-radar-text-muted)]">
-        Mostrando <span id="visible-count" class="font-bold text-[var(--color-radar-text)]">{allTools.length}</span> herramientas
+    <!-- Barra de Búsqueda y Filtros Integrada -->
+    <div class="border border-[var(--color-radar-border)] rounded-xl bg-[var(--color-radar-surface)] p-6">
+      <div class="flex flex-col md:flex-row gap-4 items-start justify-between mb-8">
+        <div>
+          <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--color-radar-text-muted)]">Filtros de búsqueda</span>
+        </div>
+        <SearchBar />
       </div>
-    </div>
-
-    <div class="mb-8">
       <FilterBar />
     </div>
 
-    <div id="tools-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+    <!-- Grid de Tarjetas -->
+    <div id="tools-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {allTools.map((tool) => <ToolCard tool={tool} />)}
     </div>
 
     {allTools.length === 0 && (
-      <div class="text-center py-20">
-        <p class="text-4xl mb-4">🔍</p>
-        <h2 class="text-xl font-bold text-[var(--color-radar-text)] mb-2">Sin resultados</h2>
-        <p class="text-[var(--color-radar-text-muted)]">Prueba a cambiar los filtros o la búsqueda.</p>
+      <div class="text-center py-20 bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] rounded-xl">
+        <p class="text-3xl mb-4">🔍</p>
+        <h2 class="text-lg font-bold text-[var(--color-radar-text)] mb-2 font-sora">Sin resultados</h2>
+        <p class="text-xs text-[var(--color-radar-text-muted)]">Modifique los filtros o el texto de búsqueda para encontrar herramientas.</p>
       </div>
     )}
   </main>

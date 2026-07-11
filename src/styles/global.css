@@ -1,23 +1,28 @@
 @import "tailwindcss";
 
 @theme {
-  --color-radar-bg: #0a0a0f;
-  --color-radar-surface: #12121a;
-  --color-radar-card: #1a1a2e;
-  --color-radar-border: #2a2a3e;
-  --color-radar-accent: #6366f1;
-  --color-radar-accent-glow: #818cf8;
-  --color-radar-green: #22c55e;
-  --color-radar-yellow: #eab308;
-  --color-radar-red: #ef4444;
-  --color-radar-blue: #3b82f6;
-  --color-radar-purple: #a855f7;
-  --color-radar-text: #e2e8f0;
-  --color-radar-text-muted: #94a3b8;
+  --color-radar-bg: #070A0F;
+  --color-radar-surface: #0D131C;
+  --color-radar-card: #131B26;
+  --color-radar-border: rgba(255, 255, 255, 0.08);
+  --color-radar-accent: #74F7C0;
+  --color-radar-accent-glow: #74F7C0;
+  --color-radar-secondary: #789BFF;
+  --color-radar-yellow: #F2C66D;
+  --color-radar-red: #FF7B8F;
+  --color-radar-text: #F4F7FB;
+  --color-radar-text-muted: #98A2B3;
+  --font-sora: 'Sora', sans-serif;
 }
 
 body {
   background-color: var(--color-radar-bg);
   color: var(--color-radar-text);
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sora);
+  letter-spacing: -0.02em;
 }

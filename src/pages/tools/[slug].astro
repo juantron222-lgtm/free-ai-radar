@@ -2,10 +2,6 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import ScoreBadge from "../../components/ScoreBadge.astro";
-import VerdictTag from "../../components/VerdictTag.astro";
-import CategoryBadge from "../../components/CategoryBadge.astro";
-import FreeTypeBadge from "../../components/FreeTypeBadge.astro";
 import toolsData from "../../data/tools.json";
 
 export function getStaticPaths() {
@@ -25,24 +21,8 @@ const formatDate = (d: string) =>
   new Date(d).toLocaleDateString("es-ES", {
     year: "numeric",
     month: "long",
-    day: "numeric",
   });
 
-const boolIcon = (val: boolean | string) => {
-  if (val === true) return "✅";
-  if (val === false) return "❌";
-  return "⚠️ No confirmado";
-};
-
-const boolLabel = (val: boolean | string, trueLabel: string, falseLabel: string) => {
-  if (val === true) return trueLabel;
-  if (val === false) return falseLabel;
-  return "No confirmado";
-};
-
-// Genera un título SEO con un máximo de ~65 caracteres totales incluyendo "| Free AI Radar".
-// Prioriza: subcategoría → categoría → solo nombre.
-// No inventa información — usa únicamente campos confirmados del JSON.
 function buildSeoTitle(name: string, subcategory: string, category: string): string {
   const MAX = 49; // 65 total − 16 de " | Free AI Radar"
   const withSub = subcategory ? `${name}: ${subcategory}` : null;
@@ -53,125 +33,155 @@ function buildSeoTitle(name: string, subcategory: string, category: string): str
 }
 
 const seoTitle = buildSeoTitle(tool.name, tool.subcategory, tool.category);
+
+const riskColors: Record<string, string> = {
+  bajo: "text-[#74F7C0]",
+  medio: "text-[#F2C66D]",
+  alto: "text-[#FF7B8F]"
+};
+
+const riskBgColors: Record<string, string> = {
+  bajo: "border-l-2 border-l-[#74F7C0] bg-[#74F7C0]/5",
+  medio: "border-l-2 border-l-[#F2C66D] bg-[#F2C66D]/5",
+  alto: "border-l-2 border-l-[#FF7B8F] bg-[#FF7B8F]/5"
+};
 ---
 
 <BaseLayout title={seoTitle} description={tool.description_short} ogType="article">
   <Header />
 
-  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    <!-- Back link -->
-    <a href="/tools" class="inline-flex items-center gap-1 text-sm text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-accent-glow)] transition-colors mb-6">
-      &larr; Volver al listado
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Enlace de retorno -->
+    <a href="/tools" class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-accent)] transition-colors mb-8 focus-visible:outline-none">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/>
+      </svg>
+      Volver al radar
     </a>
 
-    <!-- Header -->
-    <div class="mb-8">
-      <div class="flex flex-wrap items-center gap-3 mb-3">
-        <CategoryBadge category={tool.category} />
-        <FreeTypeBadge freeType={tool.free_type} />
-        {tool.open_source === true && (
-          <span class="px-2.5 py-1 text-xs font-medium rounded-full border bg-blue-500/10 text-blue-400 border-blue-500/20">Open-source</span>
+    <!-- Cabecera de la ficha (Diseño premium SaaS) -->
+    <div class="mb-10 flex flex-col md:flex-row md:items-start justify-between gap-6 pb-8 border-b border-[var(--color-radar-border)]">
+      <div class="space-y-4">
+        <div class="flex flex-wrap items-center gap-2.5">
+          <span class="px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-wider rounded bg-[var(--color-radar-surface)] text-[var(--color-radar-text-muted)] border border-[var(--color-radar-border)]">
+            {tool.category}
+          </span>
+          <span class="px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-wider rounded bg-[var(--color-radar-accent)]/10 text-[var(--color-radar-accent)] border border-[var(--color-radar-accent)]/20">
+            {tool.free_type}
+          </span>
+          {tool.open_source === true && (
+            <span class="px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-wider rounded bg-[var(--color-radar-secondary)]/10 text-[var(--color-radar-secondary)] border border-[var(--color-radar-secondary)]/20">
+              Open-source
+            </span>
+          )}
+        </div>
+
+        <h1 class="text-3xl md:text-5xl font-extrabold text-[var(--color-radar-text)] font-sora tracking-tight">
+          {tool.name}
+        </h1>
+        
+        <p class="text-xs text-[var(--color-radar-text-muted)] font-semibold uppercase tracking-wider">
+          Revisado: {formatDate(tool.last_checked_at)}
+        </p>
+      </div>
+
+      <!-- CTA Principal & Puntuación -->
+      <div class="flex items-center gap-4 sm:gap-6 self-start md:self-auto">
+        <div class="text-right">
+          <span class="block text-[10px] font-bold uppercase tracking-widest text-[var(--color-radar-text-muted)]">Puntuación</span>
+          <span class={`text-3xl sm:text-4xl font-extrabold font-sora ${riskColors[tool.risk_level] || 'text-[var(--color-radar-text)]'}`}>
+            {tool.score_total}<span class="text-xs text-[var(--color-radar-text-muted)] font-normal">/100</span>
+          </span>
+        </div>
+        
+        {tool.official_url && (
+          <a
+            href={tool.official_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-5 py-3.5 bg-[var(--color-radar-accent)] hover:bg-[var(--color-radar-accent)]/80 text-[var(--color-radar-bg)] font-bold text-xs uppercase tracking-wider rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-radar-accent)]"
+          >
+            Abrir herramienta &rarr;
+          </a>
         )}
       </div>
-
-      <h1 class="text-3xl md:text-4xl font-extrabold text-[var(--color-radar-text)] mb-5">{tool.name}</h1>
-
-      <!-- INFO DE GRATUIDAD ARRIBA DEL TODO -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
-        <div class="p-3 rounded-xl bg-[var(--color-radar-card)] border border-[var(--color-radar-border)]">
-          <span class="text-[10px] uppercase tracking-wider text-[var(--color-radar-text-muted)]">Tipo</span>
-          <p class="text-sm font-bold text-[var(--color-radar-text)]">{tool.free_type}</p>
-        </div>
-        <div class="p-3 rounded-xl bg-[var(--color-radar-card)] border border-[var(--color-radar-border)]">
-          <span class="text-[10px] uppercase tracking-wider text-[var(--color-radar-text-muted)]">Gratis de verdad</span>
-          <p class="text-sm font-bold text-[var(--color-radar-text)]">
-            {tool.free_type === "Gratis real" || tool.free_type === "Open-source" || tool.free_type === "Local" ? "✅ Sí" : tool.free_type === "Humo probable" ? "❌ No" : "⚠️ Parcial"}
-          </p>
-        </div>
-        <div class="p-3 rounded-xl bg-[var(--color-radar-card)] border border-[var(--color-radar-border)]">
-          <span class="text-[10px] uppercase tracking-wider text-[var(--color-radar-text-muted)]">Tarjeta</span>
-          <p class={`text-sm font-bold ${tool.requires_credit_card === true ? 'text-red-400' : tool.requires_credit_card === false ? 'text-green-400' : 'text-yellow-400'}`}>
-            {tool.requires_credit_card === true ? "💳 Sí" : tool.requires_credit_card === false ? "✅ No" : "⚠️ No confirmado"}
-          </p>
-        </div>
-        <div class="p-3 rounded-xl bg-[var(--color-radar-card)] border border-[var(--color-radar-border)]">
-          <span class="text-[10px] uppercase tracking-wider text-[var(--color-radar-text-muted)]">Registro</span>
-          <p class={`text-sm font-bold ${tool.requires_signup === false ? 'text-green-400' : 'text-[var(--color-radar-text)]'}`}>
-            {tool.requires_signup === true ? "Sí" : tool.requires_signup === false ? "✅ No" : "⚠️ No confirmado"}
-          </p>
-        </div>
-      </div>
-
-      <!-- Score + Veredicto -->
-      <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-4 bg-[var(--color-radar-card)] border border-[var(--color-radar-border)] rounded-2xl p-5">
-        <ScoreBadge score={tool.score_total} label="Puntuación total" size="lg" />
-        <div class="flex-1">
-          <VerdictTag verdict={tool.verdict} riskLevel={tool.risk_level} />
-        </div>
-        <div class="text-xs text-[var(--color-radar-text-muted)]">
-          <p>Detectado: {formatDate(tool.detected_at)}</p>
-          <p>Revisado: {formatDate(tool.last_checked_at)}</p>
-        </div>
-      </div>
-
-      <!-- Marca de agua + Uso comercial -->
-      <div class="flex flex-wrap gap-3 mb-4">
-        <span class={`px-3 py-1.5 text-xs font-medium rounded-lg border ${tool.has_watermark === false ? 'bg-green-500/10 text-green-400 border-green-500/20' : tool.has_watermark === true ? 'bg-red-500/10 text-red-400 border-red-500/20' : 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20'}`}>
-          Marca de agua: {tool.has_watermark === true ? "Sí" : tool.has_watermark === false ? "No" : "No confirmado"}
-        </span>
-        <span class={`px-3 py-1.5 text-xs font-medium rounded-lg border ${tool.commercial_use === true ? 'bg-green-500/10 text-green-400 border-green-500/20' : tool.commercial_use === false ? 'bg-red-500/10 text-red-400 border-red-500/20' : 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20'}`}>
-          Uso comercial: {tool.commercial_use === true ? "✅ Sí" : tool.commercial_use === "parcial" ? "⚠️ Parcial" : tool.commercial_use === false ? "❌ No" : "No confirmado"}
-        </span>
-        <span class={`px-3 py-1.5 text-xs font-medium rounded-lg border ${tool.local_install === true ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' : 'bg-[var(--color-radar-surface)] text-[var(--color-radar-text-muted)] border-[var(--color-radar-border)]'}`}>
-          Instalación local: {tool.local_install === true ? "✅ Sí" : tool.local_install === false ? "No" : "No confirmado"}
-        </span>
-      </div>
-
-      <!-- Novedad detectada -->
-      {tool.novelty_summary && (
-        <div class="p-4 rounded-xl bg-[var(--color-radar-accent)]/5 border border-[var(--color-radar-accent)]/20">
-          <span class="text-xs font-semibold text-[var(--color-radar-accent-glow)] uppercase tracking-wide">Novedad detectada</span>
-          <p class="text-sm text-[var(--color-radar-text)] mt-1">{tool.novelty_summary}</p>
-        </div>
-      )}
     </div>
 
-    <!-- Main content grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <!-- Left: main content -->
-      <div class="lg:col-span-2 space-y-8">
-        <!-- Description -->
-        <section>
-          <h2 class="text-lg font-bold text-[var(--color-radar-text)] mb-3">📋 Descripción</h2>
-          <p class="text-[var(--color-radar-text-muted)] leading-relaxed">{tool.description_long || tool.description_short}</p>
+    <!-- Panel de control de datos rápidos -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+      <div class="p-4 rounded-xl bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)]">
+        <span class="text-[9px] font-bold uppercase tracking-widest text-[var(--color-radar-text-muted)] block mb-1">Licencia comercial</span>
+        <p class="text-sm font-bold text-[var(--color-radar-text)]">
+          {tool.commercial_use === true ? "✅ Autorizado" : tool.commercial_use === "parcial" ? "⚠️ Parcial" : tool.commercial_use === false ? "❌ No" : "No confirmado"}
+        </p>
+      </div>
+
+      <div class="p-4 rounded-xl bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)]">
+        <span class="text-[9px] font-bold uppercase tracking-widest text-[var(--color-radar-text-muted)] block mb-1">Tarjeta de crédito</span>
+        <p class={`text-sm font-bold ${tool.requires_credit_card === true ? 'text-[#FF7B8F]' : tool.requires_credit_card === false ? 'text-[#74F7C0]' : 'text-[#F2C66D]'}`}>
+          {tool.requires_credit_card === true ? "Requerida" : tool.requires_credit_card === false ? "No obligatoria" : "No confirmado"}
+        </p>
+      </div>
+
+      <div class="p-4 rounded-xl bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)]">
+        <span class="text-[9px] font-bold uppercase tracking-widest text-[var(--color-radar-text-muted)] block mb-1">Registro de cuenta</span>
+        <p class="text-sm font-bold text-[var(--color-radar-text)]">
+          {tool.requires_signup === true ? "Requerido" : tool.requires_signup === false ? "Sin registro" : "No confirmado"}
+        </p>
+      </div>
+
+      <div class="p-4 rounded-xl bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)]">
+        <span class="text-[9px] font-bold uppercase tracking-widest text-[var(--color-radar-text-muted)] block mb-1">Marca de agua</span>
+        <p class={`text-sm font-bold ${tool.has_watermark === true ? 'text-[#FF7B8F]' : tool.has_watermark === false ? 'text-[#74F7C0]' : 'text-[#F2C66D]'}`}>
+          {tool.has_watermark === true ? "Presente" : tool.has_watermark === false ? "Limpio" : "No confirmado"}
+        </p>
+      </div>
+    </div>
+
+    <!-- Estructura principal en dos columnas -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <!-- Columna izquierda: Análisis y detalles de uso -->
+      <div class="lg:col-span-8 space-y-10">
+        <!-- Veredicto del radar -->
+        <section class={`p-5 rounded-xl ${riskBgColors[tool.risk_level] || 'bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)]'}`}>
+          <span class="text-[10px] font-extrabold uppercase tracking-widest text-[var(--color-radar-text)] block mb-2">Veredicto del radar</span>
+          <p class="text-sm font-medium leading-relaxed text-[var(--color-radar-text)]">{tool.verdict}</p>
         </section>
 
-        <!-- Plan gratuito -->
-        <section>
-          <h2 class="text-lg font-bold text-[var(--color-radar-text)] mb-3">🆓 Plan gratuito</h2>
-          <div class="p-4 rounded-xl bg-[var(--color-radar-card)] border border-[var(--color-radar-border)]">
-            <p class="text-sm text-[var(--color-radar-text)]">{tool.free_plan_summary}</p>
+        <!-- Descripción -->
+        <section class="space-y-3">
+          <h2 class="text-lg font-bold text-[var(--color-radar-text)] font-sora uppercase tracking-wider pb-2 border-b border-[var(--color-radar-border)]">Descripción de la herramienta</h2>
+          <p class="text-xs sm:text-sm text-[var(--color-radar-text-muted)] leading-relaxed">{tool.description_long || tool.description_short}</p>
+        </section>
+
+        <!-- Plan Gratuito (Qué ofrece gratis) -->
+        <section class="space-y-3">
+          <h2 class="text-lg font-bold text-[var(--color-radar-text)] font-sora uppercase tracking-wider pb-2 border-b border-[var(--color-radar-border)]">Qué ofrece gratis</h2>
+          <div class="p-5 rounded-xl bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] text-xs sm:text-sm leading-relaxed text-[var(--color-radar-text)]">
+            {tool.free_plan_summary}
           </div>
         </section>
 
-        <!-- Sirve para / No sirve para -->
-        <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <h3 class="text-sm font-bold text-green-400 mb-2">✅ Sirve para</h3>
-            <ul class="space-y-1">
+        <!-- Sirve para / No sirve para (Límites reales) -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="p-5 rounded-xl bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)]">
+            <h3 class="text-xs font-bold text-[#74F7C0] uppercase tracking-widest mb-3">Para quién sirve</h3>
+            <ul class="space-y-2">
               {tool.use_cases?.map((uc: string) => (
-                <li class="text-sm text-[var(--color-radar-text-muted)] flex items-start gap-2">
-                  <span class="text-green-400 mt-0.5">•</span> {uc}
+                <li class="text-xs text-[var(--color-radar-text-muted)] flex items-start gap-2 leading-relaxed">
+                  <span class="text-[#74F7C0] font-bold">•</span>
+                  {uc}
                 </li>
               ))}
             </ul>
           </div>
-          <div>
-            <h3 class="text-sm font-bold text-red-400 mb-2">❌ No sirve para</h3>
-            <ul class="space-y-1">
+          <div class="p-5 rounded-xl bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)]">
+            <h3 class="text-xs font-bold text-[#FF7B8F] uppercase tracking-widest mb-3">Para quién no</h3>
+            <ul class="space-y-2">
               {tool.limitations?.map((lim: string) => (
-                <li class="text-sm text-[var(--color-radar-text-muted)] flex items-start gap-2">
-                  <span class="text-red-400 mt-0.5">•</span> {lim}
+                <li class="text-xs text-[var(--color-radar-text-muted)] flex items-start gap-2 leading-relaxed">
+                  <span class="text-[#FF7B8F] font-bold">•</span>
+                  {lim}
                 </li>
               ))}
             </ul>
@@ -180,134 +190,136 @@ const seoTitle = buildSeoTitle(tool.name, tool.subcategory, tool.category);
 
         <!-- Alternativas -->
         {tool.alternatives && tool.alternatives.length > 0 && (
-          <section>
-            <h2 class="text-lg font-bold text-[var(--color-radar-text)] mb-3">🔄 Alternativas</h2>
+          <section class="space-y-3">
+            <h2 class="text-lg font-bold text-[var(--color-radar-text)] font-sora uppercase tracking-wider pb-2 border-b border-[var(--color-radar-border)]">Alternativas recomendadas</h2>
             <div class="flex flex-wrap gap-2">
-              {tool.alternatives.map((alt: string) => (
-                <span class="px-3 py-1.5 text-sm rounded-lg bg-[var(--color-radar-card)] border border-[var(--color-radar-border)] text-[var(--color-radar-text-muted)]">{alt}</span>
-              ))}
+              {tool.alternatives.map((alt: string) => {
+                // Si la alternativa coincide con alguna herramienta en toolsData, podemos enlazarla
+                const linkedTool = toolsData.find((t) => t.name.toLowerCase().includes(alt.toLowerCase()) || alt.toLowerCase().includes(t.name.toLowerCase()));
+                return linkedTool ? (
+                  <a href={`/tools/${linkedTool.slug}`} class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] text-[var(--color-radar-accent)] hover:border-[var(--color-radar-accent)]/30 transition-all">
+                    {alt} &rarr;
+                  </a>
+                ) : (
+                  <span class="px-3 py-1.5 text-xs rounded-lg bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] text-[var(--color-radar-text-muted)]">
+                    {alt}
+                  </span>
+                );
+              })}
             </div>
           </section>
         )}
       </div>
 
-      <!-- Right: sidebar -->
-      <aside class="space-y-6">
-        <!-- Puntuaciones detalladas -->
-        <div class="p-5 rounded-2xl bg-[var(--color-radar-card)] border border-[var(--color-radar-border)]">
-          <h3 class="font-bold text-[var(--color-radar-text)] mb-4">📊 Puntuaciones</h3>
-          <div class="space-y-3">
+      <!-- Columna derecha: Sidebar (Puntuaciones detalladas + Enlaces + Fuentes) -->
+      <aside class="lg:col-span-4 space-y-6">
+        <!-- Puntuaciones Desglosadas -->
+        <div class="p-6 rounded-xl bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)]">
+          <h3 class="font-bold text-xs uppercase tracking-widest text-[var(--color-radar-text)] mb-5 pb-2 border-b border-[var(--color-radar-border)]">Análisis de scoring</h3>
+          <div class="space-y-4">
             <div>
-              <div class="flex justify-between text-sm mb-1">
+              <div class="flex justify-between text-xs mb-1.5">
                 <span class="text-[var(--color-radar-text-muted)]">Gratis real</span>
-                <span class="text-[var(--color-radar-text)] font-medium">{tool.score_free_real}/10</span>
+                <span class="text-[var(--color-radar-text)] font-bold">{tool.score_free_real}/10</span>
               </div>
-              <div class="h-1.5 rounded-full bg-[var(--color-radar-bg)]">
-                <div class="h-full rounded-full bg-green-500" style={`width: ${tool.score_free_real * 10}%`}></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between text-sm mb-1">
-                <span class="text-[var(--color-radar-text-muted)]">Utilidad</span>
-                <span class="text-[var(--color-radar-text)] font-medium">{tool.score_usefulness}/10</span>
-              </div>
-              <div class="h-1.5 rounded-full bg-[var(--color-radar-bg)]">
-                <div class="h-full rounded-full bg-blue-500" style={`width: ${tool.score_usefulness * 10}%`}></div>
+              <div class="h-1 bg-[var(--color-radar-bg)] rounded-full overflow-hidden">
+                <div class="h-full bg-[#74F7C0]" style={`width: ${tool.score_free_real * 10}%`}></div>
               </div>
             </div>
+            
             <div>
-              <div class="flex justify-between text-sm mb-1">
-                <span class="text-[var(--color-radar-text-muted)]">Facilidad</span>
-                <span class="text-[var(--color-radar-text)] font-medium">{tool.score_ease}/10</span>
+              <div class="flex justify-between text-xs mb-1.5">
+                <span class="text-[var(--color-radar-text-muted)]">Utilidad práctica</span>
+                <span class="text-[var(--color-radar-text)] font-bold">{tool.score_usefulness}/10</span>
               </div>
-              <div class="h-1.5 rounded-full bg-[var(--color-radar-bg)]">
-                <div class="h-full rounded-full bg-yellow-500" style={`width: ${tool.score_ease * 10}%`}></div>
+              <div class="h-1 bg-[var(--color-radar-bg)] rounded-full overflow-hidden">
+                <div class="h-full bg-[#789BFF]" style={`width: ${tool.score_usefulness * 10}%`}></div>
               </div>
             </div>
+
             <div>
-              <div class="flex justify-between text-sm mb-1">
+              <div class="flex justify-between text-xs mb-1.5">
+                <span class="text-[var(--color-radar-text-muted)]">Facilidad de uso</span>
+                <span class="text-[var(--color-radar-text)] font-bold">{tool.score_ease}/10</span>
+              </div>
+              <div class="h-1 bg-[var(--color-radar-bg)] rounded-full overflow-hidden">
+                <div class="h-full bg-[#F2C66D]" style={`width: ${tool.score_ease * 10}%`}></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs mb-1.5">
                 <span class="text-[var(--color-radar-text-muted)]">Potencial creadores</span>
-                <span class="text-[var(--color-radar-text)] font-medium">{tool.score_creator_potential}/10</span>
+                <span class="text-[var(--color-radar-text)] font-bold">{tool.score_creator_potential}/10</span>
               </div>
-              <div class="h-1.5 rounded-full bg-[var(--color-radar-bg)]">
-                <div class="h-full rounded-full bg-purple-500" style={`width: ${tool.score_creator_potential * 10}%`}></div>
+              <div class="h-1 bg-[var(--color-radar-bg)] rounded-full overflow-hidden">
+                <div class="h-full bg-[#FF7B8F]" style={`width: ${tool.score_creator_potential * 10}%`}></div>
               </div>
             </div>
+
             <div>
-              <div class="flex justify-between text-sm mb-1">
+              <div class="flex justify-between text-xs mb-1.5">
                 <span class="text-[var(--color-radar-text-muted)]">Transparencia</span>
-                <span class="text-[var(--color-radar-text)] font-medium">{tool.score_transparency}/10</span>
+                <span class="text-[var(--color-radar-text)] font-bold">{tool.score_transparency}/10</span>
               </div>
-              <div class="h-1.5 rounded-full bg-[var(--color-radar-bg)]">
-                <div class="h-full rounded-full bg-cyan-500" style={`width: ${tool.score_transparency * 10}%`}></div>
+              <div class="h-1 bg-[var(--color-radar-bg)] rounded-full overflow-hidden">
+                <div class="h-full bg-[var(--color-radar-text-muted)]" style={`width: ${tool.score_transparency * 10}%`}></div>
               </div>
             </div>
           </div>
-          <div class="mt-4 pt-3 border-t border-[var(--color-radar-border)]">
-            <div class="flex justify-between">
-              <span class="text-sm text-[var(--color-radar-text-muted)]">Riesgo de humo</span>
-              <span class={`text-sm font-bold ${
-                tool.risk_level === "bajo" ? "text-green-400" :
-                tool.risk_level === "medio" ? "text-yellow-400" : "text-red-400"
-              }`}>
-                {tool.risk_level === "bajo" ? "🟢 Bajo" : tool.risk_level === "medio" ? "🟡 Medio" : "🔴 Alto"}
-              </span>
-            </div>
+
+          <div class="mt-6 pt-4 border-t border-[var(--color-radar-border)] flex justify-between items-center text-xs">
+            <span class="text-[var(--color-radar-text-muted)]">Riesgo de humo</span>
+            <span class={`font-extrabold uppercase tracking-wider ${riskColors[tool.risk_level] || 'text-[var(--color-radar-text)]'}`}>
+              {tool.risk_level === "bajo" ? "Bajo" : tool.risk_level === "medio" ? "Medio" : "Alto"}
+            </span>
           </div>
         </div>
 
-        <!-- Enlaces -->
-        <div class="p-5 rounded-2xl bg-[var(--color-radar-card)] border border-[var(--color-radar-border)]">
-          <h3 class="font-bold text-[var(--color-radar-text)] mb-4">🔗 Enlaces</h3>
-          <div class="space-y-2">
+        <!-- Enlaces oficiales -->
+        <div class="p-6 rounded-xl bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)]">
+          <h3 class="font-bold text-xs uppercase tracking-widest text-[var(--color-radar-text)] mb-4 pb-2 border-b border-[var(--color-radar-border)]">Recursos externos</h3>
+          <div class="flex flex-col gap-3">
             {tool.official_url && (
               <a href={tool.official_url} target="_blank" rel="noopener noreferrer"
-                class="flex items-center gap-2 text-sm text-[var(--color-radar-accent-glow)] hover:underline">
-                🌐 Web oficial &rarr;
+                class="flex items-center justify-between text-xs text-[var(--color-radar-accent)] font-semibold hover:underline">
+                <span>Sitio web oficial</span>
+                <span>&rarr;</span>
               </a>
             )}
             {tool.github_url && (
               <a href={tool.github_url} target="_blank" rel="noopener noreferrer"
-                class="flex items-center gap-2 text-sm text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-text)]">
-                📦 GitHub &rarr;
+                class="flex items-center justify-between text-xs text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-text)] transition-colors">
+                <span>Repositorio GitHub</span>
+                <span>&rarr;</span>
               </a>
             )}
             {tool.pricing_url && (
               <a href={tool.pricing_url} target="_blank" rel="noopener noreferrer"
-                class="flex items-center gap-2 text-sm text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-text)]">
-                💰 Pricing &rarr;
+                class="flex items-center justify-between text-xs text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-text)] transition-colors">
+                <span>Tabla de precios</span>
+                <span>&rarr;</span>
               </a>
             )}
             {tool.docs_url && (
               <a href={tool.docs_url} target="_blank" rel="noopener noreferrer"
-                class="flex items-center gap-2 text-sm text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-text)]">
-                📖 Documentación &rarr;
+                class="flex items-center justify-between text-xs text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-text)] transition-colors">
+                <span>Documentación</span>
+                <span>&rarr;</span>
               </a>
             )}
           </div>
         </div>
 
-        <!-- Tags -->
-        <div class="p-5 rounded-2xl bg-[var(--color-radar-card)] border border-[var(--color-radar-border)]">
-          <h3 class="font-bold text-[var(--color-radar-text)] mb-3">🏷️ Etiquetas</h3>
-          <div class="flex flex-wrap gap-1.5">
-            {tool.tags?.map((tag: string) => (
-              <span class="px-2.5 py-1 text-xs font-medium rounded-lg bg-[var(--color-radar-surface)] text-[var(--color-radar-text-muted)] border border-[var(--color-radar-border)]">
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <!-- Fuentes -->
+        <!-- Fuentes utilizadas -->
         {tool.source_urls && tool.source_urls.length > 0 && (
-          <div class="p-5 rounded-2xl bg-[var(--color-radar-card)] border border-[var(--color-radar-border)]">
-            <h3 class="font-bold text-[var(--color-radar-text)] mb-3">📚 Fuentes</h3>
-            <ul class="space-y-1">
+          <div class="p-6 rounded-xl bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)]">
+            <h3 class="font-bold text-xs uppercase tracking-widest text-[var(--color-radar-text)] mb-3 pb-2 border-b border-[var(--color-radar-border)]">Fuentes de análisis</h3>
+            <ul class="space-y-2">
               {tool.source_urls.map((url: string) => (
                 <li>
                   <a href={url} target="_blank" rel="noopener noreferrer"
-                    class="text-xs text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-accent-glow)] break-all">
+                    class="text-[10px] text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-accent)] break-all font-medium transition-colors">
                     {url}
                   </a>
                 </li>

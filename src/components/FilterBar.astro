@@ -12,67 +12,105 @@ const freeTypes = [
 ];
 
 const quickFilters = [
-  { label: "✅ Gratis real", param: "free_type", value: "Gratis real" },
-  { label: "🚫 Sin tarjeta", param: "no_card", value: "true" },
-  { label: "🔓 Open-source", param: "free_type", value: "Open-source" },
-  { label: "💻 Local", param: "free_type", value: "Local" },
-  { label: "🎬 Vídeo IA", param: "category", value: "Vídeo IA" },
-  { label: "🖼️ Imagen IA", param: "category", value: "Imagen IA" },
-  { label: "🎤 Voz IA", param: "category", value: "Voz IA" },
-  { label: "💻 Código", param: "category", value: "Código" },
-  { label: "🤖 Modelos locales", param: "category", value: "Modelos open-source" },
-  { label: "🎨 Para creadores", param: "creator", value: "true" },
-  { label: "⭐ Mejor puntuadas", param: "sort", value: "score" },
-  { label: "🆕 Nuevas esta semana", param: "sort", value: "newest" },
+  { label: "Gratis real", param: "free_type", value: "Gratis real" },
+  { label: "Sin tarjeta", param: "no_card", value: "true" },
+  { label: "Código abierto", param: "free_type", value: "Open-source" },
+  { label: "Local", param: "free_type", value: "Local" },
+  { label: "Vídeo", param: "category", value: "Vídeo IA" },
+  { label: "Imagen", param: "category", value: "Imagen IA" },
+  { label: "Voz", param: "category", value: "Voz IA" },
+  { label: "Código", param: "category", value: "Código" },
+  { label: "Modelos locales", param: "category", value: "Modelos open-source" },
+  { label: "Para creadores", param: "creator", value: "true" },
+  { label: "Mejor puntuadas", param: "sort", value: "score" },
+  { label: "Novedades recientes", param: "sort", value: "newest" },
 ];
 ---
 
-<div class="space-y-4" id="filter-bar">
-  <!-- Quick filters -->
-  <div class="flex flex-wrap gap-2">
-    {quickFilters.map((f) => (
+<div class="space-y-5" id="filter-bar">
+  <!-- Quick filters (carrusel horizontal en móvil, grid/flex en escritorio) -->
+  <div>
+    <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--color-radar-text-muted)] block mb-2">Filtros rápidos</span>
+    <div class="flex flex-nowrap overflow-x-auto pb-2 gap-2 scrollbar-none md:flex-wrap md:pb-0">
+      {quickFilters.map((f) => (
+        <button
+          type="button"
+          class="filter-btn flex-shrink-0 whitespace-nowrap px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg border border-[var(--color-radar-border)] text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-text)] hover:border-[var(--color-radar-accent)]/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-radar-accent)] transition-all cursor-pointer"
+          data-param={f.param}
+          data-value={f.value}
+        >
+          {f.label}
+        </button>
+      ))}
       <button
-        class="filter-btn px-3 py-1.5 text-xs font-medium rounded-lg border border-[var(--color-radar-border)] text-[var(--color-radar-text-muted)] hover:text-[var(--color-radar-text)] hover:border-[var(--color-radar-accent)]/50 transition-all"
-        data-param={f.param}
-        data-value={f.value}
+        type="button"
+        id="clear-filters-btn"
+        class="flex-shrink-0 whitespace-nowrap px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg border border-red-500/20 text-red-400 hover:bg-red-500/10 focus-visible:outline-none transition-all cursor-pointer hidden"
       >
-        {f.label}
+        Limpiar filtros
       </button>
-    ))}
+    </div>
   </div>
 
-  <!-- Category dropdown -->
+  <!-- Category dropdowns -->
   <div class="flex flex-wrap gap-3">
-    <select
-      id="filter-category"
-      class="px-3 py-2 bg-[var(--color-radar-card)] border border-[var(--color-radar-border)] rounded-lg text-sm text-[var(--color-radar-text)] focus:outline-none focus:border-[var(--color-radar-accent)]"
-    >
-      <option value="">Todas las categorías</option>
-      {categories.map((cat) => (
-        <option value={cat}>{cat}</option>
-      ))}
-    </select>
+    <div class="flex flex-col gap-1.5 min-w-[200px] flex-1 sm:flex-initial">
+      <label for="filter-category" class="text-[10px] font-bold uppercase tracking-widest text-[var(--color-radar-text-muted)]">Categoría</label>
+      <select
+        id="filter-category"
+        class="px-3 py-2.5 bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] rounded-lg text-xs font-bold uppercase tracking-wider text-[var(--color-radar-text)] focus:outline-none focus:border-[var(--color-radar-accent)] cursor-pointer"
+      >
+        <option value="">Todas las categorías</option>
+        {categories.map((cat) => (
+          <option value={cat}>{cat}</option>
+        ))}
+      </select>
+    </div>
 
-    <select
-      id="filter-free-type"
-      class="px-3 py-2 bg-[var(--color-radar-card)] border border-[var(--color-radar-border)] rounded-lg text-sm text-[var(--color-radar-text)] focus:outline-none focus:border-[var(--color-radar-accent)]"
-    >
-      <option value="">Todos los tipos de gratuidad</option>
-      {freeTypes.map((ft) => (
-        <option value={ft}>{ft}</option>
-      ))}
-    </select>
+    <div class="flex flex-col gap-1.5 min-w-[200px] flex-1 sm:flex-initial">
+      <label for="filter-free-type" class="text-[10px] font-bold uppercase tracking-widest text-[var(--color-radar-text-muted)]">Gratuidad</label>
+      <select
+        id="filter-free-type"
+        class="px-3 py-2.5 bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] rounded-lg text-xs font-bold uppercase tracking-wider text-[var(--color-radar-text)] focus:outline-none focus:border-[var(--color-radar-accent)] cursor-pointer"
+      >
+        <option value="">Todos los tipos</option>
+        {freeTypes.map((ft) => (
+          <option value={ft}>{ft}</option>
+        ))}
+      </select>
+    </div>
 
-    <select
-      id="filter-sort"
-      class="px-3 py-2 bg-[var(--color-radar-card)] border border-[var(--color-radar-border)] rounded-lg text-sm text-[var(--color-radar-text)] focus:outline-none focus:border-[var(--color-radar-accent)]"
-    >
-      <option value="score">Mejor puntuadas</option>
-      <option value="newest">Más recientes</option>
-      <option value="name">Alfabético</option>
-    </select>
+    <div class="flex flex-col gap-1.5 min-w-[150px] flex-1 sm:flex-initial">
+      <label for="filter-sort" class="text-[10px] font-bold uppercase tracking-widest text-[var(--color-radar-text-muted)]">Ordenar por</label>
+      <select
+        id="filter-sort"
+        class="px-3 py-2.5 bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] rounded-lg text-xs font-bold uppercase tracking-wider text-[var(--color-radar-text)] focus:outline-none focus:border-[var(--color-radar-accent)] cursor-pointer"
+      >
+        <option value="score">Mejor score</option>
+        <option value="newest">Más recientes</option>
+        <option value="name">Alfabético</option>
+      </select>
+    </div>
   </div>
 </div>
+
+<style>
+  /* Ocultar barra de scroll en Webkit (Safari, Chrome) y Firefox */
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-none {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  /* Estilos para el botón de filtro activo */
+  .filter-btn-active {
+    background-color: var(--color-radar-accent) !important;
+    color: var(--color-radar-bg) !important;
+    border-color: var(--color-radar-accent) !important;
+  }
+</style>
 
 <script>
   function applyFilters() {
@@ -103,43 +141,88 @@ const quickFilters = [
     });
 
     visible.forEach(card => container.appendChild(card));
+
+    // Mostrar botón de limpiar filtros si hay algún select o filtro aplicado
+    const clearBtn = document.getElementById('clear-filters-btn');
+    if (clearBtn) {
+      if (category || freeType || sort !== 'score') {
+        clearBtn.classList.remove('hidden');
+      } else {
+        clearBtn.classList.add('hidden');
+      }
+    }
   }
 
   document.getElementById('filter-category')?.addEventListener('change', applyFilters);
   document.getElementById('filter-free-type')?.addEventListener('change', applyFilters);
   document.getElementById('filter-sort')?.addEventListener('change', applyFilters);
 
+  // Botón de limpiar filtros
+  document.getElementById('clear-filters-btn')?.addEventListener('click', () => {
+    const catSelect = document.getElementById('filter-category') as HTMLSelectElement;
+    const ftSelect = document.getElementById('filter-free-type') as HTMLSelectElement;
+    const sortSelect = document.getElementById('filter-sort') as HTMLSelectElement;
+
+    if (catSelect) catSelect.value = '';
+    if (ftSelect) ftSelect.value = '';
+    if (sortSelect) sortSelect.value = 'score';
+
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('filter-btn-active'));
+    document.getElementById('clear-filters-btn')?.classList.add('hidden');
+    applyFilters();
+  });
+
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      const param = (btn as HTMLElement).dataset.param;
-      const value = (btn as HTMLElement).dataset.value;
-      if (param === 'category') {
-        (document.getElementById('filter-category') as HTMLSelectElement).value = value || '';
-      } else if (param === 'free_type') {
-        (document.getElementById('filter-free-type') as HTMLSelectElement).value = value || '';
-      } else if (param === 'sort') {
-        (document.getElementById('filter-sort') as HTMLSelectElement).value = value || '';
+      const el = btn as HTMLElement;
+      
+      // Toggle estilo de botón activo
+      const isActive = el.classList.contains('filter-btn-active');
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('filter-btn-active'));
+      
+      if (!isActive) {
+        el.classList.add('filter-btn-active');
+      }
+
+      const param = el.dataset.param;
+      const value = el.dataset.value;
+
+      const catSelect = document.getElementById('filter-category') as HTMLSelectElement;
+      const ftSelect = document.getElementById('filter-free-type') as HTMLSelectElement;
+      const sortSelect = document.getElementById('filter-sort') as HTMLSelectElement;
+
+      // Si se desactiva un filtro activo pulsando de nuevo, limpiamos todo
+      if (isActive) {
+        if (param === 'category' && catSelect) catSelect.value = '';
+        if (param === 'free_type' && ftSelect) ftSelect.value = '';
+        if (param === 'sort' && sortSelect) sortSelect.value = 'score';
+        applyFilters();
+        return;
+      }
+
+      if (param === 'category' && catSelect) {
+        catSelect.value = value || '';
+      } else if (param === 'free_type' && ftSelect) {
+        ftSelect.value = value || '';
+      } else if (param === 'sort' && sortSelect) {
+        sortSelect.value = value || '';
       } else if (param === 'creator') {
-        // Filter by creator potential score >= 6
+        // Filtro personalizado de creador
         document.querySelectorAll('[data-tool-card]').forEach((card) => {
-          const el = card as HTMLElement;
-          const creatorScore = parseInt(el.getAttribute('data-creator') || '0');
-          el.style.display = creatorScore >= 6 ? '' : 'none';
+          const cardEl = card as HTMLElement;
+          const creatorScore = parseInt(cardEl.getAttribute('data-creator') || '0');
+          cardEl.style.display = creatorScore >= 6 ? '' : 'none';
         });
+        document.getElementById('clear-filters-btn')?.classList.remove('hidden');
         return;
       } else if (param === 'no_card') {
+        // Filtro personalizado sin tarjeta
         document.querySelectorAll('[data-tool-card]').forEach((card) => {
-          const el = card as HTMLElement;
-          const needsCard = el.getAttribute('data-card') === 'true';
-          el.style.display = needsCard ? 'none' : '';
+          const cardEl = card as HTMLElement;
+          const needsCard = cardEl.getAttribute('data-card') === 'true';
+          cardEl.style.display = needsCard ? 'none' : '';
         });
-        return;
-      } else if (param === 'risk') {
-        document.querySelectorAll('[data-tool-card]').forEach((card) => {
-          const el = card as HTMLElement;
-          const risk = el.getAttribute('data-risk') || '';
-          el.style.display = value === 'bajo' ? (risk === 'bajo' ? '' : 'none') : '';
-        });
+        document.getElementById('clear-filters-btn')?.classList.remove('hidden');
         return;
       }
       applyFilters();

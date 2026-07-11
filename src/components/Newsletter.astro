@@ -5,45 +5,55 @@ const interests = [
 ];
 ---
 
-<section id="newsletter" class="bg-gradient-to-br from-[var(--color-radar-surface)] to-[var(--color-radar-card)] border border-[var(--color-radar-border)] rounded-3xl p-8 md:p-12 max-w-4xl mx-auto">
-  <div class="text-center mb-8">
-    <h2 class="text-2xl md:text-3xl font-bold text-[var(--color-radar-text)] mb-3">
-      📡 Recibe cada semana las mejores novedades de IA gratis
-    </h2>
-    <p class="text-[var(--color-radar-text-muted)] max-w-lg mx-auto text-lg">
-      Filtradas y sin humo. Solo herramientas que merecen la pena.
-    </p>
-  </div>
+<div id="newsletter" class="bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] rounded-xl p-8 md:p-12 max-w-4xl mx-auto relative overflow-hidden">
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(116,247,192,0.02),transparent_40%)]"></div>
 
-  <form class="max-w-md mx-auto space-y-4" onsubmit="event.preventDefault(); alert('Newsletter preparada. La integración real se activará en la siguiente fase.');">
-    <input
-      type="email"
-      placeholder="tu@email.com"
-      required
-      class="w-full px-4 py-3 bg-[var(--color-radar-bg)] border border-[var(--color-radar-border)] rounded-xl text-[var(--color-radar-text)] placeholder-[var(--color-radar-text-muted)] focus:outline-none focus:border-[var(--color-radar-accent)] transition-all"
-    />
-
-    <div>
-      <p class="text-sm text-[var(--color-radar-text-muted)] mb-2">Me interesa:</p>
-      <div class="flex flex-wrap gap-2">
-        {interests.map((interest) => (
-          <label class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[var(--color-radar-border)] text-xs text-[var(--color-radar-text-muted)] cursor-pointer hover:border-[var(--color-radar-accent)]/50 transition-all has-[:checked]:border-[var(--color-radar-accent)] has-[:checked]:bg-[var(--color-radar-accent)]/10 has-[:checked]:text-[var(--color-radar-accent-glow)]">
-            <input type="checkbox" class="accent-[var(--color-radar-accent)]" />
-            {interest}
-          </label>
-        ))}
-      </div>
+  <div class="relative z-10">
+    <div class="text-center mb-8">
+      <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--color-radar-accent)]">Boletín tecnológico</span>
+      <h2 class="text-2xl md:text-3xl font-extrabold text-[var(--color-radar-text)] mt-1 mb-2 font-sora">
+        Recibe novedades de IA gratis en tu email
+      </h2>
+      <p class="text-xs sm:text-sm text-[var(--color-radar-text-muted)] max-w-md mx-auto leading-relaxed">
+        Curado por humanos, analizado de forma crítica y 100% libre de humo publicitario. Cada semana en tu bandeja de entrada.
+      </p>
     </div>
 
-    <button
-      type="submit"
-      class="w-full px-6 py-3 bg-[var(--color-radar-accent)] text-white font-semibold rounded-xl hover:bg-[var(--color-radar-accent-glow)] transition-all"
-    >
-      Suscribirse gratis
-    </button>
+    <form class="max-w-md mx-auto space-y-5" onsubmit="event.preventDefault(); alert('Newsletter preparada. La integración real se activará en la siguiente fase.');">
+      <div class="flex flex-col gap-1.5">
+        <label for="newsletter-email" class="text-[10px] font-bold uppercase tracking-widest text-[var(--color-radar-text-muted)]">Correo electrónico</label>
+        <input
+          type="email"
+          id="newsletter-email"
+          placeholder="nombre@correo.com"
+          required
+          class="w-full px-4 py-3 bg-[var(--color-radar-bg)] border border-[var(--color-radar-border)] rounded-lg text-sm text-[var(--color-radar-text)] placeholder-[var(--color-radar-text-muted)] focus:outline-none focus:border-[var(--color-radar-accent)] focus:ring-1 focus:ring-[var(--color-radar-accent)]/30 transition-all duration-300"
+        />
+      </div>
 
-    <p class="text-xs text-center text-[var(--color-radar-text-muted)]">
-      Sin spam. Te puedes dar de baja cuando quieras.
-    </p>
-  </form>
-</section>
+      <div>
+        <p class="text-[10px] font-bold uppercase tracking-widest text-[var(--color-radar-text-muted)] mb-2">Intereses de rastreo</p>
+        <div class="flex flex-wrap gap-2">
+          {interests.map((interest) => (
+            <label class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[var(--color-radar-border)] text-xs text-[var(--color-radar-text-muted)] cursor-pointer hover:border-[var(--color-radar-accent)]/30 transition-all has-[:checked]:border-[var(--color-radar-accent)] has-[:checked]:bg-[var(--color-radar-accent)]/5 has-[:checked]:text-[var(--color-radar-text)] select-none">
+              <input type="checkbox" class="sr-only" />
+              <span class="w-1.5 h-1.5 rounded-full border border-current mr-1 group-checked:bg-[var(--color-radar-accent)]"></span>
+              {interest}
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full px-6 py-3.5 bg-[var(--color-radar-accent)] hover:bg-[var(--color-radar-accent)]/80 text-[var(--color-radar-bg)] font-bold text-xs uppercase tracking-wider rounded-lg transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-radar-accent)]"
+      >
+        Suscribirse gratis
+      </button>
+
+      <p class="text-[10px] text-center text-[var(--color-radar-text-muted)]">
+        Sin spam. Puedes darte de baja en cualquier momento con un solo clic.
+      </p>
+    </form>
+  </div>
+</div>
