@@ -1,0 +1,122 @@
+[
+  {
+    "id": "s-001",
+    "name": "Google DeepMind",
+    "homepage": "https://deepmind.google/blog/",
+    "feed_url": "https://deepmind.google/blog/rss.xml",
+    "source_type": "rss",
+    "official": true,
+    "enabled": true,
+    "category_defaults": "investigacion",
+    "language": "en",
+    "notes": "Feed RSS oficial del laboratorio Google DeepMind. Muy estable."
+  },
+  {
+    "id": "s-002",
+    "name": "Hugging Face Blog",
+    "homepage": "https://huggingface.co/blog",
+    "feed_url": "https://huggingface.co/blog/feed.xml",
+    "source_type": "rss",
+    "official": true,
+    "enabled": true,
+    "category_defaults": "open-source",
+    "language": "en",
+    "notes": "Feed RSS oficial de la comunidad Hugging Face para modelos open-source."
+  },
+  {
+    "id": "s-003",
+    "name": "NVIDIA AI Blog",
+    "homepage": "https://blogs.nvidia.com/blog/category/deep-learning/",
+    "feed_url": "https://blogs.nvidia.com/feed/",
+    "source_type": "rss",
+    "official": true,
+    "enabled": true,
+    "category_defaults": "empresas",
+    "language": "en",
+    "notes": "Feed RSS oficial de Nvidia. Cubre hardware, robótica y modelos."
+  },
+  {
+    "id": "s-004",
+    "name": "Microsoft AI Blog",
+    "homepage": "https://blogs.microsoft.com/ai/",
+    "feed_url": "https://blogs.microsoft.com/feed/",
+    "source_type": "rss",
+    "official": true,
+    "enabled": true,
+    "category_defaults": "productos",
+    "language": "en",
+    "notes": "Feed RSS oficial de Microsoft, centrado en Copilot e infraestructura."
+  },
+  {
+    "id": "s-005",
+    "name": "OpenAI Blog",
+    "homepage": "https://openai.com/blog/",
+    "feed_url": "https://openai.com/blog/rss.xml",
+    "source_type": "rss",
+    "official": true,
+    "enabled": true,
+    "category_defaults": "modelos",
+    "language": "en",
+    "notes": "Feed RSS del blog de OpenAI. Requiere User-Agent de navegador normal."
+  },
+  {
+    "id": "s-006",
+    "name": "Google Research",
+    "homepage": "https://research.google/blog/",
+    "feed_url": "https://research.google/blog/rss/",
+    "source_type": "rss",
+    "official": true,
+    "enabled": true,
+    "category_defaults": "investigacion",
+    "language": "en",
+    "notes": "Feed RSS de Google Research sobre avances científicos de IA."
+  },
+  {
+    "id": "s-007",
+    "name": "Anthropic News",
+    "homepage": "https://www.anthropic.com/news",
+    "feed_url": "https://www.anthropic.com/news.xml",
+    "source_type": "rss",
+    "official": true,
+    "enabled": false,
+    "category_defaults": "modelos",
+    "language": "en",
+    "notes": "Deshabilitado temporalmente: Anthropic no provee un feed RSS estable o público en esta ruta."
+  },
+  {
+    "id": "s-008",
+    "name": "Mistral AI News",
+    "homepage": "https://mistral.ai/news/",
+    "feed_url": "https://mistral.ai/news/index.xml",
+    "source_type": "rss",
+    "official": true,
+    "enabled": false,
+    "category_defaults": "modelos",
+    "language": "en",
+    "notes": "Deshabilitado temporalmente: Mistral no provee un feed RSS estable o público en esta ruta."
+  },
+  {
+    "id": "s-009",
+    "name": "Meta AI Blog",
+    "homepage": "https://ai.meta.com/blog/",
+    "feed_url": "https://ai.meta.com/blog/rss/",
+    "source_type": "rss",
+    "official": true,
+    "enabled": false,
+    "category_defaults": "open-source",
+    "language": "en",
+    "notes": "Deshabilitado temporalmente: El feed RSS oficial de Meta AI retorna códigos de error en llamadas directas sin cookies corporativas."
+  },
+  {
+    "id": "s-010",
+    "name": "Stability AI News",
+    "homepage": "https://stability.ai/news",
+    "feed_url": "https://stability.ai/news?format=rss",
+    "source_type": "rss",
+    "official": true,
+    "enabled": false,
+    "category_defaults": "imagen-video",
+    "language": "en",
+    "notes": "Deshabilitado temporalmente: No se dispone de un feed XML estructurado nativo (retorna HTML)."
+  }
+]
