@@ -1,0 +1,3945 @@
+{
+  "updated_at": "2026-07-12T00:23:08.774Z",
+  "items": [
+    {
+      "id": "news-6d65cf95",
+      "title": "How Deutsche Telekom is rewiring telecommunications with AI",
+      "canonical_url": "https://openai.com/index/deutsche-telekom",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-07-10T07:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "How Deutsche Telekom is becoming an AI-native telco with OpenAI-transforming customer service, employee workflows, network operations, and the future of voice.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-4403f170",
+      "title": "Profiling in PyTorch (Part 3): Attention is all you profile",
+      "canonical_url": "https://huggingface.co/blog/torch-attention-profile",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-07-10T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-26926a1c",
+      "title": "GeForce NOW Turns Up the Heat With New GeForce RTX 5080-Powered Toronto Server",
+      "canonical_url": "https://blogs.nvidia.com/blog/geforce-now-thursday-toronto-expansion/",
+      "source_name": "NVIDIA AI Blog",
+      "source_url": "https://blogs.nvidia.com/blog/category/deep-learning/",
+      "source_type": "rss",
+      "published_at": "2026-07-09T13:00:55.000Z",
+      "fetched_at": "2026-07-12T00:14:16.607Z",
+      "category": "empresas",
+      "tags": [
+        "nvidia-ai-blog"
+      ],
+      "excerpt": "This GFN Thursday brings more games, more power and more ways to play on GeForce NOW. The cloud gaming service is expanding with a new GeForce RTX 5080-powered server in Toronto, bringing dedicated high performance in the cloud closer to me",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-5ec4d948",
+      "title": "GPT-5.6 is now the preferred model in Microsoft 365 Copilot",
+      "canonical_url": "https://openai.com/index/gpt-5-6-preferred-model-microsoft-365-copilot",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-07-09T13:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "Learn how GPT-5.6 powers Microsoft 365 Copilot with stronger AI capabilities across Word, Excel, PowerPoint, Chat, and Cowork for faster, higher-quality work.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-13641dbd",
+      "title": "GPT-5.6: Frontier intelligence that scales with your ambition",
+      "canonical_url": "https://openai.com/index/gpt-5-6",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-07-09T10:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "More intelligence from every token, stronger performance per dollar, and more capability on demand for your hardest work.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-8adae62",
+      "title": "ChatGPT is now a partner for your most ambitious work",
+      "canonical_url": "https://openai.com/index/chatgpt-for-your-most-ambitious-work",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-07-09T10:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "ChatGPT Work is an agent that can take action across your apps and files, stay with a project for hours if needed, and turn a goal into finished work.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-26a16076",
+      "title": "GPT-5.5 Bio Bug Bounty",
+      "canonical_url": "https://openai.com/index/bio-bug-bounty",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-07-09T10:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "Details about the OpenAI Bio Bounty program",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-4614c20e",
+      "title": "SensorFM: Towards a general intelligence and interface for wearable health data",
+      "canonical_url": "https://research.google/blog/sensorfm-towards-a-general-intelligence-and-interface-for-wearable-health-data/",
+      "source_name": "Google Research",
+      "source_url": "https://research.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-07-09T09:56:00.000Z",
+      "fetched_at": "2026-07-12T00:14:18.020Z",
+      "category": "investigacion",
+      "tags": [
+        "google-research"
+      ],
+      "excerpt": "Generative AI",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-21f0acb6",
+      "title": "Data for Agents",
+      "canonical_url": "https://huggingface.co/blog/nvidia/open-data-for-agents",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-07-08T17:16:05.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-2ed48846",
+      "title": "NVIDIA Nemotron Achieves Benchmark-Leading Performance With LangChain Deep Agents Harness",
+      "canonical_url": "https://blogs.nvidia.com/blog/nemotron-langchain-agents-open-stack/",
+      "source_name": "NVIDIA AI Blog",
+      "source_url": "https://blogs.nvidia.com/blog/category/deep-learning/",
+      "source_type": "rss",
+      "published_at": "2026-07-08T15:00:27.000Z",
+      "fetched_at": "2026-07-12T00:14:16.607Z",
+      "category": "empresas",
+      "tags": [
+        "nvidia-ai-blog"
+      ],
+      "excerpt": "NVIDIA Nemotron 3 Ultra is offering leading performance at lower cost than top closed models with the largest and most widely adopted AI agent orchestration platform. LangChain tuned its Deep Agents harness for NVIDIA Nemotron 3 Ultra, achi",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-64ebbfcd",
+      "title": "Our approach to government and national security partnerships",
+      "canonical_url": "https://openai.com/index/government-national-security-partnerships",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-07-08T13:30:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "Learn how OpenAI approaches government and national security partnerships, with principles for responsible AI use, democratic accountability, and public safety.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-11caff2e",
+      "title": "Separating signal from noise in coding evaluations",
+      "canonical_url": "https://openai.com/index/separating-signal-from-noise-coding-evaluations",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-07-08T13:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "A new analysis from OpenAI reveals issues in SWE-Bench Pro, a popular coding benchmark, raising concerns about reliability and accuracy in evaluating AI models.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-73eb981e",
+      "title": "Helping K–12 educators build practical AI skills",
+      "canonical_url": "https://openai.com/index/k-12-educators-practical-skills",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-07-08T10:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "OpenAI Academy and the Walton Family Foundation are bringing hands-on AI Skills Jams to help K–12 educators build practical AI skills for the classroom.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-39f02f57",
+      "title": "Native-speed vLLM transformers modeling backend",
+      "canonical_url": "https://huggingface.co/blog/native-speed-vllm-transformers-backend",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-07-08T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-52a94ef7",
+      "title": "Introducing GPT-Live",
+      "canonical_url": "https://openai.com/index/introducing-gpt-live",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-07-08T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "A new generation of voice models for natural human-AI interaction, now powering ChatGPT Voice.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-554399df",
+      "title": "From Hugging Face to Amazon SageMaker Studio in one click",
+      "canonical_url": "https://huggingface.co/blog/amazon/one-click-to-sagemaker-studio",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-07-07T21:15:33.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-56baa4f",
+      "title": "The power of collaboration: How we can reduce traffic congestion",
+      "canonical_url": "https://research.google/blog/the-power-of-collaboration-how-we-can-reduce-traffic-congestion/",
+      "source_name": "Google Research",
+      "source_url": "https://research.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-07-07T16:42:08.000Z",
+      "fetched_at": "2026-07-12T00:14:18.020Z",
+      "category": "investigacion",
+      "tags": [
+        "google-research"
+      ],
+      "excerpt": "Algorithms & Theory",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-1cfcce35",
+      "title": "Hugging Face Models on Foundry Managed Compute",
+      "canonical_url": "https://huggingface.co/blog/microsoft/foundry-managed-compute",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-07-07T15:20:06.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-75e8647e",
+      "title": "AI Innovators Adopt NVIDIA Vera — Why Max Single-Threaded CPU at Scale Matters",
+      "canonical_url": "https://blogs.nvidia.com/blog/nvidia-vera-max-single-threaded-cpu-at-scale/",
+      "source_name": "NVIDIA AI Blog",
+      "source_url": "https://blogs.nvidia.com/blog/category/deep-learning/",
+      "source_type": "rss",
+      "published_at": "2026-07-07T15:00:52.000Z",
+      "fetched_at": "2026-07-12T00:14:16.607Z",
+      "category": "empresas",
+      "tags": [
+        "nvidia-ai-blog"
+      ],
+      "excerpt": "Max single-threaded CPUs at scale are a new category of CPUs built for the agentic AI era. Across the creation and deployment of an agentic system, the CPU is on the critical path for reasoning, response time and learning. CPUs are the proc",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-44abcd9a",
+      "title": "NVIDIA and Hugging Face Bring New Models and Frameworks to LeRobot for the Open Robotics Community",
+      "canonical_url": "https://blogs.nvidia.com/blog/hugging-face-lerobot-models-frameworks-open-robotics/",
+      "source_name": "NVIDIA AI Blog",
+      "source_url": "https://blogs.nvidia.com/blog/category/deep-learning/",
+      "source_type": "rss",
+      "published_at": "2026-07-07T06:00:26.000Z",
+      "fetched_at": "2026-07-12T00:14:16.607Z",
+      "category": "empresas",
+      "tags": [
+        "nvidia-ai-blog"
+      ],
+      "excerpt": "Open source AI has shown how quickly developers can innovate when models, data and tools are shared. Robotics has the same opportunity, but advancements in physical AI development can still be gated by costly and fragmented resources, from ",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-780deae4",
+      "title": "Run AI workloads on any cloud, store on Hugging Face: zero-egress storage with SkyPilot",
+      "canonical_url": "https://huggingface.co/blog/skypilot-hf-storage",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-07-07T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-48b62edb",
+      "title": "LeRobot v0.6.0: Imagine, Evaluate, Improve",
+      "canonical_url": "https://huggingface.co/blog/lerobot-release-v060",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-07-07T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-41afeee8",
+      "title": "MUFG aims to become AI-native with OpenAI",
+      "canonical_url": "https://openai.com/index/mufg",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-07-07T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "MUFG uses ChatGPT Enterprise to build an AI-native organization, improve workflows, and deliver new AI-powered financial services at scale.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-7dfb2802",
+      "title": "Australian Payments Plus moves faster with ChatGPT and Codex",
+      "canonical_url": "https://openai.com/index/australian-payments-plus",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-07-07T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "See how Australian Payments Plus uses ChatGPT Enterprise and Codex to move faster through payments complexity. AP+ saves time, improves quality, and keeps human judgment central.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-78e62053",
+      "title": "How Open Models Are Driving AI Research",
+      "canonical_url": "https://blogs.nvidia.com/blog/open-models-icml-2026/",
+      "source_name": "NVIDIA AI Blog",
+      "source_url": "https://blogs.nvidia.com/blog/category/deep-learning/",
+      "source_type": "rss",
+      "published_at": "2026-07-06T16:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:16.607Z",
+      "category": "empresas",
+      "tags": [
+        "nvidia-ai-blog"
+      ],
+      "excerpt": "Every year, the International Conference on Machine Learning (ICML) reveals where thousands of AI researchers have decided to put their work. This year’s accepted papers reveal a clear direction: open frontier models and open AI infrastruct",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-266a3e1a",
+      "title": "PRX Part 4: Our Data Strategy",
+      "canonical_url": "https://huggingface.co/blog/Photoroom/prx-part4-data",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-07-06T15:30:55.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-30a0ead4",
+      "title": "How Nations Are Deploying AI for Strategic Priorities",
+      "canonical_url": "https://blogs.nvidia.com/blog/nations-deploy-ai-strategic-priorities/",
+      "source_name": "NVIDIA AI Blog",
+      "source_url": "https://blogs.nvidia.com/blog/category/deep-learning/",
+      "source_type": "rss",
+      "published_at": "2026-07-06T15:00:25.000Z",
+      "fetched_at": "2026-07-12T00:14:16.607Z",
+      "category": "empresas",
+      "tags": [
+        "nvidia-ai-blog"
+      ],
+      "excerpt": "Nations have long invested in domestic infrastructure to advance their economies, protect and use their data, and take advantage of technology opportunities in areas such as transportation, communications, commerce, entertainment and health",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-7a95e393",
+      "title": "The latest in our company transformation",
+      "canonical_url": "https://blogs.microsoft.com/blog/2026/07/06/the-latest-in-our-company-transformation/",
+      "source_name": "Microsoft AI Blog",
+      "source_url": "https://blogs.microsoft.com/ai/",
+      "source_type": "rss",
+      "published_at": "2026-07-06T13:30:28.000Z",
+      "fetched_at": "2026-07-12T00:14:16.868Z",
+      "category": "productos",
+      "tags": [
+        "microsoft-ai-blog"
+      ],
+      "excerpt": "Amy Coleman, EVP and Chief People Officer, shared the following communication with employees today. When I stepped into this role, I promised to communicate more openly with you and share the &#8220;why&#8221; behind our decisions. Today we",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-1f27790",
+      "title": "🤗 Kernels: Major Updates",
+      "canonical_url": "https://huggingface.co/blog/revamped-kernels",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-07-06T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-64fbf632",
+      "title": "Google DeepMind and A24 announce first-of-its-kind research partnership",
+      "canonical_url": "https://deepmind.google/blog/google-deepmind-and-a24-announce-first-of-its-kind-research-partnership/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-07-03T14:25:43.000Z",
+      "fetched_at": "2026-07-12T00:14:16.276Z",
+      "category": "investigacion",
+      "tags": [
+        "google-deepmind"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-5f24954b",
+      "title": "Joyride Through July With 12 Games Coming to GeForce NOW",
+      "canonical_url": "https://blogs.nvidia.com/blog/geforce-now-thursday-july-2026-games-list/",
+      "source_name": "NVIDIA AI Blog",
+      "source_url": "https://blogs.nvidia.com/blog/category/deep-learning/",
+      "source_type": "rss",
+      "published_at": "2026-07-02T13:00:23.000Z",
+      "fetched_at": "2026-07-12T00:14:16.607Z",
+      "category": "empresas",
+      "tags": [
+        "nvidia-ai-blog"
+      ],
+      "excerpt": "Summer is heating up — and GeForce NOW is taking players along for the ride. Start the month with Monopoly: Star Wars Heroes vs. Villains, bringing a galaxy far, far away to the iconic board-game franchise, alongside 12 new games joining th",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-437ee952",
+      "title": "Microsoft Frontier Company: AI engineering that amplifies and protects your intelligence",
+      "canonical_url": "https://blogs.microsoft.com/blog/2026/07/02/microsoft-frontier-company-ai-engineering-that-amplifies-and-protects-your-intelligence/",
+      "source_name": "Microsoft AI Blog",
+      "source_url": "https://blogs.microsoft.com/ai/",
+      "source_type": "rss",
+      "published_at": "2026-07-02T12:59:05.000Z",
+      "fetched_at": "2026-07-12T00:14:16.868Z",
+      "category": "productos",
+      "tags": [
+        "microsoft-ai-blog"
+      ],
+      "excerpt": "The pace of AI adoption is moving incredibly fast. Customers have moved well beyond experimentation and understand the importance of adopting AI to transform their business. They are now concentrating on delivering measurable business outco",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-11087bea",
+      "title": "NVIDIA Unlocks AI Compute at Scale, Inviting Partners to Power the AI Infrastructure Buildout",
+      "canonical_url": "https://blogs.nvidia.com/blog/nvidia-unlocks-ai-compute-at-scale-capital-partners-to-power-ai-infrastructure-buildout/",
+      "source_name": "NVIDIA AI Blog",
+      "source_url": "https://blogs.nvidia.com/blog/category/deep-learning/",
+      "source_type": "rss",
+      "published_at": "2026-07-02T03:34:48.000Z",
+      "fetched_at": "2026-07-12T00:14:16.607Z",
+      "category": "empresas",
+      "tags": [
+        "nvidia-ai-blog"
+      ],
+      "excerpt": "As AI moves from model development to production inference, compute demand is accelerating and shifting toward continuously operating AI factories that generate tokens at scale. This shift requires access to large‑scale, multi‑tenant accele",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-242dea64",
+      "title": "NVIDIA and Partners Build in America, for America",
+      "canonical_url": "https://blogs.nvidia.com/blog/nvidia-and-partners-build-in-america-for-america/",
+      "source_name": "NVIDIA AI Blog",
+      "source_url": "https://blogs.nvidia.com/blog/category/deep-learning/",
+      "source_type": "rss",
+      "published_at": "2026-07-01T13:00:47.000Z",
+      "fetched_at": "2026-07-12T00:14:16.607Z",
+      "category": "empresas",
+      "tags": [
+        "nvidia-ai-blog"
+      ],
+      "excerpt": "NVIDIA and its partners are investing in American manufacturing, supply chains, energy grids and skilled workforces so the U.S. can produce the infrastructure needed for better healthcare, breakthrough scientific discovery, stronger industr",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-4618a0e2",
+      "title": "Hugging Face and Cerebras bring Gemma 4 to real-time voice AI",
+      "canonical_url": "https://huggingface.co/blog/cerebras-gemma4-voice-ai",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-07-01T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-62a1963d",
+      "title": "ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration",
+      "canonical_url": "https://huggingface.co/blog/ibm-research/scarfbench",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-30T18:32:50.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-bb1dd",
+      "title": "Expanding our Heat Resilience data to 50+ global cities",
+      "canonical_url": "https://research.google/blog/expanding-our-heat-resilience-data-to-50-global-cities/",
+      "source_name": "Google Research",
+      "source_url": "https://research.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-30T17:03:00.000Z",
+      "fetched_at": "2026-07-12T00:14:18.020Z",
+      "category": "investigacion",
+      "tags": [
+        "google-research"
+      ],
+      "excerpt": "Climate & Sustainability",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-769cb54e",
+      "title": "NVIDIA BioNeMo Agent Toolkit Brings Accelerated AI to Life Sciences Researchers in Claude Science",
+      "canonical_url": "https://blogs.nvidia.com/blog/claude-science-bionemo-agent-toolkit/",
+      "source_name": "NVIDIA AI Blog",
+      "source_url": "https://blogs.nvidia.com/blog/category/deep-learning/",
+      "source_type": "rss",
+      "published_at": "2026-06-30T17:00:38.000Z",
+      "fetched_at": "2026-07-12T00:14:16.607Z",
+      "category": "empresas",
+      "tags": [
+        "nvidia-ai-blog"
+      ],
+      "excerpt": "Life sciences has entered an era of computational scale, and for more than a decade, NVIDIA has built the full GPU-accelerated computing stack — spanning hardware, frameworks, libraries, models, microservices and domain-specific tools — to ",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-77aedfc9",
+      "title": "Start building with Nano Banana 2 Lite and Gemini Omni Flash",
+      "canonical_url": "https://deepmind.google/blog/start-building-with-nano-banana-2-lite-and-gemini-omni-flash/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-30T16:02:40.000Z",
+      "fetched_at": "2026-07-12T00:14:16.277Z",
+      "category": "investigacion",
+      "tags": [
+        "google-deepmind"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-16e65683",
+      "title": "How NVIDIA’s Inference Software Stack Powers the Lowest Token Cost",
+      "canonical_url": "https://blogs.nvidia.com/blog/inference-software-lowest-token-cost/",
+      "source_name": "NVIDIA AI Blog",
+      "source_url": "https://blogs.nvidia.com/blog/category/deep-learning/",
+      "source_type": "rss",
+      "published_at": "2026-06-30T15:00:57.000Z",
+      "fetched_at": "2026-07-12T00:14:16.607Z",
+      "category": "empresas",
+      "tags": [
+        "nvidia-ai-blog"
+      ],
+      "excerpt": "As organizations move from AI pilots to production AI factories, infrastructure decisions have shifted from peak chip specifications to cost per token: how many useful tokens they can deliver per dollar, per watt and within required latency",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-12a512bf",
+      "title": "How Jaiveer Singh Is Helping Robots — and Developers — Move Faster",
+      "canonical_url": "https://blogs.nvidia.com/blog/nvidia-life-jaiveer-singh/",
+      "source_name": "NVIDIA AI Blog",
+      "source_url": "https://blogs.nvidia.com/blog/category/deep-learning/",
+      "source_type": "rss",
+      "published_at": "2026-06-30T15:00:49.000Z",
+      "fetched_at": "2026-07-12T00:14:16.607Z",
+      "category": "empresas",
+      "tags": [
+        "nvidia-ai-blog"
+      ],
+      "excerpt": "When Jaiveer Singh talks about robots, he doesn’t begin with spectacle. He begins with infrastructure: the boards inside machines, the software that lets developers see through a robot&#8217;s cameras and the engineering required before a r",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-5e7894ad",
+      "title": "Why Specialization Is Inevitable",
+      "canonical_url": "https://huggingface.co/blog/Dharma-AI/why-specialization-is-inevitable",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-30T14:39:11.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-5cd8a0a",
+      "title": "Into the Omniverse: Three Workflows for Improving Vision AI Agent Accuracy With Synthetic Data and Fine-Tuning",
+      "canonical_url": "https://blogs.nvidia.com/blog/vision-ai-agent-skills-omniverse-metropolis/",
+      "source_name": "NVIDIA AI Blog",
+      "source_url": "https://blogs.nvidia.com/blog/category/deep-learning/",
+      "source_type": "rss",
+      "published_at": "2026-06-30T13:00:27.000Z",
+      "fetched_at": "2026-07-12T00:14:16.607Z",
+      "category": "empresas",
+      "tags": [
+        "nvidia-ai-blog"
+      ],
+      "excerpt": "Editor’s note: This post is part of Into the Omniverse, a series focused on how developers, 3D practitioners, and enterprises can transform their workflows using the latest advances in OpenUSD and NVIDIA Omniverse. Vision AI agents are beco",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-2a157594",
+      "title": "Introducing TabFM: A zero-shot foundation model for tabular data",
+      "canonical_url": "https://research.google/blog/introducing-tabfm-a-zero-shot-foundation-model-for-tabular-data/",
+      "source_name": "Google Research",
+      "source_url": "https://research.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-30T10:26:00.000Z",
+      "fetched_at": "2026-07-12T00:14:18.020Z",
+      "category": "investigacion",
+      "tags": [
+        "google-research"
+      ],
+      "excerpt": "Data Management",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-3e663898",
+      "title": "How ChatGPT adoption has expanded",
+      "canonical_url": "https://openai.com/index/how-chatgpt-adoption-has-expanded",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-30T09:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "New OpenAI Signals data shows how ChatGPT adoption is growing globally, with users increasing usage, exploring more capabilities, and driving growth across regions and languages.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-5aad8efa",
+      "title": "Featuring Every Eval Ever Results on Hugging Face Model Pages",
+      "canonical_url": "https://huggingface.co/blog/eee-community-evals",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-30T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-6fe980d5",
+      "title": "Core dump epidemiology: fixing an 18-year-old bug",
+      "canonical_url": "https://openai.com/index/core-dump-epidemiology-data-infrastructure-bug",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-30T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "OpenAI engineers used large-scale core dump analysis to debug rare infrastructure crashes, uncovering both a hardware fault and a long-standing software bug.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-22a99625",
+      "title": "Introducing GeneBench-Pro",
+      "canonical_url": "https://openai.com/index/introducing-genebench-pro",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-30T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "Introducing GeneBench-Pro, a new benchmark testing AI performance in genomics, biology, and scientific research using complex, real-world datasets.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-45e1bbb3",
+      "title": "Inside Genebench-Pro",
+      "canonical_url": "https://openai.com/index/genebench-pro/case-studies",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-30T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-3842b5bd",
+      "title": "DiScoFormer: One transformer for density and score, across distributions",
+      "canonical_url": "https://huggingface.co/blog/allenai/discoformer",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-29T18:02:48.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-af57704",
+      "title": "Claude Meets Blackwell Ultra: Anthropic’s Models Now Run on NVIDIA GB300 in Azure",
+      "canonical_url": "https://blogs.nvidia.com/blog/anthropic-nvidia-gb300-blackwell-ultra-microsoft-azure/",
+      "source_name": "NVIDIA AI Blog",
+      "source_url": "https://blogs.nvidia.com/blog/category/deep-learning/",
+      "source_type": "rss",
+      "published_at": "2026-06-29T17:00:19.000Z",
+      "fetched_at": "2026-07-12T00:14:16.607Z",
+      "category": "empresas",
+      "tags": [
+        "nvidia-ai-blog"
+      ],
+      "excerpt": "Anthropic’s Claude models in Microsoft Foundry — hosted on Microsoft Azure and running on NVIDIA GB300 Blackwell Ultra GPUs — are now generally available, giving Azure-native enterprises a powerful new way to build autonomous and domain-spe",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-3f0df2e9",
+      "title": "Firefly Aerospace Operates NVIDIA Jetson in Lunar Orbit for the First Time",
+      "canonical_url": "https://blogs.nvidia.com/blog/firefly-aerospace-nvidia-jetson-lunar-orbit/",
+      "source_name": "NVIDIA AI Blog",
+      "source_url": "https://blogs.nvidia.com/blog/category/deep-learning/",
+      "source_type": "rss",
+      "published_at": "2026-06-29T15:00:04.000Z",
+      "fetched_at": "2026-07-12T00:14:16.607Z",
+      "category": "empresas",
+      "tags": [
+        "nvidia-ai-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-1483c049",
+      "title": "Open Models, Closed Environments: Palantir Brings Secure AI to US Agencies With NVIDIA Nemotron",
+      "canonical_url": "https://blogs.nvidia.com/blog/palantir-secure-ai-us-agencies-nemotron-open-models/",
+      "source_name": "NVIDIA AI Blog",
+      "source_url": "https://blogs.nvidia.com/blog/category/deep-learning/",
+      "source_type": "rss",
+      "published_at": "2026-06-29T10:59:38.000Z",
+      "fetched_at": "2026-07-12T00:14:16.607Z",
+      "category": "empresas",
+      "tags": [
+        "nvidia-ai-blog"
+      ],
+      "excerpt": "Showcasing the importance of open source innovation in American AI, Palantir’s new intelligent engine — introduced today — uses NVIDIA Nemotron open models to serve the needs of U.S. government agencies. Open source software has long been a",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-7f7e46b8",
+      "title": "Mapping Europe’s AI Workforce Opportunity",
+      "canonical_url": "https://openai.com/index/mapping-ai-jobs-transition-eu",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-29T07:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "A new OpenAI report maps how AI could reshape jobs across the EU, highlighting which occupations may face automation, growth, or workflow changes.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-248e346d",
+      "title": "HP Inc. launches Frontier strategic partnership with OpenAI",
+      "canonical_url": "https://openai.com/index/hp-frontier-partnership",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-28T17:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "HP Inc. scales its OpenAI Frontier partnership to deploy AI across customer experiences, software development, and enterprise operations.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-468075f5",
+      "title": "Accelerating Gemini Nano models on Pixel with frozen Multi-Token Prediction",
+      "canonical_url": "https://research.google/blog/accelerating-gemini-nano-models-on-pixel-with-frozen-multi-token-prediction/",
+      "source_name": "Google Research",
+      "source_url": "https://research.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-26T18:30:00.000Z",
+      "fetched_at": "2026-07-12T00:14:18.020Z",
+      "category": "investigacion",
+      "tags": [
+        "google-research"
+      ],
+      "excerpt": "Machine Intelligence",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-5203290d",
+      "title": "Previewing GPT-5.6 Sol: a next-generation model",
+      "canonical_url": "https://openai.com/index/previewing-gpt-5-6-sol",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-26T10:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "OpenAI previews GPT-5.6 Sol, a next-generation model with stronger capabilities in coding, science, and cybersecurity, paired with its most advanced safety stack.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-767d7ac0",
+      "title": "Run a vLLM Server on HF Jobs in One Command",
+      "canonical_url": "https://huggingface.co/blog/vllm-jobs",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-26T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-5864ffc2",
+      "title": "The Ultimate Summer Sale Pairing: Steam Sale Meets GeForce NOW Discounts",
+      "canonical_url": "https://blogs.nvidia.com/blog/geforce-now-thursday-steam-summer-sale-2026/",
+      "source_name": "NVIDIA AI Blog",
+      "source_url": "https://blogs.nvidia.com/blog/category/deep-learning/",
+      "source_type": "rss",
+      "published_at": "2026-06-25T13:00:34.000Z",
+      "fetched_at": "2026-07-12T00:14:16.607Z",
+      "category": "empresas",
+      "tags": [
+        "nvidia-ai-blog"
+      ],
+      "excerpt": "Summer savings are heating up. From the Steam Summer Sale to GeForce NOW membership discounts, this week’s GFN Thursday delivers double the deals and more ways to get the most value from cloud gaming. Plus, Dark Scrolls joins the growing De",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-5805bc48",
+      "title": "Optimizing cloud economics with linear elastic caching",
+      "canonical_url": "https://research.google/blog/optimizing-cloud-economics-with-linear-elastic-caching/",
+      "source_name": "Google Research",
+      "source_url": "https://research.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-25T10:03:00.000Z",
+      "fetched_at": "2026-07-12T00:14:18.020Z",
+      "category": "investigacion",
+      "tags": [
+        "google-research"
+      ],
+      "excerpt": "Algorithms & Theory",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-789ceace",
+      "title": "How agents are transforming work",
+      "canonical_url": "https://openai.com/index/how-agents-are-transforming-work",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-25T02:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "A new OpenAI research paper shows how AI agents are transforming work, enabling longer, more complex tasks and expanding productivity across roles.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-3533f2cb",
+      "title": "Thinking to recall: How reasoning unlocks parametric knowledge in LLMs",
+      "canonical_url": "https://research.google/blog/thinking-to-recall-how-reasoning-unlocks-parametric-knowledge-in-llms/",
+      "source_name": "Google Research",
+      "source_url": "https://research.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-24T16:51:52.000Z",
+      "fetched_at": "2026-07-12T00:14:18.020Z",
+      "category": "investigacion",
+      "tags": [
+        "google-research"
+      ],
+      "excerpt": "Generative AI",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-1b78da90",
+      "title": "Introducing computer use in Gemini 3.5 Flash",
+      "canonical_url": "https://deepmind.google/blog/introducing-computer-use-in-gemini-3-5-flash/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-24T16:30:01.000Z",
+      "fetched_at": "2026-07-12T00:14:16.277Z",
+      "category": "investigacion",
+      "tags": [
+        "google-deepmind"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-4acce675",
+      "title": "Accelerating Transformers Fine-Tuning with NVIDIA NeMo AutoModel",
+      "canonical_url": "https://huggingface.co/blog/nvidia/accelerating-fine-tuning-nvidia-nemo-automodel",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-24T16:00:13.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-4ef2216d",
+      "title": "Inside Microsoft’s two-decade push to cut water intensity while scaling for growth",
+      "canonical_url": "https://blogs.microsoft.com/blog/2026/06/24/inside-microsofts-two-decade-push-to-cut-water-intensity-while-scaling-for-growth/",
+      "source_name": "Microsoft AI Blog",
+      "source_url": "https://blogs.microsoft.com/ai/",
+      "source_type": "rss",
+      "published_at": "2026-06-24T12:01:13.000Z",
+      "fetched_at": "2026-07-12T00:14:16.868Z",
+      "category": "productos",
+      "tags": [
+        "microsoft-ai-blog"
+      ],
+      "excerpt": "As demand for cloud and AI services continues to grow, datacenters are becoming more essential than ever. Communities also want to better understand how this infrastructure affects local resources, particularly water. At Microsoft, water st",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-66c15f29",
+      "title": "OpenAI and Broadcom unveil LLM-optimized inference chip",
+      "canonical_url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-24T06:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "OpenAI and Broadcom introduce Jalapeño, a custom AI chip built for LLM inference to improve performance, efficiency, and scale across AI systems.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-11a2cd75",
+      "title": "NVIDIA and AWS Collaborate to Bring AI to Production at Scale",
+      "canonical_url": "https://blogs.nvidia.com/blog/nvidia-aws-ai-production-scale/",
+      "source_name": "NVIDIA AI Blog",
+      "source_url": "https://blogs.nvidia.com/blog/category/deep-learning/",
+      "source_type": "rss",
+      "published_at": "2026-06-24T00:05:37.000Z",
+      "fetched_at": "2026-07-12T00:14:16.607Z",
+      "category": "empresas",
+      "tags": [
+        "nvidia-ai-blog"
+      ],
+      "excerpt": "Building AI systems at scale is demanding, requiring low-latency inference, fast vector search, strong GPU price-performance and infrastructure that can grow without multiplying operational complexity. NVIDIA’s latest work with Amazon Web S",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-338c86cc",
+      "title": "Introducing the FFASR Leaderboard: Benchmarking ASR in the Real World",
+      "canonical_url": "https://huggingface.co/blog/ffasr-leaderboard",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-24T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-6409b127",
+      "title": "How GPT-5 helped immunologist Derya Unutmaz solve a 3-year-old mystery",
+      "canonical_url": "https://openai.com/index/gpt-5-immunology-mystery",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-23T17:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "GPT-5 Pro helped solve a 3-year-old immunology mystery, offering insights into T cell behavior. The breakthrough could support cancer and autoimmune research.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-4c074957",
+      "title": "Rethinking cloud operations with agentic observability",
+      "canonical_url": "https://blogs.microsoft.com/blog/2026/06/23/rethinking-cloud-operations-with-agentic-observability/",
+      "source_name": "Microsoft AI Blog",
+      "source_url": "https://blogs.microsoft.com/ai/",
+      "source_type": "rss",
+      "published_at": "2026-06-23T15:45:05.000Z",
+      "fetched_at": "2026-07-12T00:14:16.868Z",
+      "category": "productos",
+      "tags": [
+        "microsoft-ai-blog"
+      ],
+      "excerpt": "Cloud operations are entering a new era as AI-driven and autonomous agents become a larger part of modern software systems. As software becomes increasingly agentic, the challenge is no longer just managing greater scale and complexity. Ope",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-2f583aae",
+      "title": "Helping build shared standards for advanced AI",
+      "canonical_url": "https://openai.com/index/helping-build-shared-standards-for-advanced-ai",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-23T13:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "OpenAI helps build shared standards for advanced AI, supporting evaluation frameworks, safety practices, and global cooperation through the Appia Foundation.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-6bcd6595",
+      "title": "Shipping huggingface_hub every week with AI, open tools, and a human in the loop",
+      "canonical_url": "https://huggingface.co/blog/huggingface-hub-release-ci",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-23T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-594f5798",
+      "title": "Experimenting with the proposed Cross-Origin Storage API in Transformers.js",
+      "canonical_url": "https://huggingface.co/blog/cross-origin-storage",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-23T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-8ebc6b5",
+      "title": "How Omio is building the future of conversational travel",
+      "canonical_url": "https://openai.com/index/omio",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-23T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "Discover how Omio uses OpenAI to power conversational travel experiences, accelerate product development, and transform into an AI-native company.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-23de5ea6",
+      "title": "PP-OCRv6 on Hugging Face: 50-Language OCR from 1.5M to 34.5M Parameters",
+      "canonical_url": "https://huggingface.co/blog/PaddlePaddle/pp-ocrv6",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-22T13:18:56.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-5fdcebba",
+      "title": "Powering the next wave of AI: Expanding capacity with our new datacenter in Pecos",
+      "canonical_url": "https://blogs.microsoft.com/blog/2026/06/22/powering-the-next-wave-of-ai-expanding-capacity-with-our-new-datacenter-in-pecos/",
+      "source_name": "Microsoft AI Blog",
+      "source_url": "https://blogs.microsoft.com/ai/",
+      "source_type": "rss",
+      "published_at": "2026-06-22T12:06:39.000Z",
+      "fetched_at": "2026-07-12T00:14:16.868Z",
+      "category": "productos",
+      "tags": [
+        "microsoft-ai-blog"
+      ],
+      "excerpt": "Today, Microsoft is announcing one of the largest single capacity additions in our history. In Pecos, Texas, we will build a new datacenter campus, expanding our global datacenter capacity by approximately 2 gigawatts (GW) to meet strong an",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-94ccd88",
+      "title": "Daybreak: Tools for securing every organization in the world",
+      "canonical_url": "https://openai.com/index/daybreak-securing-the-world",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-22T10:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "OpenAI introduces new Daybreak tools, including Codex Security and GPT-5.5-Cyber, to help organizations find, validate, and patch vulnerabilities at scale.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-21d806e2",
+      "title": "Patch the Planet: a Daybreak initiative to support open source maintainers",
+      "canonical_url": "https://openai.com/index/patch-the-planet",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-22T10:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "OpenAI introduces Patch the Planet, a Daybreak initiative helping open-source maintainers find, validate, and fix vulnerabilities with AI and expert review.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-6cd12199",
+      "title": "We got local models to triage the OpenClaw repo for FREE!*",
+      "canonical_url": "https://huggingface.co/blog/local-models-pr-triage",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-22T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-59a15741",
+      "title": "Codex-maxxing for long-running work",
+      "canonical_url": "https://openai.com/index/codex-maxxing-long-running-work",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-22T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "Learn how Jason Liu uses Codex to preserve context, manage complex projects, and help work continue beyond a single prompt.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-4040b3e7",
+      "title": "Samsung Electronics brings ChatGPT and Codex to employees",
+      "canonical_url": "https://openai.com/index/samsung-electronics-chatgpt-codex-deployment",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-21T23:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "Samsung Electronics deploys ChatGPT Enterprise and Codex to employees worldwide, marking one of OpenAI’s largest enterprise AI rollouts.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-64c6be09",
+      "title": "MosaicLeaks: Can your research agent keep a secret?",
+      "canonical_url": "https://huggingface.co/blog/ServiceNow/mosaicleaks",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-18T18:13:13.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-2dfea207",
+      "title": "New usage analytics and updated spend controls for enterprises",
+      "canonical_url": "https://openai.com/index/chatgpt-enterprise-spend-controls",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-18T17:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "OpenAI introduces new spend controls and usage analytics for ChatGPT Enterprise, helping organizations manage costs and scale AI with confidence.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-16fe4dd8",
+      "title": "Improving health intelligence in ChatGPT",
+      "canonical_url": "https://openai.com/index/improving-health-intelligence-in-chatgpt",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-18T11:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "Learn how GPT-5.5 Instant improves ChatGPT’s health and wellness responses with stronger reasoning, better context, clearer communication, and physician-informed evaluations.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-5d5c75a9",
+      "title": "Using AI to help physicians diagnose rare genetic diseases affecting children",
+      "canonical_url": "https://openai.com/index/diagnose-rare-childhood-diseases",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-18T08:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "Researchers used an OpenAI reasoning model to help diagnose rare diseases, identifying 18 new diagnoses in previously unsolved cases.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-271c6daf",
+      "title": "Beyond LoRA: Can you beat the most popular fine-tuning technique?",
+      "canonical_url": "https://huggingface.co/blog/peft-beyond-lora",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-18T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-35fdd2ac",
+      "title": "Is it agentic enough? Benchmarking open models on your own tooling",
+      "canonical_url": "https://huggingface.co/blog/is-it-agentic-enough",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-18T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-4f557d38",
+      "title": "From the Hugging Face Hub to robot hardware with Strands Agents and LeRobot",
+      "canonical_url": "https://huggingface.co/blog/amazon/strands-lerobot-hub-to-hardware",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-17T10:18:05.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-147f4bdb",
+      "title": "A near-autonomous AI chemist improves a challenging reaction in medicinal chemistry",
+      "canonical_url": "https://openai.com/index/ai-chemist-improves-reaction",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-17T10:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "OpenAI and Molecule.one show how a near-autonomous AI chemist using GPT-5.4 improved a key drug-making reaction, advancing medicinal chemistry research.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-a426729",
+      "title": "GLM-5.2: Built for Long-Horizon Tasks",
+      "canonical_url": "https://huggingface.co/blog/zai-org/glm-52-blog",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-17T09:01:25.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-3069aa1c",
+      "title": "Agentic Resource Discovery: Let agents search",
+      "canonical_url": "https://huggingface.co/blog/agentic-resource-discovery-launch",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-17T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-4b1a2eab",
+      "title": "Introducing LifeSciBench",
+      "canonical_url": "https://openai.com/index/introducing-life-sci-bench",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-17T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "Introducing LifeSciBench, an expert-authored, expert-reviewed benchmark for evaluating how AI systems handle real-world life science research tasks and decisions.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-217fead6",
+      "title": "Unlocking UK house-building with AI-accelerated planning",
+      "canonical_url": "https://deepmind.google/blog/unlocking-uk-house-building-with-ai-accelerated-planning/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-16T21:29:50.000Z",
+      "fetched_at": "2026-07-12T00:14:16.277Z",
+      "category": "investigacion",
+      "tags": [
+        "google-deepmind"
+      ],
+      "excerpt": "UK government partners with Google DeepMind to build a new AI-powered prototype aimed at faster housing decisions.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-3645561a",
+      "title": "From pixels to planning: Earth AI for nature restoration",
+      "canonical_url": "https://research.google/blog/from-pixels-to-planning-earth-ai-for-nature-restoration/",
+      "source_name": "Google Research",
+      "source_url": "https://research.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-16T17:30:00.000Z",
+      "fetched_at": "2026-07-12T00:14:18.020Z",
+      "category": "investigacion",
+      "tags": [
+        "google-research"
+      ],
+      "excerpt": "Climate & Sustainability",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-192c1abc",
+      "title": "Securing the future of AI agents",
+      "canonical_url": "https://deepmind.google/blog/securing-the-future-of-ai-agents/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-16T15:46:31.000Z",
+      "fetched_at": "2026-07-12T00:14:16.277Z",
+      "category": "investigacion",
+      "tags": [
+        "google-deepmind"
+      ],
+      "excerpt": "Securing internal systems with an AI Control Roadmap, combining traditional safeguards and real-time monitoring.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-3649c4cf",
+      "title": "Achieving success with AI",
+      "canonical_url": "https://blogs.microsoft.com/blog/2026/06/16/achieving-success-with-ai/",
+      "source_name": "Microsoft AI Blog",
+      "source_url": "https://blogs.microsoft.com/ai/",
+      "source_type": "rss",
+      "published_at": "2026-06-16T15:00:02.000Z",
+      "fetched_at": "2026-07-12T00:14:16.868Z",
+      "category": "productos",
+      "tags": [
+        "microsoft-ai-blog"
+      ],
+      "excerpt": "The two most important elements in any AI solution are Intelligence + Trust. I first made this statement in November at our Ignite conference and my conviction is strengthened by every conversation I have with customers. Through my travels,",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-3acdb3de",
+      "title": "Predicting model behavior before release by simulating deployment",
+      "canonical_url": "https://openai.com/index/deployment-simulation",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-16T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "OpenAI introduces Deployment Simulation, a method to predict AI model behavior before deployment using real conversation data to improve safety and evaluation accuracy.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-3c7fee",
+      "title": "Introducing the OpenAI Partner Network",
+      "canonical_url": "https://openai.com/index/introducing-openai-partner-network",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-14T17:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "OpenAI launches the Partner Network, investing $150M to help global partners accelerate enterprise AI adoption, deployment, and transformation.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-2a23d127",
+      "title": "Research into how AI can help users understand skin conditions",
+      "canonical_url": "https://research.google/blog/research-into-how-ai-can-help-users-understand-skin-conditions/",
+      "source_name": "Google Research",
+      "source_url": "https://research.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-12T17:52:00.000Z",
+      "fetched_at": "2026-07-12T00:14:18.020Z",
+      "category": "investigacion",
+      "tags": [
+        "google-research"
+      ],
+      "excerpt": "Health & Bioscience",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-7c7db4c7",
+      "title": "A low-carbon computing platform from your retired phones",
+      "canonical_url": "https://research.google/blog/a-low-carbon-computing-platform-from-your-retired-phones/",
+      "source_name": "Google Research",
+      "source_url": "https://research.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-12T17:37:00.000Z",
+      "fetched_at": "2026-07-12T00:14:18.020Z",
+      "category": "investigacion",
+      "tags": [
+        "google-research"
+      ],
+      "excerpt": "Climate & Sustainability",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-a60a740",
+      "title": "New OpenAI Academy courses for the next era of work",
+      "canonical_url": "https://openai.com/index/academy-courses-applying-ai-at-work",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-12T10:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "OpenAI introduces three Academy courses that help people build practical AI skills, create repeatable workflows, and apply agents in everyday work.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-42bfa368",
+      "title": "How Preply combines AI and human tutors to personalize learning",
+      "canonical_url": "https://openai.com/index/preply",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-12T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "Preply uses OpenAI to launch AI-generated lesson summaries, providing personalised feedback and language learning exercises.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-6cf434a9",
+      "title": "Profiling in PyTorch (Part 2): From nn.Linear to a Fused MLP",
+      "canonical_url": "https://huggingface.co/blog/torch-mlp-fusion",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-11T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-1c4e3850",
+      "title": "How an astrophysicist uses Codex to help simulate black holes",
+      "canonical_url": "https://openai.com/index/using-codex-to-simulate-black-holes",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-11T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "Discover how astrophysicist Chi-kwan Chan uses Codex to build black hole simulations, helping scientists study extreme physics and test Einstein’s theory of general relativity.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-5be804c5",
+      "title": "OpenAI to acquire Ona",
+      "canonical_url": "https://openai.com/index/openai-to-acquire-ona",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-11T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "OpenAI plans to acquire Ona to expand Codex with secure, persistent cloud environments, enabling long-running AI agents across enterprise workflows.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-48ecde1c",
+      "title": "BBVA puts AI at the core of banking with OpenAI",
+      "canonical_url": "https://openai.com/index/bbva",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-11T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "Learn how BBVA scaled ChatGPT Enterprise to 100,000 employees and partnered with OpenAI to accelerate AI-powered banking transformation worldwide.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-617ea0e6",
+      "title": "Supporting Europe’s work in ensuring a trustworthy AI ecosystem",
+      "canonical_url": "https://openai.com/index/supporting-eu-trustworthy-ai-ecosystem",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-11T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "OpenAI supports the EU Code of Practice on AI content transparency, advancing provenance standards and tools to help people understand AI-generated content.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-1121b301",
+      "title": "Access OpenAI models and Codex through your Oracle cloud commitment",
+      "canonical_url": "https://openai.com/index/openai-on-oracle-cloud",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-10T20:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "Access OpenAI models and Codex through Oracle Cloud, using existing commitments to build and deploy AI with enterprise security and governance.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-79fcf069",
+      "title": "New framework for auditing machine unlearning",
+      "canonical_url": "https://research.google/blog/new-framework-for-auditing-machine-unlearning/",
+      "source_name": "Google Research",
+      "source_url": "https://research.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-10T17:34:55.000Z",
+      "fetched_at": "2026-07-12T00:14:18.020Z",
+      "category": "investigacion",
+      "tags": [
+        "google-research"
+      ],
+      "excerpt": "Algorithms & Theory",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-252b4183",
+      "title": "DiffusionGemma: 4x faster text generation",
+      "canonical_url": "https://deepmind.google/blog/diffusiongemma-4x-faster-text-generation/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-10T16:24:11.000Z",
+      "fetched_at": "2026-07-12T00:14:16.277Z",
+      "category": "investigacion",
+      "tags": [
+        "google-deepmind"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-6c8e7b91",
+      "title": "PRC-linked influence operations are targeting AI debates in the US",
+      "canonical_url": "https://openai.com/index/prc-linked-influence-operations-ai-debates",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-10T12:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "A new report from OpenAI details PRC-linked influence operations using AI to target U.S. tech debates, data center narratives, tariffs, and false claims about ChatGPT.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-63697836",
+      "title": "Investing in multi-agent AI safety research",
+      "canonical_url": "https://deepmind.google/blog/investing-in-multi-agent-ai-safety-research/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-10T10:21:19.000Z",
+      "fetched_at": "2026-07-12T00:14:16.277Z",
+      "category": "investigacion",
+      "tags": [
+        "google-deepmind"
+      ],
+      "excerpt": "Google DeepMind and partners announce a $10M funding call for multi-agent safety research.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-33e25a6e",
+      "title": "From data to decisions: how LSEG is scaling trusted AI",
+      "canonical_url": "https://openai.com/index/lseg",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-10T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "See how LSEG uses OpenAI to scale trusted AI across its global business, accelerating insights, shrinking release cycles, and empowering 4,000 employees.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-6704b6e5",
+      "title": "Fluid, natural voice translation with Gemini 3.5 Live Translate",
+      "canonical_url": "https://deepmind.google/blog/fluid-natural-voice-translation-with-gemini-35-live-translate/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-09T15:16:25.000Z",
+      "fetched_at": "2026-07-12T00:14:16.277Z",
+      "category": "investigacion",
+      "tags": [
+        "google-deepmind"
+      ],
+      "excerpt": "Gemini 3.5 Live Translate brings near real-time, natural speech translation to Google AI Studio, Google Translate and Google Meet.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-557dae25",
+      "title": "Introducing Gemma 4 12B: a unified, encoder-free multimodal model",
+      "canonical_url": "https://deepmind.google/blog/introducing-gemma-4-12b-a-unified-encoder-free-multimodal-model/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-09T14:10:19.000Z",
+      "fetched_at": "2026-07-12T00:14:16.277Z",
+      "category": "investigacion",
+      "tags": [
+        "google-deepmind"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-56af5ba7",
+      "title": "Powering the future of robotics in Europe",
+      "canonical_url": "https://deepmind.google/blog/powering-the-future-of-robotics-in-europe/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-09T14:02:33.000Z",
+      "fetched_at": "2026-07-12T00:14:16.277Z",
+      "category": "investigacion",
+      "tags": [
+        "google-deepmind"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-27781e7e",
+      "title": "How engineers at Nextdoor use Codex to build without limits",
+      "canonical_url": "https://openai.com/index/nextdoor",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-09T12:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "How engineers at Nextdoor use Codex with GPT-5.5 to investigate hard-to-reproduce issues, build across platforms, and focus on product outcomes.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-44dc03f9",
+      "title": "How an Agent Built a 3D Paris Gallery by Chaining Two Hugging Face Spaces",
+      "canonical_url": "https://huggingface.co/blog/mishig/spaces-agents-md",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-09T10:46:19.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-5dc6f901",
+      "title": "What Codex unlocks for Notion",
+      "canonical_url": "https://openai.com/index/notion",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-09T10:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "How Notion uses Codex to one-shot specs, build AI Voice Input for the web, and multiply engineering power across small teams.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-101ec068",
+      "title": "Migrating Your GitHub CI to Hugging Face Jobs",
+      "canonical_url": "https://huggingface.co/blog/github-ci-hf-jobs",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-09T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-5dabe4c5",
+      "title": "Industrial policy for the Intelligence Age",
+      "canonical_url": "https://openai.com/index/industrial-policy-for-the-intelligence-age",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-09T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "Explore our ambitious, people-first industrial policy ideas for the AI era—focused on expanding opportunity, sharing prosperity, and building resilient institutions as advanced intelligence evolves.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-762f6d15",
+      "title": "Confidential submission of draft S-1 to the SEC",
+      "canonical_url": "https://openai.com/index/openai-submits-confidential-s-1",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-08T14:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "OpenAI confirms a confidential S-1 submission to the SEC and has not yet determined timing for further action.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-587d6e44",
+      "title": "Measuring the impact of learning with AI in Sierra Leone and beyond",
+      "canonical_url": "https://deepmind.google/blog/measuring-the-impact-of-learning-with-ai-in-sierra-leone-and-beyond/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-08T13:04:59.000Z",
+      "fetched_at": "2026-07-12T00:14:16.277Z",
+      "category": "investigacion",
+      "tags": [
+        "google-deepmind"
+      ],
+      "excerpt": "Results from a randomized controlled trial show the potential of Gemini’s Guided Learning feature to boost engagement and accelerate learning.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-3d094d0f",
+      "title": "Built to benefit everyone: our plan",
+      "canonical_url": "https://openai.com/index/built-to-benefit-everyone-our-plan",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-08T01:30:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "A vision for the future of AI, focusing on access, safety, and shared prosperity as OpenAI works to ensure AGI benefits everyone.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-2d1d822e",
+      "title": "The Open Source Community is backing OpenEnv for Agentic RL",
+      "canonical_url": "https://huggingface.co/blog/openenv-agentic-rl",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-08T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-36da7c9d",
+      "title": "Introducing the OpenAI Economic Research Exchange",
+      "canonical_url": "https://openai.com/index/economic-research-exchange",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-08T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "OpenAI launches the Economic Research Exchange to study AI’s impact on jobs, productivity, and the economy. Applications are now open for selected research projects.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-1aed2bc4",
+      "title": "Unlocking dependable responses with Gemini Enterprise Agent Platform’s Agentic RAG",
+      "canonical_url": "https://research.google/blog/unlocking-dependable-responses-with-gemini-enterprise-agent-platforms-agentic-rag/",
+      "source_name": "Google Research",
+      "source_url": "https://research.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-05T11:26:00.000Z",
+      "fetched_at": "2026-07-12T00:14:18.020Z",
+      "category": "investigacion",
+      "tags": [
+        "google-research"
+      ],
+      "excerpt": "Data Management",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-5715050b",
+      "title": "Towards passive heart health monitoring via smartphone camera",
+      "canonical_url": "https://research.google/blog/towards-passive-heart-health-monitoring-via-smartphone-camera/",
+      "source_name": "Google Research",
+      "source_url": "https://research.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-04T19:47:00.000Z",
+      "fetched_at": "2026-07-12T00:14:18.020Z",
+      "category": "investigacion",
+      "tags": [
+        "google-research"
+      ],
+      "excerpt": "Health & Bioscience",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-9c26068",
+      "title": "Nemotron 3.5 Content Safety: Customizable Multimodal Safety for Global Enterprise AI",
+      "canonical_url": "https://huggingface.co/blog/nvidia/nemotron-3-5-content-safety",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-04T18:57:45.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-748059f2",
+      "title": "How Endava is redesigning software delivery around AI agents",
+      "canonical_url": "https://openai.com/index/endava-frontiers",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-04T12:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "Learn how Endava is using AI agents, ChatGPT Enterprise, and Codex to accelerate software delivery, automate workflows, and build an AI-native culture across the enterprise.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-5fc7a867",
+      "title": "Dreaming: Better memory for a more helpful ChatGPT",
+      "canonical_url": "https://openai.com/index/chatgpt-memory-dreaming",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-04T09:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "ChatGPT introduces a new memory system to better remember preferences, keeping context fresh and relevant across conversations.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-3dde8d75",
+      "title": "Designing the hf CLI as an agent-optimized way to work with the Hub",
+      "canonical_url": "https://huggingface.co/blog/hf-cli-for-agents",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-04T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-4ece4a98",
+      "title": "Biodefense in the Intelligence Age",
+      "canonical_url": "https://openai.com/index/biodefense-in-the-intelligence-age",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-04T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "An action plan for AI-powered biological resilience",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-44f42191",
+      "title": "The next chapter in flood resilience: Open sourcing Google’s hydrology framework",
+      "canonical_url": "https://research.google/blog/the-next-chapter-in-flood-resilience-open-sourcing-googles-hydrology-framework/",
+      "source_name": "Google Research",
+      "source_url": "https://research.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-03T18:37:00.000Z",
+      "fetched_at": "2026-07-12T00:14:18.020Z",
+      "category": "investigacion",
+      "tags": [
+        "google-research"
+      ],
+      "excerpt": "Climate & Sustainability",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-5fdaf450",
+      "title": "Introducing new capabilities to GPT-Rosalind",
+      "canonical_url": "https://openai.com/index/introducing-new-capabilities-to-gpt-rosalind",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-03T13:15:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "GPT-Rosalind advances life sciences research with enhanced biological reasoning, medicinal chemistry expertise, genomics analysis, and experimental workflow capabilities.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-3cd25628",
+      "title": "Direct Preference Optimization Beyond Chatbots",
+      "canonical_url": "https://huggingface.co/blog/Dharma-AI/direct-preference-optimization-beyond-chatbots",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-03T12:55:11.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-3476230a",
+      "title": "How Wasmer used Codex to build a Node.js runtime for the edge",
+      "canonical_url": "https://openai.com/index/wasmer",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-03T12:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "See how Wasmer used Codex with GPT-5.5 to build a Node.js runtime for the edge, accelerating development 10x to 20x and shipping in weeks instead of months.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-458e7ae",
+      "title": "A blueprint for democratic governance of frontier AI",
+      "canonical_url": "https://openai.com/index/frontier-safety-blueprint",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-03T10:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "OpenAI outlines a blueprint for U.S. governance of frontier AI, proposing a federal framework for safety, resilience, and national security.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-302dac96",
+      "title": "OpenAI public policy agenda",
+      "canonical_url": "https://openai.com/index/public-policy-agenda",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-03T10:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "OpenAI outlines its public policy agenda for AI, including safety, youth protection, workforce transition, and global standards to ensure AI benefits society.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-24ba5bae",
+      "title": "Adding MCP Tools to Reachy Mini",
+      "canonical_url": "https://huggingface.co/blog/adding-mcp-tools-to-reachy-mini",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-03T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-4a68375b",
+      "title": "AI alone won&#8217;t change your business. The system running it will.",
+      "canonical_url": "https://blogs.microsoft.com/blog/2026/06/02/ai-alone-wont-change-your-business-the-system-running-it-will/",
+      "source_name": "Microsoft AI Blog",
+      "source_url": "https://blogs.microsoft.com/ai/",
+      "source_type": "rss",
+      "published_at": "2026-06-02T19:00:13.000Z",
+      "fetched_at": "2026-07-12T00:14:16.868Z",
+      "category": "productos",
+      "tags": [
+        "microsoft-ai-blog"
+      ],
+      "excerpt": "AI has arrived in the enterprise, and the shift is happening all at once. Every function, every role, every workflow is being reshaped. At the same time, a new class of organizations is emerging, one that will look fundamentally different f",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-643f9357",
+      "title": "Microsoft Build 2026: Be yourself at work",
+      "canonical_url": "https://blogs.microsoft.com/blog/2026/06/02/microsoft-build-2026-be-yourself-at-work/",
+      "source_name": "Microsoft AI Blog",
+      "source_url": "https://blogs.microsoft.com/ai/",
+      "source_type": "rss",
+      "published_at": "2026-06-02T18:54:13.000Z",
+      "fetched_at": "2026-07-12T00:14:16.868Z",
+      "category": "productos",
+      "tags": [
+        "microsoft-ai-blog"
+      ],
+      "excerpt": "Platforms shift when developers build. We explore, choose tools, dream, create. This platform shift comes with more information than ever, ready at your fingertips. This shift, it’s about building fast AND THEN: it’s about building, operati",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-5589a97e",
+      "title": "Holo3.1: Fast & Local Computer Use Agents",
+      "canonical_url": "https://huggingface.co/blog/Hcompany/holo31",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-02T14:13:23.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-b169691",
+      "title": "Travelers deploys AI-powered claims countrywide with OpenAI",
+      "canonical_url": "https://openai.com/index/travelers",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-02T12:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "Travelers built an AI-powered Claim Assistant with OpenAI to guide customers through filing claims, provide 24/7 support, and scale operations during peak demand.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-4bed82b",
+      "title": "ChatGPT Sites",
+      "canonical_url": "https://openai.com/academy/chatgpt-sites",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-02T10:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "Create that kind of lightweight website or app with Codex.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-60eee3c",
+      "title": "Codex for every role, tool, and workflow",
+      "canonical_url": "https://openai.com/index/codex-for-every-role-tool-workflow",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-02T09:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "Discover new Codex plugins, sites, and annotations that help analysts, marketers, designers, investors, and other teams get more done with AI.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-424c94ad",
+      "title": "Advancing youth safety and opportunity through global leadership",
+      "canonical_url": "https://openai.com/index/advancing-youth-safety-and-opportunity-through-global-leadership",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-02T07:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "OpenAI calls for global action on youth AI safety, proposing an international institute to strengthen safeguards, standards, and opportunities for young people.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-527ed90c",
+      "title": "Codex is becoming a productivity tool for everyone",
+      "canonical_url": "https://openai.com/index/codex-for-knowledge-work",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-02T02:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "The Next Era of Knowledge Work report explores how Codex is transforming productivity through AI-powered research, data analysis, workflow automation, and content creation.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-1ea5a615",
+      "title": "Our views on AI policy and political advocacy",
+      "canonical_url": "https://openai.com/index/our-views-on-ai-policy-and-political-advocacy",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-01T17:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "Our approach to AI policy and political advocacy, transparency, support for thoughtful regulation and AI safety, and that no outside political group speaks on the company’s behalf.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-f853ac2",
+      "title": "Introducing Mellum2: A 12B Mixture-of-Experts Model by JetBrains",
+      "canonical_url": "https://huggingface.co/blog/JetBrains/mellum2-launch",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-01T15:45:17.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-69ee049c",
+      "title": "Beyond LLMs: Why Scalable Enterprise AI Adoption Depends on Agent Logic",
+      "canonical_url": "https://huggingface.co/blog/ibm-research/agent-logic-and-scalable-ai-adoption",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-06-01T13:51:18.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-538cf344",
+      "title": "Building the infrastructure for the Intelligence Age in Michigan",
+      "canonical_url": "https://openai.com/index/stargate-michigan-data-center",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-01T12:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "OpenAI breaks ground on a 1GW data center project in Michigan as part of Stargate, building AI infrastructure to expand access, create jobs, and support communities.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-246548c9",
+      "title": "OpenAI frontier models and Codex are now available on AWS",
+      "canonical_url": "https://openai.com/index/openai-frontier-models-and-codex-are-now-available-on-aws",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-06-01T10:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "OpenAI frontier models and Codex are now generally available on AWS, giving enterprises a new path to build with OpenAI through the AWS environments, controls, and procurement workflows they already use. Customers can get started with OpenA",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-41a24a8b",
+      "title": "Boston Children’s uses AI to unlock new diagnoses",
+      "canonical_url": "https://openai.com/index/boston-childrens-hospital",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-29T12:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "Boston Children’s Hospital uses OpenAI technology to improve patient care, reduce operational burden, and help diagnose more than 40 rare disease cases.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-2129b4bc",
+      "title": "How Braintrust turns customer requests into code with Codex",
+      "canonical_url": "https://openai.com/index/braintrust",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-29T12:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "How Braintrust engineers use Codex with GPT-5.5 to run experiments and code faster.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-6022f0b5",
+      "title": "Strengthening societal resilience with Rosalind Biodefense",
+      "canonical_url": "https://openai.com/index/strengthening-societal-resilience-with-rosalind-biodefense",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-29T03:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.684Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "OpenAI launches Rosalind Biodefense, expanding trusted access to GPT-Rosalind for vetted developers and U.S. government partners advancing biodefense, public health, and pandemic preparedness through frontier AI.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-66b83ba",
+      "title": "Profiling in PyTorch (Part 1): A Beginner&apos;s Guide to torch.profiler",
+      "canonical_url": "https://huggingface.co/blog/torch-profiler",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-05-29T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-2a53cdee",
+      "title": "A shared playbook for trustworthy third party evaluations",
+      "canonical_url": "https://openai.com/index/trustworthy-third-party-evaluations-foundations",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-29T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.685Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "OpenAI shares guidance on third-party AI evaluations, covering how to assess model capabilities, safeguards, and validity for frontier systems.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-61e41b33",
+      "title": "A New Era of Discovery: Google Research at I/O 2026",
+      "canonical_url": "https://research.google/blog/a-new-era-of-innovation-google-research-at-io-2026/",
+      "source_name": "Google Research",
+      "source_url": "https://research.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-28T20:58:00.000Z",
+      "fetched_at": "2026-07-12T00:14:18.020Z",
+      "category": "investigacion",
+      "tags": [
+        "google-research"
+      ],
+      "excerpt": "General Science",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-5046e40f",
+      "title": "How Endava builds an agentic organization with Codex",
+      "canonical_url": "https://openai.com/index/endava",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-28T12:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.685Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "Learn how Endava uses Codex to build an agentic organization, accelerating software delivery and reducing requirements analysis from weeks to hours.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-6a576caf",
+      "title": "OpenAI’s Frontier Governance Framework",
+      "canonical_url": "https://openai.com/index/openai-frontier-governance-framework",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-28T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.685Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "Explore OpenAI’s Frontier Governance Framework and how our AI safety, security, and risk practices align with emerging EU and California regulations.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-503ae83a",
+      "title": "Private analytics via zero-trust aggregation",
+      "canonical_url": "https://research.google/blog/private-analytics-via-zero-trust-aggregation/",
+      "source_name": "Google Research",
+      "source_url": "https://research.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-27T16:56:00.000Z",
+      "fetched_at": "2026-07-12T00:14:18.020Z",
+      "category": "investigacion",
+      "tags": [
+        "google-research"
+      ],
+      "excerpt": "Security, Privacy and Abuse Prevention",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-10bc15a8",
+      "title": "Cisco and OpenAI redefine enterprise engineering with Codex",
+      "canonical_url": "https://openai.com/index/cisco",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-27T11:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.685Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "Cisco and OpenAI are redefining enterprise engineering with Codex, helping Cisco scale AI-native development, accelerate AI Defense work, and automate defect remediation.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-7c7e113b",
+      "title": "Building self-improving tax agents with Codex",
+      "canonical_url": "https://openai.com/index/building-self-improving-tax-agents-with-codex",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-27T07:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.685Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "See how OpenAI, Thrive, and Crete built a self-improving tax agent with Codex, automating filings, improving accuracy, and accelerating workflows.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-49bc41dd",
+      "title": "Reachy Mini goes fully local",
+      "canonical_url": "https://huggingface.co/blog/local-reachy-mini-conversation",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-05-27T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-6bcde852",
+      "title": "Shipping a Trillion Parameters With a Hub Bucket: Delta Weight Sync in TRL",
+      "canonical_url": "https://huggingface.co/blog/delta-weight-sync",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-05-27T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-7942e259",
+      "title": "Warp’s big bet on building open source with GPT-5.5",
+      "canonical_url": "https://openai.com/index/warp",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-27T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.685Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "Warp uses GPT-5.5 and OpenAI models to coordinate coding agents across local, cloud, and open-source development workflows.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-5e1d033c",
+      "title": "Election information and safeguards in 2026",
+      "canonical_url": "https://openai.com/index/election-safeguards-2026",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-27T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.685Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "Ahead of global elections, we’re helping people access information, supporting cyber defenders, and increasing AI transparency",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-27637093",
+      "title": "Harness, Scaffold, and the AI Agent Terms Worth Getting Right",
+      "canonical_url": "https://huggingface.co/blog/agent-glossary",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-05-25T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-4c2b2f4e",
+      "title": "AI is becoming a first hire for small businesses",
+      "canonical_url": "https://openai.com/index/ai-first-hire-small-business",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-25T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.685Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "New research shows how 4 million Americans use ChatGPT to start, run, and grow small businesses, lowering the cost of entrepreneurship with AI.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-4b814b93",
+      "title": "OpenAI, Grupo Folha and Grupo UOL announce strategic content partnership",
+      "canonical_url": "https://openai.com/index/grupo-folha-grupo-uol-partnership",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-25T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.685Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "OpenAI partners with Grupo Folha and Grupo UOL to bring trusted Brazilian journalism to ChatGPT, expanding access to news with attribution and transparency.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-1052a62e",
+      "title": "OpenAI named a Leader in enterprise coding agents by Gartner",
+      "canonical_url": "https://openai.com/index/gartner-2026-agentic-coding-leader",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-22T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.685Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "OpenAI is named a leader in the 2026 Gartner Magic Quadrant for Enterprise AI Coding Agents, with Codex recognized for innovation and enterprise-scale deployment.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-5f469c26",
+      "title": "How Virgin Atlantic ships faster with Codex",
+      "canonical_url": "https://openai.com/index/virgin-atlantic",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-22T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.685Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "How Virgin Atlantic used Codex to ship its revamped mobile app on a fixed holiday travel deadline, reaching near-total unit test coverage and zero P1 defects.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-52c62665",
+      "title": "We’re launching the Google DeepMind Accelerator program in Asia Pacific to tackle environmental risks",
+      "canonical_url": "https://deepmind.google/blog/were-launching-the-google-deepmind-accelerator-program-in-asia-pacific-to-tackle-environmental-risks/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-21T19:46:42.000Z",
+      "fetched_at": "2026-07-12T00:14:16.277Z",
+      "category": "investigacion",
+      "tags": [
+        "google-deepmind"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-111d063d",
+      "title": "AdventHealth advances whole-person care with OpenAI",
+      "canonical_url": "https://openai.com/index/adventhealth",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-21T12:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.685Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "AdventHealth is using ChatGPT for Healthcare to streamline workflows, reduce administrative burden, and return more time to patient care.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-27d8be96",
+      "title": "From AI pilots to enterprise impact: Why execution is the new differentiator",
+      "canonical_url": "https://blogs.microsoft.com/blog/2026/05/21/from-ai-pilots-to-enterprise-impact-why-execution-is-the-new-differentiator/",
+      "source_name": "Microsoft AI Blog",
+      "source_url": "https://blogs.microsoft.com/ai/",
+      "source_type": "rss",
+      "published_at": "2026-05-21T11:02:33.000Z",
+      "fetched_at": "2026-07-12T00:14:16.868Z",
+      "category": "productos",
+      "tags": [
+        "microsoft-ai-blog"
+      ],
+      "excerpt": "As the pace of change accelerates, organizations are moving quickly from AI experimentation to enterprise-scale transformation. Leaders are prioritizing measurable outcomes, faster time to value and repeatability across the business. But ma",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-2be5f584",
+      "title": "The next phase of OpenAI’s Education for Countries",
+      "canonical_url": "https://openai.com/index/the-next-phase-of-education-for-countries",
+      "source_name": "OpenAI Blog",
+      "source_url": "https://openai.com/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-20T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:17.685Z",
+      "category": "modelos",
+      "tags": [
+        "openai-blog"
+      ],
+      "excerpt": "OpenAI advances Education for Countries, expanding AI adoption in schools with new partnerships, teacher training, and tools to improve global learning outcomes.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-558eec00",
+      "title": "OlmoEarth v1.1: A more efficient family of Earth observation models",
+      "canonical_url": "https://huggingface.co/blog/allenai/olmoearth-v1-1",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-05-19T18:38:09.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-676f965f",
+      "title": "Empirical Research Assistance (ERA): From Nature publication to catalyzing Computational Discovery",
+      "canonical_url": "https://research.google/blog/empirical-research-assistance-era-from-nature-publication-to-catalyzing-computational-discovery/",
+      "source_name": "Google Research",
+      "source_url": "https://research.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-19T17:52:00.000Z",
+      "fetched_at": "2026-07-12T00:14:18.020Z",
+      "category": "investigacion",
+      "tags": [
+        "google-research"
+      ],
+      "excerpt": "General Science",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-9fc58b5",
+      "title": "Introducing the Ettin Reranker Family",
+      "canonical_url": "https://huggingface.co/blog/ettin-reranker",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-05-19T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-5b30fdc1",
+      "title": "Fast-tracking genetic leads to reverse cellular aging",
+      "canonical_url": "https://deepmind.google/blog/fast-tracking-genetic-leads-to-reverse-cellular-aging/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-18T18:21:39.000Z",
+      "fetched_at": "2026-07-12T00:14:16.277Z",
+      "category": "investigacion",
+      "tags": [
+        "google-deepmind"
+      ],
+      "excerpt": "Biologists use Co-Scientist to find novel factors that successfully rejuvenate human cells.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-4c283439",
+      "title": "PaddleOCR 3.5: Running OCR and Document Parsing Tasks with a Transformers Backend",
+      "canonical_url": "https://huggingface.co/blog/PaddlePaddle/paddleocr-transformers",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-05-18T15:12:46.000Z",
+      "fetched_at": "2026-07-12T00:14:16.488Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-1124e0b3",
+      "title": "Simulate real-world places with Project Genie and Street View",
+      "canonical_url": "https://deepmind.google/blog/simulate-real-world-places-with-project-genie-and-street-view/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-17T19:53:18.000Z",
+      "fetched_at": "2026-07-12T00:14:16.277Z",
+      "category": "investigacion",
+      "tags": [
+        "google-deepmind"
+      ],
+      "excerpt": "We’re expanding access to Google AI Ultra subscribers globally and introducing a new capability powered by Street View.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-5a75d2b9",
+      "title": "Introducing Gemini Omni",
+      "canonical_url": "https://deepmind.google/blog/introducing-gemini-omni/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-17T19:50:57.000Z",
+      "fetched_at": "2026-07-12T00:14:16.277Z",
+      "category": "investigacion",
+      "tags": [
+        "google-deepmind"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-115759e3",
+      "title": "Introducing Google Antigravity 2.0",
+      "canonical_url": "https://deepmind.google/blog/introducing-google-antigravity-2-0/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-17T19:43:45.000Z",
+      "fetched_at": "2026-07-12T00:14:16.277Z",
+      "category": "investigacion",
+      "tags": [
+        "google-deepmind"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-4523009",
+      "title": "Gemini for Science: AI experiments and tools for a new era of discovery",
+      "canonical_url": "https://deepmind.google/blog/gemini-for-science-ai-experiments-and-tools-for-a-new-era-of-discovery/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-17T13:50:34.000Z",
+      "fetched_at": "2026-07-12T00:14:16.277Z",
+      "category": "investigacion",
+      "tags": [
+        "google-deepmind"
+      ],
+      "excerpt": "A collection of science tools and experiments to expand the scale and precision of scientific exploration.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-588b3b2d",
+      "title": "Making it easier to understand how content was created and edited",
+      "canonical_url": "https://deepmind.google/blog/making-it-easier-to-understand-how-content-was-created-and-edited/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-17T13:43:50.000Z",
+      "fetched_at": "2026-07-12T00:14:16.277Z",
+      "category": "investigacion",
+      "tags": [
+        "google-deepmind"
+      ],
+      "excerpt": "We're expanding our tools to help you understand how content was created and edited across the web.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-54623d4b",
+      "title": "Strengthening Singapore’s AI Future: A New National Partnership",
+      "canonical_url": "https://deepmind.google/blog/strengthening-singapores-ai-future-a-new-national-partnership/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-16T09:13:34.000Z",
+      "fetched_at": "2026-07-12T00:14:16.277Z",
+      "category": "investigacion",
+      "tags": [
+        "google-deepmind"
+      ],
+      "excerpt": "Google DeepMind and Singapore partner to apply frontier AI to address complex challenges across health, education, and sustainability and more.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-6f233492",
+      "title": "Finding the molecular switches behind new infectious diseases",
+      "canonical_url": "https://deepmind.google/blog/finding-the-molecular-switches-behind-new-infectious-diseases/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-16T08:16:06.000Z",
+      "fetched_at": "2026-07-12T00:14:16.277Z",
+      "category": "investigacion",
+      "tags": [
+        "google-deepmind"
+      ],
+      "excerpt": "Clare Bryant uses Co-Scientist to identify genetic triggers in emerging infectious diseases.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-17835e6c",
+      "title": "Opening new paths in aging research",
+      "canonical_url": "https://deepmind.google/blog/opening-new-paths-in-aging-research/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-16T08:08:44.000Z",
+      "fetched_at": "2026-07-12T00:14:16.277Z",
+      "category": "investigacion",
+      "tags": [
+        "google-deepmind"
+      ],
+      "excerpt": "Calico Life Sciences uses Co-Scientist to connect scattered findings and generate new leads in aging research.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-23b077b6",
+      "title": "Accelerating discovery of liver disease mechanisms",
+      "canonical_url": "https://deepmind.google/blog/accelerating-discovery-of-liver-disease-mechanisms/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-16T08:00:15.000Z",
+      "fetched_at": "2026-07-12T00:14:16.277Z",
+      "category": "investigacion",
+      "tags": [
+        "google-deepmind"
+      ],
+      "excerpt": "Filippo Menolascina uses Co-Scientist to identify new liver disease treatments and explain why existing drugs only help certain patients.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-12549f4d",
+      "title": "Uniting biological toolkits for a new approach to ALS",
+      "canonical_url": "https://deepmind.google/blog/uniting-biological-toolkits-for-a-new-approach-to-als/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-16T07:53:11.000Z",
+      "fetched_at": "2026-07-12T00:14:16.277Z",
+      "category": "investigacion",
+      "tags": [
+        "google-deepmind"
+      ],
+      "excerpt": "Co-Scientist unites Boston Children’s Hospital and MIT’s labs to explore new RNA-based treatments for ALS.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-151dfc11",
+      "title": "Uncovering repurposed medicines to fight liver fibrosis",
+      "canonical_url": "https://deepmind.google/blog/uncovering-repurposed-medicines-to-fight-liver-fibrosis/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-16T07:40:27.000Z",
+      "fetched_at": "2026-07-12T00:14:16.277Z",
+      "category": "investigacion",
+      "tags": [
+        "google-deepmind"
+      ],
+      "excerpt": "Stanford geneticist uses Co-Scientist to help find new treatments for chronic liver disease and liver fibrosis.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-71e12ba0",
+      "title": "How WeatherNext helped the National Hurricane Center better predict Hurricane Melissa’s historic landfall in Jamaica",
+      "canonical_url": "https://deepmind.google/blog/how-weathernext-helped-the-national-hurricane-center-better-predict-hurricane-melissas-historic-landfall-in-jamaica/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-16T03:14:17.000Z",
+      "fetched_at": "2026-07-12T00:14:16.277Z",
+      "category": "investigacion",
+      "tags": [
+        "google-deepmind"
+      ],
+      "excerpt": "Learn how our WeatherNext AI model help forecasters give communities unprecedented time to prepare ahead of the historic Hurricane Melissa.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-2f43991b",
+      "title": "Gemini 3.5: frontier intelligence with action",
+      "canonical_url": "https://deepmind.google/blog/gemini-3-5-frontier-intelligence-with-action/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
+      "source_type": "rss",
+      "published_at": "2026-05-15T22:50:12.000Z",
+      "fetched_at": "2026-07-12T00:23:06.614Z",
+      "category": "investigacion",
+      "tags": [
+        "google-deepmind"
+      ],
+      "excerpt": "Gemini 3.5 is built to help you execute complex, agentic workflows.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-7ce40cf8",
+      "title": "Granite Embedding Multilingual R2: Open Apache 2.0 Multilingual Embeddings with 32K Context — Best Sub-100M Retrieval Quality",
+      "canonical_url": "https://huggingface.co/blog/ibm-granite/granite-embedding-multilingual-r2",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-05-14T18:55:01.000Z",
+      "fetched_at": "2026-07-12T00:23:06.836Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-41efb4c",
+      "title": "Unlocking asynchronicity in continuous batching",
+      "canonical_url": "https://huggingface.co/blog/continuous_async",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-05-14T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:23:06.836Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    }
+  ]
+}

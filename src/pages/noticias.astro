@@ -1,0 +1,450 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import newsData from "../data/news.json";
+import sourcesData from "../data/news-sources.json";
+
+const activeSources = sourcesData.filter((s) => s.enabled);
+const newsItems = newsData.items || [];
+const updatedAt = newsData.updated_at
+  ? new Date(newsData.updated_at).toLocaleString("es-ES", {
+      dateStyle: "medium",
+      timeStyle: "short",
+    })
+  : "";
+
+// 3 noticias destacadas basadas en actualidad
+const featuredNews = newsItems.filter(item => item.official_source).slice(0, 3);
+
+// Formatear fecha para tarjetas
+const formatDate = (dateStr: string) => {
+  return new Date(dateStr).toLocaleDateString("es-ES", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+};
+
+const canonicalURL = "https://www.freeairadar.com/noticias";
+
+const processedNewsItems = newsItems.map((news) => {
+  const pubDate = new Date(news.published_at);
+  const timeDiff = Date.now() - pubDate.getTime();
+  const isToday = pubDate.toDateString() === new Date().toDateString();
+  const isWeek = !isToday && timeDiff <= (7 * 24 * 60 * 60 * 1000);
+  const group = isToday ? 'today' : isWeek ? 'week' : 'older';
+  
+  return {
+    ...news,
+    dateTime: pubDate.getTime(),
+    group
+  };
+});
+---
+
+<BaseLayout
+  title="Noticias de inteligencia artificial de hoy | Free AI Radar"
+  description="Novedades y lanzamientos de inteligencia artificial actualizados diariamente desde fuentes oficiales, filtrados y sin ruido."
+  canonicalURL={canonicalURL}
+>
+  <Header />
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+    <!-- Hero Section -->
+    <section class="pb-10 border-b border-[var(--color-radar-border)] relative">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(116,247,192,0.03),transparent_40%)]"></div>
+      <div class="relative z-10 max-w-4xl space-y-4">
+        <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--color-radar-accent)]">Radar de actualidad</span>
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[var(--color-radar-text)] font-sora tracking-tight">
+          Noticias IA actualizadas cada día
+        </h1>
+        <p class="text-base sm:text-lg text-[var(--color-radar-text-muted)] max-w-2xl leading-relaxed">
+          Lanzamientos, modelos, herramientas y avances relevantes, recopilados desde fuentes oficiales sin ruido publicitario.
+        </p>
+
+        <!-- Stats del Hero -->
+        <div class="flex flex-wrap gap-6 pt-4 text-xs">
+          <div class="px-3 py-1.5 rounded-lg bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)]">
+            <span class="text-[var(--color-radar-text-muted)]">Última actualización:</span>
+            <span class="font-bold text-[var(--color-radar-text)] ml-1">{updatedAt}</span>
+          </div>
+          <div class="px-3 py-1.5 rounded-lg bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)]">
+            <span class="text-[var(--color-radar-text-muted)]">Noticias de hoy:</span>
+            <span class="font-bold text-[var(--color-radar-accent)] ml-1" id="hero-today-count">0</span>
+          </div>
+          <div class="px-3 py-1.5 rounded-lg bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)]">
+            <span class="text-[var(--color-radar-text-muted)]">Fuentes oficiales rastreadas:</span>
+            <span class="font-bold text-[var(--color-radar-secondary)] ml-1">{activeSources.length}</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-3 pt-4">
+          <a href="#listado-noticias" class="px-5 py-2.5 bg-[var(--color-radar-accent)] hover:bg-[var(--color-radar-accent)]/80 text-[var(--color-radar-bg)] font-bold text-xs uppercase tracking-wider rounded-lg transition-colors focus-visible:outline-none">
+            Ver noticias de hoy
+          </a>
+          <a href="/tools" class="px-5 py-2.5 bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] hover:border-[var(--color-radar-accent)]/40 text-[var(--color-radar-text)] font-bold text-xs uppercase tracking-wider rounded-lg transition-colors focus-visible:outline-none">
+            Explorar herramientas gratuitas
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Destacadas (Máximo 3) -->
+    {featuredNews.length > 0 && (
+      <section class="space-y-6">
+        <div class="flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-[var(--color-radar-accent)]"></span>
+          <h2 class="text-xs font-bold uppercase tracking-widest text-[var(--color-radar-text)] font-sora">Destacadas en el radar</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {featuredNews.map((news) => (
+            <div class="p-5 rounded-xl bg-[var(--color-radar-surface)] border border-[var(--color-radar-accent)]/20 hover:border-[var(--color-radar-accent)]/40 transition-all flex flex-col justify-between space-y-4">
+              <div class="space-y-2">
+                <div class="flex items-center justify-between text-[9px] font-bold uppercase tracking-wider text-[var(--color-radar-text-muted)]">
+                  <span>{news.source_name}</span>
+                  <span class="px-1.5 py-0.5 rounded bg-[var(--color-radar-accent)]/10 text-[var(--color-radar-accent)] border border-[var(--color-radar-accent)]/10">Oficial</span>
+                </div>
+                <h3 class="text-sm font-bold text-[var(--color-radar-text)] leading-snug line-clamp-2 hover:text-[var(--color-radar-accent)] transition-colors">
+                  <a href={news.canonical_url} target="_blank" rel="noopener noreferrer" class="focus-visible:outline-none">
+                    {news.title}
+                  </a>
+                </h3>
+                <p class="text-[11px] text-[var(--color-radar-text-muted)] leading-relaxed line-clamp-3">
+                  {news.excerpt}
+                </p>
+              </div>
+              <div class="flex items-center justify-between pt-3 border-t border-[var(--color-radar-border)] text-[9px] text-[var(--color-radar-text-muted)]">
+                <span>{formatDate(news.published_at)}</span>
+                <a href={news.canonical_url} target="_blank" rel="noopener noreferrer" class="text-[10px] font-bold uppercase tracking-wider text-[var(--color-radar-accent)] hover:underline">
+                  Leer fuente &rarr;
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Buscador y Filtros integrados (Un solo estado) -->
+    <section id="listado-noticias" class="space-y-6">
+      <div class="p-6 border border-[var(--color-radar-border)] rounded-xl bg-[var(--color-radar-surface)] space-y-5">
+        <div class="flex flex-col md:flex-row gap-4 items-start justify-between">
+          <div>
+            <h2 class="text-xl font-bold text-[var(--color-radar-text)] font-sora tracking-tight">Filtros de noticias</h2>
+            <p class="text-[11px] text-[var(--color-radar-text-muted)] mt-0.5">Filtra por categoría o rango temporal. El buscador se combina con los filtros activos.</p>
+          </div>
+          <!-- Buscador inline -->
+          <div class="relative w-full md:max-w-xs">
+            <input
+              type="text"
+              id="news-search-input"
+              placeholder="Buscar noticias..."
+              class="w-full px-4 py-2.5 bg-[var(--color-radar-bg)] border border-[var(--color-radar-border)] rounded-lg text-xs text-[var(--color-radar-text)] placeholder-[var(--color-radar-text-muted)] focus:outline-none focus:border-[var(--color-radar-accent)] focus:ring-1 focus:ring-[var(--color-radar-accent)]/30 transition-all"
+            />
+          </div>
+        </div>
+
+        <!-- Filtros rápidos -->
+        <div class="flex flex-wrap gap-2">
+          <button type="button" class="news-filter-btn px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded border border-[var(--color-radar-border)] text-[var(--color-radar-text-muted)] hover:border-[var(--color-radar-accent)]/30 hover:text-[var(--color-radar-text)] transition-all cursor-pointer filter-btn-active bg-[var(--color-radar-accent)] text-[var(--color-radar-bg)] border-[var(--color-radar-accent)]" data-category="all">
+            Todas
+          </button>
+          <button type="button" class="news-filter-btn px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded border border-[var(--color-radar-border)] text-[var(--color-radar-text-muted)] hover:border-[var(--color-radar-accent)]/30 hover:text-[var(--color-radar-text)] transition-all cursor-pointer" data-category="modelos">
+            Modelos
+          </button>
+          <button type="button" class="news-filter-btn px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded border border-[var(--color-radar-border)] text-[var(--color-radar-text-muted)] hover:border-[var(--color-radar-accent)]/30 hover:text-[var(--color-radar-text)] transition-all cursor-pointer" data-category="productos">
+            Productos
+          </button>
+          <button type="button" class="news-filter-btn px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded border border-[var(--color-radar-border)] text-[var(--color-radar-text-muted)] hover:border-[var(--color-radar-accent)]/30 hover:text-[var(--color-radar-text)] transition-all cursor-pointer" data-category="open-source">
+            Open Source
+          </button>
+          <button type="button" class="news-filter-btn px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded border border-[var(--color-radar-border)] text-[var(--color-radar-text-muted)] hover:border-[var(--color-radar-accent)]/30 hover:text-[var(--color-radar-text)] transition-all cursor-pointer" data-category="imagen-video">
+            Imagen & Vídeo
+          </button>
+          <button type="button" class="news-filter-btn px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded border border-[var(--color-radar-border)] text-[var(--color-radar-text-muted)] hover:border-[var(--color-radar-accent)]/30 hover:text-[var(--color-radar-text)] transition-all cursor-pointer" data-category="codigo-agentes">
+            Código & Agentes
+          </button>
+          <button type="button" class="news-filter-btn px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded border border-[var(--color-radar-border)] text-[var(--color-radar-text-muted)] hover:border-[var(--color-radar-accent)]/30 hover:text-[var(--color-radar-text)] transition-all cursor-pointer" data-category="investigacion">
+            Investigación
+          </button>
+          <button type="button" class="news-filter-btn px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded border border-[var(--color-radar-border)] text-[var(--color-radar-text-muted)] hover:border-[var(--color-radar-accent)]/30 hover:text-[var(--color-radar-text)] transition-all cursor-pointer" data-category="empresas">
+            Empresas
+          </button>
+          
+          <div class="w-full md:w-auto h-px md:h-6 bg-[var(--color-radar-border)] my-1 md:my-0 md:mx-2"></div>
+          
+          <button type="button" class="news-toggle-btn px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded border border-[var(--color-radar-border)] text-[var(--color-radar-text-muted)] hover:border-[var(--color-radar-accent)]/30 hover:text-[var(--color-radar-text)] transition-all cursor-pointer" data-toggle="official">
+            Solo fuentes oficiales
+          </button>
+          <button type="button" class="news-date-btn px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded border border-[var(--color-radar-border)] text-[var(--color-radar-text-muted)] hover:border-[var(--color-radar-accent)]/30 hover:text-[var(--color-radar-text)] transition-all cursor-pointer" data-date="today">
+            Hoy
+          </button>
+          <button type="button" class="news-date-btn px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded border border-[var(--color-radar-border)] text-[var(--color-radar-text-muted)] hover:border-[var(--color-radar-accent)]/30 hover:text-[var(--color-radar-text)] transition-all cursor-pointer" data-date="7days">
+            Últimos 7 días
+          </button>
+        </div>
+      </div>
+
+      <!-- Listado principal agrupado -->
+      <div class="space-y-12" id="news-groups-container">
+        <!-- Grupo 1: Hoy -->
+        <div class="news-group space-y-6" id="group-today">
+          <div class="flex items-center gap-3 border-b border-[var(--color-radar-border)] pb-2">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-[var(--color-radar-accent)]">Hoy</h3>
+            <span class="text-xs px-2 py-0.5 rounded-full bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] text-[var(--color-radar-text-muted)] count-badge">0</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 news-grid"></div>
+        </div>
+
+        <!-- Grupo 2: Últimos 7 días -->
+        <div class="news-group space-y-6" id="group-week">
+          <div class="flex items-center gap-3 border-b border-[var(--color-radar-border)] pb-2">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-[var(--color-radar-text)]">Últimos 7 días</h3>
+            <span class="text-xs px-2 py-0.5 rounded-full bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] text-[var(--color-radar-text-muted)] count-badge">0</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 news-grid"></div>
+        </div>
+
+        <!-- Grupo 3: Anteriores -->
+        <div class="news-group space-y-6" id="group-older">
+          <div class="flex items-center gap-3 border-b border-[var(--color-radar-border)] pb-2">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-[var(--color-radar-text-muted)]">Anteriores</h3>
+            <span class="text-xs px-2 py-0.5 rounded-full bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] text-[var(--color-radar-text-muted)] count-badge">0</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 news-grid"></div>
+        </div>
+
+        <!-- Tarjetas molde en HTML que el JS moverá e instanciará para evitar duplicar lógica o renderizar con innerHTML -->
+        <div class="hidden">
+          {processedNewsItems.map((news) => (
+            <div
+              class="news-card p-5 rounded-xl bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] flex flex-col justify-between space-y-4 hover:border-[var(--color-radar-accent)]/20 transition-all duration-300"
+              data-id={news.id}
+              data-title={news.title.toLowerCase()}
+              data-excerpt={news.excerpt.toLowerCase()}
+              data-category={news.category}
+              data-official={String(news.official_source)}
+              data-date-str={news.published_at}
+              data-date-time={news.dateTime}
+              data-group={news.group}
+            >
+              <div class="space-y-2">
+                <div class="flex items-center justify-between text-[9px] font-bold uppercase tracking-wider text-[var(--color-radar-text-muted)]">
+                  <span>{news.source_name}</span>
+                  <div class="flex items-center gap-1.5">
+                    {news.official_source && (
+                      <span class="px-1.5 py-0.5 rounded bg-[var(--color-radar-accent)]/10 text-[var(--color-radar-accent)] border border-[var(--color-radar-accent)]/10">Oficial</span>
+                    )}
+                    <span class="px-1.5 py-0.5 rounded bg-[#131B26] text-[var(--color-radar-text-muted)] border border-[var(--color-radar-border)]">{news.category}</span>
+                  </div>
+                </div>
+                <h4 class="text-sm font-bold text-[var(--color-radar-text)] leading-snug hover:text-[var(--color-radar-accent)] transition-colors">
+                  <a href={news.canonical_url} target="_blank" rel="noopener noreferrer" class="focus-visible:outline-none">
+                    {news.title}
+                  </a>
+                </h4>
+                <p class="text-[11px] text-[var(--color-radar-text-muted)] leading-relaxed">
+                  {news.excerpt}
+                </p>
+              </div>
+              <div class="flex items-center justify-between pt-3 border-t border-[var(--color-radar-border)] text-[9px] text-[var(--color-radar-text-muted)]">
+                <span>Publicado: {formatDate(news.published_at)}</span>
+                <a href={news.canonical_url} target="_blank" rel="noopener noreferrer" class="text-[10px] font-bold uppercase tracking-wider text-[var(--color-radar-accent)] hover:underline">
+                  Leer en la fuente &rarr;
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Estado vacío -->
+      <div id="news-empty-state" class="hidden text-center py-20 bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] rounded-xl">
+        <h3 class="text-lg font-bold text-[var(--color-radar-text)] mb-2 font-sora">Sin novedades</h3>
+        <p class="text-xs text-[var(--color-radar-text-muted)]">No hay noticias que coincidan con estos filtros.</p>
+      </div>
+    </section>
+
+    <!-- Transparencia -->
+    <section class="max-w-4xl mx-auto px-4 py-8 text-center bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] rounded-xl">
+      <span class="text-[9px] font-bold uppercase tracking-widest text-[var(--color-radar-secondary)] block mb-1">Cómo funciona este radar</span>
+      <p class="text-xs text-[var(--color-radar-text-muted)] leading-relaxed">
+        Free AI Radar recopila titulares, fechas y extractos breves desde fuentes oficiales y feeds autorizados. No reproducimos artículos completos de forma íntegra. Los enlaces dirigen siempre a la publicación original del proveedor. La aparición de noticias en esta sección no implica una recomendación o validación editorial de su contenido.
+      </p>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  let activeCategory = 'all';
+  let onlyOfficial = false;
+  let activeDateFilter = null; // 'today' | '7days' | null
+  let searchQuery = '';
+
+  const filterBtns = document.querySelectorAll('.news-filter-btn');
+  const toggleBtn = document.querySelector('[data-toggle="official"]');
+  const dateBtns = document.querySelectorAll('.news-date-btn');
+  const searchInput = document.getElementById('news-search-input') as HTMLInputElement;
+
+  const cards = Array.from(document.querySelectorAll('.news-card')) as HTMLElement[];
+  const emptyState = document.getElementById('news-empty-state');
+
+  // Inicializar distribución de tarjetas en los contenedores del DOM
+  function distributeCards() {
+    const todayGrid = document.querySelector('#group-today .news-grid');
+    const weekGrid = document.querySelector('#group-week .news-grid');
+    const olderGrid = document.querySelector('#group-older .news-grid');
+
+    if (!todayGrid || !weekGrid || !olderGrid) return;
+
+    // Limpiar grids
+    todayGrid.innerHTML = '';
+    weekGrid.innerHTML = '';
+    olderGrid.innerHTML = '';
+
+    let todayCount = 0;
+    let weekCount = 0;
+    let olderCount = 0;
+
+    cards.forEach((card) => {
+      const category = card.dataset.category || '';
+      const isOfficial = card.dataset.official === 'true';
+      const title = card.dataset.title || '';
+      const excerpt = card.dataset.excerpt || '';
+      const group = card.dataset.group || '';
+      const dateTime = parseInt(card.dataset.dateTime || '0');
+
+      let matches = true;
+
+      // 1. Filtro de Categoría
+      if (activeCategory !== 'all' && category !== activeCategory) {
+        matches = false;
+      }
+
+      // 2. Filtro de Oficial
+      if (onlyOfficial && !isOfficial) {
+        matches = false;
+      }
+
+      // 3. Filtro de Fecha
+      if (activeDateFilter === 'today' && group !== 'today') {
+        matches = false;
+      }
+      if (activeDateFilter === '7days') {
+        const timeDiff = Date.now() - dateTime;
+        if (timeDiff > (7 * 24 * 60 * 60 * 1000)) {
+          matches = false;
+        }
+      }
+
+      // 4. Filtro de Búsqueda
+      if (searchQuery && !title.includes(searchQuery) && !excerpt.includes(searchQuery)) {
+        matches = false;
+      }
+
+      if (matches) {
+        card.style.display = '';
+        if (group === 'today') {
+          todayGrid.appendChild(card);
+          todayCount++;
+        } else if (group === 'week') {
+          weekGrid.appendChild(card);
+          weekCount++;
+        } else {
+          olderGrid.appendChild(card);
+          olderCount++;
+        }
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    // Mostrar / ocultar grupos enteros si están vacíos
+    const groupToday = document.getElementById('group-today');
+    const groupWeek = document.getElementById('group-week');
+    const groupOlder = document.getElementById('group-older');
+
+    if (groupToday) {
+      groupToday.style.display = todayCount > 0 ? '' : 'none';
+      const badge = groupToday.querySelector('.count-badge');
+      if (badge) badge.textContent = String(todayCount);
+    }
+    if (groupWeek) {
+      groupWeek.style.display = weekCount > 0 ? '' : 'none';
+      const badge = groupWeek.querySelector('.count-badge');
+      if (badge) badge.textContent = String(weekCount);
+    }
+    if (groupOlder) {
+      groupOlder.style.display = olderCount > 0 ? '' : 'none';
+      const badge = groupOlder.querySelector('.count-badge');
+      if (badge) badge.textContent = String(olderCount);
+    }
+
+    const totalVisible = todayCount + weekCount + olderCount;
+    if (totalVisible === 0) {
+      emptyState?.classList.remove('hidden');
+    } else {
+      emptyState?.classList.add('hidden');
+    }
+
+    // Actualizar contador del Hero
+    const heroCountEl = document.getElementById('hero-today-count');
+    if (heroCountEl) {
+      // Contar cuántas noticias de hoy hay registradas originalmente
+      const todayTotal = cards.filter(c => c.dataset.group === 'today').length;
+      heroCountEl.textContent = String(todayTotal);
+    }
+  }
+
+  // Event Listeners para Categorías
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('filter-btn-active', 'bg-[var(--color-radar-accent)]', 'text-[var(--color-radar-bg)]', 'border-[var(--color-radar-accent)]'));
+      btn.classList.add('filter-btn-active', 'bg-[var(--color-radar-accent)]', 'text-[var(--color-radar-bg)]', 'border-[var(--color-radar-accent)]');
+      
+      activeCategory = btn.getAttribute('data-category') || 'all';
+      distributeCards();
+    });
+  });
+
+  // Event Listener para Fuentes Oficiales
+  toggleBtn?.addEventListener('click', () => {
+    onlyOfficial = !onlyOfficial;
+    if (onlyOfficial) {
+      toggleBtn.classList.add('bg-[var(--color-radar-accent)]', 'text-[var(--color-radar-bg)]', 'border-[var(--color-radar-accent)]');
+    } else {
+      toggleBtn.classList.remove('bg-[var(--color-radar-accent)]', 'text-[var(--color-radar-bg)]', 'border-[var(--color-radar-accent)]');
+    }
+    distributeCards();
+  });
+
+  // Event Listeners para Filtros de Fecha
+  dateBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const type = btn.getAttribute('data-date');
+      const isActive = btn.classList.contains('bg-[var(--color-radar-secondary)]');
+
+      dateBtns.forEach(b => b.classList.remove('bg-[var(--color-radar-secondary)]', 'text-[var(--color-radar-bg)]', 'border-[var(--color-radar-secondary)]'));
+
+      if (isActive) {
+        activeDateFilter = null;
+      } else {
+        activeDateFilter = type;
+        btn.classList.add('bg-[var(--color-radar-secondary)]', 'text-[var(--color-radar-bg)]', 'border-[var(--color-radar-secondary)]');
+      }
+      distributeCards();
+    });
+  });
+
+  // Event Listener para Buscador
+  searchInput?.addEventListener('input', () => {
+    searchQuery = searchInput.value.trim().toLowerCase();
+    distributeCards();
+  });
+
+  // Ejecución inicial
+  distributeCards();
+</script>

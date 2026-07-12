@@ -8,6 +8,9 @@ import FilterBar from "../components/FilterBar.astro";
 import ToolCard from "../components/ToolCard.astro";
 import Newsletter from "../components/Newsletter.astro";
 import toolsData from "../data/tools.json";
+import newsData from "../data/news.json";
+
+const latestNews = (newsData.items || []).slice(0, 3);
 
 // Filtrar herramientas activas
 const activeToolsList = toolsData.filter((t) => !t.status || t.status === "active");
@@ -302,6 +305,48 @@ const freeTypes = new Set(activeToolsList.map((t) => t.free_type).filter(Boolean
         </div>
       </div>
     </section>
+
+    <!-- Últimas noticias de IA (Callout sutil en Home) -->
+    {latestNews.length > 0 && (
+      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--color-radar-accent)]">Actualidad tecnológica</span>
+            <h2 class="text-2xl font-extrabold text-[var(--color-radar-text)] mt-0.5 font-sora">Últimas noticias de IA</h2>
+          </div>
+          <a href="/noticias" class="text-xs font-bold uppercase tracking-wider text-[var(--color-radar-accent)] hover:text-[var(--color-radar-accent)]/80 transition-colors">Ver todas las noticias &rarr;</a>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {latestNews.map((news) => {
+            const pubDate = new Date(news.published_at).toLocaleDateString("es-ES", {
+              month: "short",
+              day: "numeric"
+            });
+            return (
+              <div class="p-5 rounded-xl bg-[var(--color-radar-surface)] border border-[var(--color-radar-border)] hover:border-[var(--color-radar-accent)]/20 transition-all flex flex-col justify-between space-y-3">
+                <div class="space-y-1.5">
+                  <div class="flex items-center justify-between text-[9px] font-bold uppercase tracking-wider text-[var(--color-radar-text-muted)]">
+                    <span>{news.source_name}</span>
+                    <span>{pubDate}</span>
+                  </div>
+                  <h3 class="text-xs sm:text-sm font-bold text-[var(--color-radar-text)] leading-snug line-clamp-2 hover:text-[var(--color-radar-accent)] transition-colors">
+                    <a href={news.canonical_url} target="_blank" rel="noopener noreferrer">
+                      {news.title}
+                    </a>
+                  </h3>
+                </div>
+                <div class="pt-2 border-t border-[var(--color-radar-border)] text-right">
+                  <a href={news.canonical_url} target="_blank" rel="noopener noreferrer" class="text-[9px] font-bold uppercase tracking-wider text-[var(--color-radar-accent)] hover:underline">
+                    Leer original &rarr;
+                  </a>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+    )}
 
     <!-- Newsletter -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">

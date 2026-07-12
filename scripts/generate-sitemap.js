@@ -14,7 +14,8 @@ const staticPages = [
   '/about',
   '/privacy',
   '/methodology',
-  '/comfyui-sin-gpu'
+  '/comfyui-sin-gpu',
+  '/noticias'
 ];
 
 try {
