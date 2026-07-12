@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-12T00:14:18.022Z",
+  "updated_at": "2026-07-12T00:23:08.774Z",
   "items": [
     {
       "id": "news-6d65cf95",
@@ -3542,66 +3542,6 @@
       "status": "active"
     },
     {
-      "id": "news-33626293",
-      "title": "An OpenAI model has disproved a central conjecture in discrete geometry",
-      "canonical_url": "https://openai.com/index/model-disproves-discrete-geometry-conjecture",
-      "source_name": "OpenAI Blog",
-      "source_url": "https://openai.com/blog/",
-      "source_type": "rss",
-      "published_at": "2026-05-20T00:00:00.000Z",
-      "fetched_at": "2026-07-12T00:14:17.685Z",
-      "category": "modelos",
-      "tags": [
-        "openai-blog"
-      ],
-      "excerpt": "An OpenAI model solved the 80-year-old unit distance problem, disproving a major conjecture in discrete geometry and marking a milestone in AI-driven mathematics.",
-      "image_url": null,
-      "official_source": true,
-      "featured": false,
-      "language": "en",
-      "status": "active"
-    },
-    {
-      "id": "news-19076587",
-      "title": "How Ramp engineers accelerate code review with Codex",
-      "canonical_url": "https://openai.com/index/ramp",
-      "source_name": "OpenAI Blog",
-      "source_url": "https://openai.com/blog/",
-      "source_type": "rss",
-      "published_at": "2026-05-20T00:00:00.000Z",
-      "fetched_at": "2026-07-12T00:14:17.685Z",
-      "category": "modelos",
-      "tags": [
-        "openai-blog"
-      ],
-      "excerpt": "How Ramp engineers use Codex with GPT-5.5 to review code and ship improvements, allowing them to get substantive feedback in minutes instead of hours.",
-      "image_url": null,
-      "official_source": true,
-      "featured": false,
-      "language": "en",
-      "status": "active"
-    },
-    {
-      "id": "news-3f1e691",
-      "title": "Introducing OpenAI for Singapore",
-      "canonical_url": "https://openai.com/index/introducing-openai-for-singapore",
-      "source_name": "OpenAI Blog",
-      "source_url": "https://openai.com/blog/",
-      "source_type": "rss",
-      "published_at": "2026-05-19T20:30:00.000Z",
-      "fetched_at": "2026-07-12T00:14:17.685Z",
-      "category": "modelos",
-      "tags": [
-        "openai-blog"
-      ],
-      "excerpt": "OpenAI for Singapore launches a multi-year AI partnership to expand deployment, build local talent, and support businesses and public services with AI.",
-      "image_url": null,
-      "official_source": true,
-      "featured": false,
-      "language": "en",
-      "status": "active"
-    },
-    {
       "id": "news-558eec00",
       "title": "OlmoEarth v1.1: A more efficient family of Earth observation models",
       "canonical_url": "https://huggingface.co/blog/allenai/olmoearth-v1-1",
@@ -3635,26 +3575,6 @@
         "google-research"
       ],
       "excerpt": "General Science",
-      "image_url": null,
-      "official_source": true,
-      "featured": false,
-      "language": "en",
-      "status": "active"
-    },
-    {
-      "id": "news-efca19a",
-      "title": "Advancing content provenance for a safer, more transparent AI ecosystem",
-      "canonical_url": "https://openai.com/index/advancing-content-provenance",
-      "source_name": "OpenAI Blog",
-      "source_url": "https://openai.com/blog/",
-      "source_type": "rss",
-      "published_at": "2026-05-19T10:45:00.000Z",
-      "fetched_at": "2026-07-12T00:14:17.685Z",
-      "category": "modelos",
-      "tags": [
-        "openai-blog"
-      ],
-      "excerpt": "OpenAI advances AI content provenance with Content Credentials, SynthID, and a verification tool to help people identify and trust AI-generated media.",
       "image_url": null,
       "official_source": true,
       "featured": false,
@@ -3715,26 +3635,6 @@
         "hugging-face-blog"
       ],
       "excerpt": "",
-      "image_url": null,
-      "official_source": true,
-      "featured": false,
-      "language": "en",
-      "status": "active"
-    },
-    {
-      "id": "news-4f34d3dc",
-      "title": "OpenAI and Dell partner to bring Codex to hybrid and on-premise enterprise environments",
-      "canonical_url": "https://openai.com/index/dell-codex-enterprise-partnership",
-      "source_name": "OpenAI Blog",
-      "source_url": "https://openai.com/blog/",
-      "source_type": "rss",
-      "published_at": "2026-05-18T10:00:00.000Z",
-      "fetched_at": "2026-07-12T00:14:17.685Z",
-      "category": "modelos",
-      "tags": [
-        "openai-blog"
-      ],
-      "excerpt": "OpenAI and Dell partner to bring Codex to hybrid and on-premise environments, helping enterprises deploy AI coding agents securely across data and workflows.",
       "image_url": null,
       "official_source": true,
       "featured": false,
@@ -3982,19 +3882,59 @@
       "status": "active"
     },
     {
-      "id": "news-64aed3aa",
-      "title": "OpenAI and Malta partner to bring ChatGPT Plus to all citizens",
-      "canonical_url": "https://openai.com/index/malta-chatgpt-plus-partnership",
-      "source_name": "OpenAI Blog",
-      "source_url": "https://openai.com/blog/",
+      "id": "news-2f43991b",
+      "title": "Gemini 3.5: frontier intelligence with action",
+      "canonical_url": "https://deepmind.google/blog/gemini-3-5-frontier-intelligence-with-action/",
+      "source_name": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/",
       "source_type": "rss",
-      "published_at": "2026-05-16T00:00:00.000Z",
-      "fetched_at": "2026-07-12T00:14:17.685Z",
-      "category": "modelos",
+      "published_at": "2026-05-15T22:50:12.000Z",
+      "fetched_at": "2026-07-12T00:23:06.614Z",
+      "category": "investigacion",
       "tags": [
-        "openai-blog"
+        "google-deepmind"
       ],
-      "excerpt": "OpenAI and Malta partner to expand AI access, offering ChatGPT Plus and training to help citizens build practical AI skills and use AI responsibly.",
+      "excerpt": "Gemini 3.5 is built to help you execute complex, agentic workflows.",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-7ce40cf8",
+      "title": "Granite Embedding Multilingual R2: Open Apache 2.0 Multilingual Embeddings with 32K Context — Best Sub-100M Retrieval Quality",
+      "canonical_url": "https://huggingface.co/blog/ibm-granite/granite-embedding-multilingual-r2",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-05-14T18:55:01.000Z",
+      "fetched_at": "2026-07-12T00:23:06.836Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
+      "image_url": null,
+      "official_source": true,
+      "featured": false,
+      "language": "en",
+      "status": "active"
+    },
+    {
+      "id": "news-41efb4c",
+      "title": "Unlocking asynchronicity in continuous batching",
+      "canonical_url": "https://huggingface.co/blog/continuous_async",
+      "source_name": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog",
+      "source_type": "rss",
+      "published_at": "2026-05-14T00:00:00.000Z",
+      "fetched_at": "2026-07-12T00:23:06.836Z",
+      "category": "open-source",
+      "tags": [
+        "hugging-face-blog"
+      ],
+      "excerpt": "",
       "image_url": null,
       "official_source": true,
       "featured": false,

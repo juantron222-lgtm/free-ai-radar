@@ -211,13 +211,26 @@ async function run() {
   // Filtrar por retención (últimos 60 días)
   const retentionCutoff = Date.now() - (MAX_DAYS_RETENTION * 24 * 60 * 60 * 1000);
   
-  const sortedItems = Array.from(allItemsMap.values())
+  const sortedAll = Array.from(allItemsMap.values())
     .filter(item => {
       const pubTime = new Date(item.published_at).getTime();
       return pubTime >= retentionCutoff;
     })
-    .sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime())
-    .slice(0, MAX_NEWS_LIMIT);
+    .sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime());
+
+  const sourceCountTracker = {};
+  const maxPerSource = Math.floor(MAX_NEWS_LIMIT * 0.4); // Máximo 80 noticias por fuente (40% de 200)
+  const sortedItems = [];
+
+  for (const item of sortedAll) {
+    if (sortedItems.length >= MAX_NEWS_LIMIT) break;
+    const sName = item.source_name;
+    const currentCount = sourceCountTracker[sName] || 0;
+    if (currentCount < maxPerSource) {
+      sortedItems.push(item);
+      sourceCountTracker[sName] = currentCount + 1;
+    }
+  }
 
   // Si todas las fuentes fallan y no se ha obtenido nada, no sobrescribimos con vacío
   if (processed.length === 0 && failed.length > 0) {
