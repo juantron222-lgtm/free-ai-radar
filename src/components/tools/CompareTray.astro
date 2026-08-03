@@ -1,0 +1,216 @@
+---
+import { ROUTES } from '@lib/nav';
+---
+
+{/*
+  Persistent comparison tray. Selection lives in sessionStorage so it survives
+  navigation between listing and detail pages within a visit, and is gone when
+  the tab closes — no account needed, nothing stored server-side.
+*/}
+<div class="compare-tray" id="compare-tray" hidden>
+  <div class="page compare-tray-inner">
+    <p class="compare-tray-label">
+      <span class="tnum" id="compare-count">0</span> de 4 seleccionadas
+    </p>
+    <ul class="compare-tray-items" id="compare-items"></ul>
+    <div class="compare-tray-actions">
+      <button type="button" class="btn btn-ghost btn-sm" id="compare-clear">Vaciar</button>
+      <a class="btn btn-primary btn-sm" id="compare-go" href={ROUTES.compare}>Comparar</a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .compare-tray {
+    position: fixed;
+    inset-block-end: 0;
+    inset-inline: 0;
+    z-index: 35;
+    background: var(--surface);
+    border-block-start: 1px solid var(--line-strong);
+    box-shadow: var(--shadow-l);
+    padding-block: var(--space-2xs);
+    padding-block-end: calc(var(--space-2xs) + env(safe-area-inset-bottom));
+  }
+
+  .compare-tray[hidden] {
+    display: none;
+  }
+
+  .compare-tray-inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    flex-wrap: wrap;
+  }
+
+  .compare-tray-label {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--ink-muted);
+    white-space: nowrap;
+  }
+
+  .compare-tray-items {
+    display: flex;
+    gap: 0.35rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .compare-tray-items::-webkit-scrollbar {
+    display: none;
+  }
+
+  .compare-tray-actions {
+    display: flex;
+    gap: var(--space-3xs);
+    margin-inline-start: auto;
+  }
+
+  .compare-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.25rem 0.3rem 0.25rem 0.6rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--signal-line);
+    background: var(--signal-soft);
+    color: var(--signal);
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .compare-pill button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border: 0;
+    border-radius: var(--radius-full);
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .compare-pill button:hover {
+    background: color-mix(in srgb, var(--signal) 18%, transparent);
+  }
+</style>
+
+<script>
+  const STORAGE_KEY = 'far-compare';
+  const MAX = 4;
+
+  interface Selected {
+    slug: string;
+    name: string;
+  }
+
+  const tray = document.getElementById('compare-tray');
+  const itemsEl = document.getElementById('compare-items');
+  const countEl = document.getElementById('compare-count');
+  const goLink = document.getElementById('compare-go') as HTMLAnchorElement | null;
+  const clearBtn = document.getElementById('compare-clear');
+
+  function read(): Selected[] {
+    try {
+      const raw = sessionStorage.getItem(STORAGE_KEY);
+      const parsed: unknown = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? (parsed as Selected[]).slice(0, MAX) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function write(items: Selected[]) {
+    try {
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    } catch {
+      /* Storage blocked: selection lasts for this page only. */
+    }
+    paint(items);
+  }
+
+  function paint(items: Selected[]) {
+    for (const button of Array.from(
+      document.querySelectorAll<HTMLButtonElement>('[data-compare-toggle]')
+    )) {
+      const slug = button.dataset['compareToggle']!;
+      const isSelected = items.some((i) => i.slug === slug);
+      button.setAttribute('aria-pressed', String(isSelected));
+      button.disabled = !isSelected && items.length >= MAX;
+      const label = button.querySelector('.compare-label');
+      if (label) label.textContent = isSelected ? 'Añadida' : 'Comparar';
+    }
+
+    if (!tray || !itemsEl || !countEl || !goLink) return;
+
+    tray.hidden = items.length === 0;
+    countEl.textContent = String(items.length);
+    goLink.href = `/comparar?t=${items.map((i) => i.slug).join(',')}`;
+    goLink.setAttribute('aria-disabled', String(items.length < 2));
+    goLink.classList.toggle('btn-primary', items.length >= 2);
+    goLink.classList.toggle('btn-secondary', items.length < 2);
+
+    itemsEl.replaceChildren(
+      ...items.map((item) => {
+        const li = document.createElement('li');
+        li.className = 'compare-pill';
+        const name = document.createElement('span');
+        name.textContent = item.name;
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.innerHTML =
+          '<svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+        const sr = document.createElement('span');
+        sr.className = 'sr-only';
+        sr.textContent = `Quitar ${item.name} de la comparación`;
+        remove.appendChild(sr);
+        remove.addEventListener('click', () => {
+          write(read().filter((i) => i.slug !== item.slug));
+        });
+        li.append(name, remove);
+        return li;
+      })
+    );
+  }
+
+  document.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement | null;
+    const button = target?.closest<HTMLButtonElement>('[data-compare-toggle]');
+    if (!button) return;
+    event.preventDefault();
+
+    const slug = button.dataset['compareToggle']!;
+    const name = button.dataset['compareName'] ?? slug;
+    const current = read();
+
+    if (current.some((i) => i.slug === slug)) {
+      write(current.filter((i) => i.slug !== slug));
+    } else if (current.length < MAX) {
+      write([...current, { slug, name }]);
+    }
+  });
+
+  clearBtn?.addEventListener('click', () => write([]));
+
+  goLink?.addEventListener('click', (event) => {
+    if (read().length < 2) {
+      event.preventDefault();
+      goLink.textContent = 'Elige al menos 2';
+      window.setTimeout(() => {
+        goLink.textContent = 'Comparar';
+      }, 1600);
+    }
+  });
+
+  paint(read());
+</script>

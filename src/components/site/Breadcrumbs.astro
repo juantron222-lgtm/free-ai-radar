@@ -1,0 +1,69 @@
+---
+import type { Crumb } from '@lib/seo/structured-data';
+
+interface Props {
+  crumbs: Crumb[];
+}
+const { crumbs } = Astro.props;
+const last = crumbs.length - 1;
+---
+
+<nav aria-label="Migas de pan" class="breadcrumbs">
+  <ol>
+    {crumbs.map((crumb, index) => (
+      <li>
+        {index === last ? (
+          <span aria-current="page">{crumb.name}</span>
+        ) : (
+          <>
+            <a href={crumb.path}>{crumb.name}</a>
+            <span class="breadcrumbs-sep" aria-hidden="true">/</span>
+          </>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<style>
+  .breadcrumbs {
+    padding-block: var(--space-s) 0;
+  }
+
+  .breadcrumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+  }
+
+  .breadcrumbs li {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .breadcrumbs a {
+    color: var(--ink-muted);
+    text-decoration: none;
+  }
+
+  .breadcrumbs a:hover {
+    color: var(--ink-strong);
+    text-decoration: underline;
+  }
+
+  .breadcrumbs [aria-current='page'] {
+    color: var(--ink);
+    font-weight: 550;
+  }
+
+  .breadcrumbs-sep {
+    color: var(--line-strong);
+  }
+</style>

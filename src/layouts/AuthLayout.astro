@@ -1,0 +1,168 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Logo from '@components/site/Logo.astro';
+import { ROUTES } from '@lib/nav';
+
+interface Props {
+  title: string;
+  description?: string;
+  heading: string;
+  lede?: string;
+}
+
+const { title, description, heading, lede } = Astro.props;
+const { authMode } = Astro.locals;
+---
+
+<BaseLayout title={title} description={description} noindex bare>
+  <div class="auth">
+    <div class="auth-panel">
+      <a href={ROUTES.home} class="auth-brand"><Logo /></a>
+
+      <h1 class="auth-heading">{heading}</h1>
+      {lede && <p class="auth-lede">{lede}</p>}
+
+      {authMode === 'local' && (
+        <p class="auth-mode" role="note">
+          <strong>Modo local de desarrollo.</strong> Las cuentas se guardan en
+          <code>.data/dev-users.json</code> y los correos se registran en consola en vez de
+          enviarse. Configura Supabase para el modo real.
+        </p>
+      )}
+
+      {authMode === 'disabled' && (
+        <p class="auth-mode auth-mode-alert" role="alert">
+          Las cuentas no están activas en este entorno porque falta la configuración de Supabase.
+        </p>
+      )}
+
+      <slot />
+    </div>
+
+    <aside class="auth-aside" aria-labelledby="auth-aside-title">
+      <h2 id="auth-aside-title" class="auth-aside-title">Con una cuenta gratuita puedes</h2>
+      <ul class="auth-benefits">
+        <li>Guardar herramientas y organizarlas en listas.</li>
+        <li>Recibir un aviso cuando un plan gratuito se recorte o empiece a pedir tarjeta.</li>
+        <li>Marcar las que ya has probado y no volver a evaluarlas dos veces.</li>
+        <li>Guardar comparaciones para retomarlas después.</li>
+        <li>Seguir categorías y recibir sólo lo tuyo.</li>
+      </ul>
+      <p class="auth-aside-note">
+        No hace falta cuenta para leer nada del sitio. Es sólo para lo que se guarda.
+      </p>
+    </aside>
+  </div>
+</BaseLayout>
+
+<style>
+  .auth {
+    min-height: 100dvh;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .auth-panel {
+    padding: var(--space-l) var(--space-s) var(--space-xl);
+    max-width: 27rem;
+    width: 100%;
+    margin-inline: auto;
+    align-self: center;
+  }
+
+  .auth-brand {
+    display: inline-block;
+    text-decoration: none;
+    margin-block-end: var(--space-l);
+  }
+
+  .auth-heading {
+    font-size: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+    margin-block-end: var(--space-2xs);
+  }
+
+  .auth-lede {
+    margin: 0 0 var(--space-m);
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+  }
+
+  .auth-mode {
+    margin: 0 0 var(--space-m);
+    padding: 0.6rem 0.8rem;
+    border-radius: var(--radius-m);
+    background: var(--info-soft);
+    border: 1px solid var(--info-line);
+    color: var(--ink);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
+
+  .auth-mode code {
+    font-family: var(--font-mono);
+    font-size: 0.95em;
+  }
+
+  .auth-mode-alert {
+    background: var(--warn-soft);
+    border-color: var(--warn-line);
+  }
+
+  .auth-aside {
+    display: none;
+    padding: var(--space-xl) var(--space-l);
+    background: var(--surface-sunken);
+    border-inline-start: 1px solid var(--line);
+    align-content: center;
+  }
+
+  .auth-aside-title {
+    font-size: 1.125rem;
+    margin-block-end: var(--space-s);
+  }
+
+  .auth-benefits {
+    margin: 0 0 var(--space-m);
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: var(--space-2xs);
+    max-width: 26rem;
+  }
+
+  .auth-benefits li {
+    position: relative;
+    padding-inline-start: 1.6rem;
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+  }
+
+  .auth-benefits li::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-start: 0.45em;
+    width: 0.85rem;
+    height: 0.45rem;
+    border-inline-start: 2px solid var(--signal);
+    border-block-end: 2px solid var(--signal);
+    transform: rotate(-45deg);
+  }
+
+  .auth-aside-note {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+    max-width: 26rem;
+  }
+
+  @media (min-width: 62rem) {
+    .auth {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .auth-aside {
+      display: grid;
+    }
+  }
+</style>

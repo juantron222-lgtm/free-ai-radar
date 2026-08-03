@@ -1,0 +1,102 @@
+---
+import AuthLayout from '@layouts/AuthLayout.astro';
+import { CSRF_FIELD } from '@lib/security/csrf';
+import { MIN_PASSWORD_LENGTH } from '@lib/auth/password';
+import { ROUTES } from '@lib/nav';
+
+export const prerender = false;
+
+const token = Astro.url.searchParams.get('token') ?? '';
+---
+
+<AuthLayout
+  title="Elegir una contraseña nueva"
+  heading="Nueva contraseña"
+  lede="Elige una contraseña nueva. El enlace sólo sirve una vez."
+>
+  <form method="post" action="/api/auth/reset" class="auth-form" data-auth-form novalidate>
+    <input type="hidden" name={CSRF_FIELD} value={Astro.locals.csrfToken} />
+    <input type="hidden" name="token" value={token} />
+
+    <div class="field">
+      <label class="label" for="password">Contraseña nueva</label>
+      <div class="password-wrap">
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="input"
+          required
+          minlength={MIN_PASSWORD_LENGTH}
+          autocomplete="new-password"
+          autofocus
+          data-strength-for="password"
+        />
+        <button type="button" class="password-toggle" data-toggle-password="password">
+          <span class="sr-only">Mostrar contraseña</span>
+          <svg width="17" height="17" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M1.8 10S4.6 4.8 10 4.8 18.2 10 18.2 10 15.4 15.2 10 15.2 1.8 10 1.8 10Z" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="10" cy="10" r="2.4" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </button>
+      </div>
+      <div class="strength">
+        <div class="strength-bar" data-strength-bar data-score="0" aria-hidden="true"></div>
+        <span class="strength-label" data-strength-label></span>
+      </div>
+      <p class="error-text" data-error-for="password" hidden></p>
+    </div>
+
+    <p class="error-text" data-error-for="token" hidden></p>
+
+    <button type="submit" class="btn btn-primary auth-submit">Guardar contraseña</button>
+    <p class="form-result" role="status" data-form-result hidden></p>
+  </form>
+
+  <p class="auth-alt">
+    ¿El enlace ha caducado? <a href={ROUTES.forgot}>Pide uno nuevo</a>
+  </p>
+</AuthLayout>
+
+<style>
+  .strength {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    margin-block-start: 0.4rem;
+  }
+
+  .strength-bar {
+    flex: 1;
+    height: 4px;
+    border-radius: var(--radius-full);
+    background: var(--surface-sunken);
+    border: 1px solid var(--line);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .strength-bar::after {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: calc(var(--strength, 0) * 25%);
+    background: var(--warn);
+    transition: width 160ms ease;
+  }
+
+  .strength-bar[data-score='3']::after,
+  .strength-bar[data-score='4']::after {
+    background: var(--signal);
+  }
+
+  .strength-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--ink-muted);
+    min-width: 5rem;
+  }
+</style>
+
+<script src="/auth-form.js" is:inline defer></script>

@@ -1,20 +1,60 @@
 {
   "name": "free-ai-radar",
-  "version": "1.0.0",
-  "description": "Novedades de IA gratis, filtradas y explicadas.",
+  "version": "2.0.0",
+  "description": "Radar independiente de herramientas de IA gratuitas: qué es gratis de verdad, con qué límites y a qué coste real.",
   "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=20.11.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "astro": "astro",
+    "typecheck": "astro check --minimumSeverity error",
+    "lint": "eslint . --max-warnings=0",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"**/*.{ts,js,mjs,astro,json,md,css}\"",
+    "format:check": "prettier --check \"**/*.{ts,js,mjs,astro,json,md,css}\"",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "verify": "npm run lint && npm run typecheck && npm run test && npm run build",
+    "data:migrate": "node scripts/migrate-tools.mjs",
+    "data:migrate:dry": "node scripts/migrate-tools.mjs --dry-run",
+    "data:seed-sql": "node scripts/migrate-tools.mjs --emit-sql",
+    "links:check": "node scripts/check-links.mjs",
+    "icons": "node scripts/generate-icons.js",
+    "news:fetch": "node scripts/fetch-ai-news.mjs"
   },
   "dependencies": {
-    "astro": "^5.0.0",
-    "sharp": "^0.35.3"
+    "@astrojs/vercel": "^11.0.4",
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.111.0",
+    "astro": "^7.1.6",
+    "resend": "^4.8.0",
+    "sharp": "^0.35.3",
+    "stripe": "^17.7.0",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@eslint/js": "^9.39.5",
+    "@playwright/test": "^1.62.1",
     "@tailwindcss/vite": "^4.0.0",
+    "@vitest/coverage-v8": "^4.1.10",
+    "astro-eslint-parser": "^1.4.0",
+    "eslint": "^9.39.5",
+    "eslint-plugin-astro": "^1.7.0",
+    "globals": "^15.15.0",
+    "prettier": "^3.9.6",
+    "prettier-plugin-astro": "^0.14.1",
     "tailwindcss": "^4.0.0",
-    "typescript": "^5.7.0"
+    "typescript": "^5.7.0",
+    "typescript-eslint": "^8.65.0",
+    "vitest": "^4.1.10"
   }
 }

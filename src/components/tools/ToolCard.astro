@@ -1,0 +1,150 @@
+---
+import type { Tool } from '@lib/domain/tool';
+import ScoreBadge from './ScoreBadge.astro';
+import FactChips from './FactChips.astro';
+import CompareToggle from './CompareToggle.astro';
+import { getCategory } from '@lib/domain/taxonomy';
+import { ROUTES } from '@lib/nav';
+
+interface Props {
+  tool: Tool;
+  /** `compact` drops the description — used in dense rails. */
+  variant?: 'default' | 'compact';
+  headingLevel?: 'h2' | 'h3';
+}
+
+const { tool, variant = 'default', headingLevel: Heading = 'h3' } = Astro.props;
+const category = getCategory(tool.categorySlug);
+const href = ROUTES.tool(tool.slug);
+---
+
+<article
+  class="card card-interactive tool-card"
+  data-tool-card
+  data-slug={tool.slug}
+  data-score={tool.scoreTotal}
+>
+  <div class="tool-card-head">
+    <div class="tool-card-titles">
+      <Heading class="tool-card-name">
+        {/* Stretched link: the whole card is clickable, one tab stop. */}
+        <a href={href} class="tool-card-link">{tool.name}</a>
+      </Heading>
+      <p class="tool-card-meta">
+        {category?.name}
+        {tool.sponsorship.isSponsored && (
+          <>
+            <span aria-hidden="true"> · </span>
+            <span class="chip chip-info tool-card-sponsored">Patrocinado</span>
+          </>
+        )}
+      </p>
+    </div>
+    <ScoreBadge score={tool.scoreTotal} size="md" />
+  </div>
+
+  {variant === 'default' && <p class="tool-card-tagline">{tool.tagline}</p>}
+
+  <FactChips tool={tool} limit={4} />
+
+  <div class="tool-card-foot">
+    <span class="tool-card-verified" data-freshness={tool.freshness}>
+      {tool.freshness === 'fresh' ? 'Verificada' : 'Sin revisar desde'}
+      {' '}
+      <time datetime={tool.lastVerifiedAt}>
+        {new Date(`${tool.lastVerifiedAt}T00:00:00Z`).toLocaleDateString('es-ES', {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric',
+          timeZone: 'UTC',
+        })}
+      </time>
+    </span>
+    <CompareToggle slug={tool.slug} name={tool.name} />
+  </div>
+</article>
+
+<style>
+  .tool-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+    padding: var(--space-s);
+  }
+
+  .tool-card-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+  }
+
+  .tool-card-titles {
+    min-width: 0;
+  }
+
+  .tool-card-name {
+    font-size: 1.0625rem;
+    font-weight: 650;
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .tool-card-link {
+    text-decoration: none;
+    color: var(--ink-strong);
+  }
+
+  /* Card-wide hit area without nesting interactive elements. */
+  .tool-card-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+  .tool-card-link:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--signal);
+  }
+
+  .tool-card-meta {
+    margin: 0.1rem 0 0;
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+  }
+
+  .tool-card-sponsored {
+    font-size: 0.65rem;
+    padding-block: 0.05rem;
+  }
+
+  .tool-card-tagline {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .tool-card-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+    margin-block-start: auto;
+    padding-block-start: var(--space-2xs);
+    border-block-start: 1px solid var(--line-hairline);
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+  }
+
+  .tool-card-verified[data-freshness='stale'],
+  .tool-card-verified[data-freshness='very_stale'] {
+    color: var(--warn);
+  }
+</style>

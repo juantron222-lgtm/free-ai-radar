@@ -1,0 +1,251 @@
+---
+import AccountLayout from '@layouts/AccountLayout.astro';
+import { getSubscription } from '@lib/billing/stripe';
+import { getPlan, PLANS, formatPrice } from '@lib/billing/plans';
+import { stripe as stripeConfig } from '@lib/config';
+import { CSRF_FIELD } from '@lib/security/csrf';
+import { ROUTES } from '@lib/nav';
+
+export const prerender = false;
+
+const user = Astro.locals.user!;
+const subscription = await getSubscription(user.id);
+const plan = subscription?.['plan_id'] ? getPlan(String(subscription['plan_id'])) : undefined;
+const proPlans = PLANS.filter((p) => p.tier === 'pro');
+
+const STATUS_LABEL: Record<string, string> = {
+  active: 'Activa',
+  trialing: 'En periodo de prueba',
+  past_due: 'Pago pendiente',
+  canceled: 'Cancelada',
+  incomplete: 'Sin completar',
+  incomplete_expired: 'Caducada',
+  unpaid: 'Impagada',
+  paused: 'Pausada',
+};
+
+const status = subscription?.['status'] ? String(subscription['status']) : null;
+const periodEnd = subscription?.['current_period_end']
+  ? new Date(String(subscription['current_period_end'])).toLocaleDateString('es-ES', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    })
+  : null;
+---
+
+<AccountLayout
+  title="Tu suscripción"
+  heading="Suscripción"
+  lede="El estado de tu plan, las facturas y cómo cancelar."
+>
+  <div class="sub">
+    <section class="card sub-status">
+      <p class="eyebrow">Plan actual</p>
+      <h2 class="sub-plan">{user.plan === 'pro' ? (plan?.name ?? 'Radar Pro') : 'Gratis'}</h2>
+
+      {status && (
+        <p class="sub-state">
+          Estado: <strong>{STATUS_LABEL[status] ?? status}</strong>
+          {periodEnd && (
+            <>
+              {' · '}
+              {subscription?.['cancel_at_period_end']
+                ? `Termina el ${periodEnd}`
+                : `Se renueva el ${periodEnd}`}
+            </>
+          )}
+        </p>
+      )}
+
+      {status === 'past_due' && (
+        <p class="sub-warning" role="alert">
+          El último cobro ha fallado. Actualiza el método de pago desde el portal antes de que
+          Stripe cancele la suscripción; mientras tanto conservas el acceso.
+        </p>
+      )}
+
+      {user.plan === 'pro' ? (
+        <form method="post" action="/api/billing/portal" data-portal-form>
+          <input type="hidden" name={CSRF_FIELD} value={Astro.locals.csrfToken} />
+          <button type="submit" class="btn btn-secondary">
+            Gestionar suscripción y facturas
+          </button>
+        </form>
+      ) : (
+        <>
+          <p class="sub-lede">
+            Estás en el plan gratuito. Todo el contenido sigue disponible; Pro añade avisos
+            inmediatos, límites ilimitados e historial completo.
+          </p>
+          <a href={ROUTES.pricing} class="btn btn-primary">Ver Radar Pro</a>
+        </>
+      )}
+
+      <p class="sub-result" role="status" data-portal-result hidden></p>
+    </section>
+
+    {user.plan !== 'pro' && (
+      <section aria-labelledby="options-title">
+        <h2 id="options-title" class="sub-title">Opciones</h2>
+        <ul class="sub-options">
+          {proPlans.map((option) => (
+            <li class="card sub-option">
+              <div>
+                <h3>{option.name}</h3>
+                <p class="tnum">{formatPrice(option)}</p>
+              </div>
+              <form method="post" action="/api/billing/checkout" data-checkout-form>
+                <input type="hidden" name={CSRF_FIELD} value={Astro.locals.csrfToken} />
+                <input type="hidden" name="plan" value={option.id} />
+                <button type="submit" class="btn btn-secondary btn-sm">Elegir</button>
+              </form>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <section class="card sub-info">
+      <h2 class="sub-title">Cómo funciona la facturación</h2>
+      <ul>
+        <li>El cobro y las facturas los gestiona Stripe. Nunca vemos ni almacenamos tu tarjeta.</li>
+        <li>Puedes cancelar en cualquier momento desde el portal y conservas el acceso hasta el final del periodo pagado.</li>
+        <li>Si un pago falla, Stripe reintenta durante unos días antes de cancelar. Te avisará por correo.</li>
+        <li>Las facturas con IVA se descargan desde el portal.</li>
+        {!stripeConfig.isConfigured && (
+          <li class="sub-info-dev">
+            <strong>En este entorno Stripe no está configurado</strong>, así que los botones abren
+            un flujo simulado y no se cobra nada.
+          </li>
+        )}
+      </ul>
+    </section>
+  </div>
+</AccountLayout>
+
+<style>
+  .sub {
+    display: grid;
+    gap: var(--space-s);
+  }
+
+  .sub-status,
+  .sub-info {
+    padding: var(--space-s);
+  }
+
+  .sub-plan {
+    font-size: 1.5rem;
+    margin-block: 0.15rem var(--space-2xs);
+  }
+
+  .sub-state {
+    margin: 0 0 var(--space-s);
+    font-size: 0.9375rem;
+    color: var(--ink-muted);
+  }
+
+  .sub-state strong {
+    color: var(--ink-strong);
+  }
+
+  .sub-warning {
+    margin: 0 0 var(--space-s);
+    padding: 0.6rem 0.8rem;
+    border-radius: var(--radius-m);
+    background: var(--warn-soft);
+    border: 1px solid var(--warn-line);
+    color: var(--warn);
+    font-size: 0.875rem;
+  }
+
+  .sub-lede {
+    margin: 0 0 var(--space-s);
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+    max-width: 52ch;
+  }
+
+  .sub-title {
+    font-size: 1.0625rem;
+    margin-block-end: var(--space-2xs);
+  }
+
+  .sub-options {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .sub-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+    padding: var(--space-xs) var(--space-s);
+  }
+
+  .sub-option h3 {
+    font-size: 0.9375rem;
+    margin: 0;
+  }
+
+  .sub-option p {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+  }
+
+  .sub-info ul {
+    margin: 0;
+    padding-inline-start: 1.2em;
+    display: grid;
+    gap: 0.35rem;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .sub-info-dev {
+    color: var(--info) !important;
+  }
+
+  .sub-result {
+    margin: var(--space-2xs) 0 0;
+    font-size: 0.8125rem;
+    color: var(--alert);
+  }
+</style>
+
+<script>
+  const result = document.querySelector<HTMLElement>('[data-portal-result]');
+
+  for (const form of Array.from(
+    document.querySelectorAll<HTMLFormElement>('[data-portal-form], [data-checkout-form]')
+  )) {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const response = await fetch(form.action, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(form),
+      });
+      const payload = (await response.json()) as {
+        ok: boolean;
+        message: string;
+        data?: { url: string };
+      };
+
+      if (payload.ok && payload.data?.url) {
+        window.location.assign(payload.data.url);
+        return;
+      }
+      if (result) {
+        result.hidden = false;
+        result.textContent = payload.message;
+      }
+    });
+  }
+</script>

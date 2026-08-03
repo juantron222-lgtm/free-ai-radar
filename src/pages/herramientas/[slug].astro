@@ -1,0 +1,639 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ScoreBadge from '@components/tools/ScoreBadge.astro';
+import FactChips from '@components/tools/FactChips.astro';
+import ScoreBreakdown from '@components/tools/ScoreBreakdown.astro';
+import FreshnessNotice from '@components/tools/FreshnessNotice.astro';
+import OutboundButton from '@components/tools/OutboundButton.astro';
+import ToolActions from '@components/tools/ToolActions.astro';
+import CorrectionForm from '@components/tools/CorrectionForm.astro';
+import ToolCard from '@components/tools/ToolCard.astro';
+import CompareTray from '@components/tools/CompareTray.astro';
+import { getAllTools, getAlternativesFor } from '@lib/data/catalog';
+import { softwareApplicationSchema } from '@lib/seo/structured-data';
+import {
+  CREDIT_RESET_LABEL,
+  HOSTING_LABEL,
+  PLATFORM_LABEL,
+  SKILL_LEVEL_LABEL,
+  getCategory,
+  getFreeModel,
+} from '@lib/domain/taxonomy';
+import { TRI_STATE_LABEL } from '@lib/domain/primitives';
+import { SCORE_BAND_LABEL } from '@lib/domain/scoring';
+import { ROUTES } from '@lib/nav';
+
+export function getStaticPaths() {
+  return getAllTools().map((tool) => ({ params: { slug: tool.slug }, props: { tool } }));
+}
+
+const { tool } = Astro.props;
+const category = getCategory(tool.categorySlug)!;
+const freeModel = getFreeModel(tool.freeModel);
+const alternatives = getAlternativesFor(tool);
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Herramientas', path: ROUTES.tools },
+  { name: category.name, path: ROUTES.category(category.slug) },
+  { name: tool.name, path: ROUTES.tool(tool.slug) },
+];
+
+const fmtDate = (iso: string) =>
+  new Date(`${iso}T00:00:00Z`).toLocaleDateString('es-ES', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+
+/** Rows of the "what you get for free" table. Order = decision order. */
+const facts = [
+  { label: '¿Pide tarjeta?', value: TRI_STATE_LABEL[tool.freePlan.requiresCreditCard], good: tool.freePlan.requiresCreditCard === 'no' },
+  { label: '¿Hay que registrarse?', value: TRI_STATE_LABEL[tool.freePlan.requiresSignup], good: tool.freePlan.requiresSignup === 'no' },
+  { label: '¿Marca de agua?', value: TRI_STATE_LABEL[tool.freePlan.hasWatermark], good: tool.freePlan.hasWatermark === 'no' },
+  { label: '¿Uso comercial?', value: TRI_STATE_LABEL[tool.freePlan.commercialUse], good: tool.freePlan.commercialUse === 'yes' },
+  { label: '¿Código abierto?', value: TRI_STATE_LABEL[tool.openSource], good: tool.openSource === 'yes' },
+  { label: 'Dónde se ejecuta', value: HOSTING_LABEL[tool.hosting], good: tool.hosting !== 'cloud' },
+  ...(tool.freePlan.creditsAmount
+    ? [{ label: 'Créditos gratuitos', value: tool.freePlan.creditsAmount, good: false }]
+    : []),
+  ...(tool.freeModel === 'credits'
+    ? [{ label: 'Renovación de créditos', value: CREDIT_RESET_LABEL[tool.freePlan.creditReset], good: tool.freePlan.creditReset !== 'one_off' }]
+    : []),
+  { label: 'Nivel técnico', value: SKILL_LEVEL_LABEL[tool.skillLevel], good: false },
+  ...(tool.licence ? [{ label: 'Licencia', value: tool.licence, good: false }] : []),
+];
+
+const description = `${tool.tagline} Analizamos su plan gratuito: ${tool.freePlan.summary}`;
+---
+
+<BaseLayout
+  title={`${tool.name}: ¿es gratis de verdad? Análisis y límites reales`}
+  description={description}
+  crumbs={crumbs}
+  ogType="article"
+  schemas={[softwareApplicationSchema(tool)]}
+>
+  <article class="page tool-page">
+    <header class="tool-header">
+      <div class="tool-header-main">
+        <p class="eyebrow">
+          <a href={ROUTES.category(category.slug)}>{category.name}</a>
+        </p>
+        <h1 class="tool-title">{tool.name}</h1>
+        <p class="tool-tagline">{tool.tagline}</p>
+        <FactChips tool={tool} />
+      </div>
+
+      <aside class="tool-verdict card" aria-labelledby="verdict-title">
+        <p class="eyebrow" id="verdict-title">Veredicto</p>
+        <ScoreBadge score={tool.scoreTotal} size="lg" showLabel />
+        <p class="tool-verdict-text">{tool.verdict || freeModel.meaning}</p>
+        <OutboundButton tool={tool} />
+        <ToolActions slug={tool.slug} name={tool.name} />
+      </aside>
+    </header>
+
+    <FreshnessNotice tool={tool} />
+
+    <div class="tool-body">
+      <div class="tool-main">
+        <section aria-labelledby="free-title" class="tool-section">
+          <h2 id="free-title">Qué te dan gratis</h2>
+          <p class="tool-free-summary">{tool.freePlan.summary}</p>
+
+          <div class="table-scroll">
+            <table class="data-table">
+              <caption class="sr-only">
+                Condiciones verificadas del plan gratuito de {tool.name}
+              </caption>
+              <tbody>
+                {facts.map((fact) => (
+                  <tr>
+                    <th scope="row">{fact.label}</th>
+                    <td>
+                      <span class={`fact-value ${fact.good ? 'fact-good' : ''}`}>{fact.value}</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {tool.freePlan.limits.length > 0 && (
+            <>
+              <h3>Los límites reales</h3>
+              <ul class="tool-list">
+                {tool.freePlan.limits.map((limit) => <li>{limit}</li>)}
+              </ul>
+            </>
+          )}
+
+          <p class="tool-verified-note">
+            Plan gratuito verificado el <time datetime={tool.freePlan.verifiedAt}>{fmtDate(tool.freePlan.verifiedAt)}</time>.
+            Los fabricantes cambian estas condiciones sin avisar:
+            <a href="#reportar">avísanos si algo ya no es cierto</a>.
+          </p>
+        </section>
+
+        <section aria-labelledby="score-title" class="tool-section">
+          <h2 id="score-title">Por qué {tool.scoreTotal} y no otra cifra</h2>
+          <p>
+            La puntuación es <strong>{SCORE_BAND_LABEL[tool.band].toLowerCase()}</strong> y se
+            calcula siempre igual, con la misma fórmula pública para todas las herramientas.
+            Ni se compra ni se ajusta a mano.
+          </p>
+          <ScoreBreakdown tool={tool} />
+        </section>
+
+        {tool.descriptionLong && (
+          <section aria-labelledby="about-title" class="tool-section prose">
+            <h2 id="about-title">Qué es y para qué sirve</h2>
+            <p>{tool.descriptionLong}</p>
+          </section>
+        )}
+
+        {tool.useCases.length > 0 && (
+          <section aria-labelledby="uses-title" class="tool-section">
+            <h2 id="uses-title">Para qué lo usa la gente</h2>
+            <ul class="tool-list">
+              {tool.useCases.map((useCase) => <li>{useCase}</li>)}
+            </ul>
+          </section>
+        )}
+
+        {(tool.pros.length > 0 || tool.cons.length > 0) && (
+          <section aria-labelledby="proscons-title" class="tool-section">
+            <h2 id="proscons-title">Ventajas e inconvenientes</h2>
+            <div class="proscons">
+              {tool.pros.length > 0 && (
+                <div class="proscons-col">
+                  <h3 class="proscons-head proscons-pro">A favor</h3>
+                  <ul class="tool-list">{tool.pros.map((pro) => <li>{pro}</li>)}</ul>
+                </div>
+              )}
+              {tool.cons.length > 0 && (
+                <div class="proscons-col">
+                  <h3 class="proscons-head proscons-con">En contra</h3>
+                  <ul class="tool-list">{tool.cons.map((con) => <li>{con}</li>)}</ul>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
+        <section aria-labelledby="fit-title" class="tool-section">
+          <h2 id="fit-title">Para quién sirve y para quién no</h2>
+          <div class="proscons">
+            <div class="proscons-col">
+              <h3 class="proscons-head proscons-pro">Encaja si…</h3>
+              <ul class="tool-list">
+                {tool.bestFor.length > 0
+                  ? tool.bestFor.map((item) => <li>{item}</li>)
+                  : (
+                    <>
+                      <li>Buscas {category.name.toLowerCase()} sin pagar nada por adelantado.</li>
+                      {tool.freePlan.requiresCreditCard === 'no' && <li>No quieres dar la tarjeta sólo para probar.</li>}
+                      {tool.hosting !== 'cloud' && <li>Prefieres que tus archivos no salgan de tu equipo.</li>}
+                      {tool.skillLevel === 'beginner' && <li>Es tu primera herramienta de este tipo.</li>}
+                    </>
+                  )}
+              </ul>
+            </div>
+            <div class="proscons-col">
+              <h3 class="proscons-head proscons-con">No encaja si…</h3>
+              <ul class="tool-list">
+                {tool.notFor.length > 0
+                  ? tool.notFor.map((item) => <li>{item}</li>)
+                  : (
+                    <>
+                      {tool.freePlan.hasWatermark === 'yes' && <li>Necesitas entregar el resultado limpio a un cliente.</li>}
+                      {tool.freePlan.commercialUse !== 'yes' && <li>Vas a monetizar directamente lo que generes.</li>}
+                      {tool.freePlan.requiresCreditCard === 'yes' && <li>No quieres introducir una tarjeta para acceder.</li>}
+                      {tool.skillLevel === 'advanced' && <li>Buscas algo que funcione sin configurar nada.</li>}
+                      <li>Necesitas volumen alto de forma continuada: el plan gratuito no da para eso.</li>
+                    </>
+                  )}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="privacy-title" class="tool-section">
+          <h2 id="privacy-title">Privacidad y dónde acaban tus datos</h2>
+          <div class="table-scroll">
+            <table class="data-table">
+              <tbody>
+                <tr>
+                  <th scope="row">¿Se entrena con lo que subes?</th>
+                  <td>{TRI_STATE_LABEL[tool.privacy.trainsOnUserData]}</td>
+                </tr>
+                <tr>
+                  <th scope="row">¿Puedes desactivarlo sin pagar?</th>
+                  <td>{TRI_STATE_LABEL[tool.privacy.optOutAvailable]}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Ejecución</th>
+                  <td>{HOSTING_LABEL[tool.hosting]}</td>
+                </tr>
+                {tool.privacy.companyCountry && (
+                  <tr><th scope="row">País de la empresa</th><td>{tool.privacy.companyCountry}</td></tr>
+                )}
+                {tool.privacy.dataRetention && (
+                  <tr><th scope="row">Retención de datos</th><td>{tool.privacy.dataRetention}</td></tr>
+                )}
+                {tool.platforms.length > 0 && (
+                  <tr>
+                    <th scope="row">Plataformas</th>
+                    <td>{tool.platforms.map((p) => PLATFORM_LABEL[p]).join(', ')}</td>
+                  </tr>
+                )}
+                {tool.hardwareRequirements && (
+                  <tr><th scope="row">Requisitos de hardware</th><td>{tool.hardwareRequirements}</td></tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+          {tool.privacy.trainsOnUserData === 'unverified' && (
+            <p class="hint">
+              Todavía no hemos confirmado la política de entrenamiento de {tool.name}. Preferimos
+              decirlo a suponerlo. Si tienes la fuente oficial,
+              <a href="#reportar">envíanosla</a>.
+            </p>
+          )}
+        </section>
+
+        {(alternatives.length > 0 || tool.alternativeNames.length > 0) && (
+          <section aria-labelledby="alt-title" class="tool-section">
+            <h2 id="alt-title">Alternativas a {tool.name}</h2>
+            {alternatives.length > 0 && (
+              <ul class="grid-cards alt-grid">
+                {alternatives.slice(0, 4).map((alt) => (
+                  <li><ToolCard tool={alt} variant="compact" /></li>
+                ))}
+              </ul>
+            )}
+            {tool.alternativeNames.length > 0 && (
+              <p class="alt-mentions">
+                <span class="eyebrow">Aún sin ficha</span>
+                {tool.alternativeNames.join(' · ')}
+              </p>
+            )}
+          </section>
+        )}
+
+        {tool.changelog.length > 0 && (
+          <section aria-labelledby="changelog-title" class="tool-section">
+            <h2 id="changelog-title">Historial de cambios</h2>
+            <ol class="changelog">
+              {tool.changelog.map((change) => (
+                <li>
+                  <time datetime={change.date} class="tnum">{fmtDate(change.date)}</time>
+                  <p>{change.summary}</p>
+                  {change.sourceUrl && (
+                    <a href={change.sourceUrl} rel="nofollow noopener" target="_blank">Fuente</a>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+
+        <section aria-labelledby="sources-title" class="tool-section">
+          <h2 id="sources-title">Fuentes</h2>
+          <p>
+            Todo lo anterior sale de estas páginas. Si una fuente contradice lo que publicamos,
+            gana la fuente y corregimos.
+          </p>
+          <ul class="sources">
+            {tool.sources.map((source) => (
+              <li>
+                <a href={source.url} rel="nofollow noopener" target="_blank">{source.label}</a>
+                <span class="sources-meta">
+                  {new URL(source.url).hostname.replace(/^www\./, '')} ·
+                  comprobada el <time datetime={source.checkedAt}>{fmtDate(source.checkedAt)}</time>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section aria-labelledby="review-title" class="tool-section tool-byline">
+          <h2 id="review-title" class="sr-only">Responsable de la revisión</h2>
+          <p>
+            Revisado por <strong>{tool.reviewedBy || 'la redacción de Free AI Radar'}</strong> ·
+            última verificación <time datetime={tool.lastVerifiedAt}>{fmtDate(tool.lastVerifiedAt)}</time> ·
+            en el radar desde <time datetime={tool.detectedAt}>{fmtDate(tool.detectedAt)}</time>.
+            <a href={ROUTES.methodology}>Cómo puntuamos</a>.
+          </p>
+        </section>
+
+        <CorrectionForm toolSlug={tool.slug} toolName={tool.name} />
+      </div>
+
+      <aside class="tool-aside">
+        <div class="card tool-aside-card">
+          <p class="eyebrow">Resumen</p>
+          <dl class="tool-summary">
+            <div><dt>Modelo</dt><dd>{freeModel.label}</dd></div>
+            <div><dt>Categoría</dt><dd><a href={ROUTES.category(category.slug)}>{category.name}</a></dd></div>
+            <div><dt>Ejecución</dt><dd>{HOSTING_LABEL[tool.hosting]}</dd></div>
+            <div><dt>Nivel</dt><dd>{SKILL_LEVEL_LABEL[tool.skillLevel]}</dd></div>
+            <div><dt>Puntuación</dt><dd class="tnum">{tool.scoreTotal}/100</dd></div>
+          </dl>
+          <p class="tool-aside-meaning">{freeModel.meaning}</p>
+        </div>
+      </aside>
+    </div>
+  </article>
+
+  <CompareTray />
+</BaseLayout>
+
+<style>
+  .tool-page {
+    padding-block: var(--space-m) var(--space-xl);
+  }
+
+  .tool-header {
+    display: grid;
+    gap: var(--space-m);
+    padding-block-end: var(--space-m);
+    border-block-end: 1px solid var(--line);
+  }
+
+  .tool-header .eyebrow a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .tool-header .eyebrow a:hover {
+    color: var(--signal);
+  }
+
+  .tool-title {
+    font-size: clamp(2rem, 1.5rem + 2.4vw, 3.25rem);
+    margin-block: 0.35rem var(--space-2xs);
+  }
+
+  .tool-tagline {
+    margin: 0 0 var(--space-s);
+    font-size: clamp(1rem, 0.95rem + 0.3vw, 1.1875rem);
+    color: var(--ink-muted);
+    max-width: 52ch;
+  }
+
+  .tool-verdict {
+    padding: var(--space-s);
+    display: grid;
+    gap: var(--space-2xs);
+    align-content: start;
+  }
+
+  .tool-verdict-text {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--ink-muted);
+  }
+
+  .tool-body {
+    display: grid;
+    gap: var(--space-l);
+    padding-block-start: var(--space-m);
+  }
+
+  .tool-main {
+    min-width: 0;
+    display: grid;
+    gap: var(--space-l);
+  }
+
+  .tool-section h2 {
+    font-size: clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
+    margin-block-end: var(--space-2xs);
+    padding-block-end: var(--space-3xs);
+    border-block-end: 1px solid var(--line);
+  }
+
+  .tool-section h3 {
+    font-size: 1rem;
+    margin-block: var(--space-s) var(--space-3xs);
+  }
+
+  .tool-section > p {
+    color: var(--ink-muted);
+    max-width: var(--measure);
+  }
+
+  .tool-free-summary {
+    font-size: 1.0625rem;
+    color: var(--ink) !important;
+    margin-block-end: var(--space-s);
+  }
+
+  .fact-value {
+    font-weight: 600;
+  }
+
+  .fact-good {
+    color: var(--signal);
+  }
+
+  .tool-list {
+    margin: 0;
+    padding-inline-start: 1.2em;
+    color: var(--ink-muted);
+    display: grid;
+    gap: 0.3rem;
+    max-width: var(--measure);
+  }
+
+  .tool-verified-note {
+    margin-block-start: var(--space-s);
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+  }
+
+  .tool-verified-note a,
+  .hint a {
+    color: var(--signal);
+  }
+
+  .proscons {
+    display: grid;
+    gap: var(--space-m);
+    margin-block-start: var(--space-2xs);
+  }
+
+  .proscons-head {
+    font-size: 0.8125rem !important;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-block: 0 var(--space-2xs) !important;
+    padding-block-end: 0.25rem;
+    border-block-end: 1px solid var(--line);
+  }
+
+  .proscons-pro {
+    color: var(--signal);
+  }
+
+  .proscons-con {
+    color: var(--warn);
+  }
+
+  .alt-grid {
+    list-style: none;
+    margin: var(--space-2xs) 0 0;
+    padding: 0;
+  }
+
+  .alt-grid > li {
+    display: flex;
+  }
+
+  .alt-grid > li > :global(*) {
+    width: 100%;
+  }
+
+  .alt-mentions {
+    margin-block-start: var(--space-s);
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: baseline;
+  }
+
+  .changelog {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .changelog li {
+    padding-block: var(--space-2xs);
+    border-block-end: 1px solid var(--line-hairline);
+  }
+
+  .changelog time {
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+    font-weight: 600;
+  }
+
+  .changelog p {
+    margin: 0.15rem 0 0;
+    color: var(--ink);
+  }
+
+  .changelog a {
+    font-size: 0.8125rem;
+    color: var(--signal);
+  }
+
+  .sources {
+    list-style: none;
+    margin: var(--space-2xs) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .sources li {
+    display: grid;
+    gap: 0.1rem;
+  }
+
+  .sources a {
+    color: var(--signal);
+    font-weight: 550;
+    overflow-wrap: anywhere;
+  }
+
+  .sources-meta {
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+  }
+
+  .tool-byline p {
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+    padding: var(--space-2xs) 0;
+    border-block: 1px solid var(--line);
+  }
+
+  .tool-byline a {
+    color: var(--signal);
+  }
+
+  .tool-aside-card {
+    padding: var(--space-s);
+    position: sticky;
+    top: 76px;
+  }
+
+  .tool-summary {
+    margin: var(--space-2xs) 0 0;
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .tool-summary > div {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+    font-size: 0.875rem;
+    padding-block-end: 0.4rem;
+    border-block-end: 1px solid var(--line-hairline);
+  }
+
+  .tool-summary dt {
+    color: var(--ink-subtle);
+  }
+
+  .tool-summary dd {
+    margin: 0;
+    font-weight: 600;
+    text-align: right;
+  }
+
+  .tool-summary a {
+    color: var(--signal);
+  }
+
+  .tool-aside-meaning {
+    margin: var(--space-2xs) 0 0;
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+  }
+
+  @media (min-width: 56rem) {
+    .tool-header {
+      grid-template-columns: 1.7fr 1fr;
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .proscons {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 72rem) {
+    .tool-body {
+      grid-template-columns: minmax(0, 1fr) 17rem;
+      gap: var(--space-xl);
+    }
+  }
+
+  @media (max-width: 71.99rem) {
+    .tool-aside {
+      display: none;
+    }
+  }
+</style>

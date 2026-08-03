@@ -1,0 +1,125 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { ROUTES } from '@lib/nav';
+
+export const prerender = false;
+
+const isPortal = Astro.url.searchParams.get('portal') === '1';
+---
+
+<BaseLayout
+  title="Flujo de pago simulado"
+  description="Pantalla de simulación del flujo de suscripción cuando Stripe no está configurado."
+  noindex
+>
+  <div class="page sim">
+    <p class="eyebrow">Entorno de desarrollo</p>
+    <h1 class="sim-title">
+      {isPortal ? 'Portal de facturación simulado' : 'Checkout simulado'}
+    </h1>
+
+    <p class="sim-lede">
+      Stripe no está configurado en este entorno, así que aquí es donde termina el flujo. No se ha
+      cobrado nada, no se ha creado ninguna suscripción y no se ha llamado a ningún servicio
+      externo.
+    </p>
+
+    <div class="card sim-box">
+      <h2 class="sim-h2">Qué ocurriría con Stripe configurado</h2>
+      <ol class="sim-steps">
+        {isPortal ? (
+          <>
+            <li>Se crea una sesión del Customer Portal para tu <code>stripe_customer_id</code>.</li>
+            <li>Stripe te redirige a su portal alojado, donde cambias de plan, actualizas la tarjeta, descargas facturas o cancelas.</li>
+            <li>Al volver, el webhook ya ha actualizado el estado en <code>user_subscriptions</code>.</li>
+          </>
+        ) : (
+          <>
+            <li>Se crea una sesión de Checkout con el <code>price_id</code> del plan y una clave de idempotencia derivada de tu usuario, el plan y el minuto actual.</li>
+            <li>Stripe te lleva a su formulario alojado. La tarjeta nunca pasa por este servidor.</li>
+            <li>Al pagar, Stripe envía <code>checkout.session.completed</code> al webhook.</li>
+            <li>El webhook verifica la firma, registra el <code>event.id</code> para no aplicarlo dos veces y actualiza tu suscripción.</li>
+            <li>Vuelves a tu cuenta con el plan ya activo.</li>
+          </>
+        )}
+      </ol>
+
+      <h2 class="sim-h2">Cómo activarlo en modo test</h2>
+      <ol class="sim-steps">
+        <li>Crea los productos y precios en el panel de Stripe, en modo test.</li>
+        <li>Define <code>STRIPE_SECRET_KEY</code> (empieza por <code>sk_test_</code>), <code>STRIPE_WEBHOOK_SECRET</code>, <code>STRIPE_PRICE_PRO_MONTHLY</code> y <code>STRIPE_PRICE_PRO_YEARLY</code>.</li>
+        <li>Reenvía los eventos en local: <code>stripe listen --forward-to localhost:4321/api/billing/webhook</code></li>
+        <li>Paga con la tarjeta de prueba <code>4242 4242 4242 4242</code>, cualquier fecha futura y cualquier CVC.</li>
+      </ol>
+      <p class="sim-note">
+        Los detalles completos están en <code>docs/deployment-guide.md</code>. El código rechaza
+        arrancar con una clave <code>sk_live_</code> fuera de producción.
+      </p>
+    </div>
+
+    <div class="sim-actions">
+      <a href={ROUTES.billing} class="btn btn-primary">Volver a mi suscripción</a>
+      <a href={ROUTES.pricing} class="btn btn-secondary">Volver a los planes</a>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .sim {
+    padding-block: var(--space-l) var(--space-xl);
+    max-width: 46rem;
+  }
+
+  .sim-title {
+    font-size: clamp(1.6rem, 1.35rem + 1.4vw, 2.25rem);
+    margin-block: 0.35rem var(--space-2xs);
+  }
+
+  .sim-lede {
+    margin: 0 0 var(--space-m);
+    color: var(--ink-muted);
+  }
+
+  .sim-box {
+    padding: var(--space-s);
+    margin-block-end: var(--space-m);
+  }
+
+  .sim-h2 {
+    font-size: 1rem;
+    margin-block: var(--space-s) var(--space-2xs);
+  }
+
+  .sim-h2:first-child {
+    margin-block-start: 0;
+  }
+
+  .sim-steps {
+    margin: 0;
+    padding-inline-start: 1.3em;
+    display: grid;
+    gap: 0.35rem;
+    font-size: 0.9375rem;
+    color: var(--ink-muted);
+  }
+
+  .sim-note {
+    margin: var(--space-s) 0 0;
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--surface-sunken);
+    padding: 0.1em 0.35em;
+    border-radius: var(--radius-s);
+  }
+
+  .sim-actions {
+    display: flex;
+    gap: var(--space-2xs);
+    flex-wrap: wrap;
+  }
+</style>

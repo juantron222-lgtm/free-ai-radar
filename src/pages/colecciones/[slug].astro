@@ -1,0 +1,113 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ToolCard from '@components/tools/ToolCard.astro';
+import CompareTray from '@components/tools/CompareTray.astro';
+import NewsletterForm from '@components/marketing/NewsletterForm.astro';
+import { getCollectionTools, getPopulatedCollections } from '@lib/data/collections';
+import { itemListSchema } from '@lib/seo/structured-data';
+import { ROUTES } from '@lib/nav';
+
+export function getStaticPaths() {
+  return getPopulatedCollections().map((collection) => ({
+    params: { slug: collection.slug },
+    props: { collection, tools: getCollectionTools(collection) },
+  }));
+}
+
+const { collection, tools } = Astro.props;
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Colecciones', path: ROUTES.collections },
+  { name: collection.h1, path: ROUTES.collection(collection.slug) },
+];
+
+const paragraphs = collection.context.split('\n\n');
+---
+
+<BaseLayout
+  title={`${collection.title} (${tools.length} verificadas)`}
+  description={collection.description}
+  crumbs={crumbs}
+  schemas={[itemListSchema(tools, collection.title)]}
+>
+  <div class="page collection">
+    <header class="collection-head">
+      <h1 class="collection-h1">{collection.h1}</h1>
+      <p class="collection-lede">{collection.lede}</p>
+      <p class="collection-count tnum">
+        <strong>{tools.length}</strong> herramientas cumplen esta condición, verificadas una por una.
+      </p>
+    </header>
+
+    <ul class="grid-cards collection-grid">
+      {tools.map((tool) => (
+        <li><ToolCard tool={tool} headingLevel="h2" /></li>
+      ))}
+    </ul>
+
+    <section class="collection-context prose" aria-labelledby="context-title">
+      <h2 id="context-title">Por qué esta condición importa</h2>
+      {paragraphs.map((paragraph) => (
+        <p set:html={paragraph.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')} />
+      ))}
+      <p>
+        <a href={ROUTES.methodology}>Cómo verificamos estos datos</a> ·
+        <a href={ROUTES.collections}> Ver todas las colecciones</a>
+      </p>
+    </section>
+
+    <NewsletterForm source={`coleccion-${collection.slug}`} />
+  </div>
+
+  <CompareTray />
+</BaseLayout>
+
+<style>
+  .collection {
+    padding-block: var(--space-m) var(--space-xl);
+    display: grid;
+    gap: var(--space-l);
+  }
+
+  .collection-h1 {
+    font-size: clamp(1.75rem, 1.4rem + 1.6vw, 2.6rem);
+    margin-block-end: var(--space-2xs);
+  }
+
+  .collection-lede {
+    margin: 0 0 var(--space-2xs);
+    max-width: 58ch;
+    color: var(--ink-muted);
+    font-size: 1.0625rem;
+  }
+
+  .collection-count {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--ink-subtle);
+  }
+
+  .collection-count strong {
+    color: var(--signal);
+  }
+
+  .collection-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .collection-grid > li {
+    display: flex;
+  }
+
+  .collection-grid > li > :global(*) {
+    width: 100%;
+  }
+
+  .collection-context {
+    padding-block-start: var(--space-m);
+    border-block-start: 1px solid var(--line);
+  }
+</style>

@@ -1,0 +1,195 @@
+---
+import AdminLayout from '@layouts/AdminLayout.astro';
+import { getAllTools } from '@lib/data/catalog';
+
+export const prerender = false;
+
+const tools = getAllTools();
+
+/**
+ * Link inventory.
+ *
+ * The actual HTTP checks run out-of-band via `npm run links:check`, not on page
+ * load: firing a few hundred outbound requests every time an editor opens this
+ * page would be slow, would look like scraping from the vendors' side, and
+ * would make the admin panel depend on their availability.
+ */
+const links = tools.flatMap((tool) => [
+  { tool: tool.name, slug: tool.slug, kind: 'oficial', url: tool.officialUrl },
+  ...(tool.pricingUrl ? [{ tool: tool.name, slug: tool.slug, kind: 'precios', url: tool.pricingUrl }] : []),
+  ...(tool.docsUrl ? [{ tool: tool.name, slug: tool.slug, kind: 'docs', url: tool.docsUrl }] : []),
+  ...(tool.repoUrl ? [{ tool: tool.name, slug: tool.slug, kind: 'repo', url: tool.repoUrl }] : []),
+]);
+
+const missingPricing = tools.filter((tool) => !tool.pricingUrl);
+const httpLinks = links.filter((link) => link.url.startsWith('http://'));
+const domains = new Map<string, number>();
+for (const link of links) {
+  try {
+    const host = new URL(link.url).hostname.replace(/^www\./, '');
+    domains.set(host, (domains.get(host) ?? 0) + 1);
+  } catch {
+    /* Malformed URLs are surfaced by the schema at build time. */
+  }
+}
+---
+
+<AdminLayout
+  title="Enlaces"
+  heading="Enlaces salientes"
+  lede="Inventario de todas las URLs que apuntan fuera. La comprobación HTTP se ejecuta aparte para no convertir este panel en un rastreador."
+>
+  <div class="cards">
+    <div class="stat">
+      <span class="stat-num tnum">{links.length}</span>
+      <span class="stat-label">enlaces salientes</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num tnum">{domains.size}</span>
+      <span class="stat-label">dominios distintos</span>
+    </div>
+    <div class={httpLinks.length > 0 ? 'stat is-warn' : 'stat'}>
+      <span class="stat-num tnum">{httpLinks.length}</span>
+      <span class="stat-label">sin HTTPS</span>
+    </div>
+    <div class={missingPricing.length > 0 ? 'stat is-warn' : 'stat'}>
+      <span class="stat-num tnum">{missingPricing.length}</span>
+      <span class="stat-label">fichas sin URL de precios</span>
+    </div>
+  </div>
+
+  <section class="run" aria-labelledby="run-title">
+    <h2 id="run-title" class="section-title">Comprobar enlaces</h2>
+    <p>Desde la terminal del proyecto:</p>
+    <pre><code>npm run links:check</code></pre>
+    <p class="note">
+      Hace una petición <code>HEAD</code> por URL con espaciado entre dominios y escribe el informe
+      en <code>docs/reports/links.json</code>. Un 404 en la web oficial de una herramienta suele
+      significar que ha cerrado, y eso merece entrar en el registro de cambios.
+    </p>
+  </section>
+
+  {missingPricing.length > 0 && (
+    <section aria-labelledby="missing-title">
+      <h2 id="missing-title" class="section-title">Fichas sin página de precios</h2>
+      <p class="note">
+        Sin URL de precios no hay forma de reverificar el plan gratuito de forma fiable. Es la
+        carencia más importante que puede tener una ficha.
+      </p>
+      <ul class="missing">
+        {missingPricing.map((tool) => (
+          <li>{tool.name} <code>{tool.slug}</code></li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  <section aria-labelledby="all-title">
+    <h2 id="all-title" class="section-title">Inventario completo</h2>
+    <div class="table-scroll">
+      <table class="data-table links-table">
+        <thead>
+          <tr><th scope="col">Herramienta</th><th scope="col">Tipo</th><th scope="col">URL</th></tr>
+        </thead>
+        <tbody>
+          {links.map((link) => (
+            <tr>
+              <th scope="row">{link.tool}</th>
+              <td><span class="chip">{link.kind}</span></td>
+              <td class="url-cell">
+                <a href={link.url} target="_blank" rel="nofollow noopener">{link.url}</a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</AdminLayout>
+
+<style>
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+    gap: var(--space-2xs);
+    margin-block-end: var(--space-l);
+  }
+
+  .stat {
+    padding: var(--space-xs) var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface);
+    display: grid;
+    gap: 0.1rem;
+  }
+
+  .stat.is-warn {
+    border-color: var(--warn-line);
+    background: var(--warn-soft);
+  }
+
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--ink-strong);
+    line-height: 1;
+  }
+
+  .stat.is-warn .stat-num {
+    color: var(--warn);
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+  }
+
+  .section-title {
+    font-size: 1rem;
+    margin-block: var(--space-l) var(--space-2xs);
+    padding-block-end: 0.3rem;
+    border-block-end: 1px solid var(--line);
+  }
+
+  .run p,
+  .note {
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    margin-block: 0 var(--space-2xs);
+  }
+
+  pre {
+    margin: 0 0 var(--space-2xs);
+    padding: var(--space-2xs) var(--space-xs);
+    background: var(--surface-sunken);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-m);
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+  }
+
+  .missing {
+    margin: 0;
+    padding-inline-start: 1.2em;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  .links-table {
+    min-width: 44rem;
+    font-size: 0.8125rem;
+  }
+
+  .url-cell a {
+    color: var(--info);
+    overflow-wrap: anywhere;
+  }
+</style>

@@ -1,0 +1,51 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { ROUTES } from '@lib/nav';
+import { SITE } from '@lib/seo/site';
+
+export const prerender = false;
+
+/**
+ * Deliberately says nothing about what broke. Stack traces, module names and
+ * database errors on an error page are a reconnaissance gift; the detail goes
+ * to the structured log instead.
+ */
+---
+
+<BaseLayout title="Algo ha fallado" description="Se ha producido un error inesperado." noindex>
+  <div class="page error500">
+    <p class="eyebrow">Error 500</p>
+    <h1 class="error-title">Algo ha fallado por nuestra parte</h1>
+    <p class="error-lede">
+      No es culpa tuya y ya lo hemos registrado. Prueba a recargar en un momento; si sigue pasando,
+      escríbenos y lo miramos.
+    </p>
+    <div class="error-actions">
+      <a href={ROUTES.home} class="btn btn-primary">Volver al inicio</a>
+      <a href={`mailto:${SITE.email}`} class="btn btn-secondary">Avisarnos</a>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .error500 {
+    padding-block: var(--space-2xl) var(--space-xl);
+    max-width: 40rem;
+  }
+
+  .error-title {
+    font-size: clamp(1.75rem, 1.4rem + 1.8vw, 2.5rem);
+    margin-block: 0.35rem var(--space-2xs);
+  }
+
+  .error-lede {
+    margin: 0 0 var(--space-m);
+    color: var(--ink-muted);
+  }
+
+  .error-actions {
+    display: flex;
+    gap: var(--space-2xs);
+    flex-wrap: wrap;
+  }
+</style>

@@ -1,0 +1,72 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { ROUTES } from '@lib/nav';
+
+export const prerender = false;
+
+const ok = Astro.url.searchParams.get('estado') === 'ok';
+---
+
+<BaseLayout title="Baja del boletín" description="Baja de la suscripción al boletín." noindex>
+  <div class="page unsub">
+    {ok ? (
+      <>
+        <p class="eyebrow">Boletín</p>
+        <h1 class="unsub-title">Listo, ya no te escribimos</h1>
+        <p class="unsub-lede">
+          Te hemos dado de baja. No hace falta que hagas nada más y no vamos a preguntarte por qué.
+        </p>
+        <p class="unsub-note">
+          El sitio sigue siendo gratis y completo sin suscripción. Si algún día quieres volver,
+          está el mismo formulario de siempre.
+        </p>
+        <div class="unsub-actions">
+          <a href={ROUTES.home} class="btn btn-secondary">Ir al inicio</a>
+          <a href={ROUTES.contact} class="btn btn-ghost">Contarnos qué falló</a>
+        </div>
+      </>
+    ) : (
+      <>
+        <p class="eyebrow">Boletín</p>
+        <h1 class="unsub-title">No hemos podido procesar la baja</h1>
+        <p class="unsub-lede">
+          El enlace no es válido o ya se había usado. Si sigues recibiendo correos que no quieres,
+          escríbenos y te damos de baja a mano el mismo día.
+        </p>
+        <div class="unsub-actions">
+          <a href={ROUTES.contact} class="btn btn-primary">Escribirnos</a>
+        </div>
+      </>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .unsub {
+    padding-block: var(--space-2xl) var(--space-xl);
+    max-width: 40rem;
+  }
+
+  .unsub-title {
+    font-size: clamp(1.75rem, 1.4rem + 1.8vw, 2.5rem);
+    margin-block: 0.35rem var(--space-2xs);
+  }
+
+  .unsub-lede {
+    margin: 0 0 var(--space-2xs);
+    color: var(--ink-muted);
+    font-size: 1.0625rem;
+  }
+
+  .unsub-note {
+    margin: 0 0 var(--space-m);
+    font-size: 0.875rem;
+    color: var(--ink-subtle);
+  }
+
+  .unsub-actions {
+    display: flex;
+    gap: var(--space-2xs);
+    flex-wrap: wrap;
+  }
+</style>

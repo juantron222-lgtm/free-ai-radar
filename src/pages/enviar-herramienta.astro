@@ -1,0 +1,220 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getPopulatedCategories, getCatalogStats } from '@lib/data/catalog';
+import { ROUTES } from '@lib/nav';
+
+const categories = getPopulatedCategories();
+const stats = getCatalogStats();
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Enviar una herramienta', path: ROUTES.submit },
+];
+---
+
+<BaseLayout
+  title="Enviar una herramienta de IA al radar"
+  description="Propón una herramienta de IA para que la verifiquemos. Es gratis, no da preferencia y no aceptamos pagos por incluir nada."
+  crumbs={crumbs}
+>
+  <div class="page submit">
+    <div class="submit-intro">
+      <h1 class="submit-h1">Enviar una herramienta</h1>
+      <p class="submit-lede">
+        Si conoces algo que debería estar en el radar y no está, dínoslo. Lo verificamos con el
+        mismo criterio que las {stats.total} que ya hay.
+      </p>
+
+      <h2 class="submit-h2">Antes de enviarla</h2>
+      <ul class="submit-rules">
+        <li>Es <strong>gratis</strong> y no aceptamos pagos por incluir ni por acelerar nada.</li>
+        <li>Enviarla <strong>no garantiza</strong> que se publique ni con qué puntuación.</li>
+        <li>Si eres del equipo del producto, dilo. No es un problema, pero lo declaramos en la ficha.</li>
+        <li>Nos interesa especialmente si tiene una capa gratuita utilizable, es open source o se ejecuta en local.</li>
+        <li>También nos interesa lo contrario: algo muy promocionado cuyo «plan gratuito» no lo sea.</li>
+      </ul>
+
+      <p class="submit-note">
+        Ver <a href={ROUTES.editorialPolicy}>política editorial</a> y
+        <a href={ROUTES.methodology}> metodología</a>.
+      </p>
+    </div>
+
+    <form class="card submit-form" method="post" action="/api/submissions" data-submit-form>
+      <div class="submit-hp" aria-hidden="true">
+        <label for="s-website">No rellenes este campo</label>
+        <input type="text" id="s-website" name="website" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <div class="field">
+        <label class="label" for="s-name">Nombre de la herramienta</label>
+        <input type="text" id="s-name" name="name" class="input" required maxlength="120" />
+      </div>
+
+      <div class="field">
+        <label class="label" for="s-url">Web oficial</label>
+        <input type="url" id="s-url" name="url" class="input" required placeholder="https://…" />
+      </div>
+
+      <div class="field">
+        <label class="label" for="s-category">Categoría <span class="hint">(si la sabes)</span></label>
+        <select id="s-category" name="categorySlug" class="select">
+          <option value="">No estoy seguro</option>
+          {categories.map((category) => (
+            <option value={category.slug}>{category.name}</option>
+          ))}
+        </select>
+      </div>
+
+      <div class="field">
+        <label class="label" for="s-notes">¿Qué tiene de interesante su plan gratuito?</label>
+        <textarea
+          id="s-notes"
+          name="notes"
+          class="textarea"
+          rows="5"
+          required
+          minlength="20"
+          maxlength="1500"
+          placeholder="Ej.: da 50 generaciones al mes sin pedir tarjeta y permite uso comercial, cosa rarísima en su categoría."
+        ></textarea>
+        <p class="hint">
+          Cuanto más concreto, antes lo verificamos. Si sabes los límites exactos, dilos.
+        </p>
+      </div>
+
+      <div class="field">
+        <label class="label" for="s-email">Tu correo <span class="hint">(opcional)</span></label>
+        <input type="email" id="s-email" name="email" class="input" autocomplete="email" />
+        <p class="hint">Sólo para avisarte si la publicamos. No entra en ninguna lista.</p>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Enviar propuesta</button>
+      <p class="submit-result" role="status" data-submit-result hidden></p>
+    </form>
+  </div>
+</BaseLayout>
+
+<style>
+  .submit {
+    padding-block: var(--space-m) var(--space-xl);
+    display: grid;
+    gap: var(--space-l);
+  }
+
+  .submit-h1 {
+    font-size: clamp(1.75rem, 1.4rem + 1.6vw, 2.6rem);
+    margin-block-end: var(--space-2xs);
+  }
+
+  .submit-lede {
+    margin: 0 0 var(--space-m);
+    color: var(--ink-muted);
+    max-width: 46ch;
+  }
+
+  .submit-h2 {
+    font-size: 1rem;
+    margin-block-end: var(--space-2xs);
+  }
+
+  .submit-rules {
+    margin: 0 0 var(--space-s);
+    padding-inline-start: 1.2em;
+    display: grid;
+    gap: 0.35rem;
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+    max-width: 46ch;
+  }
+
+  .submit-note {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+  }
+
+  .submit-note a {
+    color: var(--signal);
+  }
+
+  .submit-form {
+    padding: var(--space-s);
+    display: grid;
+    gap: var(--space-s);
+    justify-items: start;
+  }
+
+  .submit-form .field {
+    width: 100%;
+  }
+
+  .submit-form .textarea {
+    resize: vertical;
+    min-height: 7rem;
+  }
+
+  .submit-hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .submit-result {
+    margin: 0;
+    padding: 0.6rem 0.85rem;
+    border-radius: var(--radius-m);
+    font-size: 0.875rem;
+    font-weight: 550;
+    width: 100%;
+  }
+
+  .submit-result[data-tone='ok'] {
+    background: var(--signal-soft);
+    border: 1px solid var(--signal-line);
+    color: var(--signal);
+  }
+
+  .submit-result[data-tone='error'] {
+    background: var(--alert-soft);
+    border: 1px solid var(--alert-line);
+    color: var(--alert);
+  }
+
+  @media (min-width: 56rem) {
+    .submit {
+      grid-template-columns: 1fr 1.25fr;
+      gap: var(--space-2xl);
+      align-items: start;
+    }
+  }
+</style>
+
+<script>
+  import { postForm } from '@lib/client/http';
+
+  const form = document.querySelector<HTMLFormElement>('[data-submit-form]');
+  const result = document.querySelector<HTMLElement>('[data-submit-result]');
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!result) return;
+
+    const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const original = submit.textContent;
+    submit.disabled = true;
+    submit.textContent = 'Enviando…';
+
+    const payload = await postForm(form.action, new FormData(form));
+
+    result.hidden = false;
+    result.dataset['tone'] = payload.ok ? 'ok' : 'error';
+    result.textContent = payload.message;
+    if (payload.ok) form.reset();
+
+    submit.disabled = false;
+    submit.textContent = original;
+  });
+</script>

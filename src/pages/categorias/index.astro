@@ -1,0 +1,121 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getPopulatedCategories, getToolsByCategory } from '@lib/data/catalog';
+import { ROUTES } from '@lib/nav';
+
+const categories = getPopulatedCategories().map((category) => {
+  const tools = getToolsByCategory(category.slug);
+  return {
+    ...category,
+    noCard: tools.filter((t) => t.freePlan.requiresCreditCard === 'no').length,
+    best: tools[0],
+  };
+});
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Categorías', path: ROUTES.categories },
+];
+---
+
+<BaseLayout
+  title="Categorías de herramientas de IA gratuitas"
+  description="Explora las herramientas de IA gratuitas verificadas por tipo de trabajo: imagen, vídeo, voz, código, agentes, modelos open source y ejecución local."
+  crumbs={crumbs}
+>
+  <div class="page cat-index">
+    <header>
+      <h1 class="cat-title">Por tipo de trabajo</h1>
+      <p class="cat-lede">
+        Cada categoría tiene sus propias trampas. En imagen lo que decide es la licencia; en vídeo,
+        los créditos; en modelos locales, tu hardware. Empieza por lo que necesitas hacer.
+      </p>
+    </header>
+
+    <ul class="cat-list">
+      {categories.map((category) => (
+        <li>
+          <a href={ROUTES.category(category.slug)} class="card card-interactive cat-card">
+            <div class="cat-card-head">
+              <h2 class="cat-card-name">{category.name}</h2>
+              <span class="cat-card-count tnum">{category.count}</span>
+            </div>
+            <p class="cat-card-intro">{category.intro}</p>
+            <p class="cat-card-meta tnum">
+              {category.noCard} sin tarjeta
+              {category.best && <> · mejor valorada: {category.best.name} ({category.best.scoreTotal})</>}
+            </p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</BaseLayout>
+
+<style>
+  .cat-index {
+    padding-block: var(--space-m) var(--space-xl);
+    display: grid;
+    gap: var(--space-m);
+  }
+
+  .cat-title {
+    font-size: clamp(1.75rem, 1.4rem + 1.6vw, 2.6rem);
+    margin-block-end: var(--space-2xs);
+  }
+
+  .cat-lede {
+    margin: 0;
+    max-width: 58ch;
+    color: var(--ink-muted);
+  }
+
+  .cat-list {
+    display: grid;
+    gap: var(--space-s);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .cat-card {
+    display: grid;
+    gap: 0.4rem;
+    align-content: start;
+    height: 100%;
+    padding: var(--space-s);
+    text-decoration: none;
+  }
+
+  .cat-card-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+  }
+
+  .cat-card-name {
+    font-size: 1.0625rem;
+    font-weight: 650;
+    margin: 0;
+  }
+
+  .cat-card-count {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--signal);
+  }
+
+  .cat-card-intro {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .cat-card-meta {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+  }
+</style>

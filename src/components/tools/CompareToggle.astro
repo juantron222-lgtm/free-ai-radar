@@ -1,0 +1,74 @@
+---
+interface Props {
+  slug: string;
+  name: string;
+}
+const { slug, name } = Astro.props;
+---
+
+{/*
+  Sits above the card's stretched link (z-index) so it stays independently
+  clickable. State is announced via aria-pressed, not colour alone.
+*/}
+<button
+  type="button"
+  class="compare-toggle"
+  data-compare-toggle={slug}
+  data-compare-name={name}
+  aria-pressed="false"
+>
+  <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+    <path d="M7 2v10M2 7h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" class="compare-plus" />
+    <path d="M2.5 7.2 5.6 10.3 11.5 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="compare-tick" />
+  </svg>
+  <span class="compare-label">Comparar</span>
+  <span class="sr-only compare-sr">{name}</span>
+</button>
+
+<style>
+  .compare-toggle {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.3rem 0.55rem;
+    min-height: 32px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink-muted);
+    font-size: 0.75rem;
+    font-weight: 550;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .compare-toggle:hover {
+    border-color: var(--ink-subtle);
+    color: var(--ink);
+  }
+
+  .compare-toggle[aria-pressed='true'] {
+    background: var(--signal-soft);
+    border-color: var(--signal);
+    color: var(--signal);
+  }
+
+  .compare-tick {
+    display: none;
+  }
+
+  .compare-toggle[aria-pressed='true'] .compare-plus {
+    display: none;
+  }
+
+  .compare-toggle[aria-pressed='true'] .compare-tick {
+    display: block;
+  }
+
+  .compare-toggle[disabled] {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+</style>

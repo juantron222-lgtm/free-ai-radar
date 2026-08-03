@@ -1,0 +1,149 @@
+---
+import AdminLayout from '@layouts/AdminLayout.astro';
+import { getStaleTools } from '@lib/data/catalog';
+import { STALE_AFTER_DAYS, VERY_STALE_AFTER_DAYS } from '@lib/domain/scoring';
+import { ROUTES } from '@lib/nav';
+
+export const prerender = false;
+
+const stale = getStaleTools();
+const critical = stale.filter((tool) => tool.freshness === 'very_stale');
+---
+
+<AdminLayout
+  title="Fichas desactualizadas"
+  heading="Fichas que toca revisar"
+  lede={`Marcamos una ficha a los ${STALE_AFTER_DAYS} días desde la última verificación y como crítica a los ${VERY_STALE_AFTER_DAYS}. Esta lista también se publica en el sitio: es incómodo a propósito.`}
+>
+  {stale.length === 0 ? (
+    <p class="ok-state">
+      Todas las fichas están dentro del plazo de verificación. Buen trabajo.
+    </p>
+  ) : (
+    <>
+      <p class="summary">
+        <strong class="tnum">{stale.length}</strong> pendientes, de las cuales
+        <strong class="tnum"> {critical.length}</strong> en estado crítico.
+      </p>
+
+      <div class="table-scroll">
+        <table class="data-table">
+          <caption class="sr-only">Fichas ordenadas por antigüedad de la última verificación</caption>
+          <thead>
+            <tr>
+              <th scope="col">Herramienta</th>
+              <th scope="col">Días sin verificar</th>
+              <th scope="col">Última verificación</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Fuentes</th>
+              <th scope="col"><span class="sr-only">Acciones</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {stale.map((tool) => (
+              <tr>
+                <th scope="row">{tool.name}</th>
+                <td class="tnum">
+                  <span class={tool.freshness === 'very_stale' ? 'critical' : 'warn'}>
+                    {tool.daysSinceVerified}
+                  </span>
+                </td>
+                <td class="tnum">{tool.lastVerifiedAt}</td>
+                <td>
+                  <span class={`chip ${tool.freshness === 'very_stale' ? 'chip-alert' : 'chip-warn'}`}>
+                    {tool.freshness === 'very_stale' ? 'Crítica' : 'Pendiente'}
+                  </span>
+                </td>
+                <td>
+                  {tool.sources.slice(0, 2).map((source, index) => (
+                    <>
+                      {index > 0 && ' · '}
+                      <a href={source.url} target="_blank" rel="nofollow noopener">{source.kind}</a>
+                    </>
+                  ))}
+                </td>
+                <td>
+                  <a href={ROUTES.tool(tool.slug)} class="btn btn-ghost btn-sm" target="_blank">
+                    Ficha<span class="sr-only"> de {tool.name}</span>
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <section class="how" aria-labelledby="how-title">
+        <h2 id="how-title" class="how-title">Cómo revisar una ficha</h2>
+        <ol>
+          <li>Abre la página de precios oficial que figura en «Fuentes».</li>
+          <li>Comprueba los cinco datos duros: tarjeta, registro, marca de agua, uso comercial y límites concretos.</li>
+          <li>Si algo ha cambiado, añádelo al <code>changelog</code> con el tipo correcto: el tipo es lo que decide a quién se le envía una alerta.</li>
+          <li>Actualiza <code>lastVerifiedAt</code> y la fecha dentro de <code>freePlan.verifiedAt</code>.</li>
+          <li>Ejecuta <code>npm run data:migrate</code> y commitea el diff.</li>
+        </ol>
+      </section>
+    </>
+  )}
+</AdminLayout>
+
+<style>
+  .ok-state {
+    padding: var(--space-s);
+    border-radius: var(--radius-m);
+    background: var(--signal-soft);
+    border: 1px solid var(--signal-line);
+    color: var(--signal);
+    font-weight: 550;
+  }
+
+  .summary {
+    margin: 0 0 var(--space-s);
+    font-size: 0.9375rem;
+    color: var(--ink-muted);
+  }
+
+  .warn {
+    color: var(--warn);
+    font-weight: 700;
+  }
+
+  .critical {
+    color: var(--alert);
+    font-weight: 700;
+  }
+
+  .how {
+    margin-block-start: var(--space-l);
+    padding: var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface-sunken);
+  }
+
+  .how-title {
+    font-size: 1rem;
+    margin-block-end: var(--space-2xs);
+  }
+
+  .how ol {
+    margin: 0;
+    padding-inline-start: 1.3em;
+    display: grid;
+    gap: 0.35rem;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--surface);
+    padding: 0.1em 0.35em;
+    border-radius: var(--radius-s);
+  }
+
+  a {
+    color: var(--info);
+  }
+</style>

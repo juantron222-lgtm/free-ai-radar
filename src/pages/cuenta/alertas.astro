@@ -1,0 +1,224 @@
+---
+import AccountLayout from '@layouts/AccountLayout.astro';
+import { getUserData, MAX_ALERTS_FREE } from '@lib/data/user-data';
+import { getTool, getPopulatedCategories } from '@lib/data/catalog';
+import { CSRF_FIELD } from '@lib/security/csrf';
+import { ROUTES } from '@lib/nav';
+
+export const prerender = false;
+
+const user = Astro.locals.user!;
+const data = await getUserData(user.id);
+const categories = getPopulatedCategories();
+const activeAlerts = data.alerts.filter((a) => a.isActive);
+const atLimit = user.plan === 'free' && activeAlerts.length >= MAX_ALERTS_FREE;
+---
+
+<AccountLayout
+  title="Tus alertas"
+  heading="Alertas de cambios"
+  lede="Te avisamos cuando una herramienta que sigues recorta su plan gratuito, empieza a pedir tarjeta o cambia su licencia."
+>
+  <div class="alerts">
+    <section class="card alerts-summary">
+      <p>
+        <strong class="tnum">{activeAlerts.length}</strong> alerta{activeAlerts.length === 1 ? '' : 's'} activa{activeAlerts.length === 1 ? '' : 's'}
+        {user.plan === 'free' && <> de {MAX_ALERTS_FREE} en el plan gratuito</>}.
+        {user.plan === 'free' && (
+          <>
+            {' '}<a href={ROUTES.pricing}>Radar Pro</a> las hace ilimitadas y las envía en el momento
+            en que detectamos el cambio, no en el resumen semanal.
+          </>
+        )}
+      </p>
+      {atLimit && (
+        <p class="alerts-limit" role="status">
+          Has llegado al límite. Desactiva una para añadir otra.
+        </p>
+      )}
+    </section>
+
+    <section aria-labelledby="tools-title">
+      <h2 id="tools-title" class="alerts-title">Herramientas que sigues</h2>
+      {activeAlerts.filter((a) => a.toolSlug).length > 0 ? (
+        <ul class="alerts-list">
+          {activeAlerts
+            .filter((a) => a.toolSlug)
+            .map((alert) => {
+              const tool = getTool(alert.toolSlug!);
+              return tool ? (
+                <li>
+                  <div>
+                    <a href={ROUTES.tool(tool.slug)} class="alerts-tool">{tool.name}</a>
+                    <span class="alerts-meta">
+                      Verificada hace {tool.daysSinceVerified} días
+                    </span>
+                  </div>
+                  <form method="post" action="/api/account/follows" data-alert-form>
+                    <input type="hidden" name={CSRF_FIELD} value={Astro.locals.csrfToken} />
+                    <input type="hidden" name="slug" value={tool.slug} />
+                    <input type="hidden" name="action" value="remove" />
+                    <button type="submit" class="btn btn-ghost btn-sm">
+                      Dejar de seguir<span class="sr-only"> {tool.name}</span>
+                    </button>
+                  </form>
+                </li>
+              ) : null;
+            })}
+        </ul>
+      ) : (
+        <p class="alerts-empty">
+          No sigues ninguna herramienta todavía. Pulsa «Avisarme» en cualquier ficha.
+        </p>
+      )}
+    </section>
+
+    <section aria-labelledby="cats-title">
+      <h2 id="cats-title" class="alerts-title">Categorías que sigues</h2>
+      <form method="post" action="/api/account/preferences" class="alerts-cats" data-prefs-form>
+        <input type="hidden" name={CSRF_FIELD} value={Astro.locals.csrfToken} />
+        <input type="hidden" name="scope" value="categories" />
+        <div class="alerts-chips">
+          {categories.map((category) => (
+            <label class="filter-chip">
+              <input
+                type="checkbox"
+                name="categories"
+                value={category.slug}
+                class="sr-only"
+                checked={data.preferences.categories.includes(category.slug)}
+              />
+              <span class="filter-chip-tick" aria-hidden="true">
+                <svg width="11" height="11" viewBox="0 0 12 12"><path d="M2 6.4 4.6 9 10 3.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              {category.name}
+            </label>
+          ))}
+        </div>
+        <button type="submit" class="btn btn-secondary btn-sm">Guardar categorías</button>
+        <p class="form-result" role="status" data-form-result hidden></p>
+      </form>
+    </section>
+  </div>
+</AccountLayout>
+
+<style>
+  .alerts {
+    display: grid;
+    gap: var(--space-l);
+  }
+
+  .alerts-summary {
+    padding: var(--space-s);
+  }
+
+  .alerts-summary p {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--ink-muted);
+  }
+
+  .alerts-summary a {
+    color: var(--signal);
+    font-weight: 600;
+  }
+
+  .alerts-limit {
+    margin-block-start: var(--space-2xs) !important;
+    color: var(--warn) !important;
+    font-weight: 550;
+  }
+
+  .alerts-title {
+    font-size: 1.0625rem;
+    margin-block-end: var(--space-2xs);
+    padding-block-end: 0.35rem;
+    border-block-end: 1px solid var(--line);
+  }
+
+  .alerts-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .alerts-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+    padding-block: var(--space-2xs);
+    border-block-end: 1px solid var(--line-hairline);
+  }
+
+  .alerts-tool {
+    display: block;
+    font-weight: 600;
+    color: var(--ink-strong);
+    text-decoration: none;
+  }
+
+  .alerts-meta {
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+  }
+
+  .alerts-empty {
+    margin: 0;
+    color: var(--ink-subtle);
+    font-size: 0.875rem;
+  }
+
+  .alerts-cats {
+    display: grid;
+    gap: var(--space-s);
+    justify-items: start;
+  }
+
+  .alerts-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .form-result {
+    margin: 0;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-m);
+    font-size: 0.8125rem;
+    background: var(--signal-soft);
+    border: 1px solid var(--signal-line);
+    color: var(--signal);
+  }
+</style>
+
+<script>
+  for (const form of Array.from(document.querySelectorAll<HTMLFormElement>('[data-alert-form]'))) {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const response = await fetch(form.action, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(form),
+      });
+      if (response.ok) location.reload();
+    });
+  }
+
+  const prefsForm = document.querySelector<HTMLFormElement>('[data-prefs-form]');
+  const result = prefsForm?.querySelector<HTMLElement>('[data-form-result]');
+
+  prefsForm?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const response = await fetch(prefsForm.action, {
+      method: 'POST',
+      headers: { Accept: 'application/json' },
+      body: new FormData(prefsForm),
+    });
+    const payload = (await response.json()) as { ok: boolean; message: string };
+    if (result) {
+      result.hidden = false;
+      result.textContent = payload.message;
+    }
+  });
+</script>

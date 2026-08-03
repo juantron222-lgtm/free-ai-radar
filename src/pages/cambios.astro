@@ -1,0 +1,259 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import NewsletterForm from '@components/marketing/NewsletterForm.astro';
+import { getCatalogChanges, getStaleTools } from '@lib/data/catalog';
+import { ROUTES } from '@lib/nav';
+
+const changes = getCatalogChanges(60);
+const stale = getStaleTools().slice(0, 10);
+
+const KIND_META: Record<string, { label: string; tone: 'alert' | 'warn' | 'signal' | 'info' }> = {
+  free_plan_reduced: { label: 'Plan gratuito recortado', tone: 'alert' },
+  free_plan_improved: { label: 'Plan gratuito mejorado', tone: 'signal' },
+  price_change: { label: 'Cambio de precio', tone: 'warn' },
+  card_now_required: { label: 'Ahora pide tarjeta', tone: 'alert' },
+  card_no_longer_required: { label: 'Ya no pide tarjeta', tone: 'signal' },
+  watermark_added: { label: 'Añade marca de agua', tone: 'alert' },
+  watermark_removed: { label: 'Quita la marca de agua', tone: 'signal' },
+  licence_change: { label: 'Cambio de licencia', tone: 'warn' },
+  shutdown: { label: 'Cierre', tone: 'alert' },
+  launch: { label: 'Entra en el radar', tone: 'info' },
+  other: { label: 'Cambio', tone: 'info' },
+};
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Cambios', path: ROUTES.changes },
+];
+
+const fmt = (iso: string) =>
+  new Date(`${iso}T00:00:00Z`).toLocaleDateString('es-ES', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+---
+
+<BaseLayout
+  title="Qué ha cambiado en los planes gratuitos de IA"
+  description="Registro público de cambios: planes gratuitos recortados, herramientas que empiezan a pedir tarjeta, cambios de licencia y cierres. Con fecha y fuente."
+  crumbs={crumbs}
+>
+  <div class="page changes-page">
+    <header>
+      <h1 class="changes-h1">Registro de cambios</h1>
+      <p class="changes-lede">
+        Un plan gratuito no es un hecho permanente: es una decisión comercial que se revisa. Aquí
+        queda anotado cada vez que cambia, con fecha y fuente. Es la parte del sitio que más
+        justifica volver.
+      </p>
+    </header>
+
+    {changes.length > 0 ? (
+      <ol class="timeline">
+        {changes.map(({ tool, change }) => {
+          const meta = KIND_META[change.kind] ?? KIND_META['other']!;
+          return (
+            <li class="timeline-item">
+              <div class="timeline-marker" aria-hidden="true"></div>
+              <div class="timeline-body">
+                <div class="timeline-head">
+                  <time datetime={change.date} class="timeline-date tnum">{fmt(change.date)}</time>
+                  <span class={`chip chip-${meta.tone}`}>{meta.label}</span>
+                </div>
+                <h2 class="timeline-tool">
+                  <a href={ROUTES.tool(tool.slug)}>{tool.name}</a>
+                </h2>
+                <p class="timeline-summary">{change.summary}</p>
+                {change.sourceUrl && (
+                  <a class="timeline-source" href={change.sourceUrl} rel="nofollow noopener" target="_blank">
+                    Fuente
+                  </a>
+                )}
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+    ) : (
+      <p class="changes-empty">
+        Todavía no hay cambios registrados. Aparecerán aquí en cuanto detectemos el primero.
+      </p>
+    )}
+
+    {stale.length > 0 && (
+      <section class="stale" aria-labelledby="stale-title">
+        <h2 id="stale-title" class="stale-title">Fichas que toca revisar</h2>
+        <p class="stale-lede">
+          Estas llevan demasiado tiempo sin verificar. Lo publicamos porque saberlo te ayuda a
+          decidir cuánto fiarte de cada dato, y porque nos obliga a ponernos al día.
+        </p>
+        <ul class="stale-list">
+          {stale.map((tool) => (
+            <li>
+              <a href={ROUTES.tool(tool.slug)}>{tool.name}</a>
+              <span class="tnum">{tool.daysSinceVerified} días</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <NewsletterForm source="cambios" />
+  </div>
+</BaseLayout>
+
+<style>
+  .changes-page {
+    padding-block: var(--space-m) var(--space-xl);
+    display: grid;
+    gap: var(--space-l);
+  }
+
+  .changes-h1 {
+    font-size: clamp(1.75rem, 1.4rem + 1.6vw, 2.6rem);
+    margin-block-end: var(--space-2xs);
+  }
+
+  .changes-lede {
+    margin: 0;
+    max-width: 58ch;
+    color: var(--ink-muted);
+  }
+
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 46rem;
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 1rem 1fr;
+    gap: var(--space-s);
+    padding-block-end: var(--space-m);
+    position: relative;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    inset-block: 0.75rem 0;
+    inset-inline-start: 0.42rem;
+    width: 1px;
+    background: var(--line);
+  }
+
+  .timeline-item:last-child::before {
+    display: none;
+  }
+
+  .timeline-marker {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 2px solid var(--line-strong);
+    margin-block-start: 0.45rem;
+    margin-inline-start: 0.05rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .timeline-head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    flex-wrap: wrap;
+  }
+
+  .timeline-date {
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+    font-weight: 600;
+  }
+
+  .timeline-tool {
+    font-size: 1.0625rem;
+    margin-block: 0.2rem 0.15rem;
+  }
+
+  .timeline-tool a {
+    color: var(--ink-strong);
+    text-decoration: none;
+  }
+
+  .timeline-tool a:hover {
+    text-decoration: underline;
+  }
+
+  .timeline-summary {
+    margin: 0;
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+  }
+
+  .timeline-source {
+    display: inline-block;
+    margin-block-start: 0.25rem;
+    font-size: 0.8125rem;
+    color: var(--signal);
+  }
+
+  .changes-empty {
+    color: var(--ink-muted);
+  }
+
+  .stale {
+    padding: var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface-sunken);
+    max-width: 46rem;
+  }
+
+  .stale-title {
+    font-size: 1.125rem;
+    margin-block-end: 0.25rem;
+  }
+
+  .stale-lede {
+    margin: 0 0 var(--space-s);
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .stale-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0;
+  }
+
+  .stale-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+    padding-block: 0.45rem;
+    border-block-end: 1px solid var(--line-hairline);
+    font-size: 0.875rem;
+  }
+
+  .stale-list li:last-child {
+    border-block-end: 0;
+  }
+
+  .stale-list a {
+    color: var(--ink);
+    font-weight: 550;
+  }
+
+  .stale-list span {
+    color: var(--warn);
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+</style>

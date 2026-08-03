@@ -1,0 +1,214 @@
+---
+import { getPopulatedCategories } from '@lib/data/catalog';
+import { ROUTES } from '@lib/nav';
+
+interface Props {
+  variant?: 'panel' | 'inline';
+  source?: string;
+}
+
+const { variant = 'panel', source = 'web' } = Astro.props;
+const categories = getPopulatedCategories().slice(0, 8);
+const formId = `newsletter-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<section class={`newsletter ${variant === 'inline' ? 'newsletter-inline' : 'card newsletter-panel'}`} aria-labelledby={`${formId}-title`}>
+  <div class="newsletter-copy">
+    <p class="eyebrow">Boletín semanal</p>
+    <h2 id={`${formId}-title`} class="newsletter-title">
+      Te avisamos cuando un plan gratuito deja de serlo
+    </h2>
+    <p class="newsletter-lede">
+      Un correo a la semana con lo que ha cambiado de verdad: recortes de planes gratuitos,
+      herramientas que empiezan a pedir tarjeta y hallazgos que merecen la pena. Sin relleno.
+    </p>
+  </div>
+
+  {/* Progressive enhancement: this posts to a real endpoint and works with JS
+      off. The script below upgrades it to an inline result. */}
+  <form
+    class="newsletter-form"
+    id={formId}
+    method="post"
+    action="/api/newsletter/subscribe"
+    data-newsletter-form
+  >
+    <input type="hidden" name="source" value={source} />
+    {/* Honeypot: bots fill it, humans never see it. */}
+    <div class="newsletter-hp" aria-hidden="true">
+      <label for={`${formId}-website`}>No rellenes este campo</label>
+      <input type="text" id={`${formId}-website`} name="website" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <div class="field">
+      <label class="label" for={`${formId}-email`}>Tu correo</label>
+      <div class="newsletter-row">
+        <input
+          type="email"
+          id={`${formId}-email`}
+          name="email"
+          class="input"
+          placeholder="tu@correo.com"
+          required
+          autocomplete="email"
+          aria-describedby={`${formId}-consent`}
+        />
+        <button type="submit" class="btn btn-primary">Suscribirme</button>
+      </div>
+    </div>
+
+    <fieldset class="newsletter-interests">
+      <legend class="label">Sólo lo que te interesa <span class="hint">(opcional)</span></legend>
+      <div class="newsletter-chips">
+        {categories.map((cat) => (
+          <label class="filter-chip">
+            <input type="checkbox" name="categories" value={cat.slug} class="sr-only" />
+            <span class="filter-chip-tick" aria-hidden="true">
+              <svg width="11" height="11" viewBox="0 0 12 12"><path d="M2 6.4 4.6 9 10 3.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            {cat.name}
+          </label>
+        ))}
+      </div>
+    </fieldset>
+
+    <p class="hint" id={`${formId}-consent`}>
+      Te enviaremos un correo para confirmar la suscripción. Puedes darte de baja con un clic desde
+      cualquier envío. <a href={ROUTES.privacy}>Cómo tratamos tus datos</a>.
+    </p>
+
+    <p class="newsletter-result" role="status" data-newsletter-result hidden></p>
+  </form>
+</section>
+
+<style>
+  .newsletter-panel {
+    padding: var(--space-l) var(--space-s);
+    display: grid;
+    gap: var(--space-m);
+  }
+
+  .newsletter-inline {
+    display: grid;
+    gap: var(--space-s);
+  }
+
+  .newsletter-title {
+    font-size: clamp(1.25rem, 1.1rem + 0.8vw, 1.6rem);
+    margin-block: 0.15rem var(--space-2xs);
+  }
+
+  .newsletter-lede {
+    margin: 0;
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+    max-width: 48ch;
+  }
+
+  .newsletter-form {
+    display: grid;
+    gap: var(--space-s);
+  }
+
+  .newsletter-row {
+    display: flex;
+    gap: var(--space-2xs);
+    flex-wrap: wrap;
+  }
+
+  .newsletter-row .input {
+    flex: 1 1 14rem;
+    min-height: 48px;
+  }
+
+  .newsletter-interests {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+  }
+
+  .newsletter-interests legend {
+    padding: 0;
+    margin-block-end: 0.4rem;
+  }
+
+  .newsletter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  /* Off-screen rather than display:none so bots still see and fill it. */
+  .newsletter-hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .newsletter-result {
+    margin: 0;
+    padding: 0.6rem 0.8rem;
+    border-radius: var(--radius-m);
+    font-size: 0.875rem;
+    font-weight: 550;
+  }
+
+  .newsletter-result[data-tone='ok'] {
+    background: var(--signal-soft);
+    border: 1px solid var(--signal-line);
+    color: var(--signal);
+  }
+
+  .newsletter-result[data-tone='error'] {
+    background: var(--alert-soft);
+    border: 1px solid var(--alert-line);
+    color: var(--alert);
+  }
+
+  .newsletter-panel .hint a {
+    color: var(--signal);
+  }
+
+  @media (min-width: 56rem) {
+    .newsletter-panel {
+      grid-template-columns: 1fr 1.15fr;
+      gap: var(--space-xl);
+      align-items: start;
+      padding: var(--space-xl) var(--space-l);
+    }
+  }
+</style>
+
+<script>
+  import { postForm } from '@lib/client/http';
+
+  for (const form of Array.from(
+    document.querySelectorAll<HTMLFormElement>('[data-newsletter-form]')
+  )) {
+    const result = form.querySelector<HTMLElement>('[data-newsletter-result]');
+    const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!result || !submit) return;
+
+      const original = submit.textContent;
+      submit.disabled = true;
+      submit.textContent = 'Enviando…';
+      result.hidden = true;
+
+      const payload = await postForm(form.action, new FormData(form));
+
+      result.hidden = false;
+      result.dataset['tone'] = payload.ok ? 'ok' : 'error';
+      result.textContent = payload.message;
+      if (payload.ok) form.reset();
+
+      submit.disabled = false;
+      submit.textContent = original;
+    });
+  }
+</script>

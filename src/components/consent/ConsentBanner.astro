@@ -1,0 +1,210 @@
+---
+import { ROUTES } from '@lib/nav';
+import { CONSENT_CATEGORIES, CONSENT_VERSION } from '@lib/consent';
+---
+
+{/*
+  Consent gate.
+
+  Design constraints this satisfies:
+    · Nothing non-essential loads before a choice is made. `public/consent.js`
+      is the only thing that runs, and it activates tags only after consent.
+    · "Rechazar todo" is visually equal to "Aceptar todo" — same size, same
+      prominence, same level. No dark pattern.
+    · Every purpose is separately toggleable, all off by default.
+    · The choice is recorded with a version so a policy change can re-ask.
+    · Reachable again forever from the footer and from /legal/cookies.
+*/}
+
+<div
+  id="consent-root"
+  class="consent-root"
+  data-consent-version={CONSENT_VERSION}
+  hidden
+>
+  <div class="consent-backdrop" data-consent-backdrop></div>
+
+  <div
+    class="consent-panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="consent-title"
+    aria-describedby="consent-desc"
+  >
+    <h2 id="consent-title" class="consent-title">Cookies y privacidad</h2>
+    <p id="consent-desc" class="consent-desc">
+      Usamos cookies necesarias para que el sitio funcione. Las demás sólo se activan si tú lo
+      autorizas, y puedes cambiar de opinión cuando quieras.
+      <a href={ROUTES.cookies}>Política de cookies</a> ·
+      <a href={ROUTES.privacy}>Privacidad</a>
+    </p>
+
+    <div class="consent-options" id="consent-options" hidden>
+      {CONSENT_CATEGORIES.map((category) => (
+        <div class="consent-option">
+          <label class="consent-option-head" for={`consent-${category.id}`}>
+            <input
+              type="checkbox"
+              id={`consent-${category.id}`}
+              data-consent-category={category.id}
+              checked={category.required}
+              disabled={category.required}
+            />
+            <span class="consent-option-name">{category.name}</span>
+            {category.required && <span class="chip">Siempre activa</span>}
+          </label>
+          <p class="consent-option-desc">{category.description}</p>
+          <p class="consent-option-vendors">
+            <span class="eyebrow">Proveedores</span>
+            {category.vendors.length ? category.vendors.join(', ') : 'Ninguno de terceros'}
+          </p>
+        </div>
+      ))}
+    </div>
+
+    <div class="consent-actions">
+      <button type="button" class="btn btn-primary consent-btn" data-consent-accept-all>
+        Aceptar todo
+      </button>
+      <button type="button" class="btn btn-secondary consent-btn" data-consent-reject-all>
+        Rechazar todo
+      </button>
+      <button type="button" class="btn btn-ghost consent-btn" data-consent-customize>
+        Personalizar
+      </button>
+      <button type="button" class="btn btn-secondary consent-btn" data-consent-save hidden>
+        Guardar selección
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  /*
+   * One stacking context for the whole overlay.
+   *
+   * With the backdrop and the panel both `position: fixed` and only z-index
+   * separating them, a narrow viewport put the backdrop over the buttons and
+   * made "Rechazar todo" unclickable on mobile — the exact control that must
+   * never be harder to reach than "Aceptar". Nesting them in a single
+   * positioned container removes the ambiguity entirely.
+   */
+  .consent-root {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .consent-root[hidden] {
+    display: none;
+  }
+
+  .consent-backdrop {
+    position: absolute;
+    inset: 0;
+    background: var(--overlay);
+  }
+
+  .consent-panel {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 46rem;
+    max-height: 85dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-block-end: 0;
+    border-start-start-radius: var(--radius-l);
+    border-start-end-radius: var(--radius-l);
+    box-shadow: var(--shadow-l);
+    padding: var(--space-m) var(--space-s) calc(var(--space-s) + env(safe-area-inset-bottom));
+  }
+
+  .consent-title {
+    font-size: 1.125rem;
+    margin-block-end: var(--space-3xs);
+  }
+
+  .consent-desc {
+    margin: 0 0 var(--space-s);
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .consent-desc a {
+    color: var(--signal);
+  }
+
+  .consent-options {
+    display: grid;
+    gap: var(--space-s);
+    margin-block-end: var(--space-s);
+    padding-block: var(--space-s);
+    border-block: 1px solid var(--line);
+  }
+
+  .consent-option-head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    cursor: pointer;
+    min-height: 32px;
+  }
+
+  .consent-option-head input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--signal);
+    flex-shrink: 0;
+  }
+
+  .consent-option-name {
+    font-weight: 650;
+    color: var(--ink-strong);
+  }
+
+  .consent-option-desc {
+    margin: 0.15rem 0 0 1.85rem;
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+  }
+
+  .consent-option-vendors {
+    margin: 0.35rem 0 0 1.85rem;
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .consent-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+  }
+
+  /* Accept and reject are the same size on purpose. */
+  .consent-btn {
+    flex: 1 1 10rem;
+  }
+
+  @media (min-width: 40rem) {
+    .consent-root {
+      padding: var(--space-s);
+    }
+
+    .consent-panel {
+      border-radius: var(--radius-l);
+      border-block-end: 1px solid var(--line-strong);
+    }
+  }
+</style>
+
+<script src="/consent.js" is:inline defer></script>

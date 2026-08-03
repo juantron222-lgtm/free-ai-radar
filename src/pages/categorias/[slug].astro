@@ -1,0 +1,175 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ToolExplorer from '@components/discovery/ToolExplorer.astro';
+import { getPopulatedCategories, getToolsByCategory } from '@lib/data/catalog';
+import { faqSchema, itemListSchema } from '@lib/seo/structured-data';
+import { ROUTES } from '@lib/nav';
+
+export function getStaticPaths() {
+  return getPopulatedCategories().map((category) => ({
+    params: { slug: category.slug },
+    props: { category, tools: getToolsByCategory(category.slug) },
+  }));
+}
+
+const { category, tools } = Astro.props;
+
+const noCard = tools.filter((t) => t.freePlan.requiresCreditCard === 'no');
+const commercial = tools.filter((t) => t.freePlan.commercialUse === 'yes');
+const openSource = tools.filter((t) => t.openSource === 'yes');
+const best = tools[0];
+
+// Prerendered: filtered permutations are handled by robots.txt, the canonical
+// and the explorer's client-side robots swap. See `herramientas/index.astro`.
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Categorías', path: ROUTES.categories },
+  { name: category.name, path: ROUTES.category(category.slug) },
+];
+
+/**
+ * FAQ entries are generated from verified data, not written to game the SERP.
+ * Every answer is a fact this page already displays.
+ */
+const faqs = [
+  {
+    question: `¿Cuántas herramientas de ${category.name.toLowerCase()} gratuitas hay verificadas?`,
+    answer: `Hemos verificado ${tools.length} herramientas en esta categoría. De ellas, ${noCard.length} no piden tarjeta y ${commercial.length} permiten uso comercial en su plan gratuito.`,
+  },
+  ...(best
+    ? [
+        {
+          question: `¿Cuál es la mejor herramienta gratuita de ${category.name.toLowerCase()}?`,
+          answer: `Según nuestra puntuación editorial, ${best.name} obtiene ${best.scoreTotal} sobre 100. ${best.verdict || best.tagline}`,
+        },
+      ]
+    : []),
+  ...(openSource.length
+    ? [
+        {
+          question: `¿Hay opciones open source de ${category.name.toLowerCase()}?`,
+          answer: `Sí: ${openSource.slice(0, 4).map((t) => t.name).join(', ')}. Al tener código o pesos abiertos, su gratuidad no depende de una decisión comercial futura.`,
+        },
+      ]
+    : []),
+];
+---
+
+<BaseLayout
+  title={`${category.name} gratis: ${tools.length} herramientas verificadas`}
+  description={`${category.intro} ${noCard.length} de las ${tools.length} no piden tarjeta y ${commercial.length} permiten uso comercial.`}
+  crumbs={crumbs}
+  schemas={[
+    itemListSchema(tools, `Herramientas de ${category.name} gratuitas`),
+    ...(faqs.length ? [faqSchema(faqs)] : []),
+  ]}
+>
+  <div class="page cat-page">
+    <header class="cat-header">
+      <h1 class="cat-h1">{category.name} gratis</h1>
+      <p class="cat-intro">{category.intro}</p>
+
+      <dl class="cat-stats">
+        <div><dt>Verificadas</dt><dd class="tnum">{tools.length}</dd></div>
+        <div><dt>Sin tarjeta</dt><dd class="tnum">{noCard.length}</dd></div>
+        <div><dt>Uso comercial</dt><dd class="tnum">{commercial.length}</dd></div>
+        <div><dt>Open source</dt><dd class="tnum">{openSource.length}</dd></div>
+      </dl>
+    </header>
+
+    <ToolExplorer tools={tools} lockedCategory={category.slug} />
+
+    {faqs.length > 0 && (
+      <section class="cat-faq" aria-labelledby="faq-title">
+        <h2 id="faq-title">Preguntas frecuentes</h2>
+        <dl>
+          {faqs.map((faq) => (
+            <div class="cat-faq-item">
+              <dt>{faq.question}</dt>
+              <dd>{faq.answer}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .cat-page {
+    padding-block: var(--space-m) var(--space-xl);
+    display: grid;
+    gap: var(--space-m);
+  }
+
+  .cat-h1 {
+    font-size: clamp(1.75rem, 1.4rem + 1.6vw, 2.6rem);
+    margin-block-end: var(--space-2xs);
+  }
+
+  .cat-intro {
+    margin: 0 0 var(--space-s);
+    max-width: 58ch;
+    color: var(--ink-muted);
+  }
+
+  .cat-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2xs) var(--space-s);
+    margin: 0;
+    padding-block: var(--space-s);
+    border-block: 1px solid var(--line);
+  }
+
+  .cat-stats dt {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-subtle);
+    font-weight: 600;
+  }
+
+  .cat-stats dd {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--ink-strong);
+  }
+
+  .cat-faq {
+    max-width: var(--measure);
+    padding-block-start: var(--space-m);
+    border-block-start: 1px solid var(--line);
+  }
+
+  .cat-faq h2 {
+    font-size: 1.35rem;
+    margin-block-end: var(--space-s);
+  }
+
+  .cat-faq dl {
+    margin: 0;
+    display: grid;
+    gap: var(--space-s);
+  }
+
+  .cat-faq-item dt {
+    font-weight: 650;
+    color: var(--ink-strong);
+    margin-block-end: 0.2rem;
+  }
+
+  .cat-faq-item dd {
+    margin: 0;
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+  }
+
+  @media (min-width: 40rem) {
+    .cat-stats {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

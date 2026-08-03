@@ -1,0 +1,390 @@
+---
+import { FREE_MODELS, PLATFORM_LABEL, PLATFORMS, SKILL_LEVEL_LABEL, SKILL_LEVELS, HOSTING_LABEL, HOSTING } from '@lib/domain/taxonomy';
+import { getPopulatedCategories } from '@lib/data/catalog';
+import { SORT_OPTIONS } from '@lib/search/filters';
+
+interface Props {
+  /** Locks the category facet on category hub pages. */
+  lockedCategory?: string;
+}
+
+const { lockedCategory } = Astro.props;
+const categories = getPopulatedCategories();
+
+const HARD_REQUIREMENTS = [
+  { key: 'nocard', label: 'Sin tarjeta', hint: 'No pide tarjeta para el plan gratuito' },
+  { key: 'nosignup', label: 'Sin registro', hint: 'Se puede usar sin crear cuenta' },
+  { key: 'nowm', label: 'Sin marca de agua', hint: 'El resultado sale limpio' },
+  { key: 'comm', label: 'Uso comercial', hint: 'Permite monetizar lo que generes' },
+  { key: 'oss', label: 'Open source', hint: 'Código o pesos abiertos' },
+  { key: 'fresh', label: 'Verificada hace poco', hint: 'Revisada en los últimos 4 meses' },
+] as const;
+---
+
+<form id="filter-form" class="filters" role="search" aria-label="Filtrar herramientas">
+  {/* Works without JavaScript: submitting navigates to the same page with the
+      query string set, and the server-rendered list honours it. */}
+  <div class="filters-search">
+    <label class="sr-only" for="q">Buscar herramientas</label>
+    <div class="search-input-wrap">
+      <svg class="search-icon" width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.8" />
+        <path d="M13.5 13.5 L17 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+      </svg>
+      <input
+        type="search"
+        id="q"
+        name="q"
+        class="input search-input"
+        placeholder="Buscar por nombre, uso o capacidad…"
+        autocomplete="off"
+        role="combobox"
+        aria-expanded="false"
+        aria-controls="search-suggestions"
+        aria-autocomplete="list"
+        aria-describedby="search-hint"
+      />
+      <button type="button" class="search-clear" id="search-clear" hidden>
+        <span class="sr-only">Limpiar búsqueda</span>
+        <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3.5 3.5l7 7M10.5 3.5l-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <p id="search-hint" class="sr-only">
+      Usa las flechas para recorrer las sugerencias y Enter para abrir la seleccionada.
+    </p>
+    <ul id="search-suggestions" class="suggestions" role="listbox" aria-label="Sugerencias" hidden></ul>
+  </div>
+
+  <div class="filters-quick scroll-x" role="group" aria-label="Requisitos">
+    {HARD_REQUIREMENTS.map((req) => (
+      <label class="filter-chip" title={req.hint}>
+        <input type="checkbox" name={req.key} value="1" class="sr-only" data-filter-flag={req.key} />
+        <span class="filter-chip-tick" aria-hidden="true">
+          <svg width="11" height="11" viewBox="0 0 12 12"><path d="M2 6.4 4.6 9 10 3.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        {req.label}
+      </label>
+    ))}
+  </div>
+
+  <details class="filters-more" id="filters-more">
+    <summary>
+      <span>Más filtros</span>
+      <span class="filters-count tnum" id="filters-count" hidden></span>
+    </summary>
+
+    <div class="filters-grid">
+      {!lockedCategory && (
+        <fieldset class="filters-group">
+          <legend class="eyebrow">Categoría</legend>
+          <div class="filters-options">
+            {categories.map((cat) => (
+              <label class="filter-chip">
+                <input type="checkbox" name="cat" value={cat.slug} class="sr-only" data-filter-list="cat" />
+                <span class="filter-chip-tick" aria-hidden="true">
+                  <svg width="11" height="11" viewBox="0 0 12 12"><path d="M2 6.4 4.6 9 10 3.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                {cat.name}
+                <span class="filter-chip-count tnum">{cat.count}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      )}
+
+      <fieldset class="filters-group">
+        <legend class="eyebrow">Modelo de gratuidad</legend>
+        <div class="filters-options">
+          {FREE_MODELS.map((model) => (
+            <label class="filter-chip" title={model.meaning}>
+              <input type="checkbox" name="free" value={model.id} class="sr-only" data-filter-list="free" />
+              <span class="filter-chip-tick" aria-hidden="true">
+                <svg width="11" height="11" viewBox="0 0 12 12"><path d="M2 6.4 4.6 9 10 3.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              {model.label}
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <fieldset class="filters-group">
+        <legend class="eyebrow">Dónde se ejecuta</legend>
+        <div class="filters-options">
+          {HOSTING.map((h) => (
+            <label class="filter-chip">
+              <input type="checkbox" name="host" value={h} class="sr-only" data-filter-list="host" />
+              <span class="filter-chip-tick" aria-hidden="true">
+                <svg width="11" height="11" viewBox="0 0 12 12"><path d="M2 6.4 4.6 9 10 3.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              {HOSTING_LABEL[h]}
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <fieldset class="filters-group">
+        <legend class="eyebrow">Plataforma</legend>
+        <div class="filters-options">
+          {PLATFORMS.map((p) => (
+            <label class="filter-chip">
+              <input type="checkbox" name="plat" value={p} class="sr-only" data-filter-list="plat" />
+              <span class="filter-chip-tick" aria-hidden="true">
+                <svg width="11" height="11" viewBox="0 0 12 12"><path d="M2 6.4 4.6 9 10 3.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              {PLATFORM_LABEL[p]}
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <fieldset class="filters-group">
+        <legend class="eyebrow">Nivel técnico</legend>
+        <div class="filters-options">
+          {SKILL_LEVELS.map((level) => (
+            <label class="filter-chip">
+              <input type="checkbox" name="skill" value={level} class="sr-only" data-filter-list="skill" />
+              <span class="filter-chip-tick" aria-hidden="true">
+                <svg width="11" height="11" viewBox="0 0 12 12"><path d="M2 6.4 4.6 9 10 3.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              {SKILL_LEVEL_LABEL[level]}
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <fieldset class="filters-group filters-group-score">
+        <legend class="eyebrow">Puntuación mínima</legend>
+        <div class="score-range">
+          <input type="range" id="min" name="min" min="0" max="90" step="10" value="0" />
+          <output for="min" id="min-output" class="tnum">Cualquiera</output>
+        </div>
+      </fieldset>
+    </div>
+  </details>
+
+  <div class="filters-bar">
+    <div class="field filters-sort">
+      <label class="sr-only" for="sort">Ordenar por</label>
+      <select id="sort" name="sort" class="select">
+        {SORT_OPTIONS.map((option) => (
+          <option value={option.key}>{option.label}</option>
+        ))}
+      </select>
+    </div>
+    <button type="button" class="btn btn-ghost btn-sm" id="reset-filters" hidden>
+      Quitar filtros
+    </button>
+    <noscript>
+      <button type="submit" class="btn btn-secondary btn-sm">Aplicar</button>
+    </noscript>
+  </div>
+</form>
+
+<style>
+  .filters {
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .filters-search {
+    position: relative;
+  }
+
+  .search-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .search-icon {
+    position: absolute;
+    inset-inline-start: 0.75rem;
+    color: var(--ink-subtle);
+    pointer-events: none;
+  }
+
+  .search-input {
+    padding-inline-start: 2.5rem;
+    padding-inline-end: 2.5rem;
+    min-height: 48px;
+    font-size: 1rem;
+  }
+
+  .search-input::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  .search-clear {
+    position: absolute;
+    inset-inline-end: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: var(--radius-full);
+    background: transparent;
+    color: var(--ink-subtle);
+    cursor: pointer;
+  }
+
+  .search-clear:hover {
+    background: var(--surface-sunken);
+    color: var(--ink);
+  }
+
+  .suggestions {
+    position: absolute;
+    inset-inline: 0;
+    top: calc(100% + 4px);
+    z-index: 20;
+    margin: 0;
+    padding: 0.25rem;
+    list-style: none;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-m);
+    box-shadow: var(--shadow-l);
+    max-height: 22rem;
+    overflow-y: auto;
+  }
+
+  .suggestions:empty {
+    display: none;
+  }
+
+  .filters-quick {
+    display: flex;
+    gap: 0.4rem;
+    padding-block-end: 0.25rem;
+  }
+
+  .filters-more {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-m);
+    background: var(--surface);
+  }
+
+  .filters-more > summary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.85rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 600;
+    min-height: 44px;
+    list-style: none;
+  }
+
+  .filters-more > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .filters-more > summary::after {
+    content: '';
+    margin-inline-start: auto;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-right: 1.8px solid currentColor;
+    border-bottom: 1.8px solid currentColor;
+    transform: rotate(45deg) translate(-2px, -2px);
+    transition: transform 160ms ease;
+  }
+
+  .filters-more[open] > summary::after {
+    transform: rotate(-135deg) translate(-2px, -2px);
+  }
+
+  .filters-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.35rem;
+    height: 1.35rem;
+    padding-inline: 0.35rem;
+    border-radius: var(--radius-full);
+    background: var(--signal);
+    color: var(--on-signal);
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+
+  .filters-grid {
+    display: grid;
+    gap: var(--space-s);
+    padding: 0 var(--space-xs) var(--space-s);
+    border-block-start: 1px solid var(--line);
+    padding-block-start: var(--space-s);
+  }
+
+  .filters-group {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+  }
+
+  .filters-group legend {
+    padding: 0;
+    margin-block-end: 0.4rem;
+  }
+
+  .filters-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .filter-chip-count {
+    color: var(--ink-subtle);
+    font-size: 0.72em;
+  }
+
+  .score-range {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+  }
+
+  .score-range input[type='range'] {
+    flex: 1;
+    max-width: 16rem;
+    accent-color: var(--signal);
+    min-height: 32px;
+  }
+
+  .score-range output {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--ink-muted);
+    min-width: 5.5rem;
+  }
+
+  .filters-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    flex-wrap: wrap;
+  }
+
+  .filters-sort {
+    max-width: 15rem;
+  }
+
+  .filters-sort .select {
+    min-height: 40px;
+    font-size: 0.875rem;
+  }
+
+  @media (min-width: 48rem) {
+    .filters-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .filters-group-score {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

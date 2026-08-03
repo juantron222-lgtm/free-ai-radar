@@ -1,0 +1,160 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { ACCOUNT_NAV, ROUTES, isActivePath } from '@lib/nav';
+import { CSRF_FIELD } from '@lib/security/csrf';
+
+interface Props {
+  title: string;
+  heading: string;
+  lede?: string;
+}
+
+const { title, heading, lede } = Astro.props;
+const { user, csrfToken } = Astro.locals;
+const current = Astro.url.pathname;
+---
+
+<BaseLayout title={title} noindex>
+  <div class="page account">
+    <header class="account-head">
+      <div>
+        <p class="eyebrow">Tu cuenta</p>
+        <h1 class="account-title">{heading}</h1>
+        {lede && <p class="account-lede">{lede}</p>}
+      </div>
+      <div class="account-user">
+        <span class="account-email">{user?.displayName || user?.email}</span>
+        <span class={`chip ${user?.plan === 'pro' ? 'chip-signal' : ''}`}>
+          {user?.plan === 'pro' ? 'Radar Pro' : 'Plan gratuito'}
+        </span>
+        <form method="post" action="/api/auth/logout">
+          <input type="hidden" name={CSRF_FIELD} value={csrfToken} />
+          <button type="submit" class="btn btn-ghost btn-sm">Salir</button>
+        </form>
+      </div>
+    </header>
+
+    <div class="account-body">
+      <nav class="account-nav scroll-x" aria-label="Secciones de la cuenta">
+        <ul>
+          {ACCOUNT_NAV.map((item) => (
+            <li>
+              <a href={item.href} aria-current={isActivePath(current, item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))}
+          {(user?.role === 'admin' || user?.role === 'editor') && (
+            <li><a href={ROUTES.admin} class="account-nav-admin">Panel de administración</a></li>
+          )}
+        </ul>
+      </nav>
+
+      <div class="account-main">
+        <slot />
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .account {
+    padding-block: var(--space-m) var(--space-xl);
+    display: grid;
+    gap: var(--space-m);
+  }
+
+  .account-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-s);
+    flex-wrap: wrap;
+    padding-block-end: var(--space-s);
+    border-block-end: 1px solid var(--line);
+  }
+
+  .account-title {
+    font-size: clamp(1.5rem, 1.3rem + 1.2vw, 2.1rem);
+    margin-block: 0.15rem 0;
+  }
+
+  .account-lede {
+    margin: var(--space-3xs) 0 0;
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+    max-width: 52ch;
+  }
+
+  .account-user {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    flex-wrap: wrap;
+  }
+
+  .account-email {
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    font-weight: 550;
+  }
+
+  .account-body {
+    display: grid;
+    gap: var(--space-m);
+  }
+
+  .account-nav ul {
+    display: flex;
+    gap: 0.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0.25rem;
+  }
+
+  .account-nav a {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-m);
+    font-size: 0.875rem;
+    font-weight: 550;
+    color: var(--ink-muted);
+    text-decoration: none;
+    white-space: nowrap;
+    min-height: 40px;
+    line-height: 1.6;
+  }
+
+  .account-nav a:hover {
+    background: var(--surface-sunken);
+    color: var(--ink-strong);
+  }
+
+  .account-nav a[aria-current='page'] {
+    background: var(--signal-soft);
+    color: var(--signal);
+    font-weight: 650;
+  }
+
+  .account-nav-admin {
+    color: var(--info) !important;
+  }
+
+  .account-main {
+    min-width: 0;
+  }
+
+  @media (min-width: 56rem) {
+    .account-body {
+      grid-template-columns: 13rem minmax(0, 1fr);
+      gap: var(--space-xl);
+    }
+
+    .account-nav ul {
+      flex-direction: column;
+      gap: 0.15rem;
+      position: sticky;
+      top: 76px;
+    }
+  }
+</style>

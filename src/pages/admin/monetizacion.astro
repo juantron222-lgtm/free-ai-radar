@@ -1,0 +1,282 @@
+---
+import AdminLayout from '@layouts/AdminLayout.astro';
+import { PLANS, formatPrice } from '@lib/billing/plans';
+import { HANDLED_EVENTS } from '@lib/billing/stripe';
+import { stripe as stripeConfig } from '@lib/config';
+import { getAllTools } from '@lib/data/catalog';
+
+export const prerender = false;
+
+const tools = getAllTools();
+const affiliates = tools.filter((tool) => tool.affiliation.isAffiliate);
+const sponsored = tools.filter((tool) => tool.sponsorship.isSponsored);
+---
+
+<AdminLayout
+  title="Monetización"
+  heading="Monetización"
+  lede="Planes, estado de Stripe, afiliación y patrocinios activos. La puntuación editorial no aparece aquí porque no es una palanca de negocio."
+>
+  <section aria-labelledby="stripe-title">
+    <h2 id="stripe-title" class="section-title">Stripe</h2>
+    <ul class="status">
+      <li>
+        <span class={stripeConfig.isConfigured ? 'dot is-ok' : 'dot is-off'} aria-hidden="true"></span>
+        <strong>Clave secreta</strong>
+        <span>{stripeConfig.isConfigured ? (stripeConfig.isTestMode ? 'Modo test' : 'CLAVE LIVE') : 'Sin configurar (flujo simulado)'}</span>
+      </li>
+      <li>
+        <span class={stripeConfig.webhookSecret ? 'dot is-ok' : 'dot is-off'} aria-hidden="true"></span>
+        <strong>Secreto de webhook</strong>
+        <span>{stripeConfig.webhookSecret ? 'Configurado' : 'Sin configurar'}</span>
+      </li>
+      <li>
+        <span class={stripeConfig.priceMonthly ? 'dot is-ok' : 'dot is-off'} aria-hidden="true"></span>
+        <strong>Precio mensual</strong>
+        <span><code>{stripeConfig.priceMonthly || 'sin definir'}</code></span>
+      </li>
+      <li>
+        <span class={stripeConfig.priceYearly ? 'dot is-ok' : 'dot is-off'} aria-hidden="true"></span>
+        <strong>Precio anual</strong>
+        <span><code>{stripeConfig.priceYearly || 'sin definir'}</code></span>
+      </li>
+    </ul>
+
+    {stripeConfig.isConfigured && !stripeConfig.isTestMode && (
+      <p class="danger" role="alert">
+        <strong>Atención:</strong> hay una clave <code>sk_live_</code> configurada. El código impide
+        arrancar con ella fuera de producción, pero en producción cobraría de verdad.
+      </p>
+    )}
+  </section>
+
+  <section aria-labelledby="plans-title">
+    <h2 id="plans-title" class="section-title">Planes</h2>
+    <div class="table-scroll">
+      <table class="data-table">
+        <thead>
+          <tr><th>Plan</th><th>Nivel</th><th>Precio</th><th>Price ID</th><th>Funciones</th></tr>
+        </thead>
+        <tbody>
+          {PLANS.map((plan) => (
+            <tr>
+              <th scope="row">{plan.name}</th>
+              <td><span class={`chip ${plan.tier === 'pro' ? 'chip-signal' : ''}`}>{plan.tier}</span></td>
+              <td class="tnum">{formatPrice(plan)}</td>
+              <td><code>{plan.stripePriceId || '—'}</code></td>
+              <td class="tnum">{plan.features.length}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      Los importes viven en <code>src/lib/billing/plans.ts</code> y los identificadores de precio en
+      variables de entorno. Ningún componente lleva un precio escrito a mano.
+    </p>
+  </section>
+
+  <section aria-labelledby="webhooks-title">
+    <h2 id="webhooks-title" class="section-title">Eventos que atendemos</h2>
+    <ul class="events">
+      {HANDLED_EVENTS.map((event) => <li><code>{event}</code></li>)}
+    </ul>
+    <p class="note">
+      Cada evento se registra por <code>event.id</code> en <code>processed_webhook_events</code>
+      antes de aplicarse, de modo que un reintento de Stripe no puede duplicar el efecto. La firma
+      se verifica sobre el cuerpo en crudo, antes de parsear nada.
+    </p>
+  </section>
+
+  <section aria-labelledby="affiliate-title">
+    <h2 id="affiliate-title" class="section-title">Afiliación y patrocinios</h2>
+    <div class="cards">
+      <div class="stat">
+        <span class="stat-num tnum">{affiliates.length}</span>
+        <span class="stat-label">enlaces de afiliación activos</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num tnum">{sponsored.length}</span>
+        <span class="stat-label">fichas patrocinadas</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num tnum">{tools.length}</span>
+        <span class="stat-label">fichas totales</span>
+      </div>
+    </div>
+
+    {affiliates.length > 0 && (
+      <>
+        <h3 class="sub-title">Con enlace de afiliación</h3>
+        <ul class="plain">
+          {affiliates.map((tool) => (
+            <li>{tool.name} — {tool.affiliation.programName ?? 'programa sin nombrar'}</li>
+          ))}
+        </ul>
+      </>
+    )}
+
+    {sponsored.length > 0 && (
+      <>
+        <h3 class="sub-title">Patrocinadas</h3>
+        <ul class="plain">
+          {sponsored.map((tool) => (
+            <li>
+              {tool.name} — {tool.sponsorship.sponsorLabel ?? 'Patrocinado'}
+              {tool.sponsorship.endsAt && ` (hasta ${tool.sponsorship.endsAt})`}
+            </li>
+          ))}
+        </ul>
+      </>
+    )}
+
+    <p class="rule">
+      El tipo <code>Sponsorship.placementBoost</code> está declarado como
+      <code> z.number().min(0).max(0)</code>. Es literalmente imposible que un patrocinio mueva una
+      herramienta en un listado: el esquema rechaza cualquier valor distinto de cero. La separación
+      entre negocio y criterio está impuesta por el compilador, no sólo por la política.
+    </p>
+  </section>
+</AdminLayout>
+
+<style>
+  .section-title {
+    font-size: 1rem;
+    margin-block: var(--space-l) var(--space-2xs);
+    padding-block-end: 0.3rem;
+    border-block-end: 1px solid var(--line);
+  }
+
+  .section-title:first-of-type {
+    margin-block-start: 0;
+  }
+
+  .sub-title {
+    font-size: 0.875rem;
+    margin-block: var(--space-s) var(--space-3xs);
+  }
+
+  .status {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.4rem;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .status li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    flex-wrap: wrap;
+  }
+
+  .status strong {
+    min-width: 10rem;
+    color: var(--ink);
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .dot.is-ok {
+    background: var(--signal);
+  }
+
+  .dot.is-off {
+    background: var(--line-strong);
+  }
+
+  .danger {
+    margin: var(--space-s) 0 0;
+    padding: 0.7rem 0.9rem;
+    border-radius: var(--radius-m);
+    background: var(--alert-soft);
+    border: 1px solid var(--alert-line);
+    color: var(--alert);
+    font-size: 0.875rem;
+  }
+
+  .events {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .events li {
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--line);
+    background: var(--surface-sunken);
+    font-size: 0.75rem;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+    gap: var(--space-2xs);
+    margin-block-end: var(--space-s);
+  }
+
+  .stat {
+    padding: var(--space-xs) var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface);
+    display: grid;
+    gap: 0.1rem;
+  }
+
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--ink-strong);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+  }
+
+  .plain {
+    margin: 0;
+    padding-inline-start: 1.2em;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  .note,
+  .rule {
+    margin: var(--space-2xs) 0 0;
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+    max-width: 68ch;
+  }
+
+  .rule {
+    margin-block-start: var(--space-s);
+    padding: 0.7rem 0.9rem;
+    border-inline-start: 3px solid var(--signal);
+    background: var(--surface-sunken);
+    border-radius: 0 var(--radius-m) var(--radius-m) 0;
+    color: var(--ink-muted);
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+</style>

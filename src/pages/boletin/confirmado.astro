@@ -1,0 +1,77 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { ROUTES } from '@lib/nav';
+
+export const prerender = false;
+
+const ok = Astro.url.searchParams.get('estado') === 'ok';
+---
+
+<BaseLayout
+  title={ok ? 'Suscripción confirmada' : 'Enlace no válido'}
+  description="Confirmación de la suscripción al boletín de Free AI Radar."
+  noindex
+>
+  <div class="page confirm">
+    {ok ? (
+      <>
+        <p class="eyebrow">Boletín</p>
+        <h1 class="confirm-title">Confirmado</h1>
+        <p class="confirm-lede">
+          Ya estás dentro. Recibirás un correo a la semana con lo que ha cambiado de verdad:
+          planes gratuitos recortados, herramientas que empiezan a pedir tarjeta y hallazgos que
+          merecen la pena.
+        </p>
+        <p class="confirm-note">
+          Puedes darte de baja con un clic desde cualquier envío, sin entrar en ninguna cuenta.
+        </p>
+        <div class="confirm-actions">
+          <a href={ROUTES.tools} class="btn btn-primary">Explorar el catálogo</a>
+          <a href={ROUTES.changes} class="btn btn-secondary">Ver qué ha cambiado</a>
+        </div>
+      </>
+    ) : (
+      <>
+        <p class="eyebrow">Boletín</p>
+        <h1 class="confirm-title">Ese enlace ya no sirve</h1>
+        <p class="confirm-lede">
+          O ya lo habías usado, o ha caducado. Vuelve a suscribirte y te enviamos uno nuevo.
+        </p>
+        <div class="confirm-actions">
+          <a href={`${ROUTES.home}#newsletter`} class="btn btn-primary">Suscribirme otra vez</a>
+          <a href={ROUTES.contact} class="btn btn-secondary">Avisarnos del problema</a>
+        </div>
+      </>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .confirm {
+    padding-block: var(--space-2xl) var(--space-xl);
+    max-width: 40rem;
+  }
+
+  .confirm-title {
+    font-size: clamp(1.75rem, 1.4rem + 1.8vw, 2.5rem);
+    margin-block: 0.35rem var(--space-2xs);
+  }
+
+  .confirm-lede {
+    margin: 0 0 var(--space-2xs);
+    color: var(--ink-muted);
+    font-size: 1.0625rem;
+  }
+
+  .confirm-note {
+    margin: 0 0 var(--space-m);
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+  }
+
+  .confirm-actions {
+    display: flex;
+    gap: var(--space-2xs);
+    flex-wrap: wrap;
+  }
+</style>

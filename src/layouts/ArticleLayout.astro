@@ -1,0 +1,157 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { Crumb } from '@lib/seo/structured-data';
+
+interface Props {
+  title: string;
+  description: string;
+  heading: string;
+  lede?: string;
+  crumbs?: Crumb[];
+  updatedAt?: string;
+  /** Legal drafts carry a visible notice; see `docs/launch-checklist.md`. */
+  draftNotice?: boolean;
+  schemas?: Record<string, unknown>[];
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  heading,
+  lede,
+  crumbs = [],
+  updatedAt,
+  draftNotice = false,
+  schemas = [],
+  noindex = false,
+} = Astro.props;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  crumbs={crumbs}
+  schemas={schemas}
+  noindex={noindex}
+  ogType="article"
+>
+  <article class="page article">
+    <header class="article-head">
+      <h1 class="article-title">{heading}</h1>
+      {lede && <p class="article-lede">{lede}</p>}
+      {updatedAt && (
+        <p class="article-meta">
+          Actualizado el
+          <time datetime={updatedAt}>
+            {new Date(`${updatedAt}T00:00:00Z`).toLocaleDateString('es-ES', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric',
+              timeZone: 'UTC',
+            })}
+          </time>
+        </p>
+      )}
+    </header>
+
+    {draftNotice && (
+      <div class="draft-notice" role="note">
+        <p>
+          <strong>Borrador pendiente de revisión jurídica.</strong> Este texto lo ha redactado el
+          equipo del proyecto como punto de partida y <em>no sustituye</em> el asesoramiento de un
+          profesional. Antes de publicarlo como documento legal definitivo debe revisarlo alguien
+          cualificado en protección de datos y consumo en España y la UE.
+        </p>
+      </div>
+    )}
+
+    <div class="prose article-body">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .article {
+    padding-block: var(--space-m) var(--space-xl);
+  }
+
+  .article-head {
+    max-width: var(--measure);
+    padding-block-end: var(--space-m);
+    border-block-end: 1px solid var(--line);
+  }
+
+  .article-title {
+    font-size: clamp(1.75rem, 1.4rem + 1.7vw, 2.75rem);
+    margin-block-end: var(--space-2xs);
+  }
+
+  .article-lede {
+    margin: 0;
+    font-size: 1.0625rem;
+    color: var(--ink-muted);
+  }
+
+  .article-meta {
+    margin: var(--space-2xs) 0 0;
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+  }
+
+  .draft-notice {
+    max-width: var(--measure);
+    margin-block-start: var(--space-m);
+    padding: var(--space-xs) var(--space-s);
+    border-radius: var(--radius-m);
+    border: 1px solid var(--warn-line);
+    background: var(--warn-soft);
+  }
+
+  .draft-notice p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--ink);
+  }
+
+  .draft-notice strong {
+    color: var(--warn);
+  }
+
+  .article-body {
+    margin-block-start: var(--space-m);
+  }
+
+  .article-body :global(h2:first-child) {
+    margin-block-start: 0;
+  }
+
+  .article-body :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+    margin-block: var(--space-s);
+  }
+
+  .article-body :global(th),
+  .article-body :global(td) {
+    text-align: left;
+    padding: 0.6rem 0.75rem;
+    border-block-end: 1px solid var(--line);
+    vertical-align: top;
+  }
+
+  .article-body :global(th) {
+    font-weight: 650;
+    color: var(--ink-strong);
+  }
+
+  .article-body :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--surface-sunken);
+    padding: 0.1em 0.35em;
+    border-radius: var(--radius-s);
+  }
+</style>

@@ -1,0 +1,52 @@
+---
+import AuthLayout from '@layouts/AuthLayout.astro';
+import { CSRF_FIELD } from '@lib/security/csrf';
+import { ROUTES } from '@lib/nav';
+
+export const prerender = false;
+---
+
+<AuthLayout
+  title="Recuperar tu contraseña"
+  heading="Recuperar contraseña"
+  lede="Escribe tu correo y te enviamos un enlace para elegir una nueva."
+>
+  <form method="post" action="/api/auth/reset-request" class="auth-form" data-auth-form novalidate>
+    <input type="hidden" name={CSRF_FIELD} value={Astro.locals.csrfToken} />
+    <div class="reset-hp" aria-hidden="true">
+      <label for="website">No rellenes este campo</label>
+      <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <div class="field">
+      <label class="label" for="email">Correo electrónico</label>
+      <input type="email" id="email" name="email" class="input" required autocomplete="email" autofocus />
+      <p class="error-text" data-error-for="email" hidden></p>
+    </div>
+
+    <button type="submit" class="btn btn-primary auth-submit">Enviarme el enlace</button>
+
+    <p class="hint">
+      Por seguridad respondemos siempre lo mismo, exista o no una cuenta con ese correo. Así nadie
+      puede usar este formulario para averiguar quién está registrado.
+    </p>
+
+    <p class="form-result" role="status" data-form-result hidden></p>
+  </form>
+
+  <p class="auth-alt">
+    <a href={ROUTES.login}>Volver a entrar</a>
+  </p>
+</AuthLayout>
+
+<style>
+  .reset-hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+</style>
+
+<script src="/auth-form.js" is:inline defer></script>

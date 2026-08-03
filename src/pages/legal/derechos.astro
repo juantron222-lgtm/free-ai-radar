@@ -1,0 +1,86 @@
+---
+import ArticleLayout from '@layouts/ArticleLayout.astro';
+import { ROUTES } from '@lib/nav';
+import { SITE } from '@lib/seo/site';
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Tus derechos', path: ROUTES.rights },
+];
+---
+
+<ArticleLayout
+  title="Tus derechos sobre tus datos"
+  description="Cómo acceder, descargar, corregir o borrar tus datos en Free AI Radar. Cada derecho, con el botón exacto que lo ejerce."
+  heading="Tus derechos"
+  lede="Cada derecho del RGPD, con el botón concreto que lo ejerce. Sin formularios de fricción."
+  crumbs={crumbs}
+  updatedAt="2026-08-03"
+  draftNotice
+>
+  <h2>Acceso y portabilidad</h2>
+  <p>
+    Descarga todo lo que tenemos sobre ti en JSON legible, al instante y sin pedir permiso a nadie:
+    <a href={ROUTES.settings}> Preferencias → Descargar mis datos</a>. Incluye perfil, favoritos,
+    listas, alertas, historial y preferencias.
+  </p>
+
+  <h2>Rectificación</h2>
+  <p>
+    Nombre visible e idioma se editan directamente en <a href={ROUTES.settings}>Preferencias</a>.
+    Para cambiar el correo, escríbenos <em>desde la dirección actual</em>: es la única forma de que
+    robar una sesión no baste para apropiarse de la cuenta.
+  </p>
+
+  <h2>Supresión</h2>
+  <p>
+    <a href={ROUTES.settings}>Preferencias → Eliminar la cuenta</a>. Se borran el perfil, los
+    favoritos, las listas, las alertas y el historial. Es inmediato y no reversible.
+  </p>
+  <p>
+    Se conserva únicamente lo que la ley obliga a conservar: las facturas emitidas, durante seis
+    años, por obligación mercantil, y la prueba de consentimiento del boletín durante tres años,
+    para poder demostrar que la baja se atendió.
+  </p>
+
+  <h2>Oposición y limitación</h2>
+  <p>
+    Escríbenos a <a href={`mailto:${SITE.email}`}>{SITE.email}</a> indicando qué tratamiento quieres
+    limitar. Respondemos en un máximo de 30 días.
+  </p>
+
+  <h2>Retirar el consentimiento</h2>
+  <ul>
+    <li><strong>Cookies:</strong> <button type="button" class="link-button" data-open-consent>abrir preferencias</button>. Retirar un permiso borra las cookies asociadas de inmediato.</li>
+    <li><strong>Boletín:</strong> enlace de baja con un clic en cualquier correo, sin entrar en la cuenta.</li>
+    <li><strong>Avisos:</strong> desde <a href={ROUTES.alerts}>Alertas</a>.</li>
+  </ul>
+
+  <h2>Reclamar</h2>
+  <p>
+    Si no atendemos bien tu solicitud puedes reclamar ante la
+    <a href="https://www.aepd.es" rel="noopener" target="_blank"> Agencia Española de Protección de
+    Datos</a>, sin coste. Preferiríamos que nos dieras antes la oportunidad de arreglarlo, pero es
+    tu derecho y no hace falta que lo intentes primero.
+  </p>
+
+  <h2>Qué hacemos por defecto</h2>
+  <ul>
+    <li>Recogemos lo mínimo: no hace falta cuenta para leer nada del sitio.</li>
+    <li>Las IP se guardan siempre como hash, nunca en claro.</li>
+    <li>El correo comercial está desactivado por defecto y nunca es condición para usar la cuenta.</li>
+    <li>Nada de analítica ni publicidad antes de tu consentimiento.</li>
+  </ul>
+</ArticleLayout>
+
+<style>
+  .link-button {
+    background: none;
+    border: 0;
+    padding: 0;
+    color: var(--signal);
+    text-decoration: underline;
+    cursor: pointer;
+    font: inherit;
+  }
+</style>

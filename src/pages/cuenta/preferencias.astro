@@ -1,0 +1,320 @@
+---
+import AccountLayout from '@layouts/AccountLayout.astro';
+import { getUserData } from '@lib/data/user-data';
+import { getPopulatedCategories } from '@lib/data/catalog';
+import { CSRF_FIELD } from '@lib/security/csrf';
+import { MIN_PASSWORD_LENGTH } from '@lib/auth/password';
+
+export const prerender = false;
+
+const user = Astro.locals.user!;
+const data = await getUserData(user.id);
+const categories = getPopulatedCategories();
+---
+
+<AccountLayout
+  title="Preferencias"
+  heading="Preferencias"
+  lede="Tu perfil, qué correos recibes y qué hacer con tus datos."
+>
+  <div class="prefs">
+    <section class="card prefs-card" aria-labelledby="profile-title">
+      <h2 id="profile-title" class="prefs-title">Perfil</h2>
+      <form method="post" action="/api/account/profile" class="prefs-form" data-prefs-ajax>
+        <input type="hidden" name={CSRF_FIELD} value={Astro.locals.csrfToken} />
+        <div class="field">
+          <label class="label" for="displayName">Nombre visible</label>
+          <input type="text" id="displayName" name="displayName" class="input"
+            value={user.displayName ?? ''} maxlength="80" />
+        </div>
+        <div class="field">
+          <label class="label" for="locale">Idioma</label>
+          <select id="locale" name="locale" class="select">
+            <option value="es" selected={user.locale === 'es'}>Español</option>
+            <option value="en" selected={user.locale === 'en'}>English (próximamente)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="label" for="account-email">Correo</label>
+          <input type="email" id="account-email" class="input" value={user.email} disabled />
+          <p class="hint">
+            Para cambiar el correo escríbenos desde la dirección actual: es la única forma de que
+            no baste con robar una sesión para apropiarse de la cuenta.
+          </p>
+        </div>
+        <button type="submit" class="btn btn-primary btn-sm">Guardar perfil</button>
+        <p class="form-result" role="status" data-form-result hidden></p>
+      </form>
+    </section>
+
+    <section class="card prefs-card" aria-labelledby="email-title">
+      <h2 id="email-title" class="prefs-title">Correos</h2>
+      <form method="post" action="/api/account/preferences" class="prefs-form" data-prefs-ajax>
+        <input type="hidden" name={CSRF_FIELD} value={Astro.locals.csrfToken} />
+        <input type="hidden" name="scope" value="all" />
+
+        <label class="prefs-check">
+          <input type="checkbox" name="weeklyDigest" checked={data.preferences.weeklyDigest} />
+          <span>
+            <strong>Resumen semanal</strong>
+            <span class="hint">Qué ha cambiado y qué merece la pena. Un correo por semana.</span>
+          </span>
+        </label>
+
+        <label class="prefs-check">
+          <input type="checkbox" name="instantAlerts" checked={data.preferences.instantAlerts} />
+          <span>
+            <strong>Avisos inmediatos</strong>
+            <span class="hint">
+              En cuanto detectamos un cambio en algo que sigues.
+              {user.plan === 'free' && ' Disponible con Radar Pro.'}
+            </span>
+          </span>
+        </label>
+
+        <label class="prefs-check">
+          <input type="checkbox" name="productUpdates" checked={data.preferences.productUpdates} />
+          <span>
+            <strong>Novedades del sitio</strong>
+            <span class="hint">Funciones nuevas. Muy de vez en cuando.</span>
+          </span>
+        </label>
+
+        <label class="prefs-check">
+          <input type="checkbox" name="marketingOptIn" checked={data.preferences.marketingOptIn} />
+          <span>
+            <strong>Contenido comercial</strong>
+            <span class="hint">
+              Patrocinios y ofertas, siempre etiquetados. Desactivado por defecto y nunca necesario
+              para usar la cuenta.
+            </span>
+          </span>
+        </label>
+
+        <fieldset class="prefs-fieldset">
+          <legend class="label">Categorías de interés</legend>
+          <div class="prefs-chips">
+            {categories.map((category) => (
+              <label class="filter-chip">
+                <input type="checkbox" name="categories" value={category.slug} class="sr-only"
+                  checked={data.preferences.categories.includes(category.slug)} />
+                <span class="filter-chip-tick" aria-hidden="true">
+                  <svg width="11" height="11" viewBox="0 0 12 12"><path d="M2 6.4 4.6 9 10 3.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                {category.name}
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <button type="submit" class="btn btn-primary btn-sm">Guardar preferencias</button>
+        <p class="form-result" role="status" data-form-result hidden></p>
+      </form>
+    </section>
+
+    <section class="card prefs-card" aria-labelledby="password-title">
+      <h2 id="password-title" class="prefs-title">Contraseña</h2>
+      <form method="post" action="/api/account/password" class="prefs-form" data-prefs-ajax>
+        <input type="hidden" name={CSRF_FIELD} value={Astro.locals.csrfToken} />
+        <div class="field">
+          <label class="label" for="currentPassword">Contraseña actual</label>
+          <input type="password" id="currentPassword" name="currentPassword" class="input"
+            autocomplete="current-password" required />
+        </div>
+        <div class="field">
+          <label class="label" for="password">Contraseña nueva</label>
+          <input type="password" id="password" name="password" class="input"
+            autocomplete="new-password" minlength={MIN_PASSWORD_LENGTH} required />
+          <p class="error-text" data-error-for="password" hidden></p>
+        </div>
+        <button type="submit" class="btn btn-secondary btn-sm">Cambiar contraseña</button>
+        <p class="form-result" role="status" data-form-result hidden></p>
+      </form>
+    </section>
+
+    <section class="card prefs-card" aria-labelledby="data-title">
+      <h2 id="data-title" class="prefs-title">Tus datos</h2>
+      <p class="prefs-lede">
+        Puedes llevarte todo lo que tenemos sobre ti, o borrarlo. Sin formularios, sin llamadas y
+        sin preguntar por qué.
+      </p>
+      <div class="prefs-actions">
+        <a href="/api/account/export" class="btn btn-secondary btn-sm" download>
+          Descargar mis datos (JSON)
+        </a>
+      </div>
+    </section>
+
+    <section class="card prefs-card prefs-danger" aria-labelledby="delete-title">
+      <h2 id="delete-title" class="prefs-title">Eliminar la cuenta</h2>
+      <p class="prefs-lede">
+        Se borran el perfil, los favoritos, las listas y las alertas. No es reversible. Si tienes
+        una suscripción activa, cancélala antes para no seguir pagando.
+      </p>
+      <form method="post" action="/api/account/delete" class="prefs-form" data-delete-form>
+        <input type="hidden" name={CSRF_FIELD} value={Astro.locals.csrfToken} />
+        <div class="field">
+          <label class="label" for="confirm">
+            Escribe <code>ELIMINAR</code> para confirmar
+          </label>
+          <input type="text" id="confirm" name="confirm" class="input" required
+            autocomplete="off" pattern="ELIMINAR" />
+        </div>
+        <button type="submit" class="btn btn-secondary prefs-delete-btn">
+          Eliminar mi cuenta definitivamente
+        </button>
+        <p class="form-result" role="status" data-form-result hidden></p>
+      </form>
+    </section>
+  </div>
+</AccountLayout>
+
+<style>
+  .prefs {
+    display: grid;
+    gap: var(--space-s);
+  }
+
+  .prefs-card {
+    padding: var(--space-s);
+  }
+
+  .prefs-title {
+    font-size: 1.0625rem;
+    margin-block-end: var(--space-2xs);
+  }
+
+  .prefs-lede {
+    margin: 0 0 var(--space-s);
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    max-width: 56ch;
+  }
+
+  .prefs-form {
+    display: grid;
+    gap: var(--space-s);
+    justify-items: start;
+  }
+
+  .prefs-form .field {
+    width: 100%;
+    max-width: 26rem;
+  }
+
+  .prefs-check {
+    display: flex;
+    gap: var(--space-2xs);
+    align-items: start;
+    cursor: pointer;
+    max-width: 46rem;
+  }
+
+  .prefs-check input {
+    width: 18px;
+    height: 18px;
+    margin-block-start: 0.15rem;
+    accent-color: var(--signal);
+    flex-shrink: 0;
+  }
+
+  .prefs-check > span {
+    display: grid;
+    gap: 0.1rem;
+  }
+
+  .prefs-fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .prefs-fieldset legend {
+    padding: 0;
+    margin-block-end: 0.4rem;
+  }
+
+  .prefs-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .prefs-actions {
+    display: flex;
+    gap: var(--space-2xs);
+    flex-wrap: wrap;
+  }
+
+  .prefs-danger {
+    border-color: var(--alert-line);
+  }
+
+  .prefs-delete-btn {
+    color: var(--alert);
+    border-color: var(--alert-line);
+  }
+
+  .prefs-delete-btn:hover {
+    background: var(--alert-soft);
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--surface-sunken);
+    padding: 0.05em 0.35em;
+    border-radius: var(--radius-s);
+  }
+
+  .form-result {
+    margin: 0;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-m);
+    font-size: 0.8125rem;
+    font-weight: 550;
+  }
+
+  .form-result[data-tone='ok'] {
+    background: var(--signal-soft);
+    border: 1px solid var(--signal-line);
+    color: var(--signal);
+  }
+
+  .form-result[data-tone='error'] {
+    background: var(--alert-soft);
+    border: 1px solid var(--alert-line);
+    color: var(--alert);
+  }
+</style>
+
+<script>
+  for (const form of Array.from(document.querySelectorAll<HTMLFormElement>('[data-prefs-ajax]'))) {
+    const result = form.querySelector<HTMLElement>('[data-form-result]');
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const response = await fetch(form.action, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(form),
+      });
+      const payload = (await response.json()) as { ok: boolean; message: string };
+      if (!result) return;
+      result.hidden = false;
+      result.dataset['tone'] = payload.ok ? 'ok' : 'error';
+      result.textContent = payload.message;
+      if (payload.ok && form.querySelector('[name="currentPassword"]')) form.reset();
+    });
+  }
+
+  const deleteForm = document.querySelector<HTMLFormElement>('[data-delete-form]');
+  deleteForm?.addEventListener('submit', (event) => {
+    const confirmed = window.confirm(
+      'Vas a eliminar tu cuenta y todos sus datos. Esta acción no se puede deshacer. ¿Continuar?'
+    );
+    if (!confirmed) event.preventDefault();
+  });
+</script>

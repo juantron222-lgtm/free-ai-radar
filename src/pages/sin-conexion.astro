@@ -1,0 +1,49 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { ROUTES } from '@lib/nav';
+
+/** Cached by the service worker at install; shown when a navigation fails. */
+---
+
+<BaseLayout title="Sin conexión" description="No hay conexión ahora mismo." noindex>
+  <div class="page offline">
+    <p class="eyebrow">Sin conexión</p>
+    <h1 class="offline-title">No hay conexión ahora mismo</h1>
+    <p class="offline-lede">
+      Las páginas que hayas visitado antes siguen disponibles sin conexión. Lo que no hayas abierto
+      todavía tendrá que esperar.
+    </p>
+    <div class="offline-actions">
+      <button type="button" class="btn btn-primary" id="retry">Reintentar</button>
+      <a href={ROUTES.home} class="btn btn-secondary">Ir al inicio</a>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .offline {
+    padding-block: var(--space-2xl) var(--space-xl);
+    max-width: 38rem;
+  }
+
+  .offline-title {
+    font-size: clamp(1.75rem, 1.4rem + 1.8vw, 2.5rem);
+    margin-block: 0.35rem var(--space-2xs);
+  }
+
+  .offline-lede {
+    margin: 0 0 var(--space-m);
+    color: var(--ink-muted);
+  }
+
+  .offline-actions {
+    display: flex;
+    gap: var(--space-2xs);
+    flex-wrap: wrap;
+  }
+</style>
+
+<script>
+  // No inline handler: the CSP is `script-src 'self'` with no 'unsafe-inline'.
+  document.getElementById('retry')?.addEventListener('click', () => location.reload());
+</script>

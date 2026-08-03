@@ -1,0 +1,581 @@
+---
+import type { Tool } from '@lib/domain/tool';
+import FilterPanel from './FilterPanel.astro';
+import ToolCard from '@components/tools/ToolCard.astro';
+import CompareTray from '@components/tools/CompareTray.astro';
+import { buildClientIndex } from '@lib/search/client-index';
+import { getCategory } from '@lib/domain/taxonomy';
+import { ROUTES } from '@lib/nav';
+
+interface Props {
+  tools: readonly Tool[];
+  lockedCategory?: string;
+  /** Rendered above the results count. */
+  heading?: string;
+}
+
+const { tools, lockedCategory, heading } = Astro.props;
+const index = buildClientIndex(tools, (slug) => getCategory(slug)?.name ?? slug);
+---
+
+<div class="explorer" id="explorer">
+  <div id="buscador">
+    <FilterPanel lockedCategory={lockedCategory} />
+  </div>
+
+  <div class="explorer-status" role="status" aria-live="polite">
+    <p class="explorer-count">
+      {heading && <span class="explorer-heading">{heading}</span>}
+      <span id="result-count" class="tnum">{tools.length}</span>
+      <span id="result-noun">{tools.length === 1 ? 'herramienta' : 'herramientas'}</span>
+      <span id="result-qualifier"></span>
+    </p>
+  </div>
+
+  <ul class="grid-cards explorer-grid" id="results">
+    {tools.map((tool) => (
+      <li data-result-item data-slug={tool.slug}>
+        <ToolCard tool={tool} headingLevel="h3" />
+      </li>
+    ))}
+  </ul>
+
+  {/* Empty state that actually helps: it says which filter is responsible and
+      offers the nearest useful escape hatch. */}
+  <div class="empty-state card" id="empty-state" hidden>
+    <h3 class="empty-title">Ninguna herramienta cumple todo lo que has pedido</h3>
+    <p class="empty-body" id="empty-reason"></p>
+    <div class="empty-actions">
+      <button type="button" class="btn btn-secondary btn-sm" data-empty-relax hidden></button>
+      <button type="button" class="btn btn-secondary btn-sm" id="empty-reset">Quitar todos los filtros</button>
+      <a class="btn btn-ghost btn-sm" href={ROUTES.submit}>Falta una herramienta: avísanos</a>
+    </div>
+  </div>
+
+  <script
+    type="application/json"
+    id="tool-index"
+    is:inline
+    set:html={JSON.stringify(index)}
+  />
+</div>
+
+<CompareTray />
+
+<style>
+  .explorer {
+    display: grid;
+    gap: var(--space-s);
+  }
+
+  .explorer-status {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+    padding-block-start: var(--space-2xs);
+    border-block-start: 1px solid var(--line);
+  }
+
+  .explorer-count {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .explorer-heading {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 650;
+    color: var(--ink-strong);
+    margin-block-end: 0.15rem;
+  }
+
+  .explorer-count #result-count {
+    font-weight: 700;
+    color: var(--ink-strong);
+  }
+
+  .explorer-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .explorer-grid > li {
+    display: flex;
+  }
+
+  .explorer-grid > li > :global(*) {
+    width: 100%;
+  }
+
+  .empty-state {
+    padding: var(--space-l) var(--space-s);
+    text-align: center;
+  }
+
+  .empty-title {
+    font-size: 1.125rem;
+    margin-block-end: var(--space-3xs);
+  }
+
+  .empty-body {
+    margin: 0 auto var(--space-s);
+    max-width: 42ch;
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+  }
+
+  .empty-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+    justify-content: center;
+  }
+</style>
+
+<script>
+  import {
+    EMPTY_FILTERS,
+    applyFilters,
+    countActiveFilters,
+    parseFilters,
+    serializeFilters,
+    type FilterState,
+  } from '@lib/search/filters';
+  import { docsFromIndex, type ClientIndexEntry } from '@lib/search/client-index';
+  import { search } from '@lib/search/index';
+
+  const root = document.getElementById('explorer');
+  const form = document.getElementById('filter-form') as HTMLFormElement | null;
+  const indexNode = document.getElementById('tool-index');
+  if (!root || !form || !indexNode?.textContent) throw new Error('Explorer no inicializado');
+
+  const entries: ClientIndexEntry[] = JSON.parse(indexNode.textContent);
+  const docs = docsFromIndex(entries);
+  const byId = new Map(entries.map((e) => [e.slug, e]));
+
+  const resultsEl = document.getElementById('results')!;
+  const items = new Map<string, HTMLElement>();
+  for (const li of Array.from(resultsEl.querySelectorAll<HTMLElement>('[data-result-item]'))) {
+    items.set(li.dataset['slug']!, li);
+  }
+
+  const countEl = document.getElementById('result-count')!;
+  const nounEl = document.getElementById('result-noun')!;
+  const qualifierEl = document.getElementById('result-qualifier')!;
+  const emptyEl = document.getElementById('empty-state')!;
+  const emptyReasonEl = document.getElementById('empty-reason')!;
+  const relaxBtn = emptyEl.querySelector<HTMLButtonElement>('[data-empty-relax]')!;
+  const resetBtn = document.getElementById('reset-filters') as HTMLButtonElement;
+  const emptyResetBtn = document.getElementById('empty-reset') as HTMLButtonElement;
+  const filtersCountEl = document.getElementById('filters-count')!;
+  const searchInput = document.getElementById('q') as HTMLInputElement;
+  const searchClear = document.getElementById('search-clear') as HTMLButtonElement;
+  const suggestionsEl = document.getElementById('search-suggestions') as HTMLUListElement;
+  const minRange = document.getElementById('min') as HTMLInputElement;
+  const minOutput = document.getElementById('min-output')!;
+  const sortSelect = document.getElementById('sort') as HTMLSelectElement;
+  const moreDetails = document.getElementById('filters-more') as HTMLDetailsElement;
+
+  const RECENT_KEY = 'far-recent-searches';
+
+  // ---- URL <-> form ------------------------------------------------------
+
+  function readStateFromForm(): FilterState {
+    const data = new FormData(form!);
+    const params = new URLSearchParams();
+    const lists: Record<string, string[]> = {};
+
+    for (const [key, value] of data.entries()) {
+      const v = String(value);
+      if (!v) continue;
+      if (key === 'q' || key === 'sort' || key === 'min') {
+        params.set(key, v);
+      } else if (['nocard', 'nosignup', 'nowm', 'comm', 'oss', 'fresh'].includes(key)) {
+        params.set(key, '1');
+      } else {
+        (lists[key] ??= []).push(v);
+      }
+    }
+    for (const [key, values] of Object.entries(lists)) params.set(key, values.join(','));
+    return parseFilters(params);
+  }
+
+  function writeStateToForm(state: FilterState) {
+    searchInput.value = state.q;
+    sortSelect.value = state.sort;
+    minRange.value = String(state.minScore);
+
+    const listValues: Record<string, string[]> = {
+      cat: state.categories,
+      free: state.freeModels,
+      plat: state.platforms,
+      host: state.hosting,
+      skill: state.skill,
+    };
+    for (const input of Array.from(form!.querySelectorAll<HTMLInputElement>('[data-filter-list]'))) {
+      const list = listValues[input.dataset['filterList']!] ?? [];
+      input.checked = list.includes(input.value);
+    }
+
+    const flags: Record<string, boolean> = {
+      nocard: state.noCard,
+      nosignup: state.noSignup,
+      nowm: state.noWatermark,
+      comm: state.commercial,
+      oss: state.openSource,
+      fresh: state.verifiedRecently,
+    };
+    for (const input of Array.from(form!.querySelectorAll<HTMLInputElement>('[data-filter-flag]'))) {
+      input.checked = !!flags[input.dataset['filterFlag']!];
+    }
+  }
+
+  // ---- Rendering ---------------------------------------------------------
+
+  const SINGLE_FILTER_LABELS: Record<string, string> = {
+    nocard: 'sin tarjeta',
+    nosignup: 'sin registro',
+    nowm: 'sin marca de agua',
+    comm: 'con uso comercial',
+    oss: 'open source',
+    fresh: 'verificadas hace poco',
+  };
+
+  /**
+   * When nothing matches, work out which single requirement is responsible by
+   * removing each one in turn. That turns a dead end into one useful click.
+   */
+  function findBlockingFilter(state: FilterState): { key: string; label: string; next: FilterState } | null {
+    const candidates: Array<[string, keyof FilterState]> = [
+      ['nocard', 'noCard'],
+      ['nosignup', 'noSignup'],
+      ['nowm', 'noWatermark'],
+      ['comm', 'commercial'],
+      ['oss', 'openSource'],
+      ['fresh', 'verifiedRecently'],
+    ];
+
+    for (const [key, field] of candidates) {
+      if (!state[field]) continue;
+      const relaxed = { ...state, [field]: false } as FilterState;
+      if (applyFilters(entries, relaxed).length > 0) {
+        return { key, label: SINGLE_FILTER_LABELS[key]!, next: relaxed };
+      }
+    }
+
+    if (state.minScore > 0) {
+      const relaxed = { ...state, minScore: 0 };
+      if (applyFilters(entries, relaxed).length > 0) {
+        return { key: 'min', label: `puntuación mínima ${state.minScore}`, next: relaxed };
+      }
+    }
+    return null;
+  }
+
+  function render(state: FilterState, options: { pushUrl?: boolean } = {}) {
+    let matched = applyFilters(entries, state);
+
+    if (state.q) {
+      const allowed = new Set(matched.map((e) => e.slug));
+      const hits = search(docs, state.q, { limit: 300 }).filter((h) => allowed.has(h.slug));
+      matched = hits.map((h) => byId.get(h.slug)!).filter(Boolean);
+    }
+
+    const visible = new Set(matched.map((e) => e.slug));
+
+    for (const [slug, li] of items) {
+      li.hidden = !visible.has(slug);
+    }
+    // Reorder so the DOM matches the sort/relevance order.
+    const fragment = document.createDocumentFragment();
+    for (const entry of matched) {
+      const li = items.get(entry.slug);
+      if (li) fragment.appendChild(li);
+    }
+    resultsEl.appendChild(fragment);
+
+    countEl.textContent = String(matched.length);
+    nounEl.textContent = matched.length === 1 ? 'herramienta' : 'herramientas';
+    qualifierEl.textContent = state.q ? `para “${state.q}”` : '';
+
+    const activeCount = countActiveFilters(state);
+    filtersCountEl.textContent = String(activeCount);
+    filtersCountEl.hidden = activeCount === 0;
+    resetBtn.hidden = activeCount === 0;
+    resultsEl.hidden = matched.length === 0;
+    emptyEl.hidden = matched.length > 0;
+
+    if (matched.length === 0) {
+      const blocking = findBlockingFilter(state);
+      if (blocking) {
+        emptyReasonEl.textContent = `El filtro «${blocking.label}» es el que lo deja vacío. Sin él sí hay resultados.`;
+        relaxBtn.hidden = false;
+        relaxBtn.textContent = `Quitar «${blocking.label}»`;
+        relaxBtn.onclick = () => {
+          writeStateToForm(blocking.next);
+          commit(blocking.next);
+        };
+      } else if (state.q) {
+        emptyReasonEl.textContent = `No encontramos nada para “${state.q}”. Prueba con el tipo de trabajo (“quitar fondo”, “subtítulos”) en vez del nombre del producto.`;
+        relaxBtn.hidden = true;
+      } else {
+        emptyReasonEl.textContent = 'Prueba a relajar alguno de los requisitos.';
+        relaxBtn.hidden = true;
+      }
+    }
+
+    minOutput.textContent = state.minScore > 0 ? `${state.minScore} o más` : 'Cualquiera';
+
+    const query = serializeFilters(state);
+    const url = query ? `${location.pathname}?${query}` : location.pathname;
+    if (options.pushUrl) history.pushState({}, '', url);
+    else history.replaceState({}, '', url);
+
+    syncRobotsMeta(query.length > 0);
+  }
+
+  /**
+   * A filtered view is a permutation of the same content and must not compete
+   * with its own canonical. This page is prerendered, so the baked meta says
+   * `index`; robots.txt already stops crawlers from fetching filtered URLs, and
+   * this covers the ones that execute JavaScript.
+   */
+  function syncRobotsMeta(filtered: boolean) {
+    const meta = document.querySelector<HTMLMetaElement>('meta[name="robots"]');
+    if (!meta) return;
+    meta.content = filtered
+      ? 'noindex, follow'
+      : 'index, follow, max-image-preview:large, max-snippet:-1';
+  }
+
+  function commit(state: FilterState) {
+    render(state, { pushUrl: true });
+  }
+
+  // ---- Suggestions -------------------------------------------------------
+
+  let activeSuggestion = -1;
+
+  function readRecent(): string[] {
+    try {
+      const raw = localStorage.getItem(RECENT_KEY);
+      return raw ? (JSON.parse(raw) as string[]).slice(0, 5) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function rememberSearch(term: string) {
+    if (term.trim().length < 2) return;
+    try {
+      const next = [term, ...readRecent().filter((t) => t !== term)].slice(0, 5);
+      localStorage.setItem(RECENT_KEY, JSON.stringify(next));
+    } catch {
+      /* Storage blocked: history is simply not kept. */
+    }
+  }
+
+  function closeSuggestions() {
+    suggestionsEl.hidden = true;
+    suggestionsEl.replaceChildren();
+    searchInput.setAttribute('aria-expanded', 'false');
+    searchInput.removeAttribute('aria-activedescendant');
+    activeSuggestion = -1;
+  }
+
+  function renderSuggestions(term: string) {
+    const trimmed = term.trim();
+    const rows: Array<{ label: string; sub: string; action: () => void }> = [];
+
+    if (trimmed.length < 2) {
+      for (const recent of readRecent()) {
+        rows.push({
+          label: recent,
+          sub: 'Búsqueda reciente',
+          action: () => {
+            searchInput.value = recent;
+            closeSuggestions();
+            commit(readStateFromForm());
+          },
+        });
+      }
+    } else {
+      for (const hit of search(docs, trimmed, { limit: 6 })) {
+        const entry = byId.get(hit.slug)!;
+        rows.push({
+          label: entry.name,
+          sub: entry.f[4] || 'Herramienta',
+          action: () => {
+            rememberSearch(trimmed);
+            location.href = `/herramientas/${entry.slug}`;
+          },
+        });
+      }
+    }
+
+    if (!rows.length) {
+      closeSuggestions();
+      return;
+    }
+
+    suggestionsEl.replaceChildren(
+      ...rows.map((row, i) => {
+        const li = document.createElement('li');
+        li.id = `suggestion-${i}`;
+        li.setAttribute('role', 'option');
+        li.setAttribute('aria-selected', 'false');
+        li.className = 'suggestion';
+        li.innerHTML = `<span class="suggestion-label"></span><span class="suggestion-sub"></span>`;
+        li.querySelector('.suggestion-label')!.textContent = row.label;
+        li.querySelector('.suggestion-sub')!.textContent = row.sub;
+        li.addEventListener('mousedown', (event) => {
+          event.preventDefault();
+          row.action();
+        });
+        return li;
+      })
+    );
+    suggestionsEl.hidden = false;
+    searchInput.setAttribute('aria-expanded', 'true');
+    activeSuggestion = -1;
+  }
+
+  function moveSuggestion(delta: number) {
+    const options = Array.from(suggestionsEl.querySelectorAll<HTMLLIElement>('[role="option"]'));
+    if (!options.length) return;
+    options[activeSuggestion]?.setAttribute('aria-selected', 'false');
+    activeSuggestion = (activeSuggestion + delta + options.length) % options.length;
+    const current = options[activeSuggestion]!;
+    current.setAttribute('aria-selected', 'true');
+    current.scrollIntoView({ block: 'nearest' });
+    searchInput.setAttribute('aria-activedescendant', current.id);
+  }
+
+  // ---- Wiring ------------------------------------------------------------
+
+  let searchTimer: number | undefined;
+
+  form.addEventListener('change', () => commit(readStateFromForm()));
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    closeSuggestions();
+    rememberSearch(searchInput.value);
+    commit(readStateFromForm());
+  });
+
+  minRange.addEventListener('input', () => {
+    const value = Number(minRange.value);
+    minOutput.textContent = value > 0 ? `${value} o más` : 'Cualquiera';
+  });
+
+  searchInput.addEventListener('input', () => {
+    searchClear.hidden = !searchInput.value;
+    window.clearTimeout(searchTimer);
+    searchTimer = window.setTimeout(() => {
+      renderSuggestions(searchInput.value);
+      render(readStateFromForm());
+    }, 120);
+  });
+
+  searchInput.addEventListener('focus', () => renderSuggestions(searchInput.value));
+  searchInput.addEventListener('blur', () => window.setTimeout(closeSuggestions, 120));
+
+  searchInput.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      if (suggestionsEl.hidden) renderSuggestions(searchInput.value);
+      else moveSuggestion(1);
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      moveSuggestion(-1);
+    } else if (event.key === 'Enter' && activeSuggestion >= 0) {
+      event.preventDefault();
+      const option = suggestionsEl.querySelectorAll<HTMLLIElement>('[role="option"]')[activeSuggestion];
+      option?.dispatchEvent(new MouseEvent('mousedown'));
+    } else if (event.key === 'Escape') {
+      if (!suggestionsEl.hidden) {
+        closeSuggestions();
+      } else if (searchInput.value) {
+        searchInput.value = '';
+        searchClear.hidden = true;
+        commit(readStateFromForm());
+      }
+    }
+  });
+
+  searchClear.addEventListener('click', () => {
+    searchInput.value = '';
+    searchClear.hidden = true;
+    searchInput.focus();
+    commit(readStateFromForm());
+  });
+
+  function resetAll() {
+    writeStateToForm(EMPTY_FILTERS);
+    searchClear.hidden = true;
+    commit(EMPTY_FILTERS);
+  }
+
+  resetBtn.addEventListener('click', resetAll);
+  emptyResetBtn.addEventListener('click', resetAll);
+
+  window.addEventListener('popstate', () => {
+    const state = parseFilters(location.search.replace(/^\?/, ''));
+    writeStateToForm(state);
+    render(state);
+  });
+
+  // "/" focuses search, the convention readers already expect.
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== '/' || event.metaKey || event.ctrlKey || event.altKey) return;
+    const target = event.target as HTMLElement | null;
+    if (target && /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName)) return;
+    event.preventDefault();
+    searchInput.focus();
+    searchInput.select();
+  });
+
+  // Boot from whatever the URL already says.
+  const initial = parseFilters(location.search.replace(/^\?/, ''));
+  writeStateToForm(initial);
+  searchClear.hidden = !initial.q;
+  if (countActiveFilters(initial) > (initial.q ? 1 : 0)) moreDetails.open = true;
+  render(initial);
+</script>
+
+<style is:global>
+  .suggestion {
+    display: flex;
+    flex-direction: column;
+    gap: 0.05rem;
+    padding: 0.5rem 0.65rem;
+    border-radius: var(--radius-s);
+    cursor: pointer;
+    min-height: 44px;
+    justify-content: center;
+  }
+
+  .suggestion:hover,
+  .suggestion[aria-selected='true'] {
+    background: var(--surface-sunken);
+  }
+
+  .suggestion[aria-selected='true'] {
+    box-shadow: inset 2px 0 0 var(--signal);
+  }
+
+  .suggestion-label {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--ink-strong);
+  }
+
+  .suggestion-sub {
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+  }
+</style>

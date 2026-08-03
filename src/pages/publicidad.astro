@@ -1,0 +1,62 @@
+---
+import ArticleLayout from '@layouts/ArticleLayout.astro';
+import { ROUTES } from '@lib/nav';
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Publicidad y patrocinios', path: ROUTES.advertising },
+];
+---
+
+<ArticleLayout
+  title="Publicidad y patrocinios"
+  description="Qué se puede patrocinar en Free AI Radar, cómo se identifica, qué no está en venta y qué formatos rechazamos por principio."
+  heading="Publicidad y patrocinios"
+  lede="Qué está en venta, qué no, y qué formatos no vamos a aceptar aunque paguen bien."
+  crumbs={crumbs}
+  updatedAt="2026-08-03"
+>
+  <h2>Lo que está en venta</h2>
+  <ul>
+    <li><strong>Posición destacada.</strong> Una tarjeta identificada como «Patrocinado» en un listado o categoría. No altera la puntuación ni el orden del resto.</li>
+    <li><strong>Espacio en el boletín.</strong> Un bloque claramente marcado como publicidad, separado del contenido editorial.</li>
+    <li><strong>Contenido patrocinado.</strong> Un artículo etiquetado de principio a fin, con la marca visible en el titular y en la URL.</li>
+    <li><strong>Publicidad programática</strong> (AdSense), sólo para quien haya aceptado cookies publicitarias.</li>
+  </ul>
+
+  <h2>Lo que no está en venta</h2>
+  <ul>
+    <li>La puntuación editorial ni ninguno de sus componentes.</li>
+    <li>El veredicto, las ventajas o los inconvenientes de una ficha.</li>
+    <li>El orden de un listado, una categoría o una comparativa.</li>
+    <li>La eliminación de una crítica cierta o de un competidor.</li>
+    <li>Revisar un texto antes de publicarlo.</li>
+  </ul>
+
+  <h2>Formatos que rechazamos</h2>
+  <p>Da igual lo que paguen:</p>
+  <ul>
+    <li>Interstitials y cualquier cosa que tape el contenido al llegar.</li>
+    <li>Autoplay con sonido.</li>
+    <li>Anuncios que se desplazan para provocar clics accidentales.</li>
+    <li>Publicidad que imite el diseño editorial sin etiqueta clara.</li>
+    <li>Cualquier formato que empeore de forma medible el LCP, el INP o el CLS de la página.</li>
+    <li>Seguimiento publicitario antes del consentimiento — no es una preferencia, es la ley.</li>
+  </ul>
+
+  <h2>Cómo se identifica siempre</h2>
+  <p>
+    Todo lo comercial lleva la etiqueta «Patrocinado» o «Publicidad» a la vista, en el mismo bloque,
+    sin necesidad de pasar el ratón por encima ni de abrir nada. Los enlaces pagados llevan
+    <code>rel="sponsored"</code>. Ver también
+    <a href={ROUTES.affiliates}> transparencia de afiliados</a> y
+    <a href={ROUTES.editorialPolicy}> política editorial</a>.
+  </p>
+
+  <h2>Contratar</h2>
+  <p>
+    Escríbenos desde <a href={ROUTES.contact}>contacto</a> indicando la herramienta, el formato que
+    te interesa y las fechas. Respondemos siempre, también para decir que no: rechazamos lo que no
+    encaje con el criterio editorial, aunque encaje con el presupuesto.
+  </p>
+</ArticleLayout>

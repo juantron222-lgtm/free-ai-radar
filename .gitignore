@@ -1,5 +1,28 @@
-node_modules/
+# build output
 dist/
+.vercel/
+.astro/
+
+# dependencies
+node_modules/
+
+# local data + secrets
 .env
+.env.*
+!.env.example
+.data/
+
+# test artifacts
+coverage/
+playwright-report/
+test-results/
+
+# NOTE: src/data/generated/ IS committed on purpose. It is the deterministic
+# output of `npm run data:migrate` and doubles as the local-mode dataset, so
+# content changes show up as reviewable diffs in pull requests.
+
+# editor / os
 .DS_Store
+Thumbs.db
 *.log
+npm-debug.log*

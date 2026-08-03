@@ -1,0 +1,98 @@
+---
+import ArticleLayout from '@layouts/ArticleLayout.astro';
+import { ROUTES } from '@lib/nav';
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Política editorial', path: ROUTES.editorialPolicy },
+];
+---
+
+<ArticleLayout
+  title="Política editorial"
+  description="Cómo elegimos qué herramientas entran, quién escribe, qué separa el contenido editorial del comercial y cómo corregimos los errores."
+  heading="Política editorial"
+  lede="Las reglas que nos aplicamos. Están escritas para poder exigírnoslas."
+  crumbs={crumbs}
+  updatedAt="2026-08-03"
+>
+  <h2>Qué entra en el radar</h2>
+  <p>Una herramienta se documenta si cumple al menos una de estas condiciones:</p>
+  <ul>
+    <li>Tiene una capa gratuita con la que se puede producir trabajo real.</li>
+    <li>Es open source o ejecutable en local sin coste.</li>
+    <li>Tiene mucha visibilidad y su «plan gratuito» no es lo que parece — en cuyo caso el servicio es avisar.</li>
+  </ul>
+  <p>
+    No aceptamos pagos por incluir una herramienta ni por acelerar su análisis. Enviar una
+    herramienta desde <a href={ROUTES.submit}>el formulario</a> es gratis y no da ninguna
+    preferencia.
+  </p>
+
+  <h2>Quién escribe y quién revisa</h2>
+  <p>
+    Cada ficha lleva el nombre de quien la revisó y la fecha de la última verificación. Si una ficha
+    no tiene revisor identificado, es que la escribió la redacción del proyecto y respondemos de ella
+    igual.
+  </p>
+  <p>
+    No publicamos reseñas escritas por el fabricante, ni textos suministrados por agencias, ni
+    contenido generado automáticamente sin revisión humana previa.
+  </p>
+
+  <h2>La frontera entre editorial y comercial</h2>
+  <table>
+    <thead><tr><th>Puede comprarse</th><th>No puede comprarse</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Una posición destacada, siempre etiquetada como «Patrocinado».</td>
+        <td>La puntuación editorial o cualquiera de sus cinco componentes.</td>
+      </tr>
+      <tr>
+        <td>Un espacio en el boletín, identificado como publicidad.</td>
+        <td>El veredicto, las ventajas y los inconvenientes.</td>
+      </tr>
+      <tr>
+        <td>Un enlace de afiliación en el botón de visita, declarado junto al enlace.</td>
+        <td>El orden de una comparativa o de un listado filtrado.</td>
+      </tr>
+      <tr>
+        <td>Un contenido patrocinado, marcado como tal de principio a fin.</td>
+        <td>La eliminación de un inconveniente cierto o de una crítica.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    Ninguna marca tiene derecho a revisar un texto antes de publicarse, ni siquiera cuando patrocina.
+  </p>
+
+  <h2>Cómo tratamos los errores</h2>
+  <ul>
+    <li><strong>Corrección de dato.</strong> Se arregla y se anota en el historial de la ficha, con fecha.</li>
+    <li><strong>Error grave</strong> (una recomendación basada en un dato falso): además se refleja en <a href={ROUTES.changes}>el registro público de cambios</a>.</li>
+    <li><strong>Cambio del fabricante.</strong> No es un error nuestro, pero se documenta igual: es la información más valiosa que publicamos.</li>
+  </ul>
+  <p>No borramos historial. Si nos equivocamos, queda escrito que nos equivocamos.</p>
+
+  <h2>Conflictos de interés</h2>
+  <p>
+    Si en algún momento el proyecto tiene relación comercial con una herramienta más allá de la
+    afiliación estándar — inversión, acuerdo de servicios, relación personal del revisor — se declara
+    en la propia ficha. Ante la duda, se declara.
+  </p>
+
+  <h2>Uso de IA en la redacción</h2>
+  <p>
+    Usamos asistencia de IA para tareas mecánicas: extraer datos de páginas de precios, normalizar
+    fichas, detectar cambios. <strong>Ninguna verificación, puntuación ni veredicto se publica sin
+    que una persona lo haya comprobado.</strong> Un directorio de IA generado por IA sin revisión
+    sería exactamente el humo del que este sitio pretende protegerte.
+  </p>
+
+  <h2>Cómo exigirnos</h2>
+  <p>
+    Si crees que hemos incumplido algo de esta página, escríbenos desde
+    <a href={ROUTES.contact}> contacto</a> con la evidencia. Si tienes razón, lo corregimos y lo
+    hacemos público.
+  </p>
+</ArticleLayout>

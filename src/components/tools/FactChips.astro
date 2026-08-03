@@ -1,0 +1,94 @@
+---
+import type { Tool } from '@lib/domain/tool';
+import { getFreeModel } from '@lib/domain/taxonomy';
+
+interface Props {
+  tool: Tool;
+  /** Cards show the top few; the detail page shows everything. */
+  limit?: number;
+}
+
+const { tool, limit } = Astro.props;
+const freeModel = getFreeModel(tool.freeModel);
+
+type Tone = 'signal' | 'warn' | 'alert' | 'neutral' | 'info';
+interface Fact {
+  label: string;
+  tone: Tone;
+  title: string;
+  icon?: 'check' | 'cross' | 'question';
+}
+
+const facts: Fact[] = [];
+
+facts.push({
+  label: freeModel.label,
+  tone: freeModel.tone === 'good' ? 'signal' : freeModel.tone === 'bad' ? 'alert' : freeModel.tone === 'warn' ? 'warn' : 'neutral',
+  title: freeModel.meaning,
+});
+
+const card = tool.freePlan.requiresCreditCard;
+if (card === 'no') {
+  facts.push({ label: 'Sin tarjeta', tone: 'signal', title: 'No hace falta introducir una tarjeta para usar el plan gratuito.', icon: 'check' });
+} else if (card === 'yes') {
+  facts.push({ label: 'Pide tarjeta', tone: 'alert', title: 'Exige una tarjeta para acceder al plan gratuito.', icon: 'cross' });
+} else {
+  facts.push({ label: 'Tarjeta sin verificar', tone: 'neutral', title: 'Todavía no hemos confirmado si exige tarjeta.', icon: 'question' });
+}
+
+const watermark = tool.freePlan.hasWatermark;
+if (watermark === 'no') {
+  facts.push({ label: 'Sin marca de agua', tone: 'signal', title: 'El resultado sale limpio en el plan gratuito.', icon: 'check' });
+} else if (watermark === 'yes') {
+  facts.push({ label: 'Marca de agua', tone: 'warn', title: 'El plan gratuito añade marca de agua al resultado.', icon: 'cross' });
+}
+
+const commercial = tool.freePlan.commercialUse;
+if (commercial === 'yes') {
+  facts.push({ label: 'Uso comercial', tone: 'signal', title: 'Puedes usar comercialmente lo que generes en el plan gratuito.', icon: 'check' });
+} else if (commercial === 'no') {
+  facts.push({ label: 'Sin uso comercial', tone: 'warn', title: 'El plan gratuito no permite uso comercial.', icon: 'cross' });
+} else if (commercial === 'partial') {
+  facts.push({ label: 'Uso comercial parcial', tone: 'warn', title: 'Uso comercial permitido sólo bajo condiciones.', icon: 'question' });
+}
+
+if (tool.openSource === 'yes') {
+  facts.push({ label: 'Open source', tone: 'signal', title: 'Código o pesos abiertos.', icon: 'check' });
+}
+
+if (tool.hosting === 'local') {
+  facts.push({ label: 'Funciona en local', tone: 'info', title: 'Se ejecuta en tu equipo; tus datos no salen de ahí.' });
+} else if (tool.hosting === 'hybrid') {
+  facts.push({ label: 'Nube o local', tone: 'info', title: 'Puede usarse en la nube o instalarse localmente.' });
+}
+
+if (tool.freePlan.requiresSignup === 'no') {
+  facts.push({ label: 'Sin registro', tone: 'signal', title: 'Se puede usar sin crear cuenta.', icon: 'check' });
+}
+
+const shown = limit ? facts.slice(0, limit) : facts;
+---
+
+<ul class="facts">
+  {shown.map((fact) => (
+    <li>
+      <span class={`chip chip-${fact.tone === 'neutral' ? '' : fact.tone}`.trim()} title={fact.title}>
+        {fact.icon === 'check' && <svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>}
+        {fact.icon === 'cross' && <svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 3l6 6M9 3l-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>}
+        {fact.icon === 'question' && <svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.2 4.3a1.9 1.9 0 1 1 2.4 1.9c-.4.15-.6.5-.6.95v.35" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="6" cy="9.4" r="0.85" fill="currentColor"/></svg>}
+        {fact.label}
+      </span>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+</style>

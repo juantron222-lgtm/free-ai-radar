@@ -1,0 +1,385 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { PLANS, formatPrice } from '@lib/billing/plans';
+import { stripe as stripeConfig } from '@lib/config';
+import { CSRF_FIELD } from '@lib/security/csrf';
+import { faqSchema } from '@lib/seo/structured-data';
+import { ROUTES } from '@lib/nav';
+
+export const prerender = false;
+
+const user = Astro.locals.user;
+const free = PLANS.find((p) => p.id === 'free')!;
+const monthly = PLANS.find((p) => p.id === 'pro_monthly')!;
+const yearly = PLANS.find((p) => p.id === 'pro_yearly')!;
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Radar Pro', path: ROUTES.pricing },
+];
+
+const faqs = [
+  {
+    question: '¿Qué pierdo si no pago?',
+    answer:
+      'Nada del contenido. Todas las fichas, la búsqueda, los filtros y el comparador son y seguirán siendo gratuitos. Pro añade inmediatez, volumen y herramientas de seguimiento.',
+  },
+  {
+    question: '¿Puedo cancelar cuando quiera?',
+    answer:
+      'Sí, desde el portal de facturación, en dos clics y sin hablar con nadie. Mantienes el acceso hasta el final del periodo que ya has pagado.',
+  },
+  {
+    question: '¿Pagar cambia las puntuaciones que veo?',
+    answer:
+      'No. La puntuación editorial es la misma para todo el mundo y no se vende ni se ajusta por patrocinio. Lo único que desaparece con Pro son los anuncios.',
+  },
+];
+---
+
+<BaseLayout
+  title="Radar Pro: entérate el día que cambia un plan gratuito"
+  description="Avisos inmediatos de recortes de planes gratuitos, seguimiento de precios, listas ilimitadas, historial completo y sin anuncios. Desde 5 € al mes."
+  crumbs={crumbs}
+  schemas={[faqSchema(faqs)]}
+>
+  <div class="page pricing">
+    <header class="pricing-head">
+      <p class="eyebrow">Radar Pro</p>
+      <h1 class="pricing-h1">Entérate el día que cambia, no el mes siguiente</h1>
+      <p class="pricing-lede">
+        El contenido es gratis y va a seguir siéndolo. Pro es para quien trabaja con estas
+        herramientas y necesita saber <em>en el momento</em> que una ha recortado su plan gratuito,
+        ha empezado a pedir tarjeta o ha cambiado su licencia.
+      </p>
+    </header>
+
+    {!stripeConfig.isConfigured && (
+      <p class="pricing-notice" role="note">
+        <strong>Modo demostración.</strong> Stripe no está configurado en este entorno, así que el
+        botón de suscripción abre un flujo simulado y no se cobra nada. Consulta
+        <code>docs/deployment-guide.md</code> para activarlo en modo test.
+      </p>
+    )}
+
+    {stripeConfig.isConfigured && stripeConfig.isTestMode && (
+      <p class="pricing-notice" role="note">
+        <strong>Stripe en modo test.</strong> Los pagos usan tarjetas de prueba
+        (<code>4242 4242 4242 4242</code>). No se cobra dinero real.
+      </p>
+    )}
+
+    <div class="plans">
+      <article class="card plan">
+        <header>
+          <h2 class="plan-name">{free.name}</h2>
+          <p class="plan-price">{formatPrice(free)}</p>
+          <p class="plan-tagline">{free.tagline}</p>
+        </header>
+        <ul class="plan-features">
+          {free.features.map((feature) => <li>{feature}</li>)}
+        </ul>
+        {free.limits.map((limit) => <p class="plan-limit">{limit}</p>)}
+        <a href={user ? ROUTES.account : ROUTES.register} class="btn btn-secondary plan-cta">
+          {user ? 'Ir a tu cuenta' : 'Crear cuenta gratis'}
+        </a>
+      </article>
+
+      <article class="card plan plan-highlight">
+        <span class="plan-badge">Recomendado</span>
+        <header>
+          <h2 class="plan-name">{monthly.name}</h2>
+          <p class="plan-price">{formatPrice(monthly)}</p>
+          <p class="plan-tagline">{monthly.tagline}</p>
+        </header>
+        <ul class="plan-features">
+          {monthly.features.map((feature) => <li>{feature}</li>)}
+        </ul>
+        {user ? (
+          <form method="post" action="/api/billing/checkout" data-checkout-form>
+            <input type="hidden" name={CSRF_FIELD} value={Astro.locals.csrfToken} />
+            <input type="hidden" name="plan" value="pro_monthly" />
+            <button type="submit" class="btn btn-primary plan-cta">Suscribirme</button>
+          </form>
+        ) : (
+          <a href={`${ROUTES.login}?next=${encodeURIComponent(ROUTES.pricing)}`} class="btn btn-primary plan-cta">
+            Entrar para suscribirme
+          </a>
+        )}
+        <p class="plan-note">Cancelas cuando quieras, en dos clics.</p>
+      </article>
+
+      <article class="card plan">
+        <header>
+          <h2 class="plan-name">{yearly.name}</h2>
+          <p class="plan-price">{formatPrice(yearly)}</p>
+          <p class="plan-tagline">{yearly.tagline}</p>
+        </header>
+        <ul class="plan-features">
+          {yearly.features.map((feature) => <li>{feature}</li>)}
+        </ul>
+        {user ? (
+          <form method="post" action="/api/billing/checkout" data-checkout-form>
+            <input type="hidden" name={CSRF_FIELD} value={Astro.locals.csrfToken} />
+            <input type="hidden" name="plan" value="pro_yearly" />
+            <button type="submit" class="btn btn-secondary plan-cta">Suscribirme al año</button>
+          </form>
+        ) : (
+          <a href={`${ROUTES.login}?next=${encodeURIComponent(ROUTES.pricing)}`} class="btn btn-secondary plan-cta">
+            Entrar para suscribirme
+          </a>
+        )}
+      </article>
+    </div>
+
+    <p class="pricing-result" role="status" data-checkout-result hidden></p>
+
+    <section class="pricing-promise" aria-labelledby="promise-title">
+      <h2 id="promise-title">Lo que el dinero no compra</h2>
+      <p>
+        Ni una suscripción ni un patrocinio cambian una puntuación, un veredicto o el orden de una
+        comparativa. Esa separación es el activo del proyecto: en cuanto se rompe, el sitio deja de
+        valer para nada. Está escrita en la <a href={ROUTES.editorialPolicy}>política editorial</a>
+        y se aplica sin excepciones.
+      </p>
+    </section>
+
+    <section class="pricing-faq" aria-labelledby="faq-title">
+      <h2 id="faq-title">Preguntas</h2>
+      <dl>
+        {faqs.map((faq) => (
+          <div class="pricing-faq-item">
+            <dt>{faq.question}</dt>
+            <dd>{faq.answer}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .pricing {
+    padding-block: var(--space-m) var(--space-xl);
+    display: grid;
+    gap: var(--space-l);
+  }
+
+  .pricing-head {
+    max-width: 46rem;
+  }
+
+  .pricing-h1 {
+    font-size: clamp(1.75rem, 1.4rem + 1.7vw, 2.75rem);
+    margin-block: 0.35rem var(--space-2xs);
+  }
+
+  .pricing-lede {
+    margin: 0;
+    color: var(--ink-muted);
+    font-size: 1.0625rem;
+  }
+
+  .pricing-notice {
+    margin: 0;
+    padding: var(--space-xs) var(--space-s);
+    border-radius: var(--radius-m);
+    background: var(--info-soft);
+    border: 1px solid var(--info-line);
+    font-size: 0.875rem;
+  }
+
+  .pricing-notice code {
+    font-family: var(--font-mono);
+    font-size: 0.92em;
+  }
+
+  .plans {
+    display: grid;
+    gap: var(--space-s);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    align-items: start;
+  }
+
+  .plan {
+    position: relative;
+    padding: var(--space-s);
+    display: grid;
+    gap: var(--space-2xs);
+    align-content: start;
+    height: 100%;
+  }
+
+  .plan-highlight {
+    border-color: var(--signal);
+    border-width: 2px;
+  }
+
+  .plan-badge {
+    position: absolute;
+    top: -0.7rem;
+    inset-inline-start: var(--space-s);
+    padding: 0.15rem 0.6rem;
+    border-radius: var(--radius-full);
+    background: var(--signal);
+    color: var(--on-signal);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+
+  .plan-name {
+    font-size: 1.0625rem;
+    margin: 0;
+  }
+
+  .plan-price {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin: 0.15rem 0 0;
+    color: var(--ink-strong);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .plan-tagline {
+    margin: 0.15rem 0 var(--space-2xs);
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .plan-features {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.35rem;
+    font-size: 0.875rem;
+  }
+
+  .plan-features li {
+    position: relative;
+    padding-inline-start: 1.4rem;
+    color: var(--ink-muted);
+  }
+
+  .plan-features li::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-start: 0.45em;
+    width: 0.75rem;
+    height: 0.4rem;
+    border-inline-start: 2px solid var(--signal);
+    border-block-end: 2px solid var(--signal);
+    transform: rotate(-45deg);
+  }
+
+  .plan-limit,
+  .plan-note {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+  }
+
+  .plan-cta {
+    width: 100%;
+    margin-block-start: var(--space-2xs);
+  }
+
+  .pricing-result {
+    margin: 0;
+    padding: 0.65rem 0.85rem;
+    border-radius: var(--radius-m);
+    background: var(--alert-soft);
+    border: 1px solid var(--alert-line);
+    color: var(--alert);
+    font-size: 0.875rem;
+  }
+
+  .pricing-promise,
+  .pricing-faq {
+    max-width: var(--measure);
+  }
+
+  .pricing-promise h2,
+  .pricing-faq h2 {
+    font-size: 1.35rem;
+    margin-block-end: var(--space-2xs);
+  }
+
+  .pricing-promise p {
+    margin: 0;
+    color: var(--ink-muted);
+  }
+
+  .pricing-promise a {
+    color: var(--signal);
+  }
+
+  .pricing-faq dl {
+    margin: 0;
+    display: grid;
+    gap: var(--space-s);
+  }
+
+  .pricing-faq-item dt {
+    font-weight: 650;
+    color: var(--ink-strong);
+    margin-block-end: 0.2rem;
+  }
+
+  .pricing-faq-item dd {
+    margin: 0;
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+  }
+</style>
+
+<script>
+  const result = document.querySelector<HTMLElement>('[data-checkout-result]');
+
+  for (const form of Array.from(
+    document.querySelectorAll<HTMLFormElement>('[data-checkout-form]')
+  )) {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+      const original = button.textContent;
+      button.disabled = true;
+      button.textContent = 'Abriendo el pago…';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: new FormData(form),
+        });
+        const payload = (await response.json()) as {
+          ok: boolean;
+          message: string;
+          data?: { url: string };
+        };
+
+        if (payload.ok && payload.data?.url) {
+          window.location.assign(payload.data.url);
+          return;
+        }
+
+        if (result) {
+          result.hidden = false;
+          result.textContent = payload.message;
+        }
+      } catch {
+        if (result) {
+          result.hidden = false;
+          result.textContent = 'No hemos podido conectar con la pasarela de pago.';
+        }
+      } finally {
+        button.disabled = false;
+        button.textContent = original;
+      }
+    });
+  }
+</script>

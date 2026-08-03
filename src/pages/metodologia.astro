@@ -1,0 +1,197 @@
+---
+import ArticleLayout from '@layouts/ArticleLayout.astro';
+import { SCORE_WEIGHTS, SCORE_BAND_LABEL, STALE_AFTER_DAYS } from '@lib/domain/scoring';
+import { FREE_MODELS } from '@lib/domain/taxonomy';
+import { TRI_STATE_LABEL } from '@lib/domain/primitives';
+import { getCatalogStats } from '@lib/data/catalog';
+import { faqSchema } from '@lib/seo/structured-data';
+import { ROUTES } from '@lib/nav';
+
+const stats = getCatalogStats();
+
+const COMPONENTS: Array<{ key: keyof typeof SCORE_WEIGHTS; name: string; what: string }> = [
+  { key: 'freeReal', name: 'Gratuidad real', what: 'Si el plan gratuito permite hacer trabajo aprovechable, no sólo probar. Un plan generoso pero temporal puntúa bajo.' },
+  { key: 'usefulness', name: 'Utilidad', what: 'Si hace bien aquello que promete, comparado con las alternativas de su categoría.' },
+  { key: 'ease', name: 'Facilidad', what: 'Cuánto cuesta llegar al primer resultado útil: instalación, configuración, curva de aprendizaje.' },
+  { key: 'transparency', name: 'Transparencia', what: 'Si documenta con claridad los límites, la licencia y qué pasa con tus datos, o si hay que deducirlo.' },
+  { key: 'creatorValue', name: 'Valor para creadores', what: 'Si sirve a alguien que produce por su cuenta y necesita poder monetizar el resultado.' },
+];
+
+const PENALTIES = [
+  { label: 'Exige tarjeta para el plan gratuito', points: -12 },
+  { label: 'Marca de agua en el resultado', points: -8 },
+  { label: 'Sin uso comercial en el plan gratuito', points: -10 },
+  { label: 'Uso comercial sólo parcial', points: -4 },
+  { label: 'Créditos que no se renuevan', points: -10 },
+  { label: 'Sólo prueba temporal', points: -12 },
+  { label: 'Sólo demo', points: -18 },
+  { label: 'Sin capa gratuita', points: -30 },
+  { label: 'Código abierto verificado', points: 6 },
+];
+
+const faqs = [
+  {
+    question: '¿Se puede pagar por subir de puntuación?',
+    answer:
+      'No. Un patrocinio compra visibilidad claramente etiquetada como tal, nunca puntos ni un cambio de veredicto. La fórmula es idéntica para todas las herramientas y está publicada aquí.',
+  },
+  {
+    question: '¿Qué significa "sin verificar"?',
+    answer:
+      'Que no hemos podido confirmar ese dato en una fuente oficial. Preferimos decirlo a rellenarlo con una suposición. Un dato sin verificar no suma ni resta puntos.',
+  },
+  {
+    question: '¿Cada cuánto se revisan las fichas?',
+    answer: `Marcamos una ficha como pendiente de revisión a los ${STALE_AFTER_DAYS} días desde la última verificación, y lo mostramos en la propia ficha para que sepas cuánto fiarte del dato.`,
+  },
+];
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Metodología', path: ROUTES.methodology },
+];
+---
+
+<ArticleLayout
+  title="Cómo puntuamos las herramientas de IA"
+  description="La fórmula completa: cinco componentes ponderados, penalizaciones nombradas y qué hacemos cuando no podemos verificar un dato. Publicada para que puedas discutirla."
+  heading="Cómo puntuamos"
+  lede="La fórmula entera, con sus pesos y sus penalizaciones. Si no puedes reproducir una puntuación con esta página, es que algo está mal y queremos saberlo."
+  crumbs={crumbs}
+  updatedAt={stats.lastVerifiedAt}
+  schemas={[faqSchema(faqs)]}
+>
+  <h2>El principio</h2>
+  <p>
+    Casi todos los directorios de IA puntúan por impresión, por popularidad o por quién paga. Nosotros
+    puntuamos <strong>hechos verificables sobre el plan gratuito</strong>. Si un dato no se puede
+    comprobar en la página oficial del fabricante, no entra en la fórmula.
+  </p>
+
+  <h2>Los cinco componentes</h2>
+  <p>
+    Un editor asigna cada componente de 0 a 10. El total es su media ponderada multiplicada por diez,
+    de modo que un 10 en todo da exactamente 100 y un 0 en todo da exactamente 0. No hay constantes
+    sumadas ni ajustes a ojo.
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>Componente</th><th>Qué mide</th><th>Peso</th></tr>
+    </thead>
+    <tbody>
+      {COMPONENTS.map((component) => (
+        <tr>
+          <th scope="row">{component.name}</th>
+          <td>{component.what}</td>
+          <td class="tnum">{Math.round(SCORE_WEIGHTS[component.key] * 100)}%</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <h2>Penalizaciones y bonificaciones</h2>
+  <p>
+    Sobre esa base se aplican ajustes fijos. Cada uno responde a una pregunta distinta, de modo que
+    un mismo problema nunca se castiga dos veces. Todos aparecen desglosados en la ficha de cada
+    herramienta.
+  </p>
+
+  <table>
+    <thead><tr><th>Ajuste</th><th>Puntos</th></tr></thead>
+    <tbody>
+      {PENALTIES.map((penalty) => (
+        <tr>
+          <th scope="row">{penalty.label}</th>
+          <td class="tnum">{penalty.points > 0 ? `+${penalty.points}` : penalty.points}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <h2>Qué significa cada tramo</h2>
+  <table>
+    <thead><tr><th>Puntuación</th><th>Lectura</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">80–100</th><td>{SCORE_BAND_LABEL.excellent}. Compensa de verdad en su plan gratuito.</td></tr>
+      <tr><th scope="row">65–79</th><td>{SCORE_BAND_LABEL.good}. Útil con límites que conviene conocer antes.</td></tr>
+      <tr><th scope="row">45–64</th><td>{SCORE_BAND_LABEL.fair}. Sirve para casos concretos; revisa las pegas.</td></tr>
+      <tr><th scope="row">0–44</th><td>{SCORE_BAND_LABEL.poor}. La documentamos para que no pierdas el tiempo.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Los modelos de gratuidad</h2>
+  <p>
+    «Gratis» significa cosas muy distintas. Estas son las categorías que usamos y lo que implican:
+  </p>
+  <table>
+    <thead><tr><th>Modelo</th><th>Qué significa</th></tr></thead>
+    <tbody>
+      {FREE_MODELS.map((model) => (
+        <tr><th scope="row">{model.label}</th><td>{model.meaning}</td></tr>
+      ))}
+    </tbody>
+  </table>
+
+  <h2>Cuando no lo sabemos</h2>
+  <p>
+    Los campos de hecho (tarjeta, marca de agua, uso comercial, código abierto, privacidad) tienen
+    cuatro estados posibles: <strong>{TRI_STATE_LABEL.yes}</strong>,
+    <strong>{TRI_STATE_LABEL.no}</strong>, <strong>{TRI_STATE_LABEL.partial}</strong> y
+    <strong>{TRI_STATE_LABEL.unverified}</strong>.
+  </p>
+  <p>
+    Ese último es deliberado. Un directorio que rellena todos los huecos con «no» está inventando, y
+    esa invención acaba costándole dinero o tiempo a quien se la cree. Un dato sin verificar se
+    muestra como tal y <strong>no suma ni resta puntos</strong>: ni premiamos ni castigamos nuestra
+    propia ignorancia. Tampoco satisface un filtro: si pides «sin tarjeta», sólo verás las que
+    hemos confirmado que no la piden.
+  </p>
+
+  <h2>Caducidad de los datos</h2>
+  <p>
+    Un plan gratuito verificado hace ocho meses no es un dato, es un recuerdo. A los
+    {' '}{STALE_AFTER_DAYS} días marcamos la ficha visiblemente como pendiente de revisión, y lo
+    publicamos también en <a href={ROUTES.changes}>el registro de cambios</a>, incluida la lista de
+    las que llevamos más tiempo sin repasar. Es incómodo y por eso lo hacemos.
+  </p>
+
+  <h2>Cómo corregimos</h2>
+  <ol>
+    <li>Cualquiera puede reportar un error desde el formulario del final de cada ficha.</li>
+    <li>Contrastamos contra la fuente oficial. Si la fuente nos contradice, gana la fuente.</li>
+    <li>Actualizamos la ficha y anotamos el cambio con fecha en el historial público.</li>
+    <li>Si dejaste correo, te avisamos de qué hicimos con tu aviso.</li>
+  </ol>
+
+  <h2>Lo que el dinero no toca</h2>
+  <p>
+    La afiliación y los patrocinios financian el proyecto y están declarados en
+    {' '}<a href={ROUTES.affiliates}>transparencia de afiliados</a> y
+    {' '}<a href={ROUTES.advertising}>publicidad y patrocinios</a>. Ninguno de los dos puede
+    modificar una puntuación, un veredicto ni el orden de una comparativa. Si algún día encuentras
+    evidencia de lo contrario, publícala: sería el fin justificado de este proyecto.
+  </p>
+
+  <h2>Preguntas frecuentes</h2>
+  <dl>
+    {faqs.map((faq) => (
+      <>
+        <dt><strong>{faq.question}</strong></dt>
+        <dd>{faq.answer}</dd>
+      </>
+    ))}
+  </dl>
+</ArticleLayout>
+
+<style>
+  dl {
+    display: grid;
+    gap: var(--space-s);
+  }
+
+  dd {
+    margin: 0.2rem 0 0;
+    color: var(--ink-muted);
+  }
+</style>

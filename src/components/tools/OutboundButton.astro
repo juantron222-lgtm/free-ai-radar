@@ -1,0 +1,74 @@
+---
+import type { Tool } from '@lib/domain/tool';
+import { ROUTES } from '@lib/nav';
+
+interface Props {
+  tool: Tool;
+}
+const { tool } = Astro.props;
+const isAffiliate = tool.affiliation.isAffiliate;
+---
+
+<div class="outbound">
+  <a
+    class="btn btn-primary outbound-link"
+    href={tool.outboundUrl}
+    target="_blank"
+    rel={isAffiliate ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
+    data-outbound={tool.slug}
+    data-affiliate={String(isAffiliate)}
+  >
+    Ir a {tool.name}
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M6 3h7v7M13 3 4 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    <span class="sr-only">(se abre en una pestaña nueva)</span>
+  </a>
+
+  {/*
+    Disclosure sits next to the link, before the click — not buried in a footer.
+    Required by the FTC and by the EU Digital Services Act, and it is simply the
+    honest place for it.
+  */}
+  {isAffiliate && (
+    <p class="outbound-disclosure">
+      Enlace de afiliación: si contratas algo, podemos cobrar una comisión.
+      <a href={ROUTES.affiliates}>No influye en la puntuación ni en el veredicto</a>.
+    </p>
+  )}
+
+  {tool.pricingUrl && (
+    <a class="outbound-secondary" href={tool.pricingUrl} target="_blank" rel="nofollow noopener">
+      Ver su página de precios
+    </a>
+  )}
+</div>
+
+<style>
+  .outbound {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .outbound-link {
+    width: 100%;
+  }
+
+  .outbound-disclosure {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+    line-height: 1.45;
+  }
+
+  .outbound-disclosure a {
+    color: var(--ink-muted);
+    text-decoration: underline;
+  }
+
+  .outbound-secondary {
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+    text-align: center;
+  }
+</style>

@@ -1,0 +1,86 @@
+---
+import ArticleLayout from '@layouts/ArticleLayout.astro';
+import { getAllTools } from '@lib/data/catalog';
+import { ROUTES } from '@lib/nav';
+
+const tools = getAllTools();
+const affiliates = tools.filter((t) => t.affiliation.isAffiliate);
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Transparencia de afiliados', path: ROUTES.affiliates },
+];
+---
+
+<ArticleLayout
+  title="Transparencia de afiliados"
+  description="Qué enlaces de esta web generan comisión, cómo se marcan y por qué la afiliación no puede afectar a la puntuación editorial."
+  heading="Transparencia de afiliados"
+  lede="Qué enlaces nos pagan, cómo los reconoces y qué muro hay entre ese dinero y lo que publicamos."
+  crumbs={crumbs}
+  updatedAt="2026-08-03"
+>
+  <h2>El estado actual</h2>
+  {affiliates.length === 0 ? (
+    <p>
+      <strong>Ahora mismo ninguno de los {tools.length} enlaces salientes del catálogo es de
+      afiliación.</strong> Cuando eso cambie, esta página lo reflejará automáticamente: la lista de
+      abajo se genera desde la misma base de datos que alimenta las fichas, no se mantiene a mano.
+    </p>
+  ) : (
+    <>
+      <p>
+        {affiliates.length} de {tools.length} herramientas del catálogo tienen enlace de afiliación.
+        Son estas:
+      </p>
+      <ul>
+        {affiliates.map((tool) => (
+          <li>
+            <a href={ROUTES.tool(tool.slug)}>{tool.name}</a>
+            {tool.affiliation.programName && ` — programa: ${tool.affiliation.programName}`}
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
+
+  <h2>Cómo reconocer un enlace de afiliación</h2>
+  <ul>
+    <li>Debajo del botón de visita aparece un aviso explícito, <strong>antes</strong> de que hagas clic.</li>
+    <li>El enlace lleva <code>rel="sponsored"</code>, la marca que también leen los buscadores.</li>
+    <li>Esta página lista todos los programas activos.</li>
+  </ul>
+  <p>Si alguna vez encuentras un enlace de afiliación sin marcar, es un fallo. Avísanos y lo arreglamos.</p>
+
+  <h2>Qué no puede hacer la afiliación</h2>
+  <p>
+    La comisión se cobra por una visita o una contratación, no por una opinión. Concretamente, tener
+    programa de afiliados <strong>no</strong> otorga:
+  </p>
+  <ul>
+    <li>ni un punto de puntuación;</li>
+    <li>ni una posición mejor en listados o comparativas;</li>
+    <li>ni la eliminación de un inconveniente cierto;</li>
+    <li>ni la exclusión de un competidor.</li>
+  </ul>
+  <p>
+    De hecho varias de las herramientas mejor puntuadas del catálogo son open source y no pagan nada
+    a nadie. Eso es la prueba de que el orden no lo pone el dinero.
+  </p>
+
+  <h2>Por qué usamos afiliación</h2>
+  <p>
+    Verificar planes gratuitos cuesta horas y hay que financiarlo de alguna forma. Las opciones eran:
+    poner el contenido de pago, llenar la web de anuncios intrusivos, o cobrar una comisión de quien
+    ya iba a cobrarte a ti de todos modos. La tercera nos parece la menos mala, siempre que sea
+    visible y no toque el criterio. Si prefieres financiarnos sin intermediarios, existe
+    <a href={ROUTES.pricing}> Radar Pro</a>.
+  </p>
+
+  <h2>Marco legal</h2>
+  <p>
+    Esta divulgación cumple con lo exigido por la Ley 34/2002 (LSSI-CE) en España, el Reglamento
+    (UE) 2022/2065 de Servicios Digitales en materia de publicidad identificable y las directrices
+    de la FTC estadounidense sobre respaldos y testimonios.
+  </p>
+</ArticleLayout>

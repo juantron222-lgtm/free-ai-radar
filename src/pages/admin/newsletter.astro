@@ -1,0 +1,209 @@
+---
+import AdminLayout from '@layouts/AdminLayout.astro';
+import { newsletterStats } from '@lib/data/inbox';
+import { email as emailConfig, isProduction } from '@lib/config';
+import { ALL_TEMPLATES } from '@lib/email/templates';
+
+export const prerender = false;
+
+const stats = await newsletterStats();
+const total = stats.confirmed + stats.pending + stats.unsubscribed;
+const confirmRate = total > 0 ? Math.round((stats.confirmed / (stats.confirmed + stats.pending || 1)) * 100) : 0;
+const dryRun = process.env['EMAIL_DRY_RUN'] === '1';
+---
+
+<AdminLayout
+  title="Newsletter"
+  heading="Boletín"
+  lede="Estado de la lista y de la configuración de envío. Los envíos masivos están bloqueados fuera de producción."
+>
+  <div class="cards">
+    <div class="stat">
+      <span class="stat-num tnum">{stats.confirmed}</span>
+      <span class="stat-label">confirmados</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num tnum">{stats.pending}</span>
+      <span class="stat-label">pendientes de confirmar</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num tnum">{stats.unsubscribed}</span>
+      <span class="stat-label">bajas</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num tnum">{confirmRate}%</span>
+      <span class="stat-label">tasa de confirmación</span>
+    </div>
+  </div>
+
+  <section aria-labelledby="status-title">
+    <h2 id="status-title" class="section-title">Estado del envío</h2>
+    <ul class="status">
+      <li>
+        <span class={emailConfig.isConfigured ? 'dot is-ok' : 'dot is-off'} aria-hidden="true"></span>
+        <strong>Resend</strong>
+        <span>{emailConfig.isConfigured ? 'Conectado' : 'Sin API key: los correos se registran, no se envían'}</span>
+      </li>
+      <li>
+        <span class={dryRun ? 'dot is-warn' : 'dot is-ok'} aria-hidden="true"></span>
+        <strong>EMAIL_DRY_RUN</strong>
+        <span>{dryRun ? 'Activo: nada sale de aquí' : 'Inactivo'}</span>
+      </li>
+      <li>
+        <span class={isProduction ? 'dot is-ok' : 'dot is-warn'} aria-hidden="true"></span>
+        <strong>Campañas masivas</strong>
+        <span>{isProduction && !dryRun ? 'Permitidas' : 'Bloqueadas en este entorno'}</span>
+      </li>
+      <li>
+        <span class="dot is-ok" aria-hidden="true"></span>
+        <strong>Remitente</strong>
+        <span><code>{emailConfig.from}</code></span>
+      </li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="rules-title">
+    <h2 id="rules-title" class="section-title">Reglas que aplica el código</h2>
+    <ul class="rules">
+      <li><strong>Doble opt-in obligatorio.</strong> Nada comercial se envía a una dirección en estado <code>pending</code>.</li>
+      <li><strong>Tokens hasheados.</strong> Ni el de confirmación ni el de baja se guardan en claro, así que una filtración de la base no permite confirmar suscripciones ajenas.</li>
+      <li><strong>Baja en un clic.</strong> Cabecera <code>List-Unsubscribe</code> con <code>One-Click</code> (RFC 8058), sin login y sin formulario intermedio.</li>
+      <li><strong>Separación transaccional / comercial.</strong> El tipo forma parte del mensaje: una plantilla marcada como comercial sin URL de baja lanza una excepción antes de enviarse.</li>
+      <li><strong>Prueba de consentimiento.</strong> Se guarda IP hasheada, user-agent y fecha.</li>
+      <li><strong>Sin píxeles de seguimiento</strong> ni imágenes remotas en las plantillas.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="templates-title">
+    <h2 id="templates-title" class="section-title">Plantillas</h2>
+    <ul class="templates">
+      {ALL_TEMPLATES.map((template) => (
+        <li><code>{template}</code></li>
+      ))}
+    </ul>
+    <p class="note">
+      Todas se generan con HTML y texto plano, maquetadas con tablas y estilos en línea para
+      sobrevivir a Outlook, y con <code>prefers-color-scheme</code> para el modo oscuro.
+    </p>
+  </section>
+
+  <section aria-labelledby="send-title">
+    <h2 id="send-title" class="section-title">Enviar el resumen semanal</h2>
+    <p class="note">
+      No hay botón de envío en este panel a propósito: un clic accidental en producción es
+      irreversible. El envío se lanza desde la terminal, con confirmación explícita, y respeta
+      <code>EMAIL_DRY_RUN</code>. El procedimiento está en <code>docs/deployment-guide.md</code>.
+    </p>
+  </section>
+</AdminLayout>
+
+<style>
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+    gap: var(--space-2xs);
+    margin-block-end: var(--space-l);
+  }
+
+  .stat {
+    padding: var(--space-xs) var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface);
+    display: grid;
+    gap: 0.1rem;
+  }
+
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--ink-strong);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+  }
+
+  .section-title {
+    font-size: 1rem;
+    margin-block: var(--space-l) var(--space-2xs);
+    padding-block-end: 0.3rem;
+    border-block-end: 1px solid var(--line);
+  }
+
+  .status,
+  .rules,
+  .templates {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.4rem;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .status li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    flex-wrap: wrap;
+  }
+
+  .status strong {
+    min-width: 10rem;
+    color: var(--ink);
+  }
+
+  .rules {
+    padding-inline-start: 1.2em;
+    list-style: disc;
+  }
+
+  .templates {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .templates li {
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--line);
+    background: var(--surface-sunken);
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .dot.is-ok {
+    background: var(--signal);
+  }
+
+  .dot.is-warn {
+    background: var(--warn);
+  }
+
+  .dot.is-off {
+    background: var(--line-strong);
+  }
+
+  .note {
+    margin: var(--space-2xs) 0 0;
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+    max-width: 62ch;
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+</style>

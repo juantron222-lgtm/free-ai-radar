@@ -1,0 +1,302 @@
+---
+import ArticleLayout from '@layouts/ArticleLayout.astro';
+import comfyServices from '@/data/comfyui-cloud.json';
+import { articleSchema, faqSchema } from '@lib/seo/structured-data';
+import { getTool } from '@lib/data/catalog';
+import { ROUTES } from '@lib/nav';
+
+interface ComfyService {
+  id: string;
+  name: string;
+  slug: string;
+  official_url: string;
+  description_short: string;
+  free_type: string;
+  free_summary: string;
+  requires_signup: boolean;
+  requires_credit_card: boolean;
+  imports_workflows: boolean;
+  custom_nodes: string;
+  persistent_storage: string;
+  pricing_model: string;
+  ease_level: string;
+  best_for: string;
+  limitations: string;
+  verdict: string;
+  source_urls: string[];
+  last_checked_at: string;
+  verification_status: string;
+  status?: string;
+}
+
+const services = (comfyServices as ComfyService[]).filter(
+  (service) => !service.status || service.status === 'active'
+);
+
+const updated = services.reduce(
+  (acc, service) => (service.last_checked_at > acc ? service.last_checked_at : acc),
+  '2026-01-01'
+);
+
+const comfyTool = getTool('comfyui');
+
+const yesNo = (value: boolean) => (value ? 'Sí' : 'No');
+
+const faqs = [
+  {
+    question: '¿Se puede usar ComfyUI sin tarjeta gráfica?',
+    answer:
+      'Sí, mediante servicios en la nube que ejecutan los workflows en sus propias GPU. Todos los de esta guía tienen alguna forma de acceso gratuito, aunque con límites distintos de créditos, almacenamiento y nodos personalizados.',
+  },
+  {
+    question: '¿Cuál permite instalar nodos personalizados?',
+    answer:
+      'Es la diferencia que más separa a estos servicios. Algunos sólo dejan usar un catálogo preaprobado, lo que impide reproducir workflows de la comunidad que dependen de nodos concretos. En la tabla está el detalle servicio por servicio.',
+  },
+  {
+    question: '¿Sale más barato que comprar una GPU?',
+    answer:
+      'Depende del volumen. Para uso ocasional, los créditos gratuitos diarios de estos servicios cubren de sobra. Para producción continua, una GPU propia se amortiza, y además elimina la dependencia de que nadie cambie su plan gratuito.',
+  },
+];
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Guías', path: ROUTES.guides },
+  { name: 'ComfyUI sin GPU', path: '/guias/comfyui-sin-gpu' },
+];
+---
+
+<ArticleLayout
+  title="ComfyUI sin GPU: cuatro servicios en la nube comparados"
+  description="Comparativa de servicios cloud para ejecutar workflows de ComfyUI sin tarjeta gráfica: créditos gratuitos, nodos personalizados, almacenamiento y límites reales."
+  heading="Usar ComfyUI sin una GPU potente"
+  lede="Cuatro servicios que ejecutan tus workflows en sus GPU. Lo que separa a uno de otro no es la potencia: es si te dejan traer tus propios nodos."
+  crumbs={crumbs}
+  updatedAt={updated}
+  schemas={[
+    articleSchema({
+      headline: 'ComfyUI sin GPU: servicios en la nube comparados',
+      description:
+        'Comparativa de servicios cloud para ejecutar ComfyUI sin tarjeta gráfica, con límites gratuitos verificados.',
+      path: '/guias/comfyui-sin-gpu',
+      datePublished: '2026-07-11',
+      dateModified: updated,
+      authorName: 'Redacción de Free AI Radar',
+    }),
+    faqSchema(faqs),
+  ]}
+>
+  <h2>El problema</h2>
+  <p>
+    ComfyUI es gratis y open source, pero necesita una GPU con VRAM suficiente. Para modelos de
+    imagen modernos eso significa una gráfica dedicada que mucha gente no tiene, y comprarla cuesta
+    más que varios años de cualquiera de estos servicios.
+  </p>
+  <p>
+    La alternativa es ejecutarlo en la nube. Hay bastantes servicios que lo ofrecen y casi todos
+    tienen alguna capa gratuita, pero <strong>no son intercambiables</strong>: la diferencia
+    determinante es si puedes importar tu propio JSON de workflow y si te dejan instalar los nodos
+    personalizados que ese workflow necesita. Sin eso, la mitad de lo que circula por la comunidad
+    no te va a funcionar.
+  </p>
+
+  {comfyTool && (
+    <p>
+      Si acabas teniendo hardware, la opción local sigue siendo la mejor:
+      <a href={ROUTES.tool(comfyTool.slug)}> mira nuestra ficha de {comfyTool.name}</a>
+      ({comfyTool.scoreTotal}/100).
+    </p>
+  )}
+
+  <h2>Comparativa</h2>
+  <div class="table-scroll">
+    <table class="data-table comfy-table">
+      <caption class="sr-only">Servicios cloud para ejecutar ComfyUI</caption>
+      <thead>
+        <tr>
+          <th scope="col">Servicio</th>
+          <th scope="col">Plan gratuito</th>
+          <th scope="col">Tarjeta</th>
+          <th scope="col">Importa workflows</th>
+          <th scope="col">Nodos propios</th>
+          <th scope="col">Almacenamiento</th>
+          <th scope="col">Dificultad</th>
+        </tr>
+      </thead>
+      <tbody>
+        {services.map((service) => (
+          <tr>
+            <th scope="row">
+              <a href={service.official_url} rel="nofollow noopener" target="_blank">{service.name}</a>
+            </th>
+            <td>{service.free_type}</td>
+            <td>
+              <span class={service.requires_credit_card ? 'bad' : 'good'}>
+                {yesNo(service.requires_credit_card)}
+              </span>
+            </td>
+            <td>
+              <span class={service.imports_workflows ? 'good' : 'bad'}>
+                {yesNo(service.imports_workflows)}
+              </span>
+            </td>
+            <td>{service.custom_nodes}</td>
+            <td>{service.persistent_storage}</td>
+            <td>{service.ease_level}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Servicio por servicio</h2>
+  {services.map((service) => (
+    <section class="comfy-service">
+      <h3>{service.name}</h3>
+      <p>{service.description_short}</p>
+
+      <dl class="comfy-facts">
+        <div><dt>Plan gratuito</dt><dd>{service.free_summary}</dd></div>
+        <div><dt>Mejor para</dt><dd>{service.best_for}</dd></div>
+        <div><dt>Su límite principal</dt><dd>{service.limitations}</dd></div>
+        <div><dt>Modelo de precio</dt><dd>{service.pricing_model}</dd></div>
+      </dl>
+
+      <p class="comfy-verdict"><strong>Veredicto:</strong> {service.verdict}</p>
+
+      <p class="comfy-sources">
+        Verificado el
+        <time datetime={service.last_checked_at}>
+          {new Date(`${service.last_checked_at}T00:00:00Z`).toLocaleDateString('es-ES', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+            timeZone: 'UTC',
+          })}
+        </time>
+        {service.verification_status === 'partially_verified' && ' · verificación parcial'}
+        {service.source_urls.length > 0 && (
+          <>
+            {' · '}
+            {service.source_urls.map((url, index) => (
+              <>
+                {index > 0 && ', '}
+                <a href={url} rel="nofollow noopener" target="_blank">fuente</a>
+              </>
+            ))}
+          </>
+        )}
+      </p>
+    </section>
+  ))}
+
+  <h2>Cómo elegir</h2>
+  <ul>
+    <li>
+      <strong>Sólo quieres probar workflows de la comunidad.</strong> Cualquiera que importe JSON te
+      sirve. Empieza por el que dé créditos diarios que se renueven.
+    </li>
+    <li>
+      <strong>Tu workflow depende de nodos concretos.</strong> Filtra directamente por los que
+      permiten nodos personalizados sin restricción; el resto te van a fallar a mitad de camino.
+    </li>
+    <li>
+      <strong>Vas a trabajar de forma continuada.</strong> Mira el almacenamiento persistente: si no
+      lo hay, cada sesión empieza de cero y vuelves a subir modelos cada vez.
+    </li>
+    <li>
+      <strong>No quieres dar la tarjeta.</strong> La columna correspondiente lo resuelve en un
+      vistazo.
+    </li>
+  </ul>
+
+  <h2>La alternativa que no es la nube</h2>
+  <p>
+    Si acabas usándolo mucho, una GPU de gama media de segunda mano cuesta menos que dos años de
+    suscripción y elimina de golpe todos los límites: sin créditos, sin colas, sin que nadie decida
+    el mes que viene que su plan gratuito ahora vale 20 € al mes. Es la razón por la que las
+    herramientas locales puntúan alto en este sitio.
+  </p>
+  <p>
+    <a href="/colecciones/en-local">Ver todas las herramientas que funcionan en local</a>
+  </p>
+
+  <h2>Preguntas frecuentes</h2>
+  <dl class="comfy-faq">
+    {faqs.map((faq) => (
+      <>
+        <dt><strong>{faq.question}</strong></dt>
+        <dd>{faq.answer}</dd>
+      </>
+    ))}
+  </dl>
+</ArticleLayout>
+
+<style>
+  .comfy-table {
+    min-width: 46rem;
+  }
+
+  .comfy-table .good {
+    color: var(--signal);
+    font-weight: 650;
+  }
+
+  .comfy-table .bad {
+    color: var(--warn);
+    font-weight: 650;
+  }
+
+  .comfy-service {
+    padding-block: var(--space-s);
+    border-block-end: 1px solid var(--line);
+  }
+
+  .comfy-facts {
+    display: grid;
+    gap: 0.4rem;
+    margin-block: var(--space-2xs);
+  }
+
+  .comfy-facts > div {
+    display: grid;
+    gap: 0.1rem;
+  }
+
+  .comfy-facts dt {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-subtle);
+    font-weight: 600;
+  }
+
+  .comfy-facts dd {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--ink-muted);
+  }
+
+  .comfy-verdict {
+    padding: var(--space-2xs) var(--space-xs);
+    border-inline-start: 3px solid var(--signal);
+    background: var(--surface-sunken);
+    border-radius: 0 var(--radius-m) var(--radius-m) 0;
+  }
+
+  .comfy-sources {
+    font-size: 0.75rem !important;
+    color: var(--ink-subtle);
+  }
+
+  .comfy-faq {
+    display: grid;
+    gap: var(--space-s);
+  }
+
+  .comfy-faq dd {
+    margin: 0.2rem 0 0;
+    color: var(--ink-muted);
+  }
+</style>

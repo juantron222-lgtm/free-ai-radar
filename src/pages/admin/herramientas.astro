@@ -1,0 +1,240 @@
+---
+import AdminLayout from '@layouts/AdminLayout.astro';
+import { getAllTools } from '@lib/data/catalog';
+import { getCategory, getFreeModel } from '@lib/domain/taxonomy';
+import { ROUTES } from '@lib/nav';
+
+export const prerender = false;
+
+const tools = getAllTools();
+
+/** Slug collisions would break routing silently; surfaced here instead. */
+const slugCounts = new Map<string, number>();
+for (const tool of tools) slugCounts.set(tool.slug, (slugCounts.get(tool.slug) ?? 0) + 1);
+const duplicates = [...slugCounts.entries()].filter(([, count]) => count > 1);
+
+function unverifiedCount(tool: (typeof tools)[number]): number {
+  return [
+    tool.freePlan.requiresCreditCard,
+    tool.freePlan.requiresSignup,
+    tool.freePlan.hasWatermark,
+    tool.freePlan.commercialUse,
+    tool.openSource,
+    tool.privacy.trainsOnUserData,
+    tool.privacy.optOutAvailable,
+  ].filter((value) => value === 'unverified').length;
+}
+---
+
+<AdminLayout
+  title="Herramientas"
+  heading="Herramientas"
+  lede="El catálogo completo con su estado de verificación. Editar el contenido requiere Supabase configurado; sin él, el catálogo se gestiona con el flujo de ficheros descrito abajo."
+>
+  {duplicates.length > 0 && (
+    <p class="admin-alert" role="alert">
+      <strong>Slugs duplicados detectados:</strong> {duplicates.map(([slug]) => slug).join(', ')}.
+      Hay que resolverlo antes de publicar.
+    </p>
+  )}
+
+  <div class="tools-toolbar">
+    <label class="sr-only" for="filter">Filtrar herramientas</label>
+    <input
+      type="search"
+      id="filter"
+      class="input tools-filter"
+      placeholder="Filtrar por nombre, categoría o slug…"
+      data-admin-filter
+    />
+    <span class="tools-count tnum" data-admin-count>{tools.length}</span>
+  </div>
+
+  <div class="table-scroll">
+    <table class="data-table tools-table">
+      <caption class="sr-only">Catálogo completo con estado editorial</caption>
+      <thead>
+        <tr>
+          <th scope="col">Herramienta</th>
+          <th scope="col">Categoría</th>
+          <th scope="col">Modelo</th>
+          <th scope="col">Punt.</th>
+          <th scope="col">Sin verificar</th>
+          <th scope="col">Verificada</th>
+          <th scope="col">Estado</th>
+          <th scope="col"><span class="sr-only">Acciones</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        {tools.map((tool) => {
+          const unverified = unverifiedCount(tool);
+          return (
+            <tr
+              data-admin-row
+              data-search={`${tool.name} ${tool.slug} ${getCategory(tool.categorySlug)?.name ?? ''}`.toLowerCase()}
+            >
+              <th scope="row">
+                <span class="tool-name">{tool.name}</span>
+                <code class="tool-slug">{tool.slug}</code>
+              </th>
+              <td>{getCategory(tool.categorySlug)?.name}</td>
+              <td>{getFreeModel(tool.freeModel).label}</td>
+              <td class="tnum">{tool.scoreTotal}</td>
+              <td class="tnum">
+                {unverified > 0 ? <span class="warn-num">{unverified}</span> : '—'}
+              </td>
+              <td class="tnum">
+                <span class={tool.freshness === 'fresh' ? '' : 'warn-num'}>
+                  {tool.daysSinceVerified} d
+                </span>
+              </td>
+              <td>
+                <span class={`chip ${tool.sponsorship.isSponsored ? 'chip-info' : ''}`}>
+                  {tool.sponsorship.isSponsored ? 'Patrocinada' : 'Editorial'}
+                </span>
+              </td>
+              <td>
+                <a href={ROUTES.tool(tool.slug)} class="btn btn-ghost btn-sm" target="_blank">
+                  Ver<span class="sr-only"> {tool.name} en el sitio público</span>
+                </a>
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+
+  <section class="admin-panel" aria-labelledby="flow-title">
+    <h2 id="flow-title" class="admin-panel-title">Cómo se publica una ficha</h2>
+    <ol class="flow">
+      <li>
+        <strong>Editar.</strong> Con Supabase configurado, desde este panel escribiendo en la tabla
+        <code>tools</code>. Sin él, editando <code>src/data/tools.json</code>.
+      </li>
+      <li>
+        <strong>Normalizar.</strong> <code>npm run data:migrate:dry</code> valida y muestra el
+        informe sin escribir nada. Después <code>npm run data:migrate</code>.
+      </li>
+      <li>
+        <strong>Verificar.</strong> El build falla si una alternativa apunta a un slug inexistente o
+        si una categoría está fuera de la taxonomía. No hay forma de publicar un enlace roto.
+      </li>
+      <li>
+        <strong>Publicar.</strong> El fichero generado se commitea, de modo que cada cambio de
+        contenido queda como un diff revisable.
+      </li>
+      <li>
+        <strong>Revertir.</strong> <code>supabase/seed/rollback.sql</code> deshace exactamente las
+        filas que insertó la migración, sin tocar datos de usuario.
+      </li>
+    </ol>
+    <p class="admin-note">
+      Las puntuaciones nunca se escriben a mano: se derivan de los cinco componentes en cada lectura,
+      así que una ficha no puede mostrar un número que contradiga sus propios datos.
+    </p>
+  </section>
+</AdminLayout>
+
+<style>
+  .admin-alert {
+    margin: 0 0 var(--space-s);
+    padding: 0.7rem 0.9rem;
+    border-radius: var(--radius-m);
+    background: var(--alert-soft);
+    border: 1px solid var(--alert-line);
+    color: var(--alert);
+    font-size: 0.875rem;
+  }
+
+  .tools-toolbar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    margin-block-end: var(--space-s);
+  }
+
+  .tools-filter {
+    max-width: 24rem;
+  }
+
+  .tools-count {
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+    font-weight: 600;
+  }
+
+  .tools-table {
+    min-width: 56rem;
+    font-size: 0.875rem;
+  }
+
+  .tool-name {
+    display: block;
+    font-weight: 650;
+  }
+
+  .tool-slug {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-subtle);
+  }
+
+  .warn-num {
+    color: var(--warn);
+    font-weight: 700;
+  }
+
+  .admin-panel {
+    margin-block-start: var(--space-l);
+    padding: var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface-sunken);
+  }
+
+  .admin-panel-title {
+    font-size: 1rem;
+    margin-block-end: var(--space-2xs);
+  }
+
+  .flow {
+    margin: 0;
+    padding-inline-start: 1.3em;
+    display: grid;
+    gap: 0.4rem;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .admin-note {
+    margin: var(--space-s) 0 0;
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--surface);
+    padding: 0.1em 0.35em;
+    border-radius: var(--radius-s);
+  }
+</style>
+
+<script>
+  const filter = document.querySelector<HTMLInputElement>('[data-admin-filter]');
+  const count = document.querySelector<HTMLElement>('[data-admin-count]');
+  const rows = Array.from(document.querySelectorAll<HTMLTableRowElement>('[data-admin-row]'));
+
+  filter?.addEventListener('input', () => {
+    const term = filter.value.trim().toLowerCase();
+    let visible = 0;
+    for (const row of rows) {
+      const match = !term || (row.dataset['search'] ?? '').includes(term);
+      row.hidden = !match;
+      if (match) visible++;
+    }
+    if (count) count.textContent = String(visible);
+  });
+</script>

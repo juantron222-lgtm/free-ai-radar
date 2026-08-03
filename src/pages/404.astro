@@ -1,51 +1,127 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getAllTools, getPopulatedCategories } from '@lib/data/catalog';
+import { ROUTES } from '@lib/nav';
+
+const popular = getAllTools().slice(0, 5);
+const categories = getPopulatedCategories().slice(0, 6);
 ---
 
 <BaseLayout
   title="Página no encontrada"
-  description="Esta ruta no existe, ha cambiado o ya no está disponible en Free AI Radar."
+  description="La página que buscas no existe o ha cambiado de dirección."
+  noindex
 >
-  <Header />
-
-  <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
-    <!-- Icono -->
-    <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-[var(--color-radar-card)] border border-[var(--color-radar-border)] mb-8 mx-auto">
-      <span class="text-5xl" aria-hidden="true">📡</span>
-    </div>
-
-    <h1 class="text-3xl md:text-4xl font-extrabold text-[var(--color-radar-text)] mb-4">
-      Página no encontrada
-    </h1>
-
-    <p class="text-[var(--color-radar-text-muted)] text-lg max-w-md mx-auto mb-10 leading-relaxed">
-      Esta ruta no existe, ha cambiado o ya no está disponible.
+  <div class="page notfound">
+    <p class="eyebrow">Error 404</p>
+    <h1 class="notfound-title">Aquí no hay nada</h1>
+    <p class="notfound-lede">
+      Esta dirección no existe o ha cambiado. Si has llegado desde un enlace nuestro,
+      <a href={ROUTES.contact}>avísanos</a> y lo arreglamos.
     </p>
 
-    <!-- Acciones -->
-    <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
-      <a
-        href="/"
-        class="px-6 py-3 bg-[var(--color-radar-accent)] text-white font-semibold rounded-xl hover:bg-[var(--color-radar-accent-glow)] transition-all w-full sm:w-auto text-center"
-      >
-        📡 Volver al radar
-      </a>
-      <a
-        href="/tools"
-        class="px-6 py-3 bg-[var(--color-radar-card)] border border-[var(--color-radar-border)] text-[var(--color-radar-text)] font-semibold rounded-xl hover:border-[var(--color-radar-accent)]/50 transition-all w-full sm:w-auto text-center"
-      >
-        🔍 Explorar herramientas
-      </a>
-      <a
-        href="/creators"
-        class="px-6 py-3 text-[var(--color-radar-text-muted)] font-semibold rounded-xl hover:text-[var(--color-radar-text)] hover:bg-[var(--color-radar-card)] transition-all w-full sm:w-auto text-center"
-      >
-        🎨 Para creadores
-      </a>
-    </div>
-  </main>
+    <form action={ROUTES.tools} method="get" class="notfound-search" role="search">
+      <label class="sr-only" for="nf-q">Buscar en el catálogo</label>
+      <input type="search" id="nf-q" name="q" class="input" placeholder="Buscar una herramienta…" />
+      <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
 
-  <Footer />
+    <div class="notfound-cols">
+      <section aria-labelledby="nf-popular">
+        <h2 id="nf-popular" class="notfound-h2">Las mejor valoradas</h2>
+        <ul>
+          {popular.map((tool) => (
+            <li>
+              <a href={ROUTES.tool(tool.slug)}>{tool.name}</a>
+              <span class="tnum">{tool.scoreTotal}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section aria-labelledby="nf-cats">
+        <h2 id="nf-cats" class="notfound-h2">Por categoría</h2>
+        <ul>
+          {categories.map((category) => (
+            <li>
+              <a href={ROUTES.category(category.slug)}>{category.name}</a>
+              <span class="tnum">{category.count}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+  </div>
 </BaseLayout>
+
+<style>
+  .notfound {
+    padding-block: var(--space-2xl) var(--space-xl);
+    max-width: 46rem;
+  }
+
+  .notfound-title {
+    font-size: clamp(2rem, 1.6rem + 2vw, 3rem);
+    margin-block: 0.35rem var(--space-2xs);
+  }
+
+  .notfound-lede {
+    margin: 0 0 var(--space-m);
+    color: var(--ink-muted);
+    font-size: 1.0625rem;
+  }
+
+  .notfound-lede a {
+    color: var(--signal);
+  }
+
+  .notfound-search {
+    display: flex;
+    gap: var(--space-2xs);
+    max-width: 30rem;
+    margin-block-end: var(--space-l);
+  }
+
+  .notfound-cols {
+    display: grid;
+    gap: var(--space-m);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  }
+
+  .notfound-h2 {
+    font-size: 0.9375rem;
+    margin-block-end: var(--space-2xs);
+    padding-block-end: 0.3rem;
+    border-block-end: 1px solid var(--line);
+  }
+
+  .notfound-cols ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .notfound-cols li {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+    padding-block: 0.4rem;
+    border-block-end: 1px solid var(--line-hairline);
+    font-size: 0.9375rem;
+  }
+
+  .notfound-cols a {
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 550;
+  }
+
+  .notfound-cols a:hover {
+    text-decoration: underline;
+  }
+
+  .notfound-cols span {
+    color: var(--ink-subtle);
+    font-size: 0.8125rem;
+  }
+</style>

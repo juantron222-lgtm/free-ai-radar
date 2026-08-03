@@ -1,0 +1,172 @@
+---
+import AdminLayout from '@layouts/AdminLayout.astro';
+import { listSubmissions } from '@lib/data/inbox';
+import { getCategory } from '@lib/domain/taxonomy';
+
+export const prerender = false;
+
+const submissions = await listSubmissions(100);
+const pending = submissions.filter((submission) => submission.status === 'pending');
+---
+
+<AdminLayout
+  title="Herramientas propuestas"
+  heading="Propuestas pendientes"
+  lede="Herramientas que ha enviado la gente. Enviar no da preferencia ni garantiza publicación; se verifican con el mismo criterio que el resto."
+>
+  <p class="summary">
+    <strong class="tnum">{pending.length}</strong> sin revisar de
+    <strong class="tnum"> {submissions.length}</strong> recibidas.
+  </p>
+
+  {submissions.length === 0 ? (
+    <p class="empty">Todavía no hay propuestas.</p>
+  ) : (
+    <ul class="subs">
+      {submissions.map((submission) => (
+        <li class={`sub ${submission.status === 'pending' ? 'is-pending' : ''}`}>
+          <div class="sub-head">
+            <span class={`chip ${submission.status === 'pending' ? 'chip-warn' : 'chip-signal'}`}>
+              {submission.status === 'pending' ? 'Sin revisar' : submission.status}
+            </span>
+            <time datetime={submission.createdAt} class="sub-date tnum">
+              {new Date(submission.createdAt).toLocaleDateString('es-ES')}
+            </time>
+          </div>
+
+          <h2 class="sub-name">{submission.name}</h2>
+          <p class="sub-url">
+            <a href={submission.url} target="_blank" rel="nofollow noopener">{submission.url}</a>
+          </p>
+          {submission.categorySlug && (
+            <p class="sub-cat">
+              Categoría propuesta: {getCategory(submission.categorySlug)?.name ?? submission.categorySlug}
+            </p>
+          )}
+          <p class="sub-notes">{submission.notes}</p>
+          <p class="sub-meta">
+            {submission.email ? 'Dejó correo para avisar' : 'Sin correo de contacto'}
+          </p>
+        </li>
+      ))}
+    </ul>
+  )}
+
+  <section class="how" aria-labelledby="how-title">
+    <h2 id="how-title" class="how-title">Criterio de aceptación</h2>
+    <ul>
+      <li>Tiene una capa gratuita con la que se puede producir trabajo real, <em>o</em></li>
+      <li>es open source / ejecutable en local sin coste, <em>o</em></li>
+      <li>tiene mucha visibilidad y su «plan gratuito» no es lo que parece — documentarlo es el servicio.</li>
+    </ul>
+    <p class="note">
+      Si viene del propio equipo del producto, se acepta igual pero se declara en la ficha. Nunca se
+      acepta dinero por incluir ni por acelerar.
+    </p>
+  </section>
+</AdminLayout>
+
+<style>
+  .summary {
+    margin: 0 0 var(--space-s);
+    font-size: 0.9375rem;
+    color: var(--ink-muted);
+  }
+
+  .empty {
+    color: var(--ink-subtle);
+  }
+
+  .subs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .sub {
+    padding: var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface);
+  }
+
+  .sub.is-pending {
+    border-color: var(--warn-line);
+  }
+
+  .sub-head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+  }
+
+  .sub-date {
+    margin-inline-start: auto;
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+  }
+
+  .sub-name {
+    font-size: 1.0625rem;
+    margin-block: var(--space-2xs) 0.15rem;
+  }
+
+  .sub-url a {
+    color: var(--info);
+    font-size: 0.8125rem;
+    overflow-wrap: anywhere;
+  }
+
+  .sub-url {
+    margin: 0 0 var(--space-2xs);
+  }
+
+  .sub-cat {
+    margin: 0 0 var(--space-2xs);
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+  }
+
+  .sub-notes {
+    margin: 0 0 var(--space-2xs);
+    font-size: 0.9375rem;
+    color: var(--ink);
+    white-space: pre-wrap;
+  }
+
+  .sub-meta {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+  }
+
+  .how {
+    margin-block-start: var(--space-l);
+    padding: var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface-sunken);
+  }
+
+  .how-title {
+    font-size: 1rem;
+    margin-block-end: var(--space-2xs);
+  }
+
+  .how ul {
+    margin: 0;
+    padding-inline-start: 1.2em;
+    display: grid;
+    gap: 0.3rem;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .note {
+    margin: var(--space-2xs) 0 0;
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+  }
+</style>

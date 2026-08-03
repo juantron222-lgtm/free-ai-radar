@@ -1,0 +1,111 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { ROUTES } from '@lib/nav';
+
+const GUIDES = [
+  {
+    slug: 'comfyui-sin-gpu',
+    title: 'Usar ComfyUI sin GPU potente',
+    lede: 'Cuatro servicios en la nube comparados: cuál deja importar tus workflows, cuál permite nodos personalizados y cuánto dura su plan gratuito.',
+    updated: '2026-07-11',
+  },
+] as const;
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Guías', path: ROUTES.guides },
+];
+---
+
+<BaseLayout
+  title="Guías prácticas de IA gratuita"
+  description="Guías largas sobre cómo sacar partido a las herramientas de IA gratuitas sin pagar ni comprar hardware."
+  crumbs={crumbs}
+>
+  <div class="page guides">
+    <header>
+      <h1 class="guides-h1">Guías</h1>
+      <p class="guides-lede">
+        Cuando una ficha no basta. Guías largas sobre problemas concretos: cómo montar algo sin
+        pagar, qué alternativa elegir y dónde están las trampas.
+      </p>
+    </header>
+
+    <ul class="guides-list">
+      {GUIDES.map((guide) => (
+        <li>
+          <a href={ROUTES.guide(guide.slug)} class="card card-interactive guide-card">
+            <h2 class="guide-title">{guide.title}</h2>
+            <p class="guide-lede">{guide.lede}</p>
+            <p class="guide-meta">
+              Actualizada el
+              <time datetime={guide.updated}>
+                {new Date(`${guide.updated}T00:00:00Z`).toLocaleDateString('es-ES', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                  timeZone: 'UTC',
+                })}
+              </time>
+            </p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</BaseLayout>
+
+<style>
+  .guides {
+    padding-block: var(--space-m) var(--space-xl);
+    display: grid;
+    gap: var(--space-m);
+  }
+
+  .guides-h1 {
+    font-size: clamp(1.75rem, 1.4rem + 1.6vw, 2.6rem);
+    margin-block-end: var(--space-2xs);
+  }
+
+  .guides-lede {
+    margin: 0;
+    max-width: 56ch;
+    color: var(--ink-muted);
+  }
+
+  .guides-list {
+    display: grid;
+    gap: var(--space-s);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .guide-card {
+    display: grid;
+    gap: 0.35rem;
+    align-content: start;
+    height: 100%;
+    padding: var(--space-s);
+    text-decoration: none;
+  }
+
+  .guide-title {
+    font-size: 1.0625rem;
+    font-weight: 650;
+    margin: 0;
+  }
+
+  .guide-lede {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .guide-meta {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+  }
+</style>

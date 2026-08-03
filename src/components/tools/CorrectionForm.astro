@@ -1,0 +1,178 @@
+---
+interface Props {
+  toolSlug: string;
+  toolName: string;
+}
+const { toolSlug, toolName } = Astro.props;
+
+const FIELDS = [
+  { value: 'free_plan', label: 'Los límites del plan gratuito' },
+  { value: 'credit_card', label: 'Si pide tarjeta' },
+  { value: 'watermark', label: 'La marca de agua' },
+  { value: 'commercial_use', label: 'El uso comercial' },
+  { value: 'privacy', label: 'La privacidad' },
+  { value: 'link', label: 'Un enlace roto' },
+  { value: 'other', label: 'Otra cosa' },
+];
+---
+
+<section class="correction card" id="reportar" aria-labelledby="correction-title">
+  <div>
+    <p class="eyebrow">Corrección</p>
+    <h2 id="correction-title" class="correction-title">¿Hay algo aquí que ya no es cierto?</h2>
+    <p class="correction-lede">
+      Los planes gratuitos cambian sin avisar y no llegamos a todo. Si has visto que
+      {toolName} ya no funciona como decimos, dínoslo con la fuente y lo corregimos.
+    </p>
+  </div>
+
+  <form class="correction-form" method="post" action="/api/corrections" data-correction-form>
+    <input type="hidden" name="toolSlug" value={toolSlug} />
+    <div class="correction-hp" aria-hidden="true">
+      <label for="correction-website">No rellenes este campo</label>
+      <input type="text" id="correction-website" name="website" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <div class="field">
+      <label class="label" for="correction-field">¿Qué está mal?</label>
+      <select id="correction-field" name="field" class="select" required>
+        {FIELDS.map((field) => <option value={field.value}>{field.label}</option>)}
+      </select>
+    </div>
+
+    <div class="field">
+      <label class="label" for="correction-message">Qué has visto</label>
+      <textarea
+        id="correction-message"
+        name="message"
+        class="textarea"
+        rows="3"
+        required
+        minlength="10"
+        maxlength="1000"
+        placeholder="Ej.: desde el 1 de agosto el plan gratuito ya sólo permite 3 generaciones al día, no 20."
+      ></textarea>
+    </div>
+
+    <div class="field">
+      <label class="label" for="correction-evidence">
+        Enlace que lo demuestra <span class="hint">(opcional pero muy útil)</span>
+      </label>
+      <input
+        type="url"
+        id="correction-evidence"
+        name="evidenceUrl"
+        class="input"
+        placeholder="https://…"
+      />
+    </div>
+
+    <div class="field">
+      <label class="label" for="correction-email">
+        Tu correo <span class="hint">(opcional, sólo para avisarte cuando lo corrijamos)</span>
+      </label>
+      <input type="email" id="correction-email" name="email" class="input" autocomplete="email" />
+    </div>
+
+    <button type="submit" class="btn btn-secondary">Enviar corrección</button>
+    <p class="correction-result" role="status" data-correction-result hidden></p>
+  </form>
+</section>
+
+<style>
+  .correction {
+    padding: var(--space-s);
+    display: grid;
+    gap: var(--space-s);
+    background: var(--surface-sunken);
+  }
+
+  .correction-title {
+    font-size: 1.125rem;
+    margin-block: 0.15rem 0.35rem;
+  }
+
+  .correction-lede {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--ink-muted);
+    max-width: 52ch;
+  }
+
+  .correction-form {
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .correction-form .textarea {
+    min-height: 90px;
+    resize: vertical;
+  }
+
+  .correction-form button {
+    justify-self: start;
+  }
+
+  .correction-hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .correction-result {
+    margin: 0;
+    padding: 0.6rem 0.8rem;
+    border-radius: var(--radius-m);
+    font-size: 0.875rem;
+    font-weight: 550;
+  }
+
+  .correction-result[data-tone='ok'] {
+    background: var(--signal-soft);
+    border: 1px solid var(--signal-line);
+    color: var(--signal);
+  }
+
+  .correction-result[data-tone='error'] {
+    background: var(--alert-soft);
+    border: 1px solid var(--alert-line);
+    color: var(--alert);
+  }
+
+  @media (min-width: 52rem) {
+    .correction {
+      grid-template-columns: 1fr 1.2fr;
+      gap: var(--space-l);
+      padding: var(--space-l);
+    }
+  }
+</style>
+
+<script>
+  import { postForm } from '@lib/client/http';
+
+  const form = document.querySelector<HTMLFormElement>('[data-correction-form]');
+  const result = document.querySelector<HTMLElement>('[data-correction-result]');
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!result) return;
+
+    const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const original = submit.textContent;
+    submit.disabled = true;
+    submit.textContent = 'Enviando…';
+
+    const payload = await postForm(form.action, new FormData(form));
+
+    result.hidden = false;
+    result.dataset['tone'] = payload.ok ? 'ok' : 'error';
+    result.textContent = payload.message;
+    if (payload.ok) form.reset();
+
+    submit.disabled = false;
+    submit.textContent = original;
+  });
+</script>

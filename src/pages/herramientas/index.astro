@@ -1,0 +1,70 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ToolExplorer from '@components/discovery/ToolExplorer.astro';
+import { getAllTools, getCatalogStats } from '@lib/data/catalog';
+import { itemListSchema } from '@lib/seo/structured-data';
+import { ROUTES } from '@lib/nav';
+
+const tools = getAllTools();
+const stats = getCatalogStats();
+
+/**
+ * Indexing of filtered views.
+ *
+ * This page is prerendered, so its `<meta name="robots">` is baked at build
+ * time and cannot vary by query string. Filtered permutations are therefore
+ * kept out of the index by three mechanisms that *do* work on a static page:
+ *
+ *   1. `robots.txt` disallows every filter parameter, so a crawler never
+ *      fetches those URLs in the first place;
+ *   2. the canonical always points at this clean URL, so any permutation
+ *      discovered through a shared link consolidates here;
+ *   3. the explorer script swaps the robots meta to `noindex` as soon as a
+ *      filter is applied, covering crawlers that execute JavaScript.
+ *
+ * The page itself is, correctly, indexable.
+ */
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Herramientas', path: ROUTES.tools },
+];
+---
+
+<BaseLayout
+  title={`Las ${stats.total} herramientas de IA gratuitas que hemos verificado`}
+  description={`Catálogo completo con filtros por tarjeta, marca de agua, uso comercial, open source y ejecución local. ${stats.noCard} no piden tarjeta y ${stats.commercialUse} permiten uso comercial.`}
+  crumbs={crumbs}
+  schemas={[itemListSchema(tools, 'Herramientas de IA gratuitas verificadas')]}
+>
+  <div class="page listing">
+    <header class="listing-head">
+      <h1 class="listing-title">Herramientas verificadas</h1>
+      <p class="listing-lede">
+        Filtra por lo que de verdad decide: si piden tarjeta, si dejan marca de agua, si te dejan
+        usar el resultado para trabajar y si puedes ejecutarlo en tu equipo. Todos los filtros se
+        combinan y la URL resultante se puede compartir.
+      </p>
+    </header>
+
+    <ToolExplorer tools={tools} />
+  </div>
+</BaseLayout>
+
+<style>
+  .listing {
+    padding-block: var(--space-m) var(--space-xl);
+    display: grid;
+    gap: var(--space-m);
+  }
+
+  .listing-title {
+    font-size: clamp(1.75rem, 1.4rem + 1.6vw, 2.6rem);
+    margin-block-end: var(--space-2xs);
+  }
+
+  .listing-lede {
+    margin: 0;
+    max-width: 60ch;
+    color: var(--ink-muted);
+  }
+</style>

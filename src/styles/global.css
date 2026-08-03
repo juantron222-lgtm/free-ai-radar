@@ -1,28 +1,786 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-@theme {
-  --color-radar-bg: #070A0F;
-  --color-radar-surface: #0D131C;
-  --color-radar-card: #131B26;
-  --color-radar-border: rgba(255, 255, 255, 0.08);
-  --color-radar-accent: #74F7C0;
-  --color-radar-accent-glow: #74F7C0;
-  --color-radar-secondary: #789BFF;
-  --color-radar-yellow: #F2C66D;
-  --color-radar-red: #FF7B8F;
-  --color-radar-text: #F4F7FB;
-  --color-radar-text-muted: #98A2B3;
-  --font-sora: 'Sora', sans-serif;
+/* ==========================================================================
+   Free AI Radar — design system
+   --------------------------------------------------------------------------
+   Direction: editorial tech. It should read like a specialist publication that
+   happens to be a database, not like an AI landing page. No purple gradients,
+   no glow, no robots. What carries the identity instead:
+
+     · a warm paper / cold ink contrast that survives both colour schemes
+     · one accent — "signal" green — reserved for verified-free facts, so
+       colour actually means something instead of decorating
+     · tabular numerals everywhere a number can be compared
+     · a hairline rule language borrowed from print tables
+
+   Every colour is a semantic token. Components never reference a raw palette
+   value, so switching themes cannot leave a stranded hard-coded colour.
+   ========================================================================== */
+
+@layer base {
+  :root {
+    color-scheme: light;
+
+    /* --- Surfaces --- */
+    --paper: #fbfaf7;
+    --surface: #ffffff;
+    --surface-sunken: #f3f2ee;
+    --surface-raised: #ffffff;
+    --overlay: rgb(23 22 20 / 0.45);
+
+    /* --- Ink --- */
+    --ink: #16181d;
+    --ink-strong: #000000;
+    --ink-muted: #5a6070;
+    --ink-subtle: #82889a;
+    --ink-inverse: #fbfaf7;
+
+    /* --- Lines --- */
+    --line: #e3e1da;
+    --line-strong: #cdcabf;
+    --line-hairline: rgb(22 24 29 / 0.08);
+
+    /* --- Signal: the one accent. Means "verified free". --- */
+    --signal: #0a7150;
+    --signal-strong: #075439;
+    --signal-soft: #e4f4ed;
+    --signal-line: #a8d8c4;
+    --on-signal: #ffffff;
+
+    /* --- Status --- */
+    --warn: #a1590a;
+    --warn-soft: #fdf1e0;
+    --warn-line: #eccfa2;
+    --alert: #b02020;
+    --alert-soft: #fdeaea;
+    --alert-line: #eeb4b4;
+    --info: #1d4ed8;
+    --info-soft: #e8eefc;
+    --info-line: #b6c9f5;
+    --neutral-soft: #f0efeb;
+
+    /* --- Focus --- */
+    --focus: #1d4ed8;
+
+    /* --- Type --- */
+    --font-display: 'Segoe UI Variable Display', 'SF Pro Display', -apple-system,
+      BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-text: 'Segoe UI Variable Text', 'SF Pro Text', -apple-system, BlinkMacSystemFont,
+      'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-mono: ui-monospace, 'Cascadia Code', 'SF Mono', 'JetBrains Mono', Menlo, Consolas,
+      monospace;
+
+    /* --- Space scale (1.5 ratio, 4px base) --- */
+    --space-3xs: 0.25rem;
+    --space-2xs: 0.5rem;
+    --space-xs: 0.75rem;
+    --space-s: 1rem;
+    --space-m: 1.5rem;
+    --space-l: 2.25rem;
+    --space-xl: 3.5rem;
+    --space-2xl: 5rem;
+    --space-3xl: 7rem;
+
+    --radius-s: 4px;
+    --radius-m: 8px;
+    --radius-l: 14px;
+    --radius-full: 999px;
+
+    --shadow-s: 0 1px 2px rgb(22 24 29 / 0.06);
+    --shadow-m: 0 2px 4px rgb(22 24 29 / 0.05), 0 8px 20px -8px rgb(22 24 29 / 0.12);
+    --shadow-l: 0 4px 8px rgb(22 24 29 / 0.06), 0 24px 48px -16px rgb(22 24 29 / 0.18);
+
+    --measure: 68ch;
+    --page-max: 1240px;
+  }
+
+  /* Dark is opt-in via [data-theme], and the default when the OS asks for it. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+      color-scheme: dark;
+
+      --paper: #0c0e11;
+      --surface: #14171c;
+      --surface-sunken: #0a0c0f;
+      --surface-raised: #1b1f26;
+      --overlay: rgb(0 0 0 / 0.6);
+
+      --ink: #e7e9ec;
+      --ink-strong: #ffffff;
+      --ink-muted: #9aa2b1;
+      --ink-subtle: #737c8c;
+      --ink-inverse: #0c0e11;
+
+      --line: #262b33;
+      --line-strong: #39404b;
+      --line-hairline: rgb(231 233 236 / 0.09);
+
+      --signal: #4ade9f;
+      --signal-strong: #7cebbb;
+      --signal-soft: #0f2a20;
+      --signal-line: #1f4d3a;
+      --on-signal: #06231a;
+
+      --warn: #f2b45c;
+      --warn-soft: #2b2013;
+      --warn-line: #4d3a1c;
+      --alert: #f78888;
+      --alert-soft: #2c1618;
+      --alert-line: #522527;
+      --info: #8ab0f8;
+      --info-soft: #141d30;
+      --info-line: #26375c;
+      --neutral-soft: #1a1e24;
+
+      --focus: #8ab0f8;
+
+      --shadow-s: 0 1px 2px rgb(0 0 0 / 0.4);
+      --shadow-m: 0 2px 4px rgb(0 0 0 / 0.3), 0 8px 20px -8px rgb(0 0 0 / 0.6);
+      --shadow-l: 0 4px 8px rgb(0 0 0 / 0.35), 0 24px 48px -16px rgb(0 0 0 / 0.7);
+    }
+  }
+
+  /* Explicit choice always wins over the OS preference. */
+  :root[data-theme='dark'] {
+    color-scheme: dark;
+
+    --paper: #0c0e11;
+    --surface: #14171c;
+    --surface-sunken: #0a0c0f;
+    --surface-raised: #1b1f26;
+    --overlay: rgb(0 0 0 / 0.6);
+
+    --ink: #e7e9ec;
+    --ink-strong: #ffffff;
+    --ink-muted: #9aa2b1;
+    --ink-subtle: #737c8c;
+    --ink-inverse: #0c0e11;
+
+    --line: #262b33;
+    --line-strong: #39404b;
+    --line-hairline: rgb(231 233 236 / 0.09);
+
+    --signal: #4ade9f;
+    --signal-strong: #7cebbb;
+    --signal-soft: #0f2a20;
+    --signal-line: #1f4d3a;
+    --on-signal: #06231a;
+
+    --warn: #f2b45c;
+    --warn-soft: #2b2013;
+    --warn-line: #4d3a1c;
+    --alert: #f78888;
+    --alert-soft: #2c1618;
+    --alert-line: #522527;
+    --info: #8ab0f8;
+    --info-soft: #141d30;
+    --info-line: #26375c;
+    --neutral-soft: #1a1e24;
+
+    --focus: #8ab0f8;
+
+    --shadow-s: 0 1px 2px rgb(0 0 0 / 0.4);
+    --shadow-m: 0 2px 4px rgb(0 0 0 / 0.3), 0 8px 20px -8px rgb(0 0 0 / 0.6);
+    --shadow-l: 0 4px 8px rgb(0 0 0 / 0.35), 0 24px 48px -16px rgb(0 0 0 / 0.7);
+  }
 }
 
-body {
-  background-color: var(--color-radar-bg);
-  color: var(--color-radar-text);
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  -webkit-font-smoothing: antialiased;
+/* Expose the semantic tokens to Tailwind as `bg-surface`, `text-ink`, etc.
+   `inline` keeps them as `var()` references so runtime theme switching works. */
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-sunken: var(--surface-sunken);
+  --color-raised: var(--surface-raised);
+  --color-ink: var(--ink);
+  --color-ink-strong: var(--ink-strong);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-subtle: var(--ink-subtle);
+  --color-ink-inverse: var(--ink-inverse);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-signal: var(--signal);
+  --color-signal-strong: var(--signal-strong);
+  --color-signal-soft: var(--signal-soft);
+  --color-signal-line: var(--signal-line);
+  --color-on-signal: var(--on-signal);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-warn-line: var(--warn-line);
+  --color-alert: var(--alert);
+  --color-alert-soft: var(--alert-soft);
+  --color-alert-line: var(--alert-line);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-info-line: var(--info-line);
+  --color-neutral-soft: var(--neutral-soft);
+
+  --font-display: var(--font-display);
+  --font-text: var(--font-text);
+  --font-mono: var(--font-mono);
+
+  --radius-s: var(--radius-s);
+  --radius-m: var(--radius-m);
+  --radius-l: var(--radius-l);
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-sora);
-  letter-spacing: -0.02em;
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-text);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'kern' 1;
+    min-height: 100dvh;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    color: var(--ink-strong);
+    letter-spacing: -0.021em;
+    line-height: 1.15;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  p,
+  li {
+    text-wrap: pretty;
+  }
+
+  /* Any number a reader might compare gets tabular figures. */
+  .tnum,
+  table,
+  time,
+  [data-numeric] {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
+  }
+
+  a {
+    color: inherit;
+    text-underline-offset: 0.18em;
+    text-decoration-thickness: from-font;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: var(--radius-s);
+  }
+
+  /* Remove the default outline only where we draw our own. */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  img,
+  svg,
+  video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  ::selection {
+    background: var(--signal-soft);
+    color: var(--ink-strong);
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px solid var(--line);
+    margin: var(--space-l) 0;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+}
+
+@layer components {
+  .page {
+    width: 100%;
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding-inline: var(--space-s);
+  }
+
+  @media (min-width: 48rem) {
+    .page {
+      padding-inline: var(--space-m);
+    }
+  }
+
+  .prose {
+    max-width: var(--measure);
+  }
+
+  .prose h2 {
+    font-size: clamp(1.35rem, 1.1rem + 1.1vw, 1.75rem);
+    margin-block: var(--space-l) var(--space-s);
+  }
+
+  .prose h3 {
+    font-size: clamp(1.1rem, 1rem + 0.5vw, 1.3rem);
+    margin-block: var(--space-m) var(--space-2xs);
+  }
+
+  .prose p,
+  .prose ul,
+  .prose ol {
+    margin-block: 0 var(--space-s);
+  }
+
+  .prose ul,
+  .prose ol {
+    padding-inline-start: 1.35em;
+  }
+
+  .prose li {
+    margin-block: var(--space-3xs);
+  }
+
+  .prose a {
+    color: var(--signal);
+    text-decoration: underline;
+  }
+
+  .prose a:hover {
+    color: var(--signal-strong);
+  }
+
+  .prose strong {
+    color: var(--ink-strong);
+    font-weight: 650;
+  }
+
+  /* --- Eyebrow: the small caps label used above every section heading --- */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-subtle);
+    font-weight: 600;
+  }
+
+  /* --- Card --- */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    transition:
+      border-color 160ms ease,
+      box-shadow 160ms ease,
+      transform 160ms ease;
+  }
+
+  .card-interactive:hover {
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow-m);
+  }
+
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .card-interactive:hover {
+      transform: translateY(-2px);
+    }
+  }
+
+  .card-interactive:focus-within {
+    border-color: var(--focus);
+  }
+
+  /* --- Buttons --- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2xs);
+    padding: 0.625rem 1.125rem;
+    border-radius: var(--radius-m);
+    border: 1px solid transparent;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    line-height: 1.2;
+    cursor: pointer;
+    text-decoration: none;
+    /* WCAG 2.2 target size */
+    min-height: 44px;
+    transition:
+      background-color 140ms ease,
+      border-color 140ms ease,
+      color 140ms ease;
+  }
+
+  .btn:disabled,
+  .btn[aria-disabled='true'] {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .btn-primary {
+    background: var(--signal);
+    color: var(--on-signal);
+    border-color: var(--signal);
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background: var(--signal-strong);
+    border-color: var(--signal-strong);
+  }
+
+  .btn-secondary {
+    background: var(--surface);
+    color: var(--ink);
+    border-color: var(--line-strong);
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    background: var(--surface-sunken);
+    border-color: var(--ink-subtle);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink-muted);
+    border-color: transparent;
+  }
+
+  .btn-ghost:hover:not(:disabled) {
+    background: var(--surface-sunken);
+    color: var(--ink);
+  }
+
+  .btn-sm {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.8125rem;
+    min-height: 36px;
+  }
+
+  /* --- Form controls --- */
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xs);
+  }
+
+  .label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .input,
+  .select,
+  .textarea {
+    width: 100%;
+    padding: 0.625rem 0.75rem;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-m);
+    color: var(--ink);
+    min-height: 44px;
+  }
+
+  .input::placeholder,
+  .textarea::placeholder {
+    color: var(--ink-subtle);
+  }
+
+  .input:focus-visible,
+  .select:focus-visible,
+  .textarea:focus-visible {
+    border-color: var(--focus);
+  }
+
+  .input[aria-invalid='true'],
+  .textarea[aria-invalid='true'] {
+    border-color: var(--alert);
+  }
+
+  .hint {
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+  }
+
+  .error-text {
+    font-size: 0.8125rem;
+    color: var(--alert);
+    font-weight: 500;
+  }
+
+  /* --- Chips / badges --- */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--line);
+    background: var(--neutral-soft);
+    color: var(--ink-muted);
+    font-size: 0.75rem;
+    font-weight: 550;
+    white-space: nowrap;
+  }
+
+  .chip-signal {
+    background: var(--signal-soft);
+    border-color: var(--signal-line);
+    color: var(--signal);
+  }
+
+  .chip-warn {
+    background: var(--warn-soft);
+    border-color: var(--warn-line);
+    color: var(--warn);
+  }
+
+  .chip-alert {
+    background: var(--alert-soft);
+    border-color: var(--alert-line);
+    color: var(--alert);
+  }
+
+  .chip-info {
+    background: var(--info-soft);
+    border-color: var(--info-line);
+    color: var(--info);
+  }
+
+  /* --- Filter toggle: a real checkbox styled as a chip, so it stays
+         keyboard-operable and announces its checked state. --- */
+  .filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    padding: 0.45rem 0.8rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--ink-muted);
+    font-size: 0.8125rem;
+    font-weight: 550;
+    cursor: pointer;
+    white-space: nowrap;
+    min-height: 36px;
+    user-select: none;
+    transition:
+      background-color 140ms ease,
+      border-color 140ms ease,
+      color 140ms ease;
+  }
+
+  .filter-chip:hover {
+    border-color: var(--ink-subtle);
+    color: var(--ink);
+  }
+
+  .filter-chip:has(:checked) {
+    background: var(--signal-soft);
+    border-color: var(--signal);
+    color: var(--signal);
+  }
+
+  /* Checked state is carried by the tick glyph too, never by colour alone. */
+  .filter-chip:has(:checked) .filter-chip-tick {
+    opacity: 1;
+    width: 0.85em;
+  }
+
+  .filter-chip-tick {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    transition:
+      opacity 120ms ease,
+      width 120ms ease;
+  }
+
+  .filter-chip:focus-within {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  /* --- Data table --- */
+  .data-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.9375rem;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 0.75rem 0.875rem;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+
+  .data-table thead th {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-subtle);
+    font-weight: 650;
+    border-bottom: 1px solid var(--line-strong);
+    background: var(--surface);
+  }
+
+  .data-table tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .data-table th[scope='row'] {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* Wide tables scroll inside their own container, never the page. */
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface);
+  }
+
+  /* --- Skeletons --- */
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      var(--surface-sunken) 25%,
+      var(--neutral-soft) 50%,
+      var(--surface-sunken) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.4s ease-in-out infinite;
+    border-radius: var(--radius-m);
+  }
+
+  @keyframes skeleton-shimmer {
+    to {
+      background-position: -200% 0;
+    }
+  }
+
+  /* --- Accessible visually-hidden --- */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: var(--space-s);
+    top: -100%;
+    z-index: 100;
+    background: var(--signal);
+    color: var(--on-signal);
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-m);
+    font-weight: 600;
+    text-decoration: none;
+    transition: top 140ms ease;
+  }
+
+  .skip-link:focus {
+    top: var(--space-s);
+  }
+
+  /* --- Hairline rule with a label, the print-table motif --- */
+  .rule-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-s);
+    margin-block: var(--space-l);
+  }
+
+  .rule-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  /* --- Scrollbars that do not shout --- */
+  .scroll-x {
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+  }
+
+  .scroll-x::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .scroll-x::-webkit-scrollbar-thumb {
+    background: var(--line-strong);
+    border-radius: var(--radius-full);
+  }
+}
+
+@layer utilities {
+  .stack > * + * {
+    margin-block-start: var(--flow, var(--space-s));
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .grid-cards {
+    display: grid;
+    gap: var(--space-s);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+  }
+}
+
+/* Honour the user's motion preference everywhere, including third-party CSS. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

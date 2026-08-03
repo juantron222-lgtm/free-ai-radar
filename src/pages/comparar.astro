@@ -1,0 +1,430 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ScoreBadge from '@components/tools/ScoreBadge.astro';
+import { getAllTools, getTool } from '@lib/data/catalog';
+import { TRI_STATE_LABEL } from '@lib/domain/primitives';
+import {
+  CREDIT_RESET_LABEL,
+  HOSTING_LABEL,
+  SKILL_LEVEL_LABEL,
+  getCategory,
+  getFreeModel,
+} from '@lib/domain/taxonomy';
+import { ROUTES } from '@lib/nav';
+
+export const prerender = false;
+
+const MAX = 4;
+const MIN_INDEXABLE = 2;
+
+const requested = (Astro.url.searchParams.get('t') ?? '')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean)
+  .slice(0, MAX);
+
+const tools = requested.map((slug) => getTool(slug)).filter((t) => t !== undefined);
+const missing = requested.filter((slug) => !getTool(slug));
+const hasComparison = tools.length >= MIN_INDEXABLE;
+
+const allTools = getAllTools();
+const suggestions = allTools.filter((t) => !requested.includes(t.slug)).slice(0, 12);
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Comparar', path: ROUTES.compare },
+];
+
+const title = hasComparison
+  ? `${tools.map((t) => t.name).join(' vs ')}: ¿cuál es mejor gratis?`
+  : 'Comparador de herramientas de IA gratuitas';
+
+const description = hasComparison
+  ? `Comparativa lado a lado de ${tools.map((t) => t.name).join(', ')}: límites del plan gratuito, tarjeta, marca de agua, uso comercial, privacidad y puntuación.`
+  : 'Enfrenta hasta cuatro herramientas de IA y compara sus planes gratuitos condición por condición: tarjeta, marca de agua, uso comercial, licencia y privacidad.';
+
+/**
+ * A comparison URL is only indexable when it actually holds a comparison.
+ * The empty picker is a tool, not a document, and two-tool permutations are
+ * the ones with genuine search demand.
+ */
+const noindex = !hasComparison;
+
+interface Row {
+  label: string;
+  /** `fact` rows highlight the winner; `text` rows never do. */
+  kind: 'fact' | 'text' | 'list';
+  values: (tool: (typeof tools)[number]) => string | string[];
+  better?: (value: string) => boolean;
+}
+
+const ROWS: Row[] = [
+  { label: 'Puntuación', kind: 'fact', values: (t) => String(t.scoreTotal) },
+  { label: 'Modelo de gratuidad', kind: 'fact', values: (t) => getFreeModel(t.freeModel).label },
+  { label: 'Categoría', kind: 'fact', values: (t) => getCategory(t.categorySlug)?.name ?? '—' },
+  {
+    label: '¿Pide tarjeta?',
+    kind: 'fact',
+    values: (t) => TRI_STATE_LABEL[t.freePlan.requiresCreditCard],
+    better: (v) => v === 'No',
+  },
+  {
+    label: '¿Hay que registrarse?',
+    kind: 'fact',
+    values: (t) => TRI_STATE_LABEL[t.freePlan.requiresSignup],
+    better: (v) => v === 'No',
+  },
+  {
+    label: '¿Marca de agua?',
+    kind: 'fact',
+    values: (t) => TRI_STATE_LABEL[t.freePlan.hasWatermark],
+    better: (v) => v === 'No',
+  },
+  {
+    label: '¿Uso comercial?',
+    kind: 'fact',
+    values: (t) => TRI_STATE_LABEL[t.freePlan.commercialUse],
+    better: (v) => v === 'Sí',
+  },
+  {
+    label: '¿Open source?',
+    kind: 'fact',
+    values: (t) => TRI_STATE_LABEL[t.openSource],
+    better: (v) => v === 'Sí',
+  },
+  { label: 'Dónde se ejecuta', kind: 'fact', values: (t) => HOSTING_LABEL[t.hosting] },
+  { label: 'Nivel técnico', kind: 'fact', values: (t) => SKILL_LEVEL_LABEL[t.skillLevel] },
+  {
+    label: 'Renovación de créditos',
+    kind: 'fact',
+    values: (t) => CREDIT_RESET_LABEL[t.freePlan.creditReset],
+  },
+  {
+    label: '¿Se entrena con tus datos?',
+    kind: 'fact',
+    values: (t) => TRI_STATE_LABEL[t.privacy.trainsOnUserData],
+    better: (v) => v === 'No',
+  },
+  { label: 'Qué te dan gratis', kind: 'text', values: (t) => t.freePlan.summary },
+  { label: 'Límites', kind: 'list', values: (t) => t.freePlan.limits },
+  { label: 'En contra', kind: 'list', values: (t) => t.cons },
+  { label: 'Veredicto', kind: 'text', values: (t) => t.verdict },
+  {
+    label: 'Última verificación',
+    kind: 'fact',
+    values: (t) =>
+      new Date(`${t.lastVerifiedAt}T00:00:00Z`).toLocaleDateString('es-ES', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        timeZone: 'UTC',
+      }),
+  },
+];
+
+const winner = hasComparison
+  ? tools.reduce((best, tool) => (tool.scoreTotal > best.scoreTotal ? tool : best), tools[0]!)
+  : undefined;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  crumbs={crumbs}
+  noindex={noindex}
+  canonicalQuery={['t']}
+>
+  <div class="page compare-page">
+    <header>
+      <h1 class="compare-h1">
+        {hasComparison ? tools.map((t) => t.name).join(' vs ') : 'Comparador'}
+      </h1>
+      <p class="compare-lede">
+        {hasComparison
+          ? 'Los mismos datos verificados para todas, en las mismas filas. Sin ganadores prefabricados: la puntuación sale de la fórmula pública.'
+          : 'Elige entre dos y cuatro herramientas y las enfrentamos condición por condición. La URL resultante se puede compartir.'}
+      </p>
+    </header>
+
+    {missing.length > 0 && (
+      <p class="compare-missing" role="status">
+        No tenemos ficha de: {missing.join(', ')}. Se han quitado de la comparación.
+      </p>
+    )}
+
+    {hasComparison ? (
+      <>
+        {winner && (
+          <p class="compare-winner">
+            <strong>{winner.name}</strong> obtiene la puntuación más alta ({winner.scoreTotal}/100)
+            de las {tools.length} comparadas. Eso no la hace mejor para ti: mira la fila que más te
+            importe.
+          </p>
+        )}
+
+        <div class="table-scroll compare-scroll">
+          <table class="data-table compare-table">
+            <caption class="sr-only">
+              Comparativa de {tools.map((t) => t.name).join(', ')}
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col" class="compare-corner">Condición</th>
+                {tools.map((tool) => (
+                  <th scope="col">
+                    <a href={ROUTES.tool(tool.slug)} class="compare-tool-name">{tool.name}</a>
+                    <ScoreBadge score={tool.scoreTotal} size="sm" />
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {ROWS.map((row) => {
+                const cells = tools.map((tool) => row.values(tool));
+                const hasAny = cells.some((v) => (Array.isArray(v) ? v.length > 0 : v));
+                if (!hasAny) return null;
+                return (
+                  <tr>
+                    <th scope="row">{row.label}</th>
+                    {cells.map((value) => (
+                      <td>
+                        {Array.isArray(value) ? (
+                          value.length ? (
+                            <ul class="compare-list">
+                              {value.slice(0, 4).map((item) => <li>{item}</li>)}
+                            </ul>
+                          ) : (
+                            <span class="compare-empty">—</span>
+                          )
+                        ) : (
+                          <span
+                            class={
+                              row.better && row.better(value) ? 'compare-value is-better' : 'compare-value'
+                            }
+                          >
+                            {value || '—'}
+                          </span>
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="compare-actions">
+          <a class="btn btn-secondary btn-sm" href={ROUTES.compare}>Empezar de nuevo</a>
+          <button type="button" class="btn btn-ghost btn-sm" data-copy-link>Copiar enlace</button>
+        </div>
+      </>
+    ) : (
+      <section class="compare-picker" aria-labelledby="picker-title">
+        <h2 id="picker-title" class="compare-picker-title">Elige al menos dos</h2>
+        <form method="get" class="compare-form">
+          <fieldset>
+            <legend class="sr-only">Herramientas a comparar</legend>
+            <div class="compare-options">
+              {allTools.map((tool) => (
+                <label class="filter-chip">
+                  <input type="checkbox" name="t" value={tool.slug} class="sr-only" data-compare-pick />
+                  <span class="filter-chip-tick" aria-hidden="true">
+                    <svg width="11" height="11" viewBox="0 0 12 12"><path d="M2 6.4 4.6 9 10 3.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  {tool.name}
+                </label>
+              ))}
+            </div>
+          </fieldset>
+          <button type="submit" class="btn btn-primary" data-compare-submit disabled>
+            Comparar (<span data-compare-picked>0</span>)
+          </button>
+          <p class="hint">Máximo cuatro a la vez: más columnas dejan de ser legibles.</p>
+        </form>
+      </section>
+    )}
+
+    {hasComparison && suggestions.length > 0 && (
+      <section class="compare-more" aria-labelledby="more-title">
+        <h2 id="more-title" class="compare-more-title">Añadir otra</h2>
+        <ul class="compare-more-list">
+          {suggestions.slice(0, 8).map((tool) => (
+            <li>
+              <a
+                class="filter-chip"
+                href={`${ROUTES.compare}?t=${[...requested, tool.slug].slice(0, MAX).join(',')}`}
+              >
+                {tool.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .compare-page {
+    padding-block: var(--space-m) var(--space-xl);
+    display: grid;
+    gap: var(--space-m);
+  }
+
+  .compare-h1 {
+    font-size: clamp(1.6rem, 1.3rem + 1.5vw, 2.4rem);
+    margin-block-end: var(--space-2xs);
+  }
+
+  .compare-lede {
+    margin: 0;
+    max-width: 58ch;
+    color: var(--ink-muted);
+  }
+
+  .compare-missing {
+    margin: 0;
+    padding: 0.6rem 0.8rem;
+    border-radius: var(--radius-m);
+    background: var(--warn-soft);
+    border: 1px solid var(--warn-line);
+    color: var(--warn);
+    font-size: 0.875rem;
+  }
+
+  .compare-winner {
+    margin: 0;
+    padding: var(--space-xs) var(--space-s);
+    border-radius: var(--radius-m);
+    background: var(--surface-sunken);
+    border: 1px solid var(--line);
+    font-size: 0.9375rem;
+    color: var(--ink-muted);
+  }
+
+  .compare-winner strong {
+    color: var(--ink-strong);
+  }
+
+  .compare-table {
+    min-width: 46rem;
+  }
+
+  .compare-table thead th {
+    vertical-align: bottom;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  .compare-corner {
+    min-width: 11rem;
+  }
+
+  .compare-tool-name {
+    display: block;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--ink-strong);
+    text-transform: none;
+    letter-spacing: 0;
+    margin-block-end: 0.15rem;
+  }
+
+  .compare-value {
+    font-weight: 550;
+  }
+
+  /* Advantage is marked with a rule and weight as well as colour. */
+  .is-better {
+    color: var(--signal);
+    font-weight: 700;
+    box-shadow: inset 0 -2px 0 var(--signal-line);
+  }
+
+  .compare-list {
+    margin: 0;
+    padding-inline-start: 1.1em;
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .compare-empty {
+    color: var(--ink-subtle);
+  }
+
+  .compare-actions {
+    display: flex;
+    gap: var(--space-2xs);
+    flex-wrap: wrap;
+  }
+
+  .compare-picker-title,
+  .compare-more-title {
+    font-size: 1.125rem;
+    margin-block-end: var(--space-2xs);
+  }
+
+  .compare-form {
+    display: grid;
+    gap: var(--space-s);
+    justify-items: start;
+  }
+
+  .compare-form fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .compare-options,
+  .compare-more-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .compare-more-list a {
+    text-decoration: none;
+  }
+</style>
+
+<script>
+  const MAX = 4;
+  const picks = Array.from(document.querySelectorAll<HTMLInputElement>('[data-compare-pick]'));
+  const submit = document.querySelector<HTMLButtonElement>('[data-compare-submit]');
+  const counter = document.querySelector<HTMLElement>('[data-compare-picked]');
+
+  function sync() {
+    const selected = picks.filter((p) => p.checked);
+    if (counter) counter.textContent = String(selected.length);
+    if (submit) submit.disabled = selected.length < 2;
+    for (const pick of picks) {
+      pick.disabled = !pick.checked && selected.length >= MAX;
+    }
+  }
+
+  for (const pick of picks) pick.addEventListener('change', sync);
+  sync();
+
+  document.querySelector('[data-copy-link]')?.addEventListener('click', async (event) => {
+    const button = event.currentTarget as HTMLButtonElement;
+    try {
+      await navigator.clipboard.writeText(location.href);
+      button.textContent = 'Enlace copiado';
+    } catch {
+      button.textContent = 'Copia la URL de la barra';
+    }
+    window.setTimeout(() => {
+      button.textContent = 'Copiar enlace';
+    }, 2000);
+  });
+</script>

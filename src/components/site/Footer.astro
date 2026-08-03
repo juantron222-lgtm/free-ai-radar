@@ -1,0 +1,151 @@
+---
+import Logo from './Logo.astro';
+import { FOOTER_NAV } from '@lib/nav';
+import { getCatalogStats } from '@lib/data/catalog';
+import { SITE } from '@lib/seo/site';
+
+const stats = getCatalogStats();
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="page">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <Logo />
+        <p class="footer-pitch">
+          Verificamos herramientas de IA una por una y publicamos lo que encontramos: los límites
+          reales del plan gratuito, si piden tarjeta, si dejan marca de agua y si puedes usar el
+          resultado para trabajar.
+        </p>
+        <p class="footer-stat tnum">
+          <strong>{stats.total}</strong> herramientas verificadas ·
+          <strong>{stats.noCard}</strong> sin tarjeta ·
+          <strong>{stats.openSource}</strong> open source
+        </p>
+      </div>
+
+      <div class="footer-links">
+        {FOOTER_NAV.map((group) => (
+          <nav aria-labelledby={`footer-${group.title}`}>
+            <h2 class="eyebrow footer-heading" id={`footer-${group.title}`}>{group.title}</h2>
+            <ul>
+              {group.items.map((item) => (
+                <li><a href={item.href}>{item.label}</a></li>
+              ))}
+            </ul>
+          </nav>
+        ))}
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>
+        © {year} {SITE.name}. Proyecto editorial independiente.
+      </p>
+      <p class="footer-disclosure">
+        Algunos enlaces salientes pueden ser de afiliación y están etiquetados como tales.
+        <a href="/transparencia-afiliados">La afiliación nunca altera la puntuación editorial.</a>
+      </p>
+      <button type="button" class="btn btn-ghost btn-sm" data-open-consent>
+        Preferencias de cookies
+      </button>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-block-start: var(--space-2xl);
+    border-top: 1px solid var(--line);
+    background: var(--surface-sunken);
+    padding-block: var(--space-xl) var(--space-m);
+  }
+
+  .footer-top {
+    display: grid;
+    gap: var(--space-l);
+    grid-template-columns: 1fr;
+  }
+
+  .footer-brand {
+    max-width: 34rem;
+  }
+
+  .footer-pitch {
+    margin-block: var(--space-xs) var(--space-2xs);
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+  }
+
+  .footer-stat {
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+    margin: 0;
+  }
+
+  .footer-stat strong {
+    color: var(--ink);
+  }
+
+  .footer-links {
+    display: grid;
+    gap: var(--space-m);
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+
+  .footer-heading {
+    margin-block-end: var(--space-2xs);
+  }
+
+  .footer-links ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .footer-links a {
+    color: var(--ink-muted);
+    text-decoration: none;
+    font-size: 0.875rem;
+  }
+
+  .footer-links a:hover {
+    color: var(--ink-strong);
+    text-decoration: underline;
+  }
+
+  .footer-bottom {
+    margin-block-start: var(--space-l);
+    padding-block-start: var(--space-s);
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2xs) var(--space-s);
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+  }
+
+  .footer-bottom p {
+    margin: 0;
+  }
+
+  .footer-disclosure {
+    flex: 1;
+    min-width: 16rem;
+  }
+
+  .footer-disclosure a {
+    color: var(--ink-muted);
+  }
+
+  @media (min-width: 62rem) {
+    .footer-top {
+      grid-template-columns: 1.1fr 2fr;
+      gap: var(--space-2xl);
+    }
+  }
+</style>

@@ -1,0 +1,209 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { ROUTES } from '@lib/nav';
+import { SITE } from '@lib/seo/site';
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Contacto', path: ROUTES.contact },
+];
+
+const TOPICS = [
+  { value: 'correccion', label: 'Corregir un dato de una ficha' },
+  { value: 'herramienta', label: 'Proponer una herramienta' },
+  { value: 'publicidad', label: 'Publicidad o patrocinio' },
+  { value: 'datos', label: 'Privacidad y mis datos' },
+  { value: 'facturacion', label: 'Suscripción o facturación' },
+  { value: 'otro', label: 'Otra cosa' },
+];
+---
+
+<BaseLayout
+  title="Contacto"
+  description="Escríbenos para corregir un dato, proponer una herramienta, hablar de publicidad o ejercer tus derechos sobre tus datos."
+  crumbs={crumbs}
+>
+  <div class="page contact">
+    <div class="contact-intro">
+      <h1 class="contact-h1">Contacto</h1>
+      <p class="contact-lede">
+        Las correcciones tienen prioridad sobre todo lo demás. Si has visto un dato equivocado en
+        una ficha, lo más rápido es usar el formulario del final de esa misma ficha: nos llega con
+        el contexto ya asociado.
+      </p>
+      <ul class="contact-direct">
+        <li>
+          <strong>Correo directo</strong>
+          <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        </li>
+        <li>
+          <strong>Proponer una herramienta</strong>
+          <a href={ROUTES.submit}>Formulario de envío</a>
+        </li>
+        <li>
+          <strong>Tus datos personales</strong>
+          <a href={ROUTES.rights}>Cómo ejercer tus derechos</a>
+        </li>
+      </ul>
+    </div>
+
+    <form class="card contact-form" method="post" action="/api/contact" data-contact-form>
+      <div class="contact-hp" aria-hidden="true">
+        <label for="c-website">No rellenes este campo</label>
+        <input type="text" id="c-website" name="website" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <div class="field">
+        <label class="label" for="c-topic">¿De qué se trata?</label>
+        <select id="c-topic" name="subject" class="select" required>
+          {TOPICS.map((topic) => <option value={topic.value}>{topic.label}</option>)}
+        </select>
+      </div>
+
+      <div class="field">
+        <label class="label" for="c-name">Tu nombre</label>
+        <input type="text" id="c-name" name="name" class="input" required maxlength="80" autocomplete="name" />
+      </div>
+
+      <div class="field">
+        <label class="label" for="c-email">Tu correo</label>
+        <input type="email" id="c-email" name="email" class="input" required autocomplete="email" />
+        <p class="hint">Sólo lo usamos para responderte. No entra en ninguna lista.</p>
+      </div>
+
+      <div class="field">
+        <label class="label" for="c-message">Mensaje</label>
+        <textarea id="c-message" name="message" class="textarea" rows="6" required minlength="20" maxlength="2000"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+      <p class="contact-result" role="status" data-contact-result hidden></p>
+    </form>
+  </div>
+</BaseLayout>
+
+<style>
+  .contact {
+    padding-block: var(--space-m) var(--space-xl);
+    display: grid;
+    gap: var(--space-l);
+  }
+
+  .contact-h1 {
+    font-size: clamp(1.75rem, 1.4rem + 1.6vw, 2.6rem);
+    margin-block-end: var(--space-2xs);
+  }
+
+  .contact-lede {
+    margin: 0 0 var(--space-m);
+    color: var(--ink-muted);
+    max-width: 46ch;
+  }
+
+  .contact-direct {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .contact-direct li {
+    display: grid;
+    gap: 0.1rem;
+    padding-block-end: var(--space-2xs);
+    border-block-end: 1px solid var(--line-hairline);
+  }
+
+  .contact-direct strong {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-subtle);
+  }
+
+  .contact-direct a {
+    color: var(--signal);
+    font-weight: 550;
+  }
+
+  .contact-form {
+    padding: var(--space-s);
+    display: grid;
+    gap: var(--space-s);
+    justify-items: start;
+  }
+
+  .contact-form .field {
+    width: 100%;
+  }
+
+  .contact-form .textarea {
+    resize: vertical;
+    min-height: 8rem;
+  }
+
+  .contact-hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .contact-result {
+    margin: 0;
+    padding: 0.6rem 0.85rem;
+    border-radius: var(--radius-m);
+    font-size: 0.875rem;
+    font-weight: 550;
+    width: 100%;
+  }
+
+  .contact-result[data-tone='ok'] {
+    background: var(--signal-soft);
+    border: 1px solid var(--signal-line);
+    color: var(--signal);
+  }
+
+  .contact-result[data-tone='error'] {
+    background: var(--alert-soft);
+    border: 1px solid var(--alert-line);
+    color: var(--alert);
+  }
+
+  @media (min-width: 56rem) {
+    .contact {
+      grid-template-columns: 1fr 1.25fr;
+      gap: var(--space-2xl);
+      align-items: start;
+    }
+  }
+</style>
+
+<script>
+  import { postForm } from '@lib/client/http';
+
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+  const result = document.querySelector<HTMLElement>('[data-contact-result]');
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!result) return;
+
+    const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const original = submit.textContent;
+    submit.disabled = true;
+    submit.textContent = 'Enviando…';
+
+    const payload = await postForm(form.action, new FormData(form));
+
+    result.hidden = false;
+    result.dataset['tone'] = payload.ok ? 'ok' : 'error';
+    result.textContent = payload.message;
+    if (payload.ok) form.reset();
+
+    submit.disabled = false;
+    submit.textContent = original;
+  });
+</script>

@@ -1,0 +1,99 @@
+---
+import ArticleLayout from '@layouts/ArticleLayout.astro';
+import { getCatalogStats } from '@lib/data/catalog';
+import { ROUTES } from '@lib/nav';
+import { SITE } from '@lib/seo/site';
+
+const stats = getCatalogStats();
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Sobre el proyecto', path: ROUTES.about },
+];
+---
+
+<ArticleLayout
+  title="Sobre Free AI Radar"
+  description="Un proyecto editorial independiente que verifica qué herramientas de IA son gratis de verdad, con qué límites y a qué coste real."
+  heading="Sobre el proyecto"
+  lede="Por qué existe esto y cómo se sostiene."
+  crumbs={crumbs}
+  updatedAt={stats.lastVerifiedAt}
+>
+  <h2>El problema</h2>
+  <p>
+    Busca «mejores herramientas de IA gratis» y encontrarás cientos de listas. Casi todas comparten
+    los mismos defectos: copian las descripciones del fabricante, llaman «gratis» a una prueba de
+    siete días, no dicen que hace falta tarjeta, no mencionan la marca de agua y nunca aclaran si
+    puedes usar el resultado para trabajar. Muchas están ordenadas por quién paga más comisión.
+  </p>
+  <p>
+    El coste no es sólo tiempo perdido. Es empezar un proyecto sobre una herramienta que a mitad de
+    camino resulta que no permite uso comercial, o descubrir un cargo de 39 € que salió de una prueba
+    que se autorrenovó.
+  </p>
+
+  <h2>Lo que hacemos</h2>
+  <p>
+    Cogemos herramienta por herramienta y comprobamos, en la página oficial del fabricante, los datos
+    que de verdad deciden: si piden tarjeta, cuáles son los límites reales, si dejan marca de agua,
+    si permiten uso comercial, qué licencia tiene lo que generas y qué se hace con lo que subes.
+    Anotamos la fuente y la fecha de cada comprobación.
+  </p>
+  <p>
+    Cuando algo no se puede verificar, lo decimos. Un directorio que nunca dice «no lo sé» está
+    inventando en alguna parte.
+  </p>
+
+  <p class="stats-line tnum">
+    Ahora mismo: <strong>{stats.total}</strong> herramientas verificadas en
+    <strong>{stats.categories}</strong> categorías · <strong>{stats.noCard}</strong> sin tarjeta ·
+    <strong>{stats.commercialUse}</strong> con uso comercial · <strong>{stats.openSource}</strong>
+    open source.
+  </p>
+
+  <h2>Lo que no hacemos</h2>
+  <ul>
+    <li>No publicamos puntuaciones que no podamos justificar con datos de la propia ficha.</li>
+    <li>No aceptamos dinero por subir una puntuación ni por retirar una crítica.</li>
+    <li>No inventamos reseñas de usuarios ni marcamos valoraciones falsas para los buscadores.</li>
+    <li>No cargamos publicidad ni analítica antes de tu consentimiento.</li>
+    <li>No escondemos que un enlace es de afiliación.</li>
+  </ul>
+
+  <h2>Cómo se sostiene</h2>
+  <p>
+    Con afiliación declarada, patrocinios etiquetados y suscripciones a
+    <a href={ROUTES.pricing}> Radar Pro</a>. Las tres cosas están descritas en
+    <a href={ROUTES.advertising}> publicidad y patrocinios</a> y ninguna toca el criterio editorial:
+    esa separación está escrita en la <a href={ROUTES.editorialPolicy}>política editorial</a>.
+  </p>
+  <p>
+    El contenido es gratuito y va a seguir siéndolo. Sería bastante contradictorio poner un muro de
+    pago delante de una web sobre lo que es gratis de verdad.
+  </p>
+
+  <h2>Cómo ayudar</h2>
+  <ul>
+    <li><a href={ROUTES.submit}>Enviar una herramienta</a> que falte.</li>
+    <li>Reportar un dato desactualizado desde el formulario del final de cada ficha. Es lo más útil que puedes hacer.</li>
+    <li>Suscribirte a <a href={ROUTES.pricing}>Radar Pro</a> si el proyecto te ahorra tiempo.</li>
+  </ul>
+
+  <h2>Contacto</h2>
+  <p>
+    Desde <a href={ROUTES.contact}>la página de contacto</a> o escribiendo a
+    {' '}<a href={`mailto:${SITE.email}`}>{SITE.email}</a>. Las correcciones tienen prioridad sobre
+    todo lo demás.
+  </p>
+</ArticleLayout>
+
+<style>
+  .stats-line {
+    padding: var(--space-xs) var(--space-s);
+    border-radius: var(--radius-m);
+    background: var(--surface-sunken);
+    border: 1px solid var(--line);
+    font-size: 0.9375rem;
+  }
+</style>

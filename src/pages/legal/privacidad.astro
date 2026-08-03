@@ -1,0 +1,177 @@
+---
+import ArticleLayout from '@layouts/ArticleLayout.astro';
+import { supabase, stripe, email as emailConfig, analytics } from '@lib/config';
+import { ROUTES } from '@lib/nav';
+import { SITE } from '@lib/seo/site';
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Privacidad', path: ROUTES.privacy },
+];
+
+/** The processor list is derived from what is actually configured. */
+const processors = [
+  { name: 'Vercel Inc.', purpose: 'Alojamiento y entrega de la web', location: 'EE. UU. / UE', active: true },
+  { name: 'Supabase Inc.', purpose: 'Base de datos y autenticación', location: 'UE (región configurable)', active: supabase.isConfigured },
+  { name: 'Stripe Payments Europe Ltd.', purpose: 'Cobro de suscripciones y facturación', location: 'Irlanda', active: stripe.isConfigured },
+  { name: 'Resend Inc.', purpose: 'Envío de correo transaccional y boletín', location: 'EE. UU.', active: emailConfig.isConfigured },
+  { name: analytics.domain || 'Analítica', purpose: 'Medición agregada de uso', location: 'Según proveedor', active: analytics.hasAnalytics },
+  { name: 'Google Ireland Ltd. (AdSense)', purpose: 'Publicidad', location: 'Irlanda / EE. UU.', active: analytics.hasAds },
+].filter((p) => p.active);
+---
+
+<ArticleLayout
+  title="Política de privacidad"
+  description="Qué datos recogemos, para qué, cuánto los guardamos, con quién los compartimos y cómo ejercer tus derechos."
+  heading="Política de privacidad"
+  lede="Qué recogemos, por qué, cuánto lo guardamos y cómo lo borras."
+  crumbs={crumbs}
+  updatedAt="2026-08-03"
+  draftNotice
+>
+  <h2>Quién es el responsable</h2>
+  <p>
+    {SITE.legalName}, proyecto editorial con sede en España. Contacto para asuntos de datos:
+    <a href={`mailto:${SITE.email}`}> {SITE.email}</a>.
+  </p>
+  <p class="pending">
+    <strong>Pendiente antes de publicar:</strong> razón social completa, NIF, domicilio y, si
+    procede, delegado de protección de datos.
+  </p>
+
+  <h2>Qué datos tratamos y por qué</h2>
+  <table>
+    <thead>
+      <tr><th>Dato</th><th>Para qué</th><th>Base legal</th><th>Conservación</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Correo y contraseña (cifrada)</th>
+        <td>Crear y mantener tu cuenta</td>
+        <td>Ejecución del contrato (art. 6.1.b RGPD)</td>
+        <td>Hasta que elimines la cuenta</td>
+      </tr>
+      <tr>
+        <th scope="row">Nombre visible, idioma, intereses</th>
+        <td>Personalizar tu experiencia</td>
+        <td>Ejecución del contrato</td>
+        <td>Hasta que elimines la cuenta</td>
+      </tr>
+      <tr>
+        <th scope="row">Favoritos, listas, historial, alertas</th>
+        <td>Prestar las funciones de la cuenta</td>
+        <td>Ejecución del contrato</td>
+        <td>Hasta que elimines la cuenta</td>
+      </tr>
+      <tr>
+        <th scope="row">Correo del boletín + prueba de consentimiento</th>
+        <td>Enviarte el boletín que has pedido</td>
+        <td>Consentimiento (art. 6.1.a)</td>
+        <td>Hasta la baja + 3 años de la prueba de consentimiento</td>
+      </tr>
+      <tr>
+        <th scope="row">Datos de facturación</th>
+        <td>Cobrar la suscripción y emitir facturas</td>
+        <td>Contrato y obligación legal</td>
+        <td>6 años (obligación mercantil española)</td>
+      </tr>
+      <tr>
+        <th scope="row">Métricas agregadas de uso</th>
+        <td>Saber qué contenido merece mantenerse</td>
+        <td>Consentimiento</td>
+        <td>14 meses</td>
+      </tr>
+      <tr>
+        <th scope="row">IP (siempre en forma de hash)</th>
+        <td>Limitar abuso y registrar el consentimiento</td>
+        <td>Interés legítimo (art. 6.1.f) — seguridad</td>
+        <td>Registro de auditoría: 12 meses</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Lo que no hacemos</h2>
+  <ul>
+    <li>No vendemos ni cedemos tus datos a terceros con fines comerciales.</li>
+    <li>No cargamos analítica ni publicidad antes de tu consentimiento.</li>
+    <li>No guardamos direcciones IP en claro en ningún registro.</li>
+    <li>No hay decisiones automatizadas con efectos jurídicos ni elaboración de perfiles significativa.</li>
+    <li>No hace falta cuenta para leer nada del sitio.</li>
+  </ul>
+
+  <h2>Encargados del tratamiento</h2>
+  <p>Sólo aparecen los proveedores realmente activos en este entorno:</p>
+  <table>
+    <thead><tr><th>Proveedor</th><th>Finalidad</th><th>Ubicación</th></tr></thead>
+    <tbody>
+      {processors.map((processor) => (
+        <tr>
+          <th scope="row">{processor.name}</th>
+          <td>{processor.purpose}</td>
+          <td>{processor.location}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  <p>
+    Las transferencias fuera del Espacio Económico Europeo se amparan en las Cláusulas Contractuales
+    Tipo de la Comisión Europea y, cuando aplica, en el Marco de Privacidad de Datos UE-EE. UU.
+  </p>
+
+  <h2>Tus derechos</h2>
+  <p>Puedes ejercer todos estos derechos, gratis y sin justificar el motivo:</p>
+  <ul>
+    <li><strong>Acceso y portabilidad.</strong> Descarga inmediata desde <a href={ROUTES.settings}>Preferencias</a>, en JSON.</li>
+    <li><strong>Rectificación.</strong> Editable desde la propia cuenta.</li>
+    <li><strong>Supresión.</strong> Botón de eliminar cuenta en Preferencias. Es inmediato y definitivo.</li>
+    <li><strong>Oposición y limitación.</strong> Escríbenos a <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</li>
+    <li><strong>Retirar el consentimiento.</strong> En cualquier momento, sin afectar a lo anterior: <button type="button" class="link-button" data-open-consent>preferencias de cookies</button>.</li>
+  </ul>
+  <p>
+    Si crees que no hemos atendido bien tu solicitud, puedes reclamar ante la
+    <a href="https://www.aepd.es" rel="noopener" target="_blank"> Agencia Española de Protección de
+    Datos</a>.
+  </p>
+
+  <h2>Seguridad</h2>
+  <p>
+    Cifrado en tránsito y en reposo, contraseñas nunca almacenadas en claro, aislamiento de datos por
+    usuario mediante políticas a nivel de fila en la base de datos, y registro de auditoría de las
+    operaciones administrativas. Los detalles técnicos están en el repositorio, en
+    <code>docs/security-review.md</code>.
+  </p>
+
+  <h2>Menores</h2>
+  <p>
+    El servicio no está dirigido a menores de 14 años (edad de consentimiento digital en España). No
+    recogemos datos a sabiendas de menores de esa edad.
+  </p>
+
+  <h2>Cambios</h2>
+  <p>
+    Si cambiamos algo sustancial, lo anunciamos en el sitio y, cuando afecte a la base del
+    consentimiento, volvemos a pedirlo — no ampliamos en silencio el alcance de un permiso antiguo.
+  </p>
+
+  <p>Ver también: <a href={ROUTES.cookies}>política de cookies</a> · <a href={ROUTES.rights}>cómo ejercer tus derechos</a>.</p>
+</ArticleLayout>
+
+<style>
+  .pending {
+    padding: 0.6rem 0.85rem;
+    border-radius: var(--radius-m);
+    background: var(--warn-soft);
+    border: 1px solid var(--warn-line);
+    font-size: 0.875rem;
+  }
+
+  .link-button {
+    background: none;
+    border: 0;
+    padding: 0;
+    color: var(--signal);
+    text-decoration: underline;
+    cursor: pointer;
+    font: inherit;
+  }
+</style>

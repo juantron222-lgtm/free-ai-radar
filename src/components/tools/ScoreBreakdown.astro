@@ -1,0 +1,222 @@
+---
+import type { Tool } from '@lib/domain/tool';
+import { SCORE_WEIGHTS } from '@lib/domain/scoring';
+import { ROUTES } from '@lib/nav';
+
+interface Props {
+  tool: Tool;
+}
+
+const { tool } = Astro.props;
+
+const COMPONENT_LABELS: Record<keyof typeof SCORE_WEIGHTS, { name: string; question: string }> = {
+  freeReal: { name: 'Gratuidad real', question: '¿Se puede trabajar de verdad sin pagar?' },
+  usefulness: { name: 'Utilidad', question: '¿Hace bien lo que promete?' },
+  ease: { name: 'Facilidad', question: '¿Cuánto cuesta el primer resultado útil?' },
+  transparency: { name: 'Transparencia', question: '¿Documenta con claridad límites y derechos?' },
+  creatorValue: { name: 'Valor para creadores', question: '¿Sirve a quien produce por su cuenta?' },
+};
+
+const components = (Object.keys(SCORE_WEIGHTS) as Array<keyof typeof SCORE_WEIGHTS>).map((key) => ({
+  key,
+  ...COMPONENT_LABELS[key],
+  value: tool.scores[key],
+  weight: SCORE_WEIGHTS[key],
+  contribution: tool.scores[key] * SCORE_WEIGHTS[key] * 10,
+}));
+
+const { adjustments, base, total } = tool.scoreBreakdown;
+---
+
+<div class="breakdown">
+  <ul class="breakdown-components">
+    {components.map((component) => (
+      <li class="breakdown-row">
+        <div class="breakdown-label">
+          <span class="breakdown-name">{component.name}</span>
+          <span class="breakdown-question">{component.question}</span>
+        </div>
+        <div class="breakdown-meter">
+          {/* The bar is decorative; the number next to it carries the value. */}
+          <div class="breakdown-track" aria-hidden="true">
+            <div class="breakdown-fill" style={`width:${component.value * 10}%`}></div>
+          </div>
+          <span class="breakdown-value tnum">
+            {component.value}<span class="breakdown-max">/10</span>
+          </span>
+          <span class="breakdown-weight tnum">×{Math.round(component.weight * 100)}%</span>
+        </div>
+      </li>
+    ))}
+  </ul>
+
+  <table class="data-table breakdown-maths">
+    <caption class="sr-only">Cálculo de la puntuación de {tool.name}</caption>
+    <tbody>
+      <tr>
+        <th scope="row">Media ponderada</th>
+        <td class="tnum breakdown-num">{base.toFixed(1)}</td>
+      </tr>
+      {adjustments.map((adjustment) => (
+        <tr>
+          <th scope="row">
+            <span class="breakdown-adjustment">{adjustment.label}</span>
+            <span class="breakdown-reason">{adjustment.reason}</span>
+          </th>
+          <td class={`tnum breakdown-num ${adjustment.points < 0 ? 'is-penalty' : 'is-bonus'}`}>
+            {adjustment.points > 0 ? '+' : ''}{adjustment.points}
+          </td>
+        </tr>
+      ))}
+      <tr class="breakdown-total">
+        <th scope="row">Puntuación final</th>
+        <td class="tnum breakdown-num">{total}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="breakdown-note">
+    Los pesos son idénticos para todas las herramientas y están publicados en la
+    <a href={ROUTES.methodology}>metodología</a>. Un dato sin verificar nunca suma ni resta: sólo
+    los hechos confirmados mueven la cifra.
+  </p>
+</div>
+
+<style>
+  .breakdown {
+    display: grid;
+    gap: var(--space-s);
+    margin-block-start: var(--space-s);
+  }
+
+  .breakdown-components {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .breakdown-row {
+    display: grid;
+    gap: 0.3rem;
+    padding-block-end: var(--space-2xs);
+    border-block-end: 1px solid var(--line-hairline);
+  }
+
+  .breakdown-label {
+    display: grid;
+    gap: 0.05rem;
+  }
+
+  .breakdown-name {
+    font-weight: 600;
+    font-size: 0.9375rem;
+  }
+
+  .breakdown-question {
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+  }
+
+  .breakdown-meter {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+  }
+
+  .breakdown-track {
+    flex: 1;
+    height: 6px;
+    border-radius: var(--radius-full);
+    background: var(--surface-sunken);
+    border: 1px solid var(--line);
+    overflow: hidden;
+  }
+
+  .breakdown-fill {
+    height: 100%;
+    background: var(--signal);
+  }
+
+  .breakdown-value {
+    font-weight: 700;
+    font-size: 0.9375rem;
+    min-width: 3.2rem;
+    text-align: right;
+  }
+
+  .breakdown-max {
+    font-size: 0.72em;
+    color: var(--ink-subtle);
+    font-weight: 550;
+  }
+
+  .breakdown-weight {
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+    min-width: 2.8rem;
+    text-align: right;
+  }
+
+  .breakdown-maths {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-m);
+    overflow: hidden;
+  }
+
+  .breakdown-maths th {
+    font-weight: 550;
+    display: grid;
+    gap: 0.05rem;
+  }
+
+  .breakdown-adjustment {
+    font-weight: 600;
+  }
+
+  .breakdown-reason {
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+    font-weight: 400;
+  }
+
+  .breakdown-num {
+    text-align: right;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .is-penalty {
+    color: var(--alert);
+  }
+
+  .is-bonus {
+    color: var(--signal);
+  }
+
+  .breakdown-total th,
+  .breakdown-total td {
+    background: var(--surface-sunken);
+    font-size: 1.0625rem;
+    border-block-end: 0;
+  }
+
+  .breakdown-note {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+  }
+
+  .breakdown-note a {
+    color: var(--signal);
+  }
+
+  @media (min-width: 40rem) {
+    .breakdown-row {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+      align-items: center;
+      gap: var(--space-s);
+    }
+  }
+</style>

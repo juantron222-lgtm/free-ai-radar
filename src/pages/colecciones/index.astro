@@ -1,0 +1,104 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getPopulatedCollections } from '@lib/data/collections';
+import { ROUTES } from '@lib/nav';
+
+const collections = getPopulatedCollections();
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Colecciones', path: ROUTES.collections },
+];
+---
+
+<BaseLayout
+  title="Colecciones de herramientas de IA gratuitas"
+  description="Selecciones por la condición que más importa: sin tarjeta, con uso comercial, en local, open source o sin marca de agua."
+  crumbs={crumbs}
+>
+  <div class="page collections">
+    <header>
+      <h1 class="collections-h1">Colecciones</h1>
+      <p class="collections-lede">
+        Agrupadas por la condición que suele decidir la elección, no por popularidad. Cada colección
+        es una regla sobre datos verificados, así que se mantiene sola.
+      </p>
+    </header>
+
+    <ul class="collections-list">
+      {collections.map((collection) => (
+        <li>
+          <a href={ROUTES.collection(collection.slug)} class="card card-interactive collection-card">
+            <div class="collection-head">
+              <h2 class="collection-title">{collection.h1}</h2>
+              <span class="collection-count tnum">{collection.count}</span>
+            </div>
+            <p class="collection-lede">{collection.lede}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</BaseLayout>
+
+<style>
+  .collections {
+    padding-block: var(--space-m) var(--space-xl);
+    display: grid;
+    gap: var(--space-m);
+  }
+
+  .collections-h1 {
+    font-size: clamp(1.75rem, 1.4rem + 1.6vw, 2.6rem);
+    margin-block-end: var(--space-2xs);
+  }
+
+  .collections-lede {
+    margin: 0;
+    max-width: 58ch;
+    color: var(--ink-muted);
+  }
+
+  .collections-list {
+    display: grid;
+    gap: var(--space-s);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 21rem), 1fr));
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .collection-card {
+    display: grid;
+    gap: 0.35rem;
+    align-content: start;
+    height: 100%;
+    padding: var(--space-s);
+    text-decoration: none;
+  }
+
+  .collection-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+  }
+
+  .collection-title {
+    font-size: 1.0625rem;
+    font-weight: 650;
+    margin: 0;
+  }
+
+  .collection-count {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--signal);
+  }
+
+  .collection-lede {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+</style>

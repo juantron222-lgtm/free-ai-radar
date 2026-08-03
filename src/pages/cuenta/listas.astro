@@ -1,0 +1,233 @@
+---
+import AccountLayout from '@layouts/AccountLayout.astro';
+import { getUserData, MAX_LISTS_FREE } from '@lib/data/user-data';
+import { getTool } from '@lib/data/catalog';
+import { CSRF_FIELD } from '@lib/security/csrf';
+import { ROUTES } from '@lib/nav';
+
+export const prerender = false;
+
+const user = Astro.locals.user!;
+const data = await getUserData(user.id);
+const atLimit = user.plan === 'free' && data.lists.length >= MAX_LISTS_FREE;
+---
+
+<AccountLayout
+  title="Tus listas"
+  heading="Listas"
+  lede="Agrupa herramientas por proyecto, por cliente o por lo que te sirva."
+>
+  <div class="lists">
+    <section class="card list-create" aria-labelledby="create-title">
+      <h2 id="create-title" class="list-create-title">Crear una lista</h2>
+      {atLimit ? (
+        <p class="list-limit">
+          Has llegado al límite de {MAX_LISTS_FREE} listas del plan gratuito.
+          <a href={ROUTES.pricing}>Radar Pro</a> las hace ilimitadas, o puedes borrar una.
+        </p>
+      ) : (
+        <form method="post" action="/api/account/lists" class="list-form" data-list-form>
+          <input type="hidden" name={CSRF_FIELD} value={Astro.locals.csrfToken} />
+          <div class="field">
+            <label class="label" for="title">Nombre</label>
+            <input type="text" id="title" name="title" class="input" required maxlength="80"
+              placeholder="Ej.: Vídeo para clientes" />
+          </div>
+          <div class="field">
+            <label class="label" for="description">Descripción <span class="hint">(opcional)</span></label>
+            <input type="text" id="description" name="description" class="input" maxlength="200" />
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm">Crear lista</button>
+          <p class="form-result" role="status" data-form-result hidden></p>
+        </form>
+      )}
+    </section>
+
+    {data.lists.length > 0 ? (
+      <ul class="list-collection">
+        {data.lists.map((list) => (
+          <li class="card list-card">
+            <div class="list-card-head">
+              <h2 class="list-card-title">{list.title}</h2>
+              <form method="post" action="/api/account/lists/delete" data-list-delete>
+                <input type="hidden" name={CSRF_FIELD} value={Astro.locals.csrfToken} />
+                <input type="hidden" name="listId" value={list.id} />
+                <button type="submit" class="btn btn-ghost btn-sm list-delete">
+                  Borrar<span class="sr-only"> la lista {list.title}</span>
+                </button>
+              </form>
+            </div>
+            {list.description && <p class="list-card-desc">{list.description}</p>}
+            {list.toolSlugs.length > 0 ? (
+              <ul class="list-items">
+                {list.toolSlugs.map((slug) => {
+                  const tool = getTool(slug);
+                  return tool ? (
+                    <li><a href={ROUTES.tool(tool.slug)}>{tool.name}</a></li>
+                  ) : null;
+                })}
+              </ul>
+            ) : (
+              <p class="list-card-empty">
+                Lista vacía. Añade herramientas desde el botón «Guardar en lista» de cada ficha.
+              </p>
+            )}
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="lists-empty">Todavía no has creado ninguna lista.</p>
+    )}
+  </div>
+</AccountLayout>
+
+<style>
+  .lists {
+    display: grid;
+    gap: var(--space-m);
+  }
+
+  .list-create {
+    padding: var(--space-s);
+  }
+
+  .list-create-title {
+    font-size: 1rem;
+    margin-block-end: var(--space-2xs);
+  }
+
+  .list-form {
+    display: grid;
+    gap: var(--space-2xs);
+    justify-items: start;
+  }
+
+  .list-form .field {
+    width: 100%;
+    max-width: 26rem;
+  }
+
+  .list-limit {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .list-limit a {
+    color: var(--signal);
+    font-weight: 600;
+  }
+
+  .list-collection {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-s);
+  }
+
+  .list-card {
+    padding: var(--space-s);
+  }
+
+  .list-card-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+  }
+
+  .list-card-title {
+    font-size: 1.0625rem;
+    margin: 0;
+  }
+
+  .list-delete {
+    color: var(--alert);
+  }
+
+  .list-card-desc {
+    margin: 0.15rem 0 var(--space-2xs);
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .list-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .list-items a {
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--line);
+    background: var(--surface-sunken);
+    font-size: 0.8125rem;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .list-card-empty,
+  .lists-empty {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--ink-subtle);
+  }
+
+  .form-result {
+    margin: 0;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-m);
+    font-size: 0.8125rem;
+  }
+
+  .form-result[data-tone='error'] {
+    background: var(--alert-soft);
+    border: 1px solid var(--alert-line);
+    color: var(--alert);
+  }
+</style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-list-form]');
+  const result = document.querySelector<HTMLElement>('[data-form-result]');
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const response = await fetch(form.action, {
+      method: 'POST',
+      headers: { Accept: 'application/json' },
+      body: new FormData(form),
+    });
+    const payload = (await response.json()) as { ok: boolean; message: string };
+
+    if (payload.ok) {
+      location.reload();
+      return;
+    }
+    if (result) {
+      result.hidden = false;
+      result.dataset['tone'] = 'error';
+      result.textContent = payload.message;
+    }
+  });
+
+  for (const deleteForm of Array.from(
+    document.querySelectorAll<HTMLFormElement>('[data-list-delete]')
+  )) {
+    deleteForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const response = await fetch(deleteForm.action, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(deleteForm),
+      });
+      if (response.ok) location.reload();
+    });
+  }
+</script>

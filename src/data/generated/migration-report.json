@@ -1,0 +1,241 @@
+{
+  "generatedAt": "2026-08-03T02:39:43.370Z",
+  "source": "src/data/tools.json",
+  "inputCount": 22,
+  "outputCount": 22,
+  "dropped": [],
+  "duplicates": [],
+  "issues": [],
+  "unknownAlternatives": [
+    {
+      "tool": "bolt-new",
+      "alternative": "lovable"
+    },
+    {
+      "tool": "bolt-new",
+      "alternative": "replit-agent"
+    },
+    {
+      "tool": "chatgpt",
+      "alternative": "huggingchat"
+    },
+    {
+      "tool": "civitai",
+      "alternative": "tensor-art"
+    },
+    {
+      "tool": "civitai",
+      "alternative": "seaart"
+    },
+    {
+      "tool": "claude",
+      "alternative": "huggingchat"
+    },
+    {
+      "tool": "comfyui",
+      "alternative": "invokeai"
+    },
+    {
+      "tool": "cursor",
+      "alternative": "github-copilot"
+    },
+    {
+      "tool": "cursor",
+      "alternative": "windsurf"
+    },
+    {
+      "tool": "cursor",
+      "alternative": "continue-dev"
+    },
+    {
+      "tool": "elevenlabs",
+      "alternative": "playht"
+    },
+    {
+      "tool": "elevenlabs",
+      "alternative": "murf-ai"
+    },
+    {
+      "tool": "elevenlabs",
+      "alternative": "coqui-tts-open-source"
+    },
+    {
+      "tool": "fooocus",
+      "alternative": "invokeai"
+    },
+    {
+      "tool": "google-gemini",
+      "alternative": "huggingchat"
+    },
+    {
+      "tool": "hugging-face-spaces",
+      "alternative": "google-colab"
+    },
+    {
+      "tool": "lm-studio",
+      "alternative": "gpt4all"
+    },
+    {
+      "tool": "lm-studio",
+      "alternative": "jan"
+    },
+    {
+      "tool": "ollama",
+      "alternative": "llama-cpp"
+    },
+    {
+      "tool": "ollama",
+      "alternative": "gpt4all"
+    },
+    {
+      "tool": "perplexity-ai",
+      "alternative": "you-com"
+    },
+    {
+      "tool": "pika-labs",
+      "alternative": "kling-ai"
+    },
+    {
+      "tool": "pika-labs",
+      "alternative": "hailuo-ai"
+    },
+    {
+      "tool": "pinokio",
+      "alternative": "stability-matrix"
+    },
+    {
+      "tool": "pinokio",
+      "alternative": "instalacion-manual"
+    },
+    {
+      "tool": "pinokio",
+      "alternative": "docker"
+    },
+    {
+      "tool": "replicate",
+      "alternative": "modal"
+    },
+    {
+      "tool": "replicate",
+      "alternative": "google-colab"
+    },
+    {
+      "tool": "runwayml",
+      "alternative": "kling-ai"
+    },
+    {
+      "tool": "runwayml",
+      "alternative": "hailuo-ai"
+    },
+    {
+      "tool": "stable-diffusion-webui",
+      "alternative": "invokeai"
+    },
+    {
+      "tool": "suno-ai",
+      "alternative": "udio"
+    },
+    {
+      "tool": "suno-ai",
+      "alternative": "stable-audio"
+    },
+    {
+      "tool": "suno-ai",
+      "alternative": "aiva"
+    },
+    {
+      "tool": "v0-by-vercel",
+      "alternative": "lovable"
+    }
+  ],
+  "scoreDeltas": [
+    {
+      "slug": "stable-diffusion-webui",
+      "legacyScore": 89
+    },
+    {
+      "slug": "comfyui",
+      "legacyScore": 88
+    },
+    {
+      "slug": "ollama",
+      "legacyScore": 90
+    },
+    {
+      "slug": "lm-studio",
+      "legacyScore": 85
+    },
+    {
+      "slug": "fooocus",
+      "legacyScore": 89
+    },
+    {
+      "slug": "runwayml",
+      "legacyScore": 52
+    },
+    {
+      "slug": "pika-labs",
+      "legacyScore": 57
+    },
+    {
+      "slug": "suno-ai",
+      "legacyScore": 67
+    },
+    {
+      "slug": "elevenlabs",
+      "legacyScore": 57
+    },
+    {
+      "slug": "leonardo-ai",
+      "legacyScore": 74
+    },
+    {
+      "slug": "perplexity-ai",
+      "legacyScore": 77
+    },
+    {
+      "slug": "claude",
+      "legacyScore": 80
+    },
+    {
+      "slug": "chatgpt",
+      "legacyScore": 83
+    },
+    {
+      "slug": "google-gemini",
+      "legacyScore": 82
+    },
+    {
+      "slug": "hugging-face-spaces",
+      "legacyScore": 84
+    },
+    {
+      "slug": "pinokio",
+      "legacyScore": 82
+    },
+    {
+      "slug": "replicate",
+      "legacyScore": 55
+    },
+    {
+      "slug": "civitai",
+      "legacyScore": 85
+    },
+    {
+      "slug": "cursor",
+      "legacyScore": 78
+    },
+    {
+      "slug": "v0-by-vercel",
+      "legacyScore": 69
+    },
+    {
+      "slug": "bolt-new",
+      "legacyScore": 69
+    },
+    {
+      "slug": "midjourney",
+      "legacyScore": 59
+    }
+  ]
+}

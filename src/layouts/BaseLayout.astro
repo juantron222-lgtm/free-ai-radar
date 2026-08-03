@@ -1,83 +1,118 @@
 ---
-import "../styles/global.css";
+import '@/styles/global.css';
+import Header from '@components/site/Header.astro';
+import Footer from '@components/site/Footer.astro';
+import ConsentBanner from '@components/consent/ConsentBanner.astro';
+import { SITE, canonicalFor, metaDescription, pageTitle, absoluteUrl } from '@lib/seo/site';
+import { graph, organizationSchema, websiteSchema, breadcrumbSchema, type Crumb } from '@lib/seo/structured-data';
+import Breadcrumbs from '@components/site/Breadcrumbs.astro';
 
 interface Props {
   title: string;
   description?: string;
-  canonicalURL?: string;
+  /** Extra query params that belong in the canonical (comparator only). */
+  canonicalQuery?: string[];
   ogImage?: string;
-  ogType?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+  crumbs?: Crumb[];
+  /** Additional JSON-LD nodes merged into the page graph. */
+  schemas?: Record<string, unknown>[];
+  /** Suppresses the site chrome — used by the auth and admin shells. */
+  bare?: boolean;
+  mainClass?: string;
 }
 
 const {
   title,
-  description = "Novedades de IA gratis, filtradas y explicadas.",
-  canonicalURL,
+  description = SITE.description,
+  canonicalQuery = [],
   ogImage,
-  ogType = "website",
+  ogType = 'website',
+  noindex = false,
+  crumbs = [],
+  schemas = [],
+  bare = false,
+  mainClass = '',
 } = Astro.props;
 
-const siteUrl = Astro.site?.toString().replace(/\/$/, "") ?? "https://free-ai-radar-git-main-nada-de-pro.vercel.app";
-const pageTitle = title.includes("Free AI Radar") ? title : `${title} | Free AI Radar`;
-const resolvedCanonical = canonicalURL ?? `${siteUrl}${Astro.url.pathname}`;
-const resolvedOgImage = ogImage
-  ? (ogImage.startsWith("http") ? ogImage : `${siteUrl}${ogImage}`)
-  : `${siteUrl}/og-default.jpg`;
-const siteName = "Free AI Radar";
+const canonical = canonicalFor(Astro.url, canonicalQuery);
+const resolvedTitle = pageTitle(title);
+const resolvedDescription = metaDescription(description);
+const resolvedOgImage = absoluteUrl(ogImage ?? '/og-default.jpg');
+
+const jsonLd = graph(
+  organizationSchema(),
+  websiteSchema(),
+  ...(crumbs.length ? [breadcrumbSchema(crumbs)] : []),
+  ...schemas
+);
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={SITE.lang} data-theme-default="system">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="description" content={description} />
-    <meta name="theme-color" content="#0a0a0f" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Free AI Radar" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{resolvedTitle}</title>
+    <meta name="description" content={resolvedDescription} />
 
-    <!-- Canonical -->
-    <link rel="canonical" href={resolvedCanonical} />
+    {noindex
+      ? <meta name="robots" content="noindex, nofollow" />
+      : <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />}
 
-    <!-- Open Graph -->
+    <link rel="canonical" href={canonical} />
+
     <meta property="og:type" content={ogType} />
-    <meta property="og:url" content={resolvedCanonical} />
-    <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content={SITE.locale} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={resolvedTitle} />
+    <meta property="og:description" content={resolvedDescription} />
     <meta property="og:image" content={resolvedOgImage} />
-    <meta property="og:site_name" content={siteName} />
-
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={pageTitle} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:title" content={resolvedTitle} />
+    <meta name="twitter:description" content={resolvedDescription} />
     <meta name="twitter:image" content={resolvedOgImage} />
 
-    <!-- Icons & Manifest -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {/* Ready for the English edition; both entries point at the current tree
+        until /en exists, which is the documented no-op state. */}
+    <link rel="alternate" hreflang="es" href={canonical} />
+    <link rel="alternate" hreflang="x-default" href={canonical} />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/icons/icon-192.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0c0e11" media="(prefers-color-scheme: dark)" />
+    <meta name="apple-mobile-web-app-title" content="AI Radar" />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="alternate" type="application/rss+xml" title={`${SITE.name} — novedades`} href="/rss.xml" />
 
+    {/* External by design: keeps CSP at `script-src 'self'`. See the file header. */}
+    <script src="/theme-init.js" is:inline></script>
 
-    <title>{pageTitle}</title>
+    <script type="application/ld+json" set:html={jsonLd} is:inline />
   </head>
-  <body class="bg-[var(--color-radar-bg)] text-[var(--color-radar-text)] min-h-screen">
-    <slot />
-    <script>
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-          navigator.serviceWorker.register("/sw.js").catch((error) => {
-            console.warn("Service Worker registration failed:", error);
-          });
-        });
-      }
-    </script>
+
+  <body>
+    <a class="skip-link" href="#main">Saltar al contenido</a>
+
+    {!bare && <Header />}
+
+    <main id="main" class={mainClass} tabindex="-1">
+      {crumbs.length > 0 && !bare && (
+        <div class="page">
+          <Breadcrumbs crumbs={crumbs} />
+        </div>
+      )}
+      <slot />
+    </main>
+
+    {!bare && <Footer />}
+
+    <ConsentBanner />
+
+    <script src="/sw-register.js" is:inline defer></script>
   </body>
 </html>

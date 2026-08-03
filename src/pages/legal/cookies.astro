@@ -1,0 +1,86 @@
+---
+import ArticleLayout from '@layouts/ArticleLayout.astro';
+import { CONSENT_CATEGORIES } from '@lib/consent';
+import { ROUTES } from '@lib/nav';
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Cookies', path: ROUTES.cookies },
+];
+
+const NECESSARY_COOKIES = [
+  { name: 'far_consent', purpose: 'Guarda tu decisión sobre cookies y su fecha', duration: '6 meses' },
+  { name: 'far_csrf', purpose: 'Protege los formularios frente a peticiones falsificadas', duration: '8 horas' },
+  { name: 'far_session / sb-*', purpose: 'Mantiene tu sesión iniciada', duration: 'Hasta 30 días' },
+  { name: 'far-theme (localStorage)', purpose: 'Recuerda si prefieres tema claro u oscuro', duration: 'Permanente hasta que la borres' },
+];
+---
+
+<ArticleLayout
+  title="Política de cookies"
+  description="Qué cookies usamos, para qué sirve cada una, cuánto duran y cómo cambiar tu decisión en cualquier momento."
+  heading="Política de cookies"
+  lede="Nada que no sea estrictamente necesario se carga sin tu permiso. Aquí está el detalle."
+  crumbs={crumbs}
+  updatedAt="2026-08-03"
+  draftNotice
+>
+  <p>
+    <button type="button" class="btn btn-primary btn-sm" data-open-consent>
+      Cambiar mis preferencias de cookies
+    </button>
+  </p>
+
+  <h2>Cómo funciona el consentimiento aquí</h2>
+  <ul>
+    <li>Hasta que decides, <strong>sólo se cargan las cookies necesarias</strong>. Ni analítica, ni publicidad, ni nada de terceros.</li>
+    <li>Rechazar es tan fácil como aceptar: mismo botón, mismo tamaño, mismo sitio.</li>
+    <li>Cerrar el aviso sin elegir no cuenta como aceptación.</li>
+    <li>Puedes cambiar de opinión cuando quieras; si retiras un permiso, borramos las cookies asociadas y recargamos la página para que el código de terceros deje de ejecutarse.</li>
+    <li>Guardamos la fecha de tu decisión como prueba de consentimiento, tal y como exige el art. 7.1 del RGPD.</li>
+  </ul>
+
+  <h2>Categorías</h2>
+  {CONSENT_CATEGORIES.map((category) => (
+    <>
+      <h3>{category.name}{category.required && ' (siempre activas)'}</h3>
+      <p>{category.description}</p>
+      {category.vendors.length > 0 && (
+        <p><strong>Proveedores:</strong> {category.vendors.join(', ')}</p>
+      )}
+    </>
+  ))}
+
+  <h2>Cookies necesarias en detalle</h2>
+  <table>
+    <thead><tr><th>Nombre</th><th>Para qué</th><th>Duración</th></tr></thead>
+    <tbody>
+      {NECESSARY_COOKIES.map((cookie) => (
+        <tr>
+          <th scope="row"><code>{cookie.name}</code></th>
+          <td>{cookie.purpose}</td>
+          <td>{cookie.duration}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  <p>
+    Todas son de origen propio (primera parte), <code>SameSite=Lax</code> y, las de sesión,
+    <code>HttpOnly</code> y <code>Secure</code>.
+  </p>
+
+  <h2>Consent Mode de Google</h2>
+  <p>
+    Si algún día activamos AdSense o analítica de Google, el sitio ya envía las señales del
+    <em>Consent Mode v2</em> en estado denegado por defecto y sólo las actualiza a concedido cuando
+    tú lo autorizas. Esto se aplica antes de que ningún script de Google llegue a ejecutarse.
+  </p>
+
+  <h2>Desde tu navegador</h2>
+  <p>
+    Además de este panel, puedes bloquear o borrar cookies desde la configuración de tu navegador.
+    Ten en cuenta que bloquear las necesarias puede impedir iniciar sesión o enviar formularios.
+  </p>
+
+  <p>Ver también: <a href={ROUTES.privacy}>política de privacidad</a>.</p>
+</ArticleLayout>

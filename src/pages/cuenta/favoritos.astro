@@ -1,0 +1,78 @@
+---
+import AccountLayout from '@layouts/AccountLayout.astro';
+import ToolCard from '@components/tools/ToolCard.astro';
+import CompareTray from '@components/tools/CompareTray.astro';
+import { getUserData } from '@lib/data/user-data';
+import { getTool } from '@lib/data/catalog';
+import { ROUTES } from '@lib/nav';
+
+export const prerender = false;
+
+const user = Astro.locals.user!;
+const data = await getUserData(user.id);
+const favorites = data.favorites.map(getTool).filter((t) => t !== undefined);
+const tried = new Set(data.tried);
+---
+
+<AccountLayout
+  title="Tus favoritos"
+  heading="Favoritos"
+  lede={`${favorites.length} herramienta${favorites.length === 1 ? '' : 's'} guardada${favorites.length === 1 ? '' : 's'}.`}
+>
+  {favorites.length > 0 ? (
+    <ul class="grid-cards fav-grid">
+      {favorites.map((tool) => (
+        <li>
+          <ToolCard tool={tool} />
+          {tried.has(tool.slug) && <span class="chip chip-signal fav-tried">Ya probada</span>}
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <div class="card fav-empty">
+      <h2>Aún no hay nada guardado</h2>
+      <p>
+        Cuando encuentres algo que quieras recordar, pulsa «Guardar» en su ficha. Aquí las tendrás
+        todas juntas y te avisaremos si su plan gratuito cambia.
+      </p>
+      <a href={ROUTES.tools} class="btn btn-primary btn-sm">Explorar herramientas</a>
+    </div>
+  )}
+
+  <CompareTray />
+</AccountLayout>
+
+<style>
+  .fav-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .fav-grid > li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .fav-tried {
+    align-self: flex-start;
+  }
+
+  .fav-empty {
+    padding: var(--space-l) var(--space-s);
+    text-align: center;
+  }
+
+  .fav-empty h2 {
+    font-size: 1.125rem;
+    margin-block-end: var(--space-2xs);
+  }
+
+  .fav-empty p {
+    margin: 0 auto var(--space-s);
+    max-width: 44ch;
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+  }
+</style>

@@ -1,0 +1,253 @@
+---
+import AccountLayout from '@layouts/AccountLayout.astro';
+import ToolCard from '@components/tools/ToolCard.astro';
+import { getUserData, MAX_ALERTS_FREE, MAX_LISTS_FREE } from '@lib/data/user-data';
+import { getTool, getStaleTools } from '@lib/data/catalog';
+import { ROUTES } from '@lib/nav';
+
+export const prerender = false;
+
+const user = Astro.locals.user!;
+const data = await getUserData(user.id);
+
+const favorites = data.favorites.map(getTool).filter((t) => t !== undefined);
+const followed = data.follows.map(getTool).filter((t) => t !== undefined);
+
+// A watched tool whose data has gone stale is the single most useful thing we
+// can put in front of a returning user.
+const needsAttention = followed.filter((t) => t.freshness !== 'fresh');
+const staleFavorites = favorites.filter((t) => t.freshness !== 'fresh');
+const attention = [...new Set([...needsAttention, ...staleFavorites])].slice(0, 3);
+
+const suggestions = getStaleTools()
+  .filter((t) => !data.favorites.includes(t.slug))
+  .slice(0, 0);
+void suggestions;
+---
+
+<AccountLayout
+  title="Tu cuenta"
+  heading={user.displayName ? `Hola, ${user.displayName}` : 'Tu radar'}
+  lede="Lo que has guardado, lo que sigues y lo que ha cambiado desde tu última visita."
+>
+  <div class="dash">
+    <dl class="dash-stats">
+      <div>
+        <dt>Favoritos</dt>
+        <dd class="tnum">{data.favorites.length}</dd>
+      </div>
+      <div>
+        <dt>Listas</dt>
+        <dd class="tnum">
+          {data.lists.length}
+          {user.plan === 'free' && <span class="dash-limit">/{MAX_LISTS_FREE}</span>}
+        </dd>
+      </div>
+      <div>
+        <dt>Avisos activos</dt>
+        <dd class="tnum">
+          {data.alerts.filter((a) => a.isActive).length}
+          {user.plan === 'free' && <span class="dash-limit">/{MAX_ALERTS_FREE}</span>}
+        </dd>
+      </div>
+      <div>
+        <dt>Ya probadas</dt>
+        <dd class="tnum">{data.tried.length}</dd>
+      </div>
+    </dl>
+
+    {attention.length > 0 && (
+      <section class="dash-section" aria-labelledby="attention-title">
+        <h2 id="attention-title" class="dash-title">Merece que las mires</h2>
+        <p class="dash-lede">
+          Estas herramientas que sigues llevan tiempo sin verificarse. Si has visto que algo ha
+          cambiado, cuéntanoslo desde su ficha y lo revisamos.
+        </p>
+        <ul class="grid-cards dash-grid">
+          {attention.map((tool) => <li><ToolCard tool={tool} variant="compact" /></li>)}
+        </ul>
+      </section>
+    )}
+
+    <section class="dash-section" aria-labelledby="fav-title">
+      <div class="dash-head">
+        <h2 id="fav-title" class="dash-title">Tus favoritos</h2>
+        {favorites.length > 0 && <a href={ROUTES.favorites} class="btn btn-ghost btn-sm">Ver todos →</a>}
+      </div>
+      {favorites.length > 0 ? (
+        <ul class="grid-cards dash-grid">
+          {favorites.slice(0, 6).map((tool) => <li><ToolCard tool={tool} variant="compact" /></li>)}
+        </ul>
+      ) : (
+        <div class="dash-empty card">
+          <p>
+            Todavía no has guardado nada. Pulsa «Guardar» en cualquier ficha y aparecerá aquí.
+          </p>
+          <a href={ROUTES.tools} class="btn btn-secondary btn-sm">Explorar el catálogo</a>
+        </div>
+      )}
+    </section>
+
+    {data.history.length > 0 && (
+      <section class="dash-section" aria-labelledby="history-title">
+        <h2 id="history-title" class="dash-title">Lo último que has mirado</h2>
+        <ul class="dash-history">
+          {data.history.slice(0, 8).map((entry) => {
+            const tool = getTool(entry.slug);
+            return tool ? (
+              <li>
+                <a href={ROUTES.tool(tool.slug)}>{tool.name}</a>
+                <span class="tnum">{tool.scoreTotal}</span>
+              </li>
+            ) : null;
+          })}
+        </ul>
+      </section>
+    )}
+
+    {user.plan === 'free' && (
+      <section class="dash-upsell card" aria-labelledby="upsell-title">
+        <h2 id="upsell-title" class="dash-title">Radar Pro</h2>
+        <p>
+          Avisos en el momento en que detectamos el cambio, listas y comparaciones sin límite,
+          historial completo y sin anuncios. El plan gratuito seguirá siendo útil de todas formas.
+        </p>
+        <a href={ROUTES.pricing} class="btn btn-primary btn-sm">Ver qué incluye</a>
+      </section>
+    )}
+  </div>
+</AccountLayout>
+
+<style>
+  .dash {
+    display: grid;
+    gap: var(--space-l);
+  }
+
+  .dash-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-s);
+    margin: 0;
+    padding: var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface);
+  }
+
+  .dash-stats dt {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-subtle);
+    font-weight: 600;
+  }
+
+  .dash-stats dd {
+    margin: 0.1rem 0 0;
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--ink-strong);
+  }
+
+  .dash-limit {
+    font-size: 0.9rem;
+    color: var(--ink-subtle);
+    font-weight: 550;
+  }
+
+  .dash-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+  }
+
+  .dash-title {
+    font-size: 1.125rem;
+    margin-block-end: var(--space-2xs);
+  }
+
+  .dash-lede {
+    margin: 0 0 var(--space-s);
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    max-width: 56ch;
+  }
+
+  .dash-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .dash-grid > li {
+    display: flex;
+  }
+
+  .dash-grid > li > :global(*) {
+    width: 100%;
+  }
+
+  .dash-empty {
+    padding: var(--space-m) var(--space-s);
+    text-align: center;
+  }
+
+  .dash-empty p {
+    margin: 0 auto var(--space-s);
+    max-width: 40ch;
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+  }
+
+  .dash-history {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .dash-history li {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+    padding-block: 0.5rem;
+    border-block-end: 1px solid var(--line-hairline);
+    font-size: 0.9375rem;
+  }
+
+  .dash-history a {
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 550;
+  }
+
+  .dash-history a:hover {
+    text-decoration: underline;
+  }
+
+  .dash-history span {
+    color: var(--ink-subtle);
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+
+  .dash-upsell {
+    padding: var(--space-s);
+    background: var(--surface-sunken);
+  }
+
+  .dash-upsell p {
+    margin: 0 0 var(--space-s);
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+    max-width: 56ch;
+  }
+
+  @media (min-width: 40rem) {
+    .dash-stats {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

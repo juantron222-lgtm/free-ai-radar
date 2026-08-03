@@ -1,0 +1,106 @@
+---
+import ArticleLayout from '@layouts/ArticleLayout.astro';
+import { ROUTES } from '@lib/nav';
+import { SITE } from '@lib/seo/site';
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Términos', path: ROUTES.terms },
+];
+---
+
+<ArticleLayout
+  title="Términos de uso"
+  description="Condiciones de uso del sitio, de las cuentas y de la suscripción Radar Pro, incluido el derecho de desistimiento."
+  heading="Términos de uso"
+  lede="Las condiciones de usar el sitio y, si te suscribes, de la suscripción."
+  crumbs={crumbs}
+  updatedAt="2026-08-03"
+  draftNotice
+>
+  <h2>1. Objeto</h2>
+  <p>
+    {SITE.legalName} publica análisis editoriales sobre herramientas de inteligencia artificial y
+    sus planes gratuitos. Usar el sitio implica aceptar estos términos.
+  </p>
+
+  <h2>2. Naturaleza de la información</h2>
+  <p>
+    El contenido es <strong>informativo y editorial</strong>. Verificamos cada dato contra las
+    fuentes oficiales del fabricante y anotamos la fecha, pero las condiciones de los servicios de
+    terceros cambian sin previo aviso. <strong>Antes de tomar una decisión con consecuencias
+    económicas, confirma las condiciones en la web del proveedor.</strong> No respondemos de los
+    daños derivados de un dato que el fabricante haya modificado después de nuestra última
+    verificación.
+  </p>
+  <p>
+    No somos parte de ninguna relación entre tú y las herramientas que documentamos, ni prestamos
+    soporte sobre ellas.
+  </p>
+
+  <h2>3. Cuentas</h2>
+  <ul>
+    <li>Debes ser mayor de 14 años.</li>
+    <li>Los datos que facilites deben ser veraces y eres responsable de custodiar tu contraseña.</li>
+    <li>Puedes eliminar tu cuenta en cualquier momento desde <a href={ROUTES.settings}>Preferencias</a>.</li>
+    <li>Podemos suspender cuentas que abusen del servicio, envíen correcciones falsas de forma sistemática o intenten vulnerar la seguridad del sitio.</li>
+  </ul>
+
+  <h2>4. Suscripción Radar Pro</h2>
+  <ul>
+    <li>El precio vigente es el que aparece en <a href={ROUTES.pricing}>la página de Radar Pro</a> en el momento de contratar, IVA incluido cuando corresponda.</li>
+    <li>La renovación es automática por periodos iguales hasta que la canceles.</li>
+    <li>Puedes cancelar cuando quieras desde el portal de facturación. Conservas el acceso hasta el final del periodo ya pagado.</li>
+    <li>Los pagos los procesa Stripe. No almacenamos datos de tarjeta.</li>
+    <li>Si un cobro falla, se reintenta durante unos días antes de cancelar la suscripción.</li>
+  </ul>
+
+  <h3>Derecho de desistimiento</h3>
+  <p>
+    Como consumidor en la UE dispones de <strong>14 días naturales</strong> para desistir sin
+    justificación (art. 102 del texto refundido de la Ley General para la Defensa de los
+    Consumidores y Usuarios). Al tratarse de un contenido digital de acceso inmediato, al contratar
+    se te pide reconocer que el servicio comienza de inmediato; aun así, si desistes dentro del
+    plazo devolvemos la parte proporcional no consumida. Escríbenos a
+    <a href={`mailto:${SITE.email}`}> {SITE.email}</a>.
+  </p>
+
+  <h2>5. Propiedad intelectual</h2>
+  <p>
+    Los textos, análisis, puntuaciones y el diseño del sitio son de {SITE.legalName}. Puedes citarlos
+    con atribución y enlace. No puedes reproducir el catálogo de forma sistemática, ni extraerlo
+    automáticamente para reconstruir una base de datos equivalente.
+  </p>
+  <p>
+    Las marcas, logotipos y nombres de las herramientas analizadas pertenecen a sus titulares y se
+    usan con fines identificativos y de cita, al amparo del art. 32 de la Ley de Propiedad
+    Intelectual.
+  </p>
+
+  <h2>6. Contenido que envías</h2>
+  <p>
+    Al enviar una corrección o proponer una herramienta nos concedes permiso para usar esa
+    información en el contenido editorial. No publicamos tus datos personales sin permiso expreso.
+  </p>
+
+  <h2>7. Responsabilidad</h2>
+  <p>
+    El servicio se presta «tal cual». No garantizamos disponibilidad ininterrumpida ni ausencia total
+    de errores. Nada en esta cláusula limita la responsabilidad que legalmente no pueda limitarse,
+    incluida la derivada de dolo o negligencia grave y los derechos que te asisten como consumidor.
+  </p>
+
+  <h2>8. Ley aplicable</h2>
+  <p>
+    Estos términos se rigen por la legislación española. Para las personas consumidoras, el fuero es
+    el de su domicilio. También puedes acudir a la
+    <a href="https://ec.europa.eu/consumers/odr" rel="noopener" target="_blank"> plataforma europea
+    de resolución de litigios en línea</a>.
+  </p>
+
+  <h2>9. Cambios</h2>
+  <p>
+    Podemos actualizar estos términos. Los cambios sustanciales se anuncian con al menos 30 días de
+    antelación a las personas suscritas.
+  </p>
+</ArticleLayout>

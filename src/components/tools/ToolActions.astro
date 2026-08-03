@@ -1,0 +1,174 @@
+---
+interface Props {
+  slug: string;
+  name: string;
+}
+const { slug, name } = Astro.props;
+---
+
+{/*
+  Save / compare / follow.
+
+  Rendered for everyone. Signed-out visitors get the action stored locally and
+  a quiet prompt to create an account so it syncs — never a wall in front of
+  the content they came for.
+*/}
+<div class="tool-actions" data-tool-actions data-slug={slug} data-name={name}>
+  <button type="button" class="tool-action" data-action="favorite" aria-pressed="false">
+    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path
+        d="M8 13.6 3.2 9a2.9 2.9 0 0 1 4.1-4.1L8 5.6l.7-.7A2.9 2.9 0 0 1 12.8 9L8 13.6Z"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linejoin="round"
+        class="action-icon-outline"
+      />
+    </svg>
+    <span data-action-label>Guardar</span>
+  </button>
+
+  <button type="button" class="tool-action" data-compare-toggle={slug} data-compare-name={name} aria-pressed="false">
+    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M3 4.5h4M3 8h10M9 11.5h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+    </svg>
+    <span class="compare-label">Comparar</span>
+  </button>
+
+  <button type="button" class="tool-action" data-action="follow" aria-pressed="false">
+    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M8 2.5a4 4 0 0 0-4 4v2.2L2.8 11h10.4L12 8.7V6.5a4 4 0 0 0-4-4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+      <path d="M6.6 13a1.5 1.5 0 0 0 2.8 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+    </svg>
+    <span data-action-label>Avisarme</span>
+  </button>
+</div>
+
+<p class="tool-actions-hint" data-actions-hint hidden>
+  Guardado en este navegador. <a href="/cuenta/crear">Crea una cuenta gratis</a> para conservarlo y
+  recibir avisos cuando cambie su plan.
+</p>
+
+<style>
+  .tool-actions {
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+  }
+
+  .tool-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex: 1 1 auto;
+    justify-content: center;
+    padding: 0.45rem 0.6rem;
+    min-height: 40px;
+    border-radius: var(--radius-m);
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--ink-muted);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .tool-action:hover {
+    border-color: var(--ink-subtle);
+    color: var(--ink);
+  }
+
+  .tool-action[aria-pressed='true'] {
+    background: var(--signal-soft);
+    border-color: var(--signal);
+    color: var(--signal);
+  }
+
+  .tool-action[aria-pressed='true'] .action-icon-outline {
+    fill: currentColor;
+  }
+
+  .tool-actions-hint {
+    margin: 0.4rem 0 0;
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+  }
+
+  .tool-actions-hint a {
+    color: var(--signal);
+  }
+</style>
+
+<script>
+  import { postForm } from '@lib/client/http';
+
+  const LOCAL_KEYS = { favorite: 'far-favorites', follow: 'far-follows' } as const;
+  type ActionKind = keyof typeof LOCAL_KEYS;
+
+  const LABELS: Record<ActionKind, { on: string; off: string }> = {
+    favorite: { on: 'Guardada', off: 'Guardar' },
+    follow: { on: 'Avisos activos', off: 'Avisarme' },
+  };
+
+  function readLocal(key: string): string[] {
+    try {
+      const raw = localStorage.getItem(key);
+      const parsed: unknown = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? (parsed as string[]) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function writeLocal(key: string, values: string[]) {
+    try {
+      localStorage.setItem(key, JSON.stringify(values));
+    } catch {
+      /* Storage blocked. The server call below is still attempted. */
+    }
+  }
+
+  for (const container of Array.from(
+    document.querySelectorAll<HTMLElement>('[data-tool-actions]')
+  )) {
+    const slug = container.dataset['slug']!;
+    const hint = document.querySelector<HTMLElement>('[data-actions-hint]');
+
+    for (const button of Array.from(
+      container.querySelectorAll<HTMLButtonElement>('[data-action]')
+    )) {
+      const kind = button.dataset['action'] as ActionKind;
+      const storageKey = LOCAL_KEYS[kind];
+      const labelEl = button.querySelector('[data-action-label]');
+
+      const paint = (active: boolean) => {
+        button.setAttribute('aria-pressed', String(active));
+        if (labelEl) labelEl.textContent = active ? LABELS[kind].on : LABELS[kind].off;
+      };
+
+      paint(readLocal(storageKey).includes(slug));
+
+      button.addEventListener('click', async () => {
+        const current = readLocal(storageKey);
+        const active = !current.includes(slug);
+        writeLocal(storageKey, active ? [...current, slug] : current.filter((s) => s !== slug));
+        paint(active);
+
+        // Persist server-side when signed in. A 401 just means "local only".
+        const result = await postForm(
+          `/api/account/${kind === 'favorite' ? 'favorites' : 'follows'}`,
+          { slug },
+          { method: active ? 'POST' : 'DELETE' }
+        );
+
+        if (hint && active && !result.ok) hint.hidden = false;
+        if (!result.ok && result.status === 409) {
+          // Plan limit reached: undo the optimistic toggle and explain.
+          const reverted = readLocal(storageKey).filter((s) => s !== slug);
+          writeLocal(storageKey, reverted);
+          paint(false);
+          window.alert(result.message);
+        }
+      });
+    }
+  }
+</script>

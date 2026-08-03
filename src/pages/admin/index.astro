@@ -1,0 +1,292 @@
+---
+import AdminLayout from '@layouts/AdminLayout.astro';
+import { getAllTools, getCatalogStats, getStaleTools } from '@lib/data/catalog';
+import { pendingCounts, newsletterStats } from '@lib/data/inbox';
+import { readRecentAudit } from '@lib/observability/audit';
+import { integrationStatus } from '@lib/config';
+import { ROUTES } from '@lib/nav';
+
+export const prerender = false;
+
+const stats = getCatalogStats();
+const stale = getStaleTools();
+const pending = await pendingCounts();
+const newsletter = await newsletterStats();
+const audit = await readRecentAudit(8);
+const integrations = integrationStatus();
+const tools = getAllTools();
+
+const unverifiedFields = tools.reduce((acc, tool) => {
+  const unknowns = [
+    tool.freePlan.requiresCreditCard,
+    tool.freePlan.requiresSignup,
+    tool.freePlan.hasWatermark,
+    tool.freePlan.commercialUse,
+    tool.openSource,
+    tool.privacy.trainsOnUserData,
+  ].filter((value) => value === 'unverified').length;
+  return acc + unknowns;
+}, 0);
+---
+
+<AdminLayout
+  title="Panel"
+  heading="Panel"
+  lede="Estado del catálogo, cola de trabajo pendiente y salud de las integraciones."
+>
+  <div class="dash">
+    <section aria-labelledby="queue-title">
+      <h2 id="queue-title" class="dash-h2">Cola de trabajo</h2>
+      <ul class="queue">
+        <li class={stale.length > 0 ? 'queue-item is-warn' : 'queue-item'}>
+          <a href="/admin/desactualizadas">
+            <span class="queue-count tnum">{stale.length}</span>
+            <span class="queue-label">fichas sin revisar a tiempo</span>
+          </a>
+        </li>
+        <li class={pending.corrections > 0 ? 'queue-item is-warn' : 'queue-item'}>
+          <a href="/admin/correcciones">
+            <span class="queue-count tnum">{pending.corrections}</span>
+            <span class="queue-label">correcciones sin resolver</span>
+          </a>
+        </li>
+        <li class={pending.submissions > 0 ? 'queue-item is-warn' : 'queue-item'}>
+          <a href="/admin/pendientes">
+            <span class="queue-count tnum">{pending.submissions}</span>
+            <span class="queue-label">herramientas propuestas</span>
+          </a>
+        </li>
+        <li class="queue-item">
+          <a href="/admin/herramientas">
+            <span class="queue-count tnum">{unverifiedFields}</span>
+            <span class="queue-label">campos sin verificar</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="catalog-title">
+      <h2 id="catalog-title" class="dash-h2">Catálogo</h2>
+      <dl class="metrics">
+        <div><dt>Publicadas</dt><dd class="tnum">{stats.total}</dd></div>
+        <div><dt>Categorías activas</dt><dd class="tnum">{stats.categories}</dd></div>
+        <div><dt>Sin tarjeta</dt><dd class="tnum">{stats.noCard}</dd></div>
+        <div><dt>Uso comercial</dt><dd class="tnum">{stats.commercialUse}</dd></div>
+        <div><dt>Open source</dt><dd class="tnum">{stats.openSource}</dd></div>
+        <div><dt>En local</dt><dd class="tnum">{stats.local}</dd></div>
+      </dl>
+    </section>
+
+    <section aria-labelledby="newsletter-title">
+      <h2 id="newsletter-title" class="dash-h2">Boletín</h2>
+      <dl class="metrics">
+        <div><dt>Confirmados</dt><dd class="tnum">{newsletter.confirmed}</dd></div>
+        <div><dt>Pendientes de confirmar</dt><dd class="tnum">{newsletter.pending}</dd></div>
+        <div><dt>Bajas</dt><dd class="tnum">{newsletter.unsubscribed}</dd></div>
+      </dl>
+    </section>
+
+    <section aria-labelledby="int-title">
+      <h2 id="int-title" class="dash-h2">Integraciones</h2>
+      <ul class="integrations">
+        {integrations.map((integration) => (
+          <li>
+            <span class={integration.ready ? 'dot is-ok' : 'dot is-off'} aria-hidden="true"></span>
+            <span class="int-name">{integration.name}</span>
+            <span class="int-detail">{integration.detail}</span>
+            <span class="sr-only">{integration.ready ? 'Configurado' : 'No configurado'}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="dash-note">
+        Lo que no está configurado se degrada a modo simulado, no falla. Ver
+        <code> docs/deployment-guide.md</code>.
+      </p>
+    </section>
+
+    <section aria-labelledby="audit-title">
+      <h2 id="audit-title" class="dash-h2">Últimas acciones registradas</h2>
+      {audit.length > 0 ? (
+        <div class="table-scroll">
+          <table class="data-table">
+            <thead>
+              <tr><th>Cuándo</th><th>Quién</th><th>Acción</th><th>Sobre</th></tr>
+            </thead>
+            <tbody>
+              {audit.map((entry) => (
+                <tr>
+                  <td class="tnum">{new Date(entry.created_at).toLocaleString('es-ES')}</td>
+                  <td>{entry.actor_email ?? '—'}</td>
+                  <td><code>{entry.action}</code></td>
+                  <td>{entry.entity}{entry.entity_id ? ` · ${entry.entity_id}` : ''}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <p class="dash-note">Todavía no hay acciones registradas.</p>
+      )}
+      <p class="dash-note">
+        <a href="/admin/auditoria">Ver el registro completo</a> · El registro es de sólo escritura:
+        no existe ninguna ruta que permita modificarlo o borrarlo, ni siquiera con rol de
+        administrador.
+      </p>
+    </section>
+
+    <section aria-labelledby="links-title">
+      <h2 id="links-title" class="dash-h2">Accesos rápidos</h2>
+      <div class="quick">
+        <a class="btn btn-secondary btn-sm" href={ROUTES.tools}>Ver el sitio público</a>
+        <a class="btn btn-secondary btn-sm" href="/admin/enlaces">Comprobar enlaces oficiales</a>
+        <a class="btn btn-secondary btn-sm" href="/admin/monetizacion">Monetización</a>
+      </div>
+    </section>
+  </div>
+</AdminLayout>
+
+<style>
+  .dash {
+    display: grid;
+    gap: var(--space-l);
+  }
+
+  .dash-h2 {
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-subtle);
+    margin-block-end: var(--space-2xs);
+  }
+
+  .queue {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2xs);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+  }
+
+  .queue-item a {
+    display: grid;
+    gap: 0.15rem;
+    padding: var(--space-xs) var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface);
+    text-decoration: none;
+  }
+
+  .queue-item.is-warn a {
+    border-color: var(--warn-line);
+    background: var(--warn-soft);
+  }
+
+  .queue-count {
+    font-family: var(--font-display);
+    font-size: 1.85rem;
+    font-weight: 700;
+    color: var(--ink-strong);
+    line-height: 1;
+  }
+
+  .queue-item.is-warn .queue-count {
+    color: var(--warn);
+  }
+
+  .queue-label {
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+  }
+
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr));
+    gap: var(--space-2xs);
+    margin: 0;
+    padding: var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface);
+  }
+
+  .metrics dt {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-subtle);
+    font-weight: 600;
+  }
+
+  .metrics dd {
+    margin: 0.1rem 0 0;
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--ink-strong);
+  }
+
+  .integrations {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0;
+  }
+
+  .integrations li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    padding-block: 0.5rem;
+    border-block-end: 1px solid var(--line-hairline);
+    font-size: 0.875rem;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .dot.is-ok {
+    background: var(--signal);
+  }
+
+  .dot.is-off {
+    background: var(--line-strong);
+  }
+
+  .int-name {
+    font-weight: 600;
+    min-width: 11rem;
+  }
+
+  .int-detail {
+    color: var(--ink-subtle);
+    font-size: 0.8125rem;
+  }
+
+  .dash-note {
+    margin: var(--space-2xs) 0 0;
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+  }
+
+  .dash-note a {
+    color: var(--info);
+  }
+
+  .quick {
+    display: flex;
+    gap: var(--space-2xs);
+    flex-wrap: wrap;
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+</style>

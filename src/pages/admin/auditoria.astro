@@ -1,0 +1,108 @@
+---
+import AdminLayout from '@layouts/AdminLayout.astro';
+import { readRecentAudit } from '@lib/observability/audit';
+
+export const prerender = false;
+
+// Admin-only: the middleware already 404s non-staff, and this page additionally
+// refuses to render for editors, since audit is an admin-level concern.
+if (Astro.locals.user?.role !== 'admin') {
+  return new Response('No encontrado', { status: 404 });
+}
+
+const entries = await readRecentAudit(200);
+---
+
+<AdminLayout
+  title="Auditoría"
+  heading="Registro de auditoría"
+  lede="Quién hizo qué y cuándo. Sólo se puede leer: no existe ninguna ruta en la aplicación que permita modificar o borrar estas filas, y las políticas RLS no conceden UPDATE ni DELETE a nadie."
+>
+  {entries.length === 0 ? (
+    <p class="empty">Todavía no hay entradas registradas.</p>
+  ) : (
+    <div class="table-scroll">
+      <table class="data-table audit">
+        <caption class="sr-only">Últimas {entries.length} acciones registradas</caption>
+        <thead>
+          <tr>
+            <th scope="col">Cuándo</th>
+            <th scope="col">Quién</th>
+            <th scope="col">Acción</th>
+            <th scope="col">Entidad</th>
+            <th scope="col">Identificador</th>
+          </tr>
+        </thead>
+        <tbody>
+          {entries.map((entry) => (
+            <tr>
+              <td class="tnum">{new Date(entry.created_at).toLocaleString('es-ES')}</td>
+              <td>{entry.actor_email ?? <span class="muted">sistema</span>}</td>
+              <td><code>{entry.action}</code></td>
+              <td>{entry.entity}</td>
+              <td><code class="id">{entry.entity_id ?? '—'}</code></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )}
+
+  <section class="policy" aria-labelledby="policy-title">
+    <h2 id="policy-title" class="policy-title">Qué se registra y qué no</h2>
+    <ul>
+      <li><strong>Sí:</strong> cambios editoriales, cambios de rol, eliminaciones de cuenta, resoluciones de correcciones y operaciones de facturación.</li>
+      <li><strong>No:</strong> contraseñas, tokens, cabeceras de autorización, cookies ni contenido privado de las cuentas.</li>
+      <li>Las direcciones IP se guardan sólo como hash truncado, suficiente para correlacionar acciones y no para identificar una red.</li>
+      <li>El redactor del logger elimina cualquier campo cuyo nombre sugiera un secreto antes de que llegue a escribirse.</li>
+    </ul>
+  </section>
+</AdminLayout>
+
+<style>
+  .empty {
+    color: var(--ink-subtle);
+  }
+
+  .audit {
+    min-width: 46rem;
+    font-size: 0.8125rem;
+  }
+
+  .muted {
+    color: var(--ink-subtle);
+    font-style: italic;
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.92em;
+  }
+
+  .id {
+    color: var(--ink-subtle);
+    overflow-wrap: anywhere;
+  }
+
+  .policy {
+    margin-block-start: var(--space-l);
+    padding: var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface-sunken);
+  }
+
+  .policy-title {
+    font-size: 1rem;
+    margin-block-end: var(--space-2xs);
+  }
+
+  .policy ul {
+    margin: 0;
+    padding-inline-start: 1.2em;
+    display: grid;
+    gap: 0.3rem;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+</style>

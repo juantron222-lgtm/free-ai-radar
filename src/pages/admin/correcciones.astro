@@ -1,0 +1,206 @@
+---
+import AdminLayout from '@layouts/AdminLayout.astro';
+import { listCorrections } from '@lib/data/inbox';
+import { getTool } from '@lib/data/catalog';
+import { ROUTES } from '@lib/nav';
+
+export const prerender = false;
+
+const corrections = await listCorrections(100);
+const pending = corrections.filter((correction) => correction.status === 'pending');
+
+const FIELD_LABEL: Record<string, string> = {
+  free_plan: 'Límites del plan gratuito',
+  credit_card: 'Exigencia de tarjeta',
+  watermark: 'Marca de agua',
+  commercial_use: 'Uso comercial',
+  privacy: 'Privacidad',
+  link: 'Enlace roto',
+  other: 'Otro',
+};
+---
+
+<AdminLayout
+  title="Correcciones"
+  heading="Correcciones recibidas"
+  lede="Lo que la gente nos dice que ya no es cierto. Es la fuente de información más valiosa del proyecto y tiene prioridad sobre añadir fichas nuevas."
+>
+  <p class="summary">
+    <strong class="tnum">{pending.length}</strong> sin resolver de
+    <strong class="tnum"> {corrections.length}</strong> recibidas.
+  </p>
+
+  {corrections.length === 0 ? (
+    <p class="empty">
+      Todavía no hay correcciones. Aparecerán aquí en cuanto alguien use el formulario del final de
+      una ficha.
+    </p>
+  ) : (
+    <ul class="corrections">
+      {corrections.map((correction) => {
+        const tool = getTool(correction.toolSlug);
+        return (
+          <li class={`correction ${correction.status === 'pending' ? 'is-pending' : ''}`}>
+            <div class="correction-head">
+              <span class={`chip ${correction.status === 'pending' ? 'chip-warn' : 'chip-signal'}`}>
+                {correction.status === 'pending' ? 'Sin resolver' : correction.status}
+              </span>
+              <span class="correction-field">{FIELD_LABEL[correction.field] ?? correction.field}</span>
+              <time datetime={correction.createdAt} class="correction-date tnum">
+                {new Date(correction.createdAt).toLocaleString('es-ES')}
+              </time>
+            </div>
+
+            <h2 class="correction-tool">
+              {tool ? (
+                <a href={ROUTES.tool(tool.slug)} target="_blank">{tool.name}</a>
+              ) : (
+                <span>{correction.toolSlug} <em>(ficha no encontrada)</em></span>
+              )}
+            </h2>
+
+            <p class="correction-message">{correction.message}</p>
+
+            <p class="correction-meta">
+              {correction.evidenceUrl && (
+                <>
+                  <a href={correction.evidenceUrl} target="_blank" rel="nofollow noopener">
+                    Evidencia aportada
+                  </a>
+                  {' · '}
+                </>
+              )}
+              {correction.email ? 'Dejó correo para respuesta' : 'Sin correo de contacto'}
+            </p>
+          </li>
+        );
+      })}
+    </ul>
+  )}
+
+  <section class="how" aria-labelledby="how-title">
+    <h2 id="how-title" class="how-title">Cómo resolver una corrección</h2>
+    <ol>
+      <li>Contrasta contra la fuente oficial, no contra el mensaje. Si la fuente contradice lo que publicamos, gana la fuente.</li>
+      <li>Corrige la ficha y añade una entrada al <code>changelog</code> con la fecha real del cambio del fabricante, no la de hoy.</li>
+      <li>Actualiza <code>lastVerifiedAt</code>.</li>
+      <li>Si dejó correo, contéstale con lo que has hecho, incluso si su aviso era incorrecto.</li>
+    </ol>
+    <p class="note">
+      Un aviso equivocado también es útil: suele señalar que la ficha está redactada de forma
+      confusa.
+    </p>
+  </section>
+</AdminLayout>
+
+<style>
+  .summary {
+    margin: 0 0 var(--space-s);
+    font-size: 0.9375rem;
+    color: var(--ink-muted);
+  }
+
+  .empty {
+    color: var(--ink-subtle);
+  }
+
+  .corrections {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .correction {
+    padding: var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface);
+  }
+
+  .correction.is-pending {
+    border-color: var(--warn-line);
+  }
+
+  .correction-head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    flex-wrap: wrap;
+  }
+
+  .correction-field {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--ink-muted);
+  }
+
+  .correction-date {
+    margin-inline-start: auto;
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+  }
+
+  .correction-tool {
+    font-size: 1rem;
+    margin-block: var(--space-2xs) 0.2rem;
+  }
+
+  .correction-tool a {
+    color: var(--ink-strong);
+  }
+
+  .correction-message {
+    margin: 0 0 var(--space-2xs);
+    font-size: 0.9375rem;
+    color: var(--ink);
+    white-space: pre-wrap;
+  }
+
+  .correction-meta {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+  }
+
+  .correction-meta a {
+    color: var(--info);
+  }
+
+  .how {
+    margin-block-start: var(--space-l);
+    padding: var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface-sunken);
+  }
+
+  .how-title {
+    font-size: 1rem;
+    margin-block-end: var(--space-2xs);
+  }
+
+  .how ol {
+    margin: 0;
+    padding-inline-start: 1.3em;
+    display: grid;
+    gap: 0.35rem;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .note {
+    margin: var(--space-2xs) 0 0;
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--surface);
+    padding: 0.1em 0.35em;
+    border-radius: var(--radius-s);
+  }
+</style>
