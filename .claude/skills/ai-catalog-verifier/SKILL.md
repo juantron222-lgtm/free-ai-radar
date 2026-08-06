@@ -5,7 +5,7 @@ description: Verifica fichas del catálogo de Free AI Radar contra la página of
 
 # Verificador del catálogo
 
-## Objetivo
+## 1. Objetivo
 
 Garantizar que ninguna ficha presente como hecho algo que no se haya
 comprobado contra la fuente oficial, y que el estado de verificación de cada
@@ -14,7 +14,7 @@ ficha refleje la realidad.
 La regla que gobierna todo: **es preferible una ficha incompleta marcada como
 pendiente que una ficha convincente pero inventada.**
 
-## Cuándo activarse
+## 2. Cuándo se activa
 
 - Al añadir una herramienta nueva al catálogo.
 - Al revisar la cola de `/admin/desactualizadas`.
@@ -23,7 +23,7 @@ pendiente que una ficha convincente pero inventada.**
 - Antes de subir el estado de una ficha a `verified`.
 - Cuando el usuario diga «actualiza el catálogo» o «¿esto sigue siendo cierto?».
 
-## Fuentes permitidas
+### Fuentes permitidas
 
 Por orden de prioridad, y **sólo** estas:
 
@@ -36,15 +36,7 @@ Por orden de prioridad, y **sólo** estas:
 Prensa, agregadores, directorios de la competencia y reseñas de terceros:
 **no admisibles**, ni siquiera como apoyo.
 
-## Herramientas permitidas
-
-- `WebFetch` — leer las páginas oficiales.
-- `WebSearch` — sólo para localizar la URL oficial correcta.
-- `Read` / `Edit` — sobre `src/data/tools.json`.
-- `Bash` / `PowerShell` — `npm run data:migrate:dry`, `npm run test`,
-  `npm run links:check`, `git diff`.
-
-## Procedimiento
+## 3. Procedimiento operativo
 
 ### 1. Situar la ficha
 ```bash
@@ -112,7 +104,15 @@ npm run data:migrate
 npm run test                 # los tests de integración validan el dataset real
 ```
 
-## Criterios de verificación
+## 4. Herramientas permitidas
+
+- `WebFetch` — leer las páginas oficiales.
+- `WebSearch` — sólo para localizar la URL oficial correcta.
+- `Read` / `Edit` — sobre `src/data/tools.json`.
+- `Bash` / `PowerShell` — `npm run data:migrate:dry`, `npm run test`,
+  `npm run links:check`, `git diff`.
+
+## 5. Comprobaciones obligatorias
 
 Una ficha puede pasar a `verified` sólo si:
 
@@ -123,7 +123,7 @@ Una ficha puede pasar a `verified` sólo si:
 5. `npm run test` pasa.
 6. Ningún campo duro quedó en `unverified` por comodidad.
 
-## Prohibiciones
+## 6. Prohibiciones
 
 - ❌ No conviertas «la página no lo dice» en `no`. Eso es inventar.
 - ❌ No copies datos de otro directorio de IA.
@@ -135,7 +135,19 @@ Una ficha puede pasar a `verified` sólo si:
 - ❌ No mezcles modelo y producto comercial en una sola ficha.
 - ❌ No escribas descripciones promocionales copiadas del fabricante.
 
-## Formato del informe final
+## 7. Criterios de terminación
+
+La revisión está cerrada cuando:
+
+1. Cada ficha tocada tiene un estado asignado de los cinco posibles.
+2. Las que pasan a `verified` cumplen los seis criterios de §5.
+3. Cada campo que sigue en `unverified` consta en el informe con qué haría falta.
+4. Los cambios del fabricante están en `changelog[]` con su fecha real.
+5. `nextReviewAt` está fijado en todas.
+6. `npm run data:migrate` y `npm run test` pasan.
+7. Ninguna ficha quedó como `verified` sin haber abierto su fuente hoy.
+
+## 8. Formato de informe
 
 ```markdown
 ## Verificación del catálogo — <fecha>
@@ -172,7 +184,7 @@ Una ficha puede pasar a `verified` sólo si:
 - `npm run links:check` → <URLs oficiales caídas>
 ```
 
-## Ejemplos de uso
+## 9. Ejemplos de uso
 
 **Correcto**
 ```
@@ -190,7 +202,7 @@ Misma ficha.
    Eso es una suposición presentada como hecho verificado.
 ```
 
-## Detente y pide aprobación si
+## 10. Situaciones que requieren aprobación humana
 
 - La fuente oficial **contradice** una ficha publicada (afecta a lectores que ya
   tomaron una decisión con ese dato).

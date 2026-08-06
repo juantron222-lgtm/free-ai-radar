@@ -5,7 +5,7 @@ description: Barrera de seguridad de Free AI Radar. Bloquea trabajo en main, git
 
 # Guardián de publicación
 
-## Objetivo
+## 1. Objetivo
 
 Impedir que una operación irreversible o que afecte a producción ocurra sin
 aprobación humana explícita, y garantizar que ningún secreto entre en el
@@ -14,7 +14,7 @@ repositorio.
 El propietario revisa antes de autorizar. Esta skill hace que eso no dependa de
 recordarlo.
 
-## Cuándo activarse
+## 2. Cuándo se activa
 
 - Antes de `git commit`, `git push`, `git merge`, `git rebase`, `git reset`.
 - Antes de tocar `vercel.json`, `astro.config.mjs`, `.env*` o `supabase/`.
@@ -23,7 +23,7 @@ recordarlo.
 - Siempre al cerrar una fase de trabajo.
 - Cuando el usuario pida «despliega», «publica», «súbelo», «hazlo en producción».
 
-## Operaciones BLOQUEADAS
+### Operaciones BLOQUEADAS
 
 Estas **nunca** se ejecutan sin un «sí» explícito del propietario en el chat:
 
@@ -41,7 +41,7 @@ Estas **nunca** se ejecutan sin un «sí» explícito del propietario en el chat
 | Datos | Borrar contenido existente sin copia recuperable |
 | Global | Modificar configuración fuera del directorio del proyecto |
 
-## Procedimiento
+## 3. Procedimiento operativo
 
 Ejecuta las nueve comprobaciones **en orden** antes de dar el visto bueno. Cada
 una es un comando concreto con un resultado esperado; ninguna es un juicio.
@@ -107,7 +107,20 @@ git log --oneline main -1
 ```
 Debe seguir siendo el commit previo al trabajo. `main` no se toca.
 
-## Criterios de verificación
+## 4. Herramientas permitidas
+
+- `Bash` / `PowerShell` — sólo lectura de git (`status`, `diff`, `log`,
+  `branch`, `ls-files`, `check-ignore`), `grep` y los scripts de `npm run`.
+- `Read` — cualquier fichero del proyecto, para revisar el diff.
+- `git add` / `git commit` — **únicamente en la rama de trabajo** y sólo
+  después de que las nueve comprobaciones den el resultado exigido.
+
+Prohibido para esta skill: `git push`, `git merge`, `git rebase`,
+`git reset --hard`, cualquier CLI de despliegue (`vercel`, `wrangler`), la CLI
+de Stripe en modo live, y cualquier herramienta que escriba fuera del
+directorio del proyecto.
+
+## 5. Comprobaciones obligatorias
 
 El commit en la rama de trabajo se autoriza **sólo** si las nueve comprobaciones
 dan el resultado esperado:
@@ -130,7 +143,7 @@ Que las nueve pasen autoriza **únicamente** un commit local en la rama de
 trabajo. Nunca un push, un despliegue ni una operación de la tabla de
 bloqueadas.
 
-## Operaciones PERMITIDAS sin preguntar
+### Operaciones PERMITIDAS sin preguntar
 
 - Leer cualquier fichero del proyecto.
 - Escribir en `src/`, `tests/`, `docs/`, `public/`, `scripts/`, `supabase/migrations/`.
@@ -141,7 +154,7 @@ bloqueadas.
 - Correos en modo simulado (`EMAIL_DRY_RUN=1`).
 - Migraciones contra una base local o de desarrollo.
 
-## Prohibiciones
+## 6. Prohibiciones
 
 - ❌ No interpretes un «adelante» genérico como permiso para desplegar.
 - ❌ No trates una autorización previa como permanente: es por operación y por sesión.
@@ -152,7 +165,18 @@ bloqueadas.
 - ❌ No hagas commit con el pipeline en rojo.
 - ❌ No uses `--no-verify` ni saltes hooks.
 
-## Formato del informe final
+## 7. Criterios de terminación
+
+La comprobación está cerrada cuando:
+
+1. Las nueve de §5 tienen resultado explícito.
+2. El veredicto es inequívoco: autorizado o bloqueado con motivo.
+3. Toda operación de la tabla de bloqueadas que haga falta está listada como
+   pendiente de aprobación, con su plantilla de petición.
+4. No se ejecutó ninguna operación bloqueada.
+5. `main` sigue apuntando al mismo commit que antes.
+
+## 8. Formato de informe
 
 ```markdown
 ## Comprobación de seguridad — <fecha>
@@ -176,7 +200,7 @@ COMMIT AUTORIZADO EN LA RAMA DE TRABAJO / BLOQUEADO: <motivo>
 - [ ] <operación> — <por qué>
 ```
 
-## Ejemplos de uso
+## 9. Ejemplos de uso
 
 **Correcto**
 ```
@@ -201,7 +225,7 @@ Usuario: pon Stripe en producción
 → Se pide confirmación explícita e informada.
 ```
 
-## Detente y pide aprobación si
+## 10. Situaciones que requieren aprobación humana
 
 Siempre, para cualquiera de estas:
 

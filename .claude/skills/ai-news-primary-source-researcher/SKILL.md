@@ -5,7 +5,7 @@ description: Investiga y redacta noticias de IA para Free AI Radar usando EXCLUS
 
 # Investigador de noticias con fuente primaria
 
-## Objetivo
+## 1. Objetivo
 
 Producir entradas de noticias para Free AI Radar en las que **cada afirmación
 publicable esté respaldada por una fuente primaria citable con fecha**, y en las
@@ -16,7 +16,7 @@ El activo del proyecto es que se puede confiar en él. Una sola noticia inventad
 o mal fechada lo destruye. Esta skill existe para que eso no dependa de la
 memoria del modelo.
 
-## Cuándo activarse
+## 2. Cuándo se activa
 
 - Al añadir cualquier entrada a `src/data/news/*.json`.
 - Al actualizar una noticia existente.
@@ -25,7 +25,7 @@ memoria del modelo.
 - Antes de marcar una ficha como `outdated` por un cambio anunciado.
 - Al revisar la cola de borradores en `/admin/noticias`.
 
-## Fuentes permitidas
+### Fuentes permitidas
 
 **Primarias (única base admisible para publicar):**
 
@@ -45,16 +45,7 @@ buscador.
 > Un resumen de motor de búsqueda **no es** una fuente. Sirve para saber dónde
 > mirar. La cita siempre va a la página del fabricante.
 
-## Herramientas permitidas
-
-- `WebSearch` — sólo para localizar la fuente primaria.
-- `WebFetch` — para leer y citar la fuente primaria.
-- `Read` / `Write` / `Edit` — sobre `src/data/news/` y `docs/`.
-- `Bash` / `PowerShell` — sólo para `npm run data:news:validate` y `git diff`.
-
-No se permite ninguna herramienta que publique, despliegue o envíe correo.
-
-## Procedimiento
+## 3. Procedimiento operativo
 
 ### 1. Descubrir
 ```
@@ -112,7 +103,16 @@ fuente y slugs de herramientas.
 >   && echo "disponible" || echo "pendiente de la fase de noticias"
 > ```
 
-## Criterios de verificación
+## 4. Herramientas permitidas
+
+- `WebSearch` — sólo para localizar la fuente primaria.
+- `WebFetch` — para leer y citar la fuente primaria.
+- `Read` / `Write` / `Edit` — sobre `src/data/news/` y `docs/`.
+- `Bash` / `PowerShell` — sólo para `npm run data:news:validate` y `git diff`.
+
+No se permite ninguna herramienta que publique, despliegue o envíe correo.
+
+## 5. Comprobaciones obligatorias
 
 Una noticia es **publicable** (`verification: 'verified'`) sólo si:
 
@@ -126,7 +126,7 @@ Una noticia es **publicable** (`verification: 'verified'`) sólo si:
 Si cumple 1–4 pero hay algún dato secundario sin confirmar →
 `verification: 'partial'`, y ese dato se marca en el texto como no confirmado.
 
-## Prohibiciones
+## 6. Prohibiciones
 
 - ❌ No inventes noticias, fechas, versiones, precios ni características.
 - ❌ No cites un agregador, un resumen de buscador ni prensa como fuente.
@@ -137,7 +137,19 @@ Si cumple 1–4 pero hay algún dato secundario sin confirmar →
 - ❌ No traduzcas un nombre de producto ni «corrijas» su grafía.
 - ❌ No reutilices el cuerpo de una noticia antigua cambiándole la fecha.
 
-## Formato del informe final
+## 7. Criterios de terminación
+
+La investigación está cerrada cuando:
+
+1. Cada candidato tiene veredicto: publicable, parcial o descartado.
+2. Los publicables cumplen los seis criterios de §5.
+3. Los descartados constan en el informe **con el motivo**, no se omiten.
+4. Los parciales dicen exactamente qué falta por confirmar.
+5. Las herramientas del catálogo afectadas están identificadas.
+6. La validación de §3.6 pasa, o consta que el script aún no existe.
+7. Nada quedó publicado: todo entra como borrador para revisión humana.
+
+## 8. Formato de informe
 
 ```markdown
 ## Investigación de noticias — <fecha>
@@ -162,7 +174,7 @@ Si cumple 1–4 pero hay algún dato secundario sin confirmar →
 `npm run data:news:validate` → <salida>
 ```
 
-## Ejemplos de uso
+## 9. Ejemplos de uso
 
 **Correcto**
 ```
@@ -182,7 +194,7 @@ Usuario: añade las novedades de Anthropic de julio
    El resumen no es fuente. Hay que abrir la página del fabricante.
 ```
 
-## Detente y pide aprobación si
+## 10. Situaciones que requieren aprobación humana
 
 - La fuente primaria y una fuente secundaria **se contradicen**.
 - El anuncio implica que una herramienta del catálogo ha **cerrado**.

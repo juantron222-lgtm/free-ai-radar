@@ -5,7 +5,7 @@ description: Barrido completo de QA de Free AI Radar en navegador real. Recorre 
 
 # QA completa en navegador real
 
-## Objetivo
+## 1. Objetivo
 
 Detectar en un navegador de verdad lo que las pruebas unitarias no ven:
 enlaces que no llevan a ningún sitio, botones sin comportamiento, errores de
@@ -13,7 +13,7 @@ consola, peticiones fallidas, rutas rotas y regresiones visuales.
 
 Nunca afirmes que el sitio está libre de errores basándote sólo en Vitest.
 
-## Cuándo activarse
+## 2. Cuándo se activa
 
 - Antes de cerrar cualquier fase de trabajo.
 - Después de tocar navegación, rutas, layout o el sistema de diseño.
@@ -21,24 +21,7 @@ Nunca afirmes que el sitio está libre de errores basándote sólo en Vitest.
 - Antes de preparar un commit que afecte a más de una página.
 - Tras añadir una sección nueva.
 
-## Herramientas permitidas
-
-- `mcp__Claude_Browser__*` — navegador real: `navigate`, `read_page`,
-  `read_console_messages`, `read_network_requests`, `computer`, `resize_window`.
-- `Bash` / `PowerShell` — arrancar el servidor y ejecutar Playwright.
-- `Read` / `Edit` — sólo para corregir lo que se encuentre.
-
-## Preparación
-
-```bash
-npx astro dev stop 2>/dev/null; rm -rf .data
-E2E=1 npx astro dev --port 4321      # en segundo plano
-```
-
-`E2E=1` desactiva la barra de herramientas de desarrollo de Astro, cuyo overlay
-fijo intercepta clics en la parte inferior de la ventana.
-
-## Procedimiento
+## 3. Procedimiento operativo
 
 ### 1. Barrido automático de rutas
 
@@ -172,7 +155,24 @@ mcp__Claude_Browser__javascript_tool
 // debe ser <= 0
 ```
 
-## Criterios de verificación
+## 4. Herramientas permitidas
+
+- `mcp__Claude_Browser__*` — navegador real: `navigate`, `read_page`,
+  `read_console_messages`, `read_network_requests`, `computer`, `resize_window`.
+- `Bash` / `PowerShell` — arrancar el servidor y ejecutar Playwright.
+- `Read` / `Edit` — sólo para corregir lo que se encuentre.
+
+### Preparación
+
+```bash
+npx astro dev stop 2>/dev/null; rm -rf .data
+E2E=1 npx astro dev --port 4321      # en segundo plano
+```
+
+`E2E=1` desactiva la barra de herramientas de desarrollo de Astro, cuyo overlay
+fijo intercepta clics en la parte inferior de la ventana.
+
+## 5. Comprobaciones obligatorias
 
 El barrido **pasa** sólo si:
 
@@ -186,7 +186,7 @@ El barrido **pasa** sólo si:
 8. Sin scroll horizontal en 375 px.
 9. Rutas privadas protegidas en los tres estados de usuario.
 
-## Prohibiciones
+## 6. Prohibiciones
 
 - ❌ No declares «sin errores» sin haber leído la consola de cada ruta.
 - ❌ No sustituyas la comprobación en navegador por pruebas unitarias.
@@ -196,7 +196,20 @@ El barrido **pasa** sólo si:
 - ❌ No arregles un test para que pase ocultando el defecto que detecta.
 - ❌ No dejes el servidor de desarrollo corriendo al terminar.
 
-## Formato del informe final
+## 7. Criterios de terminación
+
+El barrido está cerrado cuando:
+
+1. Las nueve comprobaciones de §5 pasan.
+2. Cada ruta de §3.3 se ha visitado y su consola se ha leído.
+3. Cada elemento de §3.4 se ha pulsado y hace algo real.
+4. Los tres estados de usuario se han probado.
+5. La auditoría visual de §3.6 está hecha en los tres anchos y ambos temas.
+6. Cada defecto encontrado está corregido o registrado con su gravedad.
+7. Lo que no se pudo comprobar consta explícitamente en el informe.
+8. El servidor de desarrollo queda parado.
+
+## 8. Formato de informe
 
 ```markdown
 ## QA en navegador — <fecha>
@@ -232,7 +245,7 @@ El barrido **pasa** sólo si:
 ### Pendientes
 ```
 
-## Ejemplos de uso
+## 9. Ejemplos de uso
 
 **Correcto**
 ```
@@ -251,7 +264,7 @@ El barrido **pasa** sólo si:
    Las pruebas unitarias no abren el navegador ni leen la consola.
 ```
 
-## Detente y pide aprobación si
+## 10. Situaciones que requieren aprobación humana
 
 - Un defecto obliga a **cambiar el modelo de datos** o a migrar.
 - La corrección implica **borrar contenido** existente.
