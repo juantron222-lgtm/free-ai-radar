@@ -27,9 +27,20 @@ export default defineConfig({
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
   },
+  /**
+   * `desktop` is kept as an alias of `chromium` so existing commands and CI
+   * invocations do not break; `chromium` is the name the QA skill asks for.
+   *
+   * WebKit earns its place: it is the only engine here that will surface `dvh`,
+   * `:has()` and flex differences before an iPhone user does.
+   */
   projects: [
-    { name: 'desktop', use: { ...devices['Desktop Chrome'] } },
+    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
+    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
+    { name: 'webkit', use: { ...devices['Desktop Safari'] } },
     { name: 'mobile', use: { ...devices['Pixel 7'] } },
+    { name: 'mobile-safari', use: { ...devices['iPhone 14'] } },
+    { name: 'desktop', use: { ...devices['Desktop Chrome'] } },
   ],
   webServer: process.env.E2E_BASE_URL
     ? undefined
