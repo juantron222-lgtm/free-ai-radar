@@ -132,6 +132,67 @@ const ALTERNATIVE_DISPLAY = {
 
 const KNOWN_CATEGORIES = new Set(Object.values(CATEGORY_MAP));
 
+/**
+ * Entity kind per slug.
+ *
+ * Assigned by hand because it is an editorial judgement, not something to
+ * infer: a UI over someone else's engine is an `interface`, not a `model`,
+ * and getting that wrong is exactly the model-vs-product confusion this field
+ * exists to prevent. Anything not listed falls back to `app`.
+ */
+const TOOL_KIND = {
+  'stable-diffusion-webui': 'interface',
+  comfyui: 'interface',
+  fooocus: 'interface',
+  ollama: 'oss_project',
+  'lm-studio': 'app',
+  pinokio: 'app',
+  'hugging-face-spaces': 'platform',
+  civitai: 'platform',
+  replicate: 'platform',
+  chatgpt: 'app',
+  claude: 'app',
+  'google-gemini': 'app',
+  'perplexity-ai': 'app',
+  cursor: 'agent',
+  'bolt-new': 'agent',
+  'v0-by-vercel': 'agent',
+  'leonardo-ai': 'app',
+  midjourney: 'app',
+  runwayml: 'app',
+  'pika-labs': 'app',
+  'suno-ai': 'app',
+  elevenlabs: 'app',
+};
+
+/**
+ * Verification state carried over from the v1 data.
+ *
+ * The v1 catalogue was written without a verification workflow, so nothing in
+ * it can honestly claim `verified`. Everything starts at
+ * `partially_verified` — the free-plan fields were researched, the secondary
+ * ones were not — and only moves up when a human opens the vendor page. See
+ * the `ai-catalog-verifier` skill.
+ */
+function inferVerification(legacy) {
+  const unknowns = [
+    legacy.requires_credit_card,
+    legacy.requires_signup,
+    legacy.has_watermark,
+    legacy.commercial_use,
+    legacy.open_source,
+  ].filter((v) => v !== true && v !== false).length;
+
+  return unknowns === 0 ? 'partially_verified' : 'pending_review';
+}
+
+function addDays(isoDate, days) {
+  const d = new Date(`${isoDate}T00:00:00Z`);
+  if (Number.isNaN(d.getTime())) return undefined;
+  d.setUTCDate(d.getUTCDate() + days);
+  return d.toISOString().slice(0, 10);
+}
+
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
@@ -321,6 +382,10 @@ function migrateOne(legacy, report) {
     descriptionShort: nonEmpty(legacy.description_short) ?? '',
     descriptionLong: nonEmpty(legacy.description_long) ?? '',
 
+    kind: TOOL_KIND[slug] ?? 'app',
+    verification: inferVerification(legacy),
+    nextReviewAt: addDays(lastVerifiedAt, 90),
+
     categorySlug: categorySlug ?? 'productividad',
     secondaryCategories: [],
     tags: [...new Set(editorialTags)],
@@ -429,6 +494,7 @@ function emitSeedSql(records) {
     lines.push(
       `insert into public.tools (
   id, slug, name, tagline, description_short, description_long,
+  kind, verification, next_review_at, version,
   category_slug, secondary_categories, tags, use_cases,
   free_model, free_plan, open_source, licence, hosting, platforms, languages,
   hardware_requirements, skill_level, privacy,
@@ -439,6 +505,7 @@ function emitSeedSql(records) {
 ) values (
   ${sqlString(r.id)}, ${sqlString(r.slug)}, ${sqlString(r.name)}, ${sqlString(r.tagline)},
   ${sqlString(r.descriptionShort)}, ${sqlString(r.descriptionLong)},
+  ${sqlString(r.kind)}, ${sqlString(r.verification)}, ${sqlString(r.nextReviewAt)}, ${sqlString(r.version)},
   ${sqlString(r.categorySlug)}, ${sqlJson(r.secondaryCategories)}, ${sqlJson(r.tags)}, ${sqlJson(r.useCases)},
   ${sqlString(r.freeModel)}, ${sqlJson(r.freePlan)}, ${sqlString(r.openSource)}, ${sqlString(r.licence)},
   ${sqlString(r.hosting)}, ${sqlJson(r.platforms)}, ${sqlJson(r.languages)},

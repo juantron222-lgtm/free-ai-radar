@@ -6,11 +6,19 @@ export const ROUTES = {
   tool: (slug: string) => `/herramientas/${slug}`,
   categories: '/categorias',
   category: (slug: string) => `/categorias/${slug}`,
+  models: '/modelos',
+  agents: '/agentes',
   compare: '/comparar',
   collections: '/colecciones',
   collection: (slug: string) => `/colecciones/${slug}`,
-  changes: '/cambios',
   news: '/noticias',
+  newsItem: (slug: string) => `/noticias/${slug}`,
+  /**
+   * The site's own changelog. Moved out of the primary nav: readers come for
+   * what changed in the *tools*, not for what changed in this website. It
+   * belongs with the other transparency pages.
+   */
+  radarChangelog: '/transparencia/cambios-del-radar',
   guides: '/guias',
   guide: (slug: string) => `/guias/${slug}`,
   methodology: '/metodologia',
@@ -46,12 +54,18 @@ export interface NavItem {
   description?: string;
 }
 
-/** Primary navigation. Deliberately short — five items is the ceiling. */
+/**
+ * Primary navigation. Deliberately short — six items is the ceiling.
+ *
+ * "Últimas noticias" replaces the old "Cambios": what the reader wants is what
+ * changed in the *tools*, dated and sourced, not this site's own release log.
+ */
 export const PRIMARY_NAV: readonly NavItem[] = [
   { label: 'Herramientas', href: ROUTES.tools, description: 'El catálogo completo, con filtros' },
-  { label: 'Categorías', href: ROUTES.categories, description: 'Por tipo de trabajo' },
+  { label: 'Modelos', href: ROUTES.models, description: 'Modelos de lenguaje y multimodales' },
+  { label: 'Agentes', href: ROUTES.agents, description: 'Agentes y frameworks para construirlos' },
   { label: 'Comparar', href: ROUTES.compare, description: 'Enfrenta hasta cuatro herramientas' },
-  { label: 'Cambios', href: ROUTES.changes, description: 'Qué planes gratuitos han cambiado' },
+  { label: 'Últimas noticias', href: ROUTES.news, description: 'Qué ha cambiado, con fuente y fecha' },
   { label: 'Metodología', href: ROUTES.methodology, description: 'Cómo puntuamos' },
 ];
 
@@ -60,11 +74,12 @@ export const FOOTER_NAV: ReadonlyArray<{ title: string; items: NavItem[] }> = [
     title: 'Descubrir',
     items: [
       { label: 'Todas las herramientas', href: ROUTES.tools },
+      { label: 'Modelos', href: ROUTES.models },
+      { label: 'Agentes', href: ROUTES.agents },
       { label: 'Categorías', href: ROUTES.categories },
       { label: 'Colecciones', href: ROUTES.collections },
       { label: 'Comparador', href: ROUTES.compare },
-      { label: 'Registro de cambios', href: ROUTES.changes },
-      { label: 'Novedades', href: ROUTES.news },
+      { label: 'Últimas noticias', href: ROUTES.news },
     ],
   },
   {
@@ -74,6 +89,7 @@ export const FOOTER_NAV: ReadonlyArray<{ title: string; items: NavItem[] }> = [
       { label: 'Política editorial', href: ROUTES.editorialPolicy },
       { label: 'Afiliados', href: ROUTES.affiliates },
       { label: 'Publicidad y patrocinios', href: ROUTES.advertising },
+      { label: 'Cambios del Radar', href: ROUTES.radarChangelog },
       { label: 'Sobre el proyecto', href: ROUTES.about },
     ],
   },

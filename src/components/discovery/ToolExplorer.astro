@@ -46,7 +46,13 @@ const index = buildClientIndex(tools, (slug) => getCategory(slug)?.name ?? slug)
     <h3 class="empty-title">Ninguna herramienta cumple todo lo que has pedido</h3>
     <p class="empty-body" id="empty-reason"></p>
     <div class="empty-actions">
-      <button type="button" class="btn btn-secondary btn-sm" data-empty-relax hidden></button>
+      {/* The script rewrites this label to name the filter that is actually
+          responsible ("Permitir marca de agua"). It ships with a usable
+          fallback so it is never a nameless control, even for the instant
+          before the script runs or if the script never arrives. */}
+      <button type="button" class="btn btn-secondary btn-sm" data-empty-relax hidden>
+        Relajar el filtro más restrictivo
+      </button>
       <button type="button" class="btn btn-secondary btn-sm" id="empty-reset">Quitar todos los filtros</button>
       <a class="btn btn-ghost btn-sm" href={ROUTES.submit}>Falta una herramienta: avísanos</a>
     </div>

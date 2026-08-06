@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getAllTools, getPopulatedCategories } from '@lib/data/catalog';
+import { getAllNews } from '@lib/data/news';
 import { absoluteUrl } from '@lib/seo/site';
 import { ROUTES } from '@lib/nav';
 
@@ -30,23 +31,33 @@ function escapeXml(value: string): string {
 export const GET: APIRoute = () => {
   const tools = getAllTools();
   const categories = getPopulatedCategories();
+  const news = getAllNews();
 
   const newestVerification = tools.reduce(
     (acc, tool) => (tool.lastVerifiedAt > acc ? tool.lastVerifiedAt : acc),
     '2024-01-01'
   );
 
+  const newestNews = news.reduce((acc, item) => (item.checkedAt > acc ? item.checkedAt : acc), '');
+
   const entries: Entry[] = [
     { path: ROUTES.home, lastmod: newestVerification, changefreq: 'daily', priority: 1.0 },
     { path: ROUTES.tools, lastmod: newestVerification, changefreq: 'daily', priority: 0.9 },
     { path: ROUTES.categories, lastmod: newestVerification, changefreq: 'weekly', priority: 0.8 },
-    { path: ROUTES.changes, lastmod: newestVerification, changefreq: 'daily', priority: 0.8 },
+    {
+      path: ROUTES.news,
+      lastmod: newestNews || newestVerification,
+      changefreq: 'daily',
+      priority: 0.8,
+    },
+    { path: ROUTES.models, lastmod: newestVerification, changefreq: 'weekly', priority: 0.8 },
+    { path: ROUTES.agents, lastmod: newestVerification, changefreq: 'weekly', priority: 0.8 },
     { path: ROUTES.collections, changefreq: 'weekly', priority: 0.7 },
     { path: ROUTES.compare, changefreq: 'monthly', priority: 0.6 },
-    { path: ROUTES.news, changefreq: 'daily', priority: 0.6 },
     { path: ROUTES.guides, changefreq: 'weekly', priority: 0.6 },
     { path: ROUTES.methodology, changefreq: 'monthly', priority: 0.7 },
     { path: ROUTES.editorialPolicy, changefreq: 'monthly', priority: 0.5 },
+    { path: ROUTES.radarChangelog, changefreq: 'monthly', priority: 0.4 },
     { path: ROUTES.affiliates, changefreq: 'monthly', priority: 0.4 },
     { path: ROUTES.advertising, changefreq: 'monthly', priority: 0.4 },
     { path: ROUTES.about, changefreq: 'monthly', priority: 0.5 },
@@ -73,6 +84,14 @@ export const GET: APIRoute = () => {
       changefreq: 'weekly' as const,
       // Well-verified tools are the pages we most want crawled first.
       priority: tool.freshness === 'fresh' ? 0.8 : 0.6,
+    })),
+    ...news.map((item) => ({
+      path: ROUTES.newsItem(item.slug),
+      lastmod: item.checkedAt,
+      // A news item is a dated record of something that already happened; it
+      // does not change after publication except to be corrected.
+      changefreq: 'yearly' as const,
+      priority: item.affectsFreePlan === 'yes' ? 0.7 : 0.5,
     })),
   ];
 

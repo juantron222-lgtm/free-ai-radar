@@ -1,0 +1,350 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import NewsCard from '@components/news/NewsCard.astro';
+import ToolCard from '@components/tools/ToolCard.astro';
+import { getAllNews } from '@lib/data/news';
+import { getTool } from '@lib/data/catalog';
+import { articleSchema } from '@lib/seo/structured-data';
+import { NEWS_CATEGORY_LABEL } from '@lib/domain/news';
+import { ROUTES } from '@lib/nav';
+
+export function getStaticPaths() {
+  return getAllNews().map((item) => ({ params: { slug: item.slug }, props: { item } }));
+}
+
+const { item } = Astro.props;
+
+const related = item.relatedTools.map(getTool).filter((t) => t !== undefined);
+
+const more = getAllNews()
+  .filter((n) => n.slug !== item.slug && n.category === item.category)
+  .slice(0, 3);
+
+const fallback = getAllNews().filter((n) => n.slug !== item.slug).slice(0, 3);
+const alsoRead = more.length >= 2 ? more : fallback;
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Últimas noticias', path: ROUTES.news },
+  { name: item.title, path: ROUTES.newsItem(item.slug) },
+];
+
+const fmt = (iso: string) =>
+  new Date(`${iso}T00:00:00Z`).toLocaleDateString('es-ES', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+
+const FREE_PLAN_LABEL = {
+  yes: 'Sí, afecta al plan gratuito',
+  no: 'No afecta al plan gratuito',
+  unverified: 'Sin confirmar si afecta al plan gratuito',
+} as const;
+---
+
+<BaseLayout
+  title={item.seoTitle ?? item.title}
+  description={item.seoDescription ?? item.summary}
+  crumbs={crumbs}
+  ogType="article"
+  schemas={[
+    articleSchema({
+      headline: item.title,
+      description: item.summary,
+      path: ROUTES.newsItem(item.slug),
+      datePublished: item.publishedAt,
+      dateModified: item.checkedAt,
+      authorName: item.author,
+    }),
+  ]}
+>
+  <article class="page news-detail">
+    <header class="detail-head">
+      <p class="detail-meta">
+        <span class="chip detail-cat">{NEWS_CATEGORY_LABEL[item.category]}</span>
+        <time datetime={item.publishedAt} class="tnum">{fmt(item.publishedAt)}</time>
+      </p>
+
+      <h1 class="detail-title">{item.title}</h1>
+      <p class="detail-summary">{item.summary}</p>
+
+      <div class="detail-flags">
+        <span class={`chip ${item.affectsFreePlan === 'yes' ? 'chip-signal' : ''}`}>
+          {FREE_PLAN_LABEL[item.affectsFreePlan]}
+        </span>
+        <span class={`chip ${item.verification === 'verified' ? 'chip-signal' : 'chip-warn'}`}>
+          {item.verificationLabel}
+        </span>
+      </div>
+    </header>
+
+    {item.verification === 'partial' && item.unconfirmed.length > 0 && (
+      <div class="detail-caveat" role="note">
+        <p><strong>Lo que todavía no hemos confirmado</strong></p>
+        <ul>
+          {item.unconfirmed.map((point) => <li>{point}</li>)}
+        </ul>
+        <p class="detail-caveat-note">
+          Lo decimos en vez de omitirlo. Si tienes la fuente oficial que lo aclara,
+          <a href={ROUTES.contact}> escríbenos</a>.
+        </p>
+      </div>
+    )}
+
+    <div class="detail-body">
+      <section class="detail-section" aria-labelledby="impact-title">
+        <h2 id="impact-title">Qué significa para ti</h2>
+        <p class="detail-impact">{item.impact}</p>
+      </section>
+
+      {related.length > 0 && (
+        <section class="detail-section" aria-labelledby="tools-title">
+          <h2 id="tools-title">Herramientas afectadas</h2>
+          <ul class="grid-cards detail-tools">
+            {related.map((tool) => (
+              <li><ToolCard tool={tool} variant="compact" /></li>
+            ))}
+          </ul>
+          <p class="detail-hint">
+            Pulsa «Avisarme» en cualquiera de estas fichas y te escribimos cuando su plan gratuito
+            cambie otra vez.
+          </p>
+        </section>
+      )}
+
+      <section class="detail-section" aria-labelledby="sources-title">
+        <h2 id="sources-title">Fuentes</h2>
+        <p>
+          Todo lo anterior sale de estas páginas. Si alguna contradice lo que publicamos, gana la
+          fuente y lo corregimos.
+        </p>
+        <ul class="detail-sources">
+          {item.sources.map((source) => (
+            <li>
+              <a href={source.url} rel="nofollow noopener" target="_blank">{source.label}</a>
+              <span class="detail-source-meta">
+                {new URL(source.url).hostname.replace(/^www\./, '')} ·
+                {' '}{source.kind} ·
+                comprobada el <time datetime={source.checkedAt}>{fmt(source.checkedAt)}</time>
+              </span>
+            </li>
+          ))}
+        </ul>
+        <p class="detail-cta">
+          <a class="btn btn-primary" href={item.officialUrl} rel="nofollow noopener" target="_blank">
+            Leer el anuncio oficial
+            <span class="sr-only">(se abre en una pestaña nueva)</span>
+          </a>
+        </p>
+      </section>
+
+      <section class="detail-section detail-byline" aria-labelledby="byline-title">
+        <h2 id="byline-title" class="sr-only">Responsable editorial</h2>
+        <p>
+          Redactado por <strong>{item.author}</strong> ·
+          publicado por el fabricante el <time datetime={item.publishedAt}>{fmt(item.publishedAt)}</time> ·
+          fuente comprobada el <time datetime={item.checkedAt}>{fmt(item.checkedAt)}</time>.
+          <a href={ROUTES.editorialPolicy}> Cómo decidimos qué publicamos</a>.
+        </p>
+      </section>
+    </div>
+
+    {alsoRead.length > 0 && (
+      <section class="detail-more" aria-labelledby="more-title">
+        <h2 id="more-title" class="detail-more-title">Seguir leyendo</h2>
+        <ul class="grid-cards detail-more-grid">
+          {alsoRead.map((other) => (
+            <li><NewsCard item={other} headingLevel="h3" /></li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </article>
+</BaseLayout>
+
+<style>
+  .news-detail {
+    padding-block: var(--space-m) var(--space-xl);
+    display: grid;
+    gap: var(--space-l);
+  }
+
+  .detail-head {
+    max-width: var(--measure);
+  }
+
+  .detail-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    flex-wrap: wrap;
+    margin: 0 0 var(--space-2xs);
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+  }
+
+  .detail-cat {
+    background: var(--info-soft);
+    border-color: var(--info-line);
+    color: var(--info);
+  }
+
+  .detail-title {
+    font-size: clamp(1.6rem, 1.3rem + 1.7vw, 2.5rem);
+    margin-block-end: var(--space-2xs);
+  }
+
+  .detail-summary {
+    margin: 0 0 var(--space-s);
+    font-size: 1.0625rem;
+    color: var(--ink-muted);
+  }
+
+  .detail-flags {
+    display: flex;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+  }
+
+  .detail-caveat {
+    max-width: var(--measure);
+    padding: var(--space-xs) var(--space-s);
+    border-radius: var(--radius-m);
+    border: 1px solid var(--warn-line);
+    background: var(--warn-soft);
+  }
+
+  .detail-caveat p {
+    margin: 0 0 var(--space-3xs);
+    font-size: 0.875rem;
+  }
+
+  .detail-caveat strong {
+    color: var(--warn);
+  }
+
+  .detail-caveat ul {
+    margin: 0 0 var(--space-2xs);
+    padding-inline-start: 1.2em;
+    font-size: 0.875rem;
+    color: var(--ink);
+  }
+
+  .detail-caveat-note {
+    font-size: 0.8125rem !important;
+    color: var(--ink-muted);
+  }
+
+  .detail-caveat-note a {
+    color: var(--warn);
+    font-weight: 600;
+  }
+
+  .detail-body {
+    display: grid;
+    gap: var(--space-l);
+    max-width: var(--measure);
+  }
+
+  .detail-section h2 {
+    font-size: clamp(1.15rem, 1.05rem + 0.5vw, 1.35rem);
+    margin-block-end: var(--space-2xs);
+    padding-block-end: var(--space-3xs);
+    border-block-end: 1px solid var(--line);
+  }
+
+  .detail-section > p {
+    color: var(--ink-muted);
+    margin: 0;
+  }
+
+  .detail-impact {
+    font-size: 1.0625rem;
+    color: var(--ink) !important;
+  }
+
+  .detail-tools {
+    list-style: none;
+    margin: var(--space-2xs) 0 0;
+    padding: 0;
+  }
+
+  .detail-tools > li {
+    display: flex;
+  }
+
+  .detail-tools > li > :global(*) {
+    width: 100%;
+  }
+
+  .detail-hint {
+    margin-block-start: var(--space-2xs) !important;
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+  }
+
+  .detail-sources {
+    list-style: none;
+    margin: var(--space-2xs) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .detail-sources li {
+    display: grid;
+    gap: 0.1rem;
+  }
+
+  .detail-sources a {
+    color: var(--signal);
+    font-weight: 550;
+    overflow-wrap: anywhere;
+  }
+
+  .detail-source-meta {
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+  }
+
+  .detail-cta {
+    margin-block-start: var(--space-s) !important;
+  }
+
+  .detail-byline p {
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+    padding: var(--space-2xs) 0;
+    border-block: 1px solid var(--line);
+  }
+
+  .detail-byline a {
+    color: var(--signal);
+  }
+
+  .detail-more {
+    padding-block-start: var(--space-m);
+    border-block-start: 1px solid var(--line);
+  }
+
+  .detail-more-title {
+    font-size: 1.2rem;
+    margin-block-end: var(--space-s);
+  }
+
+  .detail-more-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .detail-more-grid > li {
+    display: flex;
+  }
+
+  .detail-more-grid > li > :global(*) {
+    width: 100%;
+  }
+</style>

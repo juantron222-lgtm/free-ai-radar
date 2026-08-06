@@ -1,0 +1,391 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import NewsCard from '@components/news/NewsCard.astro';
+import NewsletterForm from '@components/marketing/NewsletterForm.astro';
+import {
+  getAllNews,
+  getNewsStats,
+  getPopulatedNewsCategories,
+  getFreePlanNews,
+} from '@lib/data/news';
+import { getCatalogChanges } from '@lib/data/catalog';
+import { itemListSchema } from '@lib/seo/structured-data';
+import { absoluteUrl } from '@lib/seo/site';
+import { ROUTES } from '@lib/nav';
+
+const news = getAllNews();
+const stats = getNewsStats();
+const categories = getPopulatedNewsCategories();
+const freePlanNews = getFreePlanNews();
+const catalogChanges = getCatalogChanges(8);
+
+const [lead, ...rest] = news;
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Últimas noticias', path: ROUTES.news },
+];
+
+/**
+ * ItemList of the news, so the section is discoverable as a collection rather
+ * than as a stack of unrelated pages.
+ */
+const listSchema = {
+  '@type': 'ItemList',
+  name: 'Últimas noticias de IA verificadas',
+  numberOfItems: news.length,
+  itemListElement: news.slice(0, 30).map((item, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    url: absoluteUrl(ROUTES.newsItem(item.slug)),
+    name: item.title,
+  })),
+};
+void itemListSchema;
+---
+
+<BaseLayout
+  title="Últimas noticias de IA, con fuente y fecha"
+  description={`${stats.total} novedades verificadas contra la página oficial del fabricante: modelos, agentes, planes gratuitos, precios y limitaciones nuevas. ${stats.affectingFreePlan} afectan a lo que puedes hacer gratis.`}
+  crumbs={crumbs}
+  schemas={[listSchema]}
+>
+  <div class="page news-page">
+    <header class="news-header">
+      <h1 class="news-h1">Últimas noticias</h1>
+      <p class="news-lede">
+        Sólo publicamos lo que hemos podido verificar en la página oficial del fabricante, con su
+        fecha y su enlace. Un resumen de buscador nos sirve para encontrar la noticia; nunca para
+        respaldarla.
+      </p>
+
+      <dl class="news-stats">
+        <div><dt>Noticias</dt><dd class="tnum">{stats.total}</dd></div>
+        <div><dt>Verificadas</dt><dd class="tnum">{stats.verified}</dd></div>
+        <div><dt>Afectan al plan gratuito</dt><dd class="tnum">{stats.affectingFreePlan}</dd></div>
+        <div><dt>Categorías</dt><dd class="tnum">{stats.categories}</dd></div>
+      </dl>
+    </header>
+
+    {news.length === 0 ? (
+      <div class="card news-empty">
+        <h2>Todavía no hay noticias publicadas</h2>
+        <p>
+          Aparecerán aquí en cuanto verifiquemos la primera contra su fuente oficial. Preferimos una
+          sección vacía a una llena de cosas sin comprobar.
+        </p>
+        <a href={ROUTES.tools} class="btn btn-secondary btn-sm">Ver el catálogo mientras tanto</a>
+      </div>
+    ) : (
+      <>
+        <nav class="news-filters scroll-x" aria-label="Filtrar por categoría">
+          <a href="#todas" class="filter-chip is-active" data-news-filter="all">
+            Todas <span class="tnum">{stats.total}</span>
+          </a>
+          {categories.map((category) => (
+            <a href={`#${category.category}`} class="filter-chip" data-news-filter={category.category}>
+              {category.label} <span class="tnum">{category.count}</span>
+            </a>
+          ))}
+        </nav>
+
+        {freePlanNews.length > 0 && (
+          <section class="news-highlight" aria-labelledby="free-title">
+            <h2 id="free-title" class="news-section-title">
+              Lo que cambia si no pagas
+            </h2>
+            <p class="news-section-lede">
+              De las {stats.total} noticias, estas {freePlanNews.length} afectan directamente a lo
+              que puedes hacer sin pagar.
+            </p>
+            <ul class="grid-cards news-grid">
+              {freePlanNews.map((item) => (
+                <li data-news-item data-category={item.category}>
+                  <NewsCard item={item} headingLevel="h3" featured />
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <section aria-labelledby="all-title">
+          <h2 id="all-title" class="news-section-title">Todas las noticias</h2>
+          <ul class="grid-cards news-grid" id="news-list">
+            {lead && (
+              <li data-news-item data-category={lead.category}>
+                <NewsCard item={lead} headingLevel="h3" />
+              </li>
+            )}
+            {rest.map((item) => (
+              <li data-news-item data-category={item.category}>
+                <NewsCard item={item} headingLevel="h3" />
+              </li>
+            ))}
+          </ul>
+          <p class="news-none" id="news-none" hidden>
+            No hay noticias en esa categoría todavía.
+          </p>
+        </section>
+
+        {catalogChanges.length > 0 && (
+          <section class="news-catalog" aria-labelledby="catalog-title">
+            <h2 id="catalog-title" class="news-section-title">Cambios detectados en el catálogo</h2>
+            <p class="news-section-lede">
+              Además de las noticias del sector, anotamos cada vez que cambia algo en una ficha que
+              ya teníamos verificada.
+            </p>
+            <ol class="catalog-changes">
+              {catalogChanges.map(({ tool, change }) => (
+                <li>
+                  <time datetime={change.date} class="tnum">
+                    {new Date(`${change.date}T00:00:00Z`).toLocaleDateString('es-ES', {
+                      day: '2-digit',
+                      month: 'short',
+                      year: 'numeric',
+                      timeZone: 'UTC',
+                    })}
+                  </time>
+                  <div>
+                    <a href={ROUTES.tool(tool.slug)}>{tool.name}</a>
+                    <p>{change.summary}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+      </>
+    )}
+
+    <section class="news-cta card" aria-labelledby="cta-title">
+      <h2 id="cta-title" class="news-section-title">No vuelvas a enterarte tarde</h2>
+      <p class="news-section-lede">
+        Los planes gratuitos cambian sin avisar. Puedes seguir una herramienta concreta desde su
+        ficha, o recibir el resumen semanal con lo que ha cambiado.
+      </p>
+      <div class="news-cta-actions">
+        <a href={ROUTES.tools} class="btn btn-secondary btn-sm">Seguir una herramienta</a>
+        <a href={ROUTES.pricing} class="btn btn-ghost btn-sm">Avisos inmediatos con Pro</a>
+        <a href="/rss.xml" class="btn btn-ghost btn-sm">RSS</a>
+      </div>
+    </section>
+
+    <NewsletterForm source="noticias" />
+
+    <p class="news-method">
+      ¿Cómo decidimos qué se publica? Está en la
+      <a href={ROUTES.editorialPolicy}>política editorial</a>. Los cambios de esta web, no del
+      sector, están en <a href={ROUTES.radarChangelog}>cambios del Radar</a>.
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  .news-page {
+    padding-block: var(--space-m) var(--space-xl);
+    display: grid;
+    gap: var(--space-l);
+  }
+
+  .news-h1 {
+    font-size: clamp(1.75rem, 1.4rem + 1.6vw, 2.6rem);
+    margin-block-end: var(--space-2xs);
+  }
+
+  .news-lede {
+    margin: 0 0 var(--space-s);
+    max-width: 60ch;
+    color: var(--ink-muted);
+    font-size: 1.0625rem;
+  }
+
+  .news-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2xs) var(--space-s);
+    margin: 0;
+    padding-block: var(--space-s);
+    border-block: 1px solid var(--line);
+  }
+
+  .news-stats dt {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-subtle);
+    font-weight: 600;
+  }
+
+  .news-stats dd {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--ink-strong);
+  }
+
+  .news-filters {
+    display: flex;
+    gap: 0.35rem;
+    padding-block-end: 0.25rem;
+  }
+
+  .news-filters .filter-chip {
+    text-decoration: none;
+  }
+
+  .news-filters .filter-chip.is-active {
+    background: var(--signal-soft);
+    border-color: var(--signal);
+    color: var(--signal);
+  }
+
+  .news-section-title {
+    font-size: clamp(1.2rem, 1.05rem + 0.7vw, 1.5rem);
+    margin-block-end: var(--space-3xs);
+  }
+
+  .news-section-lede {
+    margin: 0 0 var(--space-s);
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+    max-width: 60ch;
+  }
+
+  .news-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .news-grid > li {
+    display: flex;
+  }
+
+  .news-grid > li > :global(*) {
+    width: 100%;
+  }
+
+  .news-highlight {
+    padding: var(--space-s);
+    border: 1px solid var(--signal-line);
+    border-radius: var(--radius-l);
+    background: var(--signal-soft);
+  }
+
+  .news-none {
+    margin: var(--space-s) 0 0;
+    color: var(--ink-subtle);
+  }
+
+  .catalog-changes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 46rem;
+  }
+
+  .catalog-changes li {
+    display: grid;
+    grid-template-columns: 6rem 1fr;
+    gap: var(--space-s);
+    padding-block: var(--space-2xs);
+    border-block-end: 1px solid var(--line-hairline);
+  }
+
+  .catalog-changes time {
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+    font-weight: 600;
+    padding-block-start: 0.15rem;
+  }
+
+  .catalog-changes a {
+    font-weight: 650;
+    color: var(--ink-strong);
+    text-decoration: none;
+  }
+
+  .catalog-changes a:hover {
+    text-decoration: underline;
+  }
+
+  .catalog-changes p {
+    margin: 0.1rem 0 0;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .news-cta {
+    padding: var(--space-s);
+    background: var(--surface-sunken);
+  }
+
+  .news-cta-actions {
+    display: flex;
+    gap: var(--space-2xs);
+    flex-wrap: wrap;
+  }
+
+  .news-empty {
+    padding: var(--space-l) var(--space-s);
+    text-align: center;
+  }
+
+  .news-empty h2 {
+    font-size: 1.125rem;
+    margin-block-end: var(--space-2xs);
+  }
+
+  .news-empty p {
+    margin: 0 auto var(--space-s);
+    max-width: 46ch;
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+  }
+
+  .news-method {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+  }
+
+  .news-method a {
+    color: var(--signal);
+  }
+
+  @media (min-width: 40rem) {
+    .news-stats {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>
+
+<script>
+  /**
+   * Category filtering without a round trip. Progressive enhancement: the
+   * chips are anchors, so with JavaScript off they are inert links rather than
+   * dead buttons, and every item stays visible.
+   */
+  const chips = Array.from(document.querySelectorAll<HTMLElement>('[data-news-filter]'));
+  const items = Array.from(document.querySelectorAll<HTMLElement>('[data-news-item]'));
+  const none = document.getElementById('news-none');
+
+  for (const chip of chips) {
+    chip.addEventListener('click', (event) => {
+      event.preventDefault();
+      const wanted = chip.dataset['newsFilter']!;
+
+      for (const other of chips) other.classList.toggle('is-active', other === chip);
+
+      let visible = 0;
+      for (const item of items) {
+        const match = wanted === 'all' || item.dataset['category'] === wanted;
+        item.hidden = !match;
+        if (match) visible++;
+      }
+
+      if (none) none.hidden = visible > 0;
+    });
+  }
+</script>

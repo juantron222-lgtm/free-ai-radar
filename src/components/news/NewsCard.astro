@@ -1,0 +1,149 @@
+---
+import type { HydratedNewsItem } from '@lib/domain/news';
+import { getTool } from '@lib/data/catalog';
+import { ROUTES } from '@lib/nav';
+
+interface Props {
+  item: HydratedNewsItem;
+  headingLevel?: 'h2' | 'h3';
+  featured?: boolean;
+}
+
+const { item, headingLevel: Heading = 'h3', featured = false } = Astro.props;
+
+const related = item.relatedTools.map(getTool).filter((t) => t !== undefined);
+
+const fmt = (iso: string) =>
+  new Date(`${iso}T00:00:00Z`).toLocaleDateString('es-ES', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+---
+
+{/*
+  The free-plan flag leads, because it is the only thing that tells a reader
+  in one glance whether this news costs them anything. Everything else is
+  context.
+*/}
+<article class={`card card-interactive news-card ${featured ? 'is-featured' : ''}`}>
+  <div class="news-card-head">
+    <span class="chip news-cat">{item.categoryLabel}</span>
+    {item.affectsFreePlan === 'yes' && (
+      <span class="chip chip-signal">Afecta al plan gratuito</span>
+    )}
+    {item.verification === 'partial' && (
+      <span class="chip chip-warn" title="Hay datos de esta noticia que no hemos podido confirmar">
+        Parcial
+      </span>
+    )}
+  </div>
+
+  <Heading class="news-card-title">
+    <a href={ROUTES.newsItem(item.slug)}>{item.title}</a>
+  </Heading>
+
+  <p class="news-card-summary">{item.summary}</p>
+
+  <div class="news-card-foot">
+    <time datetime={item.publishedAt} class="news-card-date tnum">{fmt(item.publishedAt)}</time>
+    {related.length > 0 && (
+      <ul class="news-card-tools">
+        {related.slice(0, 3).map((tool) => (
+          <li>{tool.name}</li>
+        ))}
+      </ul>
+    )}
+  </div>
+</article>
+
+<style>
+  .news-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+    padding: var(--space-s);
+    height: 100%;
+  }
+
+  .is-featured {
+    border-color: var(--signal-line);
+  }
+
+  .news-card-head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+
+  .news-cat {
+    background: var(--info-soft);
+    border-color: var(--info-line);
+    color: var(--info);
+  }
+
+  .news-card-title {
+    font-size: 1.0625rem;
+    font-weight: 650;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .news-card-title a {
+    color: var(--ink-strong);
+    text-decoration: none;
+  }
+
+  .news-card-title a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+  .news-card-title a:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--signal);
+  }
+
+  .news-card-summary {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .news-card-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+    flex-wrap: wrap;
+    margin-block-start: auto;
+    padding-block-start: var(--space-2xs);
+    border-block-start: 1px solid var(--line-hairline);
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+  }
+
+  .news-card-tools {
+    display: flex;
+    gap: 0.3rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .news-card-tools li {
+    padding: 0.1rem 0.4rem;
+    border-radius: var(--radius-full);
+    background: var(--surface-sunken);
+    border: 1px solid var(--line);
+  }
+</style>

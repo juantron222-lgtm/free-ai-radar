@@ -1,0 +1,246 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import {
+  getRadarChangelog,
+  RADAR_CHANGE_KIND_LABEL,
+  type RadarChange,
+} from '@/data/radar-changelog';
+import { ROUTES } from '@lib/nav';
+
+/**
+ * What changed in this website — as opposed to /noticias, which is what
+ * changed in the tools. Kept out of the primary nav on purpose: it matters
+ * that it exists and is findable, not that it competes for attention.
+ */
+const changes = getRadarChangelog();
+
+const byYear = new Map<string, RadarChange[]>();
+for (const change of changes) {
+  const year = change.date.slice(0, 4);
+  byYear.set(year, [...(byYear.get(year) ?? []), change]);
+}
+
+const years = [...byYear.keys()].sort((a, b) => b.localeCompare(a));
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Cambios del Radar', path: ROUTES.radarChangelog },
+];
+
+const fmt = (iso: string) =>
+  new Date(`${iso}T00:00:00Z`).toLocaleDateString('es-ES', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+---
+
+<BaseLayout
+  title="Cambios del Radar"
+  description="Registro de cambios de Free AI Radar: qué hemos cambiado en el sitio, en la metodología y en cómo verificamos, con fecha."
+  crumbs={crumbs}
+>
+  <div class="page changelog">
+    <header class="cl-head">
+      <p class="cl-kicker">Transparencia</p>
+      <h1 class="cl-h1">Cambios del Radar</h1>
+      <p class="cl-lede">
+        Lo que cambia en <strong>esta web</strong>: la metodología, cómo verificamos, qué mostramos.
+        Si buscas lo que cambia en las herramientas —recortes de planes gratuitos, precios nuevos,
+        cierres— eso está en <a href={ROUTES.news}>Últimas noticias</a>.
+      </p>
+      <p class="cl-why">
+        Existe por una razón concreta: si cambiamos cómo se calcula una puntuación, tienes derecho a
+        verlo. Un criterio que se mueve en silencio no es un criterio.
+      </p>
+    </header>
+
+    {changes.length === 0 ? (
+      <p class="cl-empty">Todavía no hay cambios registrados.</p>
+    ) : (
+      years.map((year) => (
+        <section class="cl-year" aria-labelledby={`y-${year}`}>
+          <h2 id={`y-${year}`} class="cl-year-title tnum">{year}</h2>
+          <ol class="cl-list">
+            {(byYear.get(year) ?? []).map((change) => (
+              <li class="cl-item">
+                <div class="cl-item-meta">
+                  <time datetime={change.date} class="tnum">{fmt(change.date)}</time>
+                  <span class="chip cl-kind">{RADAR_CHANGE_KIND_LABEL[change.kind]}</span>
+                </div>
+                <div class="cl-item-body">
+                  <h3 class="cl-item-title">{change.title}</h3>
+                  <p class="cl-item-detail">{change.detail}</p>
+                  {change.impact && (
+                    <p class="cl-item-impact">
+                      <span class="cl-impact-label">Qué significa:</span> {change.impact}
+                    </p>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ))
+    )}
+
+    <aside class="cl-more card">
+      <h2 class="cl-more-title">Lo demás que puedes auditar</h2>
+      <ul class="cl-more-list">
+        <li><a href={ROUTES.methodology}>Metodología</a> — cómo se calcula cada puntuación, componente a componente.</li>
+        <li><a href={ROUTES.editorialPolicy}>Política editorial</a> — qué publicamos, qué no, y cuándo corregimos.</li>
+        <li><a href={ROUTES.affiliates}>Afiliados</a> — qué enlaces nos pagan y por qué eso no mueve una puntuación.</li>
+        <li><a href={ROUTES.news}>Últimas noticias</a> — lo que cambia en las herramientas, con fuente y fecha.</li>
+      </ul>
+      <p class="cl-more-note">
+        ¿Ves algo mal? <a href={ROUTES.contact}>Dínoslo</a>. Las correcciones se registran aquí con
+        la misma fecha en que se hacen.
+      </p>
+    </aside>
+  </div>
+</BaseLayout>
+
+<style>
+  .changelog {
+    padding-block: var(--space-m) var(--space-xl);
+    display: grid;
+    gap: var(--space-l);
+    max-width: 52rem;
+  }
+
+  .cl-kicker {
+    margin: 0 0 var(--space-3xs);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    color: var(--ink-subtle);
+  }
+
+  .cl-h1 {
+    font-size: clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem);
+    margin-block-end: var(--space-2xs);
+  }
+
+  .cl-lede {
+    margin: 0 0 var(--space-2xs);
+    font-size: 1.0625rem;
+    color: var(--ink-muted);
+  }
+
+  .cl-why {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--ink-subtle);
+    padding-inline-start: var(--space-2xs);
+    border-inline-start: 2px solid var(--line);
+  }
+
+  .cl-year-title {
+    font-size: 1.1rem;
+    color: var(--ink-subtle);
+    padding-block-end: var(--space-3xs);
+    border-block-end: 1px solid var(--line);
+    margin-block-end: var(--space-s);
+  }
+
+  .cl-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-m);
+  }
+
+  .cl-item {
+    display: grid;
+    grid-template-columns: 11rem 1fr;
+    gap: var(--space-s);
+  }
+
+  .cl-item-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+
+  .cl-item-meta time {
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+    font-weight: 600;
+  }
+
+  .cl-kind {
+    font-size: 0.6875rem;
+  }
+
+  .cl-item-title {
+    font-size: 1.0625rem;
+    margin: 0 0 var(--space-3xs);
+  }
+
+  .cl-item-detail {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--ink-muted);
+  }
+
+  .cl-item-impact {
+    margin: var(--space-2xs) 0 0;
+    font-size: 0.875rem;
+    color: var(--ink);
+  }
+
+  .cl-impact-label {
+    font-weight: 650;
+    color: var(--signal);
+  }
+
+  .cl-empty {
+    color: var(--ink-subtle);
+  }
+
+  .cl-more {
+    padding: var(--space-s);
+  }
+
+  .cl-more-title {
+    font-size: 1rem;
+    margin-block-end: var(--space-2xs);
+  }
+
+  .cl-more-list {
+    margin: 0;
+    padding-inline-start: 1.1em;
+    display: grid;
+    gap: 0.3rem;
+    font-size: 0.9375rem;
+    color: var(--ink-muted);
+  }
+
+  .cl-more-list a {
+    color: var(--signal);
+    font-weight: 550;
+  }
+
+  .cl-more-note {
+    margin: var(--space-s) 0 0;
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+  }
+
+  @media (max-width: 40rem) {
+    .cl-item {
+      grid-template-columns: 1fr;
+      gap: var(--space-2xs);
+    }
+
+    .cl-item-meta {
+      flex-direction: row;
+      align-items: center;
+      gap: var(--space-2xs);
+    }
+  }
+</style>

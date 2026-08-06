@@ -44,6 +44,11 @@ export default defineConfig({
     '/privacy': { status: 301, destination: '/legal/privacidad' },
     '/creators': { status: 301, destination: '/colecciones/para-creadores' },
     '/comfyui-sin-gpu': { status: 301, destination: '/guias/comfyui-sin-gpu' },
+    // "Cambios" became "Últimas noticias". The site's own release log moved to
+    // /transparencia/cambios-del-radar, but the old URL served tool changes,
+    // so that is where its readers should land.
+    '/cambios': { status: 301, destination: '/noticias' },
+    '/changelog': { status: 301, destination: '/noticias' },
   },
   vite: {
     plugins: [tailwindcss()],

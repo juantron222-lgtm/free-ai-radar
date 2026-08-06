@@ -51,10 +51,21 @@ const categories = getPopulatedCategories().slice(0, 6);
         </ul>
       </section>
     </div>
+
+    {/* The widest way out. Search assumes you know what you are looking for
+        and the lists above are a selection; someone who wants to browse
+        everything should not have to go back to the menu for it. */}
+    <p class="notfound-all">
+      <a class="btn btn-secondary" href={ROUTES.tools}>Ver el catálogo completo</a>
+    </p>
   </div>
 </BaseLayout>
 
 <style>
+  .notfound-all {
+    margin-block-start: var(--space-l);
+  }
+
   .notfound {
     padding-block: var(--space-2xl) var(--space-xl);
     max-width: 46rem;

@@ -1,0 +1,164 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ToolExplorer from '@components/discovery/ToolExplorer.astro';
+import { getAllTools } from '@lib/data/catalog';
+import { getNewsByCategory } from '@lib/data/news';
+import { AGENT_KINDS } from '@lib/domain/tool';
+import { faqSchema, itemListSchema } from '@lib/seo/structured-data';
+import { ROUTES } from '@lib/nav';
+
+/**
+ * Agents and frameworks that build or run software for you.
+ *
+ * The free-tier question is sharper here than anywhere else in the catalogue:
+ * an agent that writes code for free but only deploys on a paid plan is not
+ * free for the thing you wanted it for. So the counts below lead with the two
+ * facts that actually decide it — card required, and commercial use.
+ */
+const agents = getAllTools().filter((tool) => AGENT_KINDS.includes(tool.kind));
+const noCard = agents.filter((tool) => tool.freePlan.requiresCreditCard === 'no');
+const commercial = agents.filter((tool) => tool.freePlan.commercialUse === 'yes');
+const agentNews = [...getNewsByCategory('agentes'), ...getNewsByCategory('plataforma-agentes')].slice(0, 4);
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Agentes', path: ROUTES.agents },
+];
+
+const faqs = [
+  {
+    question: '¿Qué es un agente de IA y en qué se diferencia de un chatbot?',
+    answer:
+      'Un chatbot responde; un agente ejecuta. Un agente encadena pasos por su cuenta —leer un fichero, escribir código, lanzar un comando, corregir el error— hasta terminar la tarea. Esa diferencia importa al mirar el plan gratuito: lo que se agota no son mensajes, sino ejecuciones, y una sola tarea puede consumir muchas.',
+  },
+  {
+    question: '¿Se puede usar un agente de IA gratis para trabajo comercial?',
+    answer:
+      commercial.length > 0
+        ? `${commercial.length} de los ${agents.length} agentes del catálogo permiten uso comercial en su plan gratuito según sus propios términos. En el resto no está permitido o el fabricante no lo aclara, y en ese caso lo marcamos como no verificado en vez de suponerlo.`
+        : 'Ninguno de los agentes del catálogo tiene el uso comercial del plan gratuito confirmado por escrito. Cuando el fabricante no lo aclara lo marcamos como no verificado en vez de suponerlo.',
+  },
+  {
+    question: '¿Hay agentes de IA gratis que no pidan tarjeta?',
+    answer:
+      noCard.length > 0
+        ? `Sí: ${noCard.length} de los ${agents.length} agentes de esta sección tienen confirmado que no piden tarjeta para empezar en su plan gratuito.`
+        : 'De momento no tenemos ninguno confirmado sin tarjeta en esta sección; cuando el fabricante no lo dice con claridad no lo damos por hecho.',
+  },
+];
+---
+
+<BaseLayout
+  title="Agentes de IA gratis: qué hacen y qué límites tienen"
+  description={`Agentes y frameworks que ejecutan tareas por ti. ${agents.length} entradas con límites del plan gratuito verificados: tarjeta, uso comercial y qué se agota.`}
+  crumbs={crumbs}
+  schemas={[
+    itemListSchema(agents, 'Agentes de IA con capa gratuita'),
+    ...(agents.length ? [faqSchema(faqs)] : []),
+  ]}
+>
+  <div class="page hub">
+    <header class="hub-head">
+      <h1 class="hub-h1">Agentes y frameworks</h1>
+      <p class="hub-lede">
+        Herramientas que no se limitan a responder: ejecutan. Escriben el código, lo prueban, lo
+        despliegan. Aquí la pregunta «¿es gratis?» cambia de forma, porque lo que se agota no son
+        mensajes sino ejecuciones, y una sola tarea puede gastar varias.
+      </p>
+
+      <dl class="hub-stats">
+        <div><dt>Agentes y frameworks</dt><dd class="tnum">{agents.length}</dd></div>
+        <div><dt>Sin tarjeta</dt><dd class="tnum">{noCard.length}</dd></div>
+        <div><dt>Uso comercial</dt><dd class="tnum">{commercial.length}</dd></div>
+      </dl>
+    </header>
+
+    {agents.length === 0 ? (
+      <div class="card hub-empty">
+        <h2>Todavía no hay agentes verificados</h2>
+        <p>
+          Estamos comprobando los límites reales de cada uno antes de listarlo. Un agente cuyo plan
+          gratuito no sabemos medir no ayuda a nadie.
+        </p>
+        <div class="hub-empty-actions">
+          <a href={ROUTES.tools} class="btn btn-primary btn-sm">Ver todo el catálogo</a>
+          <a href={ROUTES.submit} class="btn btn-ghost btn-sm">Propón un agente</a>
+        </div>
+      </div>
+    ) : (
+      <ToolExplorer tools={agents} heading={`${agents.length} agentes y frameworks verificados`} />
+    )}
+
+    <section class="hub-explainer" aria-labelledby="watch-title">
+      <h2 id="watch-title" class="hub-section-title">Qué mirar antes de empezar con uno</h2>
+      <div class="table-scroll">
+        <table class="data-table">
+          <tbody>
+            <tr>
+              <th scope="row">Qué se agota</th>
+              <td>
+                Casi nunca son mensajes. Suelen ser ejecuciones, créditos o minutos de cómputo, y una
+                tarea larga puede consumir el día entero de golpe.
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Dónde acaba lo gratis</th>
+              <td>
+                Muchos dejan generar gratis y cobran al desplegar, exportar o conectar un dominio.
+                Comprueba el final del flujo, no el principio.
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Uso comercial</th>
+              <td>
+                Que el código sea tuyo no es automático. Si los términos no lo dicen, aquí aparece
+                como no verificado.
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Qué ve de tu repositorio</th>
+              <td>
+                Un agente con acceso al proyecto lee más de lo que crees. Mira si el plan gratuito
+                entrena con tu código y si puedes desactivarlo sin pagar.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="hub-note">
+        Cada ficha responde a estas cuatro con fuente y fecha. Cuando el fabricante no lo aclara
+        ponemos «sin verificar»: es peor dato pero es el dato honesto.
+      </p>
+    </section>
+
+    {agentNews.length > 0 && (
+      <section class="hub-news" aria-labelledby="news-title">
+        <h2 id="news-title" class="hub-section-title">Novedades de agentes</h2>
+        <ul class="hub-news-list">
+          {agentNews.map((news) => (
+            <li>
+              <time datetime={news.publishedAt} class="tnum">
+                {new Date(`${news.publishedAt}T00:00:00Z`).toLocaleDateString('es-ES', {
+                  day: '2-digit',
+                  month: 'short',
+                  timeZone: 'UTC',
+                })}
+              </time>
+              <a href={ROUTES.newsItem(news.slug)}>{news.title}</a>
+            </li>
+          ))}
+        </ul>
+        <a href={ROUTES.news} class="btn btn-ghost btn-sm">Todas las noticias →</a>
+      </section>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .hub-note {
+    margin: var(--space-2xs) 0 0;
+    max-width: 60ch;
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+  }
+</style>

@@ -18,6 +18,11 @@ export default defineConfig({
    */
   fullyParallel: false,
   workers: 1,
+  /**
+   * Checks the server is healthy before a single test runs. See the file for
+   * the incident that made this worth a second of startup time.
+   */
+  globalSetup: './tests/e2e/global-setup.ts',
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? [['github'], ['html', { open: 'never' }]] : [['list']],

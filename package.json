@@ -28,7 +28,8 @@
     "data:seed-sql": "node scripts/migrate-tools.mjs --emit-sql",
     "links:check": "node scripts/check-links.mjs",
     "icons": "node scripts/generate-icons.js",
-    "news:fetch": "node scripts/fetch-ai-news.mjs"
+    "news:fetch": "node scripts/fetch-ai-news.mjs",
+    "data:news:validate": "vitest run tests/unit/news.test.ts"
   },
   "dependencies": {
     "@astrojs/vercel": "^11.0.4",

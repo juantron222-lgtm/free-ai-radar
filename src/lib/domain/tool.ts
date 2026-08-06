@@ -138,6 +138,29 @@ export const ToolRecord = z.object({
   descriptionShort: z.string().min(1).max(400),
   descriptionLong: z.string().default(''),
 
+  /**
+   * What this entry actually *is*.
+   *
+   * A base model and a commercial app that serves it are different things and
+   * must not share a ficha. Powers /modelos and /agentes, and stops the
+   * category "Modelos open-source" from quietly meaning "anything vaguely
+   * model-shaped".
+   */
+  kind: z
+    .enum(['model', 'app', 'platform', 'framework', 'agent', 'api', 'interface', 'oss_project'])
+    .default('app'),
+
+  /**
+   * How much of this ficha we have actually confirmed, and when it is due for
+   * another look. `pending_review` is the honest default for anything new.
+   */
+  verification: z
+    .enum(['verified', 'partially_verified', 'pending_review', 'outdated', 'discontinued'])
+    .default('pending_review'),
+  nextReviewAt: IsoDate.optional(),
+  /** Literal release tag, when the vendor publishes one. */
+  version: z.string().max(40).optional(),
+
   categorySlug: z.enum(CATEGORY_SLUGS as [string, ...string[]]),
   secondaryCategories: z.array(z.string()).default([]),
   tags: z.array(z.string()).default([]),
@@ -204,6 +227,31 @@ export type ToolRecord = z.infer<typeof ToolRecord>;
  * A hydrated tool: the stored record plus everything derived from it. This is
  * what pages and components consume; nothing in the UI recomputes scores.
  */
+export const TOOL_KIND_LABEL: Record<ToolRecord['kind'], string> = {
+  model: 'Modelo',
+  app: 'Aplicación',
+  platform: 'Plataforma',
+  framework: 'Framework',
+  agent: 'Agente',
+  api: 'API',
+  interface: 'Interfaz',
+  oss_project: 'Proyecto open source',
+};
+
+export const VERIFICATION_LABEL: Record<ToolRecord['verification'], string> = {
+  verified: 'Verificada',
+  partially_verified: 'Parcialmente verificada',
+  pending_review: 'Pendiente de revisión',
+  outdated: 'Desactualizada',
+  discontinued: 'Discontinuada',
+};
+
+/** Entries that belong on /modelos. */
+export const MODEL_KINDS: ReadonlyArray<ToolRecord['kind']> = ['model', 'api'];
+
+/** Entries that belong on /agentes. */
+export const AGENT_KINDS: ReadonlyArray<ToolRecord['kind']> = ['agent', 'framework'];
+
 export interface Tool extends ToolRecord {
   readonly scoreTotal: number;
   readonly scoreBreakdown: ScoreBreakdown;

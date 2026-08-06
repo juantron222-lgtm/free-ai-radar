@@ -41,6 +41,18 @@ do $$ begin
   create type public.hosting_kind as enum ('cloud','local','hybrid');
 exception when duplicate_object then null; end $$;
 
+-- What an entry actually is. A base model and the commercial app that serves
+-- it are different rows; this is what keeps them from sharing one.
+do $$ begin
+  create type public.tool_kind as enum
+    ('model','app','platform','framework','agent','api','interface','oss_project');
+exception when duplicate_object then null; end $$;
+
+do $$ begin
+  create type public.verification_state as enum
+    ('verified','partially_verified','pending_review','outdated','discontinued');
+exception when duplicate_object then null; end $$;
+
 do $$ begin
   create type public.skill_level as enum ('beginner','intermediate','advanced');
 exception when duplicate_object then null; end $$;
@@ -143,6 +155,11 @@ create table if not exists public.tools (
   tagline               text not null default '',
   description_short     text not null default '',
   description_long      text not null default '',
+
+  kind                  public.tool_kind not null default 'app',
+  verification          public.verification_state not null default 'pending_review',
+  next_review_at        date,
+  version               text,
 
   category_slug         text not null references public.categories(slug) on update cascade,
   secondary_categories  jsonb not null default '[]'::jsonb,

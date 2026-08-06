@@ -1,0 +1,135 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ToolExplorer from '@components/discovery/ToolExplorer.astro';
+import { getAllTools } from '@lib/data/catalog';
+import { getNewsByCategory } from '@lib/data/news';
+import { MODEL_KINDS, TOOL_KIND_LABEL } from '@lib/domain/tool';
+import { faqSchema, itemListSchema } from '@lib/seo/structured-data';
+import { ROUTES } from '@lib/nav';
+
+/**
+ * Models and APIs, as a first-class section.
+ *
+ * The distinction this page exists to make: a model is a set of weights or an
+ * endpoint you build on; an app is a product someone else built on top of one.
+ * Conflating them is the single most common error in AI directories, and it
+ * makes "is this free?" unanswerable — the app's free tier and the model's
+ * licence are different questions.
+ */
+const models = getAllTools().filter((tool) => MODEL_KINDS.includes(tool.kind));
+const openWeights = models.filter((tool) => tool.openSource === 'yes');
+const runsLocal = models.filter((tool) => tool.hosting !== 'cloud');
+const modelNews = [
+  ...getNewsByCategory('modelo-lenguaje'),
+  ...getNewsByCategory('modelo-multimodal'),
+  ...getNewsByCategory('local-open-source'),
+].slice(0, 4);
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Modelos', path: ROUTES.models },
+];
+
+const faqs = [
+  {
+    question: '¿Qué diferencia hay entre un modelo y una aplicación de IA?',
+    answer:
+      'Un modelo son los pesos o el endpoint sobre el que se construye; una aplicación es el producto que alguien ha construido encima. Importa porque la gratuidad se decide en sitios distintos: la aplicación tiene un plan gratuito que su empresa puede recortar, mientras que un modelo de pesos abiertos lo tienes tú y no te lo pueden quitar.',
+  },
+  {
+    question: '¿Cuántos modelos con pesos abiertos hay verificados aquí?',
+    answer:
+      openWeights.length > 0
+        ? `${openWeights.length} de los ${models.length} modelos y APIs del catálogo tienen código o pesos abiertos verificados.`
+        : 'Todavía ninguno de los modelos del catálogo tiene pesos abiertos verificados; el catálogo está en ampliación.',
+  },
+];
+---
+
+<BaseLayout
+  title="Modelos de IA y APIs con capa gratuita"
+  description={`Modelos de lenguaje, multimodales y APIs con acceso gratuito verificado. ${models.length} entradas, separadas de las aplicaciones que los usan.`}
+  crumbs={crumbs}
+  schemas={[
+    itemListSchema(models, 'Modelos de IA con capa gratuita'),
+    ...(models.length ? [faqSchema(faqs)] : []),
+  ]}
+>
+  <div class="page hub">
+    <header class="hub-head">
+      <h1 class="hub-h1">Modelos y APIs</h1>
+      <p class="hub-lede">
+        Los pesos y los endpoints sobre los que se construye todo lo demás. Los separamos de las
+        aplicaciones a propósito: cuando una empresa recorta su plan gratuito pierdes la aplicación,
+        pero un modelo de pesos abiertos que ya has descargado no te lo puede quitar nadie.
+      </p>
+
+      <dl class="hub-stats">
+        <div><dt>Modelos y APIs</dt><dd class="tnum">{models.length}</dd></div>
+        <div><dt>Pesos abiertos</dt><dd class="tnum">{openWeights.length}</dd></div>
+        <div><dt>Ejecutables en local</dt><dd class="tnum">{runsLocal.length}</dd></div>
+      </dl>
+    </header>
+
+    {models.length === 0 ? (
+      <div class="card hub-empty">
+        <h2>Todavía no hay modelos con ficha propia</h2>
+        <p>
+          El catálogo se construyó primero con aplicaciones. Estamos separando los modelos base en
+          fichas propias, porque mezclarlos con el producto que los usa hace imposible responder a
+          «¿esto es gratis?».
+        </p>
+        <p class="hub-empty-meta">
+          Mientras tanto, lo más cercano son las herramientas open source y las que funcionan en
+          local, donde la gratuidad no depende de una decisión comercial.
+        </p>
+        <div class="hub-empty-actions">
+          <a href="/colecciones/open-source" class="btn btn-primary btn-sm">Ver open source</a>
+          <a href="/colecciones/en-local" class="btn btn-secondary btn-sm">Ver las que van en local</a>
+          <a href={ROUTES.submit} class="btn btn-ghost btn-sm">Falta un modelo: avísanos</a>
+        </div>
+      </div>
+    ) : (
+      <ToolExplorer tools={models} heading={`${models.length} modelos y APIs verificados`} />
+    )}
+
+    {modelNews.length > 0 && (
+      <section class="hub-news" aria-labelledby="news-title">
+        <h2 id="news-title" class="hub-section-title">Novedades de modelos</h2>
+        <ul class="hub-news-list">
+          {modelNews.map((news) => (
+            <li>
+              <time datetime={news.publishedAt} class="tnum">
+                {new Date(`${news.publishedAt}T00:00:00Z`).toLocaleDateString('es-ES', {
+                  day: '2-digit',
+                  month: 'short',
+                  timeZone: 'UTC',
+                })}
+              </time>
+              <a href={ROUTES.newsItem(news.slug)}>{news.title}</a>
+            </li>
+          ))}
+        </ul>
+        <a href={ROUTES.news} class="btn btn-ghost btn-sm">Todas las noticias →</a>
+      </section>
+    )}
+
+    <section class="hub-explainer" aria-labelledby="kinds-title">
+      <h2 id="kinds-title" class="hub-section-title">Cómo clasificamos cada ficha</h2>
+      <div class="table-scroll">
+        <table class="data-table">
+          <tbody>
+            <tr><th scope="row">{TOOL_KIND_LABEL.model}</th><td>Pesos o modelo servido por API. Lo que otros usan para construir.</td></tr>
+            <tr><th scope="row">{TOOL_KIND_LABEL.api}</th><td>Acceso programático a uno o varios modelos.</td></tr>
+            <tr><th scope="row">{TOOL_KIND_LABEL.app}</th><td>Producto de usuario final. Tiene su propio plan gratuito.</td></tr>
+            <tr><th scope="row">{TOOL_KIND_LABEL.interface}</th><td>Front-end sobre un motor ajeno. Gratis no significa que el motor lo sea.</td></tr>
+            <tr><th scope="row">{TOOL_KIND_LABEL.platform}</th><td>Aloja o sirve modelos de terceros.</td></tr>
+            <tr><th scope="row">{TOOL_KIND_LABEL.oss_project}</th><td>Proyecto comunitario. Su gratuidad viene de la licencia, no de una decisión comercial.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<!-- .hub-* lives in global.css: /modelos and /agentes share the whole shell. -->

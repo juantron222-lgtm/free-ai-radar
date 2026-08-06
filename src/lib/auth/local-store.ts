@@ -201,19 +201,41 @@ export function hashToken(token: string): string {
 // CRUD
 // ---------------------------------------------------------------------------
 
+/**
+ * Runs a lookup, and retries once from disk if it finds nothing.
+ *
+ * The reason is specific to development. Vite's HMR can hand two parts of the
+ * same request — the middleware and the endpoint it wraps — separate instances
+ * of this module, each with its own `cache`. Sign-up then writes a user into
+ * one instance while the other keeps serving a snapshot taken before it
+ * existed, so the session cookie is valid and the user is nowhere to be found.
+ * That surfaced as twelve failing account tests and a bug that did not exist.
+ *
+ * Re-reading on a miss makes a stale cache self-healing. It costs one file
+ * read in the only case that was already going to fail, and nothing at all on
+ * the happy path. None of this reaches production, where Supabase owns
+ * identity and this module refuses to load at all.
+ */
+async function lookup(match: (user: LocalUser) => boolean): Promise<LocalUser | undefined> {
+  const hit = (await loadUnsafe()).users.find(match);
+  if (hit) return hit;
+
+  cache = null;
+  loading = null;
+  return (await loadUnsafe()).users.find(match);
+}
+
 export async function findByEmail(userEmail: string): Promise<LocalUser | undefined> {
-  const store = await loadUnsafe();
-  return store.users.find((u) => u.email === userEmail.toLowerCase());
+  const email = userEmail.toLowerCase();
+  return lookup((u) => u.email === email);
 }
 
 export async function findById(id: string): Promise<LocalUser | undefined> {
-  const store = await loadUnsafe();
-  return store.users.find((u) => u.id === id);
+  return lookup((u) => u.id === id);
 }
 
 export async function findByResetTokenHash(hash: string): Promise<LocalUser | undefined> {
-  const store = await loadUnsafe();
-  return store.users.find((u) => u.resetTokenHash === hash);
+  return lookup((u) => u.resetTokenHash === hash);
 }
 
 export function createUser(input: {
