@@ -223,7 +223,8 @@
     ],
     "officialUrl": "https://www.anthropic.com/news/claude-sonnet-5",
     "relatedTools": [
-      "claude"
+      "claude",
+      "claude-sonnet-5"
     ],
     "affectsFreePlan": "yes",
     "verification": "verified",
@@ -253,7 +254,8 @@
     ],
     "officialUrl": "https://github.com/ollama/ollama/releases",
     "relatedTools": [
-      "ollama"
+      "ollama",
+      "gemma-4"
     ],
     "affectsFreePlan": "yes",
     "verification": "verified",

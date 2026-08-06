@@ -20,6 +20,7 @@ import {
   getFreeModel,
 } from '@lib/domain/taxonomy';
 import { TRI_STATE_LABEL } from '@lib/domain/primitives';
+import { VERIFICATION_LABEL, type ToolRecord } from '@lib/domain/tool';
 import { SCORE_BAND_LABEL } from '@lib/domain/scoring';
 import { ROUTES } from '@lib/nav';
 
@@ -66,6 +67,27 @@ const facts = [
 ];
 
 const description = `${tool.tagline} Analizamos su plan gratuito: ${tool.freePlan.summary}`;
+
+/**
+ * What each verification state means in practice.
+ *
+ * Written from the reader's side, not ours: "pendiente de revisión" tells them
+ * nothing on its own, but "los datos vienen del catálogo anterior y todavía no
+ * los hemos abierto uno a uno" tells them exactly how much to trust the table
+ * further up.
+ */
+const VERIFICATION_MEANING: Record<ToolRecord['verification'], string> = {
+  verified:
+    'Hemos abierto la web del fabricante y confirmado uno a uno los datos del plan gratuito que ves arriba.',
+  partially_verified:
+    'Los datos duros del plan gratuito están confirmados; el resto de la ficha procede del catálogo anterior y aún no se ha vuelto a comprobar.',
+  pending_review:
+    'Esta ficha viene del catálogo anterior y todavía no la hemos comprobado contra la web del fabricante. Trátala como orientativa.',
+  outdated:
+    'Sabemos que algo de esta ficha ha dejado de ser cierto y aún no la hemos rehecho. No decidas nada con ella sin comprobarlo.',
+  discontinued:
+    'La herramienta ha dejado de estar disponible. Mantenemos la ficha como registro.',
+};
 ---
 
 <BaseLayout
@@ -321,6 +343,25 @@ const description = `${tool.tagline} Analizamos su plan gratuito: ${tool.freePla
 
         <section aria-labelledby="review-title" class="tool-section tool-byline">
           <h2 id="review-title" class="sr-only">Responsable de la revisión</h2>
+
+          {/*
+            What we have actually confirmed, stated before the byline rather
+            than after it. "Pendiente de revisión" is not a disclaimer to bury:
+            it is the most useful thing on the page for someone deciding how
+            much weight to put on the numbers above.
+          */}
+          <p class={`tool-verification tool-verification-${tool.verification}`}>
+            <strong>{VERIFICATION_LABEL[tool.verification]}.</strong>
+            {' '}
+            {VERIFICATION_MEANING[tool.verification]}
+            {tool.nextReviewAt && (
+              <>
+                {' '}Próxima revisión prevista:{' '}
+                <time datetime={tool.nextReviewAt}>{fmtDate(tool.nextReviewAt)}</time>.
+              </>
+            )}
+          </p>
+
           <p>
             Revisado por <strong>{tool.reviewedBy || 'la redacción de Free AI Radar'}</strong> ·
             última verificación <time datetime={tool.lastVerifiedAt}>{fmtDate(tool.lastVerifiedAt)}</time> ·
@@ -565,6 +606,40 @@ const description = `${tool.tagline} Analizamos su plan gratuito: ${tool.freePla
     color: var(--ink-subtle);
     padding: var(--space-2xs) 0;
     border-block: 1px solid var(--line);
+  }
+
+  .tool-verification {
+    font-size: 0.875rem !important;
+    color: var(--ink) !important;
+    padding: var(--space-xs) var(--space-s) !important;
+    border: 1px solid var(--line) !important;
+    border-radius: var(--radius-m);
+    background: var(--surface-sunken);
+    margin-block-end: var(--space-2xs);
+  }
+
+  .tool-verification strong {
+    color: var(--ink-strong);
+  }
+
+  .tool-verification-verified {
+    border-color: var(--signal-line) !important;
+    background: var(--signal-soft);
+  }
+
+  .tool-verification-verified strong {
+    color: var(--signal);
+  }
+
+  .tool-verification-pending_review,
+  .tool-verification-outdated {
+    border-color: var(--warn-line) !important;
+    background: var(--warn-soft);
+  }
+
+  .tool-verification-pending_review strong,
+  .tool-verification-outdated strong {
+    color: var(--warn);
   }
 
   .tool-byline a {

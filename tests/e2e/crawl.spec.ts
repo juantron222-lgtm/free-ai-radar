@@ -56,13 +56,23 @@ interface CrawlResult {
 }
 
 /**
+ * The page count at which we stop and call it a runaway.
+ *
+ * Set well clear of the real inventory on purpose. A limit close to the actual
+ * number is worse than no limit: the crawl stops early, the pages it never
+ * reached are silently unchecked, and the suite still reports green. Growing
+ * the catalogue must never quietly shrink the coverage of this test.
+ */
+const RUNAWAY_LIMIT = 250;
+
+/**
  * Walks the site breadth-first from `/`.
  *
- * `limit` keeps a runaway crawl from eating the timeout budget; the catalogue
- * is finite and well under it, so hitting the limit is itself a signal that
- * something started generating URLs.
+ * Hitting `limit` is itself the failure signal: the site is finite, so the only
+ * way to reach it is something generating URLs — a filter permutation leaking
+ * into links, or a redirect loop.
  */
-async function crawl(page: Page, origin: string, limit = 80): Promise<CrawlResult> {
+async function crawl(page: Page, origin: string, limit = RUNAWAY_LIMIT): Promise<CrawlResult> {
   const result: CrawlResult = {
     visited: new Map(),
     brokenLinks: [],
@@ -283,9 +293,15 @@ test.describe('rastreo del sitio', () => {
     expect(wrong).toEqual([]);
   });
 
-  test('el rastreo no se dispara: el catálogo es finito', () => {
+  test('el rastreo termina por sí solo, no por el tope', () => {
+    // Finishing below the limit means the crawl ran out of links, which is
+    // what a finite site does. Reaching it means something is generating URLs
+    // — and, worse, that the pages beyond it quedaron sin comprobar.
     expect(result.visited.size).toBeGreaterThan(20);
-    expect(result.visited.size).toBeLessThan(80);
+    expect(
+      result.visited.size,
+      'el rastreo ha tocado el tope: hay páginas sin comprobar'
+    ).toBeLessThan(RUNAWAY_LIMIT);
   });
 });
 

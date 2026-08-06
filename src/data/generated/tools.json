@@ -472,6 +472,120 @@
     "updatedAt": "2026-07-08"
   },
   {
+    "id": "tool_claude-sonnet-5",
+    "slug": "claude-sonnet-5",
+    "name": "Claude Sonnet 5",
+    "tagline": "El modelo que responde en el plan gratuito de Claude desde junio de 2026.",
+    "descriptionShort": "Modelo de Anthropic servido por API y por las aplicaciones de Claude. Es el modelo por defecto de los planes Free y Pro, lo que lo convierte en el modelo de referencia para quien no paga.",
+    "descriptionLong": "Claude Sonnet 5 es el modelo intermedio de Anthropic. Su importancia para este catálogo es concreta: es el modelo por defecto de los planes Free y Pro de Claude, según la propia documentación de Anthropic. Quien usa Claude sin pagar está usando este modelo.\n\nPor API el precio estándar es de 3 dólares por millón de tokens de entrada y 15 por millón de salida. Anthropic aplicó un precio de lanzamiento reducido —2 y 10 dólares— vigente hasta el 31 de agosto de 2026.\n\nEsta ficha describe el modelo, no la aplicación. Los límites de mensajes, la ventana de uso y lo que ocurre al agotarla pertenecen a la ficha de Claude, porque son decisiones de producto que Anthropic puede cambiar sin tocar el modelo.",
+    "kind": "model",
+    "verification": "partially_verified",
+    "nextReviewAt": "2026-09-06",
+    "version": "5",
+    "categorySlug": "chat-asistentes",
+    "secondaryCategories": [
+      "apis"
+    ],
+    "tags": [],
+    "useCases": [
+      "Usar Claude sin pagar y saber qué modelo hay detrás",
+      "Comparar coste por token antes de elegir modelo para un proyecto",
+      "Programación asistida y análisis de documentos"
+    ],
+    "freeModel": "freemium",
+    "freePlan": {
+      "summary": "Accesible sin pagar a través del plan Free de Claude, del que es el modelo por defecto. Por API se paga por token desde el primer uso.",
+      "limits": [
+        "Los límites de mensajes los fija el plan de la aplicación, no el modelo",
+        "El acceso por API es de pago: 3 $/M tokens de entrada y 15 $/M de salida",
+        "Precio de lanzamiento reducido (2 $ y 10 $/M) vigente hasta el 31 de agosto de 2026"
+      ],
+      "requiresSignup": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "no",
+      "commercialUse": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-08-07"
+    },
+    "openSource": "no",
+    "hosting": "cloud",
+    "platforms": [
+      "web",
+      "api"
+    ],
+    "languages": [
+      "es",
+      "en"
+    ],
+    "skillLevel": "beginner",
+    "privacy": {
+      "trainsOnUserData": "unverified",
+      "optOutAvailable": "unverified",
+      "companyCountry": "US"
+    },
+    "officialUrl": "https://docs.anthropic.com/en/docs/about-claude/models/overview",
+    "pricingUrl": "https://www.anthropic.com/pricing",
+    "docsUrl": "https://docs.anthropic.com/en/docs/about-claude/models/overview",
+    "sources": [
+      {
+        "url": "https://docs.anthropic.com/en/docs/about-claude/models/overview",
+        "label": "Modelos de Claude — documentación de Anthropic",
+        "kind": "docs",
+        "checkedAt": "2026-08-07"
+      },
+      {
+        "url": "https://www.anthropic.com/pricing",
+        "label": "Precios de Anthropic",
+        "kind": "pricing",
+        "checkedAt": "2026-08-07"
+      }
+    ],
+    "scores": {
+      "freeReal": 7,
+      "usefulness": 9,
+      "ease": 9,
+      "transparency": 7,
+      "creatorValue": 7
+    },
+    "verdict": "Es el modelo que te toca si usas Claude sin pagar, y eso lo hace relevante lo quieras o no. Es capaz y directo de usar, pero la gratuidad no vive aquí: vive en el plan de la aplicación, que Anthropic puede ajustar cuando quiera. Como modelo de API es de pago desde el primer token.",
+    "pros": [
+      "Es el modelo por defecto del plan gratuito, confirmado por Anthropic",
+      "Sin instalación: funciona en el navegador",
+      "Precio por API publicado con claridad, incluida la fecha de fin del descuento"
+    ],
+    "cons": [
+      "Los límites del plan gratuito los decide la aplicación, no el modelo",
+      "Pesos cerrados: no puedes ejecutarlo por tu cuenta",
+      "No hemos confirmado si el plan gratuito permite uso comercial"
+    ],
+    "bestFor": [
+      "Quien usa Claude gratis y quiere saber qué está usando",
+      "Quien compara coste por token entre proveedores"
+    ],
+    "notFor": [
+      "Quien necesita ejecutar el modelo sin conexión",
+      "Quien necesita garantías escritas de uso comercial en la capa gratuita"
+    ],
+    "alternatives": [
+      "claude",
+      "chatgpt",
+      "google-gemini"
+    ],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false,
+      "placementBoost": 0
+    },
+    "status": "published",
+    "detectedAt": "2026-08-07",
+    "lastVerifiedAt": "2026-08-07",
+    "updatedAt": "2026-08-07"
+  },
+  {
     "id": "tool_comfyui",
     "slug": "comfyui",
     "name": "ComfyUI",
@@ -928,6 +1042,125 @@
     "detectedAt": "2023-08-15",
     "lastVerifiedAt": "2026-07-08",
     "updatedAt": "2026-07-08"
+  },
+  {
+    "id": "tool_gemma-4",
+    "slug": "gemma-4",
+    "name": "Gemma 4",
+    "tagline": "Los modelos de pesos abiertos de Google, con licencia Apache 2.0 desde la versión 4.",
+    "descriptionShort": "Familia de modelos de pesos abiertos de Google, de 2B a 31B parámetros, descargables sin pagar y ejecutables en tu propio equipo. Gemma 4 es la primera generación con licencia Apache 2.0.",
+    "descriptionLong": "Gemma 4 es la cuarta generación de los modelos abiertos de Google. La familia incluye variantes E2B y E4B (2B y 4B parámetros efectivos) con 128K de contexto, y variantes 12B multimodal unificada, 26B A4B de mezcla de expertos y 31B densa, con 256K de contexto. Los pesos se descargan sin coste desde Kaggle y Hugging Face.\n\nLo relevante para quien busca algo gratis de verdad: Gemma 4 cambia de licencia. Las generaciones 1 a 3 se distribuían bajo los «Gemma Terms of Use», una licencia propia de Google con una política de usos prohibidos incorporada por referencia. Gemma 4 remite a Apache 2.0. Es una diferencia práctica, no formal: bajo Apache 2.0 el permiso no depende de que Google siga considerando aceptable tu caso de uso.\n\nNo es un producto con plan gratuito, sino un modelo que descargas. Lo que te limita es tu hardware, no una cuota mensual que alguien pueda recortar.",
+    "kind": "model",
+    "verification": "verified",
+    "nextReviewAt": "2026-11-05",
+    "version": "4",
+    "categorySlug": "modelos-open-source",
+    "secondaryCategories": [
+      "herramientas-locales"
+    ],
+    "tags": [],
+    "useCases": [
+      "Ejecutar un modelo capaz en local sin enviar nada a la nube",
+      "Ajustar un modelo con datos propios sin pedir permiso a nadie",
+      "Integrar IA en un producto comercial sin coste por token",
+      "Aprender cómo funciona un modelo por dentro"
+    ],
+    "freeModel": "open_source",
+    "freePlan": {
+      "summary": "Los pesos se descargan sin coste desde Kaggle y Hugging Face. No hay plan, ni cuota, ni facturación: una vez descargado el modelo es tuyo y funciona sin conexión.",
+      "limits": [
+        "Lo limita tu hardware: las variantes de 26B y 31B necesitan bastante VRAM",
+        "Requiere montar el entorno de ejecución (Ollama, llama.cpp o similar)",
+        "Las generaciones Gemma 1 a 3 siguen bajo la licencia propia de Google, no Apache 2.0"
+      ],
+      "requiresSignup": "no",
+      "requiresCreditCard": "no",
+      "hasWatermark": "no",
+      "commercialUse": "yes",
+      "creditReset": "none",
+      "verifiedAt": "2026-08-07"
+    },
+    "openSource": "yes",
+    "licence": "Apache 2.0 (Gemma 4). Gemma 1–3 bajo Gemma Terms of Use.",
+    "hosting": "local",
+    "platforms": [
+      "windows",
+      "linux",
+      "macos",
+      "cli",
+      "api"
+    ],
+    "languages": [],
+    "hardwareRequirements": "Las variantes E2B y E4B funcionan en equipos de consumo. Las de 12B, 26B A4B y 31B piden GPU con VRAM abundante o Apple Silicon con memoria unificada amplia.",
+    "skillLevel": "intermediate",
+    "privacy": {
+      "trainsOnUserData": "no",
+      "optOutAvailable": "unverified",
+      "dataRetention": "Ninguna: el modelo se ejecuta en tu equipo y no envía nada a Google.",
+      "companyCountry": "US"
+    },
+    "officialUrl": "https://ai.google.dev/gemma",
+    "docsUrl": "https://ai.google.dev/gemma/docs/core",
+    "sources": [
+      {
+        "url": "https://ai.google.dev/gemma/docs/core",
+        "label": "Documentación oficial de Gemma",
+        "kind": "docs",
+        "checkedAt": "2026-08-07"
+      },
+      {
+        "url": "https://ai.google.dev/gemma/terms",
+        "label": "Términos de licencia de Gemma",
+        "kind": "official",
+        "checkedAt": "2026-08-07"
+      }
+    ],
+    "scores": {
+      "freeReal": 10,
+      "usefulness": 8,
+      "ease": 6,
+      "transparency": 9,
+      "creatorValue": 8
+    },
+    "verdict": "Gratis de verdad, en el sentido más fuerte del término: los pesos son tuyos y no dependen de que Google mantenga un plan. El salto a Apache 2.0 en la versión 4 es la noticia real, porque elimina la cláusula de usos prohibidos que hacía que las generaciones anteriores no fueran verdaderamente abiertas. El precio es que tienes que montarlo tú.",
+    "pros": [
+      "Los pesos se descargan sin pagar ni registrarse",
+      "Gemma 4 usa Apache 2.0: uso comercial sin cláusula de usos permitidos",
+      "Funciona sin conexión, así que nada de lo que escribas sale de tu equipo",
+      "Cinco tamaños, desde 2B para portátiles hasta 31B"
+    ],
+    "cons": [
+      "Hay que montar el entorno de ejecución: no es abrir una web y escribir",
+      "Los tamaños grandes exigen hardware que no todo el mundo tiene",
+      "Las versiones 1 a 3 no comparten la licencia Apache 2.0 de la 4",
+      "Sin soporte: si algo falla, la comunidad es toda la ayuda que hay"
+    ],
+    "bestFor": [
+      "Quien no quiere que sus datos salgan de su equipo",
+      "Proyectos comerciales que no pueden depender del plan gratuito de nadie",
+      "Quien ya tiene GPU y prefiere gastar electricidad antes que suscripción"
+    ],
+    "notFor": [
+      "Quien quiere escribir un prompt en dos minutos sin instalar nada",
+      "Equipos sin GPU dedicada que necesiten los tamaños grandes"
+    ],
+    "alternatives": [
+      "ollama",
+      "lm-studio"
+    ],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false,
+      "placementBoost": 0
+    },
+    "status": "published",
+    "detectedAt": "2026-08-07",
+    "lastVerifiedAt": "2026-08-07",
+    "updatedAt": "2026-08-07"
   },
   {
     "id": "tool_google-gemini",

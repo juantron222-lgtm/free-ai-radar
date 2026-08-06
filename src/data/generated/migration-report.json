@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-06T22:32:50.416Z",
+  "generatedAt": "2026-08-06T23:26:11.242Z",
   "source": "src/data/tools.json",
   "inputCount": 22,
-  "outputCount": 22,
+  "outputCount": 24,
   "dropped": [],
   "duplicates": [],
   "issues": [],
@@ -237,5 +237,6 @@
       "slug": "midjourney",
       "legacyScore": 59
     }
-  ]
+  ],
+  "nativeCount": 2
 }
