@@ -275,14 +275,50 @@ test.describe('SEO técnico', () => {
 });
 
 test.describe('accesibilidad', () => {
-  test('hay un enlace para saltar al contenido', async ({ page }) => {
+  /**
+   * The skip link, asserted per engine.
+   *
+   * WebKit does not move Tab focus to links at all — it only reaches form
+   * controls unless the user turns on macOS "Full Keyboard Access". Measured
+   * on this page: Chromium and Firefox tab to `a.skip-link` first, WebKit goes
+   * straight to `button.theme-toggle`. That is a browser default, not a defect
+   * here, so asserting Tab order on WebKit would be testing Safari rather than
+   * the site.
+   *
+   * What must hold on every engine is that the link is first in DOM order,
+   * can take focus, and actually moves the reader to the content.
+   */
+  test('hay un enlace para saltar al contenido', async ({ page }, testInfo) => {
     // The consent dialog is modal and traps focus by design, so the decision
     // has to exist before the page's own tab order can be exercised.
     await seedConsent(page);
     await page.goto('/');
 
-    await page.keyboard.press('Tab');
-    await expect(page.getByRole('link', { name: 'Saltar al contenido' })).toBeFocused();
+    const skip = page.getByRole('link', { name: 'Saltar al contenido' });
+
+    // El Tab va primero, sobre la carga limpia. `blur()` no sirve para
+    // reiniciarlo: Chromium conserva el punto de partida de la navegación
+    // secuencial en el último elemento enfocado, así que el siguiente Tab
+    // continuaría desde ahí en vez de empezar por el principio.
+    const tabsToLinks = !['webkit', 'mobile-safari'].includes(testInfo.project.name);
+    if (tabsToLinks) {
+      await page.keyboard.press('Tab');
+      await expect(skip).toBeFocused();
+    }
+
+    // Primero en el orden del DOM, en todos los motores.
+    const isFirstFocusable = await page.evaluate(() => {
+      const focusable = document.querySelectorAll<HTMLElement>(
+        'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      return focusable[0]?.classList.contains('skip-link') ?? false;
+    });
+    expect(isFirstFocusable).toBe(true);
+
+    // Recibe el foco y lleva al contenido, en todos los motores.
+    await skip.focus();
+    await expect(skip).toBeFocused();
+    await expect(skip).toHaveAttribute('href', '#main');
   });
 
   test('el tema se puede cambiar y persiste', async ({ page }) => {
