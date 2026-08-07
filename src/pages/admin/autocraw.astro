@@ -1,0 +1,235 @@
+---
+import AdminLayout from '@layouts/AdminLayout.astro';
+import { getCommercialProblems, getCommercialStats } from '@lib/data/affiliate';
+import {
+  PLACEMENT_SLOTS,
+  PRICE_MAX_AGE_DAYS,
+  RECORD_MAX_AGE_DAYS,
+} from '@lib/domain/affiliate';
+
+export const prerender = false;
+
+/**
+ * The commercial review queue.
+ *
+ * Read-only today, and deliberately so: AutoCraw is not connected, no
+ * credential exists, and a review screen with nothing to review would be a
+ * pretend feature. What this page does now is state the connection status
+ * honestly and show the contract the integration will have to satisfy, so that
+ * the day it is switched on nobody has to guess what "approved" means.
+ */
+const stats = getCommercialStats();
+const problems = getCommercialProblems();
+const connected = stats.placements > 0 || problems.length > 0;
+---
+
+<AdminLayout
+  title="AutoCraw"
+  heading="AutoCraw — capa comercial"
+  lede="Estado de la integración de afiliación, cola de revisión y los invariantes que la limitan."
+>
+  <div class="ac">
+    <section aria-labelledby="status-title">
+      <h2 id="status-title" class="ac-h2">Estado de la conexión</h2>
+
+      <div class={`ac-status ${connected ? 'ac-status-on' : 'ac-status-off'}`}>
+        <p class="ac-status-line">
+          <strong>{connected ? 'Recibiendo datos' : 'Sin conectar'}</strong>
+        </p>
+        <p class="ac-status-detail">
+          {connected
+            ? 'Hay una instantánea comercial cargada. Revisa abajo lo pendiente.'
+            : 'No hay ninguna credencial emitida, ningún programa de afiliación activo y ninguna instantánea con contenido. El sitio funciona exactamente igual que si AutoCraw no existiera, que es el comportamiento previsto.'}
+        </p>
+      </div>
+
+      <dl class="ac-stats">
+        <div><dt>Emplazamientos activos</dt><dd class="tnum">{stats.placements}</dd></div>
+        <div><dt>Fichas con material</dt><dd class="tnum">{stats.tools}</dd></div>
+        <div><dt>Con precio vigente</dt><dd class="tnum">{stats.withPrice}</dd></div>
+        <div><dt>Problemas de contrato</dt><dd class="tnum">{stats.problems}</dd></div>
+      </dl>
+    </section>
+
+    {problems.length > 0 && (
+      <section aria-labelledby="problems-title">
+        <h2 id="problems-title" class="ac-h2">Problemas de contrato</h2>
+        <p class="ac-note">
+          Una instantánea con problemas se rechaza entera, no a medias. Mientras estos no se
+          resuelvan no se muestra nada comercial en el sitio.
+        </p>
+        <ul class="ac-problems">
+          {problems.map((problem) => <li>{problem}</li>)}
+        </ul>
+      </section>
+    )}
+
+    <section aria-labelledby="rules-title">
+      <h2 id="rules-title" class="ac-h2">Lo que AutoCraw no puede hacer</h2>
+      <p class="ac-note">
+        No es una lista de buenas intenciones: cada línea está impuesta por el esquema, por un
+        permiso de base de datos o por una prueba que falla si deja de cumplirse.
+      </p>
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead>
+            <tr><th scope="col">Regla</th><th scope="col">Dónde está impuesta</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">No puede tocar una puntuación</th>
+              <td>Sin permisos sobre <code>public.tools</code>. No existe ningún campo comercial en la ficha.</td>
+            </tr>
+            <tr>
+              <th scope="row">No puede mover un listado</th>
+              <td><code>commercial_priority</code> sólo existe dentro de un emplazamiento; ninguna función de orden lee esas tablas.</td>
+            </tr>
+            <tr>
+              <th scope="row">No puede publicar</th>
+              <td>Disparador <code>force_pending_for_agent</code>: todo lo suyo entra como pendiente.</td>
+            </tr>
+            <tr>
+              <th scope="row">No puede ocultar que es publicidad</th>
+              <td><code>disclosure_required</code> con <code>check (= true)</code>; en TypeScript es <code>z.literal(true)</code>.</td>
+            </tr>
+            <tr>
+              <th scope="row">No puede enlazar a otro sitio</th>
+              <td>El anfitrión del enlace debe coincidir con el del comerciante declarado.</td>
+            </tr>
+            <tr>
+              <th scope="row">No puede borrar nada</th>
+              <td>No se concede <code>delete</code>. Retirar algo es marcarlo inactivo.</td>
+            </tr>
+            <tr>
+              <th scope="row">No puede añadir superficies</th>
+              <td>Los slots son una lista cerrada en código, no filas de una tabla.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="slots-title">
+      <h2 id="slots-title" class="ac-h2">Superficies declaradas</h2>
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead>
+            <tr><th scope="col">Slot</th><th scope="col">Dónde</th><th scope="col">Máximo</th></tr>
+          </thead>
+          <tbody>
+            {Object.values(PLACEMENT_SLOTS).map((slot) => (
+              <tr>
+                <th scope="row"><code>{slot.id}</code></th>
+                <td>{slot.label}</td>
+                <td class="tnum">{slot.maxItems}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="ac-note">
+        Ninguna está en la portada, ni en el buscador, ni en un ranking. Lo comercial aparece en
+        una página que alguien ha elegido abrir, nunca donde se decide qué mirar.
+      </p>
+    </section>
+
+    <section aria-labelledby="aging-title">
+      <h2 id="aging-title" class="ac-h2">Caducidad</h2>
+      <p class="ac-note">
+        Nadie nos envía un aviso de que el tiempo ha pasado, así que la caducidad se comprueba al
+        leer. Es lo que hace que «la web sigue funcionando si AutoCraw deja de enviar» sea cierto
+        en el sentido útil: lo viejo desaparece solo y no rompe nada al hacerlo.
+      </p>
+      <ul class="ac-list">
+        <li>Un precio observado deja de mostrarse a los <strong>{PRICE_MAX_AGE_DAYS} días</strong>. No se muestra con advertencia: se retira.</li>
+        <li>Un registro sin comprobar deja de mostrarse a los <strong>{RECORD_MAX_AGE_DAYS} días</strong>.</li>
+      </ul>
+    </section>
+  </div>
+</AdminLayout>
+
+<style>
+  .ac {
+    display: grid;
+    gap: var(--space-l);
+  }
+
+  .ac-h2 {
+    font-size: 1.05rem;
+    margin-block-end: var(--space-2xs);
+  }
+
+  .ac-status {
+    padding: var(--space-s);
+    border-radius: var(--radius-m);
+    border: 1px solid var(--line);
+  }
+
+  .ac-status-off {
+    background: var(--surface-sunken);
+  }
+
+  .ac-status-on {
+    border-color: var(--signal-line);
+    background: var(--signal-soft);
+  }
+
+  .ac-status-line {
+    margin: 0 0 0.2rem;
+    font-size: 0.9375rem;
+  }
+
+  .ac-status-detail {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    max-width: 62ch;
+  }
+
+  .ac-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: var(--space-s);
+    margin: var(--space-s) 0 0;
+  }
+
+  .ac-stats dt {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink-subtle);
+    font-weight: 650;
+  }
+
+  .ac-stats dd {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 700;
+  }
+
+  .ac-note {
+    margin: 0 0 var(--space-2xs);
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    max-width: 68ch;
+  }
+
+  .ac-problems,
+  .ac-list {
+    margin: 0;
+    padding-inline-start: 1.1em;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .ac-problems li {
+    color: var(--warn);
+  }
+
+  code {
+    font-size: 0.85em;
+  }
+</style>

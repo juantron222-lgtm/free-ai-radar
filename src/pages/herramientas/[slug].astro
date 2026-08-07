@@ -9,6 +9,7 @@ import ToolActions from '@components/tools/ToolActions.astro';
 import CorrectionForm from '@components/tools/CorrectionForm.astro';
 import ToolCard from '@components/tools/ToolCard.astro';
 import CompareTray from '@components/tools/CompareTray.astro';
+import AffiliatePlacement from '@components/affiliate/AffiliatePlacement.astro';
 import { getAllTools, getAlternativesFor } from '@lib/data/catalog';
 import { softwareApplicationSchema } from '@lib/seo/structured-data';
 import {
@@ -370,6 +371,11 @@ const VERIFICATION_MEANING: Record<ToolRecord['verification'], string> = {
           </p>
         </section>
 
+        {/* Commercial content sits below the editorial verdict and the
+            correction form, never above them. It renders nothing at all when
+            there is nothing to show, which is the state today. */}
+        <AffiliatePlacement slot="tool_detail_footer" toolSlug={tool.slug} />
+
         <CorrectionForm toolSlug={tool.slug} toolName={tool.name} />
       </div>
 
@@ -385,6 +391,8 @@ const VERIFICATION_MEANING: Record<ToolRecord['verification'], string> = {
           </dl>
           <p class="tool-aside-meaning">{freeModel.meaning}</p>
         </div>
+
+        <AffiliatePlacement slot="tool_detail_sidebar" toolSlug={tool.slug} />
       </aside>
     </div>
   </article>

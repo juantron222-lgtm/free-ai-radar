@@ -131,6 +131,7 @@ export const ADMIN_NAV: readonly NavItem[] = [
   { label: 'Enlaces', href: '/admin/enlaces' },
   { label: 'Newsletter', href: '/admin/newsletter' },
   { label: 'Monetización', href: '/admin/monetizacion' },
+  { label: 'AutoCraw', href: '/admin/autocraw' },
   { label: 'Auditoría', href: '/admin/auditoria' },
 ];
 

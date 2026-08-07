@@ -1,0 +1,236 @@
+---
+import { getPlacements } from '@lib/data/affiliate';
+import { PLACEMENT_SLOTS, PRODUCT_RELATION_LABEL, type PlacementSlotId } from '@lib/domain/affiliate';
+
+interface Props {
+  slot: PlacementSlotId;
+  toolSlug: string;
+}
+
+/**
+ * The only way commercial content reaches a page.
+ *
+ * There is no other component that renders an affiliate link, and this one has
+ * no props that could switch disclosure off, change the `rel`, or reorder by
+ * anything editorial. Adding a commercial surface to the site means adding a
+ * slot to `PLACEMENT_SLOTS` and placing this component — both code changes
+ * that go through review, neither something AutoCraw can do by writing a row.
+ *
+ * When there is nothing to show it renders nothing at all: no heading, no
+ * empty box, no "no recommendations yet". Today that is every page.
+ */
+const { slot, toolSlug } = Astro.props;
+
+const items = getPlacements(slot, toolSlug);
+const def = PLACEMENT_SLOTS[slot];
+
+const fmtPrice = (cents: number, currency: string) =>
+  new Intl.NumberFormat('es-ES', { style: 'currency', currency }).format(cents / 100);
+
+const fmtDate = (iso: string) =>
+  new Date(`${iso}T00:00:00Z`).toLocaleDateString('es-ES', {
+    day: 'numeric',
+    month: 'long',
+    timeZone: 'UTC',
+  });
+---
+
+{items.length > 0 && (
+  <section class="promo" aria-labelledby={`promo-${slot}`}>
+    <div class="promo-head">
+      <h2 id={`promo-${slot}`} class="promo-title">{def.heading}</h2>
+      {/*
+        The label comes before the products, not after. A reader should know
+        what they are looking at before they look at it, not once they have
+        already read it as a recommendation.
+      */}
+      <span class="promo-flag">Enlaces de afiliación</span>
+    </div>
+
+    <p class="promo-explainer">
+      Si compras a través de estos enlaces, ganamos una comisión sin coste para ti. No influyen
+      en la puntuación de ninguna herramienta ni en el orden de ningún listado:
+      <a href="/transparencia-afiliados">cómo funciona y por qué</a>.
+    </p>
+
+    <ul class="promo-list">
+      {items.map((item) => (
+        <li class="promo-item">
+          {item.product.imageUrl && (
+            <img
+              class="promo-img"
+              src={item.product.imageUrl}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              width="72"
+              height="72"
+            />
+          )}
+
+          <div class="promo-body">
+            <p class="promo-kind">{PRODUCT_RELATION_LABEL[item.relationKind]}</p>
+            <h3 class="promo-name">
+              <a href={item.linkUrl} rel={item.rel} target="_blank">
+                {item.product.title}
+                <span class="sr-only">(enlace de afiliación, se abre en una pestaña nueva)</span>
+              </a>
+            </h3>
+
+            {/* Our reason for it being here, not the merchant's copy. */}
+            <p class="promo-why">{item.rationale}</p>
+
+            <p class="promo-meta">
+              {item.price ? (
+                <>
+                  <span class="promo-price tnum">
+                    {fmtPrice(item.price.cents, item.price.currency)}
+                  </span>
+                  <span class="promo-observed">
+                    precio visto el <time datetime={item.price.observedAt}>{fmtDate(item.price.observedAt)}</time>
+                    {' '}en {item.merchant.name}. Puede haber cambiado.
+                  </span>
+                </>
+              ) : (
+                <span class="promo-observed">
+                  En {item.merchant.name}. No mostramos precio porque no lo hemos comprobado
+                  recientemente.
+                </span>
+              )}
+            </p>
+
+            <p class="promo-disclosure">{item.disclosureText}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
+
+<style>
+  .promo {
+    margin-block-start: var(--space-l);
+    padding: var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-m);
+    background: var(--surface-sunken);
+  }
+
+  .promo-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+    flex-wrap: wrap;
+  }
+
+  .promo-title {
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .promo-flag {
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    color: var(--ink-subtle);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-s);
+    padding: 0.1rem 0.4rem;
+  }
+
+  .promo-explainer {
+    margin: var(--space-2xs) 0 var(--space-s);
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+  }
+
+  .promo-explainer a {
+    color: var(--signal);
+    font-weight: 550;
+  }
+
+  .promo-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-s);
+  }
+
+  .promo-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-s);
+    padding-block-start: var(--space-s);
+    border-block-start: 1px solid var(--line-hairline);
+  }
+
+  .promo-item:first-child {
+    padding-block-start: 0;
+    border-block-start: 0;
+  }
+
+  .promo-img {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    border-radius: var(--radius-s);
+    background: var(--surface);
+  }
+
+  .promo-kind {
+    margin: 0;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 650;
+    color: var(--ink-subtle);
+  }
+
+  .promo-name {
+    font-size: 0.9375rem;
+    margin: 0.1rem 0 0.25rem;
+  }
+
+  .promo-name a {
+    color: var(--ink-strong);
+    text-decoration: none;
+  }
+
+  .promo-name a:hover {
+    text-decoration: underline;
+  }
+
+  .promo-why {
+    margin: 0 0 0.35rem;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .promo-meta {
+    margin: 0;
+    font-size: 0.8125rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .promo-price {
+    font-weight: 700;
+    color: var(--ink-strong);
+  }
+
+  .promo-observed {
+    color: var(--ink-subtle);
+    font-size: 0.75rem;
+  }
+
+  .promo-disclosure {
+    margin: var(--space-2xs) 0 0;
+    font-size: 0.6875rem;
+    color: var(--ink-subtle);
+  }
+</style>
