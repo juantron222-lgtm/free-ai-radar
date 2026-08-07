@@ -29,7 +29,9 @@
     "links:check": "node scripts/check-links.mjs",
     "icons": "node scripts/generate-icons.js",
     "news:fetch": "node scripts/fetch-ai-news.mjs",
-    "data:news:validate": "vitest run tests/unit/news.test.ts"
+    "data:news:validate": "vitest run tests/unit/news.test.ts",
+    "rls:test": "node scripts/rls-harness.mjs",
+    "rls:test:broken": "node scripts/rls-harness.mjs --no-hardening"
   },
   "dependencies": {
     "@astrojs/vercel": "^11.0.4",
@@ -43,6 +45,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "@electric-sql/pglite": "^0.5.4",
     "@eslint/js": "^9.39.5",
     "@playwright/test": "^1.62.1",
     "@tailwindcss/vite": "^4.0.0",

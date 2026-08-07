@@ -30,7 +30,15 @@ begin;
 -- Never leave anything behind, even if an assertion aborts mid-run.
 set local client_min_messages = warning;
 
-create temporary table rls_results (
+/*
+ * Not a temp table.
+ *
+ * The probes run under `anon`, `authenticated` and `autocraw_ingest`, and a
+ * role that is not the session user cannot write to the session's temp schema.
+ * A plain table with an open grant is what lets every impersonated role record
+ * its own result. The surrounding transaction rolls back, so nothing survives.
+ */
+create table rls_results (
   seq       serial primary key,
   id        text not null,
   severity  text not null,
@@ -38,7 +46,10 @@ create temporary table rls_results (
   expected  text not null,
   outcome   text not null,
   detail    text
-) on commit drop;
+);
+
+grant all on public.rls_results to public;
+grant usage, select on sequence public.rls_results_seq_seq to public;
 
 /*
  * Impersonation.
@@ -48,9 +59,13 @@ create temporary table rls_results (
  * caller, which is what makes these results transferable to the real thing:
  * the policies cannot tell the difference.
  */
-create or replace function pg_temp.act_as(user_id uuid)
+create or replace function public.act_as(user_id uuid)
 returns void language plpgsql as $$
 begin
+  -- Always return to the session user first: from a non-superuser role the
+  -- only permitted transition is back, not sideways.
+  perform set_config('role', 'none', true);
+
   if user_id is null then
     perform set_config('request.jwt.claims', null, true);
     perform set_config('role', 'anon', true);
@@ -64,9 +79,10 @@ begin
   end if;
 end $$;
 
-create or replace function pg_temp.act_as_service()
+create or replace function public.act_as_service()
 returns void language plpgsql as $$
 begin
+  perform set_config('role', 'none', true);
   perform set_config('request.jwt.claims', null, true);
   perform set_config('role', 'service_role', true);
 end $$;
@@ -77,7 +93,7 @@ end $$;
  * `sql_to_try` is expected to FAIL. If it raises, the defence held. If it
  * succeeds, we have a bypass — and we record what leaked.
  */
-create or replace function pg_temp.expect_denied(
+create or replace function public.expect_denied(
   p_id text, p_severity text, p_scenario text, p_sql text
 ) returns void language plpgsql as $$
 declare
@@ -104,7 +120,7 @@ begin
 end $$;
 
 /* Records a read that must return exactly zero rows. */
-create or replace function pg_temp.expect_no_rows(
+create or replace function public.expect_no_rows(
   p_id text, p_severity text, p_scenario text, p_sql text
 ) returns void language plpgsql as $$
 declare
@@ -129,7 +145,7 @@ begin
 end $$;
 
 /* Records something that must remain true after an attack. */
-create or replace function pg_temp.expect_true(
+create or replace function public.expect_true(
   p_id text, p_severity text, p_scenario text, p_sql text
 ) returns void language plpgsql as $$
 declare
@@ -154,7 +170,7 @@ declare
   mallory uuid := '11111111-1111-4111-8111-111111111111';
   alice   uuid := '22222222-2222-4222-8222-222222222222';
 begin
-  perform pg_temp.act_as_service();
+  perform public.act_as_service();
 
   -- auth.users is owned by Supabase. Inserting directly is acceptable inside a
   -- transaction that rolls back, and avoids depending on the Auth API here.
@@ -174,12 +190,20 @@ begin
   on conflict (user_id) do nothing;
 
   -- Alice owns a private list and a private favourite. Mallory will go for them.
-  insert into public.user_lists (id, user_id, name, is_public)
-  values ('33333333-3333-4333-8333-333333333333', alice, 'Lista privada de Alice', false)
+  insert into public.user_lists (id, user_id, slug, title, is_public)
+  values ('33333333-3333-4333-8333-333333333333', alice, 'privada', 'Lista privada de Alice', false)
   on conflict (id) do nothing;
 
-  insert into public.alerts (user_id, kind, is_active)
-  values (alice, 'free_plan_reduced', true)
+  insert into public.user_favorites (user_id, tool_id)
+  values (alice, 'tool_ollama')
+  on conflict do nothing;
+
+  insert into public.alerts (user_id, tool_id, kinds, is_active)
+  values (alice, 'tool_ollama', '["free_plan_reduced"]'::jsonb, true)
+  on conflict do nothing;
+
+  insert into public.user_subscriptions (user_id, status)
+  values (mallory, 'canceled')
   on conflict do nothing;
 end $$;
 
@@ -190,21 +214,21 @@ end $$;
 do $$
 declare mallory uuid := '11111111-1111-4111-8111-111111111111';
 begin
-  perform pg_temp.act_as(mallory);
+  perform public.act_as(mallory);
 
-  perform pg_temp.expect_denied(
+  perform public.expect_denied(
     'RLS-01a', 'crítica',
     'Mallory se asciende a admin en su propio perfil',
     format('update public.profiles set role = ''admin'' where id = %L', mallory)
   );
 
-  perform pg_temp.expect_denied(
+  perform public.expect_denied(
     'RLS-01b', 'crítica',
     'Mallory se asciende a editor',
     format('update public.profiles set role = ''editor'' where id = %L', mallory)
   );
 
-  perform pg_temp.expect_denied(
+  perform public.expect_denied(
     'RLS-01c', 'crítica',
     'Mallory reasigna su perfil a otro identificador',
     format('update public.profiles set id = ''44444444-4444-4444-8444-444444444444'' where id = %L', mallory)
@@ -215,8 +239,8 @@ end $$;
 -- successful escalation would also change what Mallory can see.
 do $$
 begin
-  perform pg_temp.act_as_service();
-  perform pg_temp.expect_true(
+  perform public.act_as_service();
+  perform public.expect_true(
     'RLS-01d', 'crítica',
     'el rol de Mallory sigue siendo user tras los intentos',
     'select role = ''user'' from public.profiles where id = ''11111111-1111-4111-8111-111111111111'''
@@ -232,53 +256,53 @@ declare
   mallory uuid := '11111111-1111-4111-8111-111111111111';
   alice   uuid := '22222222-2222-4222-8222-222222222222';
 begin
-  perform pg_temp.act_as(mallory);
+  perform public.act_as(mallory);
 
-  perform pg_temp.expect_no_rows('RLS-02a', 'alta',
+  perform public.expect_no_rows('RLS-02a', 'alta',
     'Mallory lee el perfil de Alice',
     format('select id from public.profiles where id = %L', alice));
 
-  perform pg_temp.expect_no_rows('RLS-02b', 'alta',
+  perform public.expect_no_rows('RLS-02b', 'alta',
     'Mallory enumera todos los perfiles',
     'select id from public.profiles where id <> ''11111111-1111-4111-8111-111111111111''');
 
-  perform pg_temp.expect_no_rows('RLS-02c', 'alta',
+  perform public.expect_no_rows('RLS-02c', 'alta',
     'Mallory lee la lista privada de Alice',
     format('select id from public.user_lists where user_id = %L', alice));
 
-  perform pg_temp.expect_no_rows('RLS-02d', 'alta',
+  perform public.expect_no_rows('RLS-02d', 'alta',
     'Mallory lee los favoritos de Alice',
     format('select tool_id from public.user_favorites where user_id = %L', alice));
 
-  perform pg_temp.expect_no_rows('RLS-02e', 'alta',
+  perform public.expect_no_rows('RLS-02e', 'alta',
     'Mallory lee las alertas de Alice',
     format('select id from public.alerts where user_id = %L', alice));
 
-  perform pg_temp.expect_no_rows('RLS-02f', 'alta',
+  perform public.expect_no_rows('RLS-02f', 'alta',
     'Mallory lee las preferencias de correo de Alice',
     format('select user_id from public.notification_preferences where user_id = %L', alice));
 
-  perform pg_temp.expect_no_rows('RLS-02g', 'alta',
+  perform public.expect_no_rows('RLS-02g', 'alta',
     'Mallory lee el historial de navegación de Alice',
     format('select id from public.view_history where user_id = %L', alice));
 
-  perform pg_temp.expect_no_rows('RLS-02h', 'crítica',
+  perform public.expect_no_rows('RLS-02h', 'crítica',
     'Mallory lee la lista de suscriptores del boletín',
     'select email from public.newsletter_subscriptions');
 
-  perform pg_temp.expect_no_rows('RLS-02i', 'crítica',
+  perform public.expect_no_rows('RLS-02i', 'crítica',
     'Mallory lee el registro de auditoría',
     'select id from public.audit_logs');
 
-  perform pg_temp.expect_no_rows('RLS-02j', 'alta',
+  perform public.expect_no_rows('RLS-02j', 'alta',
     'Mallory lee la facturación de Alice',
     format('select id from public.user_subscriptions where user_id = %L', alice));
 
-  perform pg_temp.expect_no_rows('RLS-02k', 'media',
+  perform public.expect_no_rows('RLS-02k', 'media',
     'Mallory lee los eventos de producto',
     'select id from public.product_events');
 
-  perform pg_temp.expect_no_rows('RLS-02l', 'media',
+  perform public.expect_no_rows('RLS-02l', 'media',
     'Mallory lee los webhooks procesados de Stripe',
     'select * from public.processed_webhook_events');
 end $$;
@@ -292,41 +316,41 @@ declare
   mallory uuid := '11111111-1111-4111-8111-111111111111';
   alice   uuid := '22222222-2222-4222-8222-222222222222';
 begin
-  perform pg_temp.act_as(mallory);
+  perform public.act_as(mallory);
 
-  perform pg_temp.expect_denied('RLS-03a', 'alta',
+  perform public.expect_denied('RLS-03a', 'alta',
     'Mallory añade un favorito en nombre de Alice',
     format('insert into public.user_favorites (user_id, tool_id) values (%L, ''tool_ollama'')', alice));
 
-  perform pg_temp.expect_denied('RLS-03b', 'alta',
+  perform public.expect_denied('RLS-03b', 'alta',
     'Mallory borra la lista de Alice',
     format('delete from public.user_lists where user_id = %L', alice));
 
-  perform pg_temp.expect_denied('RLS-03c', 'alta',
+  perform public.expect_denied('RLS-03c', 'alta',
     'Mallory se apropia de la lista de Alice',
     format('update public.user_lists set user_id = %L where user_id = %L', mallory, alice));
 
-  perform pg_temp.expect_denied('RLS-03d', 'alta',
+  perform public.expect_denied('RLS-03d', 'alta',
     'Mallory hace pública la lista privada de Alice',
     format('update public.user_lists set is_public = true where user_id = %L', alice));
 
-  perform pg_temp.expect_denied('RLS-03e', 'alta',
+  perform public.expect_denied('RLS-03e', 'alta',
     'Mallory desactiva las alertas de Alice',
     format('update public.alerts set is_active = false where user_id = %L', alice));
 
-  perform pg_temp.expect_denied('RLS-03f', 'crítica',
+  perform public.expect_denied('RLS-03f', 'crítica',
     'Mallory se regala una suscripción de pago',
     format('insert into public.user_subscriptions (user_id, status) values (%L, ''active'')', mallory));
 
-  perform pg_temp.expect_denied('RLS-03g', 'crítica',
+  perform public.expect_denied('RLS-03g', 'crítica',
     'Mallory activa su propia suscripción existente',
     format('update public.user_subscriptions set status = ''active'' where user_id = %L', mallory));
 
-  perform pg_temp.expect_denied('RLS-03h', 'crítica',
+  perform public.expect_denied('RLS-03h', 'crítica',
     'Mallory falsifica una entrada de auditoría',
     'insert into public.audit_logs (action, entity) values (''fake'', ''tools'')');
 
-  perform pg_temp.expect_denied('RLS-03i', 'crítica',
+  perform public.expect_denied('RLS-03i', 'crítica',
     'Mallory borra el registro de auditoría',
     'delete from public.audit_logs');
 end $$;
@@ -338,30 +362,30 @@ end $$;
 do $$
 declare mallory uuid := '11111111-1111-4111-8111-111111111111';
 begin
-  perform pg_temp.act_as(mallory);
+  perform public.act_as(mallory);
 
-  perform pg_temp.expect_denied('RLS-04a', 'crítica',
+  perform public.expect_denied('RLS-04a', 'crítica',
     'Mallory sube la puntuación de una herramienta',
     'update public.tools set scores = ''{"freeReal":10,"usefulness":10,"ease":10,"transparency":10,"creatorValue":10}''::jsonb');
 
-  perform pg_temp.expect_denied('RLS-04b', 'crítica',
+  perform public.expect_denied('RLS-04b', 'crítica',
     'Mallory reescribe un veredicto',
     'update public.tools set verdict = ''Comprado''');
 
-  perform pg_temp.expect_denied('RLS-04c', 'alta',
+  perform public.expect_denied('RLS-04c', 'alta',
     'Mallory publica una herramienta inventada',
     'insert into public.tools (id, slug, name, category_slug, free_model, free_plan, official_url, scores, detected_at, last_verified_at) '
     'values (''x'', ''x'', ''X'', ''imagen'', ''free_real'', ''{}''::jsonb, ''https://x.test'', ''{}''::jsonb, current_date, current_date)');
 
-  perform pg_temp.expect_denied('RLS-04d', 'alta',
+  perform public.expect_denied('RLS-04d', 'alta',
     'Mallory borra una herramienta',
     'delete from public.tools');
 
-  perform pg_temp.expect_denied('RLS-04e', 'media',
+  perform public.expect_denied('RLS-04e', 'media',
     'Mallory edita una categoría',
     'update public.categories set name = ''Pirateada''');
 
-  perform pg_temp.expect_no_rows('RLS-04f', 'media',
+  perform public.expect_no_rows('RLS-04f', 'media',
     'Mallory lee borradores no publicados',
     'select id from public.tools where status <> ''published''');
 end $$;
@@ -373,22 +397,22 @@ end $$;
 do $$
 declare mallory uuid := '11111111-1111-4111-8111-111111111111';
 begin
-  perform pg_temp.act_as(mallory);
+  perform public.act_as(mallory);
 
-  perform pg_temp.expect_denied('RLS-05a', 'alta',
+  perform public.expect_denied('RLS-05a', 'alta',
     'Mallory inserta un producto afiliado',
     'insert into public.affiliate_products (slug, title) values (''spam'', ''Spam'')');
 
-  perform pg_temp.expect_denied('RLS-05b', 'crítica',
+  perform public.expect_denied('RLS-05b', 'crítica',
     'Mallory crea un enlace afiliado sin divulgación',
     'insert into public.affiliate_links (offer_id, url, disclosure_required) '
     'values (gen_random_uuid(), ''https://spam.test'', false)');
 
-  perform pg_temp.expect_no_rows('RLS-05c', 'media',
+  perform public.expect_no_rows('RLS-05c', 'media',
     'Mallory lee los clics agregados',
     'select * from public.affiliate_click_events_daily');
 
-  perform pg_temp.expect_no_rows('RLS-05d', 'media',
+  perform public.expect_no_rows('RLS-05d', 'media',
     'Mallory ve productos pendientes de revisión',
     'select id from public.affiliate_products where status <> ''active''');
 end $$;
@@ -397,8 +421,8 @@ end $$;
 -- property of the data, not a permission.
 do $$
 begin
-  perform pg_temp.act_as_service();
-  perform pg_temp.expect_denied('RLS-05e', 'crítica',
+  perform public.act_as_service();
+  perform public.expect_denied('RLS-05e', 'crítica',
     'ni siquiera el service role puede crear un enlace sin divulgación',
     'insert into public.affiliate_links (offer_id, url, disclosure_required) '
     'values (gen_random_uuid(), ''https://spam.test'', false)');
@@ -410,29 +434,30 @@ end $$;
 
 do $$
 begin
-  set local role autocraw_ingest;
+  perform set_config('role', 'none', true);
+  perform set_config('role', 'autocraw_ingest', true);
 
-  perform pg_temp.expect_denied('RLS-06a', 'crítica',
+  perform public.expect_denied('RLS-06a', 'crítica',
     'AutoCraw cambia la puntuación de una herramienta',
     'update public.tools set scores = ''{}''::jsonb');
 
-  perform pg_temp.expect_denied('RLS-06b', 'crítica',
+  perform public.expect_denied('RLS-06b', 'crítica',
     'AutoCraw cambia un veredicto',
     'update public.tools set verdict = ''Patrocinado''');
 
-  perform pg_temp.expect_no_rows('RLS-06c', 'crítica',
+  perform public.expect_no_rows('RLS-06c', 'crítica',
     'AutoCraw lee perfiles de usuario',
     'select id from public.profiles');
 
-  perform pg_temp.expect_no_rows('RLS-06d', 'crítica',
+  perform public.expect_no_rows('RLS-06d', 'crítica',
     'AutoCraw lee la lista del boletín',
     'select email from public.newsletter_subscriptions');
 
-  perform pg_temp.expect_denied('RLS-06e', 'alta',
+  perform public.expect_denied('RLS-06e', 'alta',
     'AutoCraw borra un producto en vez de desactivarlo',
     'delete from public.affiliate_products');
 
-  perform pg_temp.expect_denied('RLS-06f', 'alta',
+  perform public.expect_denied('RLS-06f', 'alta',
     'AutoCraw lee el registro de auditoría',
     'select id from public.audit_logs');
 exception when others then
@@ -441,13 +466,13 @@ exception when others then
   values ('RLS-06', 'crítica', 'rol autocraw_ingest', 'existe', 'FALLA', sqlerrm);
 end $$;
 
-reset role;
+select set_config('role', 'none', true);
 
 -- AutoCraw's own writes must land as pending, whatever they ask for.
 do $$
 declare inserted public.commercial_status;
 begin
-  perform pg_temp.act_as_service();
+  perform public.act_as_service();
   insert into public.affiliate_products (slug, title, source, status)
   values ('sonda-autocraw', 'Sonda', 'autocraw', 'active')
   returning status into inserted;
@@ -470,31 +495,31 @@ end $$;
 
 do $$
 begin
-  perform pg_temp.act_as(null);
+  perform public.act_as(null);
 
-  perform pg_temp.expect_no_rows('RLS-07a', 'crítica',
+  perform public.expect_no_rows('RLS-07a', 'crítica',
     'un anónimo lee perfiles',
     'select id from public.profiles');
 
-  perform pg_temp.expect_no_rows('RLS-07b', 'crítica',
+  perform public.expect_no_rows('RLS-07b', 'crítica',
     'un anónimo lee favoritos',
     'select tool_id from public.user_favorites');
 
-  perform pg_temp.expect_no_rows('RLS-07c', 'crítica',
+  perform public.expect_no_rows('RLS-07c', 'crítica',
     'un anónimo lee alertas',
     'select id from public.alerts');
 
-  perform pg_temp.expect_no_rows('RLS-07d', 'crítica',
+  perform public.expect_no_rows('RLS-07d', 'crítica',
     'un anónimo lee el boletín',
     'select email from public.newsletter_subscriptions');
 
-  perform pg_temp.expect_denied('RLS-07e', 'alta',
+  perform public.expect_denied('RLS-07e', 'alta',
     'un anónimo escribe un favorito',
     'insert into public.user_favorites (user_id, tool_id) '
     'values (''22222222-2222-4222-8222-222222222222'', ''tool_ollama'')');
 
   -- What an anonymous visitor *must* be able to do: read the catalogue.
-  perform pg_temp.expect_true('RLS-07f', 'alta',
+  perform public.expect_true('RLS-07f', 'alta',
     'un anónimo sí puede leer el catálogo publicado',
     'select count(*) >= 0 from public.tools where status = ''published''');
 end $$;
@@ -506,20 +531,20 @@ end $$;
 do $$
 declare alice uuid := '22222222-2222-4222-8222-222222222222';
 begin
-  perform pg_temp.act_as_service();
+  perform public.act_as_service();
   update public.profiles set deleted_at = now() where id = alice;
 
-  perform pg_temp.act_as(alice);
+  perform public.act_as(alice);
 
-  perform pg_temp.expect_no_rows('RLS-08a', 'alta',
+  perform public.expect_no_rows('RLS-08a', 'alta',
     'un perfil marcado para borrado deja de ser legible',
     format('select id from public.profiles where id = %L', alice));
 end $$;
 
 do $$
 begin
-  perform pg_temp.act_as(null);
-  perform pg_temp.expect_no_rows('RLS-08b', 'alta',
+  perform public.act_as(null);
+  perform public.expect_no_rows('RLS-08b', 'alta',
     'las listas públicas de una cuenta en borrado dejan de mostrarse',
     'select id from public.user_lists where is_public = true '
     'and user_id = ''22222222-2222-4222-8222-222222222222''');
@@ -529,7 +554,7 @@ end $$;
 -- Results
 -- =====================================================================
 
-reset role;
+select set_config('role', 'none', true);
 
 select id, severity, outcome, scenario, coalesce(detail, '') as detail
 from rls_results

@@ -77,28 +77,6 @@ begin
   return new;
 end $$;
 
--- Role lookup used by every admin policy. SECURITY DEFINER so that reading the
--- caller's own role does not itself require a policy that could recurse.
-create or replace function public.current_role()
-returns public.user_role
-language sql
-stable
-security definer
-set search_path = public
-as $$
-  select coalesce((select role from public.profiles where id = auth.uid()), 'user'::public.user_role);
-$$;
-
-create or replace function public.is_staff()
-returns boolean language sql stable as $$
-  select public.current_role() in ('editor','admin');
-$$;
-
-create or replace function public.is_admin()
-returns boolean language sql stable as $$
-  select public.current_role() = 'admin';
-$$;
-
 -- ---------------------------------------------------------------------
 -- Profiles
 -- ---------------------------------------------------------------------
@@ -119,6 +97,38 @@ create table if not exists public.profiles (
 
 create trigger profiles_set_updated_at before update on public.profiles
   for each row execute function public.set_updated_at();
+
+/*
+ * Role lookup, defined here rather than with the other helpers because it
+ * reads public.profiles.
+ *
+ * PostgreSQL validates the body of a `language sql` function when it is
+ * created (check_function_bodies is on by default), so declaring this before
+ * the table exists aborts the migration on its first run. SECURITY DEFINER so
+ * that reading the caller's own role does not itself require a policy that
+ * could recurse.
+ */
+create or replace function public.current_role()
+returns public.user_role
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select coalesce((select role from public.profiles where id = auth.uid()), 'user'::public.user_role);
+$$;
+
+create or replace function public.is_staff()
+returns boolean language sql stable
+security definer set search_path = public as $$
+  select public.current_role() in ('editor','admin');
+$$;
+
+create or replace function public.is_admin()
+returns boolean language sql stable
+security definer set search_path = public as $$
+  select public.current_role() = 'admin';
+$$;
 
 -- New auth users get a profile automatically. Role always starts at 'user';
 -- privilege is granted deliberately, never inferred from sign-up data.
