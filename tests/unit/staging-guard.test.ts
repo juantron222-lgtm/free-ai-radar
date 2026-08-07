@@ -204,3 +204,30 @@ describe('credenciales sin sustituir', () => {
     expect(reasons(result)).toContain('no lleva contraseña');
   });
 });
+
+describe('formas equivocadas de SUPABASE_STAGING_REF', () => {
+  it('una URL completa se nombra como tal, no como desajuste de proyecto', () => {
+    const result = evaluate({ SUPABASE_STAGING_REF: `https://${STAGING}.supabase.co` });
+    expect(reasons(result)).toContain('contiene una URL completa');
+    expect(reasons(result)).not.toContain('proyecto distinto del declarado');
+  });
+
+  it('algo demasiado corto para ser una referencia → FALLA', () => {
+    expect(reasons(evaluate({ SUPABASE_STAGING_REF: 'staging' }))).toContain(
+      'no tiene forma de referencia'
+    );
+  });
+
+  it('el anfitrión directo avisa del problema de IPv6 sin bloquear', () => {
+    const result = evaluate();
+    expect(result.problems).toEqual([]);
+    expect(result.warnings.join(' ')).toContain('sólo publica registro AAAA');
+  });
+
+  it('la cadena del pooler no genera ese aviso', () => {
+    const result = evaluate({
+      SUPABASE_DB_URL_STAGING: `postgresql://postgres.${STAGING}:pw@aws-1-eu-west-1.pooler.supabase.com:5432/postgres`,
+    });
+    expect(result.warnings.join(' ')).not.toContain('AAAA');
+  });
+});

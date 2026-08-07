@@ -222,6 +222,23 @@ export function evaluateEnvironment(env) {
     );
   }
 
+  /*
+   * The direct database host.
+   *
+   * Since Supabase deprecated IPv4, `db.<ref>.supabase.co` publishes only an
+   * AAAA record. From an IPv4-only network it does not resolve at all, and the
+   * failure arrives as a bare ENOTFOUND that looks like a wrong project. The
+   * session pooler is the IPv4 route and takes the same credentials.
+   *
+   * A warning rather than a problem: on a host with IPv6 the direct form works
+   * fine, and the connection attempt will say so either way.
+   */
+  if (/^db\./.test(parsed.hostname)) {
+    warnings.push(
+      'La cadena usa el anfitrión directo (db.<ref>), que desde la deprecación de IPv4 sólo publica registro AAAA. Si esta máquina no tiene IPv6 no resolverá: usa la cadena del «Session pooler», que admite las mismas credenciales con usuario postgres.<ref>.'
+    );
+  }
+
   const dbRef = refFromDbUrl(url);
   const apiRef = refFromApiUrl(env['PUBLIC_SUPABASE_URL'] ?? '');
   const declaredRef = (env['SUPABASE_STAGING_REF'] ?? '').trim();
@@ -239,9 +256,35 @@ export function evaluateEnvironment(env) {
   }
 
   // ---- 2. Positive identity ----------------------------------------------
+  /*
+   * Whether the declared reference is even shaped like one.
+   *
+   * Everything downstream compares against it, and comparing against a
+   * malformed value produces a second, contradictory complaint — "project
+   * mismatch" — that sends you looking at the connection string when the
+   * problem is the declaration. So a malformed declaration is reported once
+   * and the comparisons are skipped.
+   */
+  const declaredRefUsable = /^[a-z0-9]{16,}$/.test(declaredRef);
+
   if (!declaredRef) {
     problems.push(
       'Falta SUPABASE_STAGING_REF. Es la identidad positiva del único proyecto permitido: sin ella, sólo hay comprobaciones negativas y esas únicamente atrapan lo que alguien previó.'
+    );
+  } else if (/^https?:\/\//i.test(declaredRef)) {
+    /*
+     * A URL where a bare reference belongs.
+     *
+     * Easy to do — the dashboard shows the ref inside a URL — and the
+     * resulting failure reads "project mismatch", which points at the wrong
+     * thing entirely. Naming it costs one test and saves that hunt.
+     */
+    problems.push(
+      'SUPABASE_STAGING_REF contiene una URL completa. Debe ser sólo la referencia: la parte que va entre "https://" y ".supabase.co".'
+    );
+  } else if (!/^[a-z0-9]{16,}$/.test(declaredRef)) {
+    problems.push(
+      `SUPABASE_STAGING_REF no tiene forma de referencia de proyecto (se esperan al menos 16 caracteres alfanuméricos en minúscula; hay ${declaredRef.length}).`
     );
   } else if (!dbRef) {
     problems.push(
@@ -260,13 +303,13 @@ export function evaluateEnvironment(env) {
    * migrated another, and both would report success. That is the mismatch that
    * produces a green run against a database nobody looked at.
    */
-  if (declaredRef && apiRef && apiRef !== declaredRef) {
+  if (declaredRefUsable && apiRef && apiRef !== declaredRef) {
     problems.push(
       `PUBLIC_SUPABASE_URL apunta a un proyecto distinto del declarado: ${maskRef(apiRef)} frente a ${maskRef(declaredRef)}.`
     );
   }
 
-  if (declaredRef && !apiRef && env['PUBLIC_SUPABASE_URL']) {
+  if (declaredRefUsable && !apiRef && env['PUBLIC_SUPABASE_URL']) {
     warnings.push(
       'No se reconoce la referencia del proyecto en PUBLIC_SUPABASE_URL; no se ha podido comprobar que coincida.'
     );
