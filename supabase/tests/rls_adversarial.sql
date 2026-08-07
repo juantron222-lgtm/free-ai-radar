@@ -7,11 +7,22 @@
 --
 -- HOW TO RUN
 --
---   Against a Supabase staging project, in the SQL editor:
---     paste this whole file and run it.
+--   Local preflight (PostgreSQL 18 via PGlite, no credentials needed):
+--     npm run rls:test
 --
---   Against any Postgres with the migrations applied:
---     psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase/tests/rls_adversarial.sql
+--   Against Supabase staging, once SUPABASE_DB_URL_STAGING is set:
+--     npm run rls:staging
+--
+--   Or in the Supabase SQL editor: paste this whole file and run it.
+--
+-- The same file in every case. It contains nothing engine-specific: it creates
+-- no roles (Supabase already has anon, authenticated and service_role), and
+-- impersonation goes through `request.jwt.claims`, which is the GUC PostgREST
+-- itself sets. One place where each rule lives.
+--
+-- What it does NOT cover — GoTrue, signed JWTs, session expiry, the REST and
+-- RPC surface — is listed in docs/rls-staging-checklist.md and needs an HTTP
+-- runner. Passing this file is necessary and not sufficient.
 --
 -- It is idempotent and self-cleaning: it creates two throwaway identities,
 -- runs every probe, prints a results table, and rolls back. Nothing survives.

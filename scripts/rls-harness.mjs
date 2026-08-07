@@ -274,6 +274,11 @@ async function main() {
     columnDefenceIntact: !roleColumnWritable,
   };
 
+  /*
+   * Only `rls-run.json` is rewritten. Files matching `rls-preflight-*.json` are
+   * frozen records of a specific run and must survive later ones — an evidence
+   * file that the next execution silently replaces is not evidence.
+   */
   mkdirSync(join(ROOT, 'docs/evidence'), { recursive: true });
   writeFileSync(
     join(ROOT, 'docs/evidence/rls-run.json'),
