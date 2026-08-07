@@ -37,7 +37,8 @@ function loadEnv() {
   for (const name of ['.env', '.env.local']) {
     const path = join(ROOT, name);
     if (!existsSync(path)) continue;
-    for (const line of readFileSync(path, 'utf8').split('\n')) {
+    // CRLF as well as LF — see the note in staging-guard.mjs.
+    for (const line of readFileSync(path, 'utf8').split(/\r?\n/)) {
       const match = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)$/);
       if (!match) continue;
       const value = match[2].trim().replace(/^["']|["']$/g, '');
@@ -68,10 +69,27 @@ function enforceGuard() {
   }
 }
 
-/** Never let a driver error carry the connection string into a log. */
+/**
+ * Never let a driver error carry anything identifying into a log.
+ *
+ * Widened after a real leak: an error read `getaddrinfo ENOTFOUND
+ * db.<ref>.supabase.co` and printed straight to the console, because the
+ * previous version only looked for `postgres://` strings and a bare hostname
+ * walked past it. A project ref is not a hard secret — it is in every public
+ * API URL — but the promise was that this prints no host details, and a
+ * promise with an exception in it is not a promise.
+ */
 function safeError(error) {
-  const message = error instanceof Error ? error.message : String(error);
-  return message.replace(/postgres(ql)?:\/\/[^\s'"]+/gi, '«cadena de conexión omitida»');
+  return String(error instanceof Error ? error.message : error)
+    .replace(/postgres(ql)?:\/\/[^\s'"]+/gi, '«cadena de conexión omitida»')
+    .replace(
+      /\b([a-z0-9]{4})[a-z0-9]*\.(supabase\.(?:co|com|net))/gi,
+      (_m, head, tail) => head + '….' + tail
+    )
+    .replace(
+      /\b(db|aws-\d)\.([a-z0-9]{4})[a-z0-9]*\./gi,
+      (_m, prefix, head) => prefix + '.' + head + '….'
+    );
 }
 
 function connect(env) {

@@ -1,6 +1,6 @@
 {
   "engine": "PostgreSQL 18.3 (PGlite 0.5.4) on wasm32-unknown-linux-gnu, compiled by emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 3.1.74 (1092ec30a3fb1d46b1782ff1b4db5094d3d06ae5), 32-bit",
-  "ranAt": "2026-08-07T15:49:11.378Z",
+  "ranAt": "2026-08-07T16:28:38.504Z",
   "notes": [
     "0001_core_schema.sql: omitida la extensión pgcrypto (no incluida en PGlite)",
     "0001_core_schema.sql: omitida la extensión pg_trgm (no incluida en PGlite)",

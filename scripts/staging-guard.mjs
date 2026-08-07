@@ -30,7 +30,16 @@ function loadEnv() {
   for (const name of ['.env', '.env.local']) {
     const path = join(ROOT, name);
     if (!existsSync(path)) continue;
-    for (const line of readFileSync(path, 'utf8').split('\n')) {
+    /*
+     * Split on CRLF as well as LF.
+     *
+     * Not a nicety on Windows, where CRLF is the default. A JavaScript `.`
+     * does not match \r and `$` without the m flag will not tolerate one, so
+     * `KEY=value\r` matches nothing at all. Splitting on '\n' alone made this
+     * parser silently ignore every line but the last: it read one variable out
+     * of five and reported the other four as absent.
+     */
+    for (const line of readFileSync(path, 'utf8').split(/\r?\n/)) {
       const match = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)$/);
       if (!match) continue;
       const [, key, rawValue] = match;
@@ -57,6 +66,29 @@ function fingerprint(value) {
   return `${value.length} car., huella ${hash.toString(16).padStart(8, '0')}`;
 }
 
+/**
+ * Removes anything identifying from a message before it is printed.
+ *
+ * Added after a real leak: a driver error read `getaddrinfo ENOTFOUND
+ * db.<ref>.supabase.co` and went straight to the console. The previous scrubber
+ * only looked for `postgres://` strings, so a bare hostname walked past it. A
+ * project ref is not a hard secret — it appears in every public API URL — but
+ * the promise was that this prints no host details, and a promise with an
+ * exception in it is not one.
+ */
+function scrub(message) {
+  return String(message)
+    .replace(/postgres(ql)?:\/\/[^\s'"]+/gi, '«cadena de conexión omitida»')
+    .replace(
+      /\b([a-z0-9]{4})[a-z0-9]*\.(supabase\.(?:co|com|net))/gi,
+      (_m, head, tail) => head + '….' + tail
+    )
+    .replace(
+      /\b(db|aws-\d)\.([a-z0-9]{4})[a-z0-9]*\./gi,
+      (_m, prefix, head) => prefix + '.' + head + '….'
+    );
+}
+
 const problems = [];
 const warnings = [];
 const facts = [];
@@ -65,15 +97,42 @@ function fail(message) {
   problems.push(message);
 }
 
+/**
+ * The connection string, under either name.
+ *
+ * `SUPABASE_DB_URL_STAGING` is preferred because the name itself carries the
+ * environment: you cannot paste a production URL into it without the
+ * contradiction being visible. `SUPABASE_DATABASE_URL` is accepted because it
+ * is what the Supabase dashboard calls it, but it says nothing about which
+ * project it points at — so when it is the one in use, `SUPABASE_ENV` and the
+ * empty-schema check are carrying the whole load, and the report says so.
+ */
+function readUrl(env) {
+  if (env['SUPABASE_DB_URL_STAGING']) {
+    return { url: env['SUPABASE_DB_URL_STAGING'], name: 'SUPABASE_DB_URL_STAGING', explicit: true };
+  }
+  if (env['SUPABASE_DATABASE_URL']) {
+    return { url: env['SUPABASE_DATABASE_URL'], name: 'SUPABASE_DATABASE_URL', explicit: false };
+  }
+  return { url: null, name: null, explicit: false };
+}
+
 async function main() {
   const env = loadEnv();
-  const url = env['SUPABASE_DB_URL_STAGING'];
+  const { url, name, explicit } = readUrl(env);
 
   if (!url) {
     fail(
-      'Falta SUPABASE_DB_URL_STAGING. Ponla en .env.local (ya ignorado por git), nunca en el repositorio.'
+      'Falta la cadena de conexión. Define SUPABASE_DB_URL_STAGING (preferida) o SUPABASE_DATABASE_URL en .env.local.'
     );
     return report();
+  }
+
+  facts.push(`Variable:  ${name}`);
+  if (!explicit) {
+    warnings.push(
+      'La cadena viene de SUPABASE_DATABASE_URL, cuyo nombre no dice a qué entorno apunta. La protección recae entera en SUPABASE_ENV y en la comprobación de esquema vacío.'
+    );
   }
 
   let parsed;
@@ -185,9 +244,9 @@ async function checkDatabaseIsClean(url) {
       );
     }
   } catch (error) {
-    // A driver error can echo the whole connection string. Never surface it.
-    const message = error instanceof Error ? error.message : String(error);
-    fail(`No se ha podido conectar: ${message.replace(/postgres(ql)?:\/\/[^\s'"]+/gi, '«omitida»')}`);
+    // A driver error can echo the connection string, or just the host. Neither
+    // goes to the console unscrubbed.
+    fail(`No se ha podido conectar: ${scrub(error)}`);
   } finally {
     await sql.end({ timeout: 5 });
   }
