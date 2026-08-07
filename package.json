@@ -33,7 +33,9 @@
     "rls:test": "node scripts/rls-harness.mjs",
     "rls:test:broken": "node scripts/rls-harness.mjs --no-hardening",
     "rls:staging": "psql \"$SUPABASE_DB_URL_STAGING\" -v ON_ERROR_STOP=1 -f supabase/tests/rls_adversarial.sql",
-    "db:migrate:staging": "psql \"$SUPABASE_DB_URL_STAGING\" -v ON_ERROR_STOP=1 -f supabase/migrations/0001_core_schema.sql -f supabase/migrations/0002_rls_policies.sql -f supabase/migrations/0003_autocraw_affiliate.sql -f supabase/migrations/0004_rls_hardening.sql"
+    "db:migrate:staging": "psql \"$SUPABASE_DB_URL_STAGING\" -v ON_ERROR_STOP=1 -f supabase/migrations/0001_core_schema.sql -f supabase/migrations/0002_rls_policies.sql -f supabase/migrations/0003_autocraw_affiliate.sql -f supabase/migrations/0004_rls_hardening.sql",
+    "staging:guard": "node scripts/staging-guard.mjs",
+    "staging:guard:connect": "node scripts/staging-guard.mjs --connect"
   },
   "dependencies": {
     "@astrojs/vercel": "^11.0.4",
