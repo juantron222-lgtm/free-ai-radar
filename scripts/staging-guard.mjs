@@ -13,12 +13,11 @@
  * connection string. What it prints is a fingerprint: enough to confirm you are
  * pointed where you think, useless to anyone reading a log.
  *
- *   node scripts/staging-guard.mjs          check the environment
+ *   node scripts/staging-guard.mjs            check the environment
  *   node scripts/staging-guard.mjs --connect  also verify the database is clean
  */
 
 import { existsSync, readFileSync } from 'node:fs';
-import { execFileSync } from 'node:child_process';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -66,7 +65,7 @@ function fail(message) {
   problems.push(message);
 }
 
-function main() {
+async function main() {
   const env = loadEnv();
   const url = env['SUPABASE_DB_URL_STAGING'];
 
@@ -155,7 +154,7 @@ function main() {
   }
 
   if (WITH_CONNECTION && !problems.length) {
-    checkDatabaseIsClean(url);
+    await checkDatabaseIsClean(url);
   }
 
   return report();
@@ -169,36 +168,28 @@ function main() {
  * catches the case every other check misses: a correct-looking staging URL that
  * happens to point at something with data in it.
  */
-function checkDatabaseIsClean(url) {
-  let output;
+async function checkDatabaseIsClean(url) {
+  const { default: postgres } = await import('postgres');
+  const sql = postgres(url, { max: 1, connect_timeout: 30, ssl: 'require', onnotice: () => {} });
+
   try {
-    output = execFileSync(
-      'psql',
-      [
-        url,
-        '-t',
-        '-A',
-        '-v',
-        'ON_ERROR_STOP=1',
-        '-c',
-        "select count(*) from information_schema.tables where table_schema = 'public'",
-      ],
-      { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }
-    );
+    const [{ count }] = await sql`
+      select count(*)::int from information_schema.tables
+      where table_schema = 'public' and table_type = 'BASE TABLE'`;
+
+    facts.push(`Tablas en el esquema public: ${count}`);
+
+    if (count > 0) {
+      fail(
+        `El esquema public ya contiene ${count} tabla(s). Las migraciones desde cero exigen una base limpia, y una base con contenido puede no ser la que crees.`
+      );
+    }
   } catch (error) {
-    // The message can echo the connection string. Never surface it.
-    fail('No se ha podido conectar con psql. Revisa la cadena y que psql esté instalado.');
-    if (error.status) facts.push(`psql terminó con código ${error.status}`);
-    return;
-  }
-
-  const tables = Number.parseInt(output.trim(), 10);
-  facts.push(`Tablas en el esquema public: ${Number.isNaN(tables) ? '?' : tables}`);
-
-  if (tables > 0) {
-    fail(
-      `El esquema public ya contiene ${tables} tabla(s). Las migraciones desde cero exigen una base limpia, y una base con contenido puede no ser la que crees.`
-    );
+    // A driver error can echo the whole connection string. Never surface it.
+    const message = error instanceof Error ? error.message : String(error);
+    fail(`No se ha podido conectar: ${message.replace(/postgres(ql)?:\/\/[^\s'"]+/gi, '«omitida»')}`);
+  } finally {
+    await sql.end({ timeout: 5 });
   }
 }
 
@@ -223,4 +214,4 @@ function report() {
   process.exit(0);
 }
 
-main();
+await main();

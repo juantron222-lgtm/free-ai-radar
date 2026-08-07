@@ -62,16 +62,38 @@ fija PostgREST, y las tablas y funciones auxiliares las crea y destruye la
 propia transacción.
 
 ```bash
-npm run rls:staging
+npm run staging:guard          # comprueba a dónde apunta, sin conectar
+npm run staging:guard:connect  # además exige que la base esté limpia
+npm run db:migrate:staging     # aplica 0001→0004 y verifica la instalación
+npm run rls:staging            # ejecuta las 51 sondas y hace rollback
 ```
 
-que es exactamente:
+Todo pasa por `scripts/staging-run.mjs`, que es deliberadamente fino: lee los
+mismos ficheros `.sql` que leyó el preflight, los envía y cuenta lo que vuelve.
+No reimplementa ni una regla. La suite sigue siendo la única fuente de verdad
+sobre qué es un ataque; el ejecutor es una tubería.
 
-```bash
-psql "$SUPABASE_DB_URL_STAGING" -v ON_ERROR_STOP=1 -f supabase/tests/rls_adversarial.sql
-```
+**Nota sobre el cliente.** No hay `psql`: EnterpriseDB devuelve 403 a las
+descargas automatizadas, por winget y directas. En su lugar se usa el driver
+`postgres` (postgres.js), JavaScript puro, sin instalación en el sistema, sin
+servicio y sin permisos de administrador. Menos invasivo que la distribución
+completa de PostgreSQL, y suficiente: habla el mismo protocolo.
 
-El mismo fichero que ejecutó el preflight. Un solo sitio donde vive cada regla.
+### El guardián
+
+Nada se conecta hasta que `scripts/staging-guard.mjs` pasa, y se ejecuta como
+proceso aparte para que un `try/catch` mal puesto no pueda tragárselo. Exige
+cuatro condiciones independientes:
+
+1. `SUPABASE_ENV` vale exactamente `staging`.
+2. La referencia del proyecto no está en `SUPABASE_PRODUCTION_REFS`.
+3. No aparece «prod» en el anfitrión ni en `PUBLIC_SUPABASE_URL`.
+4. Con `--connect`, el esquema `public` está vacío — una base de producción
+   tiene tablas; una que va a recibir migraciones desde cero, no.
+
+Y nunca imprime un secreto: ni contraseña, ni cadena, ni anfitrión completo.
+Sólo una huella. Comprobado metiendo una contraseña en la entrada y contando
+sus apariciones en la salida: cero.
 
 Diferencias reales al ejecutarlo contra Supabase, ninguna de las cuales exige
 tocar el fichero:
@@ -82,7 +104,9 @@ tocar el fichero:
   Los usuarios de prueba se insertan a mano, así que **no pueden iniciar
   sesión** — para eso está el ejecutor HTTP.
 - El editor SQL de Supabase envuelve en transacción; el `begin;` de la suite
-  quedará anidado y avisará. Inofensivo. Con `psql` no ocurre.
+  quedaría anidado y avisaría. Inofensivo, y no ocurre con el ejecutor: éste
+  quita el `begin;`/`rollback;` del fichero y gobierna la transacción él, para
+  poder leer la tabla de resultados antes de deshacerla.
 - `autocraw_ingest` lo crea la migración `0003`, que debe estar aplicada.
 
 ### Antes de ejecutarla

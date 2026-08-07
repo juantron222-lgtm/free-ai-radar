@@ -32,10 +32,11 @@
     "data:news:validate": "vitest run tests/unit/news.test.ts",
     "rls:test": "node scripts/rls-harness.mjs",
     "rls:test:broken": "node scripts/rls-harness.mjs --no-hardening",
-    "rls:staging": "psql \"$SUPABASE_DB_URL_STAGING\" -v ON_ERROR_STOP=1 -f supabase/tests/rls_adversarial.sql",
-    "db:migrate:staging": "psql \"$SUPABASE_DB_URL_STAGING\" -v ON_ERROR_STOP=1 -f supabase/migrations/0001_core_schema.sql -f supabase/migrations/0002_rls_policies.sql -f supabase/migrations/0003_autocraw_affiliate.sql -f supabase/migrations/0004_rls_hardening.sql",
+    "rls:staging": "node scripts/staging-run.mjs --suite",
+    "db:migrate:staging": "node scripts/staging-run.mjs --migrate",
     "staging:guard": "node scripts/staging-guard.mjs",
-    "staging:guard:connect": "node scripts/staging-guard.mjs --connect"
+    "staging:guard:connect": "node scripts/staging-guard.mjs --connect",
+    "staging:verify": "node scripts/staging-run.mjs --verify"
   },
   "dependencies": {
     "@astrojs/vercel": "^11.0.4",
@@ -58,6 +59,7 @@
     "eslint": "^9.39.5",
     "eslint-plugin-astro": "^1.7.0",
     "globals": "^15.15.0",
+    "postgres": "^3.4.9",
     "prettier": "^3.9.6",
     "prettier-plugin-astro": "^0.14.1",
     "tailwindcss": "^4.0.0",
