@@ -13,13 +13,20 @@
  *   node scripts/staging-run.mjs --migrate   apply 0001→0004 to a clean base
  *   node scripts/staging-run.mjs --suite     run the 51 probes, roll back
  *   node scripts/staging-run.mjs --verify    confirm a fresh install is sane
+ *   node scripts/staging-run.mjs --reset     drop and recreate schema public
+ *
+ * --reset exists because "migrations from clean" must stay repeatable: fixing
+ * a migration and re-running it against a half-built schema proves nothing.
+ * It runs only after the guard passes, and the guard's job is making sure the
+ * schema it is about to drop belongs to staging.
  */
 
 import { execFileSync } from 'node:child_process';
-import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import postgres from 'postgres';
+import { loadEnv, readDbUrl } from './staging-guard.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -28,25 +35,25 @@ const MIGRATIONS = [
   'supabase/migrations/0002_rls_policies.sql',
   'supabase/migrations/0003_autocraw_affiliate.sql',
   'supabase/migrations/0004_rls_hardening.sql',
+  'supabase/migrations/0005_postgrest_grants.sql',
 ];
 
 const SUITE = 'supabase/tests/rls_adversarial.sql';
 
-function loadEnv() {
-  const merged = { ...process.env };
-  for (const name of ['.env', '.env.local']) {
-    const path = join(ROOT, name);
-    if (!existsSync(path)) continue;
-    // CRLF as well as LF — see the note in staging-guard.mjs.
-    for (const line of readFileSync(path, 'utf8').split(/\r?\n/)) {
-      const match = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)$/);
-      if (!match) continue;
-      const value = match[2].trim().replace(/^["']|["']$/g, '');
-      if (value) merged[match[1]] = value;
-    }
-  }
-  return merged;
-}
+/*
+ * Environment reading is imported, not reimplemented.
+ *
+ * It was duplicated here, and the copy drifted: it read only
+ * SUPABASE_DB_URL_STAGING while the guard had learned to accept
+ * SUPABASE_DATABASE_URL too. The result was the worst possible shape of
+ * failure — the guard approved the real staging database, then the runner got
+ * `undefined` for a connection string, and postgres.js quietly fell back to
+ * localhost. ECONNREFUSED, from a script that had just announced it was
+ * pointed at staging.
+ *
+ * Two copies of "where does the connection string live?" is one too many.
+ * The import is at the top of the file with the others.
+ */
 
 /**
  * The guard runs as a separate process on purpose.
@@ -80,20 +87,42 @@ function enforceGuard() {
  * promise with an exception in it is not a promise.
  */
 function safeError(error) {
-  return String(error instanceof Error ? error.message : error)
+  const scrubbed = String(error instanceof Error ? error.message : error)
     .replace(/postgres(ql)?:\/\/[^\s'"]+/gi, '«cadena de conexión omitida»')
     .replace(
-      /\b([a-z0-9]{4})[a-z0-9]*\.(supabase\.(?:co|com|net))/gi,
+      /\b([a-z0-9]{4})[a-z0-9]{4,}\.(supabase\.(?:co|com|net))/gi,
       (_m, head, tail) => head + '….' + tail
     )
-    .replace(
-      /\b(db|aws-\d)\.([a-z0-9]{4})[a-z0-9]*\./gi,
-      (_m, prefix, head) => prefix + '.' + head + '….'
-    );
+    .trim();
+
+  /*
+   * Redaction must never turn an error into silence.
+   *
+   * A driver error whose entire message was a connection string came out as
+   * an empty line — a failure with no stated reason, which is worse than the
+   * leak the scrubbing was there to prevent. Anything Postgres attaches that
+   * is safe to show (code, severity, position, the failing detail) is added
+   * back, and if nothing survives we say so rather than printing nothing.
+   */
+  const parts = [scrubbed];
+  if (error && typeof error === 'object') {
+    for (const key of ['code', 'severity', 'detail', 'hint', 'where', 'routine']) {
+      const value = error[key];
+      if (value && typeof value === 'string' && !parts.includes(value)) {
+        parts.push(`${key}: ${value}`);
+      }
+    }
+    if (error.cause) parts.push(`causa: ${safeError(error.cause)}`);
+  }
+
+  const joined = parts.filter(Boolean).join(' · ').trim();
+  return joined || `(error sin mensaje utilizable: ${error?.constructor?.name ?? typeof error})`;
 }
 
 function connect(env) {
-  return postgres(env['SUPABASE_DB_URL_STAGING'], {
+  const { url } = readDbUrl(env);
+  if (!url) throw new Error('No hay cadena de conexión, y el guardián debería haberlo impedido.');
+  return postgres(url, {
     max: 1,
     idle_timeout: 20,
     connect_timeout: 30,
@@ -252,13 +281,14 @@ function printResults(results) {
 
 async function main() {
   const wants = {
+    reset: process.argv.includes('--reset'),
     migrate: process.argv.includes('--migrate'),
     suite: process.argv.includes('--suite'),
     verify: process.argv.includes('--verify'),
   };
 
-  if (!wants.migrate && !wants.suite && !wants.verify) {
-    console.error('Indica --migrate, --verify o --suite.');
+  if (!wants.migrate && !wants.suite && !wants.verify && !wants.reset) {
+    console.error('Indica --reset, --migrate, --verify o --suite.');
     process.exit(2);
   }
 
@@ -274,6 +304,19 @@ async function main() {
     // The version string names the engine, never the host.
     console.log(`\nMotor: ${version.split(' on ')[0]}`);
     evidence.engine = version.split(' on ')[0];
+
+    if (wants.reset) {
+      console.log('\nVaciando el esquema public');
+      console.log('───────────────────────────────────────────────');
+      await sql.unsafe('drop schema if exists public cascade; create schema public;').simple();
+      // Supabase expects these to exist on the schema itself.
+      await sql.unsafe(
+        'grant usage on schema public to anon, authenticated, service_role; ' +
+        'grant all on schema public to postgres;'
+      ).simple();
+      await sql.unsafe('drop role if exists autocraw_ingest').simple().catch(() => {});
+      console.log('  esquema public recreado, vacío ✓');
+    }
 
     if (wants.migrate) await migrate(sql);
     if (wants.verify || wants.migrate) evidence.install = await verify(sql);

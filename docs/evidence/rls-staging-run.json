@@ -1,0 +1,857 @@
+{
+  "ranAt": "2026-08-07T23:28:44.170Z",
+  "target": "supabase-staging",
+  "engine": "PostgreSQL 17.6",
+  "results": [
+    {
+      "id": "RLS-01a",
+      "severity": "crítica",
+      "outcome": "PASA",
+      "scenario": "Mallory se asciende a admin en su propio perfil",
+      "detail": "permission denied for table profiles (42501)"
+    },
+    {
+      "id": "RLS-01b",
+      "severity": "crítica",
+      "outcome": "PASA",
+      "scenario": "Mallory se asciende a editor",
+      "detail": "permission denied for table profiles (42501)"
+    },
+    {
+      "id": "RLS-01c",
+      "severity": "crítica",
+      "outcome": "PASA",
+      "scenario": "Mallory reasigna su perfil a otro identificador",
+      "detail": "permission denied for table profiles (42501)"
+    },
+    {
+      "id": "RLS-01d",
+      "severity": "crítica",
+      "outcome": "PASA",
+      "scenario": "el rol de Mallory sigue siendo user tras los intentos",
+      "detail": ""
+    },
+    {
+      "id": "RLS-02a",
+      "severity": "alta",
+      "outcome": "PASA",
+      "scenario": "Mallory lee el perfil de Alice",
+      "detail": "0 filas visibles"
+    },
+    {
+      "id": "RLS-02b",
+      "severity": "alta",
+      "outcome": "PASA",
+      "scenario": "Mallory enumera todos los perfiles",
+      "detail": "0 filas visibles"
+    },
+    {
+      "id": "RLS-02c",
+      "severity": "alta",
+      "outcome": "PASA",
+      "scenario": "Mallory lee la lista privada de Alice",
+      "detail": "0 filas visibles"
+    },
+    {
+      "id": "RLS-02d",
+      "severity": "alta",
+      "outcome": "PASA",
+      "scenario": "Mallory lee los favoritos de Alice",
+      "detail": "0 filas visibles"
+    },
+    {
+      "id": "RLS-02e",
+      "severity": "alta",
+      "outcome": "PASA",
+      "scenario": "Mallory lee las alertas de Alice",
+      "detail": "0 filas visibles"
+    },
+    {
+      "id": "RLS-02f",
+      "severity": "alta",
+      "outcome": "PASA",
+      "scenario": "Mallory lee las preferencias de correo de Alice",
+      "detail": "0 filas visibles"
+    },
+    {
+      "id": "RLS-02g",
+      "severity": "alta",
+      "outcome": "PASA",
+      "scenario": "Mallory lee el historial de navegación de Alice",
+      "detail": "denegado en el motor: column \"id\" does not exist"
+    },
+    {
+      "id": "RLS-02h",
+      "severity": "crítica",
+      "outcome": "PASA",
+      "scenario": "Mallory lee la lista de suscriptores del boletín",
+      "detail": "0 filas visibles"
+    },
+    {
+      "id": "RLS-02i",
+      "severity": "crítica",
+      "outcome": "PASA",
+      "scenario": "Mallory lee el registro de auditoría",
+      "detail": "0 filas visibles"
+    },
+    {
+      "id": "RLS-02j",
+      "severity": "alta",
+      "outcome": "PASA",
+      "scenario": "Mallory lee la facturación de Alice",
+      "detail": "0 filas visibles"
+    },
+    {
+      "id": "RLS-02k",
+      "severity": "media",
+      "outcome": "PASA",
+      "scenario": "Mallory lee los eventos de producto",
+      "detail": "0 filas visibles"
+    },
+    {
+      "id": "RLS-02l",
+      "severity": "media",
+      "outcome": "PASA",
+      "scenario": "Mallory lee los webhooks procesados de Stripe",
+      "detail": "0 filas visibles"
+    },
+    {
+      "id": "RLS-03a",
+      "severity": "alta",
+      "outcome": "PASA",
+      "scenario": "Mallory añade un favorito en nombre de Alice",
+      "detail": "new row violates row-level security policy for table \"user_favorites\" (42501)"
+    },
+    {
+      "id": "RLS-03b",
+      "severity": "alta",
+      "outcome": "PASA",
+      "scenario": "Mallory borra la lista de Alice",
+      "detail": "sin error, pero 0 filas afectadas: RLS filtró la fila"
+    },
+    {
+      "id": "RLS-03c",
+      "severity": "alta",
+      "outcome": "PASA",
+      "scenario": "Mallory se apropia de la lista de Alice",
+      "detail": "sin error, pero 0 filas afectadas: RLS filtró la fila"
+    },
+    {
+      "id": "RLS-03d",
+      "severity": "alta",
+      "outcome": "PASA",
+      "scenario": "Mallory hace pública la lista privada de Alice",
+      "detail": "sin error, pero 0 filas afectadas: RLS filtró la fila"
+    },
+    {
+      "id": "RLS-03e",
+      "severity": "alta",
+      "outcome": "PASA",
+      "scenario": "Mallory desactiva las alertas de Alice",
+      "detail": "sin error, pero 0 filas afectadas: RLS filtró la fila"
+    },
+    {
+      "id": "RLS-03f",
+      "severity": "crítica",
+      "outcome": "PASA",
+      "scenario": "Mallory se regala una suscripción de pago",
+      "detail": "new row violates row-level security policy for table \"user_subscriptions\" (42501)"
+    },
+    {
+      "id": "RLS-03g",
+      "severity": "crítica",
+      "outcome": "PASA",
+      "scenario": "Mallory activa su propia suscripción existente",
+      "detail": "sin error, pero 0 filas afectadas: RLS filtró la fila"
+    },
+    {
+      "id": "RLS-03h",
+      "severity": "crítica",
+      "outcome": "PASA",
+      "scenario": "Mallory falsifica una entrada de auditoría",
+      "detail": "new row violates row-level security policy for table \"audit_logs\" (42501)"
+    },
+    {
+      "id": "RLS-03i",
+      "severity": "crítica",
+      "outcome": "PASA",
+      "scenario": "Mallory borra el registro de auditoría",
+      "detail": "sin error, pero 0 filas afectadas: RLS filtró la fila"
+    },
+    {
+      "id": "RLS-04a",
+      "severity": "crítica",
+      "outcome": "PASA",
+      "scenario": "Mallory sube la puntuación de una herramienta",
+      "detail": "sin error, pero 0 filas afectadas: RLS filtró la fila"
+    },
+    {
+      "id": "RLS-04b",
+      "severity": "crítica",
+      "outcome": "PASA",
+      "scenario": "Mallory reescribe un veredicto",
+      "detail": "sin error, pero 0 filas afectadas: RLS filtró la fila"
+    },
+    {
+      "id": "RLS-04c",
+      "severity": "alta",
+      "outcome": "PASA",
+      "scenario": "Mallory publica una herramienta inventada",
+      "detail": "new row violates row-level security policy for table \"tools\" (42501)"
+    },
+    {
+      "id": "RLS-04d",
+      "severity": "alta",
+      "outcome": "PASA",
+      "scenario": "Mallory borra una herramienta",
+      "detail": "sin error, pero 0 filas afectadas: RLS filtró la fila"
+    },
+    {
+      "id": "RLS-04e",
+      "severity": "media",
+      "outcome": "PASA",
+      "scenario": "Mallory edita una categoría",
+      "detail": "sin error, pero 0 filas afectadas: RLS filtró la fila"
+    },
+    {
+      "id": "RLS-04f",
+      "severity": "media",
+      "outcome": "PASA",
+      "scenario": "Mallory lee borradores no publicados",
+      "detail": "0 filas visibles"
+    },
+    {
+      "id": "RLS-05a",
+      "severity": "alta",
+      "outcome": "PASA",
+      "scenario": "Mallory inserta un producto afiliado",
+      "detail": "new row violates row-level security policy for table \"affiliate_products\" (42501)"
+    },
+    {
+      "id": "RLS-05b",
+      "severity": "crítica",
+      "outcome": "PASA",
+      "scenario": "Mallory crea un enlace afiliado sin divulgación",
+      "detail": "new row violates row-level security policy for table \"affiliate_links\" (42501)"
+    },
+    {
+      "id": "RLS-05c",
+      "severity": "media",
+      "outcome": "PASA",
+      "scenario": "Mallory lee los clics agregados",
+      "detail": "0 filas visibles"
+    },
+    {
+      "id": "RLS-05d",
+      "severity": "media",
+      "outcome": "PASA",
+      "scenario": "Mallory ve productos pendientes de revisión",
+      "detail": "0 filas visibles"
+    },
+    {
+      "id": "RLS-05e",
+      "severity": "crítica",
+      "outcome": "PASA",
+      "scenario": "ni siquiera el service role puede crear un enlace sin divulgación",
+      "detail": "new row for relation \"affiliate_links\" violates check constraint \"links_disclosure_always\" (23514)"
+    },
+    {
+      "id": "RLS-06a",
+      "severity": "crítica",
+      "outcome": "PASA",
+      "scenario": "AutoCraw cambia la puntuación de una herramienta",
+      "detail": "permission denied for table tools (42501)"
+    },
+    {
+      "id": "RLS-06b",
+      "severity": "crítica",
+      "outcome": "PASA",
+      "scenario": "AutoCraw cambia un veredicto",
+      "detail": "permission denied for table tools (42501)"
+    },
+    {
+      "id": "RLS-06c",
+      "severity": "crítica",
+      "outcome": "PASA",
+      "scenario": "AutoCraw lee perfiles de usuario",
+      "detail": "denegado en el motor: permission denied for table profiles"
+    },
+    {
+      "id": "RLS-06d",
+      "severity": "crítica",
+      "outcome": "PASA",
+      "scenario": "AutoCraw lee la lista del boletín",
+      "detail": "denegado en el motor: permission denied for table newsletter_subscriptions"
+    },
+    {
+      "id": "RLS-06e",
+      "severity": "alta",
+      "outcome": "PASA",
+      "scenario": "AutoCraw borra un producto en vez de desactivarlo",
+      "detail": "permission denied for table affiliate_products (42501)"
+    },
+    {
+      "id": "RLS-06f",
+      "severity": "alta",
+      "outcome": "PASA",
+      "scenario": "AutoCraw lee el registro de auditoría",
+      "detail": "permission denied for table audit_logs (42501)"
+    },
+    {
+      "id": "RLS-06g",
+      "severity": "crítica",
+      "outcome": "PASA",
+      "scenario": "un alta de AutoCraw marcada como activa se degrada a pendiente",
+      "detail": "quedó en pending_review"
+    },
+    {
+      "id": "RLS-07a",
+      "severity": "crítica",
+      "outcome": "PASA",
+      "scenario": "un anónimo lee perfiles",
+      "detail": "0 filas visibles"
+    },
+    {
+      "id": "RLS-07b",
+      "severity": "crítica",
+      "outcome": "PASA",
+      "scenario": "un anónimo lee favoritos",
+      "detail": "0 filas visibles"
+    },
+    {
+      "id": "RLS-07c",
+      "severity": "crítica",
+      "outcome": "PASA",
+      "scenario": "un anónimo lee alertas",
+      "detail": "0 filas visibles"
+    },
+    {
+      "id": "RLS-07d",
+      "severity": "crítica",
+      "outcome": "PASA",
+      "scenario": "un anónimo lee el boletín",
+      "detail": "0 filas visibles"
+    },
+    {
+      "id": "RLS-07e",
+      "severity": "alta",
+      "outcome": "PASA",
+      "scenario": "un anónimo escribe un favorito",
+      "detail": "new row violates row-level security policy for table \"user_favorites\" (42501)"
+    },
+    {
+      "id": "RLS-07f",
+      "severity": "alta",
+      "outcome": "PASA",
+      "scenario": "un anónimo sí puede leer el catálogo publicado",
+      "detail": ""
+    },
+    {
+      "id": "RLS-08a",
+      "severity": "alta",
+      "outcome": "PASA",
+      "scenario": "un perfil marcado para borrado deja de ser legible",
+      "detail": "0 filas visibles"
+    },
+    {
+      "id": "RLS-08b",
+      "severity": "alta",
+      "outcome": "PASA",
+      "scenario": "las listas públicas de una cuenta en borrado dejan de mostrarse",
+      "detail": "0 filas visibles"
+    }
+  ],
+  "policies": [
+    {
+      "tablename": "accuracy_votes",
+      "policyname": "accuracy_votes: own rows",
+      "cmd": "ALL",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "accuracy_votes",
+      "policyname": "accuracy_votes: staff reads all",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "affiliate_click_events_daily",
+      "policyname": "autocraw: reads click aggregates",
+      "cmd": "SELECT",
+      "roles": "{autocraw_ingest}"
+    },
+    {
+      "tablename": "affiliate_click_events_daily",
+      "policyname": "clicks: staff only",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "affiliate_click_events_daily",
+      "policyname": "clicks: staff writes",
+      "cmd": "ALL",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "affiliate_links",
+      "policyname": "autocraw: reads links",
+      "cmd": "SELECT",
+      "roles": "{autocraw_ingest}"
+    },
+    {
+      "tablename": "affiliate_links",
+      "policyname": "autocraw: updates links",
+      "cmd": "UPDATE",
+      "roles": "{autocraw_ingest}"
+    },
+    {
+      "tablename": "affiliate_links",
+      "policyname": "autocraw: writes links",
+      "cmd": "INSERT",
+      "roles": "{autocraw_ingest}"
+    },
+    {
+      "tablename": "affiliate_links",
+      "policyname": "links: public reads active",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "affiliate_links",
+      "policyname": "links: staff writes",
+      "cmd": "ALL",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "affiliate_merchants",
+      "policyname": "autocraw: reads merchants",
+      "cmd": "SELECT",
+      "roles": "{autocraw_ingest}"
+    },
+    {
+      "tablename": "affiliate_merchants",
+      "policyname": "autocraw: updates merchants",
+      "cmd": "UPDATE",
+      "roles": "{autocraw_ingest}"
+    },
+    {
+      "tablename": "affiliate_merchants",
+      "policyname": "autocraw: writes merchants",
+      "cmd": "INSERT",
+      "roles": "{autocraw_ingest}"
+    },
+    {
+      "tablename": "affiliate_merchants",
+      "policyname": "merchants: public reads active",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "affiliate_merchants",
+      "policyname": "merchants: staff writes",
+      "cmd": "ALL",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "affiliate_offers",
+      "policyname": "autocraw: reads offers",
+      "cmd": "SELECT",
+      "roles": "{autocraw_ingest}"
+    },
+    {
+      "tablename": "affiliate_offers",
+      "policyname": "autocraw: updates offers",
+      "cmd": "UPDATE",
+      "roles": "{autocraw_ingest}"
+    },
+    {
+      "tablename": "affiliate_offers",
+      "policyname": "autocraw: writes offers",
+      "cmd": "INSERT",
+      "roles": "{autocraw_ingest}"
+    },
+    {
+      "tablename": "affiliate_offers",
+      "policyname": "offers: public reads active",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "affiliate_offers",
+      "policyname": "offers: staff writes",
+      "cmd": "ALL",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "affiliate_products",
+      "policyname": "autocraw: reads commercial",
+      "cmd": "SELECT",
+      "roles": "{autocraw_ingest}"
+    },
+    {
+      "tablename": "affiliate_products",
+      "policyname": "autocraw: updates own products",
+      "cmd": "UPDATE",
+      "roles": "{autocraw_ingest}"
+    },
+    {
+      "tablename": "affiliate_products",
+      "policyname": "autocraw: writes pending products",
+      "cmd": "INSERT",
+      "roles": "{autocraw_ingest}"
+    },
+    {
+      "tablename": "affiliate_products",
+      "policyname": "products: public reads active",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "affiliate_products",
+      "policyname": "products: staff writes",
+      "cmd": "ALL",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "affiliate_programs",
+      "policyname": "affiliate_programs: staff only",
+      "cmd": "ALL",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "alerts",
+      "policyname": "alerts: own rows",
+      "cmd": "ALL",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "audit_logs",
+      "policyname": "audit_logs: admin reads",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "categories",
+      "policyname": "categories: public read",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "categories",
+      "policyname": "categories: staff writes",
+      "cmd": "ALL",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "editorial_reviews",
+      "policyname": "editorial_reviews: public read for published tools",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "editorial_reviews",
+      "policyname": "editorial_reviews: staff writes",
+      "cmd": "ALL",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "email_log",
+      "policyname": "email_log: staff reads",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "followed_categories",
+      "policyname": "followed_categories: own rows",
+      "cmd": "ALL",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "newsletter_subscriptions",
+      "policyname": "newsletter: staff reads",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "notification_preferences",
+      "policyname": "notification_preferences: own rows",
+      "cmd": "ALL",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "placement_slots",
+      "policyname": "autocraw: reads slots",
+      "cmd": "SELECT",
+      "roles": "{autocraw_ingest}"
+    },
+    {
+      "tablename": "placement_slots",
+      "policyname": "autocraw: updates slots",
+      "cmd": "UPDATE",
+      "roles": "{autocraw_ingest}"
+    },
+    {
+      "tablename": "placement_slots",
+      "policyname": "autocraw: writes slots",
+      "cmd": "INSERT",
+      "roles": "{autocraw_ingest}"
+    },
+    {
+      "tablename": "placement_slots",
+      "policyname": "slots: public reads active",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "placement_slots",
+      "policyname": "slots: staff writes",
+      "cmd": "ALL",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "product_events",
+      "policyname": "product_events: staff reads",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "profiles",
+      "policyname": "profiles: admin deletes",
+      "cmd": "DELETE",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "profiles",
+      "policyname": "profiles: admin manages roles",
+      "cmd": "UPDATE",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "profiles",
+      "policyname": "profiles: read own",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "profiles",
+      "policyname": "profiles: update own",
+      "cmd": "UPDATE",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "saved_comparisons",
+      "policyname": "saved_comparisons: own rows",
+      "cmd": "ALL",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "sponsored_placements",
+      "policyname": "sponsored_placements: public read of live",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "sponsored_placements",
+      "policyname": "sponsored_placements: staff writes",
+      "cmd": "ALL",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "subscription_plans",
+      "policyname": "subscription_plans: admin writes",
+      "cmd": "ALL",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "subscription_plans",
+      "policyname": "subscription_plans: public read of active plans",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "tool_corrections",
+      "policyname": "tool_corrections: anyone may report",
+      "cmd": "INSERT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "tool_corrections",
+      "policyname": "tool_corrections: read own or staff",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "tool_corrections",
+      "policyname": "tool_corrections: staff manages",
+      "cmd": "UPDATE",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "tool_outbound_affiliations",
+      "policyname": "affiliate_links: public read of active",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "tool_outbound_affiliations",
+      "policyname": "affiliate_links: staff writes",
+      "cmd": "ALL",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "tool_outbound_affiliations",
+      "policyname": "tool outbound: public reads active",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "tool_outbound_affiliations",
+      "policyname": "tool outbound: staff writes",
+      "cmd": "ALL",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "tool_product_relations",
+      "policyname": "autocraw: reads relations",
+      "cmd": "SELECT",
+      "roles": "{autocraw_ingest}"
+    },
+    {
+      "tablename": "tool_product_relations",
+      "policyname": "autocraw: updates relations",
+      "cmd": "UPDATE",
+      "roles": "{autocraw_ingest}"
+    },
+    {
+      "tablename": "tool_product_relations",
+      "policyname": "autocraw: writes relations",
+      "cmd": "INSERT",
+      "roles": "{autocraw_ingest}"
+    },
+    {
+      "tablename": "tool_product_relations",
+      "policyname": "relations: public reads active",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "tool_product_relations",
+      "policyname": "relations: staff writes",
+      "cmd": "ALL",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "tool_submissions",
+      "policyname": "tool_submissions: anyone may submit",
+      "cmd": "INSERT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "tool_submissions",
+      "policyname": "tool_submissions: read own or staff",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "tool_submissions",
+      "policyname": "tool_submissions: staff manages",
+      "cmd": "UPDATE",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "tool_updates",
+      "policyname": "tool_updates: public read for published tools",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "tool_updates",
+      "policyname": "tool_updates: staff writes",
+      "cmd": "ALL",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "tool_versions",
+      "policyname": "tool_versions: staff only",
+      "cmd": "ALL",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "tools",
+      "policyname": "tools: public reads published",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "tools",
+      "policyname": "tools: staff writes",
+      "cmd": "ALL",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "user_favorites",
+      "policyname": "user_favorites: own rows",
+      "cmd": "ALL",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "user_list_items",
+      "policyname": "user_list_items: read via parent list",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "user_list_items",
+      "policyname": "user_list_items: write via own list",
+      "cmd": "ALL",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "user_lists",
+      "policyname": "user_lists: delete own",
+      "cmd": "DELETE",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "user_lists",
+      "policyname": "user_lists: read own or public",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "user_lists",
+      "policyname": "user_lists: update own",
+      "cmd": "UPDATE",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "user_lists",
+      "policyname": "user_lists: write own",
+      "cmd": "INSERT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "user_subscriptions",
+      "policyname": "user_subscriptions: read own",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "user_tool_states",
+      "policyname": "user_tool_states: own rows",
+      "cmd": "ALL",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "view_history",
+      "policyname": "view_history: own rows",
+      "cmd": "ALL",
+      "roles": "{public}"
+    }
+  ],
+  "totals": {
+    "total": 51,
+    "passed": 51,
+    "failed": 0
+  }
+}

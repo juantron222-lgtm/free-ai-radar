@@ -412,6 +412,22 @@ do $$ begin
   create role autocraw_ingest nologin;
 exception when duplicate_object then null; end $$;
 
+/*
+ * The project owner may assume the role.
+ *
+ * Needed to administer it at all, and needed for the adversarial suite to
+ * test it: without membership, `set role autocraw_ingest` fails with
+ * "permission denied to set role", and the six probes that check AutoCraw's
+ * limits never run. On Supabase `postgres` is not a superuser, so this is not
+ * implied — the local preflight only passed because its session user was one.
+ *
+ * No privilege is gained: the owner already outranks this role in every
+ * respect. What changes is that the role's boundaries become testable.
+ */
+do $$ begin
+  execute format('grant autocraw_ingest to %I', current_user);
+end $$;
+
 grant usage on schema public to autocraw_ingest;
 
 -- Read what it needs to build a coherent payload: its own tables, plus the

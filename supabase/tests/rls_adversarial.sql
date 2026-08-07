@@ -99,6 +99,26 @@ begin
 end $$;
 
 /*
+ * The role the connection itself carries, used only for setup.
+ *
+ * On real Supabase `service_role` cannot write to `auth.users` — GoTrue owns
+ * that table through `supabase_auth_admin`, and the permission simply is not
+ * granted. The PGlite shim granted it, which is exactly the class of
+ * difference the preflight documented as "replicated, not real".
+ *
+ * Creating the two throwaway identities is scaffolding, not an attack, so it
+ * runs as whoever connected — the project owner. Every probe below still runs
+ * as anon, authenticated, service_role or autocraw_ingest, which is what the
+ * results actually depend on.
+ */
+create or replace function public.act_as_owner()
+returns void language plpgsql as $$
+begin
+  perform set_config('role', 'none', true);
+  perform set_config('request.jwt.claims', null, true);
+end $$;
+
+/*
  * Records an attack attempt.
  *
  * `sql_to_try` is expected to FAIL. If it raises, the defence held. If it
@@ -181,10 +201,36 @@ declare
   mallory uuid := '11111111-1111-4111-8111-111111111111';
   alice   uuid := '22222222-2222-4222-8222-222222222222';
 begin
-  perform public.act_as_service();
+  -- Setup runs as the connecting role: see act_as_owner above for why.
+  perform public.act_as_owner();
+
+  /*
+   * One published tool, seeded here rather than assumed.
+   *
+   * The suite must be self-contained: it ran against PGlite because the
+   * harness happened to insert this row first, and against a real empty
+   * staging database that assumption broke on a foreign key. A test that only
+   * works when something else prepared the ground is not portable, and
+   * portability is the whole reason this file is plain SQL.
+   */
+  insert into public.categories (slug, name)
+  values ('imagen', 'Imagen')
+  on conflict (slug) do nothing;
+
+  insert into public.tools
+    (id, slug, name, category_slug, free_model, free_plan, official_url, scores,
+     detected_at, last_verified_at, status)
+  values
+    ('tool_ollama', 'ollama', 'Ollama', 'imagen', 'free_real',
+     '{"summary":"sonda","verifiedAt":"2026-08-07"}'::jsonb, 'https://ollama.com',
+     '{"freeReal":10,"usefulness":9,"ease":8,"transparency":9,"creatorValue":8}'::jsonb,
+     current_date, current_date, 'published')
+  on conflict (id) do nothing;
 
   -- auth.users is owned by Supabase. Inserting directly is acceptable inside a
-  -- transaction that rolls back, and avoids depending on the Auth API here.
+  -- transaction that rolls back, and avoids depending on the Auth API here —
+  -- these identities exist to be attacked, not to log in. Real sign-up is the
+  -- HTTP suite's job.
   insert into auth.users (id, email, encrypted_password, email_confirmed_at,
                           created_at, updated_at, aud, role)
   values
