@@ -5,13 +5,20 @@
  * Everything downstream of this script is destructive or hostile: migrations
  * applied from clean, and a suite whose entire purpose is attempting privilege
  * escalation. Both are correct against staging and catastrophic against
- * production, and the only thing separating them is a string in an
- * environment variable. So the string gets checked, hard, before anything
- * connects.
+ * production, and the only thing separating them is a string in an environment
+ * variable. So the strings get checked, hard, before anything connects.
  *
- * **It never prints a secret.** Not the password, not the full host, not the
- * connection string. What it prints is a fingerprint: enough to confirm you are
- * pointed where you think, useless to anyone reading a log.
+ * The check that matters most is **positive identity**: the project reference
+ * must equal `SUPABASE_STAGING_REF`. Everything else on this list is a
+ * negative check — "not production", "no prod in the name" — and negative
+ * checks only catch the mistakes somebody anticipated. Naming the one project
+ * that is allowed catches every other project, including the ones nobody
+ * thought of.
+ *
+ * **It never prints a project reference or a full hostname.** Not in facts,
+ * not in warnings, not in driver errors. What it prints is a fingerprint or a
+ * masked form: enough to confirm you are pointed where you think, useless to
+ * anyone reading a log.
  *
  *   node scripts/staging-guard.mjs            check the environment
  *   node scripts/staging-guard.mjs --connect  also verify the database is clean
@@ -22,13 +29,69 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const WITH_CONNECTION = process.argv.includes('--connect');
+
+// ---------------------------------------------------------------------------
+// Redaction
+// ---------------------------------------------------------------------------
+
+/**
+ * Shows the shape of a secret and a short hash, never its content.
+ *
+ * Two people can compare fingerprints to agree they mean the same string
+ * without either of them seeing it.
+ */
+export function fingerprint(value) {
+  if (!value) return '(ausente)';
+  let hash = 0;
+  for (let i = 0; i < value.length; i += 1) {
+    hash = (hash * 31 + value.charCodeAt(i)) >>> 0;
+  }
+  return `${value.length} car., huella ${hash.toString(16).padStart(8, '0')}`;
+}
+
+/** A project ref, shown as `abcd…yz`. Enough to compare, not enough to use. */
+export function maskRef(ref) {
+  if (!ref) return '(no reconocida)';
+  if (ref.length <= 6) return `${ref.slice(0, 2)}…`;
+  return `${ref.slice(0, 4)}…${ref.slice(-2)}`;
+}
+
+/** A hostname with only its project label masked. */
+export function maskHost(host) {
+  const labels = String(host).split('.');
+  return labels
+    .map((label, index) => (index === 1 && labels.length > 2 ? maskRef(label) : label))
+    .join('.');
+}
+
+/**
+ * Removes anything identifying from a message before it is printed.
+ *
+ * Added after a real leak: a driver error read `getaddrinfo ENOTFOUND
+ * db.<ref>.supabase.co` and went to the console intact, because the previous
+ * version only looked for `postgres://` strings and a bare hostname walked
+ * past it. A project ref is not a hard secret — it is in every public API URL
+ * — but the promise was that this prints no host details, and a promise with
+ * an exception in it is not a promise.
+ */
+export function scrub(message) {
+  return String(message instanceof Error ? message.message : message)
+    .replace(/postgres(ql)?:\/\/[^\s'"]+/gi, '«cadena de conexión omitida»')
+    .replace(
+      /\b([a-z0-9]{4})[a-z0-9]{4,}\.(supabase\.(?:co|com|net))/gi,
+      (_m, head, tail) => `${head}….${tail}`
+    );
+}
+
+// ---------------------------------------------------------------------------
+// Environment
+// ---------------------------------------------------------------------------
 
 /** Reads .env files without a dependency. Values are never logged. */
-function loadEnv() {
+export function loadEnv(root = ROOT) {
   const merged = { ...process.env };
   for (const name of ['.env', '.env.local']) {
-    const path = join(ROOT, name);
+    const path = join(root, name);
     if (!existsSync(path)) continue;
     /*
      * Split on CRLF as well as LF.
@@ -42,72 +105,49 @@ function loadEnv() {
     for (const line of readFileSync(path, 'utf8').split(/\r?\n/)) {
       const match = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)$/);
       if (!match) continue;
-      const [, key, rawValue] = match;
-      const value = rawValue.trim().replace(/^["']|["']$/g, '');
-      if (value) merged[key] = value;
+      const value = match[2].trim().replace(/^["']|["']$/g, '');
+      if (value) merged[match[1]] = value;
     }
   }
   return merged;
 }
 
 /**
- * A safe way to talk about a secret.
+ * The project reference, wherever it appears.
  *
- * Shows the shape and a short hash, never the content. Two people can compare
- * fingerprints to agree they mean the same database without either of them
- * seeing it.
+ * Supabase writes it three ways: as the subdomain of a direct database host,
+ * as the user part on the pooler (`postgres.<ref>`), and as the subdomain of
+ * the API URL. All three are read, because the point of this module is to
+ * check they agree.
  */
-function fingerprint(value) {
-  if (!value) return '(ausente)';
-  let hash = 0;
-  for (let i = 0; i < value.length; i += 1) {
-    hash = (hash * 31 + value.charCodeAt(i)) >>> 0;
+export function refFromDbUrl(url) {
+  let parsed;
+  try {
+    parsed = new URL(url);
+  } catch {
+    return null;
   }
-  return `${value.length} car., huella ${hash.toString(16).padStart(8, '0')}`;
+  const fromHost = parsed.hostname.match(/^(?:db|aws-[^.]+)\.([a-z0-9]{16,})\.supabase\.(co|com)$/)?.[1];
+  const fromUser = parsed.username.match(/^postgres\.([a-z0-9]{16,})$/)?.[1];
+  return fromHost ?? fromUser ?? null;
 }
 
-/**
- * Removes anything identifying from a message before it is printed.
- *
- * Added after a real leak: a driver error read `getaddrinfo ENOTFOUND
- * db.<ref>.supabase.co` and went straight to the console. The previous scrubber
- * only looked for `postgres://` strings, so a bare hostname walked past it. A
- * project ref is not a hard secret — it appears in every public API URL — but
- * the promise was that this prints no host details, and a promise with an
- * exception in it is not one.
- */
-function scrub(message) {
-  return String(message)
-    .replace(/postgres(ql)?:\/\/[^\s'"]+/gi, '«cadena de conexión omitida»')
-    .replace(
-      /\b([a-z0-9]{4})[a-z0-9]*\.(supabase\.(?:co|com|net))/gi,
-      (_m, head, tail) => head + '….' + tail
-    )
-    .replace(
-      /\b(db|aws-\d)\.([a-z0-9]{4})[a-z0-9]*\./gi,
-      (_m, prefix, head) => prefix + '.' + head + '….'
-    );
-}
-
-const problems = [];
-const warnings = [];
-const facts = [];
-
-function fail(message) {
-  problems.push(message);
+export function refFromApiUrl(url) {
+  try {
+    return new URL(url).hostname.match(/^([a-z0-9]{16,})\.supabase\.(co|com)$/)?.[1] ?? null;
+  } catch {
+    return null;
+  }
 }
 
 /**
  * The connection string, under either name.
  *
  * `SUPABASE_DB_URL_STAGING` is preferred because the name itself carries the
- * environment: you cannot paste a production URL into it without the
- * contradiction being visible. `SUPABASE_DATABASE_URL` is accepted because it
- * is what the Supabase dashboard calls it, but it says nothing about which
- * project it points at — so when it is the one in use, `SUPABASE_ENV` and the
- * empty-schema check are carrying the whole load, and the report says so.
+ * environment. `SUPABASE_DATABASE_URL` is accepted because it is what the
+ * Supabase dashboard calls it.
  */
-function readUrl(env) {
+export function readDbUrl(env) {
   if (env['SUPABASE_DB_URL_STAGING']) {
     return { url: env['SUPABASE_DB_URL_STAGING'], name: 'SUPABASE_DB_URL_STAGING', explicit: true };
   }
@@ -117,21 +157,36 @@ function readUrl(env) {
   return { url: null, name: null, explicit: false };
 }
 
-async function main() {
-  const env = loadEnv();
-  const { url, name, explicit } = readUrl(env);
+// ---------------------------------------------------------------------------
+// The five conditions
+// ---------------------------------------------------------------------------
+
+/**
+ * Evaluates the environment. Pure: no I/O, no network, no process exit.
+ *
+ * Returning a structure rather than printing means the five scenarios can be
+ * tested directly — see `tests/unit/staging-guard.test.ts`. A guard nobody can
+ * test is a guard nobody should trust.
+ */
+export function evaluateEnvironment(env) {
+  const facts = [];
+  const warnings = [];
+  const problems = [];
+
+  const { url, name, explicit } = readDbUrl(env);
 
   if (!url) {
-    fail(
+    problems.push(
       'Falta la cadena de conexión. Define SUPABASE_DB_URL_STAGING (preferida) o SUPABASE_DATABASE_URL en .env.local.'
     );
-    return report();
+    return { facts, warnings, problems, url: null };
   }
 
   facts.push(`Variable:  ${name}`);
+  facts.push(`Cadena:    ${fingerprint(url)}`);
   if (!explicit) {
     warnings.push(
-      'La cadena viene de SUPABASE_DATABASE_URL, cuyo nombre no dice a qué entorno apunta. La protección recae entera en SUPABASE_ENV y en la comprobación de esquema vacío.'
+      'La cadena viene de SUPABASE_DATABASE_URL, cuyo nombre no dice a qué entorno apunta. La identidad la aporta SUPABASE_STAGING_REF.'
     );
   }
 
@@ -139,95 +194,124 @@ async function main() {
   try {
     parsed = new URL(url);
   } catch {
-    fail('SUPABASE_DB_URL_STAGING no es una URL válida.');
-    return report();
+    problems.push('La cadena de conexión no es una URL válida.');
+    return { facts, warnings, problems, url: null };
   }
 
   if (!/^postgres(ql)?:$/.test(parsed.protocol)) {
-    fail(`El protocolo debería ser postgresql://, no ${parsed.protocol}`);
+    problems.push(`El protocolo debería ser postgresql://, no ${parsed.protocol}`);
   }
 
+  facts.push(`Anfitrión: ${maskHost(parsed.hostname)}`);
+
   /*
-   * The Supabase project reference is the subdomain: db.<ref>.supabase.co, or
-   * the user part on the pooler. It is not a secret on its own — it appears in
-   * every public API URL — but only its first characters are shown, because a
-   * log is a log.
+   * A password still in its placeholder form.
+   *
+   * The dashboard shows the connection string with `[YOUR-PASSWORD]` in it,
+   * and it is easy to copy the whole line without substituting. Left alone it
+   * surfaces later as `password authentication failed`, which sends you
+   * looking at the wrong thing entirely. Catching it here costs one comparison
+   * and saves that hunt.
    */
-  const host = parsed.hostname;
-  const refFromHost = host.match(/^(?:db|aws-[^.]+)\.([a-z0-9]+)\.supabase\.(co|com)$/)?.[1];
-  const refFromUser = parsed.username.match(/^postgres\.([a-z0-9]+)$/)?.[1];
-  const projectRef = refFromHost ?? refFromUser ?? null;
-
-  // Mask only the label that identifies the project; the rest of the host is
-  // the same for every Supabase project and hiding it helps nobody.
-  const labels = host.split('.');
-  const maskedHost = labels
-    .map((label, index) =>
-      index === 1 && labels.length > 2 ? `${label.slice(0, 4)}…${label.slice(-2)}` : label
-    )
-    .join('.');
-  facts.push(`Anfitrión: ${maskedHost}`);
-  facts.push(`Proyecto:  ${projectRef ? `${projectRef.slice(0, 4)}…${projectRef.slice(-2)}` : '(no reconocido)'}`);
-  facts.push(`Cadena:    ${fingerprint(url)}`);
-
-  if (!projectRef) {
-    warnings.push(
-      'No se reconoce la referencia del proyecto en la cadena. Comprueba a mano que es la de staging.'
+  const password = decodeURIComponent(parsed.password ?? '');
+  if (!password) {
+    problems.push('La cadena de conexión no lleva contraseña.');
+  } else if (/^\[.*\]$/.test(password) || /your[-_]?password|xxxx|contrase.a/i.test(password)) {
+    problems.push(
+      'La contraseña sigue siendo el marcador de posición del panel de Supabase. Sustitúyela por la real.'
     );
   }
 
-  // The one comparison that actually protects anything: an explicit list of
-  // refs that must never be touched.
+  const dbRef = refFromDbUrl(url);
+  const apiRef = refFromApiUrl(env['PUBLIC_SUPABASE_URL'] ?? '');
+  const declaredRef = (env['SUPABASE_STAGING_REF'] ?? '').trim();
+
+  facts.push(`Proyecto (base de datos): ${maskRef(dbRef)}`);
+  facts.push(`Proyecto (API pública):   ${maskRef(apiRef)}`);
+  facts.push(`Proyecto declarado:       ${maskRef(declaredRef)}`);
+
+  // ---- 1. Declared intent -------------------------------------------------
+  const declaredEnv = (env['SUPABASE_ENV'] ?? '').toLowerCase();
+  if (declaredEnv !== 'staging') {
+    problems.push(
+      `SUPABASE_ENV debe valer exactamente "staging". Ahora vale ${declaredEnv ? `"${declaredEnv}"` : '(nada)'}.`
+    );
+  }
+
+  // ---- 2. Positive identity ----------------------------------------------
+  if (!declaredRef) {
+    problems.push(
+      'Falta SUPABASE_STAGING_REF. Es la identidad positiva del único proyecto permitido: sin ella, sólo hay comprobaciones negativas y esas únicamente atrapan lo que alguien previó.'
+    );
+  } else if (!dbRef) {
+    problems.push(
+      'No se reconoce la referencia del proyecto en la cadena de conexión, así que no se puede comparar con SUPABASE_STAGING_REF.'
+    );
+  } else if (dbRef !== declaredRef) {
+    problems.push(
+      `La base de datos pertenece a un proyecto distinto del declarado: ${maskRef(dbRef)} frente a ${maskRef(declaredRef)}.`
+    );
+  }
+
+  /*
+   * The API URL has to name the same project too.
+   *
+   * Otherwise the HTTP suite would attack one project while the SQL suite
+   * migrated another, and both would report success. That is the mismatch that
+   * produces a green run against a database nobody looked at.
+   */
+  if (declaredRef && apiRef && apiRef !== declaredRef) {
+    problems.push(
+      `PUBLIC_SUPABASE_URL apunta a un proyecto distinto del declarado: ${maskRef(apiRef)} frente a ${maskRef(declaredRef)}.`
+    );
+  }
+
+  if (declaredRef && !apiRef && env['PUBLIC_SUPABASE_URL']) {
+    warnings.push(
+      'No se reconoce la referencia del proyecto en PUBLIC_SUPABASE_URL; no se ha podido comprobar que coincida.'
+    );
+  }
+
+  // ---- 3. Not production --------------------------------------------------
   const forbidden = (env['SUPABASE_PRODUCTION_REFS'] ?? '')
     .split(',')
     .map((ref) => ref.trim())
     .filter(Boolean);
 
-  if (projectRef && forbidden.includes(projectRef)) {
-    fail(
-      'La cadena apunta a un proyecto listado en SUPABASE_PRODUCTION_REFS. Detenido: esto es producción.'
-    );
+  for (const ref of [dbRef, apiRef, declaredRef]) {
+    if (ref && forbidden.includes(ref)) {
+      problems.push('Una de las referencias figura en SUPABASE_PRODUCTION_REFS. Detenido: esto es producción.');
+      break;
+    }
   }
 
   if (!forbidden.length) {
     warnings.push(
-      'SUPABASE_PRODUCTION_REFS está vacía. Rellénala con la referencia del proyecto de producción para que esta comprobación sirva de algo.'
+      'SUPABASE_PRODUCTION_REFS está vacía. Rellénala cuando exista el proyecto de producción.'
     );
   }
 
-  /*
-   * A declared intent, separate from the URL.
-   *
-   * Someone pasting the wrong connection string will not also change this
-   * variable, so requiring both means one mistake is not enough.
-   */
-  const declared = (env['SUPABASE_ENV'] ?? '').toLowerCase();
-  if (declared !== 'staging') {
-    fail(
-      `SUPABASE_ENV debe valer exactamente "staging" para ejecutar nada de esto. Ahora vale ${declared ? `"${declared}"` : '(nada)'}.`
-    );
+  // ---- 4. No production indicators ---------------------------------------
+  const indicators = [parsed.hostname, env['PUBLIC_SUPABASE_URL'] ?? '', declaredEnv];
+  if (indicators.some((value) => /\bprod(uction)?\b/i.test(value))) {
+    problems.push('Aparece "prod" en el anfitrión, en la URL pública o en el entorno declarado.');
   }
 
-  if (/prod/i.test(host) || /prod/i.test(env['PUBLIC_SUPABASE_URL'] ?? '')) {
-    fail('Aparece "prod" en el anfitrión o en PUBLIC_SUPABASE_URL. Detenido por precaución.');
-  }
-
-  if (WITH_CONNECTION && !problems.length) {
-    await checkDatabaseIsClean(url);
-  }
-
-  return report();
+  return { facts, warnings, problems, url: problems.length ? null : url };
 }
 
+// ---------------------------------------------------------------------------
+// Condition 5: the database itself
+// ---------------------------------------------------------------------------
+
 /**
- * The strongest check available, and the one that needs a connection.
+ * The strongest check available, and the only one needing a connection.
  *
  * A production database has tables. A base about to receive migrations from
- * clean does not. Refusing to proceed when `public` already contains objects
- * catches the case every other check misses: a correct-looking staging URL that
- * happens to point at something with data in it.
+ * clean does not. This catches the case every string comparison misses: a
+ * correct-looking reference that happens to point at something with data.
  */
-async function checkDatabaseIsClean(url) {
+export async function checkDatabaseIsClean(url) {
   const { default: postgres } = await import('postgres');
   const sql = postgres(url, { max: 1, connect_timeout: 30, ssl: 'require', onnotice: () => {} });
 
@@ -236,41 +320,55 @@ async function checkDatabaseIsClean(url) {
       select count(*)::int from information_schema.tables
       where table_schema = 'public' and table_type = 'BASE TABLE'`;
 
-    facts.push(`Tablas en el esquema public: ${count}`);
-
     if (count > 0) {
-      fail(
-        `El esquema public ya contiene ${count} tabla(s). Las migraciones desde cero exigen una base limpia, y una base con contenido puede no ser la que crees.`
-      );
+      return {
+        fact: `Tablas en el esquema public: ${count}`,
+        problem: `El esquema public ya contiene ${count} tabla(s). Las migraciones desde cero exigen una base limpia, y una base con contenido puede no ser la que crees.`,
+      };
     }
+    return { fact: 'Tablas en el esquema public: 0 (limpia)' };
   } catch (error) {
-    // A driver error can echo the connection string, or just the host. Neither
-    // goes to the console unscrubbed.
-    fail(`No se ha podido conectar: ${scrub(error)}`);
+    return { problem: `No se ha podido conectar: ${scrub(error)}` };
   } finally {
     await sql.end({ timeout: 5 });
   }
 }
 
-function report() {
-  console.log('\nGuardián de staging');
-  console.log('───────────────────────────────────────────────');
-  for (const fact of facts) console.log(`  ${fact}`);
+// ---------------------------------------------------------------------------
+// CLI
+// ---------------------------------------------------------------------------
 
-  if (warnings.length) {
-    console.log('\nAvisos:');
-    for (const warning of warnings) console.log(`  · ${warning}`);
+async function main() {
+  const withConnection = process.argv.includes('--connect');
+  const result = evaluateEnvironment(loadEnv());
+
+  if (withConnection && result.url) {
+    const check = await checkDatabaseIsClean(result.url);
+    if (check.fact) result.facts.push(check.fact);
+    if (check.problem) result.problems.push(check.problem);
   }
 
-  if (problems.length) {
+  console.log('\nGuardián de staging');
+  console.log('───────────────────────────────────────────────');
+  for (const fact of result.facts) console.log(`  ${fact}`);
+
+  if (result.warnings.length) {
+    console.log('\nAvisos:');
+    for (const warning of result.warnings) console.log(`  · ${warning}`);
+  }
+
+  if (result.problems.length) {
     console.log('\n✗ DETENIDO:');
-    for (const problem of problems) console.log(`  · ${problem}`);
+    for (const problem of result.problems) console.log(`  · ${problem}`);
     console.log('');
     process.exit(1);
   }
 
-  console.log('\n✓ El destino es staging. Puedes continuar.\n');
+  console.log('\n✓ Las cinco condiciones se cumplen. El destino es staging.\n');
   process.exit(0);
 }
 
-await main();
+// Only run when invoked directly, so the tests can import the pure parts.
+if (process.argv[1] && process.argv[1].endsWith('staging-guard.mjs')) {
+  await main();
+}
