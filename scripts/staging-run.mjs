@@ -36,6 +36,7 @@ const MIGRATIONS = [
   'supabase/migrations/0003_autocraw_affiliate.sql',
   'supabase/migrations/0004_rls_hardening.sql',
   'supabase/migrations/0005_postgrest_grants.sql',
+  'supabase/migrations/0006_auth_user_trigger.sql',
 ];
 
 const SUITE = 'supabase/tests/rls_adversarial.sql';

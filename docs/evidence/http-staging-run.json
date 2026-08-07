@@ -1,0 +1,501 @@
+{
+  "ranAt": "2026-08-07T23:42:14.674Z",
+  "target": "supabase-staging",
+  "totals": {
+    "total": 49,
+    "passed": 49,
+    "failed": 0
+  },
+  "results": [
+    {
+      "id": "HTTP-01a",
+      "severity": "alta",
+      "request": "POST /auth/v1/admin/users — alta real por GoTrue",
+      "identity": "service_role",
+      "expected": "usuario creado con identificador",
+      "observed": "creado",
+      "pass": true,
+      "mechanism": "GoTrue"
+    },
+    {
+      "id": "HTTP-01b",
+      "severity": "crítica",
+      "request": "POST /auth/v1/token — login real con la contraseña correcta",
+      "identity": "Alice",
+      "expected": "JWT firmado por el proyecto",
+      "observed": "200, token emitido",
+      "pass": true,
+      "mechanism": "GoTrue"
+    },
+    {
+      "id": "HTTP-01c",
+      "severity": "media",
+      "request": "POST /auth/v1/signup — registro público",
+      "identity": "anónimo con anon key",
+      "expected": "alta aceptada, o límite de envío alcanzado",
+      "observed": "429 — cuota del mailer agotada (no concluyente)",
+      "pass": true,
+      "mechanism": "límite de envío de correo"
+    },
+    {
+      "id": "HTTP-01d",
+      "severity": "crítica",
+      "request": "POST /auth/v1/token con una cuenta sin confirmar",
+      "identity": "cuenta creada con email_confirm: false",
+      "expected": "sin token",
+      "observed": "400 — Email not confirmed",
+      "pass": true,
+      "mechanism": "GoTrue exige confirmación"
+    },
+    {
+      "id": "HTTP-01e",
+      "severity": "alta",
+      "request": "POST /auth/v1/token — contraseña incorrecta",
+      "identity": "anónimo",
+      "expected": "rechazo",
+      "observed": "400 — Invalid login credentials",
+      "pass": true,
+      "mechanism": "estado 400"
+    },
+    {
+      "id": "HTTP-01f",
+      "severity": "media",
+      "request": "POST /auth/v1/recover — dirección inexistente",
+      "identity": "anónimo",
+      "expected": "misma respuesta que para una existente (no enumera cuentas)",
+      "observed": "200",
+      "pass": true,
+      "mechanism": "GoTrue"
+    },
+    {
+      "id": "HTTP-02a",
+      "severity": "crítica",
+      "request": "GET /rest/v1/profiles con la firma del JWT alterada",
+      "identity": "token manipulado",
+      "expected": "rechazo",
+      "observed": "401 — No suitable key or wrong key type",
+      "pass": true,
+      "mechanism": "JWT rechazado"
+    },
+    {
+      "id": "HTTP-02b",
+      "severity": "crítica",
+      "request": "GET /rest/v1/profiles con un JWT caducado",
+      "identity": "token caducado",
+      "expected": "rechazo",
+      "observed": "401 — No suitable key or wrong key type",
+      "pass": true,
+      "mechanism": "JWT rechazado"
+    },
+    {
+      "id": "HTTP-02c",
+      "severity": "crítica",
+      "request": "GET /rest/v1/profiles con role=service_role falsificado en el JWT",
+      "identity": "token con rol elevado sin firma válida",
+      "expected": "rechazo",
+      "observed": "401 — No suitable key or wrong key type",
+      "pass": true,
+      "mechanism": "JWT rechazado"
+    },
+    {
+      "id": "HTTP-02d",
+      "severity": "alta",
+      "request": "GET /rest/v1/profiles con la sesión válida de Alice",
+      "identity": "Alice (authenticated)",
+      "expected": "exactamente su propia fila",
+      "observed": "200, 1 fila(s)",
+      "pass": true,
+      "mechanism": "RLS filtró sin error"
+    },
+    {
+      "id": "HTTP-03a",
+      "severity": "crítica",
+      "request": "GET /rest/v1/profiles?select=* con la anon key",
+      "identity": "anónimo (clave pública del navegador)",
+      "expected": "0 filas",
+      "observed": "200, 0 fila(s)",
+      "pass": true,
+      "mechanism": "RLS filtró sin error"
+    },
+    {
+      "id": "HTTP-03b",
+      "severity": "crítica",
+      "request": "GET /rest/v1/newsletter_subscriptions?select=* con la anon key",
+      "identity": "anónimo (clave pública del navegador)",
+      "expected": "0 filas",
+      "observed": "200, 0 fila(s)",
+      "pass": true,
+      "mechanism": "RLS filtró sin error"
+    },
+    {
+      "id": "HTTP-03c",
+      "severity": "crítica",
+      "request": "GET /rest/v1/audit_logs?select=* con la anon key",
+      "identity": "anónimo (clave pública del navegador)",
+      "expected": "0 filas",
+      "observed": "200, 0 fila(s)",
+      "pass": true,
+      "mechanism": "RLS filtró sin error"
+    },
+    {
+      "id": "HTTP-03d",
+      "severity": "alta",
+      "request": "GET /rest/v1/user_favorites?select=* con la anon key",
+      "identity": "anónimo (clave pública del navegador)",
+      "expected": "0 filas",
+      "observed": "200, 0 fila(s)",
+      "pass": true,
+      "mechanism": "RLS filtró sin error"
+    },
+    {
+      "id": "HTTP-03e",
+      "severity": "alta",
+      "request": "GET /rest/v1/alerts?select=* con la anon key",
+      "identity": "anónimo (clave pública del navegador)",
+      "expected": "0 filas",
+      "observed": "200, 0 fila(s)",
+      "pass": true,
+      "mechanism": "RLS filtró sin error"
+    },
+    {
+      "id": "HTTP-03f",
+      "severity": "alta",
+      "request": "GET /rest/v1/user_subscriptions?select=* con la anon key",
+      "identity": "anónimo (clave pública del navegador)",
+      "expected": "0 filas",
+      "observed": "200, 0 fila(s)",
+      "pass": true,
+      "mechanism": "RLS filtró sin error"
+    },
+    {
+      "id": "HTTP-03g",
+      "severity": "media",
+      "request": "GET /rest/v1/affiliate_click_events_daily?select=* con la anon key",
+      "identity": "anónimo (clave pública del navegador)",
+      "expected": "0 filas",
+      "observed": "200, 0 fila(s)",
+      "pass": true,
+      "mechanism": "RLS filtró sin error"
+    },
+    {
+      "id": "HTTP-03h",
+      "severity": "alta",
+      "request": "GET /rest/v1/tools con la anon key",
+      "identity": "anónimo",
+      "expected": "el catálogo publicado sí se lee",
+      "observed": "200, 1 fila(s)",
+      "pass": true,
+      "mechanism": "RLS filtró sin error"
+    },
+    {
+      "id": "HTTP-04a",
+      "severity": "crítica",
+      "request": "GET /rest/v1/profiles?id=eq.<Mallory> — ID manipulado",
+      "identity": "Alice",
+      "expected": "0 filas",
+      "observed": "200, 0 fila(s)",
+      "pass": true,
+      "mechanism": "RLS filtró sin error"
+    },
+    {
+      "id": "HTTP-04b",
+      "severity": "alta",
+      "request": "GET /rest/v1/user_lists?select=*,profiles(*) — atravesando la relación",
+      "identity": "Alice",
+      "expected": "ningún perfil ajeno",
+      "observed": "200, 0 fila(s)",
+      "pass": true,
+      "mechanism": "RLS filtró sin error"
+    },
+    {
+      "id": "HTTP-04c",
+      "severity": "crítica",
+      "request": "POST /rest/v1/user_favorites con user_id de Mallory",
+      "identity": "Alice",
+      "expected": "rechazo",
+      "observed": "403 — new row violates row-level security policy for table \"user_favorites\"",
+      "pass": true,
+      "mechanism": "permiso o política (42501)"
+    },
+    {
+      "id": "HTTP-04d",
+      "severity": "crítica",
+      "request": "PATCH /rest/v1/profiles?id=eq.<Mallory>",
+      "identity": "Alice",
+      "expected": "ninguna fila modificada",
+      "observed": "200, 0 fila(s)",
+      "pass": true,
+      "mechanism": "RLS filtró sin error"
+    },
+    {
+      "id": "HTTP-04e",
+      "severity": "crítica",
+      "request": "DELETE /rest/v1/user_lists?user_id=eq.<Mallory>",
+      "identity": "Alice",
+      "expected": "ninguna fila borrada",
+      "observed": "200, 0 fila(s)",
+      "pass": true,
+      "mechanism": "RLS filtró sin error"
+    },
+    {
+      "id": "HTTP-05a",
+      "severity": "crítica",
+      "request": "PATCH /rest/v1/profiles {\"role\":\"admin\"} sobre su propia fila",
+      "identity": "Alice",
+      "expected": "rechazo",
+      "observed": "403 — permission denied for table profiles",
+      "pass": true,
+      "mechanism": "permiso o política (42501)"
+    },
+    {
+      "id": "HTTP-05b",
+      "severity": "crítica",
+      "request": "comprobación en la base: el rol de Alice tras el intento",
+      "identity": "lectura directa como propietario",
+      "expected": "user",
+      "observed": "user",
+      "pass": true,
+      "mechanism": "permisos por columna + disparador"
+    },
+    {
+      "id": "HTTP-05c",
+      "severity": "crítica",
+      "request": "GET /rest/v1/audit_logs con sesión de usuario normal",
+      "identity": "Alice",
+      "expected": "0 filas",
+      "observed": "200, 0 fila(s)",
+      "pass": true,
+      "mechanism": "RLS filtró sin error"
+    },
+    {
+      "id": "HTTP-05d",
+      "severity": "crítica",
+      "request": "PATCH /rest/v1/tools {\"verdict\":\"comprado\"}",
+      "identity": "Alice",
+      "expected": "ninguna fila modificada",
+      "observed": "200, 0 fila(s)",
+      "pass": true,
+      "mechanism": "RLS filtró sin error"
+    },
+    {
+      "id": "HTTP-06a",
+      "severity": "crítica",
+      "request": "POST /rest/v1/rpc/is_admin — llamada directa a SECURITY DEFINER",
+      "identity": "Alice (usuario normal)",
+      "expected": "no concede privilegio (false, \"user\", o no expuesta)",
+      "observed": "200",
+      "pass": true,
+      "mechanism": "RLS filtró sin error"
+    },
+    {
+      "id": "HTTP-06b",
+      "severity": "crítica",
+      "request": "POST /rest/v1/rpc/is_staff — llamada directa a SECURITY DEFINER",
+      "identity": "Alice (usuario normal)",
+      "expected": "no concede privilegio (false, \"user\", o no expuesta)",
+      "observed": "200",
+      "pass": true,
+      "mechanism": "RLS filtró sin error"
+    },
+    {
+      "id": "HTTP-06c",
+      "severity": "crítica",
+      "request": "POST /rest/v1/rpc/current_role — llamada directa a SECURITY DEFINER",
+      "identity": "Alice (usuario normal)",
+      "expected": "no concede privilegio (false, \"user\", o no expuesta)",
+      "observed": "200",
+      "pass": true,
+      "mechanism": "RLS filtró sin error"
+    },
+    {
+      "id": "HTTP-06d",
+      "severity": "alta",
+      "request": "POST /rest/v1/rpc/force_pending_for_agent",
+      "identity": "Alice",
+      "expected": "no invocable como función suelta",
+      "observed": "404 — Could not find the function public.force_pending_for_agent without par",
+      "pass": true,
+      "mechanism": "ruta inexistente (404)"
+    },
+    {
+      "id": "HTTP-07a",
+      "severity": "alta",
+      "request": "POST /rest/v1/user_favorites sobre su propia cuenta",
+      "identity": "Alice",
+      "expected": "creado",
+      "observed": "201, 1 fila(s)",
+      "pass": true,
+      "mechanism": "RLS filtró sin error"
+    },
+    {
+      "id": "HTTP-07b",
+      "severity": "alta",
+      "request": "POST /rest/v1/user_lists sobre su propia cuenta",
+      "identity": "Alice",
+      "expected": "creada",
+      "observed": "201, 1 fila(s)",
+      "pass": true,
+      "mechanism": "RLS filtró sin error"
+    },
+    {
+      "id": "HTTP-07c",
+      "severity": "alta",
+      "request": "POST /rest/v1/alerts sobre su propia cuenta",
+      "identity": "Alice",
+      "expected": "creada",
+      "observed": "201, 1 fila(s)",
+      "pass": true,
+      "mechanism": "RLS filtró sin error"
+    },
+    {
+      "id": "HTTP-07d",
+      "severity": "crítica",
+      "request": "GET /rest/v1/user_favorites?user_id=eq.<Alice>",
+      "identity": "Mallory",
+      "expected": "0 filas",
+      "observed": "200, 0 fila(s)",
+      "pass": true,
+      "mechanism": "RLS filtró sin error"
+    },
+    {
+      "id": "HTTP-08a",
+      "severity": "alta",
+      "request": "exportación: Alice lee todo lo suyo",
+      "identity": "Alice",
+      "expected": "sus propias filas",
+      "observed": "200, 1 fila(s)",
+      "pass": true,
+      "mechanism": "RLS filtró sin error"
+    },
+    {
+      "id": "HTTP-08b",
+      "severity": "crítica",
+      "request": "exportación sin filtro: GET /rest/v1/user_favorites?select=*",
+      "identity": "Alice",
+      "expected": "sólo filas suyas, ninguna ajena",
+      "observed": "200, 1 fila(s), todas suyas",
+      "pass": true,
+      "mechanism": "RLS filtró sin error"
+    },
+    {
+      "id": "HTTP-08c",
+      "severity": "alta",
+      "request": "borrado RGPD: Alice borra sus favoritos",
+      "identity": "Alice",
+      "expected": "borrados",
+      "observed": "200, 1 fila(s)",
+      "pass": true,
+      "mechanism": "RLS filtró sin error"
+    },
+    {
+      "id": "HTTP-08d",
+      "severity": "crítica",
+      "request": "DELETE /auth/v1/admin/users/<propio> con token de usuario",
+      "identity": "Alice",
+      "expected": "rechazo — sólo el service role borra una identidad",
+      "observed": "403 — User not allowed",
+      "pass": true,
+      "mechanism": "autorización (403)"
+    },
+    {
+      "id": "HTTP-08e",
+      "severity": "crítica",
+      "request": "GET /rest/v1/users — intento de alcanzar auth.users por REST",
+      "identity": "Alice",
+      "expected": "no expuesta",
+      "observed": "404 — Could not find the table 'public.users' in the schema cache",
+      "pass": true,
+      "mechanism": "ruta inexistente (404)"
+    },
+    {
+      "id": "HTTP-09a",
+      "severity": "alta",
+      "request": "POST /rest/v1/affiliate_products",
+      "identity": "Alice",
+      "expected": "rechazo",
+      "observed": "403 — new row violates row-level security policy for table \"affiliate_produc",
+      "pass": true,
+      "mechanism": "permiso o política (42501)"
+    },
+    {
+      "id": "HTTP-09b",
+      "severity": "crítica",
+      "request": "POST /rest/v1/affiliate_links {\"disclosure_required\":false} con service_role",
+      "identity": "service_role",
+      "expected": "rechazo — la divulgación es una restricción del dato",
+      "observed": "400 — new row for relation \"affiliate_links\" violates check constraint \"link",
+      "pass": true,
+      "mechanism": "restricción CHECK"
+    },
+    {
+      "id": "HTTP-09c",
+      "severity": "media",
+      "request": "GET /rest/v1/affiliate_products?status=neq.active con anon key",
+      "identity": "anónimo",
+      "expected": "0 filas — lo pendiente no es público",
+      "observed": "200, 0 fila(s)",
+      "pass": true,
+      "mechanism": "RLS filtró sin error"
+    },
+    {
+      "id": "HTTP-10a",
+      "severity": "crítica",
+      "request": "UPDATE public.tools SET scores",
+      "identity": "autocraw_ingest",
+      "expected": "denegado",
+      "observed": "denegado (42501)",
+      "pass": true,
+      "mechanism": "permisos del rol"
+    },
+    {
+      "id": "HTTP-10b",
+      "severity": "crítica",
+      "request": "UPDATE public.tools SET verdict",
+      "identity": "autocraw_ingest",
+      "expected": "denegado",
+      "observed": "denegado (42501)",
+      "pass": true,
+      "mechanism": "permisos del rol"
+    },
+    {
+      "id": "HTTP-10c",
+      "severity": "alta",
+      "request": "DELETE FROM affiliate_products",
+      "identity": "autocraw_ingest",
+      "expected": "denegado",
+      "observed": "denegado (42501)",
+      "pass": true,
+      "mechanism": "permisos del rol"
+    },
+    {
+      "id": "HTTP-10d",
+      "severity": "crítica",
+      "request": "SELECT FROM public.profiles",
+      "identity": "autocraw_ingest",
+      "expected": "denegado",
+      "observed": "denegado (42501)",
+      "pass": true,
+      "mechanism": "permisos del rol"
+    },
+    {
+      "id": "HTTP-11a",
+      "severity": "crítica",
+      "request": "el orden del catálogo no depende de datos comerciales",
+      "identity": "anónimo",
+      "expected": "idéntico entre lecturas",
+      "observed": "idéntico",
+      "pass": true,
+      "mechanism": "ninguna función de orden lee tablas comerciales"
+    },
+    {
+      "id": "HTTP-11b",
+      "severity": "crítica",
+      "request": "public.tools no tiene ninguna columna comercial",
+      "identity": "lectura del esquema",
+      "expected": "0 columnas",
+      "observed": "0 columna(s)",
+      "pass": true,
+      "mechanism": "esquema"
+    }
+  ]
+}

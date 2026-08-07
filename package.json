@@ -37,7 +37,8 @@
     "staging:guard": "node scripts/staging-guard.mjs",
     "staging:guard:connect": "node scripts/staging-guard.mjs --connect",
     "staging:verify": "node scripts/staging-run.mjs --verify",
-    "db:reset:staging": "node scripts/staging-run.mjs --reset --migrate"
+    "db:reset:staging": "node scripts/staging-run.mjs --reset --migrate",
+    "http:staging": "node scripts/http-suite.mjs"
   },
   "dependencies": {
     "@astrojs/vercel": "^11.0.4",
