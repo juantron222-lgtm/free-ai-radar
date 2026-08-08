@@ -38,7 +38,9 @@
     "staging:guard:connect": "node scripts/staging-guard.mjs --connect",
     "staging:verify": "node scripts/staging-run.mjs --verify",
     "db:reset:staging": "node scripts/staging-run.mjs --reset --migrate",
-    "http:staging": "node scripts/http-suite.mjs"
+    "http:staging": "node scripts/http-suite.mjs",
+    "autocraw:credential": "node scripts/autocraw-credential.mjs",
+    "autocraw:staging": "node scripts/autocraw-suite.mjs"
   },
   "dependencies": {
     "@astrojs/vercel": "^11.0.4",

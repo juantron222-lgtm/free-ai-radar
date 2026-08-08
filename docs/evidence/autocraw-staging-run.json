@@ -1,0 +1,432 @@
+{
+  "ranAt": "2026-08-08T00:18:01.905Z",
+  "target": "supabase-staging",
+  "connectedAs": "autocraw_ingest",
+  "totals": {
+    "total": 42,
+    "passed": 42,
+    "failed": 0
+  },
+  "results": [
+    {
+      "id": "CAP-01",
+      "kind": "capacidad",
+      "severity": "alta",
+      "action": "leer los campos de tools necesarios para identificar slugs",
+      "expected": "permitido",
+      "observed": "permitido",
+      "pass": true,
+      "mechanism": "grant select (id, slug, name, category_slug, status)"
+    },
+    {
+      "id": "CAP-01b",
+      "kind": "capacidad",
+      "severity": "crítica",
+      "action": "leer columnas de tools fuera de las concedidas (scores)",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permisos por columna"
+    },
+    {
+      "id": "CAP-02",
+      "kind": "capacidad",
+      "severity": "alta",
+      "action": "crear un comerciante",
+      "expected": "permitido, y en estado pendiente",
+      "observed": "permitido, estado pending_review",
+      "pass": true,
+      "mechanism": "grant insert + disparador force_pending_for_agent"
+    },
+    {
+      "id": "CAP-03",
+      "kind": "capacidad",
+      "severity": "alta",
+      "action": "actualizar un comerciante propio",
+      "expected": "permitido",
+      "observed": "permitido",
+      "pass": true,
+      "mechanism": "política autocraw: updates merchants (source = autocraw)"
+    },
+    {
+      "id": "CAP-04",
+      "kind": "capacidad",
+      "severity": "alta",
+      "action": "crear y actualizar productos",
+      "expected": "permitido, y en estado pendiente",
+      "observed": "permitido, estado pending_review",
+      "pass": true,
+      "mechanism": "grant insert + disparador"
+    },
+    {
+      "id": "CAP-05",
+      "kind": "capacidad",
+      "severity": "alta",
+      "action": "crear una oferta con precio observado y fecha",
+      "expected": "permitido",
+      "observed": "permitido, estado pending_review",
+      "pass": true,
+      "mechanism": "grant insert"
+    },
+    {
+      "id": "CAP-06",
+      "kind": "capacidad",
+      "severity": "alta",
+      "action": "gestionar enlaces afiliados",
+      "expected": "permitido, con divulgación obligatoria",
+      "observed": "permitido, disclosure_required=true",
+      "pass": true,
+      "mechanism": "grant insert + check (disclosure_required = true)"
+    },
+    {
+      "id": "CAP-07",
+      "kind": "capacidad",
+      "severity": "alta",
+      "action": "relacionar un producto con una herramienta",
+      "expected": "permitido",
+      "observed": "permitido, estado pending_review",
+      "pass": true,
+      "mechanism": "grant insert sobre tool_product_relations"
+    },
+    {
+      "id": "CAP-08",
+      "kind": "capacidad",
+      "severity": "alta",
+      "action": "usar un placement slot autorizado",
+      "expected": "permitido",
+      "observed": "permitido, estado pending_review",
+      "pass": true,
+      "mechanism": "grant insert + check slots_known"
+    },
+    {
+      "id": "CAP-08b",
+      "kind": "capacidad",
+      "severity": "crítica",
+      "action": "inventar un slot que el código no declara (portada_hero)",
+      "expected": "denegado",
+      "observed": "restricción CHECK (23514)",
+      "pass": true,
+      "mechanism": "restricción CHECK slots_known"
+    },
+    {
+      "id": "CAP-09",
+      "kind": "capacidad",
+      "severity": "media",
+      "action": "leer las métricas agregadas de clics",
+      "expected": "permitido",
+      "observed": "permitido",
+      "pass": true,
+      "mechanism": "grant select sobre affiliate_click_events_daily"
+    },
+    {
+      "id": "CAP-09b",
+      "kind": "capacidad",
+      "severity": "alta",
+      "action": "escribir métricas de clics",
+      "expected": "denegado — las cuenta el sitio, no el agente",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "sin grant insert sobre la tabla de clics"
+    },
+    {
+      "id": "ATK-01",
+      "kind": "ataque",
+      "severity": "crítica",
+      "action": "modificar public.tools",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-02",
+      "kind": "ataque",
+      "severity": "crítica",
+      "action": "modificar la puntuación",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-03",
+      "kind": "ataque",
+      "severity": "crítica",
+      "action": "modificar el veredicto",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-04",
+      "kind": "ataque",
+      "severity": "crítica",
+      "action": "insertar una herramienta propia",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-05",
+      "kind": "ataque",
+      "severity": "crítica",
+      "action": "modificar el ranking: tocar el patrocinio de una ficha",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-06",
+      "kind": "ataque",
+      "severity": "alta",
+      "action": "modificar noticias (tool_updates)",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-07",
+      "kind": "ataque",
+      "severity": "alta",
+      "action": "insertar una noticia",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-08",
+      "kind": "ataque",
+      "severity": "crítica",
+      "action": "leer usuarios (auth.users)",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-09",
+      "kind": "ataque",
+      "severity": "crítica",
+      "action": "leer perfiles",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-10",
+      "kind": "ataque",
+      "severity": "crítica",
+      "action": "administrar cuentas: cambiar un rol",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-11",
+      "kind": "ataque",
+      "severity": "crítica",
+      "action": "leer el boletín",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-12",
+      "kind": "ataque",
+      "severity": "crítica",
+      "action": "leer el registro de auditoría",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-13",
+      "kind": "ataque",
+      "severity": "crítica",
+      "action": "leer la facturación",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-14",
+      "kind": "ataque",
+      "severity": "alta",
+      "action": "borrar productos comerciales",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-15",
+      "kind": "ataque",
+      "severity": "alta",
+      "action": "borrar comerciantes",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-16",
+      "kind": "ataque",
+      "severity": "alta",
+      "action": "borrar enlaces",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-17",
+      "kind": "ataque",
+      "severity": "alta",
+      "action": "borrar relaciones",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-18",
+      "kind": "ataque",
+      "severity": "alta",
+      "action": "borrar emplazamientos",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-19",
+      "kind": "ataque",
+      "severity": "media",
+      "action": "tabla comercial no concedida: sponsored_placements",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-20",
+      "kind": "ataque",
+      "severity": "media",
+      "action": "tabla comercial no concedida: affiliate_programs",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-21",
+      "kind": "ataque",
+      "severity": "media",
+      "action": "tabla comercial no concedida: tool_outbound_affiliations",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-22",
+      "kind": "ataque",
+      "severity": "crítica",
+      "action": "escalar privilegios: hacerse superusuario",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-23",
+      "kind": "ataque",
+      "severity": "crítica",
+      "action": "escalar privilegios: concederse permisos",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-24",
+      "kind": "ataque",
+      "severity": "crítica",
+      "action": "escalar privilegios: asumir el rol postgres",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-25",
+      "kind": "ataque",
+      "severity": "crítica",
+      "action": "escalar privilegios: crear un rol nuevo",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-26",
+      "kind": "ataque",
+      "severity": "alta",
+      "action": "crear una tabla propia en public",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-27",
+      "kind": "ataque",
+      "severity": "alta",
+      "action": "leer envíos de la comunidad",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "permiso denegado (42501)"
+    },
+    {
+      "id": "ATK-28",
+      "kind": "ataque",
+      "severity": "crítica",
+      "action": "publicarse a sí mismo: poner un producto en activo",
+      "expected": "la fila vuelve a pendiente",
+      "observed": "la sentencia pasó y quedó en pending_review",
+      "pass": true,
+      "mechanism": "disparador force_pending_for_agent"
+    },
+    {
+      "id": "ATK-29",
+      "kind": "ataque",
+      "severity": "crítica",
+      "action": "crear un enlace afiliado sin divulgación",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "check links_disclosure_always + política with check"
+    },
+    {
+      "id": "ATK-30",
+      "kind": "ataque",
+      "severity": "alta",
+      "action": "escribir haciéndose pasar por alta manual (source = manual)",
+      "expected": "denegado",
+      "observed": "permiso denegado (42501)",
+      "pass": true,
+      "mechanism": "política autocraw: with check (source = autocraw)"
+    }
+  ]
+}
