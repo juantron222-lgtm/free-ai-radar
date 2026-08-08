@@ -1,6 +1,6 @@
 import Stripe from 'stripe';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
-import { stripe as stripeConfig, supabase as supabaseConfig, isProduction } from '@lib/config';
+import { stripe as stripeConfig, supabase as supabaseConfig, stripeKeyPolicy } from '@lib/config';
 import { logger } from '@lib/observability/logger';
 import { planForPriceId } from './plans';
 
@@ -19,14 +19,30 @@ import { planForPriceId } from './plans';
 
 let stripeClient: Stripe | null = null;
 
+/**
+ * Decides whether this key may be used here. Exported so it can be tested
+ * directly and called from a health check, rather than only being reachable
+ * by constructing a client.
+ *
+ * The rule used to be `!isTestMode && !isProduction`, where `isProduction`
+ * meant `import.meta.env.PROD` — which is true for a Vercel Preview. A Preview
+ * therefore counted as production and would have accepted a live key: the one
+ * mistake in this codebase that spends someone's actual money.
+ *
+ * Now a live key is accepted for exactly one declared environment and refused
+ * for every other, including `unknown`. Fail-closed is the only sane default
+ * here, because the cost of wrongly refusing is an error message and the cost
+ * of wrongly allowing is a real charge on a real card.
+ */
+export function assertStripeKeyAllowed(env?: Record<string, string | undefined>): void {
+  const verdict = stripeKeyPolicy(stripeConfig.secretKey, env);
+  if (!verdict.allowed) throw new Error(verdict.reason);
+}
+
 export function getStripe(): Stripe | null {
   if (!stripeConfig.isConfigured) return null;
 
-  if (!stripeConfig.isTestMode && !isProduction) {
-    throw new Error(
-      'STRIPE_SECRET_KEY es una clave live y este entorno no es producción. Usa una clave sk_test_.'
-    );
-  }
+  assertStripeKeyAllowed();
 
   stripeClient ??= new Stripe(stripeConfig.secretKey, {
     apiVersion: '2025-01-27.acacia' as Stripe.LatestApiVersion,
