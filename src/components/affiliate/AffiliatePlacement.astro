@@ -27,6 +27,21 @@ const def = PLACEMENT_SLOTS[slot];
 const fmtPrice = (cents: number, currency: string) =>
   new Intl.NumberFormat('es-ES', { style: 'currency', currency }).format(cents / 100);
 
+/*
+ * Amazon requires a date *and time* stamp whenever prices refresh less often
+ * than hourly, which is always here. So an instant is shown whenever we have
+ * one, and only falls back to the day when we do not.
+ */
+const fmtInstant = (iso: string) =>
+  new Date(iso).toLocaleString('es-ES', {
+    day: 'numeric',
+    month: 'long',
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: 'Europe/Madrid',
+    timeZoneName: 'short',
+  });
+
 const fmtDate = (iso: string) =>
   new Date(`${iso}T00:00:00Z`).toLocaleDateString('es-ES', {
     day: 'numeric',
@@ -75,6 +90,9 @@ const fmtDate = (iso: string) =>
                 {item.product.title}
                 <span class="sr-only">(enlace de afiliación, se abre en una pestaña nueva)</span>
               </a>
+              {/* Required next to each individual link, not only site-wide.
+                  One of the four markers Amazon names, never a variant. */}
+              <span class="promo-marker">{item.linkDisclosure}</span>
             </h3>
 
             {/* Our reason for it being here, not the merchant's copy. */}
@@ -87,8 +105,13 @@ const fmtDate = (iso: string) =>
                     {fmtPrice(item.price.cents, item.price.currency)}
                   </span>
                   <span class="promo-observed">
-                    precio visto el <time datetime={item.price.observedAt}>{fmtDate(item.price.observedAt)}</time>
-                    {' '}en {item.merchant.name}. Puede haber cambiado.
+                    precio visto el{' '}
+                    <time datetime={item.price.observedAtUtc ?? item.price.observedAt}>
+                      {item.price.observedAtUtc
+                        ? fmtInstant(item.price.observedAtUtc)
+                        : fmtDate(item.price.observedAt)}
+                    </time>
+                    {' '}en {item.merchant.name}.
                   </span>
                 </>
               ) : (
@@ -98,6 +121,10 @@ const fmtDate = (iso: string) =>
                 </span>
               )}
             </p>
+
+            {/* The licence notice, when the merchant requires one. Verbatim:
+                it is a term, not a summary. */}
+            {item.policy.notice && <p class="promo-notice">{item.policy.notice}</p>}
 
             <p class="promo-disclosure">{item.disclosureText}</p>
           </div>
@@ -226,6 +253,20 @@ const fmtDate = (iso: string) =>
   .promo-observed {
     color: var(--ink-subtle);
     font-size: 0.75rem;
+  }
+
+  .promo-marker {
+    margin-inline-start: 0.35rem;
+    font-size: 0.6875rem;
+    font-weight: 650;
+    color: var(--ink-subtle);
+    white-space: nowrap;
+  }
+
+  .promo-notice {
+    margin: var(--space-2xs) 0 0;
+    font-size: 0.6875rem;
+    color: var(--ink-subtle);
   }
 
   .promo-disclosure {

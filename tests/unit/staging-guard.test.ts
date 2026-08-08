@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest';
-// @ts-expect-error — plain .mjs script, no types, imported for its pure parts.
 import { evaluateEnvironment, fingerprint, maskHost, maskRef, scrub } from '../../scripts/staging-guard.mjs';
 
 /**

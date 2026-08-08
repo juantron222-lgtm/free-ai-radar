@@ -1,6 +1,7 @@
 import rawPayload from '@/data/affiliate/placements.json';
 import {
   AFFILIATE_LINK_REL,
+  AMAZON_CACHE_POLICY,
   AutoCrawPayload,
   PLACEMENT_SLOTS,
   isDisplayable,
@@ -13,7 +14,10 @@ import {
   type PlacementAssignment,
   type PlacementSlotId,
   type ToolProductRelation,
+  merchantPolicy,
+  type MerchantCachePolicy,
 } from '@lib/domain/affiliate';
+import { AMAZON_LINK_DISCLOSURES, amazonReadiness } from '@lib/domain/amazon';
 import { getAllTools } from './catalog';
 import { logger } from '@lib/observability/logger';
 
@@ -48,7 +52,11 @@ export interface ResolvedPlacement {
   /** The merchant's own words, shown verbatim. Never generated. */
   disclosureText: string;
   /** Present only when observed recently enough to state as fact. */
-  price?: { cents: number; currency: string; observedAt: string };
+  price?: { cents: number; currency: string; observedAt: string; observedAtUtc?: string };
+  /** The merchant's caching and display obligations. */
+  policy: MerchantCachePolicy;
+  /** Marker shown next to this specific link, required by Amazon. */
+  linkDisclosure: string;
   commercialPriority: number;
 }
 
@@ -126,8 +134,8 @@ function resolve(now: Date): Snapshot {
         return merchant !== undefined && isDisplayable(merchant, now);
       })
       .sort((a, b) => {
-        const aFresh = isPriceFresh(a, now);
-        const bFresh = isPriceFresh(b, now);
+        const aFresh = isPriceFresh(a, now, merchants.get(a.merchantId));
+        const bFresh = isPriceFresh(b, now, merchants.get(b.merchantId));
         if (aFresh !== bFresh) return aFresh ? -1 : 1;
         return (a.observedPriceCents ?? Infinity) - (b.observedPriceCents ?? Infinity);
       });
@@ -138,6 +146,29 @@ function resolve(now: Date): Snapshot {
     const merchant = merchants.get(offer.merchantId);
     const link = linksByOffer.get(offer.id);
     if (!merchant || !link) continue;
+
+    const policy = merchantPolicy(merchant);
+    const isAmazon = policy === AMAZON_CACHE_POLICY;
+
+    /*
+     * The hard gate on Amazon.
+     *
+     * Showing Amazon content without an authorised Associates account breaches
+     * their licence regardless of what a row in our own database says. So an
+     * Amazon placement is skipped entirely until every credential is present —
+     * not rendered with a warning, not rendered at all.
+     */
+    if (isAmazon) {
+      const readiness = amazonReadiness(
+        (typeof process !== 'undefined' ? process.env : {}) as Record<string, string | undefined>
+      );
+      if (!readiness.ready) {
+        problems.push(
+          `Emplazamiento de Amazon omitido: falta ${readiness.missing.join(', ')}. Mostrar contenido de Amazon sin cuenta autorizada incumple su licencia.`
+        );
+        continue;
+      }
+    }
 
     resolved.push({
       slot: placement.slot,
@@ -150,14 +181,20 @@ function resolve(now: Date): Snapshot {
       linkUrl: link.url,
       rel: AFFILIATE_LINK_REL,
       disclosureText: merchant.disclosureText,
+      policy,
+      // Amazon names four acceptable markers and no others; the first is the
+      // plainest in Spanish. A generic merchant gets the same treatment
+      // because a reader deserves the label either way.
+      linkDisclosure: AMAZON_LINK_DISCLOSURES[0],
       // A price that is no longer fresh is dropped, not shown with a caveat.
       // "€39 (hace tres meses)" is not a price, it is a memory.
-      ...(isPriceFresh(offer, now) && offer.observedPriceCents !== undefined
+      ...(isPriceFresh(offer, now, merchant) && offer.observedPriceCents !== undefined
         ? {
             price: {
               cents: offer.observedPriceCents,
               currency: offer.observedCurrency!,
               observedAt: offer.observedPriceAt!,
+              ...(offer.observedPriceAtUtc ? { observedAtUtc: offer.observedPriceAtUtc } : {}),
             },
           }
         : {}),

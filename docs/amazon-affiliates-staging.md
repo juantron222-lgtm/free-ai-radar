@@ -7,14 +7,15 @@ sitio se comporta exactamente igual que si Amazon no existiera.
 | | |
 | --- | --- |
 | Reglas | [`src/lib/domain/amazon.ts`](../src/lib/domain/amazon.ts) |
-| Pruebas | [`tests/unit/amazon.test.ts`](../tests/unit/amazon.test.ts) — 20 |
+| Pruebas | [`tests/unit/amazon.test.ts`](../tests/unit/amazon.test.ts) — 40, más 10 de caducidad en `affiliate.test.ts` |
+| Caché e instante | [`0007_amazon_cache_instant.sql`](../supabase/migrations/0007_amazon_cache_instant.sql) |
 | Contrato base | [`docs/autocraw-affiliate-integration.md`](autocraw-affiliate-integration.md) |
 
 ---
 
 ## 1. Qué está hecho
 
-Amazon es más estricto que un comerciante genérico en dos cosas, y ambas están
+Amazon es más estricto que un comerciante genérico en cuatro cosas, todas
 impuestas por código antes de que exista una sola oferta:
 
 **El enlace debe llevar la etiqueta.** Un enlace sin `?tag=` no es un enlace de
@@ -26,32 +27,43 @@ enlace `amazon.com` no cobra nada y manda a un lector español a la tienda
 equivocada. La tabla de mercados incluye que Portugal compra a través de
 `amazon.es`, porque Amazon no tiene tienda `.pt`.
 
+**La caché caduca en horas, no en días**, y la imagen no se puede almacenar en
+absoluto. Ver §4.
+
+**Cada enlace lleva su propia divulgación**, junto a él, además de la general
+del sitio. Ver §2.
+
 `checkAmazonLink` devuelve **todos** los problemas, no el primero: arreglar uno
 y redescubrir el siguiente es cómo una tarea corta se convierte en tres.
 
 ---
 
-## 2. La declaración de afiliación
+## 2. Las declaraciones
 
-Amazon obliga a mostrarla. La redacción verificada, literal del §5 del Operating
-Agreement de `affiliate-program.amazon.com`, comprobada el 8 de agosto de 2026:
+Verificadas por el propietario del proyecto contra las fuentes oficiales de
+Amazon Afiliados España. Son **constantes, no plantillas**: una declaración
+legal que alguien parafrasea deja de decir lo que Amazon exige.
 
-> As an Amazon Associate I earn from qualifying purchases.
+**Declaración general del sitio**, redacción oficial de Amazon España:
 
-**La redacción en español no está aquí, y es deliberado.** Las páginas de ayuda
-de `afiliados.amazon.es` indexan el Operating Agreement sin reproducirlo, y
-`programa-afiliados.amazon.es` no resuelve. No he podido obtenerla de una fuente
-primaria.
+> En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas
+> que cumplen los requisitos aplicables
 
-Inventar el texto de una declaración legal es exactamente el modo de fallo que
-este proyecto existe para evitar, y una declaración equivocada es **peor** que
-una ausente, porque aparenta cumplimiento.
+**Junto a cada enlace**, además de la general, una divulgación clara y visible.
+Amazon España nombra estas cuatro:
 
-Así que `requireDisclosure` se niega a aceptar un comerciante sin ella, y
-también rechaza un marcador de posición (`[...]`, `TODO`, `PENDIENTE`). Alguien
-tiene que pegar el texto real desde el panel de Afiliados antes de que una
-oferta de Amazon pueda publicarse. El hueco no se puede olvidar porque el
-sistema no arranca sin él.
+- `(enlace pagado)`
+- `#publicidad`
+- `#publi`
+- `#ColaboraciónPagada`
+
+Es una lista cerrada. `AmazonLinkDisclosure` rechaza cualquier otra cosa,
+incluida «enlace patrocinado» — suena equivalente y no es una de las que Amazon
+nombró, que es exactamente el riesgo con la redacción de una divulgación.
+
+`requireDisclosure(texto, isAmazon = true)` **rechaza una paráfrasis**, no sólo
+un texto vacío. Hay una prueba que le pasa una versión razonable y comprueba que
+la rechaza.
 
 ---
 
@@ -65,20 +77,64 @@ Nada de esto se relaja para Amazon. Verificado contra staging el 8 de agosto de
 | Toda alta entra como `pending_review` | Un producto de Amazon lo aprueba una persona, aunque venga de PA-API |
 | `disclosure_required` es `check (= true)` | Ni el service role puede crear un enlace de Amazon sin divulgación |
 | El anfitrión del enlace debe ser el del comerciante | Un enlace que no apunte a Amazon se rechaza |
-| Precio con más de 30 días se retira | Los precios de Amazon cambian a diario: aquí caducan antes de mentir |
+| Precio con más de **24 horas** se retira | Es la licencia de Amazon, no una preferencia nuestra. Ver §4 |
 | Registro sin comprobar en 60 días desaparece | Si PA-API deja de responder, las cajas se vacían solas |
 | `commercial_priority` no toca el orden editorial | Una comisión más alta no mueve una ficha |
 | AutoCraw no borra nada | Retirar un producto de Amazon es marcarlo inactivo |
 
 ---
 
-## 4. Lo que falta, y sólo lo puede hacer una persona
+## 4. Caché, precios y disponibilidad
+
+Los límites son de la licencia de Amazon EU, no preferencias nuestras. Esa
+distinción está en el código: `DEFAULT_CACHE_POLICY` es nuestro criterio
+editorial sobre cuándo un precio deja de ser un hecho; `AMAZON_CACHE_POLICY` es
+un término contractual. Mezclarlos permitiría relajar una obligación legal
+ajustando una preferencia.
+
+| Contenido | Máximo en caché |
+| --- | --- |
+| Contenido publicitario que no sea imagen | **24 horas** |
+| La imagen en sí | **No se almacena**, nunca |
+| URL o enlace de la imagen | **24 horas** |
+| ASIN | Mientras la licencia siga vigente |
+
+Pasado el máximo hay que **obtener contenido nuevo** por Creators API, PA-API o
+Data Feed. No vale releer lo guardado.
+
+### Precios y disponibilidad
+
+- Sólo se muestran si proceden de un mecanismo autorizado por Amazon.
+- Si se actualizan menos de una vez por hora, hay que mostrar **sello de fecha
+  y hora**. Aquí nada se actualiza cada hora, así que el sello es siempre
+  obligatorio y siempre se muestra.
+- Debe acompañarlos el aviso de que precio y disponibilidad pueden cambiar.
+  Es una constante, `AMAZON_PRICE_NOTICE`, no un texto que cada plantilla
+  redacte.
+
+### El defecto que esto destapó en mi esquema
+
+`observed_price_at` era un `date`. **Una fecha no puede expresar un límite de
+24 horas**: no distingue «visto hace dos horas» de «visto hace veintiséis»
+cuando caen en días contiguos. La columna tenía la forma equivocada para la
+obligación, así que la regla no se podría haber cumplido ni queriendo.
+
+La migración 0007 añade `observed_price_at_utc timestamptz`, con una
+restricción que obliga a que el instante y el día concuerden — si no, una fila
+podría contarle una cosa a la comprobación de frescura y otra al lector.
+
+Y una oferta de Amazon **sin** instante nunca se considera fresca. La ausencia
+de sello no es motivo para suponer que es reciente.
+
+---
+
+## 5. Lo que falta, y sólo lo puede hacer una persona
 
 Por orden. Ninguno de estos pasos lo puede dar un agente.
 
 1. **Dar de alta la cuenta en Amazon Afiliados** y aceptar el Operating
    Agreement. Requiere identidad fiscal y aprobación de Amazon.
-2. **Copiar la declaración de afiliación en español** desde el panel, literal.
+2. **Confirmar que la declaración oficial del §2 sigue siendo la vigente** en el panel: Amazon la ha cambiado antes.
 3. **Obtener la etiqueta** (`nombre-21` para España).
 4. **Solicitar acceso a PA-API.** Amazon exige ventas previas para concederlo:
    una cuenta nueva no tiene claves hasta haber generado comisiones, así que
@@ -100,18 +156,21 @@ alguien conectó Amazon sin decirlo.
 
 ---
 
-## 5. Lo que no he verificado
+## 6. Lo que sigue sin verificar
 
-Se dice para que nadie lo dé por hecho:
+Las reglas de caché, precios y declaraciones ya están confirmadas por el
+propietario contra fuentes oficiales. Queda pendiente, y se dice para que nadie
+lo dé por hecho:
 
-- **Las reglas de Amazon sobre mostrar precios.** El Operating Agreement no las
-  contiene; están en las Program Policies, que no pude recuperar. La política
-  de caducidad a 30 días de este proyecto es *nuestra*, más estricta que nada
-  que Amazon exija hasta donde sé, pero **no confirmada como suficiente**.
-  Antes de publicar precios de Amazon hay que leer esas políticas.
-- **La redacción española de la declaración**, ya dicho en §2.
-- **Si PA-API impone un tiempo máximo de caché** para precios y disponibilidad.
-  Suele haber uno. No lo he confirmado.
+- **Los límites de tasa de PA-API.** Amazon los ajusta según el volumen de
+  ventas. Afectan a con qué frecuencia puede refrescar AutoCraw, y con un
+  máximo de 24 horas eso deja de ser un detalle: si el límite impidiera
+  refrescar a diario, habría contenido que sencillamente no podríamos mostrar.
+- **Si la ventana de 24 horas se cuenta desde la petición a la API o desde la
+  respuesta.** La diferencia es de segundos y sólo importa en el borde; el
+  código toma el instante de observación, que es el más conservador.
+- **Qué exige exactamente Amazon para «mecanismo autorizado»** más allá de
+  Creators API, PA-API y Data Feed.
 
-Las tres son deberes de lectura para la persona que dé de alta la cuenta, no
-cosas que el código pueda resolver.
+Son deberes de lectura para quien dé de alta la cuenta, no cosas que el código
+pueda resolver.

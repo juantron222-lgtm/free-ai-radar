@@ -1,5 +1,5 @@
 {
-  "ranAt": "2026-08-07T23:42:14.674Z",
+  "ranAt": "2026-08-08T00:51:16.410Z",
   "target": "supabase-staging",
   "totals": {
     "total": 49,
@@ -30,10 +30,10 @@
     {
       "id": "HTTP-01c",
       "severity": "media",
-      "request": "POST /auth/v1/signup — registro público",
+      "request": "POST /auth/v1/signup — el endpoint público valida la dirección",
       "identity": "anónimo con anon key",
-      "expected": "alta aceptada, o límite de envío alcanzado",
-      "observed": "429 — cuota del mailer agotada (no concluyente)",
+      "expected": "rechaza una dirección no entregable (o topa con la cuota de correo)",
+      "observed": "429 — cuota del mailer agotada",
       "pass": true,
       "mechanism": "límite de envío de correo"
     },

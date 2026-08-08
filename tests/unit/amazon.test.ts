@@ -1,6 +1,15 @@
 import { describe, expect, it } from 'vitest';
 import {
+  AMAZON_CACHE_MAX_HOURS,
   AMAZON_DISCLOSURE_EN,
+  AMAZON_DISCLOSURE_ES,
+  AMAZON_LINK_DISCLOSURES,
+  AMAZON_PRICE_NOTICE,
+  AmazonLinkDisclosure,
+  assertAmazonPublishable,
+  checkAmazonCache,
+  isAmazonContentFresh,
+  needsPriceTimestamp,
   AMAZON_MARKETS,
   AmazonAssociateTag,
   amazonReadiness,
@@ -143,5 +152,133 @@ describe('hoy Amazon no está conectado', () => {
     // If this ever fails, someone connected Amazon without saying so.
     const readiness = amazonReadiness(process.env as Record<string, string | undefined>);
     expect(readiness.present, `presentes: ${readiness.present.join(', ')}`).toEqual([]);
+  });
+});
+
+describe('caché de 24 horas de Amazon', () => {
+  const NOW = new Date('2026-08-08T12:00:00Z');
+  const hoursAgo = (h: number) => new Date(NOW.getTime() - h * 3_600_000).toISOString();
+
+  it('acepta contenido publicitario de hace 23 horas', () => {
+    expect(checkAmazonCache('ad_content', hoursAgo(23), NOW)).toEqual([]);
+  });
+
+  it('RECHAZA contenido publicitario de hace 25 horas', () => {
+    const problems = checkAmazonCache('ad_content', hoursAgo(25), NOW);
+    expect(problems).toHaveLength(1);
+    expect(problems[0]!.problem).toContain('el máximo es 24 h');
+  });
+
+  it('rechaza justo por encima del límite', () => {
+    expect(checkAmazonCache('ad_content', hoursAgo(24.1), NOW)).toHaveLength(1);
+    expect(checkAmazonCache('ad_content', hoursAgo(23.9), NOW)).toEqual([]);
+  });
+
+  it('la URL de imagen caduca igual, a las 24 horas', () => {
+    expect(checkAmazonCache('image_url', hoursAgo(23), NOW)).toEqual([]);
+    expect(checkAmazonCache('image_url', hoursAgo(25), NOW)).toHaveLength(1);
+  });
+
+  it('la imagen en sí no se puede almacenar nunca, ni recién obtenida', () => {
+    const problems = checkAmazonCache('image_binary', hoursAgo(0.1), NOW);
+    expect(problems).toHaveLength(1);
+    expect(problems[0]!.problem).toContain('no permite almacenar la imagen');
+  });
+
+  it('el ASIN no caduca por reloj', () => {
+    expect(checkAmazonCache('asin', hoursAgo(24 * 400), NOW)).toEqual([]);
+  });
+
+  it('sin instante de obtención no se puede afirmar que sea fresco', () => {
+    expect(checkAmazonCache('ad_content', undefined, NOW)).toHaveLength(1);
+    expect(isAmazonContentFresh('ad_content', undefined, NOW)).toBe(false);
+  });
+
+  it('un instante en el futuro se rechaza', () => {
+    const future = new Date(NOW.getTime() + 3_600_000).toISOString();
+    expect(checkAmazonCache('ad_content', future, NOW)).toHaveLength(1);
+  });
+
+  it('el máximo declarado es el de la licencia, no una preferencia nuestra', () => {
+    expect(AMAZON_CACHE_MAX_HOURS.ad_content).toBe(24);
+    expect(AMAZON_CACHE_MAX_HOURS.image_url).toBe(24);
+    expect(AMAZON_CACHE_MAX_HOURS.image_binary).toBe(0);
+    expect(AMAZON_CACHE_MAX_HOURS.asin).toBeNull();
+  });
+});
+
+describe('sello de fecha y hora, y aviso', () => {
+  it('con refresco menos frecuente que cada hora, el sello es obligatorio', () => {
+    expect(needsPriceTimestamp(61)).toBe(true);
+    expect(needsPriceTimestamp(24 * 60)).toBe(true);
+  });
+
+  it('con refresco horario o mejor, no lo es', () => {
+    expect(needsPriceTimestamp(60)).toBe(false);
+    expect(needsPriceTimestamp(15)).toBe(false);
+  });
+
+  it('el aviso de precio y disponibilidad existe como constante', () => {
+    expect(AMAZON_PRICE_NOTICE).toContain('pueden cambiar');
+  });
+});
+
+describe('la declaración española', () => {
+  it('es la redacción oficial de Amazon España', () => {
+    expect(AMAZON_DISCLOSURE_ES).toBe(
+      'En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables'
+    );
+  });
+
+  it('la acepta como declaración de un comerciante de Amazon', () => {
+    expect(requireDisclosure(AMAZON_DISCLOSURE_ES, true)).toBe(AMAZON_DISCLOSURE_ES);
+  });
+
+  it('RECHAZA una paráfrasis, por razonable que parezca', () => {
+    expect(() =>
+      requireDisclosure('Como afiliado de Amazon gano dinero con las compras que cumplan requisitos', true)
+    ).toThrow(/redacción oficial/);
+  });
+
+  it('los marcadores por enlace son exactamente los cuatro que Amazon nombra', () => {
+    expect(AMAZON_LINK_DISCLOSURES).toEqual([
+      '(enlace pagado)',
+      '#publicidad',
+      '#publi',
+      '#ColaboraciónPagada',
+    ]);
+  });
+
+  it('rechaza un marcador inventado que suena equivalente', () => {
+    expect(AmazonLinkDisclosure.safeParse('enlace patrocinado').success).toBe(false);
+    expect(AmazonLinkDisclosure.safeParse('#ad').success).toBe(false);
+    expect(AmazonLinkDisclosure.safeParse('#publicidad').success).toBe(true);
+  });
+});
+
+describe('publicación bloqueada sin cuenta autorizada', () => {
+  it('lanza si falta cualquier credencial', () => {
+    expect(() => assertAmazonPublishable({})).toThrow(/incumple su licencia/);
+    expect(() =>
+      assertAmazonPublishable({ AMAZON_ASSOCIATE_TAG: TAG, AMAZON_MARKET: 'ES' })
+    ).toThrow();
+  });
+
+  it('no lanza con todo configurado', () => {
+    expect(() =>
+      assertAmazonPublishable({
+        AMAZON_ASSOCIATE_TAG: TAG,
+        AMAZON_MARKET: 'ES',
+        AMAZON_DISCLOSURE_TEXT: AMAZON_DISCLOSURE_ES,
+        AMAZON_PAAPI_ACCESS_KEY: 'x',
+        AMAZON_PAAPI_SECRET_KEY: 'y',
+      })
+    ).not.toThrow();
+  });
+
+  it('hoy el entorno real lanza, porque Amazon no está conectado', () => {
+    expect(() =>
+      assertAmazonPublishable(process.env as Record<string, string | undefined>)
+    ).toThrow();
   });
 });

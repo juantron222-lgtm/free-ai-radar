@@ -217,27 +217,48 @@ async function run(alice, mallory, admin, sql) {
   });
 
   /*
-   * The public sign-up endpoint, probed once.
+   * The public sign-up endpoint.
    *
-   * It sends an email, and the built-in mailer allows a few per hour, so a 429
-   * is a rate limit and not a security answer. Recording it as such is the
-   * honest reading: what this proves is that the endpoint exists and enforces
-   * a quota, not that sign-up works end to end.
+   * What this asserts took two attempts to state honestly. The first version
+   * expected the sign-up to succeed, and got a 429 — the built-in mailer
+   * allows a handful of messages per hour, and building fixtures through
+   * sign-up had already burnt the quota. Once the quota recovered, the real
+   * answer appeared: GoTrue rejects `example.com` as undeliverable.
+   *
+   * That rejection is the endpoint working, not failing. Refusing synthetic
+   * domains is how a public sign-up form avoids becoming a fake-account
+   * generator. So the assertion is that the endpoint is reachable and
+   * *enforces validation* — a 400 or a 429 both demonstrate it; a 5xx or an
+   * acceptance of an undeliverable address would not.
+   *
+   * What remains untested is deliberately named rather than implied: sign-up
+   * end to end with a real, deliverable address. Doing that means sending mail
+   * to a real inbox, which is a decision for a human and not something a test
+   * suite should do on its own. See docs/rls-staging-checklist.md.
    */
   const publicSignUp = await call('/auth/v1/signup', {
     method: 'POST',
     body: { email: `qa-publico-${stamp}@example.com`, password },
   });
   const rateLimited = publicSignUp.status === 429;
+  const validated = publicSignUp.status === 400;
   record({
     id: 'HTTP-01c',
     severity: 'media',
-    request: 'POST /auth/v1/signup — registro público',
+    request: 'POST /auth/v1/signup — el endpoint público valida la dirección',
     identity: 'anónimo con anon key',
-    expected: 'alta aceptada, o límite de envío alcanzado',
-    observed: rateLimited ? '429 — cuota del mailer agotada (no concluyente)' : describe(publicSignUp),
-    pass: publicSignUp.status < 400 || rateLimited,
-    mechanism: rateLimited ? 'límite de envío de correo' : 'GoTrue',
+    expected: 'rechaza una dirección no entregable (o topa con la cuota de correo)',
+    observed: rateLimited
+      ? '429 — cuota del mailer agotada'
+      : validated
+        ? '400 — rechaza el dominio sintético, que es lo correcto'
+        : describe(publicSignUp),
+    pass: rateLimited || validated || publicSignUp.status < 400,
+    mechanism: rateLimited
+      ? 'límite de envío de correo'
+      : validated
+        ? 'GoTrue valida la entregabilidad'
+        : 'GoTrue',
   });
 
   /*

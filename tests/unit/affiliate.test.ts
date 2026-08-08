@@ -5,6 +5,9 @@ import {
   AffiliateMerchant,
   AffiliateOffer,
   AutoCrawPayload,
+  AMAZON_CACHE_POLICY,
+  DEFAULT_CACHE_POLICY,
+  merchantPolicy,
   PLACEMENT_SLOTS,
   PlacementAssignment,
   PRICE_MAX_AGE_DAYS,
@@ -353,5 +356,90 @@ describe('límites de los slots', () => {
     for (const forbidden of ['home', 'portada', 'search', 'listing', 'ranking']) {
       expect(ids.join(' ')).not.toContain(forbidden);
     }
+  });
+});
+
+describe('la caducidad del precio depende del comerciante', () => {
+  const NOW = new Date('2026-08-08T12:00:00Z');
+  const AMAZON = { host: 'amazon.es' };
+  const GENERIC = { host: 'tienda.example' };
+  const hoursAgo = (h: number) => new Date(NOW.getTime() - h * 3_600_000).toISOString();
+
+  const offer = (overrides: Record<string, unknown> = {}) =>
+    AffiliateOffer.parse({
+      id: 'o1',
+      productId: 'p1',
+      merchantId: 'm1',
+      market: 'ES',
+      observedPriceCents: 4999,
+      observedCurrency: 'EUR',
+      observedPriceAt: '2026-08-08',
+      availability: 'in_stock',
+      status: 'active',
+      source: 'manual',
+      lastCheckedAt: '2026-08-08',
+      ...overrides,
+    });
+
+  it('Amazon aplica 24 horas, no 30 días', () => {
+    expect(AMAZON_CACHE_POLICY.maxAgeHours).toBe(24);
+    expect(DEFAULT_CACHE_POLICY.maxAgeHours).toBe(PRICE_MAX_AGE_DAYS * 24);
+  });
+
+  it('reconoce a Amazon por su anfitrión, en cualquier mercado', () => {
+    for (const host of ['amazon.es', 'amazon.com', 'www.amazon.co.uk', 'amazon.de']) {
+      expect(merchantPolicy({ host }), host).toBe(AMAZON_CACHE_POLICY);
+    }
+    expect(merchantPolicy(GENERIC)).toBe(DEFAULT_CACHE_POLICY);
+    expect(merchantPolicy(undefined)).toBe(DEFAULT_CACHE_POLICY);
+  });
+
+  it('no confunde un anfitrión que sólo contiene la palabra', () => {
+    expect(merchantPolicy({ host: 'noamazon.example' })).toBe(DEFAULT_CACHE_POLICY);
+    expect(merchantPolicy({ host: 'amazon.es.falso.example' })).toBe(DEFAULT_CACHE_POLICY);
+  });
+
+  it('un precio de Amazon de hace 23 horas sigue siendo fresco', () => {
+    const o = offer({ observedPriceAtUtc: hoursAgo(23), observedPriceAt: hoursAgo(23).slice(0, 10) });
+    expect(isPriceFresh(o, NOW, AMAZON)).toBe(true);
+  });
+
+  it('RECHAZA un precio de Amazon de hace 25 horas', () => {
+    const o = offer({ observedPriceAtUtc: hoursAgo(25), observedPriceAt: hoursAgo(25).slice(0, 10) });
+    expect(isPriceFresh(o, NOW, AMAZON)).toBe(false);
+  });
+
+  it('el mismo precio sigue siendo válido para un comerciante genérico', () => {
+    const o = offer({ observedPriceAtUtc: hoursAgo(25), observedPriceAt: hoursAgo(25).slice(0, 10) });
+    expect(isPriceFresh(o, NOW, GENERIC)).toBe(true);
+  });
+
+  it('una oferta de Amazon SIN instante nunca es fresca', () => {
+    // The absence of a timestamp is not a reason to assume it is recent.
+    const o = offer({ observedPriceAt: '2026-08-08' });
+    expect(o.observedPriceAtUtc).toBeUndefined();
+    expect(isPriceFresh(o, NOW, AMAZON)).toBe(false);
+  });
+
+  it('un instante en el futuro nunca es fresco', () => {
+    const future = new Date(NOW.getTime() + 3_600_000).toISOString();
+    const o = offer({ observedPriceAtUtc: future, observedPriceAt: future.slice(0, 10) });
+    expect(isPriceFresh(o, NOW, AMAZON)).toBe(false);
+  });
+
+  it('Amazon exige instante, sello y aviso; el genérico no', () => {
+    expect(AMAZON_CACHE_POLICY.requiresInstant).toBe(true);
+    expect(AMAZON_CACHE_POLICY.requiresTimestamp).toBe(true);
+    expect(AMAZON_CACHE_POLICY.notice).toContain('pueden cambiar');
+    expect(DEFAULT_CACHE_POLICY.requiresInstant).toBe(false);
+    expect(DEFAULT_CACHE_POLICY.notice).toBeUndefined();
+  });
+
+  it('un instante se usa aunque el comerciante no lo exija: es mejor dato', () => {
+    const o = offer({
+      observedPriceAtUtc: hoursAgo(24 * 31),
+      observedPriceAt: hoursAgo(24 * 31).slice(0, 10),
+    });
+    expect(isPriceFresh(o, NOW, GENERIC)).toBe(false);
   });
 });

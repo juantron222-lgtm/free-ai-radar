@@ -175,6 +175,21 @@ export const AffiliateOffer = z
     /** The day the price was seen. Not the day the row was written. */
     observedPriceAt: IsoDate.optional(),
 
+    /**
+     * The *instant* the price was seen.
+     *
+     * A date cannot express a limit measured in hours, and Amazon's licence
+     * measures in hours: 24 for anything non-image. `observedPriceAt` alone
+     * could not tell "seen two hours ago" from "seen twenty-six hours ago"
+     * when both fall on adjacent days, so it could never have enforced the
+     * rule even in principle.
+     *
+     * Optional at the schema level because a merchant with no such licence
+     * does not need it, and required in practice for Amazon — `merchantPolicy`
+     * decides, and an Amazon offer without it fails `isPriceFresh`.
+     */
+    observedPriceAtUtc: z.string().datetime().optional(),
+
     availability: z.enum(['in_stock', 'out_of_stock', 'unknown']).default('unknown'),
     status: CommercialStatus,
     source: CommercialSource,
@@ -504,10 +519,102 @@ function ageInDays(iso: string, now: Date): number {
   return Math.floor((now.getTime() - then) / 86_400_000);
 }
 
-/** True when an observed price is recent enough to state as a fact. */
-export function isPriceFresh(offer: AffiliateOffer, now: Date = new Date()): boolean {
+/**
+ * How long a merchant's prices may be shown before they must be re-fetched.
+ *
+ * Per-merchant because it is not our decision to make uniformly: the generic
+ * thirty days is an editorial judgement about when a price stops being a fact,
+ * while Amazon's twenty-four hours is a term of their licence. Conflating the
+ * two would mean a licence obligation could be relaxed by someone adjusting an
+ * editorial preference.
+ */
+export interface MerchantCachePolicy {
+  /** Maximum age in hours. */
+  maxAgeHours: number;
+  /** Whether the price must be shown with the instant it was observed. */
+  requiresTimestamp: boolean;
+  /** Whether the record must carry an instant rather than only a date. */
+  requiresInstant: boolean;
+  /** Notice that must accompany the price, when the merchant requires one. */
+  notice?: string;
+}
+
+/** The default: our own editorial rule about when a price stops being a fact. */
+export const DEFAULT_CACHE_POLICY: MerchantCachePolicy = {
+  maxAgeHours: PRICE_MAX_AGE_DAYS * 24,
+  requiresTimestamp: false,
+  requiresInstant: false,
+};
+
+/**
+ * Amazon's, from their EU licence.
+ *
+ * 24 hours for non-image content, a timestamp because nothing here refreshes
+ * hourly, and the notice they require alongside any price or availability.
+ */
+export const AMAZON_CACHE_POLICY: MerchantCachePolicy = {
+  maxAgeHours: 24,
+  requiresTimestamp: true,
+  requiresInstant: true,
+  notice:
+    'El precio y la disponibilidad son los del momento indicado y pueden cambiar. Esa información en el momento de la compra es la que se aplica.',
+};
+
+/**
+ * Which policy applies to a merchant. Amazon is recognised by its host.
+ *
+ * The pattern requires `amazon` to be the label immediately before a real
+ * top-level domain — one segment, or two for `co.uk` and `com.mx`. An earlier
+ * version allowed dots inside the suffix, which matched
+ * `amazon.es.something.example` and would have classified a lookalike as
+ * Amazon.
+ *
+ * Getting this wrong in the other direction is what would actually hurt:
+ * failing to recognise Amazon means applying thirty days where the licence
+ * allows twenty-four hours. So the pattern is tight about the shape and
+ * generous about the country code.
+ */
+export function merchantPolicy(
+  merchant: Pick<AffiliateMerchant, 'host'> | undefined
+): MerchantCachePolicy {
+  const host = (merchant?.host ?? '').toLowerCase().replace(/\.$/, '');
+  const isAmazon = /(^|\.)amazon\.[a-z]{2,3}(\.[a-z]{2})?$/.test(host);
+  return isAmazon ? AMAZON_CACHE_POLICY : DEFAULT_CACHE_POLICY;
+}
+
+/**
+ * True when an observed price is recent enough to state as a fact.
+ *
+ * Takes the merchant so the licence, not a global constant, decides. An offer
+ * from a merchant that requires an instant and does not carry one is never
+ * fresh: the absence of a timestamp is not a reason to assume it is recent.
+ */
+export function isPriceFresh(
+  offer: AffiliateOffer,
+  now: Date = new Date(),
+  merchant?: Pick<AffiliateMerchant, 'host'>
+): boolean {
+  const policy = merchantPolicy(merchant);
+
+  if (policy.requiresInstant) {
+    if (!offer.observedPriceAtUtc) return false;
+    const observed = Date.parse(offer.observedPriceAtUtc);
+    if (Number.isNaN(observed)) return false;
+    if (observed > now.getTime() + 60_000) return false;
+    return (now.getTime() - observed) / 3_600_000 <= policy.maxAgeHours;
+  }
+
+  // An instant is used when present even where it is not required: it is
+  // strictly better information than the day.
+  if (offer.observedPriceAtUtc) {
+    const observed = Date.parse(offer.observedPriceAtUtc);
+    if (!Number.isNaN(observed)) {
+      return (now.getTime() - observed) / 3_600_000 <= policy.maxAgeHours;
+    }
+  }
+
   if (!offer.observedPriceAt) return false;
-  return ageInDays(offer.observedPriceAt, now) <= PRICE_MAX_AGE_DAYS;
+  return ageInDays(offer.observedPriceAt, now) * 24 <= policy.maxAgeHours;
 }
 
 /**
