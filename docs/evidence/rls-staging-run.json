@@ -1,5 +1,5 @@
 {
-  "ranAt": "2026-08-08T00:47:00.869Z",
+  "ranAt": "2026-08-08T15:10:29.526Z",
   "target": "supabase-staging",
   "engine": "PostgreSQL 17.6",
   "results": [
@@ -523,6 +523,66 @@
       "policyname": "alerts: own rows",
       "cmd": "ALL",
       "roles": "{public}"
+    },
+    {
+      "tablename": "amazon_api_quota",
+      "policyname": "amazon quota: admin writes",
+      "cmd": "ALL",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "amazon_api_quota",
+      "policyname": "amazon quota: staff reads",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "amazon_api_quota",
+      "policyname": "autocraw: reads quota",
+      "cmd": "SELECT",
+      "roles": "{autocraw_ingest}"
+    },
+    {
+      "tablename": "amazon_api_usage",
+      "policyname": "amazon usage: staff reads",
+      "cmd": "SELECT",
+      "roles": "{public}"
+    },
+    {
+      "tablename": "amazon_api_usage",
+      "policyname": "autocraw: reads usage",
+      "cmd": "SELECT",
+      "roles": "{autocraw_ingest}"
+    },
+    {
+      "tablename": "amazon_api_usage",
+      "policyname": "autocraw: updates usage",
+      "cmd": "UPDATE",
+      "roles": "{autocraw_ingest}"
+    },
+    {
+      "tablename": "amazon_api_usage",
+      "policyname": "autocraw: writes usage",
+      "cmd": "INSERT",
+      "roles": "{autocraw_ingest}"
+    },
+    {
+      "tablename": "amazon_lwa_token",
+      "policyname": "autocraw: reads token",
+      "cmd": "SELECT",
+      "roles": "{autocraw_ingest}"
+    },
+    {
+      "tablename": "amazon_lwa_token",
+      "policyname": "autocraw: updates token",
+      "cmd": "UPDATE",
+      "roles": "{autocraw_ingest}"
+    },
+    {
+      "tablename": "amazon_lwa_token",
+      "policyname": "autocraw: writes token",
+      "cmd": "INSERT",
+      "roles": "{autocraw_ingest}"
     },
     {
       "tablename": "audit_logs",

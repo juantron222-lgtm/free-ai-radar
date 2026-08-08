@@ -129,8 +129,8 @@ describe('qué falta para conectar', () => {
       AMAZON_ASSOCIATE_TAG: TAG,
       AMAZON_MARKET: 'ES',
       AMAZON_DISCLOSURE_TEXT: AMAZON_DISCLOSURE_EN,
-      AMAZON_PAAPI_ACCESS_KEY: 'x',
-      AMAZON_PAAPI_SECRET_KEY: 'y',
+      AMAZON_CREATORS_CLIENT_ID: 'x',
+      AMAZON_CREATORS_CLIENT_SECRET: 'y',
     });
     expect(readiness.ready).toBe(true);
     expect(readiness.missing).toEqual([]);
@@ -270,8 +270,8 @@ describe('publicación bloqueada sin cuenta autorizada', () => {
         AMAZON_ASSOCIATE_TAG: TAG,
         AMAZON_MARKET: 'ES',
         AMAZON_DISCLOSURE_TEXT: AMAZON_DISCLOSURE_ES,
-        AMAZON_PAAPI_ACCESS_KEY: 'x',
-        AMAZON_PAAPI_SECRET_KEY: 'y',
+        AMAZON_CREATORS_CLIENT_ID: 'x',
+        AMAZON_CREATORS_CLIENT_SECRET: 'y',
       })
     ).not.toThrow();
   });

@@ -84,8 +84,9 @@ export type AmazonContentKind = z.infer<typeof AmazonContentKind>;
  * Amazon EU's caching limits, in hours.
  *
  * `null` means unlimited, `0` means caching is not permitted at all. After the
- * maximum, fresh content has to come from the Creators API, PA-API or a Data
- * Feed — not from re-reading what we stored.
+ * maximum, fresh content has to come from the Creators API or a Data Feed —
+ * not from re-reading what we stored. PA-API is deliberately not listed: it is
+ * deprecated, and a new integration should not be built on it.
  *
  * The ASIN's "while the licence is in force" is the reason it is `null` rather
  * than a large number: it does not expire on a clock, it expires when the
@@ -326,8 +327,8 @@ export function amazonReadiness(env: Record<string, string | undefined>): Amazon
     'AMAZON_ASSOCIATE_TAG',
     'AMAZON_MARKET',
     'AMAZON_DISCLOSURE_TEXT',
-    'AMAZON_PAAPI_ACCESS_KEY',
-    'AMAZON_PAAPI_SECRET_KEY',
+    'AMAZON_CREATORS_CLIENT_ID',
+    'AMAZON_CREATORS_CLIENT_SECRET',
   ];
 
   const present = required.filter((name) => (env[name] ?? '').trim().length > 0);

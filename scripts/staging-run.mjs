@@ -38,9 +38,21 @@ const MIGRATIONS = [
   'supabase/migrations/0005_postgrest_grants.sql',
   'supabase/migrations/0006_auth_user_trigger.sql',
   'supabase/migrations/0007_amazon_cache_instant.sql',
+  'supabase/migrations/0008_amazon_creators_state.sql',
 ];
 
 const SUITE = 'supabase/tests/rls_adversarial.sql';
+
+/*
+ * Every table AutoCraw is allowed to reach.
+ *
+ * An allowlist rather than a denylist, so a table added by a future migration
+ * is a failure until somebody widens this on purpose. It has already earned
+ * its keep once: adding the Creators API state tables made this check fail
+ * immediately, which is the behaviour that catches an accidental grant.
+ */
+const AUTOCRAW_ALLOWED_TABLES =
+  /^(affiliate_|tool_product_relations|placement_slots|categories|amazon_api_usage|amazon_api_quota|amazon_lwa_token)/;
 
 /*
  * Environment reading is imported, not reimplemented.
@@ -209,8 +221,8 @@ async function verify(sql) {
   for (const row of reach) {
     // The whole point of the role. If an editorial or user table appears here,
     // least privilege has failed however good the document describing it is.
-    if (!/^(affiliate_|tool_product_relations|placement_slots|categories)/.test(row.table_name)) {
-      problems.push(`autocraw_ingest alcanza ${row.table_name}`);
+    if (!AUTOCRAW_ALLOWED_TABLES.test(row.table_name)) {
+      problems.push(`autocraw_ingest alcanza ${row.table_name}, que no está en la lista permitida`);
     }
   }
 

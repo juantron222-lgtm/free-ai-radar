@@ -18,6 +18,11 @@ import {
   type MerchantCachePolicy,
 } from '@lib/domain/affiliate';
 import { AMAZON_LINK_DISCLOSURES, amazonReadiness } from '@lib/domain/amazon';
+import {
+  AMAZON_INITIAL_QUOTA,
+  AmazonQuota,
+  refreshFeasibility,
+} from '@lib/amazon/creators-api';
 import { getAllTools } from './catalog';
 import { logger } from '@lib/observability/logger';
 
@@ -112,6 +117,15 @@ function resolve(now: Date): Snapshot {
 
   const resolved: ResolvedPlacement[] = [];
 
+  /*
+   * How many Amazon items this render intends to show, and how much of today's
+   * budget is already gone. Counting as we go means the feasibility question
+   * is asked about the *whole* set, not each item in isolation — twenty items
+   * that each look affordable are not affordable together.
+   */
+  let amazonItems = 0;
+  const spentToday = readSpentToday();
+
   for (const placement of payload.placements) {
     if (!isDisplayable(placement, now)) continue;
     if (!isWithinWindow(placement, now)) continue;
@@ -168,6 +182,22 @@ function resolve(now: Date): Snapshot {
         );
         continue;
       }
+
+      /*
+       * Can the quota refresh this within 24 hours?
+       *
+       * Amazon's content expires in a day and the Creators API budget is
+       * small. If everything we intend to show cannot be refreshed inside that
+       * window, some of it will go stale — and the only honest response is to
+       * show less. Extending the cache "just this once" is the one option that
+       * is never available, so it is not offered here either.
+       */
+      const feasibility = refreshFeasibility(amazonItems + 1, readQuota(), spentToday);
+      if (!feasibility.feasible) {
+        problems.push(`Emplazamiento de Amazon omitido: ${feasibility.reason}`);
+        continue;
+      }
+      amazonItems += 1;
     }
 
     resolved.push({
@@ -203,6 +233,40 @@ function resolve(now: Date): Snapshot {
   }
 
   return { placements: resolved, problems };
+}
+
+/**
+ * The quota AutoCraw is currently believed to have.
+ *
+ * Read from configuration rather than assumed, because Amazon adjusts it per
+ * account: the published 8,640 per day covers the first thirty days and
+ * nothing after. A misconfigured or absent value falls back to the initial
+ * figure, which is conservative — being wrong in the direction of asking for
+ * less is survivable, the other direction is a breach.
+ */
+function readQuota(): AmazonQuota {
+  const raw = typeof process !== 'undefined' ? process.env['AMAZON_QUOTA_JSON'] : undefined;
+  if (!raw) return AMAZON_INITIAL_QUOTA;
+
+  const parsed = AmazonQuota.safeParse(JSON.parse(raw));
+  if (parsed.success) return parsed.data;
+
+  logger.warn('amazon.quota_invalid', { detail: parsed.error.issues[0]?.message });
+  return AMAZON_INITIAL_QUOTA;
+}
+
+/**
+ * Transactions already spent today, when a shared counter is available.
+ *
+ * Zero is the optimistic answer, and it is the right default here: the render
+ * path does not own the counter, and blocking every placement because it
+ * cannot see the number would take the site down for a reason nobody could
+ * diagnose. The limiter itself is what actually enforces the budget.
+ */
+function readSpentToday(): number {
+  const raw = typeof process !== 'undefined' ? process.env['AMAZON_SPENT_TODAY'] : undefined;
+  const value = Number(raw ?? 0);
+  return Number.isFinite(value) && value >= 0 ? value : 0;
 }
 
 function isWithinWindow(placement: PlacementAssignment, now: Date): boolean {
