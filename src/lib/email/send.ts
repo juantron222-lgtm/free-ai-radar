@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { Resend } from 'resend';
-import { email as emailConfig, isProduction } from '@lib/config';
+import { email as emailConfig, emailSendPolicy } from '@lib/config';
 import { logger } from '@lib/observability/logger';
 
 export interface MailMessage {
@@ -52,8 +52,15 @@ function hashRecipient(address: string): string {
  * want a stray campaign going out during development.
  */
 export async function sendMail(message: MailMessage): Promise<MailResult> {
-  const dryRun = process.env['EMAIL_DRY_RUN'] === '1';
-  const resend = getClient();
+  /*
+   * One decision, taken once, before anything else.
+   *
+   * The previous version asked `!isProduction || EMAIL_DRY_RUN === '1'`, and a
+   * Vercel Preview is `import.meta.env.PROD` — so a Preview with a Resend key
+   * would have sent real password resets from a throwaway URL.
+   */
+  const decision = emailSendPolicy(emailConfig.apiKey);
+  const resend = decision.live ? getClient() : null;
 
   if (message.kind === 'marketing' && !message.listUnsubscribeUrl) {
     throw new Error(
@@ -61,13 +68,13 @@ export async function sendMail(message: MailMessage): Promise<MailResult> {
     );
   }
 
-  if (!resend || dryRun) {
+  if (!resend) {
     logger.info('email.simulated', {
       template: message.template,
       kind: message.kind,
       to: hashRecipient(message.to),
       subject: message.subject,
-      reason: dryRun ? 'EMAIL_DRY_RUN' : 'RESEND_API_KEY ausente',
+      reason: decision.reason,
     });
     return { ok: true, simulated: true };
   }
@@ -112,11 +119,20 @@ export async function sendMail(message: MailMessage): Promise<MailResult> {
   }
 }
 
-/** Guard used by the campaign endpoint. Refuses bulk sends outside production. */
+/**
+ * Guard used by the campaign endpoint.
+ *
+ * Bulk sending is the one case that throws rather than simulating. A
+ * transactional email that quietly logs leaves the site working; a newsletter
+ * campaign that quietly logs looks like it went out and did not, and somebody
+ * finds out a week later.
+ */
 export function assertCampaignAllowed(): void {
-  if (!isProduction || process.env['EMAIL_DRY_RUN'] === '1') {
+  const decision = emailSendPolicy(emailConfig.apiKey);
+  if (!decision.live) {
     throw new Error(
-      'Los envíos masivos están bloqueados fuera de producción. Usa la previsualización o EMAIL_DRY_RUN.'
+      `Los envíos masivos están bloqueados: ${decision.reason}. ` +
+        'Requieren producción declarada, EMAIL_SEND_MODE=live, EMAIL_DRY_RUN distinto de 1 y una RESEND_API_KEY válida.'
     );
   }
 }

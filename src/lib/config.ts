@@ -129,6 +129,61 @@ export function stripeKeyPolicy(
   };
 }
 
+/**
+ * Whether real email may leave this deployment.
+ *
+ * The same shape of bug the Stripe guard had: the old rule was
+ * `!isProduction || EMAIL_DRY_RUN === '1'`, and a Vercel Preview *is*
+ * `import.meta.env.PROD`. A Preview with a Resend key set and no dry-run flag
+ * would have sent real mail to real inboxes — password resets, newsletter
+ * confirmations — from a throwaway URL.
+ *
+ * Sending now requires **four independent conditions at once**, because a
+ * single switch is a single mistake away from being flipped:
+ *
+ *   1. the declared environment is `production`;
+ *   2. `EMAIL_SEND_MODE` says `live` — an explicit act, not a side effect of
+ *      deploying;
+ *   3. `EMAIL_DRY_RUN` is not `1`, which overrides everything else and always
+ *      wins, including in production;
+ *   4. the API key is present and shaped like a Resend key.
+ *
+ * Every other combination simulates. Simulation is the safe outcome rather
+ * than an error: a password reset that logs instead of sending leaves the site
+ * working, while one that throws breaks a page for a reason the visitor cannot
+ * act on. Bulk campaigns are the exception and are blocked outright — see
+ * `assertCampaignAllowed`.
+ */
+export type EmailSendDecision = { live: boolean; reason: string };
+
+export function emailSendPolicy(
+  apiKey: string,
+  env: Record<string, string | undefined> = typeof process !== 'undefined' ? process.env : {}
+): EmailSendDecision {
+  // Checked first and unconditionally: a kill switch that something else can
+  // outrank is not a kill switch.
+  if ((env['EMAIL_DRY_RUN'] ?? '').trim() === '1') {
+    return { live: false, reason: 'EMAIL_DRY_RUN=1' };
+  }
+
+  const where = deploymentEnv(env);
+  if (where !== 'production') {
+    return { live: false, reason: `entorno "${where}", no producción` };
+  }
+
+  if ((env['EMAIL_SEND_MODE'] ?? '').trim().toLowerCase() !== 'live') {
+    return { live: false, reason: 'EMAIL_SEND_MODE no vale "live"' };
+  }
+
+  const key = (apiKey ?? '').trim();
+  if (!key) return { live: false, reason: 'RESEND_API_KEY ausente' };
+  if (!key.startsWith('re_')) {
+    return { live: false, reason: 'RESEND_API_KEY no tiene forma de clave de Resend' };
+  }
+
+  return { live: true, reason: 'producción, envío habilitado explícitamente' };
+}
+
 export const supabase = {
   url: PUBLIC_SUPABASE_URL ?? '',
   anonKey: PUBLIC_SUPABASE_ANON_KEY ?? '',

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { deploymentEnv, isRealProduction, stripeKeyPolicy } from '@lib/config';
+import { deploymentEnv, emailSendPolicy, isRealProduction, stripeKeyPolicy } from '@lib/config';
 
 /**
  * Where a deployment thinks it is, and who is allowed to charge a card there.
@@ -140,5 +140,146 @@ describe('hoy no hay ninguna clave de Stripe', () => {
   it('el entorno real no trae STRIPE_SECRET_KEY', () => {
     // If this fails, somebody added a key without saying so.
     expect((process.env['STRIPE_SECRET_KEY'] ?? '').trim()).toBe('');
+  });
+});
+
+describe('el correo real exige las cuatro condiciones a la vez', () => {
+  const KEY = 're_clave_de_prueba';
+
+  /** The only combination that sends. */
+  const LIVE = {
+    DEPLOYMENT_ENV: 'production',
+    EMAIL_SEND_MODE: 'live',
+    RESEND_API_KEY: KEY,
+  };
+
+  it('producción + live + sin dry-run + clave válida → ENVÍA', () => {
+    const decision = emailSendPolicy(KEY, LIVE);
+    expect(decision.live).toBe(true);
+  });
+
+  it('development → nunca envía', () => {
+    expect(emailSendPolicy(KEY, { ...LIVE, DEPLOYMENT_ENV: 'development' }).live).toBe(false);
+  });
+
+  it('preview → nunca envía', () => {
+    const decision = emailSendPolicy(KEY, { ...LIVE, DEPLOYMENT_ENV: 'preview' });
+    expect(decision.live).toBe(false);
+    expect(decision.reason).toContain('preview');
+  });
+
+  it('staging → nunca envía', () => {
+    expect(emailSendPolicy(KEY, { ...LIVE, DEPLOYMENT_ENV: 'staging' }).live).toBe(false);
+  });
+
+  it('entorno desconocido → nunca envía', () => {
+    expect(emailSendPolicy(KEY, { ...LIVE, DEPLOYMENT_ENV: 'qa' }).live).toBe(false);
+    expect(emailSendPolicy(KEY, { EMAIL_SEND_MODE: 'live', RESEND_API_KEY: KEY }).live).toBe(false);
+  });
+
+  it('producción SIN EMAIL_SEND_MODE=live → no envía', () => {
+    const sinModo = { DEPLOYMENT_ENV: 'production', RESEND_API_KEY: KEY };
+    expect(emailSendPolicy(KEY, sinModo).live).toBe(false);
+    expect(emailSendPolicy(KEY, { ...sinModo, EMAIL_SEND_MODE: 'test' }).live).toBe(false);
+    expect(emailSendPolicy(KEY, { ...sinModo, EMAIL_SEND_MODE: 'true' }).live).toBe(false);
+  });
+
+  it('EMAIL_DRY_RUN=1 gana SIEMPRE, incluso en producción habilitada', () => {
+    const decision = emailSendPolicy(KEY, { ...LIVE, EMAIL_DRY_RUN: '1' });
+    expect(decision.live).toBe(false);
+    expect(decision.reason).toBe('EMAIL_DRY_RUN=1');
+  });
+
+  it('sin clave no envía, aunque todo lo demás esté', () => {
+    expect(emailSendPolicy('', LIVE).live).toBe(false);
+    expect(emailSendPolicy('   ', LIVE).live).toBe(false);
+  });
+
+  it('una clave con forma equivocada no envía', () => {
+    // A placeholder or a key from another service must not pass for a real one.
+    expect(emailSendPolicy('sk_live_algo', LIVE).live).toBe(false);
+    expect(emailSendPolicy('[YOUR-KEY]', LIVE).live).toBe(false);
+    expect(emailSendPolicy('pon-aqui-la-clave', LIVE).live).toBe(false);
+  });
+
+  it('EMAIL_SEND_MODE=live no distingue mayúsculas ni espacios', () => {
+    expect(emailSendPolicy(KEY, { ...LIVE, EMAIL_SEND_MODE: '  LIVE ' }).live).toBe(true);
+  });
+
+  it('la razón siempre dice por qué, para no tener que adivinar', () => {
+    for (const env of [
+      { DEPLOYMENT_ENV: 'preview' },
+      { DEPLOYMENT_ENV: 'production' },
+      { ...LIVE, EMAIL_DRY_RUN: '1' },
+      {},
+    ]) {
+      const decision = emailSendPolicy(KEY, env);
+      expect(decision.reason.length, JSON.stringify(env)).toBeGreaterThan(0);
+    }
+  });
+});
+
+describe('el caso concreto que preocupa: una RESEND_API_KEY accidental en Preview', () => {
+  it('no envía nada, ni con la clave puesta y sin dry-run', () => {
+    /*
+     * Exactly the shape of the accident: somebody copies the production
+     * variables into Preview, forgets EMAIL_DRY_RUN, and the old rule sent
+     * real password resets from a throwaway URL because a Preview compiles as
+     * production.
+     */
+    const preview = {
+      VERCEL_ENV: 'preview',
+      RESEND_API_KEY: 're_una_clave_real_de_verdad',
+      EMAIL_SEND_MODE: 'live',
+    };
+    const decision = emailSendPolicy(preview.RESEND_API_KEY, preview);
+    expect(decision.live).toBe(false);
+    expect(decision.reason).toContain('preview');
+  });
+
+  it('tampoco con VERCEL_ENV ausente y NODE_ENV=production', () => {
+    const decision = emailSendPolicy('re_clave', {
+      NODE_ENV: 'production',
+      EMAIL_SEND_MODE: 'live',
+    });
+    expect(decision.live).toBe(false);
+  });
+
+  it('sólo una combinación de las 32 posibles envía', () => {
+    // Four independent conditions: enumerate them all and count.
+    const values = {
+      DEPLOYMENT_ENV: ['production', 'preview'],
+      EMAIL_SEND_MODE: ['live', 'off'],
+      EMAIL_DRY_RUN: ['1', '0'],
+      key: ['re_ok', ''],
+    };
+
+    let sending = 0;
+    for (const env of values.DEPLOYMENT_ENV)
+      for (const mode of values.EMAIL_SEND_MODE)
+        for (const dry of values.EMAIL_DRY_RUN)
+          for (const key of values.key) {
+            if (
+              emailSendPolicy(key, {
+                DEPLOYMENT_ENV: env,
+                EMAIL_SEND_MODE: mode,
+                EMAIL_DRY_RUN: dry,
+              }).live
+            ) {
+              sending += 1;
+            }
+          }
+
+    expect(sending, 'más de una combinación envía correo real').toBe(1);
+  });
+});
+
+describe('hoy no hay clave de Resend', () => {
+  it('el entorno real no trae RESEND_API_KEY', () => {
+    expect((process.env['RESEND_API_KEY'] ?? '').trim()).toBe('');
+  });
+
+  it('y aunque la trajera, este entorno no enviaría', () => {
+    expect(emailSendPolicy('re_lo_que_sea', process.env).live).toBe(false);
   });
 });
