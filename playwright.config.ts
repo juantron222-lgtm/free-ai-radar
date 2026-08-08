@@ -59,6 +59,26 @@ export default defineConfig({
           // otherwise intercept clicks on the consent dialog.
           E2E: '1',
           EMAIL_DRY_RUN: '1',
+
+          /*
+           * Force local auth mode, whatever .env.local says.
+           *
+           * Once the Supabase staging credentials landed in .env.local, the dev
+           * server started resolving to Supabase — and this suite is written
+           * for the local identity store: it creates throwaway accounts freely,
+           * which against a real GoTrue means rejected synthetic domains and an
+           * email rate limit measured in single digits per hour.
+           *
+           * The split is deliberate rather than a workaround. These specs cover
+           * the *interface*: forms, redirects, session guards, consent. Supabase
+           * itself is covered against the real thing by
+           * `npm run http:staging`, which attacks GoTrue and PostgREST with
+           * signed JWTs. Running both against staging would duplicate the
+           * weaker half and make it flaky.
+           */
+          PUBLIC_SUPABASE_URL: '',
+          PUBLIC_SUPABASE_ANON_KEY: '',
+          SUPABASE_SERVICE_ROLE_KEY: '',
         },
       },
 });

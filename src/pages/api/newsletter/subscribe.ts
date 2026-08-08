@@ -6,7 +6,7 @@ import { subscribe } from '@lib/data/inbox';
 import { sendMail } from '@lib/email/send';
 import { newsletterConfirmEmail } from '@lib/email/templates';
 import { CATEGORY_SLUGS } from '@lib/domain/taxonomy';
-import { SITE_URL } from '@lib/seo/site';
+import { runtimeUrl } from '@lib/runtime-origin';
 import { logger } from '@lib/observability/logger';
 
 export const prerender = false;
@@ -69,7 +69,7 @@ export const POST: APIRoute = async (context) => {
     await sendMail(
       newsletterConfirmEmail({
         to: parsed.data.email,
-        confirmUrl: `${SITE_URL}/api/newsletter/confirm?token=${result.confirmToken}`,
+        confirmUrl: runtimeUrl(context.request, `/api/newsletter/confirm?token=${result.confirmToken}`),
       })
     );
   }

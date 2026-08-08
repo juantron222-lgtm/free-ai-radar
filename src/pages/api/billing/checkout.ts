@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto';
 import { guard, json } from '@lib/api/respond';
 import { createCheckoutSession } from '@lib/billing/stripe';
 import { getPlan } from '@lib/billing/plans';
-import { SITE_URL } from '@lib/seo/site';
+import { runtimeUrl } from '@lib/runtime-origin';
 import { logger } from '@lib/observability/logger';
 
 export const prerender = false;
@@ -46,8 +46,8 @@ export const POST: APIRoute = async (context) => {
     userId: user.id,
     userEmail: user.email,
     priceId: plan.stripePriceId,
-    successUrl: `${SITE_URL}/cuenta/suscripcion`,
-    cancelUrl: `${SITE_URL}/pro`,
+    successUrl: runtimeUrl(context.request, '/cuenta/suscripcion'),
+    cancelUrl: runtimeUrl(context.request, '/pro'),
     idempotencyKey,
   });
 

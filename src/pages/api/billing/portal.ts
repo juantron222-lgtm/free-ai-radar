@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { guard, json } from '@lib/api/respond';
 import { createPortalSession } from '@lib/billing/stripe';
-import { SITE_URL } from '@lib/seo/site';
+import { runtimeUrl } from '@lib/runtime-origin';
 
 export const prerender = false;
 
@@ -19,7 +19,7 @@ export const POST: APIRoute = async (context) => {
   const check = await guard(context, { rateLimit: 'checkout' });
   if (!check.ok) return check.response!;
 
-  const result = await createPortalSession(user.id, `${SITE_URL}/cuenta/suscripcion`);
+  const result = await createPortalSession(user.id, runtimeUrl(context.request, '/cuenta/suscripcion'));
 
   if (!result.ok || !result.url) {
     return json({ ok: false, message: result.message }, 502);

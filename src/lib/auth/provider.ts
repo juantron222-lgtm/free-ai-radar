@@ -5,7 +5,7 @@ import { GENERIC_AUTH_ERROR, GENERIC_RESET_MESSAGE } from './types';
 import * as local from './local-store';
 import { sendMail } from '@lib/email/send';
 import { passwordResetEmail, welcomeEmail } from '@lib/email/templates';
-import { SITE_URL } from '@lib/seo/site';
+import { runtimeUrl } from '@lib/runtime-origin';
 import { clearedCookie, sessionCookie } from '@lib/security/cookies';
 import type { UserRole } from '@lib/domain/primitives';
 
@@ -74,7 +74,9 @@ class SupabaseAuthProvider implements AuthProvider {
       password: credentials.password,
       options: {
         data: { display_name: credentials.displayName ?? null },
-        emailRedirectTo: `${SITE_URL}/cuenta/verificar`,
+        // The origin the visitor is actually on, not the canonical one: a
+        // sign-up started on a preview must confirm back to that preview.
+        emailRedirectTo: runtimeUrl(request, '/cuenta/verificar'),
       },
     });
 
@@ -150,7 +152,7 @@ class SupabaseAuthProvider implements AuthProvider {
 
   async requestPasswordReset(userEmail: string, request: Request): Promise<AuthResult> {
     await this.client(request).auth.resetPasswordForEmail(userEmail, {
-      redirectTo: `${SITE_URL}/cuenta/nueva-contrasena`,
+      redirectTo: runtimeUrl(request, '/cuenta/nueva-contrasena'),
     });
     // Always the same answer, whether or not the address exists.
     return { ok: true, message: GENERIC_RESET_MESSAGE };
@@ -278,13 +280,16 @@ class LocalAuthProvider implements AuthProvider {
     return user ? this.toSessionUser(user) : null;
   }
 
-  async requestPasswordReset(userEmail: string): Promise<AuthResult> {
+  async requestPasswordReset(userEmail: string, request?: Request): Promise<AuthResult> {
     const user = await local.findByEmail(userEmail);
     if (user) {
       const { token, hash, expiresAt } = local.createResetToken();
       await local.updateUser(user.id, { resetTokenHash: hash, resetExpiresAt: expiresAt });
       await sendMail(
-        passwordResetEmail({ to: user.email, resetUrl: `${SITE_URL}/cuenta/nueva-contrasena?token=${token}` })
+        passwordResetEmail({
+          to: user.email,
+          resetUrl: runtimeUrl(request, `/cuenta/nueva-contrasena?token=${token}`),
+        })
       );
     } else {
       await local.burnTime();
