@@ -112,6 +112,26 @@ taxonomía. Es imposible publicar un enlace roto.
 | [Checklist de lanzamiento](docs/launch-checklist.md) | Qué falta antes de publicar |
 | [Registro de cambios](docs/change-log.md) | Qué cambió en la v2 |
 
+### Camino a producción
+
+| Documento | Para qué |
+| --- | --- |
+| [Plan de Supabase producción](docs/supabase-production-plan.md) | Qué seleccionar en el panel, en qué orden, y cómo comprobarlo |
+| [Hallazgos del Release Candidate](docs/release-candidate-findings.md) | Los tres fallos que encontró la batería, y uno que me inventé |
+| [Hallazgos de la QA de cuentas](docs/preview-account-qa-findings.md) | Por qué ningún favorito se podía guardar |
+
+La batería completa se ejecuta con un solo comando:
+
+```bash
+npm run rc
+```
+
+Doce pasos en orden —lint, tipos, unitarias, build, migración desde cero,
+sincronización, RLS, HTTP/Auth, AutoCraw, cuentas reales y regresión pública—
+con el espejo del catálogo comprobado entre suite y suite. Se detiene en el
+primer fallo, porque los pasos siguientes correrían sobre el estado que dejó el
+anterior.
+
 ---
 
 ## Variables de entorno

@@ -39,10 +39,18 @@ tool_id text not null references public.tools(id) on delete cascade
 ```
 
 …y nunca hubo un paso que poblara la tabla referenciada. Las migraciones
-construyen el esquema; ninguna inserta contenido. Existe `supabase/seed/seed.sql`
-generado por `data:seed-sql`, pero **ningún comando lo aplica**, está desfasado
-(22 herramientas frente a las 24 del catálogo) y no siembra categorías — de modo
-que aplicarlo habría fallado igual, en `tools.category_slug`.
+construyen el esquema; ninguna inserta contenido. Existía `supabase/seed/seed.sql`
+generado por `data:seed-sql`, pero **ningún comando lo aplicaba**, estaba
+desfasado (22 herramientas frente a las 24 del catálogo) y no sembraba
+categorías — de modo que aplicarlo habría fallado igual, en
+`tools.category_slug`.
+
+> **Actualización.** Ese generador se ha eliminado, junto con su `rollback.sql`,
+> que borraba herramientas por slug y por tanto arrastraba favoritos, listas e
+> historial. Lo sustituye `npm run data:catalog-sql`, que emite
+> `supabase/seed/catalog.sql` desde la misma fuente que la sincronización viva,
+> archiva en vez de borrar, y termina con una comprobación que aborta la
+> transacción si el espejo no queda como debe.
 
 La restricción nunca estuvo mal. Se le pedía garantizar integridad contra una
 tabla vacía, y lo hacía con exactitud: nada puede referenciar una herramienta,

@@ -28,7 +28,7 @@ import { execFileSync } from 'node:child_process';
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import postgres from 'postgres';
+import { connect } from './db-connect.mjs';
 import { loadEnv, readDbUrl, scrub } from './staging-guard.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -306,10 +306,10 @@ async function attacks(tx, ids) {
     ['ATK-01', 'crítica', 'modificar public.tools', "update public.tools set name = 'tomada'"],
     ['ATK-02', 'crítica', 'modificar la puntuación', `update public.tools set scores = '{}'::jsonb`],
     ['ATK-03', 'crítica', 'modificar el veredicto', "update public.tools set verdict = 'patrocinado'"],
-    ['ATK-04', 'crítica', 'insertar una herramienta propia', `insert into public.tools (id, slug, name, category_slug, free_model, free_plan, official_url, scores, detected_at, last_verified_at) values ('x','x','X','imagen','free_real','{}'::jsonb,'https://x.example','{}'::jsonb,current_date,current_date)`],
+    ['ATK-04', 'crítica', 'insertar una herramienta propia', `insert into public.tools (id, slug, name, category_slug, free_model, free_plan, official_url, scores, detected_at, last_verified_at) values ('x','x','X','sonda-qa','free_real','{}'::jsonb,'https://x.example','{}'::jsonb,current_date,current_date)`],
     ['ATK-05', 'crítica', 'modificar el ranking: tocar el patrocinio de una ficha', `update public.tools set sponsorship = '{"isSponsored":true,"placementBoost":50}'::jsonb`],
     ['ATK-06', 'alta', 'modificar noticias (tool_updates)', "update public.tool_updates set summary = 'inventado'"],
-    ['ATK-07', 'alta', 'insertar una noticia', `insert into public.tool_updates (tool_id, kind, summary, happened_on) values ('tool_ollama','other','inventada',current_date)`],
+    ['ATK-07', 'alta', 'insertar una noticia', `insert into public.tool_updates (tool_id, kind, summary, happened_on) values ('tool_sonda-qa','other','inventada',current_date)`],
     ['ATK-08', 'crítica', 'leer usuarios (auth.users)', 'select id from auth.users limit 1'],
     ['ATK-09', 'crítica', 'leer perfiles', 'select id from public.profiles limit 1'],
     ['ATK-10', 'crítica', 'administrar cuentas: cambiar un rol', "update public.profiles set role = 'admin'"],
@@ -414,22 +414,22 @@ async function main() {
   }
 
   // The owner's connection, used only to seed a catalogue row to relate to.
-  const owner = postgres(readDbUrl(env).url, { max: 1, ssl: 'require', onnotice: () => {} });
-  const agent = postgres(autocrawUrl, { max: 1, ssl: 'require', onnotice: () => {} });
+  const owner = connect(readDbUrl(env).url);
+  const agent = connect(autocrawUrl);
 
   let failed = 0;
 
   try {
     await owner`
-      insert into public.categories (slug, name) values ('imagen', 'Imagen')
+      insert into public.categories (slug, name) values ('sonda-qa', 'Sonda QA')
       on conflict (slug) do nothing`;
     await owner`
       insert into public.tools
         (id, slug, name, category_slug, free_model, free_plan, official_url, scores,
          detected_at, last_verified_at, status)
       values
-        ('tool_ollama', 'ollama', 'Ollama', 'imagen', 'free_real',
-         '{"summary":"sonda","verifiedAt":"2026-08-07"}'::jsonb, 'https://ollama.com',
+        ('tool_sonda-qa', 'sonda-qa', 'Sonda QA', 'sonda-qa', 'free_real',
+         '{"summary":"sonda","verifiedAt":"2026-08-07"}'::jsonb, 'https://sonda-qa.example',
          '{"freeReal":10,"usefulness":9,"ease":8,"transparency":9,"creatorValue":8}'::jsonb,
          current_date, current_date, 'published')
       on conflict (id) do nothing`;
@@ -465,8 +465,8 @@ async function main() {
     console.error(`\n✗ ${scrub(error)}\n`);
     failed = failed || 1;
   } finally {
-    await owner`delete from public.tools where id = 'tool_ollama'`.catch(() => {});
-    await owner`delete from public.categories where slug = 'imagen'`.catch(() => {});
+    await owner`delete from public.tools where id = 'tool_sonda-qa'`.catch(() => {});
+    await owner`delete from public.categories where slug = 'sonda-qa'`.catch(() => {});
     await agent.end({ timeout: 5 }).catch(() => {});
     await owner.end({ timeout: 5 }).catch(() => {});
   }

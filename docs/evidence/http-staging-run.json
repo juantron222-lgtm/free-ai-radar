@@ -1,5 +1,5 @@
 {
-  "ranAt": "2026-08-08T15:48:19.482Z",
+  "ranAt": "2026-08-09T22:50:33.836Z",
   "target": "supabase-staging",
   "totals": {
     "total": 49,
@@ -183,7 +183,7 @@
       "request": "GET /rest/v1/tools con la anon key",
       "identity": "anónimo",
       "expected": "el catálogo publicado sí se lee",
-      "observed": "200, 1 fila(s)",
+      "observed": "200, 5 fila(s)",
       "pass": true,
       "mechanism": "RLS filtró sin error"
     },

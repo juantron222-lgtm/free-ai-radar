@@ -24,7 +24,7 @@ import { execFileSync } from 'node:child_process';
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import postgres from 'postgres';
+import { connect } from './db-connect.mjs';
 import { loadEnv, readDbUrl, scrub } from './staging-guard.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -449,7 +449,7 @@ async function run(alice, mallory, admin, sql) {
   const writeOther = await call('/rest/v1/user_favorites', {
     method: 'POST',
     token: alice.token,
-    body: { user_id: mallory.id, tool_id: 'tool_ollama' },
+    body: { user_id: mallory.id, tool_id: 'tool_sonda-qa' },
   });
   record({
     id: 'HTTP-04c',
@@ -539,7 +539,7 @@ async function run(alice, mallory, admin, sql) {
     mechanism: mechanismOf(readAudit),
   });
 
-  const editTool = await call('/rest/v1/tools?id=eq.tool_ollama', {
+  const editTool = await call('/rest/v1/tools?id=eq.tool_sonda-qa', {
     method: 'PATCH',
     token: alice.token,
     body: { verdict: 'comprado' },
@@ -597,7 +597,7 @@ async function run(alice, mallory, admin, sql) {
   const addFavourite = await call('/rest/v1/user_favorites', {
     method: 'POST',
     token: alice.token,
-    body: { user_id: alice.id, tool_id: 'tool_ollama' },
+    body: { user_id: alice.id, tool_id: 'tool_sonda-qa' },
     headers: { Prefer: 'return=representation' },
   });
   record({
@@ -631,7 +631,7 @@ async function run(alice, mallory, admin, sql) {
   const createAlert = await call('/rest/v1/alerts', {
     method: 'POST',
     token: alice.token,
-    body: { user_id: alice.id, tool_id: 'tool_ollama', kinds: ['free_plan_reduced'] },
+    body: { user_id: alice.id, tool_id: 'tool_sonda-qa', kinds: ['free_plan_reduced'] },
     headers: { Prefer: 'return=representation' },
   });
   record({
@@ -875,7 +875,7 @@ async function main() {
   }
 
   const { url } = readDbUrl(env);
-  const sql = postgres(url, { max: 1, ssl: 'require', onnotice: () => {} });
+  const sql = connect(url);
 
   let alice = null;
   let mallory = null;
@@ -897,15 +897,15 @@ async function main() {
      * probes that save a favourite or an alert against a tool.
      */
     await sql`
-      insert into public.categories (slug, name) values ('imagen', 'Imagen')
+      insert into public.categories (slug, name) values ('sonda-qa', 'Sonda QA')
       on conflict (slug) do nothing`;
     await sql`
       insert into public.tools
         (id, slug, name, category_slug, free_model, free_plan, official_url, scores,
          detected_at, last_verified_at, status)
       values
-        ('tool_ollama', 'ollama', 'Ollama', 'imagen', 'free_real',
-         '{"summary":"sonda","verifiedAt":"2026-08-07"}'::jsonb, 'https://ollama.com',
+        ('tool_sonda-qa', 'sonda-qa', 'Sonda QA', 'sonda-qa', 'free_real',
+         '{"summary":"sonda","verifiedAt":"2026-08-07"}'::jsonb, 'https://sonda-qa.example',
          '{"freeReal":10,"usefulness":9,"ease":8,"transparency":9,"creatorValue":8}'::jsonb,
          current_date, current_date, 'published')
       on conflict (id) do nothing`;
@@ -931,9 +931,23 @@ async function main() {
         token: SERVICE,
       }).catch(() => {});
     }
-    // The seeded catalogue row goes too: this suite leaves nothing behind.
-    await sql`delete from public.tools where id = 'tool_ollama'`.catch(() => {});
-    await sql`delete from public.categories where slug = 'imagen'`.catch(() => {});
+    /*
+     * The seeded rows go too, and their identity is deliberately one the
+     * catalogue can never produce.
+     *
+     * This fixture used to be `tool_ollama` in the category `imagen`, seeded
+     * with `on conflict do nothing` and deleted unconditionally here. That was
+     * correct while the mirror was empty. Once the catalogue was synced into
+     * Postgres it stopped being correct and became destructive: the suite found
+     * the real Ollama row, left it alone, and then deleted it on the way out.
+     * The next account QA failed on a foreign key, twenty-three tools where
+     * there should have been twenty-four.
+     *
+     * A cleanup that deletes by id without knowing whether it created the row
+     * is a cleanup waiting for the table to have real data in it.
+     */
+    await sql`delete from public.tools where id = 'tool_sonda-qa'`.catch(() => {});
+    await sql`delete from public.categories where slug = 'sonda-qa'`.catch(() => {});
     await sql.end({ timeout: 5 }).catch(() => {});
   }
 

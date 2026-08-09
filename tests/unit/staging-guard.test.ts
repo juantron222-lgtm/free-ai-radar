@@ -98,6 +98,49 @@ describe('las otras condiciones', () => {
     expect(reasons(result)).toContain('SUPABASE_PRODUCTION_REFS');
   });
 
+  /*
+   * An empty list used to be a warning. It will be true for months, and a
+   * warning that stays true is a warning nobody reads — so on the day the
+   * production project exists, forgetting to list it would silently remove a
+   * layer. There are now two acceptable states and no third.
+   */
+  it('SUPABASE_PRODUCTION_REFS vacía → FALLA, no es un aviso', () => {
+    const result = evaluate({ SUPABASE_PRODUCTION_REFS: '' });
+    expect(reasons(result)).toContain('SUPABASE_PRODUCTION_REFS está vacía');
+  });
+
+  it('"none-yet" declara que no hay producción todavía → PASA, con aviso', () => {
+    const result = evaluate({ SUPABASE_PRODUCTION_REFS: 'none-yet' });
+    expect(result.problems).toEqual([]);
+    expect(result.warnings.join(' | ')).toContain('none-yet');
+  });
+
+  it('"none-yet" no se cuela como referencia de proyecto', () => {
+    /*
+     * The bug this catches: `none-yet` is a non-empty string, so a naive
+     * implementation puts it in the forbidden list, finds the list non-empty
+     * and skips the check entirely — silence instead of protection, which is
+     * the exact failure the change was meant to remove.
+     */
+    const result = evaluate({
+      SUPABASE_PRODUCTION_REFS: 'none-yet',
+      SUPABASE_STAGING_REF: 'none-yet',
+      SUPABASE_DB_URL_STAGING: 'postgresql://postgres:pw@db.none-yet.supabase.co:5432/postgres',
+      PUBLIC_SUPABASE_URL: 'https://none-yet.supabase.co',
+    });
+    expect(reasons(result)).not.toContain('figura en SUPABASE_PRODUCTION_REFS');
+  });
+
+  it('una referencia real sigue bloqueando aunque haya varias listadas', () => {
+    const result = evaluate({
+      SUPABASE_PRODUCTION_REFS: `${OTHER}, ${PROD}`,
+      SUPABASE_STAGING_REF: PROD,
+      SUPABASE_DB_URL_STAGING: `postgresql://postgres:pw@db.${PROD}.supabase.co:5432/postgres`,
+      PUBLIC_SUPABASE_URL: `https://${PROD}.supabase.co`,
+    });
+    expect(reasons(result)).toContain('figura en SUPABASE_PRODUCTION_REFS');
+  });
+
   it('un indicador de producción en el anfitrión → FALLA', () => {
     const result = evaluate({
       SUPABASE_DB_URL_STAGING: `postgresql://postgres:pw@db-prod.${STAGING}.supabase.co:5432/postgres`,

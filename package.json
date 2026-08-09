@@ -25,7 +25,6 @@
     "verify": "npm run lint && npm run typecheck && npm run test && npm run build",
     "data:migrate": "node scripts/migrate-tools.mjs",
     "data:migrate:dry": "node scripts/migrate-tools.mjs --dry-run",
-    "data:seed-sql": "node scripts/migrate-tools.mjs --emit-sql",
     "links:check": "node scripts/check-links.mjs",
     "icons": "node scripts/generate-icons.js",
     "news:fetch": "node scripts/fetch-ai-news.mjs",
@@ -41,7 +40,10 @@
     "http:staging": "node scripts/http-suite.mjs",
     "autocraw:credential": "node scripts/autocraw-credential.mjs",
     "autocraw:staging": "node scripts/autocraw-suite.mjs",
-    "db:sync:staging": "node scripts/staging-run.mjs --sync-catalog"
+    "db:sync:staging": "node scripts/staging-run.mjs --sync-catalog",
+    "db:check:staging": "node scripts/staging-run.mjs --check-catalog",
+    "rc": "node scripts/release-candidate.mjs",
+    "data:catalog-sql": "node scripts/emit-catalog-sql.mjs"
   },
   "dependencies": {
     "@astrojs/vercel": "^11.0.4",

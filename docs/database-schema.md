@@ -31,10 +31,27 @@ registro: si lo hiciera, cualquiera podría enviarse `role: admin` al registrars
 
 ### Contenido editorial
 
+> **`categories` y `tools` son un espejo, no una fuente.** El contenido vive en
+> el repositorio y todas las páginas públicas se renderizan desde ahí; estas dos
+> tablas existen para que los datos de usuario puedan referenciar una
+> herramienta con una clave foránea y que esa referencia signifique algo.
+>
+> Sin sincronizar, **ningún favorito se puede guardar**:
+> `user_favorites.tool_id` apunta aquí y un esquema recién migrado tiene la
+> tabla vacía. Por eso la sincronización va **dentro** de `--migrate`, no como
+> un paso que alguien recuerda: `npm run db:migrate:staging` sincroniza y
+> verifica antes de dar nada por bueno, y `npm run db:check:staging` lo
+> comprueba después sin escribir.
+>
+> Una herramienta que desaparece del catálogo se marca `archived`. **Nunca se
+> borra**: un `delete` cascadea sobre favoritos, listas, historial, estados y
+> alertas, y destruiría datos de alguien porque un editor quitó una fila de un
+> JSON. Ver `scripts/catalog-sync.mjs`.
+
 | Tabla | Para qué |
 | --- | --- |
-| `categories` | Taxonomía. |
-| `tools` | La ficha completa. 40 columnas. |
+| `categories` | Taxonomía. Espejo del repositorio. |
+| `tools` | La ficha completa. 40 columnas. Espejo del repositorio. |
 | `tool_versions` | Instantánea íntegra en cada publicación. Permite restaurar. |
 | `tool_updates` | Registro de cambios por herramienta. El `kind` decide el enrutado de alertas. |
 | `editorial_reviews` | Quién revisó, cuándo y con qué puntuaciones. |
@@ -169,7 +186,7 @@ legibles, y `user_list_items` hereda esa visibilidad consultando la lista padre.
 ```bash
 npm run data:migrate:dry     # informe, sin escribir
 npm run data:migrate         # genera src/data/generated/
-npm run data:seed-sql        # además: supabase/seed/{seed,rollback}.sql
+npm run data:catalog-sql     # espejo de contenido: supabase/seed/catalog.sql
 ```
 
 **Qué hace:**
@@ -182,8 +199,10 @@ npm run data:seed-sql        # además: supabase/seed/{seed,rollback}.sql
 6. Resuelve alias de alternativas; las no catalogadas se conservan como texto.
 7. Escribe un informe en `src/data/generated/migration-report.json`.
 
-**Reversible:** `supabase/seed/rollback.sql` borra exactamente las filas que insertó la semilla, por
-slug. No toca fichas creadas por editores ni datos de usuario.
+**Reversible:** se revierte volviendo el catálogo atrás en git y regenerando.
+No hay un `rollback.sql`. El que existía borraba herramientas por slug, y eso
+arrastra en cascada favoritos, listas e historial: una herramienta que sale del
+catálogo se archiva, nunca se borra, y los datos de usuario sobreviven.
 
 **Idempotente:** la semilla usa `on conflict (slug) do update`. Ejecutarla dos veces no duplica nada.
 
@@ -211,7 +230,7 @@ supabase db push
 # O manualmente, en orden:
 psql "$DATABASE_URL" -f supabase/migrations/0001_core_schema.sql
 psql "$DATABASE_URL" -f supabase/migrations/0002_rls_policies.sql
-psql "$DATABASE_URL" -f supabase/seed/seed.sql
+psql "$DATABASE_URL" -f supabase/seed/catalog.sql
 ```
 
 Después, conectar el trigger de alta de usuarios (requiere permisos sobre `auth`):

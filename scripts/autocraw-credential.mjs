@@ -27,13 +27,55 @@ import { randomBytes } from 'node:crypto';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import postgres from 'postgres';
+import { connect } from './db-connect.mjs';
 import { fingerprint, loadEnv, readDbUrl, scrub } from './staging-guard.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const REVOKE = process.argv.includes('--revoke');
 const ENV_FILE = join(ROOT, '.env.local');
 const VAR = 'AUTOCRAW_DB_URL_STAGING';
+
+/**
+ * Waits until the new password actually opens a connection.
+ *
+ * `alter role ... password` returns as soon as Postgres has stored it, and for
+ * a few seconds after that the pooler still rejects the new credential:
+ * Supavisor authenticates against its own cached copy, and the cache has not
+ * caught up. Measured on staging — rejected at 7.6s, accepted at 12.4s.
+ *
+ * Reporting success at the moment the ALTER returned made this script lie in a
+ * way that surfaced far from here: the release-candidate battery issued the
+ * credential, ran four other steps, and then the AutoCraw suite failed with
+ * `password authentication failed`. Nothing in that message points at a cache
+ * that had not refreshed.
+ *
+ * So the step no longer claims to have issued a credential until the credential
+ * works. A failure to authenticate within the window is reported rather than
+ * swallowed — the caller decides, but it decides knowing.
+ */
+async function waitUntilUsable(url, { attempts = 20, gapMs = 3000 } = {}) {
+  const started = Date.now();
+  const elapsed = () => Number(((Date.now() - started) / 1000).toFixed(1));
+
+  for (let i = 0; i < attempts; i += 1) {
+    const probe = connect(url);
+    try {
+      await probe`select 1`;
+      await probe.end({ timeout: 5 });
+      return { ok: true, seconds: elapsed() };
+    } catch (error) {
+      await probe.end({ timeout: 5 }).catch(() => {});
+      // Anything that is not the cache lagging is a real failure: report it now
+      // rather than spending a minute rediscovering it.
+      if (!/password authentication failed/i.test(String(error?.message ?? ''))) {
+        return { ok: false, seconds: elapsed(), reason: scrub(error) };
+      }
+    }
+    await new Promise((resolve) => setTimeout(resolve, gapMs));
+  }
+
+  return { ok: false, seconds: elapsed(), reason: 'el pooler sigue rechazando la contraseña' };
+}
 
 function enforceGuard() {
   try {
@@ -73,7 +115,7 @@ async function main() {
 
   const env = loadEnv();
   const { url: adminUrl } = readDbUrl(env);
-  const sql = postgres(adminUrl, { max: 1, ssl: 'require', onnotice: () => {} });
+  const sql = connect(adminUrl);
 
   try {
     if (REVOKE) {
@@ -126,13 +168,25 @@ async function main() {
     const [{ canlogin }] = await sql`
       select rolcanlogin as canlogin from pg_roles where rolname = 'autocraw_ingest'`;
 
+    const propagation = await waitUntilUsable(autocrawUrl);
+
     console.log('\nCredencial de AutoCraw emitida');
     console.log('───────────────────────────────────────────────');
     console.log(`  Rol:        autocraw_ingest`);
     console.log(`  LOGIN:      ${canlogin ? 'activado' : 'NO ACTIVADO'}`);
     console.log(`  Contraseña: ${fingerprint(password)}`);
     console.log(`  Guardada en .env.local como ${VAR} (ignorado por git)`);
+    console.log(
+      `  Comprobada: ${propagation.ok ? `autentica (${propagation.seconds}s)` : `NO AUTENTICA tras ${propagation.seconds}s`}`
+    );
     console.log('\n  No se ha concedido ningún permiso: son los de la migración 0003.\n');
+
+    // A credential that does not open a connection is not an issued credential,
+    // and a caller that chains steps has to be able to tell the difference.
+    if (!propagation.ok) {
+      console.error(`✗ La credencial no autentica: ${propagation.reason}\n`);
+      process.exitCode = 1;
+    }
   } catch (error) {
     console.error(`\n✗ ${scrub(error)}\n`);
     process.exitCode = 1;

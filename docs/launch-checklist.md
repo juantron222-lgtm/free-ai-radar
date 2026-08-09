@@ -168,10 +168,22 @@ llena. Con el esquema migrado y el espejo vacío, guardar un favorito falla
 siempre con `23503` y ninguna página muestra un error — porque el sitio público
 no lee esas tablas. Fue exactamente lo que ocurrió en staging.
 
-`npm run db:migrate:staging` ya sincroniza el catálogo al terminar. Cualquier
-otro camino hacia una base real (producción incluida) tiene que ejecutar la
-sincronización, y volver a ejecutarla **cada vez que cambie el catálogo**: una
-herramienta nueva no se puede guardar en favoritos hasta que esté en el espejo.
+`npm run db:migrate:staging` ya sincroniza el catálogo al terminar, y verifica
+antes de confirmar: si falta una herramienta, falta una categoría, hay una clave
+foránea rota o un campo espejado discrepa, aborta la transacción entera.
+`npm run db:check:staging` lo comprueba después sin escribir nada.
+
+Para **producción**, donde ningún script de este repositorio puede conectarse,
+el mismo contenido sale como SQL pegable:
+
+```bash
+npm run data:catalog-sql   # escribe supabase/seed/catalog.sql
+```
+
+Hay que volver a ejecutarlo **cada vez que cambie el catálogo**: una herramienta
+nueva no se puede guardar en favoritos hasta que esté en el espejo. El paso a
+paso completo está en
+[el plan de Supabase producción](supabase-production-plan.md).
 
 ---
 

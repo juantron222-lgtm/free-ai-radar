@@ -83,14 +83,23 @@ npm run test:e2e
      for each row execute function public.handle_new_user();
    ```
 
-4. Sembrar el catálogo:
+4. Sembrar el catálogo. **No es opcional**: `user_favorites.tool_id` es clave
+   foránea contra `public.tools`, y un esquema recién migrado la tiene vacía,
+   así que hasta que esto corra ningún favorito se puede guardar.
 
    ```bash
-   npm run data:seed-sql
-   psql "$DATABASE_URL" -f supabase/seed/seed.sql
+   npm run data:catalog-sql
+   psql "$DATABASE_URL" -f supabase/seed/catalog.sql
    ```
 
-   Para revertir: `psql "$DATABASE_URL" -f supabase/seed/rollback.sql`
+   El fichero es idempotente y termina con una comprobación que aborta la
+   transacción si el espejo no queda como debe.
+
+   Para revertir: vuelve el catálogo a su estado anterior en git, regenera y
+   aplica otra vez. **No hay un `rollback.sql`**, y su ausencia es deliberada:
+   el que existía borraba herramientas por slug, lo que arrastra en cascada
+   favoritos, listas e historial. Una herramienta que sale del catálogo se
+   archiva; nunca se borra.
 
 5. **Ejecutar las comprobaciones de RLS** de
    [`security-review.md`](./security-review.md) § 12. No es opcional.
@@ -258,8 +267,10 @@ Después:
 
 **Contenido:** `git revert` del commit que cambió `src/data/generated/tools.json`.
 
-**Base de datos:** `psql "$DATABASE_URL" -f supabase/seed/rollback.sql`. Borra sólo las filas que
-insertó la semilla, por slug. No toca fichas creadas por editores ni datos de usuario.
+**Base de datos:** vuelve el catálogo a su estado anterior en git, ejecuta
+`npm run data:catalog-sql` y aplica el fichero. Lo que ya no está se archiva en
+vez de borrarse, así que ni los favoritos, ni las listas, ni el historial de
+nadie se pierden por revertir contenido.
 
 ---
 

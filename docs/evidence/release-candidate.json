@@ -1,0 +1,192 @@
+{
+  "ranAt": "2026-08-09T22:59:58.752Z",
+  "scope": "completo (local + staging + preview)",
+  "totals": {
+    "total": 15,
+    "passed": 15,
+    "failed": 0
+  },
+  "stoppedAt": null,
+  "steps": [
+    {
+      "id": "lint",
+      "label": "lint",
+      "command": "npm run lint",
+      "remote": false,
+      "exitCode": 0,
+      "expected": null,
+      "expectationMet": true,
+      "pass": true,
+      "seconds": 6,
+      "tail": "\n> free-ai-radar@2.0.0 lint\n> eslint . --max-warnings=0"
+    },
+    {
+      "id": "typecheck",
+      "label": "typecheck",
+      "command": "npm run typecheck",
+      "remote": false,
+      "exitCode": 0,
+      "expected": "0 errors",
+      "expectationMet": true,
+      "pass": true,
+      "seconds": 17,
+      "tail": "> astro check --minimumSeverity error\n\n\u001b[2m00:48:04\u001b[22m \u001b[34m[types]\u001b[39m Generated \u001b[2m130ms\u001b[22m\n\u001b[2m00:48:04\u001b[22m \u001b[34m[check]\u001b[39m Getting diagnostics for Astro files in C:\\Users\\juanl\\.openclaw-autoclaw\\workspace\\free-ai-radar...\nResult (191 files): \n- 0 errors"
+    },
+    {
+      "id": "unit",
+      "label": "pruebas unitarias",
+      "command": "npm test",
+      "remote": false,
+      "exitCode": 0,
+      "expected": "passed",
+      "expectationMet": true,
+      "pass": true,
+      "seconds": 32,
+      "tail": "\n\n Test Files  18 passed (18)\n      Tests  438 passed (438)\n   Start at  00:48:18\n   Duration  31.43s (transform 3.20s, setup 652ms, import 5.16s, tests 45.83s, environment 3ms)"
+    },
+    {
+      "id": "build",
+      "label": "build",
+      "command": "npm run build",
+      "remote": false,
+      "exitCode": 0,
+      "expected": "Complete!",
+      "expectationMet": true,
+      "pass": true,
+      "seconds": 8,
+      "tail": "\u001b[2m00:48:54\u001b[22m \u001b[34m[build]\u001b[39m \u001b[32m✓ Completed in 1.99s.\u001b[39m\n\u001b[2m00:48:54\u001b[22m \u001b[34m[@astrojs/vercel]\u001b[39m Bundling function ..\\..\\..\\..\\dist\\server\\entry.mjs\n\u001b[2m00:48:57\u001b[22m \u001b[34m[build]\u001b[39m Waiting for integration \u001b[1m\"@astrojs/vercel\"\u001b[22m, hook \u001b[1m\"astro:build:done\"\u001b[22m...\n\u001b[2m00:48:58\u001b[22m \u001b[34m[@astrojs/vercel]\u001b[39m Copying static files to .vercel/output/static\n\u001b[2m00:48:58\u001b[22m \u001b[34m[build]\u001b[39m Server built in \u001b[1m6.31s\u001b[22m\n\u001b[2m00:48:58\u001b[22m \u001b[34m[build]\u001b[39m \u001b[1mComplete!\u001b[22m"
+    },
+    {
+      "id": "migrate",
+      "label": "migración desde cero + sincronización",
+      "command": "npm run db:reset:staging",
+      "remote": true,
+      "exitCode": 0,
+      "expected": "Instalación coherente",
+      "expectationMet": true,
+      "pass": true,
+      "seconds": 21,
+      "tail": "  Defensa por columna en role:   intacta\n  Tablas sin RLS:                0\n\n  ✓ Instalación coherente.\n\nEvidencia: docs/evidence/rls-staging-run.json"
+    },
+    {
+      "id": "credential",
+      "label": "credencial de AutoCraw (el reset la elimina)",
+      "command": "npm run autocraw:credential",
+      "remote": true,
+      "exitCode": 0,
+      "expected": "Comprobada: autentica",
+      "expectationMet": true,
+      "pass": true,
+      "seconds": 15,
+      "tail": "  LOGIN:      activado\n  Contraseña: 43 car., huella 6cd66daa\n  Guardada en .env.local como AUTOCRAW_DB_URL_STAGING (ignorado por git)\n  Comprobada: autentica (6.6s)\n\n  No se ha concedido ningún permiso: son los de la migración 0003."
+    },
+    {
+      "id": "mirror-1",
+      "label": "espejo tras migrar",
+      "command": "npm run db:check:staging",
+      "remote": true,
+      "exitCode": 0,
+      "expected": "coincide",
+      "expectationMet": true,
+      "pass": true,
+      "seconds": 14,
+      "tail": "\nComprobando el espejo de contenido\n───────────────────────────────────────────────\n  el espejo coincide con el catálogo ✓\n\nEvidencia: docs/evidence/rls-staging-run.json"
+    },
+    {
+      "id": "rls",
+      "label": "RLS SQL",
+      "command": "npm run rls:staging",
+      "remote": true,
+      "exitCode": 0,
+      "expected": "51/51",
+      "expectationMet": true,
+      "pass": true,
+      "seconds": 7,
+      "tail": "───────────────────────────────────────────────\n\n51/51 bloqueados · 0 bypass\nPolíticas aplicadas: 91\n\nEvidencia: docs/evidence/rls-staging-run.json"
+    },
+    {
+      "id": "mirror-2",
+      "label": "espejo tras RLS",
+      "command": "npm run db:check:staging",
+      "remote": true,
+      "exitCode": 0,
+      "expected": "coincide",
+      "expectationMet": true,
+      "pass": true,
+      "seconds": 9,
+      "tail": "\nComprobando el espejo de contenido\n───────────────────────────────────────────────\n  el espejo coincide con el catálogo ✓\n\nEvidencia: docs/evidence/rls-staging-run.json"
+    },
+    {
+      "id": "http",
+      "label": "HTTP / Auth",
+      "command": "npm run http:staging",
+      "remote": true,
+      "exitCode": 0,
+      "expected": "49/49",
+      "expectationMet": true,
+      "pass": true,
+      "seconds": 30,
+      "tail": "  HTTP-11b  crítica  ✓ PASA   public.tools no tiene ninguna columna comercial\n───────────────────────────────────────────────\n\n49/49 bloqueados · 0 bypass\n\nEvidencia: docs/evidence/http-staging-run.json"
+    },
+    {
+      "id": "mirror-3",
+      "label": "espejo tras HTTP",
+      "command": "npm run db:check:staging",
+      "remote": true,
+      "exitCode": 0,
+      "expected": "coincide",
+      "expectationMet": true,
+      "pass": true,
+      "seconds": 12,
+      "tail": "\nComprobando el espejo de contenido\n───────────────────────────────────────────────\n  el espejo coincide con el catálogo ✓\n\nEvidencia: docs/evidence/rls-staging-run.json"
+    },
+    {
+      "id": "autocraw",
+      "label": "AutoCraw",
+      "command": "npm run autocraw:staging",
+      "remote": true,
+      "exitCode": 0,
+      "expected": "Bypass: 0",
+      "expectationMet": true,
+      "pass": true,
+      "seconds": 32,
+      "tail": "  ATK-30    alta     ✓ PASA   escribir haciéndose pasar por alta manual (source = \n───────────────────────────────────────────────\n\nCapacidades: 12/12 · Ataques bloqueados: 30/30 · Bypass: 0\n\nEvidencia: docs/evidence/autocraw-staging-run.json"
+    },
+    {
+      "id": "mirror-4",
+      "label": "espejo tras AutoCraw",
+      "command": "npm run db:check:staging",
+      "remote": true,
+      "exitCode": 0,
+      "expected": "coincide",
+      "expectationMet": true,
+      "pass": true,
+      "seconds": 6,
+      "tail": "\nComprobando el espejo de contenido\n───────────────────────────────────────────────\n  el espejo coincide con el catálogo ✓\n\nEvidencia: docs/evidence/rls-staging-run.json"
+    },
+    {
+      "id": "accounts",
+      "label": "QA de cuentas reales",
+      "command": "node scripts/preview-account-qa.mjs",
+      "remote": true,
+      "exitCode": 0,
+      "expected": "0 fallos",
+      "expectationMet": true,
+      "pass": true,
+      "seconds": 33,
+      "tail": "\n  identidad de prueba eliminada\n───────────────────────────────────────────────\n\n16/16 correctas · 0 fallos\nEvidencia: docs/evidence/preview-account-qa.json"
+    },
+    {
+      "id": "regression",
+      "label": "regresión pública del Preview",
+      "command": "npx playwright test public.spec.ts crawl.spec.ts --project=chromium --project=firefox --project=webkit --project=mobile --project=mobile-safari --reporter=line",
+      "remote": true,
+      "exitCode": 0,
+      "expected": "passed",
+      "expectationMet": true,
+      "pass": true,
+      "seconds": 483,
+      "tail": "[241/245] [mobile-safari] › tests\\e2e\\public.spec.ts:306:3 › accesibilidad › hay un enlace para saltar al contenido\n[242/245] [mobile-safari] › tests\\e2e\\public.spec.ts:339:3 › accesibilidad › el tema se puede cambiar y persiste\n[243/245] [mobile-safari] › tests\\e2e\\public.spec.ts:353:3 › accesibilidad › cada página tiene exactamente un h1\n[244/245] [mobile-safari] › tests\\e2e\\public.spec.ts:362:3 › rutas privadas › la cuenta redirige al login\n[245/245] [mobile-safari] › tests\\e2e\\public.spec.ts:367:3 › rutas privadas › el admin no es accesible sin sesión\n  245 passed (8.0m)"
+    }
+  ]
+}

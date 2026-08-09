@@ -25,10 +25,10 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import postgres from 'postgres';
+import { connect } from './db-connect.mjs';
 import { loadEnv, readDbUrl } from './staging-guard.mjs';
 import { catalogRows } from './catalog-source.mjs';
-import { syncCatalog } from './catalog-sync.mjs';
+import { syncCatalog, verifyMirror } from './catalog-sync.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -133,19 +133,6 @@ function safeError(error) {
 
   const joined = parts.filter(Boolean).join(' · ').trim();
   return joined || `(error sin mensaje utilizable: ${error?.constructor?.name ?? typeof error})`;
-}
-
-function connect(env) {
-  const { url } = readDbUrl(env);
-  if (!url) throw new Error('No hay cadena de conexión, y el guardián debería haberlo impedido.');
-  return postgres(url, {
-    max: 1,
-    idle_timeout: 20,
-    connect_timeout: 30,
-    // Supabase terminates TLS with its own chain; the pooler needs this.
-    ssl: 'require',
-    onnotice: () => {},
-  });
 }
 
 async function migrate(sql) {
@@ -302,17 +289,23 @@ async function main() {
     suite: process.argv.includes('--suite'),
     verify: process.argv.includes('--verify'),
     syncCatalog: process.argv.includes('--sync-catalog'),
+    checkCatalog: process.argv.includes('--check-catalog'),
   };
 
-  if (!wants.migrate && !wants.suite && !wants.verify && !wants.reset && !wants.syncCatalog) {
-    console.error('Indica --reset, --migrate, --verify, --suite o --sync-catalog.');
+  if (
+    !wants.migrate && !wants.suite && !wants.verify &&
+    !wants.reset && !wants.syncCatalog && !wants.checkCatalog
+  ) {
+    console.error(
+      'Indica --reset, --migrate, --verify, --suite, --sync-catalog o --check-catalog.'
+    );
     process.exit(2);
   }
 
   enforceGuard();
 
   const env = loadEnv();
-  const sql = connect(env);
+  const sql = connect(readDbUrl(env).url);
   const evidence = { ranAt: new Date().toISOString(), target: 'supabase-staging' };
   let failed = 0;
 
@@ -333,6 +326,13 @@ async function main() {
       ).simple();
       await sql.unsafe('drop role if exists autocraw_ingest').simple().catch(() => {});
       console.log('  esquema public recreado, vacío ✓');
+      /*
+       * Said here because the alternative is finding out later, from
+       * `EAUTHQUERY: user not found in the database` — an error that names
+       * neither the role nor the reset that caused it. Migration 0003 recreates
+       * the role NOLOGIN; the password went with the old one.
+       */
+      console.log('  ⚠ autocraw_ingest se ha eliminado: ejecuta npm run autocraw:credential');
     }
 
     if (wants.migrate) await migrate(sql);
@@ -352,6 +352,33 @@ async function main() {
       evidence.catalog = await syncCatalog(exec, await catalogRows(), {
         log: (line) => console.log(line),
       });
+    }
+
+    /*
+     * Read-only: asks whether the mirror still matches the catalogue and
+     * changes nothing either way.
+     *
+     * It exists because a suite corrupted the catalogue and nothing noticed.
+     * The HTTP and AutoCraw suites seeded `tool_ollama` as a fixture and
+     * deleted it on the way out — correct while the mirror was empty,
+     * destructive once the real Ollama row was there. The damage surfaced two
+     * steps later as a foreign key error in the account QA, which is a long way
+     * from the cause. Run between steps, this names it immediately.
+     */
+    if (wants.checkCatalog) {
+      console.log('\nComprobando el espejo de contenido');
+      console.log('───────────────────────────────────────────────');
+      const exec = (text, params = []) => sql.unsafe(text, params);
+      const problems = await verifyMirror(exec, await catalogRows());
+      evidence.catalogCheck = { problems };
+
+      if (problems.length) {
+        for (const problem of problems) {
+          console.log(`  ✗ ${problem.kind}: ${problem.detail}`);
+        }
+        throw new Error(`El espejo no coincide con el catálogo: ${problems.length} problema(s).`);
+      }
+      console.log('  el espejo coincide con el catálogo ✓');
     }
 
     if (wants.verify || wants.migrate) evidence.install = await verify(sql);

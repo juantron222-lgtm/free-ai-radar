@@ -316,7 +316,17 @@ export function evaluateEnvironment(env) {
   }
 
   // ---- 3. Not production --------------------------------------------------
-  const forbidden = (env['SUPABASE_PRODUCTION_REFS'] ?? '')
+
+  /*
+   * `none-yet` is a declaration, not a project reference, so it is taken out
+   * before the list is used. Leaving it in would make the list non-empty and
+   * silently skip the check below — the exact failure this whole section is
+   * meant to prevent.
+   */
+  const declaredNoProduction =
+    (env['SUPABASE_PRODUCTION_REFS'] ?? '').trim().toLowerCase() === 'none-yet';
+
+  const forbidden = (declaredNoProduction ? '' : env['SUPABASE_PRODUCTION_REFS'] ?? '')
     .split(',')
     .map((ref) => ref.trim())
     .filter(Boolean);
@@ -328,10 +338,31 @@ export function evaluateEnvironment(env) {
     }
   }
 
+  /*
+   * An empty list must be a statement, not an oversight.
+   *
+   * It used to be a warning, and a warning that will be true for months is a
+   * warning nobody reads — so the day the production project exists, forgetting
+   * to list it removes a layer of protection silently, and the only thing left
+   * standing between `db:reset:staging` and production is the positive identity
+   * check above.
+   *
+   * Now there are two acceptable states and no third: either the refs are
+   * listed, or the environment says in writing that production does not exist
+   * yet. Both are auditable. Forgetting is not one of them.
+   */
   if (!forbidden.length) {
-    warnings.push(
-      'SUPABASE_PRODUCTION_REFS está vacía. Rellénala cuando exista el proyecto de producción.'
-    );
+    if (declaredNoProduction) {
+      warnings.push(
+        'SUPABASE_PRODUCTION_REFS=none-yet: se declara que aún no existe proyecto de producción. ' +
+          'Sustitúyela por la referencia real en cuanto se cree.'
+      );
+    } else {
+      problems.push(
+        'SUPABASE_PRODUCTION_REFS está vacía. Pon la referencia del proyecto de producción, ' +
+          'o "none-yet" para declarar explícitamente que todavía no existe.'
+      );
+    }
   }
 
   // ---- 4. No production indicators ---------------------------------------
@@ -355,8 +386,14 @@ export function evaluateEnvironment(env) {
  * correct-looking reference that happens to point at something with data.
  */
 export async function checkDatabaseIsClean(url) {
-  const { default: postgres } = await import('postgres');
-  const sql = postgres(url, { max: 1, connect_timeout: 30, ssl: 'require', onnotice: () => {} });
+  /*
+   * Imported here rather than at the top of the file, and it matters: the unit
+   * tests import `evaluateEnvironment` from this module to exercise the
+   * decision logic with no network and no credentials. A static import would
+   * drag the Postgres driver into every one of those runs.
+   */
+  const { connect } = await import('./db-connect.mjs');
+  const sql = connect(url);
 
   try {
     const [{ count }] = await sql`
