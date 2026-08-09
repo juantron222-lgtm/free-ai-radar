@@ -262,6 +262,37 @@ export function __envDiagnostic() {
       supabaseVarCount: Object.keys(runtime).filter((k) => k.startsWith('SUPABASE_')).length,
       totalVarCount: Object.keys(runtime).length,
     },
+
+    /*
+     * The variable *names*, JSON-escaped.
+     *
+     * A name is not a secret — these are the eight the owner configured and
+     * named to me in plain text. And the counts say two PUBLIC_ and three
+     * SUPABASE_ variables exist while all three lookups by name come back
+     * absent, which is only possible if the names differ from what the code
+     * asks for. JSON.stringify makes a trailing space, a newline or a
+     * zero-width character visible instead of invisible.
+     *
+     * Values are never touched, only keys.
+     */
+    keys: Object.keys(runtime)
+      .filter((k) => /^(PUBLIC_|SUPABASE_|AUTH_|EMAIL_|DEPLOYMENT_)/.test(k))
+      .sort()
+      .map((k) => ({
+        name: JSON.stringify(k),
+        length: k.length,
+        matchesExpected: [
+          'PUBLIC_SUPABASE_URL',
+          'PUBLIC_SUPABASE_ANON_KEY',
+          'SUPABASE_SERVICE_ROLE_KEY',
+          'SUPABASE_ENV',
+          'SUPABASE_STAGING_REF',
+          'AUTH_SECRET',
+          'EMAIL_DRY_RUN',
+          'DEPLOYMENT_ENV',
+        ].includes(k),
+        valueIsEmpty: (runtime[k] ?? '').length === 0,
+      })),
   };
 }
 
