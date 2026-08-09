@@ -23,6 +23,21 @@ const BASE_URL = process.env.E2E_BASE_URL ?? `http://localhost:${PORT}`;
 export default defineConfig({
   testDir: './tests/e2e',
   /**
+   * Against a deployment, the account specs are excluded by construction.
+   *
+   * They are written for the local identity store — see the `webServer` env
+   * below — and a deployment runs on Supabase, where they register throwaway
+   * accounts that GoTrue rate-limits and whose synthetic domains it rejects.
+   * Pointing the whole suite at a preview produces a wall of red that says
+   * nothing about the site, and red that means nothing is how a real failure
+   * gets waved past.
+   *
+   * The Supabase half is covered against the real thing by
+   * `node scripts/preview-account-qa.mjs`, which creates its identity through
+   * the Admin API and deletes it afterwards.
+   */
+  ...(process.env.E2E_BASE_URL ? { testIgnore: ['**/account.spec.ts'] } : {}),
+  /**
    * Serial on purpose.
    *
    * Every worker talks to the same dev server, and in local auth mode that
