@@ -75,7 +75,7 @@ con `assetsInlineLimit: 0`, tres scripts externos en `public/` y cero atributos 
 mucho menor (exfiltración por selectores de atributo, no ejecución) y quitarlo exigiría renunciar a
 los estilos con ámbito de componente.
 
-Cabeceras adicionales en `vercel.json`: HSTS con `preload`, `X-Frame-Options: DENY`,
+Cabeceras adicionales en `vercel.json`: HSTS **sin** `preload`, `X-Frame-Options: DENY`,
 `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`,
 `Permissions-Policy` cerrando cámara, micrófono, geolocalización, FLoC y Topics,
 `Cross-Origin-Opener-Policy: same-origin`.

@@ -72,6 +72,13 @@ const STEPS = [
   { id: 'mirror-4', label: 'espejo tras AutoCraw', run: ['npm', 'run', 'db:check:staging'], remote: true, expect: 'coincide' },
 
   {
+    id: 'settled',
+    label: 'el despliegue ha dejado de moverse',
+    run: ['node', 'scripts/preview-settled.mjs', PREVIEW],
+    remote: true,
+    expect: 'despliegue estable',
+  },
+  {
     id: 'accounts',
     label: 'QA de cuentas reales',
     run: ['node', 'scripts/preview-account-qa.mjs'],
@@ -123,8 +130,17 @@ function runStep(step) {
     expectationMet: satisfied,
     pass: exited === 0 && satisfied,
     seconds: Math.round((Date.now() - started) / 1000),
-    // The last lines are where every one of these reports its verdict.
-    tail: output.trimEnd().split('\n').slice(-6).join('\n'),
+    /*
+     * Six lines was enough for the steps that end in a one-line verdict, and
+     * useless for the one that does not. A Playwright failure prints the error,
+     * the diff and the trace path above the summary, and keeping only the tail
+     * threw all of that away — leaving four spec names and no reason, which
+     * cost a re-run to rediscover.
+     *
+     * A passing step still only needs its verdict; a failing one gets enough to
+     * act on.
+     */
+    tail: output.trimEnd().split('\n').slice(exited === 0 && satisfied ? -6 : -60).join('\n'),
   };
 }
 

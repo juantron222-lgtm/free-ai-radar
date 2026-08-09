@@ -104,13 +104,16 @@ Frankfurt (`eu-central-1`) o París (`eu-west-3`) estarían algo más cerca de u
 público español, pero la diferencia real la decide **dónde corren las funciones
 de Vercel**, no dónde está el navegador. Y ahí hay un punto abierto:
 
-> ⚠ `vercel.json` no declara `regions`. Si las funciones se quedan en la región
-> por defecto del proyecto y ésta es estadounidense, cada consulta a la base de
-> datos cruza el Atlántico dos veces. Antes de producción hay que confirmar la
-> región de funciones en Vercel y, si hace falta, fijarla en `dub1` (Dublín)
-> para que coincida con la base de datos.
+**Decidido:** `vercel.json` declara ya `"regions": ["dub1"]` — Dublín, la misma
+isla que la base de datos. Sin eso, unas funciones en la región por defecto (que
+puede ser estadounidense) cruzarían el Atlántico dos veces en cada consulta.
 
-Esto es configuración de Vercel, no de Supabase, y no se toca ahora.
+> ⚠ **Queda por confirmar en el panel.** El adaptador `@astrojs/vercel` genera
+> `.vercel/output/functions/_render.func/.vc-config.json` **sin campo
+> `regions`** y no expone opción para ponerlo — comprobado sobre el build real.
+> La declaración de `vercel.json` es el enunciado versionado de la intención; el
+> ajuste autoritativo es **Project Settings → Functions → Function Region**, y
+> hay que verificar ahí que dice Dublín.
 
 ---
 
@@ -459,10 +462,12 @@ hoy.**
 **Lo que no tiene vuelta atrás**, y por eso no se toca en esta fase: DNS,
 `preload` de HSTS, borrar el despliegue anterior, y las claves live de Stripe.
 
-> ⚠ `vercel.json` ya envía `Strict-Transport-Security` con `preload`. La
-> cabecera por sí sola no inscribe el dominio en la lista: eso exige enviarlo a
-> hstspreload.org, cosa que **no se ha hecho** y que sigue fuera de alcance.
-> Conviene decidir a conciencia si se deja la directiva anunciada.
+> **Decidido:** la directiva `preload` se ha retirado de la cabecera. HSTS sigue
+> activo con `max-age=63072000; includeSubDomains`, que es la protección real.
+> `preload` sólo anuncia intención de inscribirse en la lista de los navegadores,
+> algo que exige enviarlo a hstspreload.org y que es muy difícil de deshacer.
+> Anunciarlo sin haberlo hecho no aportaba nada y comprometía a algo que nadie
+> había decidido.
 
 ---
 
