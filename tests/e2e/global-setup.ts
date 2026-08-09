@@ -1,4 +1,15 @@
 import type { FullConfig } from '@playwright/test';
+import { existsSync, readFileSync } from 'node:fs';
+
+/** Same secret the config sends, read the same way. Never logged. */
+function bypassHeaders(): Record<string, string> {
+  if (!existsSync('.env.local')) return {};
+  const line = readFileSync('.env.local', 'utf8')
+    .split(/\r?\n/)
+    .find((l) => l.startsWith('VERCEL_PROTECTION_BYPASS='));
+  const value = line?.slice('VERCEL_PROTECTION_BYPASS='.length).trim().replace(/^["']|["']$/g, '');
+  return value ? { 'x-vercel-protection-bypass': value } : {};
+}
 
 /**
  * A smoke check that runs before the suite and fails fast when the server is
@@ -72,6 +83,28 @@ async function check(baseURL: string): Promise<string | null> {
 }
 
 export default async function globalSetup(config: FullConfig): Promise<void> {
+  /*
+   * Against a real deployment the check below does not apply.
+   *
+   * It exists to catch a dev server whose module graph has gone stale, and it
+   * detects that by signing up through the local identity store. A Vercel
+   * deployment has neither problem and runs on Supabase, where a synthetic
+   * address is rejected by GoTrue — so the check would fail for a reason that
+   * says nothing about the deployment. Reachability is what matters there.
+   */
+  if (process.env['E2E_BASE_URL']) {
+    const target = process.env['E2E_BASE_URL'];
+    const headers = bypassHeaders();
+    const res = await fetch(target, { headers });
+    if (res.status !== 200) {
+      throw new Error(
+        `El despliegue en ${target} devuelve ${res.status}. ` +
+          'Si es 302, falta la cabecera x-vercel-protection-bypass o el secreto no es el de este despliegue.'
+      );
+    }
+    return;
+  }
+
   const baseURL =
     process.env['E2E_BASE_URL'] ??
     config.projects[0]?.use?.baseURL ??

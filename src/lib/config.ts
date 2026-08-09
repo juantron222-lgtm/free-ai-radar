@@ -196,6 +196,75 @@ export const supabase = {
   },
 };
 
+/**
+ * FASE C — TEMPORARY DIAGNOSTIC. Delete with the rest of the instrumentation.
+ *
+ * Reads the same variables through both routes available to us, in the exact
+ * module that computes `supabase.isConfigured`, and reports booleans only.
+ *
+ * The two routes are not equivalent and that is the point of the comparison.
+ * `astro:env/client` is resolved by Astro at **build** time and baked into the
+ * output; `process.env` is read at **runtime** by the serverless function. A
+ * variable that exists in one and not the other tells us precisely which layer
+ * dropped it, which no amount of reading the Vercel dashboard can.
+ *
+ * Never returns a value, a prefix, a suffix, a length or a hash — a length is
+ * a fingerprint and a hash of a short secret is reversible by guessing.
+ */
+export function __envDiagnostic() {
+  const shape = (value: unknown) => {
+    const raw = typeof value === 'string' ? value.trim() : '';
+    let parsed: URL | null = null;
+    try {
+      parsed = raw ? new URL(raw) : null;
+    } catch {
+      parsed = null;
+    }
+    return {
+      present: raw.length > 0,
+      longerThan20: raw.length > 20,
+      validHttpsUrl: parsed !== null && parsed.protocol === 'https:',
+      hostEndsWithSupabaseCo: parsed !== null && /\.supabase\.co$/.test(parsed.hostname),
+    };
+  };
+
+  // `process.env` may not exist in every runtime; ask rather than assume.
+  const runtime: Record<string, string | undefined> =
+    typeof process !== 'undefined' && process.env ? process.env : {};
+
+  return {
+    importMetaEnv: {
+      PUBLIC_SUPABASE_URL: shape(PUBLIC_SUPABASE_URL),
+      PUBLIC_SUPABASE_ANON_KEY: shape(PUBLIC_SUPABASE_ANON_KEY),
+      SUPABASE_SERVICE_ROLE_KEY: shape(SUPABASE_SERVICE_ROLE_KEY),
+    },
+    processEnv: {
+      PUBLIC_SUPABASE_URL: shape(runtime['PUBLIC_SUPABASE_URL']),
+      PUBLIC_SUPABASE_ANON_KEY: shape(runtime['PUBLIC_SUPABASE_ANON_KEY']),
+      SUPABASE_SERVICE_ROLE_KEY: shape(runtime['SUPABASE_SERVICE_ROLE_KEY']),
+    },
+    computed: {
+      urlConfigured: Boolean(supabase.url),
+      anonConfigured: Boolean(supabase.anonKey),
+      serviceConfigured: Boolean(supabase.serviceRoleKey),
+      isConfigured: supabase.isConfigured,
+      canUseServiceRole: supabase.canUseServiceRole,
+      resolvedAuthMode: resolveAuthMode(),
+      isProductionBuild: isProduction,
+      deploymentEnv: deploymentEnv(runtime),
+    },
+    context: {
+      VERCEL_ENV: runtime['VERCEL_ENV'] ?? null,
+      VERCEL_GIT_COMMIT_REF: runtime['VERCEL_GIT_COMMIT_REF'] ?? null,
+      DEPLOYMENT_ENV: runtime['DEPLOYMENT_ENV'] ?? null,
+      hasProcessEnv: typeof process !== 'undefined' && Boolean(process.env),
+      publicVarCount: Object.keys(runtime).filter((k) => k.startsWith('PUBLIC_')).length,
+      supabaseVarCount: Object.keys(runtime).filter((k) => k.startsWith('SUPABASE_')).length,
+      totalVarCount: Object.keys(runtime).length,
+    },
+  };
+}
+
 export const stripe = {
   secretKey: STRIPE_SECRET_KEY ?? '',
   webhookSecret: STRIPE_WEBHOOK_SECRET ?? '',

@@ -90,12 +90,36 @@ async function crawl(page: Page, origin: string, limit = RUNAWAY_LIMIT): Promise
     const text = message.text();
     // The dev server's HMR client and favicon probing are not site defects.
     if (/favicon|\[vite\]|HMR|WebSocket/i.test(text)) return;
+
+    /*
+     * Nor is our own CSP refusing Vercel's preview toolbar.
+     *
+     * Vercel injects `vercel.live` into every preview deployment;
+     * `script-src 'self'` blocks it. The console error is the policy working —
+     * a third-party script nobody asked for was stopped — and it does not
+     * occur in production, where the toolbar is not injected. Every other
+     * console error still fails the run.
+     */
+    if (/vercel\.live|behind a redirect, which is disallowed/i.test(text)) return;
     result.consoleErrors.push(`${currentPath} → ${text}`);
   });
 
   page.on('requestfailed', (request: Request) => {
     const failure = request.failure()?.errorText ?? '';
-    if (/ERR_ABORTED|net::ERR_INTERNET_DISCONNECTED/.test(failure)) return;
+
+    /*
+     * A request cancelled because we navigated away is not a failed request.
+     *
+     * Each engine names it differently — Chromium `ERR_ABORTED`, Firefox
+     * `NS_BINDING_ABORTED`, WebKit "cancelled" — and only Chromium was
+     * covered, so Firefox reported 148 "failures" that were all the favicon
+     * and the app icon being dropped as the crawler moved to the next page. A
+     * resource that genuinely 404s still shows up, through the response
+     * handler below.
+     */
+    if (/ERR_ABORTED|NS_BINDING_ABORTED|cancell?ed|net::ERR_INTERNET_DISCONNECTED/i.test(failure)) {
+      return;
+    }
     // Only same-origin failures are ours to fix.
     if (!request.url().startsWith(origin)) return;
     result.failedRequests.push(`${currentPath} → ${request.url()} (${failure})`);
@@ -117,8 +141,36 @@ async function crawl(page: Page, origin: string, limit = RUNAWAY_LIMIT): Promise
     const path = queue.shift()!;
     currentPath = path;
 
-    const response = await page.goto(path, { waitUntil: 'domcontentloaded' });
-    const status = response?.status() ?? 0;
+    /*
+     * One retry on an aborted navigation.
+     *
+     * The site prefetches every link it renders. A visitor hovers one link at a
+     * time; this crawler opens seventy-four pages in a minute, so a prefetch
+     * for the page it is already navigating to can cancel the navigation and
+     * Chromium reports ERR_ABORTED. Verified against the deployment: the same
+     * path returns 200 on twenty consecutive direct requests, so the page is
+     * fine and the race is ours.
+     *
+     * A second abort is reported as a real failure — retrying forever would
+     * turn a genuinely broken page into a slow green.
+     */
+    let response = null;
+    for (let attempt = 0; attempt < 2; attempt += 1) {
+      try {
+        response = await page.goto(path, { waitUntil: 'domcontentloaded' });
+        break;
+      } catch (error) {
+        const aborted = String(error).includes('ERR_ABORTED');
+        if (!aborted || attempt === 1) {
+          result.brokenLinks.push(`${path} no se pudo abrir: ${String(error).split('\n')[0]}`);
+          break;
+        }
+        await page.waitForTimeout(300);
+      }
+    }
+    if (!response) continue;
+
+    const status = response.status() ?? 0;
 
     if (status >= 400) {
       result.brokenLinks.push(`${path} devuelve ${status}`);
@@ -201,6 +253,17 @@ test.describe('rastreo del sitio', () => {
   let origin: string;
 
   test.beforeAll(async ({ browser, baseURL }) => {
+    /*
+     * The crawl gets its own budget.
+     *
+     * Locally it walks the whole site in about eight seconds. Against a
+     * deployment each page is a real network round trip, and seventy-four of
+     * them do not fit in the default thirty-second timeout — the hook was
+     * being cut off mid-crawl and reporting the pages it had not reached yet
+     * as missing sections, which reads exactly like a broken site.
+     */
+    test.setTimeout(6 * 60 * 1000);
+
     origin = new URL(baseURL ?? 'http://localhost:4321').origin;
     const context = await browser.newContext();
     const page = await context.newPage();

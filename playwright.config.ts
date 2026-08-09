@@ -1,4 +1,21 @@
 import { defineConfig, devices } from '@playwright/test';
+import { existsSync, readFileSync } from 'node:fs';
+
+/**
+ * The Vercel Protection Bypass secret, read from .env.local.
+ *
+ * Sent as a header on every request, never as a query parameter: a secret in a
+ * URL ends up in referrers, in server logs and in screenshots. It is read here
+ * rather than passed on the command line for the same reason.
+ */
+function bypassHeader(): Record<string, string> {
+  if (!existsSync('.env.local')) return {};
+  const line = readFileSync('.env.local', 'utf8')
+    .split(/\r?\n/)
+    .find((l) => l.startsWith('VERCEL_PROTECTION_BYPASS='));
+  const value = line?.slice('VERCEL_PROTECTION_BYPASS='.length).trim().replace(/^["']|["']$/g, '');
+  return value ? { 'x-vercel-protection-bypass': value } : {};
+}
 
 const PORT = Number(process.env.E2E_PORT ?? 4321);
 const BASE_URL = process.env.E2E_BASE_URL ?? `http://localhost:${PORT}`;
@@ -29,6 +46,8 @@ export default defineConfig({
   timeout: 30_000,
   use: {
     baseURL: BASE_URL,
+    // Only when pointing at a deployment; local runs need no bypass.
+    ...(process.env.E2E_BASE_URL ? { extraHTTPHeaders: bypassHeader() } : {}),
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
   },

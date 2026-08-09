@@ -33,7 +33,22 @@ test.describe('portada', () => {
   test('no hay errores de consola', async ({ page }) => {
     const errors: string[] = [];
     page.on('console', (message) => {
-      if (message.type() === 'error') errors.push(message.text());
+      if (message.type() !== 'error') return;
+      const text = message.text();
+
+      /*
+       * Vercel injects its preview toolbar (vercel.live) into every preview
+       * deployment, and our CSP — `script-src 'self'` — refuses to run it.
+       * The console error is the policy working, not the site failing: a
+       * third-party script we did not ask for was blocked. It does not happen
+       * in production, where the toolbar is not injected.
+       *
+       * Filtered rather than silenced wholesale: any other console error still
+       * fails this test.
+       */
+      if (/vercel\.live|behind a redirect, which is disallowed/i.test(text)) return;
+
+      errors.push(text);
     });
     await page.goto('/');
     await page.waitForLoadState('networkidle');

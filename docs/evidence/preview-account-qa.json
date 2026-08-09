@@ -1,0 +1,123 @@
+{
+  "ranAt": "2026-08-08T23:32:05.196Z",
+  "target": "vercel-preview + supabase-staging",
+  "totals": {
+    "total": 14,
+    "passed": 9,
+    "failed": 5
+  },
+  "results": [
+    {
+      "id": "ACC-00",
+      "area": "auth",
+      "action": "el Preview usa Supabase, no el almacén local",
+      "expected": "sin aviso de modo local",
+      "observed": "modo Supabase",
+      "pass": true
+    },
+    {
+      "id": "ACC-01",
+      "area": "registro",
+      "action": "el formulario responde sin romperse",
+      "expected": "o crea la cuenta, o explica por qué no",
+      "observed": "ni una cosa ni la otra",
+      "pass": false
+    },
+    {
+      "id": "ACC-02",
+      "area": "registro",
+      "action": "ningún error de consola durante el registro",
+      "expected": "0 errores",
+      "observed": "1 errores",
+      "pass": false
+    },
+    {
+      "id": "ACC-03",
+      "area": "registro",
+      "action": "alta por Admin API para poder seguir probando",
+      "expected": "usuario creado",
+      "observed": "creado",
+      "pass": true
+    },
+    {
+      "id": "ACC-04",
+      "area": "login",
+      "action": "entra con las credenciales correctas",
+      "expected": "llega a /cuenta",
+      "observed": "/cuenta/entrar",
+      "pass": false
+    },
+    {
+      "id": "ACC-05",
+      "area": "login",
+      "action": "el panel muestra contenido de la cuenta",
+      "expected": "algo más que una cáscara",
+      "observed": "848 caracteres",
+      "pass": true
+    },
+    {
+      "id": "ACC-06",
+      "area": "origen",
+      "action": "el flujo se queda en el Preview, no salta a producción",
+      "expected": "anfitrión del preview",
+      "observed": "free-ai-radar-git-opus5-premium-rebuild-nada-de-pro.vercel.app",
+      "pass": true
+    },
+    {
+      "id": "ACC-07",
+      "area": "favoritos",
+      "action": "guardar una herramienta la lleva a favoritos",
+      "expected": "aparece en la lista",
+      "observed": "no aparece",
+      "pass": false
+    },
+    {
+      "id": "ACC-08",
+      "area": "listas",
+      "action": "la página de listas carga para un usuario con sesión",
+      "expected": "HTTP 200 con contenido",
+      "observed": "675 caracteres",
+      "pass": true
+    },
+    {
+      "id": "ACC-09",
+      "area": "preferencias",
+      "action": "las preferencias de correo cargan",
+      "expected": "con contenido",
+      "observed": "675 caracteres",
+      "pass": true
+    },
+    {
+      "id": "ACC-10",
+      "area": "recuperación",
+      "action": "la página de recuperación existe",
+      "expected": "HTTP 200",
+      "observed": "HTTP 200",
+      "pass": true
+    },
+    {
+      "id": "ACC-11",
+      "area": "admin",
+      "action": "un usuario normal con sesión NO entra en /admin",
+      "expected": "404 o redirección",
+      "observed": "HTTP 200 en /cuenta/entrar",
+      "pass": true
+    },
+    {
+      "id": "ACC-12",
+      "area": "logout",
+      "action": "tras cerrar sesión, /cuenta vuelve al login",
+      "expected": "redirige a /cuenta/entrar",
+      "observed": "/cuenta/entrar (HTTP 200)",
+      "pass": true
+    },
+    {
+      "id": "ACC-13",
+      "area": "consola",
+      "action": "ningún error de consola en todo el recorrido",
+      "expected": "0 errores",
+      "observed": "Failed to load resource: the server responded with a status of 400 ()",
+      "pass": false
+    }
+  ]
+}
