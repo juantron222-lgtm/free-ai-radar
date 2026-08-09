@@ -40,7 +40,8 @@
     "db:reset:staging": "node scripts/staging-run.mjs --reset --migrate",
     "http:staging": "node scripts/http-suite.mjs",
     "autocraw:credential": "node scripts/autocraw-credential.mjs",
-    "autocraw:staging": "node scripts/autocraw-suite.mjs"
+    "autocraw:staging": "node scripts/autocraw-suite.mjs",
+    "db:sync:staging": "node scripts/staging-run.mjs --sync-catalog"
   },
   "dependencies": {
     "@astrojs/vercel": "^11.0.4",

@@ -70,12 +70,83 @@ async function main() {
     extraHTTPHeaders: { 'x-vercel-protection-bypass': BYPASS },
   });
 
+  /*
+   * Console text alone is not evidence.
+   *
+   * The first run of this file reported "status of 400" and nothing else — not
+   * the URL, not the method, not which step. That is enough to know something
+   * is wrong and not enough to know what, which is the worst place for a report
+   * to leave you. Responses are recorded with their request so a failure names
+   * itself.
+   */
   const consoleErrors = [];
+  const badResponses = [];
+  let step = 'arranque';
+
+  /*
+   * Two steps exist to provoke a refusal, and a refusal is what passing looks
+   * like for them. Counting those as defects made the report contradict itself:
+   * ACC-11 passed *because* /admin answered 404, and ACC-13 failed because it
+   * had.
+   *
+   * They are declared here rather than filtered at the point of failure so the
+   * exemption is a short, readable list with a reason attached — and so an
+   * unexpected 400 anywhere else still fails. The status is part of the match:
+   * if /admin ever starts answering 500, this stops covering it.
+   */
+  const EXPECTED_REFUSALS = [
+    {
+      step: 'registro',
+      path: '/api/auth/signup',
+      status: 400,
+      why: 'GoTrue rechaza el dominio de prueba; el 400 es la respuesta correcta y ACC-01 comprueba que se explica',
+    },
+    {
+      step: 'admin',
+      path: '/admin',
+      status: 404,
+      why: 'un usuario sin permisos no debe saber que la ruta existe; es lo que ACC-11 exige',
+    },
+  ];
+
+  const isExpected = (entry) =>
+    EXPECTED_REFUSALS.some(
+      (e) => e.step === entry.step && e.path === entry.path && e.status === entry.status
+    );
+
   const page = await context.newPage();
   page.on('console', (m) => {
     if (m.type() !== 'error') return;
     if (/vercel\.live|behind a redirect/i.test(m.text())) return;
-    consoleErrors.push(m.text());
+
+    /*
+     * "Failed to load resource: … status of 400" is the browser narrating the
+     * response listener's job, and the text alone does not say which URL. The
+     * location does, so the same exemption can be applied to both and neither
+     * has to be hand-waved.
+     */
+    const url = m.location()?.url ?? '';
+    const status = Number(m.text().match(/status of (\d{3})/)?.[1] ?? 0);
+    let path = '';
+    try {
+      path = new URL(url).pathname;
+    } catch {
+      /* console errors from inline script have no URL */
+    }
+
+    consoleErrors.push({ step, text: m.text(), path, status });
+  });
+  page.on('response', (response) => {
+    if (response.status() < 400) return;
+    const url = new URL(response.url());
+    if (/vercel\.live/.test(url.host)) return;
+    badResponses.push({
+      step,
+      method: response.request().method(),
+      // Path only: a query string can carry an email or a token.
+      path: url.host === new URL(PREVIEW).host ? url.pathname : `${url.host}${url.pathname}`,
+      status: response.status(),
+    });
   });
 
   // A returning visitor who already declined: the consent dialog is covered by
@@ -97,6 +168,7 @@ async function main() {
   try {
     console.log('\nModo de autenticación del Preview');
     console.log('───────────────────────────────────────────────');
+    step = 'modo-auth';
     await page.goto(`${PREVIEW}/cuenta/entrar`, { waitUntil: 'domcontentloaded' });
     const body = await page.locator('main').innerText();
     const localMode = /modo local de desarrollo/i.test(body);
@@ -112,6 +184,7 @@ async function main() {
     // ---- Registration through the public form --------------------------
     console.log('\nRegistro público');
     console.log('───────────────────────────────────────────────');
+    step = 'registro';
     await page.goto(`${PREVIEW}/cuenta/crear`, { waitUntil: 'domcontentloaded' });
     await page.getByLabel('Correo electrónico').fill(email);
     await page.getByLabel('Contraseña', { exact: true }).fill(password);
@@ -122,21 +195,34 @@ async function main() {
     const landedOnAccount = /\/cuenta$/.test(new URL(page.url()).pathname);
     const showedError = /inválid|no es válid|invalid|error|no hemos podido/i.test(afterSignUp);
 
+    /*
+     * The message itself is the evidence, not the fact that one exists. A 400
+     * is the right answer to an address the provider will not accept, but only
+     * if what reaches the visitor is a sentence they can act on rather than a
+     * leaked provider string or a blank page.
+     */
+    const signUpMessage = (afterSignUp.match(/^.*(?:inválid|no es válid|invalid|error|no hemos podido).*$/im)?.[0] ?? '')
+      .trim()
+      .slice(0, 120);
+
     record(
       'ACC-01',
       'registro',
       'el formulario responde sin romperse',
       'o crea la cuenta, o explica por qué no',
-      landedOnAccount ? 'cuenta creada' : showedError ? 'muestra un mensaje de error' : 'ni una cosa ni la otra',
+      landedOnAccount ? 'cuenta creada' : showedError ? `mensaje: «${signUpMessage}»` : 'ni una cosa ni la otra',
       landedOnAccount || showedError
     );
+    const unexpectedSoFar = consoleErrors.filter((e) => !isExpected(e));
     record(
       'ACC-02',
       'registro',
-      'ningún error de consola durante el registro',
-      '0 errores',
-      `${consoleErrors.length} errores`,
-      consoleErrors.length === 0
+      'ningún error de consola inesperado durante el registro',
+      '0 inesperados',
+      unexpectedSoFar.length
+        ? unexpectedSoFar.map((e) => `${e.text} (${e.path})`).join(' | ').slice(0, 200)
+        : '0 inesperados',
+      unexpectedSoFar.length === 0
     );
 
     // ---- The identity everything else uses ------------------------------
@@ -160,6 +246,7 @@ async function main() {
     // ---- Login ----------------------------------------------------------
     console.log('\nSesión');
     console.log('───────────────────────────────────────────────');
+    step = 'login';
     await page.goto(`${PREVIEW}/cuenta/entrar`, { waitUntil: 'domcontentloaded' });
     await page.getByLabel('Correo electrónico').fill(email);
     await page.getByLabel('Contraseña', { exact: true }).fill(password);
@@ -199,6 +286,7 @@ async function main() {
     console.log('\nDatos del usuario');
     console.log('───────────────────────────────────────────────');
 
+    step = 'favoritos';
     await page.goto(`${PREVIEW}/herramientas/ollama`, { waitUntil: 'domcontentloaded' });
     const saveButton = page.getByRole('button', { name: /guardar|favorito/i }).first();
     const canSave = await saveButton.isVisible().catch(() => false);
@@ -208,15 +296,23 @@ async function main() {
     }
     await page.goto(`${PREVIEW}/cuenta/favoritos`, { waitUntil: 'domcontentloaded' });
     const favourites = await page.locator('main').innerText();
+    const saved = /ollama/i.test(favourites);
+    /*
+     * The two ways this fails are worth telling apart. A missing button means
+     * the page never offered the action; a present button with nothing saved
+     * means the write was rejected — which is what happened when `public.tools`
+     * was empty and the foreign key refused every insert.
+     */
     record(
       'ACC-07',
       'favoritos',
       'guardar una herramienta la lleva a favoritos',
       'aparece en la lista',
-      /ollama/i.test(favourites) ? 'aparece' : 'no aparece',
-      /ollama/i.test(favourites)
+      saved ? 'aparece' : canSave ? 'se pulsó el botón y no aparece' : 'no había botón que pulsar',
+      saved
     );
 
+    step = 'listas';
     await page.goto(`${PREVIEW}/cuenta/listas`, { waitUntil: 'domcontentloaded' });
     record(
       'ACC-08',
@@ -227,6 +323,7 @@ async function main() {
       (await page.locator('main').innerText()).length > 50
     );
 
+    step = 'preferencias';
     await page.goto(`${PREVIEW}/cuenta/preferencias`, { waitUntil: 'domcontentloaded' });
     const prefsText = await page.locator('main').innerText();
     record(
@@ -241,6 +338,7 @@ async function main() {
     // ---- Password recovery ----------------------------------------------
     console.log('\nRecuperación');
     console.log('───────────────────────────────────────────────');
+    step = 'recuperacion';
     const recovery = await page.goto(`${PREVIEW}/cuenta/recuperar`, { waitUntil: 'domcontentloaded' });
     record(
       'ACC-10',
@@ -254,6 +352,7 @@ async function main() {
     // ---- Admin authorisation --------------------------------------------
     console.log('\nAutorización');
     console.log('───────────────────────────────────────────────');
+    step = 'admin';
     const adminPage = await page.goto(`${PREVIEW}/admin`, { waitUntil: 'domcontentloaded' });
     record(
       'ACC-11',
@@ -265,6 +364,7 @@ async function main() {
     );
 
     // ---- Logout ----------------------------------------------------------
+    step = 'logout';
     await page.goto(`${PREVIEW}/cuenta`, { waitUntil: 'domcontentloaded' });
     const logout = page.getByRole('button', { name: /cerrar sesión|salir/i }).first();
     if (await logout.isVisible().catch(() => false)) {
@@ -282,13 +382,49 @@ async function main() {
       bounced
     );
 
+    const unexpectedConsole = consoleErrors.filter((e) => !isExpected(e));
+    const unexpectedNetwork = badResponses.filter((r) => !isExpected(r));
+
     record(
       'ACC-13',
       'consola',
-      'ningún error de consola en todo el recorrido',
-      '0 errores',
-      consoleErrors.length ? consoleErrors[0].slice(0, 80) : '0 errores',
-      consoleErrors.length === 0
+      'ningún error de consola inesperado en todo el recorrido',
+      '0 inesperados',
+      unexpectedConsole.length
+        ? `${unexpectedConsole.length}: ` +
+          unexpectedConsole.map((e) => `[${e.step}] ${e.text} ${e.path}`).join(' | ').slice(0, 200)
+        : `0 inesperados (${consoleErrors.length} rechazos previstos)`,
+      unexpectedConsole.length === 0
+    );
+
+    record(
+      'ACC-14',
+      'red',
+      'ninguna respuesta 4xx/5xx inesperada en todo el recorrido',
+      'ninguna',
+      unexpectedNetwork.length
+        ? unexpectedNetwork.map((r) => `[${r.step}] ${r.method} ${r.path} → ${r.status}`).join(' | ')
+        : `ninguna (${badResponses.length} rechazos previstos)`,
+      unexpectedNetwork.length === 0
+    );
+
+    /*
+     * The exemptions are asserted, not assumed. If a refusal this list excuses
+     * stops happening, the behaviour it documents has changed and the list is
+     * now lying about what the site does.
+     */
+    const missing = EXPECTED_REFUSALS.filter(
+      (e) => !badResponses.some((r) => r.step === e.step && r.path === e.path && r.status === e.status)
+    );
+    record(
+      'ACC-15',
+      'red',
+      'los rechazos previstos siguen produciéndose',
+      `${EXPECTED_REFUSALS.length} rechazos`,
+      missing.length
+        ? `ya no ocurre: ${missing.map((e) => `${e.path} → ${e.status}`).join(', ')}`
+        : EXPECTED_REFUSALS.map((e) => `${e.path} → ${e.status}`).join(', '),
+      missing.length === 0
     );
   } finally {
     // The throwaway identity goes, whatever happened above.
@@ -317,6 +453,9 @@ async function main() {
         target: 'vercel-preview + supabase-staging',
         totals: { total: results.length, passed: results.length - failed, failed },
         results,
+        expectedRefusals: EXPECTED_REFUSALS,
+        consoleErrors,
+        badResponses,
       },
       null,
       2

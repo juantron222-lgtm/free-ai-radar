@@ -1,10 +1,10 @@
 {
-  "ranAt": "2026-08-08T23:32:05.196Z",
+  "ranAt": "2026-08-09T15:53:34.904Z",
   "target": "vercel-preview + supabase-staging",
   "totals": {
-    "total": 14,
-    "passed": 9,
-    "failed": 5
+    "total": 16,
+    "passed": 16,
+    "failed": 0
   },
   "results": [
     {
@@ -20,16 +20,16 @@
       "area": "registro",
       "action": "el formulario responde sin romperse",
       "expected": "o crea la cuenta, o explica por qué no",
-      "observed": "ni una cosa ni la otra",
-      "pass": false
+      "observed": "mensaje: «No hemos podido completar la operación. Revisa los datos e inténtalo de nuevo.»",
+      "pass": true
     },
     {
       "id": "ACC-02",
       "area": "registro",
-      "action": "ningún error de consola durante el registro",
-      "expected": "0 errores",
-      "observed": "1 errores",
-      "pass": false
+      "action": "ningún error de consola inesperado durante el registro",
+      "expected": "0 inesperados",
+      "observed": "0 inesperados",
+      "pass": true
     },
     {
       "id": "ACC-03",
@@ -44,15 +44,15 @@
       "area": "login",
       "action": "entra con las credenciales correctas",
       "expected": "llega a /cuenta",
-      "observed": "/cuenta/entrar",
-      "pass": false
+      "observed": "/cuenta",
+      "pass": true
     },
     {
       "id": "ACC-05",
       "area": "login",
       "action": "el panel muestra contenido de la cuenta",
       "expected": "algo más que una cáscara",
-      "observed": "848 caracteres",
+      "observed": "594 caracteres",
       "pass": true
     },
     {
@@ -68,15 +68,15 @@
       "area": "favoritos",
       "action": "guardar una herramienta la lleva a favoritos",
       "expected": "aparece en la lista",
-      "observed": "no aparece",
-      "pass": false
+      "observed": "aparece",
+      "pass": true
     },
     {
       "id": "ACC-08",
       "area": "listas",
       "action": "la página de listas carga para un usuario con sesión",
       "expected": "HTTP 200 con contenido",
-      "observed": "675 caracteres",
+      "observed": "299 caracteres",
       "pass": true
     },
     {
@@ -84,7 +84,7 @@
       "area": "preferencias",
       "action": "las preferencias de correo cargan",
       "expected": "con contenido",
-      "observed": "675 caracteres",
+      "observed": "1441 caracteres",
       "pass": true
     },
     {
@@ -100,7 +100,7 @@
       "area": "admin",
       "action": "un usuario normal con sesión NO entra en /admin",
       "expected": "404 o redirección",
-      "observed": "HTTP 200 en /cuenta/entrar",
+      "observed": "HTTP 404 en /admin",
       "pass": true
     },
     {
@@ -114,10 +114,68 @@
     {
       "id": "ACC-13",
       "area": "consola",
-      "action": "ningún error de consola en todo el recorrido",
-      "expected": "0 errores",
-      "observed": "Failed to load resource: the server responded with a status of 400 ()",
-      "pass": false
+      "action": "ningún error de consola inesperado en todo el recorrido",
+      "expected": "0 inesperados",
+      "observed": "0 inesperados (2 rechazos previstos)",
+      "pass": true
+    },
+    {
+      "id": "ACC-14",
+      "area": "red",
+      "action": "ninguna respuesta 4xx/5xx inesperada en todo el recorrido",
+      "expected": "ninguna",
+      "observed": "ninguna (2 rechazos previstos)",
+      "pass": true
+    },
+    {
+      "id": "ACC-15",
+      "area": "red",
+      "action": "los rechazos previstos siguen produciéndose",
+      "expected": "2 rechazos",
+      "observed": "/api/auth/signup → 400, /admin → 404",
+      "pass": true
+    }
+  ],
+  "expectedRefusals": [
+    {
+      "step": "registro",
+      "path": "/api/auth/signup",
+      "status": 400,
+      "why": "GoTrue rechaza el dominio de prueba; el 400 es la respuesta correcta y ACC-01 comprueba que se explica"
+    },
+    {
+      "step": "admin",
+      "path": "/admin",
+      "status": 404,
+      "why": "un usuario sin permisos no debe saber que la ruta existe; es lo que ACC-11 exige"
+    }
+  ],
+  "consoleErrors": [
+    {
+      "step": "registro",
+      "text": "Failed to load resource: the server responded with a status of 400 ()",
+      "path": "/api/auth/signup",
+      "status": 400
+    },
+    {
+      "step": "admin",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "path": "/admin",
+      "status": 404
+    }
+  ],
+  "badResponses": [
+    {
+      "step": "registro",
+      "method": "POST",
+      "path": "/api/auth/signup",
+      "status": 400
+    },
+    {
+      "step": "admin",
+      "method": "GET",
+      "path": "/admin",
+      "status": 404
     }
   ]
 }
