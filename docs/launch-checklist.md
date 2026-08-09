@@ -155,6 +155,24 @@ credenciales, un servicio externo o una decisión humana.
 
 Sin configurar, cada una degrada a un modo local claramente etiquetado. Ninguna falla.
 
+> La tabla describe **producción**. Supabase sí está configurado y probado
+> contra un proyecto de *staging*: ver
+> [`docs/rls-staging-evidence.md`](rls-staging-evidence.md) y
+> [`docs/preview-account-qa-findings.md`](preview-account-qa-findings.md).
+
+### Aplicar el esquema a una base real: dos pasos, no uno
+
+Migrar **no basta**. `public.categories` y `public.tools` son el espejo al que
+apuntan las claves foráneas de los datos de usuario, y ninguna migración las
+llena. Con el esquema migrado y el espejo vacío, guardar un favorito falla
+siempre con `23503` y ninguna página muestra un error — porque el sitio público
+no lee esas tablas. Fue exactamente lo que ocurrió en staging.
+
+`npm run db:migrate:staging` ya sincroniza el catálogo al terminar. Cualquier
+otro camino hacia una base real (producción incluida) tiene que ejecutar la
+sincronización, y volver a ejecutarla **cada vez que cambie el catálogo**: una
+herramienta nueva no se puede guardar en favoritos hasta que esté en el espejo.
+
 ---
 
 ## Lo que NO se ha hecho (a propósito)
