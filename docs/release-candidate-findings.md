@@ -1,6 +1,6 @@
 # Release Candidate — lo que encontró la batería
 
-Cuatro fallos, ninguno en el producto. Los cuatro estaban en el andamiaje que
+Cinco fallos, ninguno en el producto. Los cinco estaban en el andamiaje que
 existe para dar garantías, que es un sitio peor: una prueba rota no rompe el
 sitio, rompe la confianza en todo lo que esa prueba decía.
 
@@ -149,6 +149,28 @@ minuto redescubriéndolo— y sale con código distinto de cero si nunca llega a
 autenticar. La batería espera ahora `Comprobada: autentica`, no `LOGIN:`.
 
 Una credencial que no abre una conexión no es una credencial emitida.
+
+---
+
+## 5. La QA de cuentas medía el tiempo, no el resultado
+
+**Síntoma:** cuatro comprobaciones en rojo justo después de empujar el commit.
+Una de ellas informaba de que el rechazo del registro había ocurrido **durante
+el login**, lo cual era imposible.
+
+**Causa:** `page.waitForTimeout(3500)` después de pulsar «Crear cuenta». El push
+había disparado una reconstrucción, el despliegue respondió en frío, y la
+respuesta del registro llegó cuando el script ya había cambiado de fase. De ahí
+la etiqueta imposible: la variable `step` había avanzado antes que la respuesta.
+
+Tres segundos y medio bastaron hasta que dejaron de bastar. **Una espera fija
+codifica una suposición sobre la velocidad de una máquina ajena**, y el
+diagnóstico que produce cuando falla describe una aplicación que se estaba
+comportando bien.
+
+**Corrección:** `settled(page, ruta)` espera la respuesta concreta que dispara
+cada clic y luego a que la página termine de reaccionar. Las cuatro esperas por
+duración han desaparecido.
 
 ---
 

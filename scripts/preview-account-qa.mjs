@@ -114,6 +114,30 @@ async function main() {
       (e) => e.step === entry.step && e.path === entry.path && e.status === entry.status
     );
 
+  /**
+   * Waits for the request a click actually makes, rather than for a duration.
+   *
+   * This used to be `waitForTimeout(3500)`, and 3.5 seconds was enough until it
+   * was not. A push had just triggered a rebuild, the deployment answered from
+   * cold, and the sign-up response arrived after the script had already moved
+   * on to the login step. Three checks went red and a fourth reported the
+   * sign-up rejection as happening during login — a phase label that was simply
+   * wrong, describing an application that was behaving correctly.
+   *
+   * A fixed sleep encodes a guess about how fast someone else's machine is. The
+   * condition is what we actually mean: the response came back and the page has
+   * finished reacting to it.
+   */
+  async function settled(page, path, { timeout = 25_000 } = {}) {
+    try {
+      await page.waitForResponse((r) => r.url().includes(path), { timeout });
+    } catch {
+      // A click that fires no request is a real outcome — the assertions that
+      // follow are what decide whether it is an acceptable one.
+    }
+    await page.waitForLoadState('networkidle', { timeout }).catch(() => {});
+  }
+
   const page = await context.newPage();
   page.on('console', (m) => {
     if (m.type() !== 'error') return;
@@ -189,7 +213,7 @@ async function main() {
     await page.getByLabel('Correo electrónico').fill(email);
     await page.getByLabel('Contraseña', { exact: true }).fill(password);
     await page.getByRole('button', { name: 'Crear cuenta gratis' }).click();
-    await page.waitForTimeout(3500);
+    await settled(page, '/api/auth/signup');
 
     const afterSignUp = await page.locator('main').innerText();
     const landedOnAccount = /\/cuenta$/.test(new URL(page.url()).pathname);
@@ -251,7 +275,7 @@ async function main() {
     await page.getByLabel('Correo electrónico').fill(email);
     await page.getByLabel('Contraseña', { exact: true }).fill(password);
     await page.getByRole('button', { name: 'Entrar' }).click();
-    await page.waitForTimeout(3500);
+    await settled(page, '/api/auth/login');
 
     const loggedIn = new URL(page.url()).pathname.startsWith('/cuenta');
     const accountText = await page.locator('main').innerText().catch(() => '');
@@ -292,7 +316,7 @@ async function main() {
     const canSave = await saveButton.isVisible().catch(() => false);
     if (canSave) {
       await saveButton.click();
-      await page.waitForTimeout(2000);
+      await settled(page, '/api/account/favorites');
     }
     await page.goto(`${PREVIEW}/cuenta/favoritos`, { waitUntil: 'domcontentloaded' });
     const favourites = await page.locator('main').innerText();
@@ -369,7 +393,7 @@ async function main() {
     const logout = page.getByRole('button', { name: /cerrar sesión|salir/i }).first();
     if (await logout.isVisible().catch(() => false)) {
       await logout.click();
-      await page.waitForTimeout(2500);
+      await settled(page, '/api/auth/logout');
     }
     const afterLogout = await page.goto(`${PREVIEW}/cuenta`, { waitUntil: 'domcontentloaded' });
     const bounced = new URL(page.url()).pathname.startsWith('/cuenta/entrar');
