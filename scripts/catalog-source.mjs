@@ -98,13 +98,25 @@ export async function catalogRows() {
       row[column] = value;
     }
     /*
-     * `created_at` is the one not-null column the dataset does not carry, and
-     * a default does not save us: `jsonb_populate_recordset` produces an
-     * explicit NULL for an absent key, and an explicit NULL defeats a default.
-     * On conflict the existing value is kept, so this only ever applies to a
-     * row being inserted for the first time.
+     * Two columns belong to the database, not to the catalogue.
+     *
+     * `created_at` records when the mirror row first appeared. `updated_at`
+     * records when it last changed — and a `before update` trigger
+     * (`tools_set_updated_at`) overwrites it with `now()` on every update, so
+     * any value sent from here is discarded the instant it arrives. Mirroring
+     * it was a lie the verification caught on its first run: twenty-four rows
+     * reported as discrepant on `updated_at`, every single time.
+     *
+     * They still have to be supplied on insert. A default does not save us —
+     * `jsonb_populate_recordset` turns an absent key into an explicit NULL, and
+     * an explicit NULL defeats a default. On conflict both are left alone.
+     *
+     * The editorial fact that `updatedAt` carried is not lost: `lastVerifiedAt`
+     * is the date the entry was actually checked, and it is mirrored.
      */
+    delete row.updated_at;
     row.created_at = now;
+    row.updated_at = now;
     return row;
   });
 

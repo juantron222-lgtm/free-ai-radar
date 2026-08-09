@@ -1,9 +1,63 @@
 {
-  "ranAt": "2026-08-09T15:49:40.473Z",
+  "ranAt": "2026-08-09T16:54:42.117Z",
   "target": "supabase-staging",
   "engine": "PostgreSQL 17.6",
   "catalog": {
     "categories": 17,
-    "tools": 24
+    "tools": 24,
+    "archived": 0,
+    "retired": [],
+    "staleCategories": []
+  },
+  "install": {
+    "tables": 38,
+    "policies": 91,
+    "autocrawReach": [
+      {
+        "table_name": "affiliate_click_events_daily",
+        "privileges": "SELECT"
+      },
+      {
+        "table_name": "affiliate_links",
+        "privileges": "INSERT, SELECT, UPDATE"
+      },
+      {
+        "table_name": "affiliate_merchants",
+        "privileges": "INSERT, SELECT, UPDATE"
+      },
+      {
+        "table_name": "affiliate_offers",
+        "privileges": "INSERT, SELECT, UPDATE"
+      },
+      {
+        "table_name": "affiliate_products",
+        "privileges": "INSERT, SELECT, UPDATE"
+      },
+      {
+        "table_name": "amazon_api_quota",
+        "privileges": "SELECT"
+      },
+      {
+        "table_name": "amazon_api_usage",
+        "privileges": "INSERT, SELECT, UPDATE"
+      },
+      {
+        "table_name": "amazon_lwa_token",
+        "privileges": "INSERT, SELECT, UPDATE"
+      },
+      {
+        "table_name": "categories",
+        "privileges": "SELECT"
+      },
+      {
+        "table_name": "placement_slots",
+        "privileges": "INSERT, SELECT, UPDATE"
+      },
+      {
+        "table_name": "tool_product_relations",
+        "privileges": "INSERT, SELECT, UPDATE"
+      }
+    ],
+    "columnDefenceIntact": true
   }
 }

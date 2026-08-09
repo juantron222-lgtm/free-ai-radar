@@ -1,6 +1,6 @@
 {
   "engine": "PostgreSQL 18.3 (PGlite 0.5.4) on wasm32-unknown-linux-gnu, compiled by emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 3.1.74 (1092ec30a3fb1d46b1782ff1b4db5094d3d06ae5), 32-bit",
-  "ranAt": "2026-08-07T23:42:38.143Z",
+  "ranAt": "2026-08-09T16:42:43.337Z",
   "notes": [
     "0001_core_schema.sql: omitida la extensión pgcrypto (no incluida en PGlite)",
     "0001_core_schema.sql: omitida la extensión pg_trgm (no incluida en PGlite)",
@@ -9,51 +9,51 @@
   ],
   "totals": {
     "total": 51,
-    "passed": 51,
-    "failed": 0
+    "passed": 38,
+    "failed": 13
   },
   "results": [
     {
       "id": "RLS-01a",
       "severity": "crítica",
-      "outcome": "PASA",
+      "outcome": "FALLA",
       "scenario": "Mallory se asciende a admin en su propio perfil",
-      "detail": "permission denied for table profiles (42501)"
+      "detail": "la operación afectó a 1 fila(s)"
     },
     {
       "id": "RLS-01b",
       "severity": "crítica",
-      "outcome": "PASA",
+      "outcome": "FALLA",
       "scenario": "Mallory se asciende a editor",
-      "detail": "permission denied for table profiles (42501)"
+      "detail": "la operación afectó a 1 fila(s)"
     },
     {
       "id": "RLS-01c",
       "severity": "crítica",
       "outcome": "PASA",
       "scenario": "Mallory reasigna su perfil a otro identificador",
-      "detail": "permission denied for table profiles (42501)"
+      "detail": "new row violates row-level security policy for table \"profiles\" (42501)"
     },
     {
       "id": "RLS-01d",
       "severity": "crítica",
-      "outcome": "PASA",
+      "outcome": "FALLA",
       "scenario": "el rol de Mallory sigue siendo user tras los intentos",
       "detail": ""
     },
     {
       "id": "RLS-02a",
       "severity": "alta",
-      "outcome": "PASA",
+      "outcome": "FALLA",
       "scenario": "Mallory lee el perfil de Alice",
-      "detail": "0 filas visibles"
+      "detail": "se han visto 1 fila(s) ajenas"
     },
     {
       "id": "RLS-02b",
       "severity": "alta",
-      "outcome": "PASA",
+      "outcome": "FALLA",
       "scenario": "Mallory enumera todos los perfiles",
-      "detail": "0 filas visibles"
+      "detail": "se han visto 1 fila(s) ajenas"
     },
     {
       "id": "RLS-02c",
@@ -191,37 +191,37 @@
     {
       "id": "RLS-04a",
       "severity": "crítica",
-      "outcome": "PASA",
+      "outcome": "FALLA",
       "scenario": "Mallory sube la puntuación de una herramienta",
-      "detail": "sin error, pero 0 filas afectadas: RLS filtró la fila"
+      "detail": "la operación afectó a 1 fila(s)"
     },
     {
       "id": "RLS-04b",
       "severity": "crítica",
-      "outcome": "PASA",
+      "outcome": "FALLA",
       "scenario": "Mallory reescribe un veredicto",
-      "detail": "sin error, pero 0 filas afectadas: RLS filtró la fila"
+      "detail": "la operación afectó a 1 fila(s)"
     },
     {
       "id": "RLS-04c",
       "severity": "alta",
-      "outcome": "PASA",
+      "outcome": "FALLA",
       "scenario": "Mallory publica una herramienta inventada",
-      "detail": "new row violates row-level security policy for table \"tools\" (42501)"
+      "detail": "la operación afectó a 1 fila(s)"
     },
     {
       "id": "RLS-04d",
       "severity": "alta",
-      "outcome": "PASA",
+      "outcome": "FALLA",
       "scenario": "Mallory borra una herramienta",
-      "detail": "sin error, pero 0 filas afectadas: RLS filtró la fila"
+      "detail": "la operación afectó a 2 fila(s)"
     },
     {
       "id": "RLS-04e",
       "severity": "media",
-      "outcome": "PASA",
+      "outcome": "FALLA",
       "scenario": "Mallory edita una categoría",
-      "detail": "sin error, pero 0 filas afectadas: RLS filtró la fila"
+      "detail": "la operación afectó a 1 fila(s)"
     },
     {
       "id": "RLS-04f",
@@ -233,16 +233,16 @@
     {
       "id": "RLS-05a",
       "severity": "alta",
-      "outcome": "PASA",
+      "outcome": "FALLA",
       "scenario": "Mallory inserta un producto afiliado",
-      "detail": "new row violates row-level security policy for table \"affiliate_products\" (42501)"
+      "detail": "la operación afectó a 1 fila(s)"
     },
     {
       "id": "RLS-05b",
       "severity": "crítica",
       "outcome": "PASA",
       "scenario": "Mallory crea un enlace afiliado sin divulgación",
-      "detail": "new row violates row-level security policy for table \"affiliate_links\" (42501)"
+      "detail": "new row for relation \"affiliate_links\" violates check constraint \"links_disclosure_always\" (23514)"
     },
     {
       "id": "RLS-05c",
@@ -254,9 +254,9 @@
     {
       "id": "RLS-05d",
       "severity": "media",
-      "outcome": "PASA",
+      "outcome": "FALLA",
       "scenario": "Mallory ve productos pendientes de revisión",
-      "detail": "0 filas visibles"
+      "detail": "se han visto 1 fila(s) ajenas"
     },
     {
       "id": "RLS-05e",
@@ -359,9 +359,9 @@
     {
       "id": "RLS-08a",
       "severity": "alta",
-      "outcome": "PASA",
+      "outcome": "FALLA",
       "scenario": "un perfil marcado para borrado deja de ser legible",
-      "detail": "0 filas visibles"
+      "detail": "se han visto 1 fila(s) ajenas"
     },
     {
       "id": "RLS-08b",
@@ -983,6 +983,11 @@
     {
       "table_name": "accuracy_votes",
       "column_name": "created_at",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "accuracy_votes",
+      "column_name": "created_at",
       "privilege_type": "INSERT"
     },
     {
@@ -992,11 +997,6 @@
     },
     {
       "table_name": "accuracy_votes",
-      "column_name": "created_at",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "accuracy_votes",
       "column_name": "still_accurate",
       "privilege_type": "UPDATE"
     },
@@ -1128,17 +1128,17 @@
     {
       "table_name": "active_placements",
       "column_name": "disclosure_text",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "active_placements",
       "column_name": "disclosure_text",
-      "privilege_type": "INSERT"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "active_placements",
       "column_name": "image_url",
-      "privilege_type": "INSERT"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "active_placements",
@@ -1153,7 +1153,12 @@
     {
       "table_name": "active_placements",
       "column_name": "image_url",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "active_placements",
+      "column_name": "last_checked_at",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "active_placements",
@@ -1169,11 +1174,6 @@
       "table_name": "active_placements",
       "column_name": "last_checked_at",
       "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "active_placements",
-      "column_name": "last_checked_at",
-      "privilege_type": "UPDATE"
     },
     {
       "table_name": "active_placements",
@@ -1318,11 +1318,6 @@
     {
       "table_name": "active_placements",
       "column_name": "product_title",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "active_placements",
-      "column_name": "product_title",
       "privilege_type": "INSERT"
     },
     {
@@ -1337,6 +1332,11 @@
     },
     {
       "table_name": "active_placements",
+      "column_name": "product_title",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "active_placements",
       "column_name": "rationale",
       "privilege_type": "INSERT"
     },
@@ -1438,16 +1438,16 @@
     {
       "table_name": "affiliate_click_events_daily",
       "column_name": "day",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "affiliate_click_events_daily",
-      "column_name": "day",
       "privilege_type": "SELECT"
     },
     {
       "table_name": "affiliate_click_events_daily",
       "column_name": "day",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "affiliate_click_events_daily",
+      "column_name": "day",
       "privilege_type": "REFERENCES"
     },
     {
@@ -1458,17 +1458,12 @@
     {
       "table_name": "affiliate_click_events_daily",
       "column_name": "link_id",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "affiliate_click_events_daily",
-      "column_name": "link_id",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "affiliate_click_events_daily",
-      "column_name": "link_id",
       "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "affiliate_click_events_daily",
+      "column_name": "link_id",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "affiliate_click_events_daily",
@@ -1477,13 +1472,13 @@
     },
     {
       "table_name": "affiliate_click_events_daily",
-      "column_name": "market",
-      "privilege_type": "SELECT"
+      "column_name": "link_id",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "affiliate_click_events_daily",
       "column_name": "market",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "affiliate_click_events_daily",
@@ -1497,8 +1492,8 @@
     },
     {
       "table_name": "affiliate_click_events_daily",
-      "column_name": "slot",
-      "privilege_type": "SELECT"
+      "column_name": "market",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "affiliate_click_events_daily",
@@ -1516,8 +1511,8 @@
       "privilege_type": "UPDATE"
     },
     {
-      "table_name": "affiliate_links",
-      "column_name": "created_at",
+      "table_name": "affiliate_click_events_daily",
+      "column_name": "slot",
       "privilege_type": "SELECT"
     },
     {
@@ -1533,6 +1528,16 @@
     {
       "table_name": "affiliate_links",
       "column_name": "created_at",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "affiliate_links",
+      "column_name": "created_at",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "affiliate_links",
+      "column_name": "disclosure_required",
       "privilege_type": "UPDATE"
     },
     {
@@ -1552,16 +1557,6 @@
     },
     {
       "table_name": "affiliate_links",
-      "column_name": "disclosure_required",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "affiliate_links",
-      "column_name": "id",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "affiliate_links",
       "column_name": "id",
       "privilege_type": "SELECT"
     },
@@ -1577,8 +1572,8 @@
     },
     {
       "table_name": "affiliate_links",
-      "column_name": "last_checked_at",
-      "privilege_type": "SELECT"
+      "column_name": "id",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "affiliate_links",
@@ -1593,6 +1588,21 @@
     {
       "table_name": "affiliate_links",
       "column_name": "last_checked_at",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "affiliate_links",
+      "column_name": "last_checked_at",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "affiliate_links",
+      "column_name": "offer_id",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "affiliate_links",
+      "column_name": "offer_id",
       "privilege_type": "UPDATE"
     },
     {
@@ -1604,16 +1614,6 @@
       "table_name": "affiliate_links",
       "column_name": "offer_id",
       "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "affiliate_links",
-      "column_name": "offer_id",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "affiliate_links",
-      "column_name": "offer_id",
-      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "affiliate_links",
@@ -1658,12 +1658,7 @@
     {
       "table_name": "affiliate_links",
       "column_name": "tracking_tag",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "affiliate_links",
-      "column_name": "tracking_tag",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "affiliate_links",
@@ -1673,7 +1668,17 @@
     {
       "table_name": "affiliate_links",
       "column_name": "tracking_tag",
-      "privilege_type": "SELECT"
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "affiliate_links",
+      "column_name": "tracking_tag",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "affiliate_links",
+      "column_name": "updated_at",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "affiliate_links",
@@ -1689,11 +1694,6 @@
       "table_name": "affiliate_links",
       "column_name": "updated_at",
       "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "affiliate_links",
-      "column_name": "updated_at",
-      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "affiliate_links",
@@ -1718,17 +1718,17 @@
     {
       "table_name": "affiliate_merchants",
       "column_name": "created_at",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "affiliate_merchants",
-      "column_name": "created_at",
       "privilege_type": "SELECT"
     },
     {
       "table_name": "affiliate_merchants",
       "column_name": "created_at",
       "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "affiliate_merchants",
+      "column_name": "created_at",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "affiliate_merchants",
@@ -1738,17 +1738,17 @@
     {
       "table_name": "affiliate_merchants",
       "column_name": "disclosure_text",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "affiliate_merchants",
-      "column_name": "disclosure_text",
       "privilege_type": "SELECT"
     },
     {
       "table_name": "affiliate_merchants",
       "column_name": "disclosure_text",
       "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "affiliate_merchants",
+      "column_name": "disclosure_text",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "affiliate_merchants",
@@ -1918,17 +1918,12 @@
     {
       "table_name": "affiliate_merchants",
       "column_name": "source",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "affiliate_merchants",
-      "column_name": "source",
       "privilege_type": "SELECT"
     },
     {
       "table_name": "affiliate_merchants",
       "column_name": "source",
-      "privilege_type": "INSERT"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "affiliate_merchants",
@@ -1937,6 +1932,11 @@
     },
     {
       "table_name": "affiliate_merchants",
+      "column_name": "source",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "affiliate_merchants",
       "column_name": "status",
       "privilege_type": "INSERT"
     },
@@ -1953,16 +1953,6 @@
     {
       "table_name": "affiliate_merchants",
       "column_name": "status",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "affiliate_merchants",
-      "column_name": "updated_at",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "affiliate_merchants",
-      "column_name": "updated_at",
       "privilege_type": "UPDATE"
     },
     {
@@ -1974,6 +1964,16 @@
       "table_name": "affiliate_merchants",
       "column_name": "updated_at",
       "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "affiliate_merchants",
+      "column_name": "updated_at",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "affiliate_merchants",
+      "column_name": "updated_at",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "affiliate_offers",
@@ -1998,12 +1998,7 @@
     {
       "table_name": "affiliate_offers",
       "column_name": "created_at",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "affiliate_offers",
-      "column_name": "created_at",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "affiliate_offers",
@@ -2013,12 +2008,17 @@
     {
       "table_name": "affiliate_offers",
       "column_name": "created_at",
-      "privilege_type": "UPDATE"
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "affiliate_offers",
+      "column_name": "created_at",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "affiliate_offers",
       "column_name": "id",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "affiliate_offers",
@@ -2033,17 +2033,12 @@
     {
       "table_name": "affiliate_offers",
       "column_name": "id",
-      "privilege_type": "INSERT"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "affiliate_offers",
       "column_name": "last_checked_at",
       "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "affiliate_offers",
-      "column_name": "last_checked_at",
-      "privilege_type": "UPDATE"
     },
     {
       "table_name": "affiliate_offers",
@@ -2057,8 +2052,13 @@
     },
     {
       "table_name": "affiliate_offers",
-      "column_name": "market",
+      "column_name": "last_checked_at",
       "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "affiliate_offers",
+      "column_name": "market",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "affiliate_offers",
@@ -2073,7 +2073,17 @@
     {
       "table_name": "affiliate_offers",
       "column_name": "market",
-      "privilege_type": "SELECT"
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "affiliate_offers",
+      "column_name": "merchant_id",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "affiliate_offers",
+      "column_name": "merchant_id",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "affiliate_offers",
@@ -2084,16 +2094,6 @@
       "table_name": "affiliate_offers",
       "column_name": "merchant_id",
       "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "affiliate_offers",
-      "column_name": "merchant_id",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "affiliate_offers",
-      "column_name": "merchant_id",
-      "privilege_type": "INSERT"
     },
     {
       "table_name": "affiliate_offers",
@@ -2118,7 +2118,7 @@
     {
       "table_name": "affiliate_offers",
       "column_name": "observed_price_at",
-      "privilege_type": "UPDATE"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "affiliate_offers",
@@ -2128,22 +2128,17 @@
     {
       "table_name": "affiliate_offers",
       "column_name": "observed_price_at",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "affiliate_offers",
       "column_name": "observed_price_at",
-      "privilege_type": "INSERT"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "affiliate_offers",
       "column_name": "observed_price_cents",
       "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "affiliate_offers",
-      "column_name": "observed_price_cents",
-      "privilege_type": "UPDATE"
     },
     {
       "table_name": "affiliate_offers",
@@ -2154,6 +2149,11 @@
       "table_name": "affiliate_offers",
       "column_name": "observed_price_cents",
       "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "affiliate_offers",
+      "column_name": "observed_price_cents",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "affiliate_offers",
@@ -2168,12 +2168,12 @@
     {
       "table_name": "affiliate_offers",
       "column_name": "product_id",
-      "privilege_type": "SELECT"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "affiliate_offers",
       "column_name": "product_id",
-      "privilege_type": "INSERT"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "affiliate_offers",
@@ -2183,26 +2183,16 @@
     {
       "table_name": "affiliate_offers",
       "column_name": "source",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "affiliate_offers",
-      "column_name": "source",
       "privilege_type": "SELECT"
     },
     {
       "table_name": "affiliate_offers",
       "column_name": "source",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "affiliate_offers",
-      "column_name": "status",
       "privilege_type": "UPDATE"
     },
     {
       "table_name": "affiliate_offers",
-      "column_name": "status",
+      "column_name": "source",
       "privilege_type": "INSERT"
     },
     {
@@ -2217,8 +2207,18 @@
     },
     {
       "table_name": "affiliate_offers",
+      "column_name": "status",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "affiliate_offers",
+      "column_name": "status",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "affiliate_offers",
       "column_name": "updated_at",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "affiliate_offers",
@@ -2233,17 +2233,17 @@
     {
       "table_name": "affiliate_offers",
       "column_name": "updated_at",
-      "privilege_type": "INSERT"
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "affiliate_products",
+      "column_name": "brand",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "affiliate_products",
       "column_name": "brand",
       "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "affiliate_products",
-      "column_name": "brand",
-      "privilege_type": "SELECT"
     },
     {
       "table_name": "affiliate_products",
@@ -2253,7 +2253,12 @@
     {
       "table_name": "affiliate_products",
       "column_name": "brand",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "affiliate_products",
+      "column_name": "category",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "affiliate_products",
@@ -2272,18 +2277,8 @@
     },
     {
       "table_name": "affiliate_products",
-      "column_name": "category",
+      "column_name": "created_at",
       "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "affiliate_products",
-      "column_name": "created_at",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "affiliate_products",
-      "column_name": "created_at",
-      "privilege_type": "SELECT"
     },
     {
       "table_name": "affiliate_products",
@@ -2293,7 +2288,17 @@
     {
       "table_name": "affiliate_products",
       "column_name": "created_at",
-      "privilege_type": "INSERT"
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "affiliate_products",
+      "column_name": "created_at",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "affiliate_products",
+      "column_name": "external_id",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "affiliate_products",
@@ -2312,18 +2317,13 @@
     },
     {
       "table_name": "affiliate_products",
-      "column_name": "external_id",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "affiliate_products",
       "column_name": "id",
       "privilege_type": "INSERT"
     },
     {
       "table_name": "affiliate_products",
       "column_name": "id",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "affiliate_products",
@@ -2333,12 +2333,17 @@
     {
       "table_name": "affiliate_products",
       "column_name": "id",
-      "privilege_type": "UPDATE"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "affiliate_products",
       "column_name": "image_url",
-      "privilege_type": "INSERT"
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "affiliate_products",
+      "column_name": "image_url",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "affiliate_products",
@@ -2348,17 +2353,12 @@
     {
       "table_name": "affiliate_products",
       "column_name": "image_url",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "affiliate_products",
-      "column_name": "image_url",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "affiliate_products",
       "column_name": "last_checked_at",
-      "privilege_type": "INSERT"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "affiliate_products",
@@ -2373,12 +2373,7 @@
     {
       "table_name": "affiliate_products",
       "column_name": "last_checked_at",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "affiliate_products",
-      "column_name": "slug",
-      "privilege_type": "UPDATE"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "affiliate_products",
@@ -2388,11 +2383,31 @@
     {
       "table_name": "affiliate_products",
       "column_name": "slug",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "affiliate_products",
       "column_name": "slug",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "affiliate_products",
+      "column_name": "slug",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "affiliate_products",
+      "column_name": "source",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "affiliate_products",
+      "column_name": "source",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "affiliate_products",
+      "column_name": "source",
       "privilege_type": "SELECT"
     },
     {
@@ -2402,18 +2417,8 @@
     },
     {
       "table_name": "affiliate_products",
-      "column_name": "source",
+      "column_name": "status",
       "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "affiliate_products",
-      "column_name": "source",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "affiliate_products",
-      "column_name": "source",
-      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "affiliate_products",
@@ -2423,7 +2428,7 @@
     {
       "table_name": "affiliate_products",
       "column_name": "status",
-      "privilege_type": "UPDATE"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "affiliate_products",
@@ -2432,23 +2437,18 @@
     },
     {
       "table_name": "affiliate_products",
-      "column_name": "status",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "affiliate_products",
       "column_name": "summary",
       "privilege_type": "UPDATE"
     },
     {
       "table_name": "affiliate_products",
       "column_name": "summary",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "affiliate_products",
       "column_name": "summary",
-      "privilege_type": "INSERT"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "affiliate_products",
@@ -2463,7 +2463,7 @@
     {
       "table_name": "affiliate_products",
       "column_name": "title",
-      "privilege_type": "INSERT"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "affiliate_products",
@@ -2473,17 +2473,7 @@
     {
       "table_name": "affiliate_products",
       "column_name": "title",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "affiliate_products",
-      "column_name": "updated_at",
       "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "affiliate_products",
-      "column_name": "updated_at",
-      "privilege_type": "SELECT"
     },
     {
       "table_name": "affiliate_products",
@@ -2493,7 +2483,22 @@
     {
       "table_name": "affiliate_products",
       "column_name": "updated_at",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "affiliate_products",
+      "column_name": "updated_at",
       "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "affiliate_products",
+      "column_name": "updated_at",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "affiliate_programs",
+      "column_name": "created_at",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "affiliate_programs",
@@ -2503,21 +2508,11 @@
     {
       "table_name": "affiliate_programs",
       "column_name": "created_at",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "affiliate_programs",
-      "column_name": "created_at",
       "privilege_type": "REFERENCES"
     },
     {
       "table_name": "affiliate_programs",
       "column_name": "created_at",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "affiliate_programs",
-      "column_name": "id",
       "privilege_type": "INSERT"
     },
     {
@@ -2528,21 +2523,16 @@
     {
       "table_name": "affiliate_programs",
       "column_name": "id",
-      "privilege_type": "SELECT"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "affiliate_programs",
       "column_name": "id",
-      "privilege_type": "UPDATE"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "affiliate_programs",
-      "column_name": "name",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "affiliate_programs",
-      "column_name": "name",
+      "column_name": "id",
       "privilege_type": "SELECT"
     },
     {
@@ -2553,12 +2543,17 @@
     {
       "table_name": "affiliate_programs",
       "column_name": "name",
-      "privilege_type": "INSERT"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "affiliate_programs",
-      "column_name": "network",
-      "privilege_type": "UPDATE"
+      "column_name": "name",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "affiliate_programs",
+      "column_name": "name",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "affiliate_programs",
@@ -2577,13 +2572,8 @@
     },
     {
       "table_name": "affiliate_programs",
-      "column_name": "notes",
+      "column_name": "network",
       "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "affiliate_programs",
-      "column_name": "notes",
-      "privilege_type": "INSERT"
     },
     {
       "table_name": "affiliate_programs",
@@ -2593,6 +2583,31 @@
     {
       "table_name": "affiliate_programs",
       "column_name": "notes",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "affiliate_programs",
+      "column_name": "notes",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "affiliate_programs",
+      "column_name": "notes",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "alerts",
+      "column_name": "category_slug",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "alerts",
+      "column_name": "category_slug",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "alerts",
+      "column_name": "category_slug",
       "privilege_type": "SELECT"
     },
     {
@@ -2602,18 +2617,13 @@
     },
     {
       "table_name": "alerts",
-      "column_name": "category_slug",
+      "column_name": "created_at",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "alerts",
+      "column_name": "created_at",
       "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "alerts",
-      "column_name": "category_slug",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "alerts",
-      "column_name": "category_slug",
-      "privilege_type": "INSERT"
     },
     {
       "table_name": "alerts",
@@ -2627,12 +2637,7 @@
     },
     {
       "table_name": "alerts",
-      "column_name": "created_at",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "alerts",
-      "column_name": "created_at",
+      "column_name": "id",
       "privilege_type": "REFERENCES"
     },
     {
@@ -2648,16 +2653,6 @@
     {
       "table_name": "alerts",
       "column_name": "id",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "alerts",
-      "column_name": "id",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "alerts",
-      "column_name": "is_active",
       "privilege_type": "INSERT"
     },
     {
@@ -2668,7 +2663,7 @@
     {
       "table_name": "alerts",
       "column_name": "is_active",
-      "privilege_type": "SELECT"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "alerts",
@@ -2677,8 +2672,18 @@
     },
     {
       "table_name": "alerts",
+      "column_name": "is_active",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "alerts",
       "column_name": "kinds",
       "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "alerts",
+      "column_name": "kinds",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "alerts",
@@ -2692,7 +2697,7 @@
     },
     {
       "table_name": "alerts",
-      "column_name": "kinds",
+      "column_name": "last_sent_at",
       "privilege_type": "REFERENCES"
     },
     {
@@ -2703,7 +2708,7 @@
     {
       "table_name": "alerts",
       "column_name": "last_sent_at",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "alerts",
@@ -2712,8 +2717,8 @@
     },
     {
       "table_name": "alerts",
-      "column_name": "last_sent_at",
-      "privilege_type": "SELECT"
+      "column_name": "tool_id",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "alerts",
@@ -2723,22 +2728,17 @@
     {
       "table_name": "alerts",
       "column_name": "tool_id",
-      "privilege_type": "INSERT"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "alerts",
       "column_name": "tool_id",
       "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "alerts",
-      "column_name": "tool_id",
-      "privilege_type": "SELECT"
     },
     {
       "table_name": "alerts",
       "column_name": "user_id",
-      "privilege_type": "UPDATE"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "alerts",
@@ -2753,12 +2753,17 @@
     {
       "table_name": "alerts",
       "column_name": "user_id",
-      "privilege_type": "SELECT"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "audit_logs",
       "column_name": "action",
       "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "audit_logs",
+      "column_name": "action",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "audit_logs",
@@ -2772,13 +2777,13 @@
     },
     {
       "table_name": "audit_logs",
-      "column_name": "action",
-      "privilege_type": "SELECT"
+      "column_name": "actor_email",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "audit_logs",
       "column_name": "actor_email",
-      "privilege_type": "UPDATE"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "audit_logs",
@@ -2789,11 +2794,6 @@
       "table_name": "audit_logs",
       "column_name": "actor_email",
       "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "audit_logs",
-      "column_name": "actor_email",
-      "privilege_type": "INSERT"
     },
     {
       "table_name": "audit_logs",
@@ -2818,6 +2818,11 @@
     {
       "table_name": "audit_logs",
       "column_name": "created_at",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "audit_logs",
+      "column_name": "created_at",
       "privilege_type": "INSERT"
     },
     {
@@ -2832,7 +2837,12 @@
     },
     {
       "table_name": "audit_logs",
-      "column_name": "created_at",
+      "column_name": "diff",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "audit_logs",
+      "column_name": "diff",
       "privilege_type": "UPDATE"
     },
     {
@@ -2843,27 +2853,22 @@
     {
       "table_name": "audit_logs",
       "column_name": "diff",
-      "privilege_type": "UPDATE"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "audit_logs",
-      "column_name": "diff",
+      "column_name": "entity",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "audit_logs",
+      "column_name": "entity",
       "privilege_type": "REFERENCES"
     },
     {
       "table_name": "audit_logs",
-      "column_name": "diff",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "audit_logs",
       "column_name": "entity",
       "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "audit_logs",
-      "column_name": "entity",
-      "privilege_type": "INSERT"
     },
     {
       "table_name": "audit_logs",
@@ -2872,7 +2877,7 @@
     },
     {
       "table_name": "audit_logs",
-      "column_name": "entity",
+      "column_name": "entity_id",
       "privilege_type": "REFERENCES"
     },
     {
@@ -2883,32 +2888,17 @@
     {
       "table_name": "audit_logs",
       "column_name": "entity_id",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "audit_logs",
-      "column_name": "entity_id",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "audit_logs",
-      "column_name": "entity_id",
       "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "audit_logs",
+      "column_name": "entity_id",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "audit_logs",
       "column_name": "id",
       "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "audit_logs",
-      "column_name": "id",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "audit_logs",
-      "column_name": "id",
-      "privilege_type": "INSERT"
     },
     {
       "table_name": "audit_logs",
@@ -2917,8 +2907,13 @@
     },
     {
       "table_name": "audit_logs",
-      "column_name": "ip_hash",
-      "privilege_type": "SELECT"
+      "column_name": "id",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "audit_logs",
+      "column_name": "id",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "audit_logs",
@@ -2933,17 +2928,22 @@
     {
       "table_name": "audit_logs",
       "column_name": "ip_hash",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "audit_logs",
+      "column_name": "ip_hash",
       "privilege_type": "UPDATE"
     },
     {
       "table_name": "categories",
       "column_name": "created_at",
-      "privilege_type": "SELECT"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "categories",
       "column_name": "created_at",
-      "privilege_type": "INSERT"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "categories",
@@ -2958,7 +2958,7 @@
     {
       "table_name": "categories",
       "column_name": "icon",
-      "privilege_type": "INSERT"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "categories",
@@ -2968,12 +2968,17 @@
     {
       "table_name": "categories",
       "column_name": "icon",
-      "privilege_type": "UPDATE"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "categories",
       "column_name": "icon",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "categories",
+      "column_name": "intro",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "categories",
@@ -2984,11 +2989,6 @@
       "table_name": "categories",
       "column_name": "intro",
       "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "categories",
-      "column_name": "intro",
-      "privilege_type": "SELECT"
     },
     {
       "table_name": "categories",
@@ -3018,32 +3018,22 @@
     {
       "table_name": "categories",
       "column_name": "position",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "categories",
-      "column_name": "position",
       "privilege_type": "UPDATE"
     },
     {
       "table_name": "categories",
       "column_name": "position",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "categories",
+      "column_name": "position",
       "privilege_type": "REFERENCES"
     },
     {
       "table_name": "categories",
       "column_name": "position",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "categories",
-      "column_name": "slug",
       "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "categories",
-      "column_name": "slug",
-      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "categories",
@@ -3056,9 +3046,14 @@
       "privilege_type": "UPDATE"
     },
     {
-      "table_name": "editorial_reviews",
-      "column_name": "created_at",
-      "privilege_type": "INSERT"
+      "table_name": "categories",
+      "column_name": "slug",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "categories",
+      "column_name": "slug",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "editorial_reviews",
@@ -3068,12 +3063,22 @@
     {
       "table_name": "editorial_reviews",
       "column_name": "created_at",
-      "privilege_type": "SELECT"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "editorial_reviews",
       "column_name": "created_at",
       "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "editorial_reviews",
+      "column_name": "created_at",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "editorial_reviews",
+      "column_name": "id",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "editorial_reviews",
@@ -3089,11 +3094,6 @@
       "table_name": "editorial_reviews",
       "column_name": "id",
       "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "editorial_reviews",
-      "column_name": "id",
-      "privilege_type": "INSERT"
     },
     {
       "table_name": "editorial_reviews",
@@ -3118,6 +3118,11 @@
     {
       "table_name": "editorial_reviews",
       "column_name": "reviewed_on",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "editorial_reviews",
+      "column_name": "reviewed_on",
       "privilege_type": "INSERT"
     },
     {
@@ -3132,13 +3137,8 @@
     },
     {
       "table_name": "editorial_reviews",
-      "column_name": "reviewed_on",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "editorial_reviews",
       "column_name": "reviewer_id",
-      "privilege_type": "UPDATE"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "editorial_reviews",
@@ -3148,17 +3148,17 @@
     {
       "table_name": "editorial_reviews",
       "column_name": "reviewer_id",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "editorial_reviews",
       "column_name": "reviewer_id",
-      "privilege_type": "INSERT"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "editorial_reviews",
       "column_name": "reviewer_name",
-      "privilege_type": "SELECT"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "editorial_reviews",
@@ -3168,21 +3168,11 @@
     {
       "table_name": "editorial_reviews",
       "column_name": "reviewer_name",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "editorial_reviews",
       "column_name": "reviewer_name",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "editorial_reviews",
-      "column_name": "scores",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "editorial_reviews",
-      "column_name": "scores",
       "privilege_type": "INSERT"
     },
     {
@@ -3197,13 +3187,18 @@
     },
     {
       "table_name": "editorial_reviews",
-      "column_name": "tool_id",
+      "column_name": "scores",
       "privilege_type": "REFERENCES"
     },
     {
       "table_name": "editorial_reviews",
+      "column_name": "scores",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "editorial_reviews",
       "column_name": "tool_id",
-      "privilege_type": "SELECT"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "editorial_reviews",
@@ -3213,6 +3208,21 @@
     {
       "table_name": "editorial_reviews",
       "column_name": "tool_id",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "editorial_reviews",
+      "column_name": "tool_id",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "email_log",
+      "column_name": "created_at",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "email_log",
+      "column_name": "created_at",
       "privilege_type": "UPDATE"
     },
     {
@@ -3227,18 +3237,13 @@
     },
     {
       "table_name": "email_log",
-      "column_name": "created_at",
+      "column_name": "error",
       "privilege_type": "UPDATE"
     },
     {
       "table_name": "email_log",
-      "column_name": "created_at",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "email_log",
       "column_name": "error",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "email_log",
@@ -3248,12 +3253,7 @@
     {
       "table_name": "email_log",
       "column_name": "error",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "email_log",
-      "column_name": "error",
-      "privilege_type": "SELECT"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "email_log",
@@ -3278,22 +3278,37 @@
     {
       "table_name": "email_log",
       "column_name": "kind",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "email_log",
-      "column_name": "kind",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "email_log",
-      "column_name": "kind",
       "privilege_type": "SELECT"
     },
     {
       "table_name": "email_log",
       "column_name": "kind",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "email_log",
+      "column_name": "kind",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "email_log",
+      "column_name": "kind",
       "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "email_log",
+      "column_name": "provider_id",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "email_log",
+      "column_name": "provider_id",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "email_log",
+      "column_name": "provider_id",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "email_log",
@@ -3302,23 +3317,13 @@
     },
     {
       "table_name": "email_log",
-      "column_name": "provider_id",
+      "column_name": "status",
       "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "email_log",
-      "column_name": "provider_id",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "email_log",
-      "column_name": "provider_id",
-      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "email_log",
       "column_name": "status",
-      "privilege_type": "SELECT"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "email_log",
@@ -3332,7 +3337,7 @@
     },
     {
       "table_name": "email_log",
-      "column_name": "status",
+      "column_name": "template",
       "privilege_type": "INSERT"
     },
     {
@@ -3352,21 +3357,6 @@
     },
     {
       "table_name": "email_log",
-      "column_name": "template",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "email_log",
-      "column_name": "to_hash",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "email_log",
-      "column_name": "to_hash",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "email_log",
       "column_name": "to_hash",
       "privilege_type": "UPDATE"
     },
@@ -3376,9 +3366,24 @@
       "privilege_type": "SELECT"
     },
     {
+      "table_name": "email_log",
+      "column_name": "to_hash",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "email_log",
+      "column_name": "to_hash",
+      "privilege_type": "REFERENCES"
+    },
+    {
       "table_name": "followed_categories",
       "column_name": "category_slug",
       "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "followed_categories",
+      "column_name": "category_slug",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "followed_categories",
@@ -3389,11 +3394,6 @@
       "table_name": "followed_categories",
       "column_name": "category_slug",
       "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "followed_categories",
-      "column_name": "category_slug",
-      "privilege_type": "UPDATE"
     },
     {
       "table_name": "followed_categories",
@@ -3403,7 +3403,7 @@
     {
       "table_name": "followed_categories",
       "column_name": "created_at",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "followed_categories",
@@ -3413,17 +3413,7 @@
     {
       "table_name": "followed_categories",
       "column_name": "created_at",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "followed_categories",
-      "column_name": "user_id",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "followed_categories",
-      "column_name": "user_id",
-      "privilege_type": "INSERT"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "followed_categories",
@@ -3433,17 +3423,17 @@
     {
       "table_name": "followed_categories",
       "column_name": "user_id",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "newsletter_subscriptions",
-      "column_name": "categories",
       "privilege_type": "INSERT"
     },
     {
-      "table_name": "newsletter_subscriptions",
-      "column_name": "categories",
+      "table_name": "followed_categories",
+      "column_name": "user_id",
       "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "followed_categories",
+      "column_name": "user_id",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "newsletter_subscriptions",
@@ -3453,17 +3443,22 @@
     {
       "table_name": "newsletter_subscriptions",
       "column_name": "categories",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "newsletter_subscriptions",
-      "column_name": "confirm_sent_at",
       "privilege_type": "SELECT"
     },
     {
       "table_name": "newsletter_subscriptions",
-      "column_name": "confirm_sent_at",
+      "column_name": "categories",
       "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "newsletter_subscriptions",
+      "column_name": "categories",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "newsletter_subscriptions",
+      "column_name": "confirm_sent_at",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "newsletter_subscriptions",
@@ -3473,12 +3468,17 @@
     {
       "table_name": "newsletter_subscriptions",
       "column_name": "confirm_sent_at",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "newsletter_subscriptions",
+      "column_name": "confirm_sent_at",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "newsletter_subscriptions",
       "column_name": "confirm_token_hash",
-      "privilege_type": "INSERT"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "newsletter_subscriptions",
@@ -3493,12 +3493,12 @@
     {
       "table_name": "newsletter_subscriptions",
       "column_name": "confirm_token_hash",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "newsletter_subscriptions",
       "column_name": "confirmed_at",
-      "privilege_type": "INSERT"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "newsletter_subscriptions",
@@ -3513,11 +3513,6 @@
     {
       "table_name": "newsletter_subscriptions",
       "column_name": "confirmed_at",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "newsletter_subscriptions",
-      "column_name": "consent_ip_hash",
       "privilege_type": "INSERT"
     },
     {
@@ -3537,13 +3532,8 @@
     },
     {
       "table_name": "newsletter_subscriptions",
-      "column_name": "consent_user_agent",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "newsletter_subscriptions",
-      "column_name": "consent_user_agent",
-      "privilege_type": "REFERENCES"
+      "column_name": "consent_ip_hash",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "newsletter_subscriptions",
@@ -3557,13 +3547,13 @@
     },
     {
       "table_name": "newsletter_subscriptions",
-      "column_name": "created_at",
-      "privilege_type": "UPDATE"
+      "column_name": "consent_user_agent",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "newsletter_subscriptions",
-      "column_name": "created_at",
-      "privilege_type": "INSERT"
+      "column_name": "consent_user_agent",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "newsletter_subscriptions",
@@ -3577,8 +3567,13 @@
     },
     {
       "table_name": "newsletter_subscriptions",
-      "column_name": "email",
+      "column_name": "created_at",
       "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "newsletter_subscriptions",
+      "column_name": "created_at",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "newsletter_subscriptions",
@@ -3593,7 +3588,17 @@
     {
       "table_name": "newsletter_subscriptions",
       "column_name": "email",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "newsletter_subscriptions",
+      "column_name": "email",
       "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "newsletter_subscriptions",
+      "column_name": "id",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "newsletter_subscriptions",
@@ -3608,22 +3613,7 @@
     {
       "table_name": "newsletter_subscriptions",
       "column_name": "id",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "newsletter_subscriptions",
-      "column_name": "id",
       "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "newsletter_subscriptions",
-      "column_name": "locale",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "newsletter_subscriptions",
-      "column_name": "locale",
-      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "newsletter_subscriptions",
@@ -3634,6 +3624,21 @@
       "table_name": "newsletter_subscriptions",
       "column_name": "locale",
       "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "newsletter_subscriptions",
+      "column_name": "locale",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "newsletter_subscriptions",
+      "column_name": "locale",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "newsletter_subscriptions",
+      "column_name": "source",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "newsletter_subscriptions",
@@ -3652,18 +3657,13 @@
     },
     {
       "table_name": "newsletter_subscriptions",
-      "column_name": "source",
+      "column_name": "status",
       "privilege_type": "UPDATE"
     },
     {
       "table_name": "newsletter_subscriptions",
       "column_name": "status",
       "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "newsletter_subscriptions",
-      "column_name": "status",
-      "privilege_type": "UPDATE"
     },
     {
       "table_name": "newsletter_subscriptions",
@@ -3678,17 +3678,7 @@
     {
       "table_name": "newsletter_subscriptions",
       "column_name": "unsubscribe_token_hash",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "newsletter_subscriptions",
-      "column_name": "unsubscribe_token_hash",
       "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "newsletter_subscriptions",
-      "column_name": "unsubscribe_token_hash",
-      "privilege_type": "SELECT"
     },
     {
       "table_name": "newsletter_subscriptions",
@@ -3697,13 +3687,18 @@
     },
     {
       "table_name": "newsletter_subscriptions",
-      "column_name": "unsubscribed_at",
+      "column_name": "unsubscribe_token_hash",
       "privilege_type": "INSERT"
     },
     {
       "table_name": "newsletter_subscriptions",
+      "column_name": "unsubscribe_token_hash",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "newsletter_subscriptions",
       "column_name": "unsubscribed_at",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "newsletter_subscriptions",
@@ -3717,8 +3712,8 @@
     },
     {
       "table_name": "newsletter_subscriptions",
-      "column_name": "updated_at",
-      "privilege_type": "SELECT"
+      "column_name": "unsubscribed_at",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "newsletter_subscriptions",
@@ -3737,13 +3732,8 @@
     },
     {
       "table_name": "newsletter_subscriptions",
-      "column_name": "user_id",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "newsletter_subscriptions",
-      "column_name": "user_id",
-      "privilege_type": "REFERENCES"
+      "column_name": "updated_at",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "newsletter_subscriptions",
@@ -3756,6 +3746,21 @@
       "privilege_type": "SELECT"
     },
     {
+      "table_name": "newsletter_subscriptions",
+      "column_name": "user_id",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "newsletter_subscriptions",
+      "column_name": "user_id",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "notification_preferences",
+      "column_name": "categories",
+      "privilege_type": "UPDATE"
+    },
+    {
       "table_name": "notification_preferences",
       "column_name": "categories",
       "privilege_type": "INSERT"
@@ -3772,23 +3777,18 @@
     },
     {
       "table_name": "notification_preferences",
-      "column_name": "categories",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "notification_preferences",
       "column_name": "instant_alerts",
       "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "notification_preferences",
-      "column_name": "instant_alerts",
-      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "notification_preferences",
       "column_name": "instant_alerts",
       "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "notification_preferences",
+      "column_name": "instant_alerts",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "notification_preferences",
@@ -3803,17 +3803,17 @@
     {
       "table_name": "notification_preferences",
       "column_name": "marketing_opt_in",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "notification_preferences",
+      "column_name": "marketing_opt_in",
       "privilege_type": "UPDATE"
     },
     {
       "table_name": "notification_preferences",
       "column_name": "marketing_opt_in",
       "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "notification_preferences",
-      "column_name": "marketing_opt_in",
-      "privilege_type": "INSERT"
     },
     {
       "table_name": "notification_preferences",
@@ -3838,16 +3838,6 @@
     {
       "table_name": "notification_preferences",
       "column_name": "updated_at",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "notification_preferences",
-      "column_name": "updated_at",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "notification_preferences",
-      "column_name": "updated_at",
       "privilege_type": "INSERT"
     },
     {
@@ -3857,13 +3847,13 @@
     },
     {
       "table_name": "notification_preferences",
-      "column_name": "user_id",
-      "privilege_type": "INSERT"
+      "column_name": "updated_at",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "notification_preferences",
-      "column_name": "user_id",
-      "privilege_type": "REFERENCES"
+      "column_name": "updated_at",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "notification_preferences",
@@ -3873,11 +3863,16 @@
     {
       "table_name": "notification_preferences",
       "column_name": "user_id",
-      "privilege_type": "UPDATE"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "notification_preferences",
-      "column_name": "weekly_digest",
+      "column_name": "user_id",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "notification_preferences",
+      "column_name": "user_id",
       "privilege_type": "UPDATE"
     },
     {
@@ -3888,12 +3883,22 @@
     {
       "table_name": "notification_preferences",
       "column_name": "weekly_digest",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "notification_preferences",
+      "column_name": "weekly_digest",
       "privilege_type": "REFERENCES"
     },
     {
       "table_name": "notification_preferences",
       "column_name": "weekly_digest",
       "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "placement_slots",
+      "column_name": "commercial_priority",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "placement_slots",
@@ -3912,11 +3917,6 @@
     },
     {
       "table_name": "placement_slots",
-      "column_name": "commercial_priority",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "placement_slots",
       "column_name": "created_at",
       "privilege_type": "UPDATE"
     },
@@ -3928,17 +3928,12 @@
     {
       "table_name": "placement_slots",
       "column_name": "created_at",
-      "privilege_type": "SELECT"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "placement_slots",
       "column_name": "created_at",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "placement_slots",
-      "column_name": "ends_on",
-      "privilege_type": "INSERT"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "placement_slots",
@@ -3948,12 +3943,22 @@
     {
       "table_name": "placement_slots",
       "column_name": "ends_on",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "placement_slots",
+      "column_name": "ends_on",
       "privilege_type": "SELECT"
     },
     {
       "table_name": "placement_slots",
       "column_name": "ends_on",
-      "privilege_type": "UPDATE"
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "placement_slots",
+      "column_name": "id",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "placement_slots",
@@ -3972,38 +3977,28 @@
     },
     {
       "table_name": "placement_slots",
-      "column_name": "id",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "placement_slots",
-      "column_name": "last_checked_at",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "placement_slots",
       "column_name": "last_checked_at",
       "privilege_type": "INSERT"
     },
     {
       "table_name": "placement_slots",
       "column_name": "last_checked_at",
-      "privilege_type": "UPDATE"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "placement_slots",
       "column_name": "last_checked_at",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "placement_slots",
-      "column_name": "relation_id",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "placement_slots",
-      "column_name": "relation_id",
+      "column_name": "last_checked_at",
       "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "placement_slots",
+      "column_name": "relation_id",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "placement_slots",
@@ -4013,17 +4008,22 @@
     {
       "table_name": "placement_slots",
       "column_name": "relation_id",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "placement_slots",
-      "column_name": "slot",
       "privilege_type": "UPDATE"
     },
     {
       "table_name": "placement_slots",
+      "column_name": "relation_id",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "placement_slots",
       "column_name": "slot",
       "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "placement_slots",
+      "column_name": "slot",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "placement_slots",
@@ -4033,17 +4033,17 @@
     {
       "table_name": "placement_slots",
       "column_name": "slot",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "placement_slots",
-      "column_name": "source",
       "privilege_type": "UPDATE"
     },
     {
       "table_name": "placement_slots",
       "column_name": "source",
       "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "placement_slots",
+      "column_name": "source",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "placement_slots",
@@ -4063,22 +4063,22 @@
     {
       "table_name": "placement_slots",
       "column_name": "starts_on",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "placement_slots",
-      "column_name": "starts_on",
       "privilege_type": "INSERT"
     },
     {
       "table_name": "placement_slots",
       "column_name": "starts_on",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "placement_slots",
+      "column_name": "starts_on",
       "privilege_type": "SELECT"
     },
     {
       "table_name": "placement_slots",
       "column_name": "status",
-      "privilege_type": "SELECT"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "placement_slots",
@@ -4093,16 +4093,6 @@
     {
       "table_name": "placement_slots",
       "column_name": "status",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "placement_slots",
-      "column_name": "updated_at",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "placement_slots",
-      "column_name": "updated_at",
       "privilege_type": "SELECT"
     },
     {
@@ -4113,7 +4103,22 @@
     {
       "table_name": "placement_slots",
       "column_name": "updated_at",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "placement_slots",
+      "column_name": "updated_at",
       "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "placement_slots",
+      "column_name": "updated_at",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "processed_webhook_events",
+      "column_name": "id",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "processed_webhook_events",
@@ -4128,27 +4133,22 @@
     {
       "table_name": "processed_webhook_events",
       "column_name": "id",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "processed_webhook_events",
-      "column_name": "id",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "processed_webhook_events",
-      "column_name": "processed_at",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "processed_webhook_events",
-      "column_name": "processed_at",
       "privilege_type": "INSERT"
     },
     {
       "table_name": "processed_webhook_events",
       "column_name": "processed_at",
       "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "processed_webhook_events",
+      "column_name": "processed_at",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "processed_webhook_events",
+      "column_name": "processed_at",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "processed_webhook_events",
@@ -4163,7 +4163,7 @@
     {
       "table_name": "processed_webhook_events",
       "column_name": "provider",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "processed_webhook_events",
@@ -4173,7 +4173,7 @@
     {
       "table_name": "processed_webhook_events",
       "column_name": "provider",
-      "privilege_type": "UPDATE"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "processed_webhook_events",
@@ -4188,16 +4188,11 @@
     {
       "table_name": "processed_webhook_events",
       "column_name": "type",
-      "privilege_type": "UPDATE"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "processed_webhook_events",
       "column_name": "type",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "product_events",
-      "column_name": "anon_hash",
       "privilege_type": "UPDATE"
     },
     {
@@ -4217,8 +4212,13 @@
     },
     {
       "table_name": "product_events",
+      "column_name": "anon_hash",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "product_events",
       "column_name": "created_at",
-      "privilege_type": "SELECT"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "product_events",
@@ -4228,7 +4228,7 @@
     {
       "table_name": "product_events",
       "column_name": "created_at",
-      "privilege_type": "UPDATE"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "product_events",
@@ -4243,11 +4243,6 @@
     {
       "table_name": "product_events",
       "column_name": "id",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "product_events",
-      "column_name": "id",
       "privilege_type": "INSERT"
     },
     {
@@ -4257,8 +4252,18 @@
     },
     {
       "table_name": "product_events",
-      "column_name": "name",
+      "column_name": "id",
       "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "product_events",
+      "column_name": "name",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "product_events",
+      "column_name": "name",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "product_events",
@@ -4268,22 +4273,7 @@
     {
       "table_name": "product_events",
       "column_name": "name",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "product_events",
-      "column_name": "name",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "product_events",
-      "column_name": "props",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "product_events",
-      "column_name": "props",
-      "privilege_type": "SELECT"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "product_events",
@@ -4297,23 +4287,43 @@
     },
     {
       "table_name": "product_events",
+      "column_name": "props",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "product_events",
+      "column_name": "props",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "product_events",
+      "column_name": "user_id",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "product_events",
+      "column_name": "user_id",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "product_events",
+      "column_name": "user_id",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "product_events",
       "column_name": "user_id",
       "privilege_type": "REFERENCES"
     },
     {
-      "table_name": "product_events",
-      "column_name": "user_id",
+      "table_name": "profiles",
+      "column_name": "avatar_url",
       "privilege_type": "UPDATE"
     },
     {
-      "table_name": "product_events",
-      "column_name": "user_id",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "product_events",
-      "column_name": "user_id",
-      "privilege_type": "INSERT"
+      "table_name": "profiles",
+      "column_name": "avatar_url",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "profiles",
@@ -4327,12 +4337,7 @@
     },
     {
       "table_name": "profiles",
-      "column_name": "avatar_url",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "profiles",
-      "column_name": "avatar_url",
+      "column_name": "created_at",
       "privilege_type": "REFERENCES"
     },
     {
@@ -4348,11 +4353,6 @@
     {
       "table_name": "profiles",
       "column_name": "created_at",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "profiles",
-      "column_name": "deleted_at",
       "privilege_type": "UPDATE"
     },
     {
@@ -4363,7 +4363,7 @@
     {
       "table_name": "profiles",
       "column_name": "deleted_at",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "profiles",
@@ -4372,8 +4372,8 @@
     },
     {
       "table_name": "profiles",
-      "column_name": "display_name",
-      "privilege_type": "SELECT"
+      "column_name": "deleted_at",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "profiles",
@@ -4383,11 +4383,21 @@
     {
       "table_name": "profiles",
       "column_name": "display_name",
-      "privilege_type": "INSERT"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "profiles",
       "column_name": "display_name",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "display_name",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "id",
       "privilege_type": "UPDATE"
     },
     {
@@ -4408,7 +4418,7 @@
     {
       "table_name": "profiles",
       "column_name": "interests",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "profiles",
@@ -4418,12 +4428,27 @@
     {
       "table_name": "profiles",
       "column_name": "interests",
-      "privilege_type": "SELECT"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "profiles",
       "column_name": "interests",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "locale",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "locale",
       "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "locale",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "profiles",
@@ -4432,33 +4457,18 @@
     },
     {
       "table_name": "profiles",
-      "column_name": "locale",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "profiles",
-      "column_name": "locale",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "profiles",
-      "column_name": "locale",
+      "column_name": "onboarded_at",
       "privilege_type": "INSERT"
     },
     {
       "table_name": "profiles",
       "column_name": "onboarded_at",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "profiles",
-      "column_name": "onboarded_at",
       "privilege_type": "UPDATE"
     },
     {
       "table_name": "profiles",
       "column_name": "onboarded_at",
-      "privilege_type": "INSERT"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "profiles",
@@ -4468,7 +4478,12 @@
     {
       "table_name": "profiles",
       "column_name": "role",
-      "privilege_type": "INSERT"
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "role",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "profiles",
@@ -4478,7 +4493,12 @@
     {
       "table_name": "profiles",
       "column_name": "role",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "updated_at",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "profiles",
@@ -4488,17 +4508,12 @@
     {
       "table_name": "profiles",
       "column_name": "updated_at",
-      "privilege_type": "INSERT"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "profiles",
       "column_name": "updated_at",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "rls_results",
-      "column_name": "detail",
-      "privilege_type": "SELECT"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "rls_results",
@@ -4509,6 +4524,11 @@
       "table_name": "rls_results",
       "column_name": "detail",
       "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "rls_results",
+      "column_name": "detail",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "rls_results",
@@ -4528,12 +4548,12 @@
     {
       "table_name": "rls_results",
       "column_name": "expected",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "rls_results",
       "column_name": "expected",
-      "privilege_type": "INSERT"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "rls_results",
@@ -4543,7 +4563,7 @@
     {
       "table_name": "rls_results",
       "column_name": "id",
-      "privilege_type": "UPDATE"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "rls_results",
@@ -4553,11 +4573,6 @@
     {
       "table_name": "rls_results",
       "column_name": "id",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "rls_results",
-      "column_name": "outcome",
       "privilege_type": "UPDATE"
     },
     {
@@ -4568,17 +4583,17 @@
     {
       "table_name": "rls_results",
       "column_name": "outcome",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "rls_results",
+      "column_name": "outcome",
       "privilege_type": "REFERENCES"
     },
     {
       "table_name": "rls_results",
       "column_name": "outcome",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "rls_results",
-      "column_name": "scenario",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "rls_results",
@@ -4588,12 +4603,22 @@
     {
       "table_name": "rls_results",
       "column_name": "scenario",
-      "privilege_type": "INSERT"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "rls_results",
       "column_name": "scenario",
-      "privilege_type": "SELECT"
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "rls_results",
+      "column_name": "scenario",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "rls_results",
+      "column_name": "seq",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "rls_results",
@@ -4612,13 +4637,8 @@
     },
     {
       "table_name": "rls_results",
-      "column_name": "seq",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "rls_results",
       "column_name": "severity",
-      "privilege_type": "UPDATE"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "rls_results",
@@ -4628,16 +4648,11 @@
     {
       "table_name": "rls_results",
       "column_name": "severity",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "rls_results",
       "column_name": "severity",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "saved_comparisons",
-      "column_name": "created_at",
       "privilege_type": "INSERT"
     },
     {
@@ -4648,12 +4663,27 @@
     {
       "table_name": "saved_comparisons",
       "column_name": "created_at",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "saved_comparisons",
+      "column_name": "created_at",
       "privilege_type": "SELECT"
     },
     {
       "table_name": "saved_comparisons",
       "column_name": "created_at",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "saved_comparisons",
+      "column_name": "id",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "saved_comparisons",
+      "column_name": "id",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "saved_comparisons",
@@ -4667,48 +4697,38 @@
     },
     {
       "table_name": "saved_comparisons",
-      "column_name": "id",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "saved_comparisons",
-      "column_name": "id",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "saved_comparisons",
-      "column_name": "title",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "saved_comparisons",
       "column_name": "title",
       "privilege_type": "INSERT"
     },
     {
       "table_name": "saved_comparisons",
       "column_name": "title",
-      "privilege_type": "UPDATE"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "saved_comparisons",
       "column_name": "title",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "saved_comparisons",
-      "column_name": "tool_slugs",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "saved_comparisons",
-      "column_name": "tool_slugs",
+      "column_name": "title",
       "privilege_type": "UPDATE"
     },
     {
       "table_name": "saved_comparisons",
       "column_name": "tool_slugs",
       "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "saved_comparisons",
+      "column_name": "tool_slugs",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "saved_comparisons",
+      "column_name": "tool_slugs",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "saved_comparisons",
@@ -4743,7 +4763,7 @@
     {
       "table_name": "sponsored_placements",
       "column_name": "created_at",
-      "privilege_type": "SELECT"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "sponsored_placements",
@@ -4753,17 +4773,17 @@
     {
       "table_name": "sponsored_placements",
       "column_name": "created_at",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "sponsored_placements",
-      "column_name": "ends_on",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "sponsored_placements",
       "column_name": "ends_on",
       "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "sponsored_placements",
+      "column_name": "ends_on",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "sponsored_placements",
@@ -4773,7 +4793,12 @@
     {
       "table_name": "sponsored_placements",
       "column_name": "ends_on",
-      "privilege_type": "UPDATE"
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "sponsored_placements",
+      "column_name": "id",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "sponsored_placements",
@@ -4788,22 +4813,17 @@
     {
       "table_name": "sponsored_placements",
       "column_name": "id",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "sponsored_placements",
-      "column_name": "id",
       "privilege_type": "UPDATE"
     },
     {
       "table_name": "sponsored_placements",
       "column_name": "is_active",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "sponsored_placements",
       "column_name": "is_active",
-      "privilege_type": "INSERT"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "sponsored_placements",
@@ -4813,7 +4833,12 @@
     {
       "table_name": "sponsored_placements",
       "column_name": "is_active",
-      "privilege_type": "UPDATE"
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "sponsored_placements",
+      "column_name": "label",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "sponsored_placements",
@@ -4828,21 +4853,6 @@
     {
       "table_name": "sponsored_placements",
       "column_name": "label",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "sponsored_placements",
-      "column_name": "label",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "sponsored_placements",
-      "column_name": "starts_on",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "sponsored_placements",
-      "column_name": "starts_on",
       "privilege_type": "REFERENCES"
     },
     {
@@ -4853,7 +4863,22 @@
     {
       "table_name": "sponsored_placements",
       "column_name": "starts_on",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "sponsored_placements",
+      "column_name": "starts_on",
       "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "sponsored_placements",
+      "column_name": "starts_on",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "sponsored_placements",
+      "column_name": "surface",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "sponsored_placements",
@@ -4872,16 +4897,6 @@
     },
     {
       "table_name": "sponsored_placements",
-      "column_name": "surface",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "sponsored_placements",
-      "column_name": "tool_id",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "sponsored_placements",
       "column_name": "tool_id",
       "privilege_type": "INSERT"
     },
@@ -4893,6 +4908,16 @@
     {
       "table_name": "sponsored_placements",
       "column_name": "tool_id",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "sponsored_placements",
+      "column_name": "tool_id",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "subscription_plans",
+      "column_name": "amount_cents",
       "privilege_type": "SELECT"
     },
     {
@@ -4903,22 +4928,12 @@
     {
       "table_name": "subscription_plans",
       "column_name": "amount_cents",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "subscription_plans",
-      "column_name": "amount_cents",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "subscription_plans",
-      "column_name": "amount_cents",
       "privilege_type": "UPDATE"
     },
     {
       "table_name": "subscription_plans",
-      "column_name": "currency",
-      "privilege_type": "SELECT"
+      "column_name": "amount_cents",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "subscription_plans",
@@ -4928,11 +4943,21 @@
     {
       "table_name": "subscription_plans",
       "column_name": "currency",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "subscription_plans",
       "column_name": "currency",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "subscription_plans",
+      "column_name": "currency",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "subscription_plans",
+      "column_name": "description",
       "privilege_type": "UPDATE"
     },
     {
@@ -4943,17 +4968,12 @@
     {
       "table_name": "subscription_plans",
       "column_name": "description",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "subscription_plans",
-      "column_name": "description",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "subscription_plans",
-      "column_name": "description",
       "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "subscription_plans",
+      "column_name": "description",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "subscription_plans",
@@ -4968,11 +4988,16 @@
     {
       "table_name": "subscription_plans",
       "column_name": "features",
-      "privilege_type": "SELECT"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "subscription_plans",
       "column_name": "features",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "subscription_plans",
+      "column_name": "id",
       "privilege_type": "UPDATE"
     },
     {
@@ -4983,22 +5008,17 @@
     {
       "table_name": "subscription_plans",
       "column_name": "id",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "subscription_plans",
+      "column_name": "id",
       "privilege_type": "INSERT"
     },
     {
       "table_name": "subscription_plans",
-      "column_name": "id",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "subscription_plans",
-      "column_name": "id",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "subscription_plans",
       "column_name": "interval",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "subscription_plans",
@@ -5008,7 +5028,7 @@
     {
       "table_name": "subscription_plans",
       "column_name": "interval",
-      "privilege_type": "UPDATE"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "subscription_plans",
@@ -5018,22 +5038,32 @@
     {
       "table_name": "subscription_plans",
       "column_name": "is_active",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "subscription_plans",
-      "column_name": "is_active",
       "privilege_type": "SELECT"
     },
     {
       "table_name": "subscription_plans",
       "column_name": "is_active",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "subscription_plans",
+      "column_name": "is_active",
       "privilege_type": "INSERT"
     },
     {
       "table_name": "subscription_plans",
       "column_name": "is_active",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "subscription_plans",
+      "column_name": "name",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "subscription_plans",
+      "column_name": "name",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "subscription_plans",
@@ -5043,27 +5073,17 @@
     {
       "table_name": "subscription_plans",
       "column_name": "name",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "subscription_plans",
-      "column_name": "name",
       "privilege_type": "REFERENCES"
     },
     {
       "table_name": "subscription_plans",
-      "column_name": "name",
+      "column_name": "position",
       "privilege_type": "SELECT"
     },
     {
       "table_name": "subscription_plans",
       "column_name": "position",
       "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "subscription_plans",
-      "column_name": "position",
-      "privilege_type": "SELECT"
     },
     {
       "table_name": "subscription_plans",
@@ -5078,22 +5098,27 @@
     {
       "table_name": "subscription_plans",
       "column_name": "stripe_price_id",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "subscription_plans",
-      "column_name": "stripe_price_id",
       "privilege_type": "UPDATE"
     },
     {
       "table_name": "subscription_plans",
       "column_name": "stripe_price_id",
-      "privilege_type": "SELECT"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "subscription_plans",
       "column_name": "stripe_price_id",
-      "privilege_type": "INSERT"
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "subscription_plans",
+      "column_name": "stripe_price_id",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "subscription_plans",
+      "column_name": "tier",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "subscription_plans",
@@ -5108,17 +5133,17 @@
     {
       "table_name": "subscription_plans",
       "column_name": "tier",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "subscription_plans",
-      "column_name": "tier",
       "privilege_type": "INSERT"
     },
     {
       "table_name": "tool_corrections",
       "column_name": "created_at",
-      "privilege_type": "UPDATE"
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "tool_corrections",
+      "column_name": "created_at",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tool_corrections",
@@ -5128,22 +5153,7 @@
     {
       "table_name": "tool_corrections",
       "column_name": "created_at",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "tool_corrections",
-      "column_name": "created_at",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "tool_corrections",
-      "column_name": "email",
       "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "tool_corrections",
-      "column_name": "email",
-      "privilege_type": "SELECT"
     },
     {
       "table_name": "tool_corrections",
@@ -5153,16 +5163,16 @@
     {
       "table_name": "tool_corrections",
       "column_name": "email",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "tool_corrections",
-      "column_name": "evidence_url",
       "privilege_type": "UPDATE"
     },
     {
       "table_name": "tool_corrections",
-      "column_name": "evidence_url",
+      "column_name": "email",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "tool_corrections",
+      "column_name": "email",
       "privilege_type": "SELECT"
     },
     {
@@ -5177,13 +5187,13 @@
     },
     {
       "table_name": "tool_corrections",
-      "column_name": "field",
-      "privilege_type": "SELECT"
+      "column_name": "evidence_url",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tool_corrections",
-      "column_name": "field",
-      "privilege_type": "INSERT"
+      "column_name": "evidence_url",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tool_corrections",
@@ -5197,13 +5207,13 @@
     },
     {
       "table_name": "tool_corrections",
-      "column_name": "id",
-      "privilege_type": "UPDATE"
+      "column_name": "field",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tool_corrections",
-      "column_name": "id",
-      "privilege_type": "REFERENCES"
+      "column_name": "field",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tool_corrections",
@@ -5213,17 +5223,17 @@
     {
       "table_name": "tool_corrections",
       "column_name": "id",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "tool_corrections",
-      "column_name": "message",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "tool_corrections",
-      "column_name": "message",
       "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "tool_corrections",
+      "column_name": "id",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "tool_corrections",
+      "column_name": "id",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "tool_corrections",
@@ -5237,13 +5247,13 @@
     },
     {
       "table_name": "tool_corrections",
-      "column_name": "reported_by",
-      "privilege_type": "INSERT"
+      "column_name": "message",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tool_corrections",
-      "column_name": "reported_by",
-      "privilege_type": "REFERENCES"
+      "column_name": "message",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tool_corrections",
@@ -5254,6 +5264,16 @@
       "table_name": "tool_corrections",
       "column_name": "reported_by",
       "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "tool_corrections",
+      "column_name": "reported_by",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "tool_corrections",
+      "column_name": "reported_by",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tool_corrections",
@@ -5278,6 +5298,11 @@
     {
       "table_name": "tool_corrections",
       "column_name": "resolved_by",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "tool_corrections",
+      "column_name": "resolved_by",
       "privilege_type": "INSERT"
     },
     {
@@ -5292,8 +5317,13 @@
     },
     {
       "table_name": "tool_corrections",
-      "column_name": "resolved_by",
-      "privilege_type": "REFERENCES"
+      "column_name": "status",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "tool_corrections",
+      "column_name": "status",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tool_corrections",
@@ -5303,21 +5333,6 @@
     {
       "table_name": "tool_corrections",
       "column_name": "status",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "tool_corrections",
-      "column_name": "status",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "tool_corrections",
-      "column_name": "status",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "tool_corrections",
-      "column_name": "tool_id",
       "privilege_type": "REFERENCES"
     },
     {
@@ -5328,12 +5343,22 @@
     {
       "table_name": "tool_corrections",
       "column_name": "tool_id",
-      "privilege_type": "SELECT"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tool_corrections",
       "column_name": "tool_id",
-      "privilege_type": "INSERT"
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "tool_corrections",
+      "column_name": "tool_id",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "tool_outbound_affiliations",
+      "column_name": "created_at",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tool_outbound_affiliations",
@@ -5344,11 +5369,6 @@
       "table_name": "tool_outbound_affiliations",
       "column_name": "created_at",
       "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "tool_outbound_affiliations",
-      "column_name": "created_at",
-      "privilege_type": "SELECT"
     },
     {
       "table_name": "tool_outbound_affiliations",
@@ -5363,7 +5383,7 @@
     {
       "table_name": "tool_outbound_affiliations",
       "column_name": "id",
-      "privilege_type": "INSERT"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tool_outbound_affiliations",
@@ -5373,12 +5393,7 @@
     {
       "table_name": "tool_outbound_affiliations",
       "column_name": "id",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "tool_outbound_affiliations",
-      "column_name": "is_active",
-      "privilege_type": "SELECT"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tool_outbound_affiliations",
@@ -5388,16 +5403,16 @@
     {
       "table_name": "tool_outbound_affiliations",
       "column_name": "is_active",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tool_outbound_affiliations",
       "column_name": "is_active",
-      "privilege_type": "UPDATE"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tool_outbound_affiliations",
-      "column_name": "program_id",
+      "column_name": "is_active",
       "privilege_type": "REFERENCES"
     },
     {
@@ -5408,11 +5423,26 @@
     {
       "table_name": "tool_outbound_affiliations",
       "column_name": "program_id",
-      "privilege_type": "SELECT"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "tool_outbound_affiliations",
       "column_name": "program_id",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "tool_outbound_affiliations",
+      "column_name": "program_id",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "tool_outbound_affiliations",
+      "column_name": "tool_id",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "tool_outbound_affiliations",
+      "column_name": "tool_id",
       "privilege_type": "INSERT"
     },
     {
@@ -5423,27 +5453,7 @@
     {
       "table_name": "tool_outbound_affiliations",
       "column_name": "tool_id",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "tool_outbound_affiliations",
-      "column_name": "tool_id",
       "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "tool_outbound_affiliations",
-      "column_name": "tool_id",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "tool_outbound_affiliations",
-      "column_name": "url",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "tool_outbound_affiliations",
-      "column_name": "url",
-      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tool_outbound_affiliations",
@@ -5456,9 +5466,19 @@
       "privilege_type": "INSERT"
     },
     {
+      "table_name": "tool_outbound_affiliations",
+      "column_name": "url",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "tool_outbound_affiliations",
+      "column_name": "url",
+      "privilege_type": "UPDATE"
+    },
+    {
       "table_name": "tool_product_relations",
       "column_name": "commercial_priority",
-      "privilege_type": "SELECT"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "tool_product_relations",
@@ -5468,17 +5488,12 @@
     {
       "table_name": "tool_product_relations",
       "column_name": "commercial_priority",
-      "privilege_type": "INSERT"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tool_product_relations",
       "column_name": "commercial_priority",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "tool_product_relations",
-      "column_name": "created_at",
-      "privilege_type": "SELECT"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tool_product_relations",
@@ -5494,6 +5509,11 @@
       "table_name": "tool_product_relations",
       "column_name": "created_at",
       "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "tool_product_relations",
+      "column_name": "created_at",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tool_product_relations",
@@ -5518,22 +5538,22 @@
     {
       "table_name": "tool_product_relations",
       "column_name": "kind",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "tool_product_relations",
-      "column_name": "kind",
       "privilege_type": "INSERT"
     },
     {
       "table_name": "tool_product_relations",
       "column_name": "kind",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tool_product_relations",
       "column_name": "kind",
-      "privilege_type": "UPDATE"
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "tool_product_relations",
+      "column_name": "kind",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "tool_product_relations",
@@ -5543,12 +5563,12 @@
     {
       "table_name": "tool_product_relations",
       "column_name": "last_checked_at",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tool_product_relations",
       "column_name": "last_checked_at",
-      "privilege_type": "INSERT"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "tool_product_relations",
@@ -5559,16 +5579,6 @@
       "table_name": "tool_product_relations",
       "column_name": "product_id",
       "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "tool_product_relations",
-      "column_name": "product_id",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "tool_product_relations",
-      "column_name": "product_id",
-      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tool_product_relations",
@@ -5577,13 +5587,18 @@
     },
     {
       "table_name": "tool_product_relations",
-      "column_name": "rationale",
-      "privilege_type": "SELECT"
+      "column_name": "product_id",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "tool_product_relations",
+      "column_name": "product_id",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tool_product_relations",
       "column_name": "rationale",
-      "privilege_type": "INSERT"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tool_product_relations",
@@ -5593,7 +5608,17 @@
     {
       "table_name": "tool_product_relations",
       "column_name": "rationale",
-      "privilege_type": "UPDATE"
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "tool_product_relations",
+      "column_name": "rationale",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "tool_product_relations",
+      "column_name": "source",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tool_product_relations",
@@ -5612,8 +5637,8 @@
     },
     {
       "table_name": "tool_product_relations",
-      "column_name": "source",
-      "privilege_type": "SELECT"
+      "column_name": "status",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tool_product_relations",
@@ -5628,11 +5653,6 @@
     {
       "table_name": "tool_product_relations",
       "column_name": "status",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "tool_product_relations",
-      "column_name": "status",
       "privilege_type": "SELECT"
     },
     {
@@ -5643,7 +5663,7 @@
     {
       "table_name": "tool_product_relations",
       "column_name": "tool_id",
-      "privilege_type": "SELECT"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tool_product_relations",
@@ -5653,17 +5673,7 @@
     {
       "table_name": "tool_product_relations",
       "column_name": "tool_id",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "tool_product_relations",
-      "column_name": "updated_at",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "tool_product_relations",
-      "column_name": "updated_at",
-      "privilege_type": "UPDATE"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tool_product_relations",
@@ -5673,11 +5683,16 @@
     {
       "table_name": "tool_product_relations",
       "column_name": "updated_at",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "tool_product_relations",
+      "column_name": "updated_at",
       "privilege_type": "REFERENCES"
     },
     {
-      "table_name": "tool_submissions",
-      "column_name": "category_slug",
+      "table_name": "tool_product_relations",
+      "column_name": "updated_at",
       "privilege_type": "UPDATE"
     },
     {
@@ -5697,6 +5712,16 @@
     },
     {
       "table_name": "tool_submissions",
+      "column_name": "category_slug",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "tool_submissions",
+      "column_name": "created_at",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "tool_submissions",
       "column_name": "created_at",
       "privilege_type": "UPDATE"
     },
@@ -5709,11 +5734,6 @@
       "table_name": "tool_submissions",
       "column_name": "created_at",
       "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "tool_submissions",
-      "column_name": "created_at",
-      "privilege_type": "SELECT"
     },
     {
       "table_name": "tool_submissions",
@@ -5738,16 +5758,6 @@
     {
       "table_name": "tool_submissions",
       "column_name": "id",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "tool_submissions",
-      "column_name": "id",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "tool_submissions",
-      "column_name": "id",
       "privilege_type": "INSERT"
     },
     {
@@ -5757,8 +5767,13 @@
     },
     {
       "table_name": "tool_submissions",
-      "column_name": "name",
-      "privilege_type": "REFERENCES"
+      "column_name": "id",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "tool_submissions",
+      "column_name": "id",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tool_submissions",
@@ -5774,6 +5789,11 @@
       "table_name": "tool_submissions",
       "column_name": "name",
       "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "tool_submissions",
+      "column_name": "name",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "tool_submissions",
@@ -5798,7 +5818,7 @@
     {
       "table_name": "tool_submissions",
       "column_name": "reviewed_at",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tool_submissions",
@@ -5813,12 +5833,7 @@
     {
       "table_name": "tool_submissions",
       "column_name": "reviewed_at",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "tool_submissions",
-      "column_name": "reviewed_by",
-      "privilege_type": "SELECT"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "tool_submissions",
@@ -5833,11 +5848,11 @@
     {
       "table_name": "tool_submissions",
       "column_name": "reviewed_by",
-      "privilege_type": "UPDATE"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tool_submissions",
-      "column_name": "status",
+      "column_name": "reviewed_by",
       "privilege_type": "UPDATE"
     },
     {
@@ -5854,6 +5869,11 @@
       "table_name": "tool_submissions",
       "column_name": "status",
       "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "tool_submissions",
+      "column_name": "status",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tool_submissions",
@@ -5878,7 +5898,7 @@
     {
       "table_name": "tool_submissions",
       "column_name": "url",
-      "privilege_type": "SELECT"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "tool_submissions",
@@ -5888,12 +5908,12 @@
     {
       "table_name": "tool_submissions",
       "column_name": "url",
-      "privilege_type": "UPDATE"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tool_submissions",
       "column_name": "url",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tool_updates",
@@ -5908,12 +5928,12 @@
     {
       "table_name": "tool_updates",
       "column_name": "created_at",
-      "privilege_type": "SELECT"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tool_updates",
       "column_name": "created_at",
-      "privilege_type": "INSERT"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tool_updates",
@@ -5938,17 +5958,12 @@
     {
       "table_name": "tool_updates",
       "column_name": "id",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "tool_updates",
-      "column_name": "id",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "tool_updates",
-      "column_name": "id",
       "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "tool_updates",
+      "column_name": "id",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tool_updates",
@@ -5957,7 +5972,7 @@
     },
     {
       "table_name": "tool_updates",
-      "column_name": "kind",
+      "column_name": "id",
       "privilege_type": "INSERT"
     },
     {
@@ -5968,12 +5983,17 @@
     {
       "table_name": "tool_updates",
       "column_name": "kind",
-      "privilege_type": "SELECT"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tool_updates",
       "column_name": "kind",
-      "privilege_type": "UPDATE"
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "tool_updates",
+      "column_name": "kind",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tool_updates",
@@ -5998,17 +6018,12 @@
     {
       "table_name": "tool_updates",
       "column_name": "summary",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "tool_updates",
-      "column_name": "summary",
       "privilege_type": "REFERENCES"
     },
     {
       "table_name": "tool_updates",
       "column_name": "summary",
-      "privilege_type": "SELECT"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tool_updates",
@@ -6017,8 +6032,13 @@
     },
     {
       "table_name": "tool_updates",
+      "column_name": "summary",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "tool_updates",
       "column_name": "tool_id",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tool_updates",
@@ -6028,12 +6048,12 @@
     {
       "table_name": "tool_updates",
       "column_name": "tool_id",
-      "privilege_type": "SELECT"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "tool_updates",
       "column_name": "tool_id",
-      "privilege_type": "UPDATE"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tool_versions",
@@ -6043,7 +6063,7 @@
     {
       "table_name": "tool_versions",
       "column_name": "changed_by",
-      "privilege_type": "INSERT"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tool_versions",
@@ -6053,7 +6073,7 @@
     {
       "table_name": "tool_versions",
       "column_name": "changed_by",
-      "privilege_type": "SELECT"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tool_versions",
@@ -6063,21 +6083,16 @@
     {
       "table_name": "tool_versions",
       "column_name": "created_at",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "tool_versions",
-      "column_name": "created_at",
       "privilege_type": "REFERENCES"
     },
     {
       "table_name": "tool_versions",
       "column_name": "created_at",
-      "privilege_type": "SELECT"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tool_versions",
-      "column_name": "id",
+      "column_name": "created_at",
       "privilege_type": "SELECT"
     },
     {
@@ -6088,12 +6103,27 @@
     {
       "table_name": "tool_versions",
       "column_name": "id",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tool_versions",
       "column_name": "id",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "tool_versions",
+      "column_name": "id",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "tool_versions",
+      "column_name": "reason",
       "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "tool_versions",
+      "column_name": "reason",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tool_versions",
@@ -6103,27 +6133,12 @@
     {
       "table_name": "tool_versions",
       "column_name": "reason",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "tool_versions",
+      "column_name": "snapshot",
       "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "tool_versions",
-      "column_name": "reason",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "tool_versions",
-      "column_name": "reason",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "tool_versions",
-      "column_name": "snapshot",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "tool_versions",
-      "column_name": "snapshot",
-      "privilege_type": "INSERT"
     },
     {
       "table_name": "tool_versions",
@@ -6133,16 +6148,11 @@
     {
       "table_name": "tool_versions",
       "column_name": "snapshot",
-      "privilege_type": "SELECT"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tool_versions",
-      "column_name": "tool_id",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "tool_versions",
-      "column_name": "tool_id",
+      "column_name": "snapshot",
       "privilege_type": "UPDATE"
     },
     {
@@ -6153,16 +6163,16 @@
     {
       "table_name": "tool_versions",
       "column_name": "tool_id",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
     },
     {
-      "table_name": "tools",
-      "column_name": "affiliation",
-      "privilege_type": "INSERT"
+      "table_name": "tool_versions",
+      "column_name": "tool_id",
+      "privilege_type": "SELECT"
     },
     {
-      "table_name": "tools",
-      "column_name": "affiliation",
+      "table_name": "tool_versions",
+      "column_name": "tool_id",
       "privilege_type": "REFERENCES"
     },
     {
@@ -6173,12 +6183,17 @@
     {
       "table_name": "tools",
       "column_name": "affiliation",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "affiliation",
       "privilege_type": "SELECT"
     },
     {
       "table_name": "tools",
-      "column_name": "alternative_names",
-      "privilege_type": "SELECT"
+      "column_name": "affiliation",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tools",
@@ -6193,12 +6208,17 @@
     {
       "table_name": "tools",
       "column_name": "alternative_names",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "alternative_names",
       "privilege_type": "REFERENCES"
     },
     {
       "table_name": "tools",
       "column_name": "alternatives",
-      "privilege_type": "SELECT"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tools",
@@ -6208,11 +6228,16 @@
     {
       "table_name": "tools",
       "column_name": "alternatives",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tools",
       "column_name": "alternatives",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "best_for",
       "privilege_type": "UPDATE"
     },
     {
@@ -6223,37 +6248,32 @@
     {
       "table_name": "tools",
       "column_name": "best_for",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "best_for",
       "privilege_type": "SELECT"
     },
     {
       "table_name": "tools",
       "column_name": "best_for",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "category_slug",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "category_slug",
       "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "category_slug",
-      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tools",
       "column_name": "category_slug",
       "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "category_slug",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "category_slug",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "category_slug",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tools",
@@ -6278,16 +6298,6 @@
     {
       "table_name": "tools",
       "column_name": "cons",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "cons",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "cons",
       "privilege_type": "UPDATE"
     },
     {
@@ -6297,12 +6307,12 @@
     },
     {
       "table_name": "tools",
-      "column_name": "created_at",
-      "privilege_type": "SELECT"
+      "column_name": "cons",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "tools",
-      "column_name": "created_at",
+      "column_name": "cons",
       "privilege_type": "INSERT"
     },
     {
@@ -6313,22 +6323,32 @@
     {
       "table_name": "tools",
       "column_name": "created_at",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "description_long",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "description_long",
       "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "created_at",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "created_at",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tools",
       "column_name": "description_long",
       "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "description_long",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "description_long",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "tools",
@@ -6363,16 +6383,21 @@
     {
       "table_name": "tools",
       "column_name": "detected_at",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "detected_at",
       "privilege_type": "INSERT"
     },
     {
       "table_name": "tools",
       "column_name": "detected_at",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "detected_at",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "docs_url",
       "privilege_type": "UPDATE"
     },
     {
@@ -6383,22 +6408,12 @@
     {
       "table_name": "tools",
       "column_name": "docs_url",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "docs_url",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "docs_url",
       "privilege_type": "REFERENCES"
     },
     {
       "table_name": "tools",
-      "column_name": "free_model",
-      "privilege_type": "UPDATE"
+      "column_name": "docs_url",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tools",
@@ -6408,21 +6423,16 @@
     {
       "table_name": "tools",
       "column_name": "free_model",
-      "privilege_type": "INSERT"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tools",
       "column_name": "free_model",
-      "privilege_type": "SELECT"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tools",
-      "column_name": "free_plan",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "free_plan",
+      "column_name": "free_model",
       "privilege_type": "INSERT"
     },
     {
@@ -6437,6 +6447,21 @@
     },
     {
       "table_name": "tools",
+      "column_name": "free_plan",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "free_plan",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "hardware_requirements",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "tools",
       "column_name": "hardware_requirements",
       "privilege_type": "UPDATE"
     },
@@ -6444,11 +6469,6 @@
       "table_name": "tools",
       "column_name": "hardware_requirements",
       "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "hardware_requirements",
-      "privilege_type": "SELECT"
     },
     {
       "table_name": "tools",
@@ -6478,17 +6498,12 @@
     {
       "table_name": "tools",
       "column_name": "id",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "id",
       "privilege_type": "REFERENCES"
     },
     {
       "table_name": "tools",
       "column_name": "id",
-      "privilege_type": "UPDATE"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tools",
@@ -6497,8 +6512,8 @@
     },
     {
       "table_name": "tools",
-      "column_name": "kind",
-      "privilege_type": "REFERENCES"
+      "column_name": "id",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tools",
@@ -6517,8 +6532,8 @@
     },
     {
       "table_name": "tools",
-      "column_name": "languages",
-      "privilege_type": "INSERT"
+      "column_name": "kind",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "tools",
@@ -6528,12 +6543,17 @@
     {
       "table_name": "tools",
       "column_name": "languages",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tools",
       "column_name": "languages",
-      "privilege_type": "SELECT"
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "languages",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "tools",
@@ -6558,12 +6578,7 @@
     {
       "table_name": "tools",
       "column_name": "licence",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "licence",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tools",
@@ -6573,12 +6588,12 @@
     {
       "table_name": "tools",
       "column_name": "licence",
-      "privilege_type": "INSERT"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "tools",
-      "column_name": "name",
-      "privilege_type": "INSERT"
+      "column_name": "licence",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tools",
@@ -6597,8 +6612,18 @@
     },
     {
       "table_name": "tools",
+      "column_name": "name",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "tools",
       "column_name": "next_review_at",
-      "privilege_type": "SELECT"
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "next_review_at",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "tools",
@@ -6608,12 +6633,7 @@
     {
       "table_name": "tools",
       "column_name": "next_review_at",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "next_review_at",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tools",
@@ -6623,12 +6643,12 @@
     {
       "table_name": "tools",
       "column_name": "not_for",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tools",
       "column_name": "not_for",
-      "privilege_type": "INSERT"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "tools",
@@ -6638,7 +6658,7 @@
     {
       "table_name": "tools",
       "column_name": "official_url",
-      "privilege_type": "SELECT"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tools",
@@ -6653,6 +6673,16 @@
     {
       "table_name": "tools",
       "column_name": "official_url",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "open_source",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "open_source",
       "privilege_type": "UPDATE"
     },
     {
@@ -6667,18 +6697,8 @@
     },
     {
       "table_name": "tools",
-      "column_name": "open_source",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "open_source",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "tools",
       "column_name": "platforms",
-      "privilege_type": "UPDATE"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tools",
@@ -6693,11 +6713,6 @@
     {
       "table_name": "tools",
       "column_name": "platforms",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "pricing_url",
       "privilege_type": "UPDATE"
     },
     {
@@ -6708,22 +6723,27 @@
     {
       "table_name": "tools",
       "column_name": "pricing_url",
-      "privilege_type": "SELECT"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tools",
       "column_name": "pricing_url",
-      "privilege_type": "INSERT"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tools",
-      "column_name": "privacy",
-      "privilege_type": "INSERT"
+      "column_name": "pricing_url",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "tools",
       "column_name": "privacy",
       "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "privacy",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tools",
@@ -6733,11 +6753,6 @@
     {
       "table_name": "tools",
       "column_name": "privacy",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "pros",
       "privilege_type": "REFERENCES"
     },
     {
@@ -6753,7 +6768,17 @@
     {
       "table_name": "tools",
       "column_name": "pros",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "pros",
       "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "repo_url",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tools",
@@ -6772,13 +6797,13 @@
     },
     {
       "table_name": "tools",
-      "column_name": "repo_url",
-      "privilege_type": "UPDATE"
+      "column_name": "reviewed_by",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tools",
       "column_name": "reviewed_by",
-      "privilege_type": "INSERT"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tools",
@@ -6788,17 +6813,7 @@
     {
       "table_name": "tools",
       "column_name": "reviewed_by",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "reviewed_by",
       "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "scores",
-      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tools",
@@ -6808,12 +6823,22 @@
     {
       "table_name": "tools",
       "column_name": "scores",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tools",
       "column_name": "scores",
       "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "scores",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "secondary_categories",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "tools",
@@ -6832,18 +6857,13 @@
     },
     {
       "table_name": "tools",
-      "column_name": "secondary_categories",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "tools",
       "column_name": "skill_level",
       "privilege_type": "SELECT"
     },
     {
       "table_name": "tools",
       "column_name": "skill_level",
-      "privilege_type": "UPDATE"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tools",
@@ -6853,16 +6873,6 @@
     {
       "table_name": "tools",
       "column_name": "skill_level",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "slug",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "slug",
       "privilege_type": "UPDATE"
     },
     {
@@ -6877,13 +6887,23 @@
     },
     {
       "table_name": "tools",
-      "column_name": "sources",
+      "column_name": "slug",
       "privilege_type": "INSERT"
     },
     {
       "table_name": "tools",
-      "column_name": "sources",
+      "column_name": "slug",
       "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "sources",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "sources",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tools",
@@ -6893,7 +6913,17 @@
     {
       "table_name": "tools",
       "column_name": "sources",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "sponsorship",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "sponsorship",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tools",
@@ -6903,22 +6933,22 @@
     {
       "table_name": "tools",
       "column_name": "sponsorship",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "sponsorship",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "sponsorship",
       "privilege_type": "UPDATE"
     },
     {
       "table_name": "tools",
       "column_name": "status",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "status",
       "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "status",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tools",
@@ -6927,43 +6957,23 @@
     },
     {
       "table_name": "tools",
-      "column_name": "status",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "status",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "tagline",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "tagline",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "tagline",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "tools",
       "column_name": "tagline",
       "privilege_type": "SELECT"
     },
     {
       "table_name": "tools",
-      "column_name": "tags",
+      "column_name": "tagline",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "tagline",
       "privilege_type": "UPDATE"
     },
     {
       "table_name": "tools",
-      "column_name": "tags",
-      "privilege_type": "INSERT"
+      "column_name": "tagline",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "tools",
@@ -6977,13 +6987,13 @@
     },
     {
       "table_name": "tools",
-      "column_name": "updated_at",
-      "privilege_type": "UPDATE"
+      "column_name": "tags",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tools",
-      "column_name": "updated_at",
-      "privilege_type": "INSERT"
+      "column_name": "tags",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "tools",
@@ -6994,6 +7004,21 @@
       "table_name": "tools",
       "column_name": "updated_at",
       "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "updated_at",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "updated_at",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "use_cases",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tools",
@@ -7008,22 +7033,22 @@
     {
       "table_name": "tools",
       "column_name": "use_cases",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "use_cases",
       "privilege_type": "REFERENCES"
     },
     {
       "table_name": "tools",
       "column_name": "verdict",
-      "privilege_type": "INSERT"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "tools",
       "column_name": "verdict",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "verdict",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "tools",
@@ -7032,7 +7057,12 @@
     },
     {
       "table_name": "tools",
-      "column_name": "verdict",
+      "column_name": "verification",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "verification",
       "privilege_type": "SELECT"
     },
     {
@@ -7043,22 +7073,7 @@
     {
       "table_name": "tools",
       "column_name": "verification",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "verification",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "verification",
       "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "tools",
-      "column_name": "version",
-      "privilege_type": "SELECT"
     },
     {
       "table_name": "tools",
@@ -7073,17 +7088,17 @@
     {
       "table_name": "tools",
       "column_name": "version",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "tools",
+      "column_name": "version",
       "privilege_type": "UPDATE"
     },
     {
       "table_name": "user_favorites",
       "column_name": "created_at",
       "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "user_favorites",
-      "column_name": "created_at",
-      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "user_favorites",
@@ -7097,8 +7112,13 @@
     },
     {
       "table_name": "user_favorites",
+      "column_name": "created_at",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "user_favorites",
       "column_name": "tool_id",
-      "privilege_type": "UPDATE"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "user_favorites",
@@ -7108,7 +7128,7 @@
     {
       "table_name": "user_favorites",
       "column_name": "tool_id",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "user_favorites",
@@ -7118,17 +7138,7 @@
     {
       "table_name": "user_favorites",
       "column_name": "user_id",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "user_favorites",
-      "column_name": "user_id",
       "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "user_favorites",
-      "column_name": "user_id",
-      "privilege_type": "INSERT"
     },
     {
       "table_name": "user_favorites",
@@ -7136,9 +7146,19 @@
       "privilege_type": "UPDATE"
     },
     {
+      "table_name": "user_favorites",
+      "column_name": "user_id",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "user_favorites",
+      "column_name": "user_id",
+      "privilege_type": "INSERT"
+    },
+    {
       "table_name": "user_list_items",
       "column_name": "created_at",
-      "privilege_type": "INSERT"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "user_list_items",
@@ -7148,21 +7168,11 @@
     {
       "table_name": "user_list_items",
       "column_name": "created_at",
-      "privilege_type": "UPDATE"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "user_list_items",
       "column_name": "created_at",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "user_list_items",
-      "column_name": "list_id",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "user_list_items",
-      "column_name": "list_id",
       "privilege_type": "UPDATE"
     },
     {
@@ -7177,8 +7187,23 @@
     },
     {
       "table_name": "user_list_items",
+      "column_name": "list_id",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "user_list_items",
+      "column_name": "list_id",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "user_list_items",
       "column_name": "note",
       "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "user_list_items",
+      "column_name": "note",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "user_list_items",
@@ -7192,18 +7217,8 @@
     },
     {
       "table_name": "user_list_items",
-      "column_name": "note",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "user_list_items",
       "column_name": "position",
       "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "user_list_items",
-      "column_name": "position",
-      "privilege_type": "UPDATE"
     },
     {
       "table_name": "user_list_items",
@@ -7213,12 +7228,12 @@
     {
       "table_name": "user_list_items",
       "column_name": "position",
-      "privilege_type": "SELECT"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "user_list_items",
-      "column_name": "tool_id",
-      "privilege_type": "UPDATE"
+      "column_name": "position",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "user_list_items",
@@ -7236,9 +7251,9 @@
       "privilege_type": "SELECT"
     },
     {
-      "table_name": "user_lists",
-      "column_name": "created_at",
-      "privilege_type": "REFERENCES"
+      "table_name": "user_list_items",
+      "column_name": "tool_id",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "user_lists",
@@ -7248,7 +7263,7 @@
     {
       "table_name": "user_lists",
       "column_name": "created_at",
-      "privilege_type": "SELECT"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "user_lists",
@@ -7257,13 +7272,18 @@
     },
     {
       "table_name": "user_lists",
-      "column_name": "description",
-      "privilege_type": "INSERT"
+      "column_name": "created_at",
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "user_lists",
       "column_name": "description",
       "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "user_lists",
+      "column_name": "description",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "user_lists",
@@ -7283,17 +7303,22 @@
     {
       "table_name": "user_lists",
       "column_name": "id",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "user_lists",
-      "column_name": "id",
       "privilege_type": "INSERT"
     },
     {
       "table_name": "user_lists",
       "column_name": "id",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "user_lists",
+      "column_name": "id",
       "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "user_lists",
+      "column_name": "is_public",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "user_lists",
@@ -7303,17 +7328,27 @@
     {
       "table_name": "user_lists",
       "column_name": "is_public",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "user_lists",
+      "column_name": "is_public",
       "privilege_type": "INSERT"
     },
     {
       "table_name": "user_lists",
-      "column_name": "is_public",
+      "column_name": "slug",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "user_lists",
+      "column_name": "slug",
       "privilege_type": "REFERENCES"
     },
     {
       "table_name": "user_lists",
-      "column_name": "is_public",
-      "privilege_type": "SELECT"
+      "column_name": "slug",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "user_lists",
@@ -7322,28 +7357,13 @@
     },
     {
       "table_name": "user_lists",
-      "column_name": "slug",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "user_lists",
-      "column_name": "slug",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "user_lists",
-      "column_name": "slug",
+      "column_name": "title",
       "privilege_type": "INSERT"
     },
     {
       "table_name": "user_lists",
       "column_name": "title",
       "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "user_lists",
-      "column_name": "title",
-      "privilege_type": "INSERT"
     },
     {
       "table_name": "user_lists",
@@ -7358,12 +7378,12 @@
     {
       "table_name": "user_lists",
       "column_name": "updated_at",
-      "privilege_type": "SELECT"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "user_lists",
       "column_name": "updated_at",
-      "privilege_type": "INSERT"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "user_lists",
@@ -7373,7 +7393,7 @@
     {
       "table_name": "user_lists",
       "column_name": "updated_at",
-      "privilege_type": "UPDATE"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "user_lists",
@@ -7383,7 +7403,7 @@
     {
       "table_name": "user_lists",
       "column_name": "user_id",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "user_lists",
@@ -7393,11 +7413,6 @@
     {
       "table_name": "user_lists",
       "column_name": "user_id",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "user_subscriptions",
-      "column_name": "cancel_at_period_end",
       "privilege_type": "REFERENCES"
     },
     {
@@ -7417,8 +7432,8 @@
     },
     {
       "table_name": "user_subscriptions",
-      "column_name": "created_at",
-      "privilege_type": "UPDATE"
+      "column_name": "cancel_at_period_end",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "user_subscriptions",
@@ -7437,7 +7452,7 @@
     },
     {
       "table_name": "user_subscriptions",
-      "column_name": "current_period_end",
+      "column_name": "created_at",
       "privilege_type": "UPDATE"
     },
     {
@@ -7448,7 +7463,7 @@
     {
       "table_name": "user_subscriptions",
       "column_name": "current_period_end",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "user_subscriptions",
@@ -7457,8 +7472,13 @@
     },
     {
       "table_name": "user_subscriptions",
+      "column_name": "current_period_end",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "user_subscriptions",
       "column_name": "id",
-      "privilege_type": "UPDATE"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "user_subscriptions",
@@ -7473,7 +7493,12 @@
     {
       "table_name": "user_subscriptions",
       "column_name": "id",
-      "privilege_type": "SELECT"
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "user_subscriptions",
+      "column_name": "plan_id",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "user_subscriptions",
@@ -7492,8 +7517,13 @@
     },
     {
       "table_name": "user_subscriptions",
-      "column_name": "plan_id",
+      "column_name": "status",
       "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "user_subscriptions",
+      "column_name": "status",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "user_subscriptions",
@@ -7507,23 +7537,8 @@
     },
     {
       "table_name": "user_subscriptions",
-      "column_name": "status",
+      "column_name": "stripe_customer_id",
       "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "user_subscriptions",
-      "column_name": "status",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "user_subscriptions",
-      "column_name": "stripe_customer_id",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "user_subscriptions",
-      "column_name": "stripe_customer_id",
-      "privilege_type": "UPDATE"
     },
     {
       "table_name": "user_subscriptions",
@@ -7533,12 +7548,12 @@
     {
       "table_name": "user_subscriptions",
       "column_name": "stripe_customer_id",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "user_subscriptions",
-      "column_name": "stripe_subscription_id",
-      "privilege_type": "UPDATE"
+      "column_name": "stripe_customer_id",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "user_subscriptions",
@@ -7548,12 +7563,17 @@
     {
       "table_name": "user_subscriptions",
       "column_name": "stripe_subscription_id",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "user_subscriptions",
       "column_name": "stripe_subscription_id",
       "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "user_subscriptions",
+      "column_name": "stripe_subscription_id",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "user_subscriptions",
@@ -7578,11 +7598,6 @@
     {
       "table_name": "user_subscriptions",
       "column_name": "user_id",
-      "privilege_type": "REFERENCES"
-    },
-    {
-      "table_name": "user_subscriptions",
-      "column_name": "user_id",
       "privilege_type": "INSERT"
     },
     {
@@ -7594,6 +7609,11 @@
       "table_name": "user_subscriptions",
       "column_name": "user_id",
       "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "user_subscriptions",
+      "column_name": "user_id",
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "user_tool_states",
@@ -7608,22 +7628,12 @@
     {
       "table_name": "user_tool_states",
       "column_name": "note",
-      "privilege_type": "SELECT"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "user_tool_states",
       "column_name": "note",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "user_tool_states",
-      "column_name": "tool_id",
-      "privilege_type": "UPDATE"
-    },
-    {
-      "table_name": "user_tool_states",
-      "column_name": "tool_id",
-      "privilege_type": "INSERT"
+      "privilege_type": "SELECT"
     },
     {
       "table_name": "user_tool_states",
@@ -7633,17 +7643,17 @@
     {
       "table_name": "user_tool_states",
       "column_name": "tool_id",
-      "privilege_type": "SELECT"
-    },
-    {
-      "table_name": "user_tool_states",
-      "column_name": "tried",
       "privilege_type": "UPDATE"
     },
     {
       "table_name": "user_tool_states",
-      "column_name": "tried",
+      "column_name": "tool_id",
       "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "user_tool_states",
+      "column_name": "tool_id",
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "user_tool_states",
@@ -7654,6 +7664,21 @@
       "table_name": "user_tool_states",
       "column_name": "tried",
       "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "user_tool_states",
+      "column_name": "tried",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "user_tool_states",
+      "column_name": "tried",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "user_tool_states",
+      "column_name": "updated_at",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "user_tool_states",
@@ -7672,7 +7697,7 @@
     },
     {
       "table_name": "user_tool_states",
-      "column_name": "updated_at",
+      "column_name": "user_id",
       "privilege_type": "UPDATE"
     },
     {
@@ -7691,14 +7716,9 @@
       "privilege_type": "SELECT"
     },
     {
-      "table_name": "user_tool_states",
-      "column_name": "user_id",
-      "privilege_type": "UPDATE"
-    },
-    {
       "table_name": "view_history",
       "column_name": "tool_id",
-      "privilege_type": "UPDATE"
+      "privilege_type": "REFERENCES"
     },
     {
       "table_name": "view_history",
@@ -7708,21 +7728,11 @@
     {
       "table_name": "view_history",
       "column_name": "tool_id",
-      "privilege_type": "REFERENCES"
+      "privilege_type": "INSERT"
     },
     {
       "table_name": "view_history",
       "column_name": "tool_id",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "view_history",
-      "column_name": "user_id",
-      "privilege_type": "INSERT"
-    },
-    {
-      "table_name": "view_history",
-      "column_name": "user_id",
       "privilege_type": "UPDATE"
     },
     {
@@ -7734,6 +7744,16 @@
       "table_name": "view_history",
       "column_name": "user_id",
       "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "view_history",
+      "column_name": "user_id",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "view_history",
+      "column_name": "user_id",
+      "privilege_type": "UPDATE"
     },
     {
       "table_name": "view_history",
@@ -8901,5 +8921,5 @@
       "privilege_type": "SELECT"
     }
   ],
-  "columnDefenceIntact": true
+  "columnDefenceIntact": false
 }

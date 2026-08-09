@@ -28,6 +28,7 @@ import { fileURLToPath } from 'node:url';
 import postgres from 'postgres';
 import { loadEnv, readDbUrl } from './staging-guard.mjs';
 import { catalogRows } from './catalog-source.mjs';
+import { syncCatalog } from './catalog-sync.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -246,110 +247,6 @@ async function verify(sql) {
  * for the same reason. The gate is then reapplied here, so the rule is
  * identical and only the plumbing differs.
  */
-/**
- * Fills the content mirror from the committed catalogue.
- *
- * `categories` and `tools` are referenced by user data through foreign keys and
- * were never populated by anything: migrations build the schema, and no step
- * put a single row in them. The consequence only showed up under a real login —
- * saving a favourite returned `23503`, `Key (tool_id)=(tool_ollama) is not
- * present in table "tools"`. Nothing on the public site reads these tables, so
- * the gap was invisible until an account touched them.
- *
- * It runs at the end of `--migrate` rather than as a step somebody remembers,
- * because "migrate then sync" is an ordering that will eventually be got wrong,
- * and getting it wrong leaves favourites broken with no error on any page.
- *
- * `jsonb_populate_recordset` casts every column against the table's own row
- * type, so enums, dates and jsonb need no per-column handling here and a schema
- * change does not need a matching edit in this function.
- */
-async function syncCatalog(sql) {
-  console.log('\nSincronizando el catálogo con el espejo de contenido');
-  console.log('───────────────────────────────────────────────');
-
-  const { toolRows, categoryRows, unknownKeys, orphans } = await catalogRows();
-
-  if (unknownKeys.length) {
-    throw new Error(
-      `El catálogo trae claves que la tabla no tiene: ${unknownKeys.join(', ')}. ` +
-        'Añade la columna o corrige el dato; no se sincroniza a medias.'
-    );
-  }
-  if (orphans.length) {
-    throw new Error(
-      `Herramientas apuntando a categorías inexistentes: ${orphans.join(', ')}.`
-    );
-  }
-
-  /*
-   * The update list comes from the database, not from a constant here. A column
-   * added by a later migration is then copied without anyone remembering to
-   * edit this file — and the primary key and `created_at` are excluded because
-   * one identifies the row and the other records when it first appeared.
-   */
-  async function upsert(table, rows) {
-    const columns = await sql`
-      select column_name from information_schema.columns
-      where table_schema = 'public' and table_name = ${table}
-    `;
-    const assignments = columns
-      .map((c) => c.column_name)
-      .filter((c) => c !== 'id' && c !== 'slug' && c !== 'created_at')
-      .map((c) => `"${c}" = excluded."${c}"`)
-      .join(', ');
-
-    const key = table === 'categories' ? 'slug' : 'id';
-    const before = await sql`select count(*)::int as n from ${sql(table)}`;
-
-    /*
-     * The array goes through as an array, not as a string of one.
-     * `JSON.stringify` first looks harmless and is not: postgres.js serialises
-     * the parameter itself when the column is jsonb, so a pre-serialised string
-     * arrives as a JSON scalar and Postgres answers `cannot call
-     * jsonb_populate_recordset on a non-array`.
-     */
-    await sql.unsafe(
-      `insert into public.${table}
-       select * from jsonb_populate_recordset(null::public.${table}, $1::jsonb)
-       on conflict (${key}) do update set ${assignments}`,
-      [sql.json(rows)]
-    );
-
-    const after = await sql`select count(*)::int as n from ${sql(table)}`;
-    const added = after[0].n - before[0].n;
-    console.log(
-      `  ${table.padEnd(12)} ${String(after[0].n).padStart(3)} filas ` +
-        `(${added > 0 ? `+${added} nuevas, ` : ''}${rows.length - added} actualizadas) ✓`
-    );
-    return after[0].n;
-  }
-
-  // Categories first: `tools.category_slug` points at them.
-  const categories = await upsert('categories', categoryRows);
-  const tools = await upsert('tools', toolRows);
-
-  /*
-   * The check that matters, phrased as the thing that was broken: can a tool id
-   * the application will actually send satisfy the foreign key? Asked against
-   * the constraint itself rather than by counting rows, because a mirror with
-   * the wrong ids in it would still count.
-   */
-  const [{ resolvable }] = await sql`
-    select count(*)::int as resolvable from public.tools
-    where id = 'tool_' || slug
-  `;
-  console.log(`  ids resolubles como tool_<slug>: ${resolvable}/${tools} ✓`);
-
-  if (resolvable !== tools) {
-    throw new Error(
-      'Algún id no sigue el patrón tool_<slug> que usa la aplicación al guardar favoritos.'
-    );
-  }
-
-  return { categories, tools };
-}
-
 async function runSuite(sql) {
   const raw = readFileSync(join(ROOT, SUITE), 'utf8');
   const body = raw
@@ -442,7 +339,20 @@ async function main() {
 
     // Part of a migration, not a step to remember afterwards: a schema whose
     // content mirror is empty cannot store a favourite.
-    if (wants.migrate || wants.syncCatalog) evidence.catalog = await syncCatalog(sql);
+    if (wants.migrate || wants.syncCatalog) {
+      console.log('\nSincronizando el catálogo con el espejo de contenido');
+      console.log('───────────────────────────────────────────────');
+      /*
+       * The driver is adapted to the module, not the other way round. `unsafe`
+       * takes positional parameters exactly like PGlite's `query`, so the same
+       * sync runs against Supabase here and against PostgreSQL-in-WASM in the
+       * tests — one implementation of what syncing means, exercised by both.
+       */
+      const exec = (text, params = []) => sql.unsafe(text, params);
+      evidence.catalog = await syncCatalog(exec, await catalogRows(), {
+        log: (line) => console.log(line),
+      });
+    }
 
     if (wants.verify || wants.migrate) evidence.install = await verify(sql);
 
