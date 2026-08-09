@@ -1,5 +1,5 @@
 {
-  "ranAt": "2026-08-09T23:12:21.201Z",
+  "ranAt": "2026-08-09T23:43:23.082Z",
   "target": "supabase-staging",
   "totals": {
     "total": 49,
@@ -33,9 +33,9 @@
       "request": "POST /auth/v1/signup — el endpoint público valida la dirección",
       "identity": "anónimo con anon key",
       "expected": "rechaza una dirección no entregable (o topa con la cuota de correo)",
-      "observed": "429 — cuota del mailer agotada",
+      "observed": "400 — rechaza el dominio sintético, que es lo correcto",
       "pass": true,
-      "mechanism": "límite de envío de correo"
+      "mechanism": "GoTrue valida la entregabilidad"
     },
     {
       "id": "HTTP-01d",

@@ -1,12 +1,12 @@
 {
-  "ranAt": "2026-08-09T23:25:39.497Z",
+  "ranAt": "2026-08-09T23:52:37.517Z",
   "scope": "completo (local + staging + preview)",
   "totals": {
-    "total": 15,
-    "passed": 14,
-    "failed": 1
+    "total": 16,
+    "passed": 16,
+    "failed": 0
   },
-  "stoppedAt": "regression",
+  "stoppedAt": null,
   "steps": [
     {
       "id": "lint",
@@ -29,8 +29,8 @@
       "expected": "0 errors",
       "expectationMet": true,
       "pass": true,
-      "seconds": 17,
-      "tail": "> astro check --minimumSeverity error\n\n\u001b[2m01:10:11\u001b[22m \u001b[34m[types]\u001b[39m Generated \u001b[2m132ms\u001b[22m\n\u001b[2m01:10:11\u001b[22m \u001b[34m[check]\u001b[39m Getting diagnostics for Astro files in C:\\Users\\juanl\\.openclaw-autoclaw\\workspace\\free-ai-radar...\nResult (191 files): \n- 0 errors"
+      "seconds": 16,
+      "tail": "> astro check --minimumSeverity error\n\n\u001b[2m01:41:14\u001b[22m \u001b[34m[types]\u001b[39m Generated \u001b[2m121ms\u001b[22m\n\u001b[2m01:41:14\u001b[22m \u001b[34m[check]\u001b[39m Getting diagnostics for Astro files in C:\\Users\\juanl\\.openclaw-autoclaw\\workspace\\free-ai-radar...\nResult (192 files): \n- 0 errors"
     },
     {
       "id": "unit",
@@ -41,8 +41,8 @@
       "expected": "passed",
       "expectationMet": true,
       "pass": true,
-      "seconds": 33,
-      "tail": "\n\n Test Files  18 passed (18)\n      Tests  439 passed (439)\n   Start at  01:10:25\n   Duration  31.73s (transform 3.18s, setup 615ms, import 5.30s, tests 48.43s, environment 4ms)"
+      "seconds": 32,
+      "tail": "\n\n Test Files  18 passed (18)\n      Tests  439 passed (439)\n   Start at  01:41:29\n   Duration  31.29s (transform 2.99s, setup 739ms, import 5.20s, tests 46.40s, environment 3ms)"
     },
     {
       "id": "build",
@@ -54,7 +54,7 @@
       "expectationMet": true,
       "pass": true,
       "seconds": 8,
-      "tail": "\u001b[2m01:11:01\u001b[22m \u001b[34m[build]\u001b[39m \u001b[32m✓ Completed in 2.05s.\u001b[39m\n\u001b[2m01:11:02\u001b[22m \u001b[34m[@astrojs/vercel]\u001b[39m Bundling function ..\\..\\..\\..\\dist\\server\\entry.mjs\n\u001b[2m01:11:04\u001b[22m \u001b[34m[build]\u001b[39m Waiting for integration \u001b[1m\"@astrojs/vercel\"\u001b[22m, hook \u001b[1m\"astro:build:done\"\u001b[22m...\n\u001b[2m01:11:05\u001b[22m \u001b[34m[@astrojs/vercel]\u001b[39m Copying static files to .vercel/output/static\n\u001b[2m01:11:05\u001b[22m \u001b[34m[build]\u001b[39m Server built in \u001b[1m6.35s\u001b[22m\n\u001b[2m01:11:05\u001b[22m \u001b[34m[build]\u001b[39m \u001b[1mComplete!\u001b[22m"
+      "tail": "\u001b[2m01:42:05\u001b[22m \u001b[34m[build]\u001b[39m \u001b[32m✓ Completed in 2.07s.\u001b[39m\n\u001b[2m01:42:05\u001b[22m \u001b[34m[@astrojs/vercel]\u001b[39m Bundling function ..\\..\\..\\..\\dist\\server\\entry.mjs\n\u001b[2m01:42:08\u001b[22m \u001b[34m[build]\u001b[39m Waiting for integration \u001b[1m\"@astrojs/vercel\"\u001b[22m, hook \u001b[1m\"astro:build:done\"\u001b[22m...\n\u001b[2m01:42:09\u001b[22m \u001b[34m[@astrojs/vercel]\u001b[39m Copying static files to .vercel/output/static\n\u001b[2m01:42:09\u001b[22m \u001b[34m[build]\u001b[39m Server built in \u001b[1m6.36s\u001b[22m\n\u001b[2m01:42:09\u001b[22m \u001b[34m[build]\u001b[39m \u001b[1mComplete!\u001b[22m"
     },
     {
       "id": "migrate",
@@ -65,7 +65,7 @@
       "expected": "Instalación coherente",
       "expectationMet": true,
       "pass": true,
-      "seconds": 24,
+      "seconds": 16,
       "tail": "  Defensa por columna en role:   intacta\n  Tablas sin RLS:                0\n\n  ✓ Instalación coherente.\n\nEvidencia: docs/evidence/rls-staging-run.json"
     },
     {
@@ -77,8 +77,8 @@
       "expected": "Comprobada: autentica",
       "expectationMet": true,
       "pass": true,
-      "seconds": 14,
-      "tail": "  LOGIN:      activado\n  Contraseña: 43 car., huella 0e1f0c4b\n  Guardada en .env.local como AUTOCRAW_DB_URL_STAGING (ignorado por git)\n  Comprobada: autentica (6s)\n\n  No se ha concedido ningún permiso: son los de la migración 0003."
+      "seconds": 11,
+      "tail": "  LOGIN:      activado\n  Contraseña: 43 car., huella 28c20598\n  Guardada en .env.local como AUTOCRAW_DB_URL_STAGING (ignorado por git)\n  Comprobada: autentica (7s)\n\n  No se ha concedido ningún permiso: son los de la migración 0003."
     },
     {
       "id": "mirror-1",
@@ -89,7 +89,7 @@
       "expected": "coincide",
       "expectationMet": true,
       "pass": true,
-      "seconds": 6,
+      "seconds": 8,
       "tail": "\nComprobando el espejo de contenido\n───────────────────────────────────────────────\n  el espejo coincide con el catálogo ✓\n\nEvidencia: docs/evidence/rls-staging-run.json"
     },
     {
@@ -101,7 +101,7 @@
       "expected": "51/51",
       "expectationMet": true,
       "pass": true,
-      "seconds": 3,
+      "seconds": 4,
       "tail": "───────────────────────────────────────────────\n\n51/51 bloqueados · 0 bypass\nPolíticas aplicadas: 91\n\nEvidencia: docs/evidence/rls-staging-run.json"
     },
     {
@@ -113,7 +113,7 @@
       "expected": "coincide",
       "expectationMet": true,
       "pass": true,
-      "seconds": 13,
+      "seconds": 17,
       "tail": "\nComprobando el espejo de contenido\n───────────────────────────────────────────────\n  el espejo coincide con el catálogo ✓\n\nEvidencia: docs/evidence/rls-staging-run.json"
     },
     {
@@ -125,7 +125,7 @@
       "expected": "49/49",
       "expectationMet": true,
       "pass": true,
-      "seconds": 16,
+      "seconds": 19,
       "tail": "  HTTP-11b  crítica  ✓ PASA   public.tools no tiene ninguna columna comercial\n───────────────────────────────────────────────\n\n49/49 bloqueados · 0 bypass\n\nEvidencia: docs/evidence/http-staging-run.json"
     },
     {
@@ -137,7 +137,7 @@
       "expected": "coincide",
       "expectationMet": true,
       "pass": true,
-      "seconds": 16,
+      "seconds": 6,
       "tail": "\nComprobando el espejo de contenido\n───────────────────────────────────────────────\n  el espejo coincide con el catálogo ✓\n\nEvidencia: docs/evidence/rls-staging-run.json"
     },
     {
@@ -149,7 +149,7 @@
       "expected": "Bypass: 0",
       "expectationMet": true,
       "pass": true,
-      "seconds": 30,
+      "seconds": 34,
       "tail": "  ATK-30    alta     ✓ PASA   escribir haciéndose pasar por alta manual (source = \n───────────────────────────────────────────────\n\nCapacidades: 12/12 · Ataques bloqueados: 30/30 · Bypass: 0\n\nEvidencia: docs/evidence/autocraw-staging-run.json"
     },
     {
@@ -161,8 +161,20 @@
       "expected": "coincide",
       "expectationMet": true,
       "pass": true,
-      "seconds": 13,
+      "seconds": 7,
       "tail": "\nComprobando el espejo de contenido\n───────────────────────────────────────────────\n  el espejo coincide con el catálogo ✓\n\nEvidencia: docs/evidence/rls-staging-run.json"
+    },
+    {
+      "id": "settled",
+      "label": "el despliegue ha dejado de moverse",
+      "command": "node scripts/preview-settled.mjs https://free-ai-radar-git-opus5-premium-rebuild-nada-de-pro.vercel.app",
+      "remote": true,
+      "exitCode": 0,
+      "expected": "despliegue estable",
+      "expectationMet": true,
+      "pass": true,
+      "seconds": 8,
+      "tail": "  despliegue estable: 10 assets resuelven, sin cambios (8s) ✓"
     },
     {
       "id": "accounts",
@@ -173,7 +185,7 @@
       "expected": "0 fallos",
       "expectationMet": true,
       "pass": true,
-      "seconds": 47,
+      "seconds": 43,
       "tail": "\n  identidad de prueba eliminada\n───────────────────────────────────────────────\n\n16/16 correctas · 0 fallos\nEvidencia: docs/evidence/preview-account-qa.json"
     },
     {
@@ -181,12 +193,12 @@
       "label": "regresión pública del Preview",
       "command": "npx playwright test public.spec.ts crawl.spec.ts --project=chromium --project=firefox --project=webkit --project=mobile --project=mobile-safari --reporter=line",
       "remote": true,
-      "exitCode": 1,
+      "exitCode": 0,
       "expected": "passed",
       "expectationMet": true,
-      "pass": false,
-      "seconds": 692,
-      "tail": "    [firefox] › tests\\e2e\\public.spec.ts:60:3 › consentimiento › aparece antes de cualquier decisión y permite rechazar con un clic \n    [firefox] › tests\\e2e\\public.spec.ts:75:3 › consentimiento › la decisión se recuerda entre visitas \n    [firefox] › tests\\e2e\\public.spec.ts:92:3 › descubrimiento › lista herramientas ────────────────\n    [firefox] › tests\\e2e\\public.spec.ts:107:3 › descubrimiento › los filtros se combinan y quedan en la URL \n  9 did not run\n  189 passed (11.5m)"
+      "pass": true,
+      "seconds": 456,
+      "tail": "[241/245] [mobile-safari] › tests\\e2e\\public.spec.ts:306:3 › accesibilidad › hay un enlace para saltar al contenido\n[242/245] [mobile-safari] › tests\\e2e\\public.spec.ts:339:3 › accesibilidad › el tema se puede cambiar y persiste\n[243/245] [mobile-safari] › tests\\e2e\\public.spec.ts:353:3 › accesibilidad › cada página tiene exactamente un h1\n[244/245] [mobile-safari] › tests\\e2e\\public.spec.ts:362:3 › rutas privadas › la cuenta redirige al login\n[245/245] [mobile-safari] › tests\\e2e\\public.spec.ts:367:3 › rutas privadas › el admin no es accesible sin sesión\n  245 passed (7.6m)"
     }
   ]
 }
