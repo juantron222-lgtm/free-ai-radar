@@ -1,0 +1,18 @@
+# Line endings, for the two kinds of file where they change behaviour.
+#
+# `core.autocrlf=true` is on for this checkout, so git rewrites LF to CRLF on
+# the way out. That is harmless for most files and not for these two.
+#
+# `.mjs` — the scripts start with `#!/usr/bin/env node`. Vite strips a shebang
+# before evaluating a module, and with CRLF it stops matching: the line survives
+# into the transformed output and every test that imports one of these dies with
+# `SyntaxError: Invalid or unexpected token`. It cost four test files on launch
+# day, and it appeared at a checkout rather than at an edit, which is what made
+# it confusing — nothing in the diff explained it.
+#
+# `.sql` — `supabase/seed/catalog.sql` is generated and committed, and a test
+# compares the committed bytes against a freshly generated copy. The generator
+# writes LF. If git hands the test CRLF, the comparison fails for a reason that
+# has nothing to do with the catalogue.
+*.mjs text eol=lf
+*.sql text eol=lf

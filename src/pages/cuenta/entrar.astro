@@ -13,7 +13,13 @@ if (Astro.locals.user) {
 
 const next = safeRedirect(Astro.url.searchParams.get('next'), ROUTES.account);
 const flashError = Astro.url.searchParams.get('error');
-const flashOk = Astro.url.searchParams.get('ok');
+/*
+ * `?confirmado=1` carries its own sentence so the page says something useful
+ * even if the message is missing — a link somebody kept and reopened, say.
+ */
+const flashOk =
+  Astro.url.searchParams.get('ok') ??
+  (Astro.url.searchParams.get('confirmado') === '1' ? 'Correo confirmado correctamente.' : null);
 ---
 
 <AuthLayout

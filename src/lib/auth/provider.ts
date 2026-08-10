@@ -21,6 +21,18 @@ type PendingCookie = { name: string; value: string; options: Record<string, unkn
 const SIGNUP_MESSAGE =
   'Cuenta creada. Te hemos enviado un correo para confirmar tu dirección; hasta entonces algunas funciones estarán limitadas.';
 
+/** Shown when the account exists but cannot be used until the address is confirmed. */
+export const CONFIRM_EMAIL_MESSAGE =
+  'Te hemos enviado un correo de confirmación. Revisa tu bandeja de entrada y confirma tu dirección para activar la cuenta.';
+
+export const VERIFY_OK_MESSAGE = 'Correo confirmado correctamente.';
+
+export const VERIFY_OTHER_DEVICE_MESSAGE =
+  'Correo confirmado correctamente. Inicia sesión para entrar en tu cuenta.';
+
+export const VERIFY_INVALID_MESSAGE =
+  'Este enlace de confirmación ya no es válido. Puede haber caducado o haberse usado antes. Vuelve a registrarte o pide otro correo.';
+
 const SECURE_COOKIE_DEFAULTS = sessionCookie(local.SESSION_MAX_AGE_SECONDS);
 
 // ---------------------------------------------------------------------------
@@ -90,7 +102,47 @@ class SupabaseAuthProvider implements AuthProvider {
       await sendMail(welcomeEmail({ to: credentials.email, displayName: credentials.displayName }));
     }
 
+    /*
+     * No session means Supabase is waiting for the address to be confirmed.
+     * Saying so is the difference between a login form that appeared for no
+     * visible reason and one that comes with an explanation.
+     */
+    if (!data.session) {
+      return { ok: true, message: CONFIRM_EMAIL_MESSAGE, pendingConfirmation: true };
+    }
+
     return { ok: true, message: SIGNUP_MESSAGE };
+  }
+
+  /**
+   * Exchanges the one-time code on the confirmation link for a session.
+   *
+   * The verifier lives in a cookie this browser received when it signed up, so
+   * a link opened on another device cannot complete here. That is not a
+   * failure of the confirmation — GoTrue only issues a code after accepting the
+   * token, so the address *is* confirmed — it just means the session has to be
+   * started by logging in. The two outcomes are reported separately because
+   * telling somebody their link was invalid when it worked is its own bug.
+   */
+  async completeEmailVerification(code: string, request: Request): Promise<AuthResult> {
+    const client = this.client(request);
+    const { data, error } = await client.auth.exchangeCodeForSession(code);
+
+    if (error || !data.session) {
+      const verifierPresent = /(^|;)\s*sb-[^=]*code-verifier=/.test(
+        request.headers.get('cookie') ?? ''
+      );
+
+      return verifierPresent
+        ? { ok: false, message: VERIFY_INVALID_MESSAGE }
+        : { ok: false, message: VERIFY_OTHER_DEVICE_MESSAGE, pendingConfirmation: true };
+    }
+
+    return {
+      ok: true,
+      message: VERIFY_OK_MESSAGE,
+      user: await this.toSessionUser(request, data.session.user.id),
+    };
   }
 
   async signIn(credentials: Omit<Credentials, 'displayName'>, request: Request): Promise<AuthResult> {
@@ -297,6 +349,14 @@ class LocalAuthProvider implements AuthProvider {
     return { ok: true, message: GENERIC_RESET_MESSAGE };
   }
 
+  /**
+   * The development store has no email to confirm, so a link here can only be
+   * somebody poking at the route. It says so instead of pretending to verify.
+   */
+  async completeEmailVerification(): Promise<AuthResult> {
+    return { ok: false, message: VERIFY_INVALID_MESSAGE };
+  }
+
   async resetPassword(token: string, newPassword: string): Promise<AuthResult> {
     const user = await local.findByResetTokenHash(local.hashToken(token));
     if (!user || !user.resetExpiresAt || new Date(user.resetExpiresAt) < new Date()) {
@@ -372,6 +432,10 @@ class DisabledAuthProvider implements AuthProvider {
   async requestPasswordReset(): Promise<AuthResult> {
     return { ok: true, message: GENERIC_RESET_MESSAGE };
   }
+  async completeEmailVerification(): Promise<AuthResult> {
+    return { ok: false, message: VERIFY_INVALID_MESSAGE };
+  }
+
   async resetPassword(): Promise<AuthResult> {
     return { ok: false, message: DISABLED_MESSAGE };
   }

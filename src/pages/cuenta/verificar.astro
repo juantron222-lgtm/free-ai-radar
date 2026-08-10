@@ -1,0 +1,111 @@
+---
+import AuthLayout from '@layouts/AuthLayout.astro';
+import { getAuthProvider, VERIFY_INVALID_MESSAGE } from '@lib/auth/provider';
+import { ROUTES } from '@lib/nav';
+import { logger } from '@lib/observability/logger';
+
+/**
+ * Where the confirmation link in Supabase's email lands.
+ *
+ * This route was referenced from three places — `emailRedirectTo` in the auth
+ * provider, the middleware's public-path list, and a unit test — and the page
+ * itself was never written. Every confirmed address landed on a 404 with a
+ * valid session waiting to be claimed.
+ *
+ * Supabase's SSR client runs PKCE, so GoTrue verifies the token on its side and
+ * then sends the visitor here with a one-time `code`. That code is not a
+ * session: it has to be exchanged, using a verifier cookie this browser
+ * received during sign-up. Until that exchange happens the account is confirmed
+ * and nobody is logged in.
+ *
+ * Nothing in the query string is trusted. `code` is checked against the shape
+ * of an opaque token before it goes anywhere near the auth client, and the
+ * `error_description` GoTrue may append is never rendered — it is somebody
+ * else's copy for somebody else's audience, and reflecting a remote party's
+ * text into our page is how a confirmation screen ends up saying whatever an
+ * attacker put in a URL.
+ *
+ * One exit, not several. Astro frontmatter carries both `export` and top-level
+ * `return`, and the type checker stops following the code after the first
+ * return — every constant used below it gets reported as unused. Deciding on a
+ * destination and returning once avoids arguing with that, and reads better.
+ */
+
+export const prerender = false;
+
+const params = Astro.url.searchParams;
+
+/** An opaque one-time code. Anything else is not one, and is not passed on. */
+const rawCode = params.get('code') ?? '';
+const code = /^[A-Za-z0-9._~-]{16,512}$/.test(rawCode) ? rawCode : '';
+
+/** GoTrue reports failures by code; its prose is never shown to our visitors. */
+const remoteErrorKind = (params.get('error_code') ?? params.get('error') ?? '').toLowerCase();
+
+const login = (query: string) => `${ROUTES.login}?${query}`;
+const said = (message: string) => encodeURIComponent(message);
+
+let destination: string;
+
+if (remoteErrorKind) {
+  logger.warn('auth.verify_rejected', { code: remoteErrorKind });
+  destination = login(
+    `error=${said(
+      remoteErrorKind.includes('expired')
+        ? 'El enlace de confirmación ha caducado. Vuelve a registrarte para recibir uno nuevo.'
+        : VERIFY_INVALID_MESSAGE
+    )}`
+  );
+} else if (!code) {
+  destination = login(`error=${said(VERIFY_INVALID_MESSAGE)}`);
+} else {
+  const auth = getAuthProvider();
+  const result = await auth.completeEmailVerification(code, Astro.request);
+
+  // The exchange writes the session cookies; without draining them the visitor
+  // would arrive at /cuenta with no session and bounce straight back out.
+  for (const cookie of auth.drainCookies()) {
+    Astro.cookies.set(cookie.name, cookie.value, cookie.options as never);
+  }
+
+  logger.info('auth.verify', { ok: result.ok, pending: Boolean(result.pendingConfirmation) });
+
+  if (result.ok) {
+    // Session established: straight into the account, with the confirmation said.
+    destination = `${ROUTES.account}?ok=${said(result.message)}`;
+  } else if (result.pendingConfirmation) {
+    /*
+     * Confirmed, but not here.
+     *
+     * The address was accepted and only the exchange failed — almost always
+     * because the link was opened in a different browser from the one that
+     * signed up, so the verifier cookie is somewhere else. The account is fine
+     * and they only need to log in, which is a different sentence from "your
+     * link is broken".
+     */
+    destination = login(`confirmado=1&ok=${said(result.message)}`);
+  } else {
+    destination = login(`error=${said(result.message)}`);
+  }
+}
+
+/*
+ * The target is always built from `ROUTES`, never from anything in the URL, so
+ * there is no value a visitor can supply that sends them off this site.
+ *
+ * Guarded and followed by a template because that is the shape `astro check`
+ * follows: a bare trailing `return` in frontmatter leaves it believing nothing
+ * after the branch runs, and every constant the redirect uses gets reported as
+ * unused.
+ */
+if (destination) return Astro.redirect(destination, 303);
+---
+
+<AuthLayout
+  title="Confirmar tu correo"
+  heading="No hemos podido confirmar tu correo"
+  lede="El enlace no trae la información que esperábamos."
+>
+  <p class="form-flash form-flash-error" role="alert">{VERIFY_INVALID_MESSAGE}</p>
+  <p><a href={ROUTES.login}>Ir a iniciar sesión</a></p>
+</AuthLayout>
