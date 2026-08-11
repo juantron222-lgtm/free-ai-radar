@@ -1,5 +1,11 @@
 import rawNews from '@/data/news/news.json';
-import { NewsItem, hydrateNews, isPublishable, type HydratedNewsItem } from '@lib/domain/news';
+import {
+  NewsItem,
+  findDuplicateStories,
+  hydrateNews,
+  isPublishable,
+  type HydratedNewsItem,
+} from '@lib/domain/news';
 import { getTool } from './catalog';
 
 /**
@@ -38,6 +44,18 @@ function load(): HydratedNewsItem[] {
         );
       }
     }
+  }
+
+  /*
+   * Duplication is a property of the set, not of an item, so it cannot live in
+   * `isPublishable`. It is checked here, where the whole published set is in
+   * hand, and it fails the build for the same reason everything else here does:
+   * publishing the same event twice is a correctness problem, not a tidiness one.
+   */
+  const duplicates = findDuplicateStories(published);
+  if (duplicates.length) {
+    const detail = duplicates.map((d) => `  · "${d.a}" y "${d.b}": ${d.reason}`).join('\n');
+    throw new NewsError(`Hay noticias duplicadas entre las publicadas.\n${detail}`);
   }
 
   return published
