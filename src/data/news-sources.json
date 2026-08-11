@@ -75,25 +75,27 @@
     "id": "s-007",
     "name": "Anthropic News",
     "homepage": "https://www.anthropic.com/news",
-    "feed_url": "https://www.anthropic.com/news.xml",
-    "source_type": "rss",
+    "feed_url": null,
+    "source_type": "html",
     "official": true,
-    "enabled": false,
+    "enabled": true,
     "category_defaults": "modelos",
     "language": "en",
-    "notes": "Deshabilitado temporalmente: Anthropic no provee un feed RSS estable o público en esta ruta."
+    "notes": "No publica RSS: news.xml daba 404 y la página no declara feed. Se lee el índice en HTML.",
+    "index_url": "https://www.anthropic.com/news",
+    "item_link_pattern": "^/news/[a-z0-9-]+$"
   },
   {
     "id": "s-008",
     "name": "Mistral AI News",
     "homepage": "https://mistral.ai/news/",
-    "feed_url": "https://mistral.ai/news/index.xml",
+    "feed_url": "https://mistral.ai/news/rss",
     "source_type": "rss",
     "official": true,
-    "enabled": false,
+    "enabled": true,
     "category_defaults": "modelos",
     "language": "en",
-    "notes": "Deshabilitado temporalmente: Mistral no provee un feed RSS estable o público en esta ruta."
+    "notes": "Feed oficial descubierto por autodescubrimiento; la URL anterior (news/index.xml) daba 404."
   },
   {
     "id": "s-009",
@@ -105,18 +107,162 @@
     "enabled": false,
     "category_defaults": "open-source",
     "language": "en",
-    "notes": "Deshabilitado temporalmente: El feed RSS oficial de Meta AI retorna códigos de error en llamadas directas sin cookies corporativas."
+    "notes": "Deshabilitado temporalmente: El feed RSS oficial de Meta AI retorna códigos de error en llamadas directas sin cookies corporativas.",
+    "health_note": "blog/rss/ da 404 y ai.meta.com/blog/ responde 400 a peticiones automatizadas. Sin ruta oficial legible: queda apagada a propósito."
   },
   {
     "id": "s-010",
     "name": "Stability AI News",
     "homepage": "https://stability.ai/news",
-    "feed_url": "https://stability.ai/news?format=rss",
+    "feed_url": "https://stability.ai/news-updates?format=rss",
     "source_type": "rss",
     "official": true,
-    "enabled": false,
-    "category_defaults": "imagen-video",
+    "enabled": true,
+    "category_defaults": "imagen",
     "language": "en",
-    "notes": "Deshabilitado temporalmente: No se dispone de un feed XML estructurado nativo (retorna HTML)."
+    "notes": "Feed oficial. La URL anterior (news?format=rss) devolvía 301; ésta es la que responde 200."
+  },
+  {
+    "id": "s-011",
+    "official": true,
+    "enabled": true,
+    "language": "es",
+    "source_type": "rss",
+    "name": "Freepik Blog",
+    "homepage": "https://www.freepik.com/blog/",
+    "feed_url": "https://www.freepik.com/blog/feed/",
+    "category_defaults": "imagen",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+    "notes": "Feed oficial. Devuelve 403 al agente del radar, 200 a uno de navegador: por eso declara user_agent propio."
+  },
+  {
+    "id": "s-012",
+    "official": true,
+    "enabled": true,
+    "language": "en",
+    "source_type": "rss",
+    "name": "ComfyUI Blog",
+    "homepage": "https://blog.comfy.org/",
+    "feed_url": "https://blog.comfy.org/feed",
+    "category_defaults": "imagen",
+    "notes": "Feed oficial del proyecto. Interfaz de referencia para difusión local."
+  },
+  {
+    "id": "s-013",
+    "official": true,
+    "enabled": true,
+    "language": "en",
+    "source_type": "rss",
+    "name": "fal.ai Blog",
+    "homepage": "https://blog.fal.ai/",
+    "feed_url": "https://blog.fal.ai/rss/",
+    "category_defaults": "imagen",
+    "notes": "Plataforma de inferencia: publica la llegada de modelos de imagen y vídeo."
+  },
+  {
+    "id": "s-014",
+    "official": true,
+    "enabled": true,
+    "language": "en",
+    "source_type": "rss",
+    "name": "Replicate Blog",
+    "homepage": "https://replicate.com/blog",
+    "feed_url": "https://replicate.com/blog/rss",
+    "category_defaults": "imagen",
+    "notes": "Plataforma de inferencia. Ya está en el catálogo como herramienta."
+  },
+  {
+    "id": "s-015",
+    "official": true,
+    "enabled": true,
+    "language": "en",
+    "source_type": "html",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+    "max_items": 8,
+    "name": "Black Forest Labs",
+    "homepage": "https://bfl.ai/blog",
+    "index_url": "https://bfl.ai/blog",
+    "item_link_pattern": "^/blog/[a-z0-9-]+$",
+    "exclude_patterns": [
+      "^/blog/?$"
+    ],
+    "category_defaults": "imagen",
+    "notes": "FLUX. Sin RSS; el índice lista los artículos en HTML estático."
+  },
+  {
+    "id": "s-016",
+    "official": true,
+    "enabled": true,
+    "language": "en",
+    "source_type": "html",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+    "max_items": 8,
+    "name": "Krea",
+    "homepage": "https://www.krea.ai/blog",
+    "index_url": "https://www.krea.ai/blog",
+    "item_link_pattern": "^/blog/[a-z0-9-]+$",
+    "exclude_patterns": [
+      "/_astro/",
+      ".(css|js|png|jpg|svg|webp)$"
+    ],
+    "category_defaults": "imagen",
+    "notes": "Sin RSS. El índice mezcla enlaces de artículo con recursos de Astro: por eso los exclude_patterns."
+  },
+  {
+    "id": "s-017",
+    "official": true,
+    "enabled": true,
+    "language": "en",
+    "source_type": "html",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+    "max_items": 8,
+    "name": "HeyGen Blog",
+    "homepage": "https://www.heygen.com/blog",
+    "index_url": "https://www.heygen.com/blog",
+    "item_link_pattern": "^/blog/[a-z0-9-]+$",
+    "exclude_patterns": [
+      "^/blog/category/",
+      "^/blog/?$"
+    ],
+    "category_defaults": "video",
+    "notes": "Avatares y vídeo generativo. Sin RSS."
+  },
+  {
+    "id": "s-018",
+    "official": true,
+    "enabled": true,
+    "language": "en",
+    "source_type": "html",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+    "max_items": 8,
+    "name": "ElevenLabs Blog",
+    "homepage": "https://elevenlabs.io/blog",
+    "index_url": "https://elevenlabs.io/blog",
+    "item_link_pattern": "^/blog/[a-z0-9-]+$",
+    "exclude_patterns": [
+      "^/blog/category/",
+      "^/blog/tag/",
+      "^/blog/?$"
+    ],
+    "category_defaults": "voz",
+    "notes": "Voz generativa. Sin RSS; el índice enlaza artículos y categorías, y éstas se excluyen."
+  },
+  {
+    "id": "s-019",
+    "official": true,
+    "enabled": true,
+    "language": "en",
+    "source_type": "html",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+    "max_items": 8,
+    "name": "Suno Blog",
+    "homepage": "https://suno.com/blog",
+    "index_url": "https://suno.com/blog",
+    "item_link_pattern": "^/blog/[a-z0-9-]+$",
+    "exclude_patterns": [
+      "^/blog/?$"
+    ],
+    "category_defaults": "musica",
+    "notes": "Música generativa. Sin RSS."
   }
 ]

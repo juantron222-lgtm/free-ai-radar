@@ -298,6 +298,51 @@ export const NewsItem = z.object({
    */
   affectsFreePlan: z.enum(['yes', 'no', 'unverified']).default('unverified'),
 
+  /**
+   * What a person can actually do without paying, after this news.
+   *
+   * A different question from `affectsFreePlan`, which only says whether the
+   * news *changes* access. Both are needed: "this changed the free plan" and
+   * "the free plan is now daily credits" are separate facts, and the second is
+   * the one a reader wants.
+   *
+   * The vocabulary is the catalogue's, deliberately — `freeModel` and
+   * `creditReset` already exist and already have Spanish labels. A third
+   * private taxonomy here would mean two answers to the same question and no
+   * rule for which wins.
+   *
+   * **Never inferred.** Not from a headline, not from a price page that looked
+   * similar last month, not from what a competitor offers. `unknown` is the
+   * default and the honest answer for everything a primary source does not
+   * state today. A guessed `daily` is worse than no answer: it is a promise the
+   * site makes on somebody else's behalf.
+   */
+  freeAccess: z
+    .object({
+      model: z
+        .enum([
+          'free_real',
+          'freemium',
+          'credits',
+          'trial',
+          'open_source',
+          'local',
+          'demo',
+          'paid_only',
+          'unknown',
+        ])
+        .default('unknown'),
+      creditReset: z
+        .enum(['none', 'daily', 'weekly', 'monthly', 'one_off', 'unknown'])
+        .default('unknown'),
+      /** Verbatim from the vendor: "50 créditos/día". Never a number we computed. */
+      creditsAmount: z.string().optional(),
+      /** The page that says so, and the day it said it. */
+      sourceUrl: z.string().url().optional(),
+      verifiedAt: IsoDate.optional(),
+    })
+    .default({ model: 'unknown', creditReset: 'unknown' }),
+
   verification: NewsVerification,
   status: NewsStatus.default('draft'),
   author: z.string().min(1),

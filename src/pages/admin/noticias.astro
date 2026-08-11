@@ -1,0 +1,649 @@
+---
+import AdminLayout from '@layouts/AdminLayout.astro';
+import { getDesk } from '@lib/data/newsroom';
+import { canApprove } from '@lib/domain/newsroom';
+
+export const prerender = false;
+
+/**
+ * The newsroom desk.
+ *
+ * Four sections, in the order a person actually works through them: what is
+ * ready to approve, what is stuck waiting on evidence, what is interesting but
+ * not yet worth verifying, and what was set aside — kept, with its reason,
+ * because a discarded story that leaves no trace cannot be argued with later.
+ *
+ * Everything here is rendered server-side from the pipeline files. None of them
+ * is exposed as an endpoint.
+ */
+
+const desk = getDesk();
+const csrfToken = Astro.locals.csrfToken;
+
+const SECTIONS = [
+  {
+    id: 'ready',
+    title: 'Listo para publicar',
+    lede: 'Verificado contra la fuente y con la puerta editorial en verde. Sólo falta tu aprobación.',
+    stories: desk.ready,
+  },
+  {
+    id: 'verification',
+    title: 'Verificación pendiente',
+    lede: 'La fuente no se ha podido leer, o no demuestra lo suficiente para redactar sin inventar.',
+    stories: desk.verification,
+  },
+  {
+    id: 'hold',
+    title: 'En espera',
+    lede: 'Interesantes, pero todavía no justifican el coste de verificarlas.',
+    stories: desk.hold,
+  },
+  {
+    id: 'discarded',
+    title: 'Descartadas',
+    lede: 'No se borran. Cada una conserva el motivo por el que no entró.',
+    stories: desk.discarded,
+  },
+] as const;
+
+const fmt = (iso: string | null) =>
+  iso
+    ? new Date(`${iso}T00:00:00Z`).toLocaleDateString('es-ES', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        timeZone: 'UTC',
+      })
+    : 'sin fecha';
+---
+
+<AdminLayout
+  title="Newsroom"
+  heading="Mesa de edición"
+  lede="Lo que Newsroom ha descubierto, triado, verificado y redactado. Aprobar es la única acción que publica."
+>
+  <nav class="desk-nav" aria-label="Secciones">
+    {SECTIONS.map((section) => (
+      <a href={`#${section.id}`} class="desk-tab">
+        {section.title} <span class="tnum">{section.stories.length}</span>
+      </a>
+    ))}
+  </nav>
+
+  <p class="desk-note" role="note">
+    Aprobar escribe en <code>src/data/news/news.json</code> en tu copia de trabajo. No despliega
+    nada: después hay que ejecutar <code>npm run data:news:validate</code> y commitear el cambio.
+  </p>
+
+  {SECTIONS.map((section) => (
+    <section class="desk-section" id={section.id} aria-labelledby={`${section.id}-title`}>
+      <h2 id={`${section.id}-title`} class="desk-title">
+        {section.title} <span class="desk-count tnum">{section.stories.length}</span>
+      </h2>
+      <p class="desk-lede">{section.lede}</p>
+
+      {section.stories.length === 0 ? (
+        <p class="desk-empty">Nada aquí ahora mismo.</p>
+      ) : (
+        <ul class="desk-list">
+          {section.stories.map((story) => {
+            const approval = canApprove(story);
+            return (
+              <li class="story" data-key={story.key}>
+                <article>
+                  <header class="story-head">
+                    <div class="story-chips">
+                      <span class="chip">{story.vertical}</span>
+                      {story.draft && (
+                        <>
+                          <span class="chip">{story.draft.eventType}</span>
+                          <span
+                            class={`chip ${story.draft.availability === 'available' ? 'chip-signal' : 'chip-warn'}`}
+                          >
+                            {story.draft.availability}
+                          </span>
+                        </>
+                      )}
+                      {story.verification && (
+                        <span
+                          class={`chip ${story.verification.decision === 'verified' ? 'chip-signal' : 'chip-alert'}`}
+                        >
+                          {story.verification.decision}
+                        </span>
+                      )}
+                      {story.published && <span class="chip chip-signal">publicada</span>}
+                    </div>
+                    <h3 class="story-title">{story.title}</h3>
+                    <p class="story-meta">
+                      <strong>{story.publisher}</strong> · {fmt(story.publishedAt)}
+                      {story.triage && (
+                        <> · triaje <span class="tnum">{story.triage.score}</span>/100 ({story.triage.decision})</>
+                      )}
+                      {story.radar && <> · radar: {story.radar.status}</>}
+                    </p>
+                  </header>
+
+                  {story.radar?.reason && (
+                    <p class="story-reason">
+                      <strong>Radar:</strong> {story.radar.reason}
+                    </p>
+                  )}
+
+                  {story.triage && story.triage.reasons.length > 0 && (
+                    <details class="story-block">
+                      <summary>Por qué el triaje decidió esto</summary>
+                      <ul class="axes">
+                        {story.triage.reasons.map((axis) => (
+                          <li>
+                            <span class="axis-name">{axis.axis}</span>
+                            <span class={`axis-points tnum ${axis.points < 0 ? 'is-neg' : ''}`}>
+                              {axis.points >= 0 ? `+${axis.points}` : axis.points}
+                            </span>
+                            <span class="axis-reason">{axis.reason}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </details>
+                  )}
+
+                  {story.verification && (
+                    <details class="story-block" open={story.section === 'ready'}>
+                      <summary>
+                        Verificación · {story.verification.verifiedFacts.length} hechos demostrados ·
+                        {' '}{story.verification.unconfirmed.length} sin confirmar
+                      </summary>
+
+                      <dl class="verif-fields">
+                        <div><dt>eventType</dt><dd>{story.verification.eventType ?? '—'}</dd></div>
+                        <div><dt>availability</dt><dd>{story.verification.availability ?? '—'}</dd></div>
+                        <div><dt>plan gratuito</dt><dd>{story.verification.affectsFreePlan}</dd></div>
+                      </dl>
+
+                      <h4 class="block-h">Fuentes primarias</h4>
+                      <ul class="sources">
+                        {story.verification.primarySources.map((source) => (
+                          <li class={source.reachable ? 'is-read' : 'is-unread'}>
+                            <a href={source.url} target="_blank" rel="nofollow noopener">
+                              {source.label}
+                            </a>
+                            {!source.reachable && (
+                              <span class="unread-why"> — {source.unreachableReason}</span>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+
+                      {story.verification.verifiedFacts.length > 0 && (
+                        <>
+                          <h4 class="block-h">Hechos demostrados</h4>
+                          <ul class="facts">
+                            {story.verification.verifiedFacts.map((fact) => (
+                              <li>
+                                {fact.fact}
+                                <blockquote class="fact-quote">«{fact.quote}»</blockquote>
+                              </li>
+                            ))}
+                          </ul>
+                        </>
+                      )}
+
+                      {story.verification.unconfirmed.length > 0 && (
+                        <>
+                          <h4 class="block-h">Sin confirmar</h4>
+                          <ul class="unconfirmed">
+                            {story.verification.unconfirmed.map((point) => <li>{point}</li>)}
+                          </ul>
+                        </>
+                      )}
+
+                      <p class="verif-notes">{story.verification.verificationNotes}</p>
+                    </details>
+                  )}
+
+                  {story.draft && (
+                    <details class="story-block" open={story.section === 'ready'}>
+                      <summary>Borrador completo y trazabilidad</summary>
+
+                      <div class="draft">
+                        <p class="draft-slug"><code>{story.draft.slug}</code></p>
+                        <h4 class="draft-title">{story.draft.title}</h4>
+                        <p class="draft-summary">{story.draft.summary}</p>
+                        <h5 class="block-h">Qué significa para ti</h5>
+                        <p class="draft-impact">{story.draft.impact}</p>
+
+                        <dl class="verif-fields">
+                          <div><dt>category</dt><dd>{story.draft.category}</dd></div>
+                          <div><dt>eventType</dt><dd>{story.draft.eventType}</dd></div>
+                          <div><dt>availability</dt><dd>{story.draft.availability}</dd></div>
+                          <div><dt>plan gratuito</dt><dd>{story.draft.affectsFreePlan}</dd></div>
+                          <div>
+                            <dt>herramientas</dt>
+                            <dd>{story.draft.relatedTools.join(', ') || '—'}</dd>
+                          </div>
+                        </dl>
+
+                        <h5 class="block-h">factTrace</h5>
+                        <ul class="trace">
+                          {(
+                            Object.entries(story.draft.factTrace) as Array<[string, string[]]>
+                          ).map(([part, quotes]) => (
+                            <li>
+                              <span class="trace-part">{part}</span>
+                              {quotes.length === 0 ? (
+                                <span class="trace-empty">— sin citas</span>
+                              ) : (
+                                <ul class="trace-quotes">
+                                  {quotes.map((quote) => <li>«{quote}»</li>)}
+                                </ul>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </details>
+                  )}
+
+                  {story.gate && !story.gate.ok && (
+                    <div class="gate-blocked" role="note">
+                      <strong>La puerta editorial lo bloquea:</strong>
+                      <ul>{story.gate.reasons.map((reason) => <li>{reason}</li>)}</ul>
+                    </div>
+                  )}
+
+                  {story.decision && (
+                    <p class="story-decision">
+                      Decisión previa: <strong>{story.decision.action}</strong> por
+                      {' '}{story.decision.actor}
+                      {story.decision.note && <> — «{story.decision.note}»</>}
+                    </p>
+                  )}
+
+                  <form class="story-actions" data-newsroom-form data-key={story.key}>
+                    <input type="hidden" name="csrf_token" value={csrfToken} />
+                    <input type="hidden" name="key" value={story.key} />
+                    <label class="note-label">
+                      <span class="sr-only">Nota para el historial</span>
+                      <input
+                        type="text"
+                        name="note"
+                        maxlength="500"
+                        placeholder="Motivo (opcional, queda en el historial)"
+                      />
+                    </label>
+                    <div class="action-buttons">
+                      <button
+                        type="button"
+                        class="btn btn-primary btn-sm"
+                        data-action="approve"
+                        disabled={!approval.ok}
+                        title={approval.ok ? 'Publica en news.json' : approval.reasons.join('; ')}
+                      >
+                        Aprobar publicación
+                      </button>
+                      <button type="button" class="btn btn-secondary btn-sm" data-action="hold">
+                        Mantener en revisión
+                      </button>
+                      <button type="button" class="btn btn-ghost btn-sm" data-action="reject">
+                        Rechazar
+                      </button>
+                    </div>
+                    {!approval.ok && (
+                      <p class="why-blocked">{approval.reasons.join(' · ')}</p>
+                    )}
+                    <p class="action-result" data-result aria-live="polite"></p>
+                  </form>
+                </article>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </section>
+  ))}
+</AdminLayout>
+
+<script>
+  /*
+   * The buttons post one at a time and report what came back. Deliberately
+   * plain: the desk is used by one person on a laptop, and a framework here
+   * would buy nothing that `fetch` does not already do.
+   */
+  const forms = document.querySelectorAll<HTMLFormElement>('[data-newsroom-form]');
+
+  for (const form of forms) {
+    const result = form.querySelector<HTMLElement>('[data-result]');
+
+    for (const button of form.querySelectorAll<HTMLButtonElement>('button[data-action]')) {
+      button.addEventListener('click', async () => {
+        const action = button.dataset.action;
+        if (!action || !result) return;
+
+        if (action === 'approve' && !confirm('¿Publicar esta noticia en news.json?')) return;
+
+        const buttons = [...form.querySelectorAll<HTMLButtonElement>('button[data-action]')];
+        const wasDisabled = new Map(buttons.map((b) => [b, b.disabled]));
+        for (const b of buttons) b.disabled = true;
+        result.textContent = 'Enviando…';
+        result.className = 'action-result';
+
+        try {
+          const body = new FormData(form);
+          body.set('action', action);
+
+          const response = await fetch('/api/admin/newsroom', { method: 'POST', body });
+          const data = (await response.json()) as {
+            ok: boolean;
+            message: string;
+            reasons?: string[];
+          };
+
+          result.textContent = data.reasons?.length
+            ? `${data.message} ${data.reasons.join(' · ')}`
+            : data.message;
+          result.className = `action-result ${data.ok ? 'is-ok' : 'is-error'}`;
+
+          if (data.ok && action === 'approve') {
+            button.textContent = 'Publicada';
+          } else {
+            for (const b of buttons) b.disabled = wasDisabled.get(b) ?? false;
+          }
+        } catch {
+          result.textContent = 'No se ha podido contactar con el servidor.';
+          result.className = 'action-result is-error';
+          for (const b of buttons) b.disabled = wasDisabled.get(b) ?? false;
+        }
+      });
+    }
+  }
+</script>
+
+<style>
+  .desk-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-block-end: var(--space-s);
+  }
+
+  .desk-tab {
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-full);
+    background: var(--surface-sunken);
+    color: var(--ink-muted);
+    font-size: 0.8125rem;
+    font-weight: 550;
+    text-decoration: none;
+  }
+
+  .desk-tab:hover {
+    border-color: var(--signal-line);
+    color: var(--ink-strong);
+  }
+
+  .desk-note {
+    padding: var(--space-2xs) var(--space-xs);
+    border-inline-start: 3px solid var(--warn-line);
+    background: var(--warn-soft);
+    color: var(--ink-muted);
+    font-size: 0.8125rem;
+    margin-block-end: var(--space-m);
+  }
+
+  .desk-section {
+    margin-block-end: var(--space-l);
+    scroll-margin-block-start: var(--space-m);
+  }
+
+  .desk-title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-block-end: 0.15rem;
+  }
+
+  .desk-count {
+    font-size: 0.875rem;
+    color: var(--ink-subtle);
+    font-weight: 500;
+  }
+
+  .desk-lede,
+  .desk-empty {
+    margin: 0 0 var(--space-s);
+    color: var(--ink-muted);
+    font-size: 0.875rem;
+  }
+
+  .desk-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-s);
+  }
+
+  .story {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-m);
+    background: var(--surface);
+    padding: var(--space-s);
+  }
+
+  .story-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-block-end: 0.4rem;
+  }
+
+  .story-title {
+    font-size: 1.0625rem;
+    margin: 0 0 0.25rem;
+    line-height: 1.3;
+  }
+
+  .story-meta {
+    margin: 0 0 var(--space-2xs);
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+  }
+
+  .story-reason {
+    margin: 0 0 var(--space-2xs);
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+  }
+
+  .story-block {
+    margin-block: var(--space-2xs);
+    border-block-start: 1px solid var(--line-hairline);
+    padding-block-start: var(--space-2xs);
+    font-size: 0.8125rem;
+  }
+
+  .story-block summary {
+    cursor: pointer;
+    color: var(--ink-muted);
+    font-weight: 550;
+  }
+
+  .block-h {
+    margin: var(--space-2xs) 0 0.2rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink-subtle);
+  }
+
+  .axes,
+  .sources,
+  .facts,
+  .unconfirmed,
+  .trace {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.3rem;
+  }
+
+  .axes li {
+    display: grid;
+    grid-template-columns: 7rem 3rem 1fr;
+    gap: 0.4rem;
+    align-items: baseline;
+  }
+
+  .axis-name {
+    color: var(--ink-subtle);
+  }
+
+  .axis-points {
+    text-align: end;
+    font-weight: 600;
+    color: var(--signal);
+  }
+
+  .axis-points.is-neg {
+    color: var(--alert);
+  }
+
+  .verif-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin: var(--space-2xs) 0;
+  }
+
+  .verif-fields dt {
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink-subtle);
+  }
+
+  .verif-fields dd {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .sources .is-unread {
+    color: var(--ink-subtle);
+  }
+
+  .unread-why {
+    color: var(--alert);
+  }
+
+  .fact-quote {
+    margin: 0.15rem 0 0;
+    padding-inline-start: 0.6rem;
+    border-inline-start: 2px solid var(--line);
+    color: var(--ink-subtle);
+    font-style: italic;
+  }
+
+  .unconfirmed li {
+    color: var(--warn);
+  }
+
+  .verif-notes {
+    margin: var(--space-2xs) 0 0;
+    color: var(--ink-muted);
+  }
+
+  .draft-title {
+    margin: 0.2rem 0;
+    font-size: 1rem;
+  }
+
+  .draft-slug code {
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+  }
+
+  .trace-part {
+    font-weight: 600;
+    color: var(--ink-muted);
+  }
+
+  .trace-quotes {
+    list-style: none;
+    margin: 0.15rem 0 0;
+    padding-inline-start: 0.8rem;
+    color: var(--ink-subtle);
+  }
+
+  .trace-empty {
+    color: var(--ink-subtle);
+  }
+
+  .gate-blocked {
+    margin-block: var(--space-2xs);
+    padding: var(--space-2xs) var(--space-xs);
+    border-inline-start: 3px solid var(--alert-line);
+    background: var(--alert-soft);
+    font-size: 0.8125rem;
+  }
+
+  .gate-blocked ul {
+    margin: 0.2rem 0 0;
+    padding-inline-start: 1rem;
+  }
+
+  .story-decision {
+    margin: var(--space-2xs) 0;
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+  }
+
+  .story-actions {
+    margin-block-start: var(--space-xs);
+    padding-block-start: var(--space-2xs);
+    border-block-start: 1px solid var(--line-hairline);
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .note-label input {
+    width: 100%;
+    padding: 0.35rem 0.55rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-s);
+    background: var(--surface-sunken);
+    font-size: 0.8125rem;
+  }
+
+  .action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .action-buttons button[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .why-blocked {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+  }
+
+  .action-result {
+    margin: 0;
+    font-size: 0.8125rem;
+    min-height: 1.2em;
+  }
+
+  .action-result.is-ok {
+    color: var(--signal);
+  }
+
+  .action-result.is-error {
+    color: var(--alert);
+  }
+</style>

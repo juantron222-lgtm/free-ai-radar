@@ -72,6 +72,9 @@ function makeItem(overrides: Partial<NewsItem> = {}): NewsItem {
     officialUrl: 'https://www.anthropic.com/news/algo',
     relatedTools: [],
     affectsFreePlan: 'unverified',
+    // `unknown` on both, because a fixture that claimed to know would be the
+    // first thing to teach the wrong habit.
+    freeAccess: { model: 'unknown', creditReset: 'unknown' },
     verification: 'verified',
     status: 'published',
     author: 'Redacción de Free AI Radar',

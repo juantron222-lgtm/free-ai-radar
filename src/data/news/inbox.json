@@ -1,5 +1,31 @@
 [
   {
+    "id": "inbox-166245809fb8",
+    "title": "Testing ads in ChatGPT",
+    "url": "https://openai.com/index/testing-ads-in-chatgpt",
+    "canonicalUrl": "openai.com/index/testing-ads-in-chatgpt",
+    "publisher": "openai.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-11",
+    "discoveredVia": "s-005",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
+    "id": "inbox-1c52a2ecb767",
+    "title": "Advancing AMIE towards expert-level audio-visual clinical consultations",
+    "url": "https://research.google/blog/advancing-amie-towards-expert-level-audio-visual-clinical-consultations/",
+    "canonicalUrl": "research.google/blog/advancing-amie-towards-expert-level-audio-visual-clinical-consultations",
+    "publisher": "research.google",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-11",
+    "discoveredVia": "s-006",
+    "vertical": "audio",
+    "status": "rejected",
+    "reason": "investigación sin producto"
+  },
+  {
     "id": "inbox-2dc38e399155",
     "title": "Thinking of ACE? We Can Do It with Fewer Tokens",
     "url": "https://huggingface.co/blog/ibm-research/altk-evolve-sldd",
@@ -23,6 +49,32 @@
     "discoveredVia": "s-003",
     "vertical": "agentes",
     "status": "candidate",
+    "reason": null
+  },
+  {
+    "id": "inbox-685d24d3d393",
+    "title": "In-region inference, open models, and new European infrastructure for sovereign AI.",
+    "url": "https://mistral.ai/news/regional-inference-open-models-new-compute/",
+    "canonicalUrl": "mistral.ai/news/regional-inference-open-models-new-compute",
+    "publisher": "mistral.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-11",
+    "discoveredVia": "s-008",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
+    "id": "inbox-add5a4c73035",
+    "title": "Why Scaling AI Compute Performance Requires a New Power Architecture",
+    "url": "https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/",
+    "canonicalUrl": "blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory",
+    "publisher": "blogs.nvidia.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-11",
+    "discoveredVia": "s-003",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
     "reason": null
   },
   {
@@ -143,6 +195,19 @@
     "reason": null
   },
   {
+    "id": "inbox-ac18d1331145",
+    "title": "An update to our downloads policy and Terms of Service",
+    "url": "https://suno.com/blog/suno-updates-tos",
+    "canonicalUrl": "suno.com/blog/suno-updates-tos",
+    "publisher": "suno.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-10",
+    "discoveredVia": "s-019",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
     "id": "inbox-b535abfcbe78",
     "title": "Making Knowledge Distillation Cheap Enough to Run at Scale",
     "url": "https://huggingface.co/blog/MultiverseComputingCAI/efficient-knowledge-distillation",
@@ -182,6 +247,19 @@
     "reason": null
   },
   {
+    "id": "inbox-600857f87df7",
+    "title": "Wan Animate 2 is now available in ComfyUI",
+    "url": "https://blog.comfy.org/p/wan-animate-2-is-now-available-in",
+    "canonicalUrl": "blog.comfy.org/p/wan-animate-2-is-now-available-in",
+    "publisher": "blog.comfy.org",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-08",
+    "discoveredVia": "s-012",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
     "id": "inbox-6ec35722c133",
     "title": "Firebird Launches CIS Region’s Largest AI Factory in Armenia",
     "url": "https://blogs.nvidia.com/blog/firebird-ai-factory-armenia-blackwell-rubin-dsx/",
@@ -193,6 +271,19 @@
     "vertical": "sin-clasificar",
     "status": "discovered",
     "reason": null
+  },
+  {
+    "id": "inbox-8f99016c0f78",
+    "title": "Seedance 2.5 is now available via Partner Nodes",
+    "url": "https://blog.comfy.org/p/seedance-25-is-now-available-via",
+    "canonicalUrl": "blog.comfy.org/p/seedance-25-is-now-available-via",
+    "publisher": "blog.comfy.org",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-08",
+    "discoveredVia": "s-012",
+    "vertical": "herramientas",
+    "status": "rejected",
+    "reason": "alianza o inversión"
   },
   {
     "id": "inbox-a2d1e4ee601d",
@@ -245,6 +336,19 @@
     "vertical": "sin-clasificar",
     "status": "rejected",
     "reason": "hardware o gaming"
+  },
+  {
+    "id": "inbox-059f0bbf3d94",
+    "title": "How We&#x27;re Building the Future of Music Responsibly",
+    "url": "https://suno.com/blog/building-the-future-of-music-responsibly",
+    "canonicalUrl": "suno.com/blog/building-the-future-of-music-responsibly",
+    "publisher": "suno.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-06",
+    "discoveredVia": "s-019",
+    "vertical": "audio",
+    "status": "rejected",
+    "reason": "caso de cliente"
   },
   {
     "id": "inbox-1353158b1855",
@@ -312,6 +416,19 @@
     "reason": null
   },
   {
+    "id": "inbox-749e0f32a467",
+    "title": "Rebuilding the fashion workflow",
+    "url": "https://www.krea.ai/blog/rebuilding-the-fashion-workflow",
+    "canonicalUrl": "krea.ai/blog/rebuilding-the-fashion-workflow",
+    "publisher": "krea.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-06",
+    "discoveredVia": "s-016",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
     "id": "inbox-cbee418d2292",
     "title": "Improving GPT‑5.6 Sol in ChatGPT—and expanding access to GPT-5.6 Luna for free users",
     "url": "https://openai.com/index/improving-gpt-5-6-sol-in-chatgpt",
@@ -325,6 +442,32 @@
     "reason": null
   },
   {
+    "id": "inbox-0fa8b80b111d",
+    "title": "FLUX 3 is now available via Partner Nodes",
+    "url": "https://blog.comfy.org/p/flux-3-is-now-available-via-partner",
+    "canonicalUrl": "blog.comfy.org/p/flux-3-is-now-available-via-partner",
+    "publisher": "blog.comfy.org",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-05",
+    "discoveredVia": "s-012",
+    "vertical": "imagen",
+    "status": "rejected",
+    "reason": "alianza o inversión"
+  },
+  {
+    "id": "inbox-2afee8121536",
+    "title": "How to make short-form content for your songs",
+    "url": "https://suno.com/blog/how-to-make-short-form",
+    "canonicalUrl": "suno.com/blog/how-to-make-short-form",
+    "publisher": "suno.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-05",
+    "discoveredVia": "s-019",
+    "vertical": "sin-clasificar",
+    "status": "rejected",
+    "reason": "caso de cliente"
+  },
+  {
     "id": "inbox-616aba4340f1",
     "title": "NVIDIA and Partners Build in America, for America",
     "url": "https://blogs.nvidia.com/blog/nvidia-and-partners-build-in-america-for-america/",
@@ -336,6 +479,19 @@
     "vertical": "sin-clasificar",
     "status": "rejected",
     "reason": "posicionamiento corporativo"
+  },
+  {
+    "id": "inbox-ddd2873fd1b7",
+    "title": "Vesta Bomb: the AI product commercial for a hot sauce that doesn&#8217;t exist (every prompt included)",
+    "url": "https://www.magnific.com/blog/ai-product-commercial-vesta-bomb/",
+    "canonicalUrl": "magnific.com/blog/ai-product-commercial-vesta-bomb",
+    "publisher": "magnific.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-05",
+    "discoveredVia": "s-011",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
   },
   {
     "id": "inbox-0e1828f8f53e",
@@ -361,6 +517,19 @@
     "discoveredVia": "s-005",
     "vertical": "sin-clasificar",
     "status": "discovered",
+    "reason": null
+  },
+  {
+    "id": "inbox-24cc536e433b",
+    "title": "The Ultimate Guide to FLUX 3",
+    "url": "https://replicate.com/blog/flux-3",
+    "canonicalUrl": "replicate.com/blog/flux-3",
+    "publisher": "replicate.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-04",
+    "discoveredVia": "s-014",
+    "vertical": "imagen",
+    "status": "candidate",
     "reason": null
   },
   {
@@ -403,6 +572,19 @@
     "reason": null
   },
   {
+    "id": "inbox-b9912495a553",
+    "title": "FLUX 3 Video, Part 1: Generation",
+    "url": "https://bfl.ai/blog/flux-3-video",
+    "canonicalUrl": "bfl.ai/blog/flux-3-video",
+    "publisher": "bfl.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-04",
+    "discoveredVia": "s-015",
+    "vertical": "video",
+    "status": "rejected",
+    "reason": "investigación sin producto"
+  },
+  {
     "id": "inbox-d355ad0f21a2",
     "title": "NVIDIA Alpamayo 2 Super, the Frontier Open Model for Robotaxis and Autonomous Vehicles, Now Available for Commercial Use",
     "url": "https://blogs.nvidia.com/blog/alpamayo-2-super-open-model-now-available/",
@@ -411,6 +593,19 @@
     "observedAt": "2026-08-11",
     "publishedAt": "2026-08-04",
     "discoveredVia": "s-003",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
+    "id": "inbox-dc2fec2e7198",
+    "title": "Introducing Shieldstral.",
+    "url": "https://mistral.ai/news/shieldstral/",
+    "canonicalUrl": "mistral.ai/news/shieldstral",
+    "publisher": "mistral.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-04",
+    "discoveredVia": "s-008",
     "vertical": "sin-clasificar",
     "status": "discovered",
     "reason": null
@@ -442,6 +637,19 @@
     "reason": "caso de cliente"
   },
   {
+    "id": "inbox-3a55510884c9",
+    "title": "MiniMax H3 Day-0 Support in ComfyUI: Open Weights, Native Audio, and 2K Video",
+    "url": "https://blog.comfy.org/p/minimax-h3-day-0-support-in-comfyui",
+    "canonicalUrl": "blog.comfy.org/p/minimax-h3-day-0-support-in-comfyui",
+    "publisher": "blog.comfy.org",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-03",
+    "discoveredVia": "s-012",
+    "vertical": "video",
+    "status": "candidate",
+    "reason": null
+  },
+  {
     "id": "inbox-74d3accdfdbb",
     "title": "Circles powers telco personalization with OpenAI technology",
     "url": "https://openai.com/index/circles",
@@ -450,6 +658,19 @@
     "observedAt": "2026-08-11",
     "publishedAt": "2026-08-03",
     "discoveredVia": "s-005",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
+    "id": "inbox-e7f278a34b22",
+    "title": "MiniMax H3 tutorial: one consistent AI character, nine scenes of the Odyssey",
+    "url": "https://www.magnific.com/blog/minimax-h3-tutorial/",
+    "canonicalUrl": "magnific.com/blog/minimax-h3-tutorial",
+    "publisher": "magnific.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-03",
+    "discoveredVia": "s-011",
     "vertical": "sin-clasificar",
     "status": "discovered",
     "reason": null
@@ -520,6 +741,19 @@
     "reason": null
   },
   {
+    "id": "inbox-4d687594786f",
+    "title": "Hit Publish. Here’s why.",
+    "url": "https://suno.com/blog/tips-for-publishing",
+    "canonicalUrl": "suno.com/blog/tips-for-publishing",
+    "publisher": "suno.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-31",
+    "discoveredVia": "s-019",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
     "id": "inbox-f73f8c5b4d3f",
     "title": "Disrupting a Criminal Scam Operation",
     "url": "https://openai.com/index/disrupting-malicious-uses-of-ai-criminal-scam-operation",
@@ -569,6 +803,19 @@
     "discoveredVia": "s-001",
     "vertical": "video",
     "status": "candidate",
+    "reason": null
+  },
+  {
+    "id": "inbox-59d36ab39b90",
+    "title": "From almost to Doodles",
+    "url": "https://www.krea.ai/blog/from-almost-to-doodles",
+    "canonicalUrl": "krea.ai/blog/from-almost-to-doodles",
+    "publisher": "krea.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-30",
+    "discoveredVia": "s-016",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
     "reason": null
   },
   {
@@ -622,6 +869,19 @@
     "vertical": "audio",
     "status": "candidate",
     "reason": null
+  },
+  {
+    "id": "inbox-377767638a85",
+    "title": "How we made an AI TV commercial in 24 hours (every prompt included)",
+    "url": "https://www.magnific.com/blog/ai-video-prompts-cinematic-spot/",
+    "canonicalUrl": "magnific.com/blog/ai-video-prompts-cinematic-spot",
+    "publisher": "magnific.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-29",
+    "discoveredVia": "s-011",
+    "vertical": "sin-clasificar",
+    "status": "rejected",
+    "reason": "caso de cliente"
   },
   {
     "id": "inbox-a9efc2ffff6e",
@@ -793,6 +1053,19 @@
     "reason": null
   },
   {
+    "id": "inbox-0ce8d7954a36",
+    "title": "ElevenLabs: Strengthening and protecting elections",
+    "url": "https://elevenlabs.io/blog/elections",
+    "canonicalUrl": "elevenlabs.io/blog/elections",
+    "publisher": "elevenlabs.io",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-24",
+    "discoveredVia": "s-018",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
     "id": "inbox-6a43fbaf2be1",
     "title": "At AI Summit, South Korea Outlines Its AI Future With NVIDIA and Partners",
     "url": "https://blogs.nvidia.com/blog/ai-summit-korea-partners-and-nvidia/",
@@ -804,6 +1077,19 @@
     "vertical": "sin-clasificar",
     "status": "rejected",
     "reason": "evento o resumen"
+  },
+  {
+    "id": "inbox-1c6a3d0d70f8",
+    "title": "Comfy For Teams Is Here",
+    "url": "https://blog.comfy.org/p/comfy-for-teams-is-here",
+    "canonicalUrl": "blog.comfy.org/p/comfy-for-teams-is-here",
+    "publisher": "blog.comfy.org",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-23",
+    "discoveredVia": "s-012",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
   },
   {
     "id": "inbox-6110aa21784c",
@@ -832,6 +1118,19 @@
     "reason": null
   },
   {
+    "id": "inbox-8a3a7472aec1",
+    "title": "FLUX 3: Multimodal Video, Image & Audio",
+    "url": "https://bfl.ai/blog/flux-3",
+    "canonicalUrl": "bfl.ai/blog/flux-3",
+    "publisher": "bfl.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-23",
+    "discoveredVia": "s-015",
+    "vertical": "video",
+    "status": "candidate",
+    "reason": null
+  },
+  {
     "id": "inbox-9ca43223c494",
     "title": "GeForce NOW Sets Sail With ‘Path of Exile: Curse of the Allflame’ Joining the Cloud",
     "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-path-of-exile-allflame/",
@@ -843,6 +1142,19 @@
     "vertical": "sin-clasificar",
     "status": "rejected",
     "reason": "hardware o gaming"
+  },
+  {
+    "id": "inbox-a3bb6e0e928b",
+    "title": "FLUX 3 x mimic: The Next Generation of Video-Action Models",
+    "url": "https://bfl.ai/blog/flux-3-mimic",
+    "canonicalUrl": "bfl.ai/blog/flux-3-mimic",
+    "publisher": "bfl.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-23",
+    "discoveredVia": "s-015",
+    "vertical": "video",
+    "status": "candidate",
+    "reason": null
   },
   {
     "id": "inbox-c0f307e158fa",
@@ -972,6 +1284,19 @@
     "discoveredVia": "s-005",
     "vertical": "sin-clasificar",
     "status": "discovered",
+    "reason": null
+  },
+  {
+    "id": "inbox-d81514db41ca",
+    "title": "A runway show without a runway",
+    "url": "https://www.krea.ai/blog/runway-show-without-a-runway",
+    "canonicalUrl": "krea.ai/blog/runway-show-without-a-runway",
+    "publisher": "krea.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-22",
+    "discoveredVia": "s-016",
+    "vertical": "video",
+    "status": "candidate",
     "reason": null
   },
   {
@@ -1131,6 +1456,19 @@
     "reason": null
   },
   {
+    "id": "inbox-6fc74bcecb90",
+    "title": "Comfy and UAL's Creative Computing Institute Announce Creative Campus Partnership",
+    "url": "https://blog.comfy.org/p/comfy-and-uals-creative-computing",
+    "canonicalUrl": "blog.comfy.org/p/comfy-and-uals-creative-computing",
+    "publisher": "blog.comfy.org",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-16",
+    "discoveredVia": "s-012",
+    "vertical": "sin-clasificar",
+    "status": "rejected",
+    "reason": "alianza o inversión"
+  },
+  {
     "id": "inbox-c004a1e5dbbf",
     "title": "How Cars24 scales conversations and builds faster with OpenAI",
     "url": "https://openai.com/index/cars24",
@@ -1222,6 +1560,32 @@
     "reason": null
   },
   {
+    "id": "inbox-328e38e0cb35",
+    "title": "VEED x Magnific: Change the hook, fix the line, and keep the take",
+    "url": "https://www.magnific.com/blog/veed-x-magnific-change-the-hook-fix-the-line-and-keep-the-take/",
+    "canonicalUrl": "magnific.com/blog/veed-x-magnific-change-the-hook-fix-the-line-and-keep-the-take",
+    "publisher": "magnific.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-15",
+    "discoveredVia": "s-011",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
+    "id": "inbox-62898003a974",
+    "title": "Batch Generation in Comfy MCP: Use Cases in Production",
+    "url": "https://blog.comfy.org/p/batch-generation-in-comfy-mcp-use",
+    "canonicalUrl": "blog.comfy.org/p/batch-generation-in-comfy-mcp-use",
+    "publisher": "blog.comfy.org",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-15",
+    "discoveredVia": "s-012",
+    "vertical": "agentes",
+    "status": "candidate",
+    "reason": null
+  },
+  {
     "id": "inbox-a621a8b087ec",
     "title": "The US is advancing AI safety through state and federal action",
     "url": "https://openai.com/index/advancing-ai-safety-through-state-and-federal-action",
@@ -1300,6 +1664,19 @@
     "reason": "caso de cliente"
   },
   {
+    "id": "inbox-da04a703f4e4",
+    "title": "sad alex on songwriting, short-form, and creative autonomy",
+    "url": "https://suno.com/blog/sad-alex",
+    "canonicalUrl": "suno.com/blog/sad-alex",
+    "publisher": "suno.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-14",
+    "discoveredVia": "s-019",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
     "id": "inbox-5ed0ef262f71",
     "title": "Empowering India’s next generation of innovators with ATL Saathi",
     "url": "https://deepmind.google/blog/empowering-indias-next-generation-of-innovators-with-atl-saathi/",
@@ -1308,6 +1685,19 @@
     "observedAt": "2026-08-11",
     "publishedAt": "2026-07-13",
     "discoveredVia": "s-001",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
+    "id": "inbox-cbee897fd8ef",
+    "title": "From clay 3d render to a real action short: a 3D-to-AI pipeline with total control",
+    "url": "https://blog.fal.ai/from-clay-3d-render-to-a-real-action-short-a-3d-to-ai-pipeline-with-total-control/",
+    "canonicalUrl": "blog.fal.ai/from-clay-3d-render-to-a-real-action-short-a-3d-to-ai-pipeline-with-total-control",
+    "publisher": "blog.fal.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-13",
+    "discoveredVia": "s-013",
     "vertical": "sin-clasificar",
     "status": "discovered",
     "reason": null
@@ -1352,6 +1742,19 @@
     "reason": "caso de cliente"
   },
   {
+    "id": "inbox-debfa19a9e4d",
+    "title": "FASHN AI: reimagining fashion and photography",
+    "url": "https://blog.fal.ai/fashn-ai-reimagining-fashion-and-photography/",
+    "canonicalUrl": "blog.fal.ai/fashn-ai-reimagining-fashion-and-photography",
+    "publisher": "blog.fal.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-10",
+    "discoveredVia": "s-013",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
     "id": "inbox-0e73be93a063",
     "title": "GPT-5.6 is now the preferred model in Microsoft 365 Copilot",
     "url": "https://openai.com/index/gpt-5-6-preferred-model-microsoft-365-copilot",
@@ -1361,6 +1764,45 @@
     "publishedAt": "2026-07-09",
     "discoveredVia": "s-005",
     "vertical": "modelo-lenguaje",
+    "status": "candidate",
+    "reason": null
+  },
+  {
+    "id": "inbox-42f40bd4e0e7",
+    "title": "The Chronicles of Bone Season 1, Chapter 3",
+    "url": "https://www.magnific.com/blog/the-chronicles-of-bone-season-1-chapter-3/",
+    "canonicalUrl": "magnific.com/blog/the-chronicles-of-bone-season-1-chapter-3",
+    "publisher": "magnific.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-09",
+    "discoveredVia": "s-011",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
+    "id": "inbox-5b0813f0f934",
+    "title": "Serving sub-second Ideogram v4 without quality loss",
+    "url": "https://blog.fal.ai/serving-sub-second-ideogram-v4-without-quality-loss/",
+    "canonicalUrl": "blog.fal.ai/serving-sub-second-ideogram-v4-without-quality-loss",
+    "publisher": "blog.fal.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-09",
+    "discoveredVia": "s-013",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
+    "id": "inbox-5d59e4b1febd",
+    "title": "Seedream 5.0 Pro Now Available in ComfyUI",
+    "url": "https://blog.comfy.org/p/seedream-50-pro",
+    "canonicalUrl": "blog.comfy.org/p/seedream-50-pro",
+    "publisher": "blog.comfy.org",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-09",
+    "discoveredVia": "s-012",
+    "vertical": "herramientas",
     "status": "candidate",
     "reason": null
   },
@@ -1389,6 +1831,19 @@
     "vertical": "sin-clasificar",
     "status": "rejected",
     "reason": "investigación sin producto"
+  },
+  {
+    "id": "inbox-a3a589a75706",
+    "title": "Your Prompts and Skills need a system of record.",
+    "url": "https://mistral.ai/news/manage-prompts-and-skills-in-studio/",
+    "canonicalUrl": "mistral.ai/news/manage-prompts-and-skills-in-studio",
+    "publisher": "mistral.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-09",
+    "discoveredVia": "s-008",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
   },
   {
     "id": "inbox-d615eb7b4096",
@@ -1443,6 +1898,19 @@
     "reason": null
   },
   {
+    "id": "inbox-2dcc2a272daf",
+    "title": "How We Achieved ~1000 tok/s and 16x Throughput with DSpark for Ideogram V4 Prompt Expander",
+    "url": "https://blog.fal.ai/how-we-achieved-1000-tok-s-and-16x-throughput-with-dspark-for-ideogram-v4-prompt-expander/",
+    "canonicalUrl": "blog.fal.ai/how-we-achieved-1000-tok-s-and-16x-throughput-with-dspark-for-ideogram-v4-prompt-expander",
+    "publisher": "blog.fal.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-08",
+    "discoveredVia": "s-013",
+    "vertical": "sin-clasificar",
+    "status": "rejected",
+    "reason": "caso de cliente"
+  },
+  {
     "id": "inbox-5504377536f2",
     "title": "Our approach to government and national security partnerships",
     "url": "https://openai.com/index/government-national-security-partnerships",
@@ -1480,6 +1948,19 @@
     "vertical": "sin-clasificar",
     "status": "discovered",
     "reason": null
+  },
+  {
+    "id": "inbox-d5ff7ee1653c",
+    "title": "Introducing Robostral Navigate",
+    "url": "https://mistral.ai/news/robostral-navigate/",
+    "canonicalUrl": "mistral.ai/news/robostral-navigate",
+    "publisher": "mistral.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-08",
+    "discoveredVia": "s-008",
+    "vertical": "sin-clasificar",
+    "status": "duplicate",
+    "reason": "ya está en el dataset editorial (mistral.ai/news/robostral-navigate)"
   },
   {
     "id": "inbox-1c337a9dd9eb",
@@ -1542,6 +2023,19 @@
     "observedAt": "2026-08-11",
     "publishedAt": "2026-07-07",
     "discoveredVia": "s-002",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
+    "id": "inbox-c55b7bcfb84a",
+    "title": "ElevenLabs launches in Canada and expands the team",
+    "url": "https://elevenlabs.io/blog/canada",
+    "canonicalUrl": "elevenlabs.io/blog/canada",
+    "publisher": "elevenlabs.io",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-07",
+    "discoveredVia": "s-018",
     "vertical": "sin-clasificar",
     "status": "discovered",
     "reason": null
@@ -1625,6 +2119,32 @@
     "reason": "alianza o inversión"
   },
   {
+    "id": "inbox-99b6e78ffc82",
+    "title": "Magnific at Cannes Lions 2026: AI Took the Big Screen",
+    "url": "https://www.magnific.com/blog/magnific-at-cannes-lions-2026/",
+    "canonicalUrl": "magnific.com/blog/magnific-at-cannes-lions-2026",
+    "publisher": "magnific.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-03",
+    "discoveredVia": "s-011",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
+    "id": "inbox-4512b01f1e0f",
+    "title": "Leanstral 1.5: Proof Abundance for All",
+    "url": "https://mistral.ai/news/leanstral-1-5/",
+    "canonicalUrl": "mistral.ai/news/leanstral-1-5",
+    "publisher": "mistral.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-02",
+    "discoveredVia": "s-008",
+    "vertical": "herramientas",
+    "status": "duplicate",
+    "reason": "ya está en el dataset editorial (mistral.ai/news/leanstral-1-5)"
+  },
+  {
     "id": "inbox-806fbe2e5bf1",
     "title": "Microsoft Frontier Company: AI engineering that amplifies and protects your intelligence",
     "url": "https://blogs.microsoft.com/blog/2026/07/02/microsoft-frontier-company-ai-engineering-that-amplifies-and-protects-your-intelligence/",
@@ -1636,6 +2156,32 @@
     "vertical": "sin-clasificar",
     "status": "discovered",
     "reason": null
+  },
+  {
+    "id": "inbox-239414266883",
+    "title": "Magnific Plugins: The full creative suite, now inside your editor",
+    "url": "https://www.magnific.com/blog/magnific-plugins/",
+    "canonicalUrl": "magnific.com/blog/magnific-plugins",
+    "publisher": "magnific.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-01",
+    "discoveredVia": "s-011",
+    "vertical": "herramientas",
+    "status": "candidate",
+    "reason": null
+  },
+  {
+    "id": "inbox-9d4ad29f9226",
+    "title": "How Dream Relic sees sound and gets it stuck in your head",
+    "url": "https://suno.com/blog/dream-relic",
+    "canonicalUrl": "suno.com/blog/dream-relic",
+    "publisher": "suno.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-01",
+    "discoveredVia": "s-019",
+    "vertical": "sin-clasificar",
+    "status": "rejected",
+    "reason": "caso de cliente"
   },
   {
     "id": "inbox-adab4f678e9a",
@@ -1677,6 +2223,19 @@
     "reason": null
   },
   {
+    "id": "inbox-247886c8c28c",
+    "title": "8 Ways to Use AI Images for Merchandising in 2026",
+    "url": "https://www.magnific.com/blog/merchandising-ai-images/",
+    "canonicalUrl": "magnific.com/blog/merchandising-ai-images",
+    "publisher": "magnific.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-06-30",
+    "discoveredVia": "s-011",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
     "id": "inbox-3b60f0bd6fae",
     "title": "Introducing TabFM: A zero-shot foundation model for tabular data",
     "url": "https://research.google/blog/introducing-tabfm-a-zero-shot-foundation-model-for-tabular-data/",
@@ -1698,6 +2257,19 @@
     "observedAt": "2026-08-11",
     "publishedAt": "2026-06-30",
     "discoveredVia": "s-005",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
+    "id": "inbox-616c3ada2424",
+    "title": "Introducing Procedures in ElevenAgents",
+    "url": "https://elevenlabs.io/blog/procedures",
+    "canonicalUrl": "elevenlabs.io/blog/procedures",
+    "publisher": "elevenlabs.io",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-06-30",
+    "discoveredVia": "s-018",
     "vertical": "sin-clasificar",
     "status": "discovered",
     "reason": null
@@ -1794,6 +2366,58 @@
     "reason": null
   },
   {
+    "id": "inbox-3d42daab8256",
+    "title": "Comfy MCP: Turn your agent into a creative technologist",
+    "url": "https://blog.comfy.org/p/comfy-mcp-turn-your-agent-into-a",
+    "canonicalUrl": "blog.comfy.org/p/comfy-mcp-turn-your-agent-into-a",
+    "publisher": "blog.comfy.org",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-06-29",
+    "discoveredVia": "s-012",
+    "vertical": "agentes",
+    "status": "candidate",
+    "reason": null
+  },
+  {
+    "id": "inbox-8147685b0fba",
+    "title": "The operational reality of marketing inside an AI company",
+    "url": "https://blog.fal.ai/the-operational-reality-of-marketing-inside-an-ai-company/",
+    "canonicalUrl": "blog.fal.ai/the-operational-reality-of-marketing-inside-an-ai-company",
+    "publisher": "blog.fal.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-06-29",
+    "discoveredVia": "s-013",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
+    "id": "inbox-8cf11ba9cd8c",
+    "title": "Inside the Candela workflow",
+    "url": "https://www.magnific.com/blog/inside-the-candela-workflow/",
+    "canonicalUrl": "magnific.com/blog/inside-the-candela-workflow",
+    "publisher": "magnific.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-06-29",
+    "discoveredVia": "s-011",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
+    "id": "inbox-c7123f461870",
+    "title": "Happy Horse 1.1 Guide: Multi-shot video, native audio, and reference control",
+    "url": "https://www.magnific.com/blog/happy-horse-1-1-guide/",
+    "canonicalUrl": "magnific.com/blog/happy-horse-1-1-guide",
+    "publisher": "magnific.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-06-29",
+    "discoveredVia": "s-011",
+    "vertical": "video",
+    "status": "candidate",
+    "reason": null
+  },
+  {
     "id": "inbox-e3dd8f36748d",
     "title": "Mapping Europe’s AI Workforce Opportunity",
     "url": "https://openai.com/index/mapping-ai-jobs-transition-eu",
@@ -1818,5 +2442,135 @@
     "vertical": "sin-clasificar",
     "status": "rejected",
     "reason": "alianza o inversión"
+  },
+  {
+    "id": "inbox-0149f3f5e57c",
+    "title": "Introducing Claude Opus 5",
+    "url": "https://www.anthropic.com/news/claude-opus-5",
+    "canonicalUrl": "anthropic.com/news/claude-opus-5",
+    "publisher": "anthropic.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": null,
+    "discoveredVia": "s-007",
+    "vertical": "modelo-lenguaje",
+    "status": "duplicate",
+    "reason": "ya está en el dataset editorial (anthropic.com/news/claude-opus-5)"
+  },
+  {
+    "id": "inbox-37f73079a41a",
+    "title": "Investigating three real-world incidents in our cybersecurity evaluations",
+    "url": "https://www.anthropic.com/news/investigating-incidents-cybersecurity-evals",
+    "canonicalUrl": "anthropic.com/news/investigating-incidents-cybersecurity-evals",
+    "publisher": "anthropic.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": null,
+    "discoveredVia": "s-007",
+    "vertical": "sin-clasificar",
+    "status": "rejected",
+    "reason": "sin fecha de publicación en el feed"
+  },
+  {
+    "id": "inbox-3ba5b333052c",
+    "title": "Tino Cuellar joins Anthropic as Chief Global Affairs Officer",
+    "url": "https://www.anthropic.com/news/tino-cuellar",
+    "canonicalUrl": "anthropic.com/news/tino-cuellar",
+    "publisher": "anthropic.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": null,
+    "discoveredVia": "s-007",
+    "vertical": "sin-clasificar",
+    "status": "rejected",
+    "reason": "sin fecha de publicación en el feed"
+  },
+  {
+    "id": "inbox-5a97efa6a4a3",
+    "title": "Our position on open-weights models",
+    "url": "https://www.anthropic.com/news/position-open-weights-models",
+    "canonicalUrl": "anthropic.com/news/position-open-weights-models",
+    "publisher": "anthropic.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": null,
+    "discoveredVia": "s-007",
+    "vertical": "local-open-source",
+    "status": "duplicate",
+    "reason": "ya está en el dataset editorial (anthropic.com/news/position-open-weights-models)"
+  },
+  {
+    "id": "inbox-609f71537e58",
+    "title": "Redeploying Claude Fable 5",
+    "url": "https://www.anthropic.com/news/redeploying-fable-5",
+    "canonicalUrl": "anthropic.com/news/redeploying-fable-5",
+    "publisher": "anthropic.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": null,
+    "discoveredVia": "s-007",
+    "vertical": "modelo-lenguaje",
+    "status": "rejected",
+    "reason": "sin fecha de publicación en el feed"
+  },
+  {
+    "id": "inbox-630aa7cb86d5",
+    "title": "Inviting hard questions",
+    "url": "https://www.anthropic.com/news/hard-questions",
+    "canonicalUrl": "anthropic.com/news/hard-questions",
+    "publisher": "anthropic.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": null,
+    "discoveredVia": "s-007",
+    "vertical": "sin-clasificar",
+    "status": "rejected",
+    "reason": "sin fecha de publicación en el feed"
+  },
+  {
+    "id": "inbox-69a4f122df30",
+    "title": "Introducing Claude Sonnet 5",
+    "url": "https://www.anthropic.com/news/claude-sonnet-5",
+    "canonicalUrl": "anthropic.com/news/claude-sonnet-5",
+    "publisher": "anthropic.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": null,
+    "discoveredVia": "s-007",
+    "vertical": "modelo-lenguaje",
+    "status": "duplicate",
+    "reason": "ya está en el dataset editorial (anthropic.com/news/claude-sonnet-5)"
+  },
+  {
+    "id": "inbox-6a7f18108d6c",
+    "title": "Expanding our partnership with Cognizant | Anthropic",
+    "url": "https://www.anthropic.com/news/cognizant-anthropic",
+    "canonicalUrl": "anthropic.com/news/cognizant-anthropic",
+    "publisher": "anthropic.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": null,
+    "discoveredVia": "s-007",
+    "vertical": "sin-clasificar",
+    "status": "rejected",
+    "reason": "alianza o inversión"
+  },
+  {
+    "id": "inbox-9957df7474ed",
+    "title": "Supporting ambitious external research through the Anthropic Economic Futures Research Fund",
+    "url": "https://www.anthropic.com/news/economic-futures-research-fund-agenda",
+    "canonicalUrl": "anthropic.com/news/economic-futures-research-fund-agenda",
+    "publisher": "anthropic.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": null,
+    "discoveredVia": "s-007",
+    "vertical": "sin-clasificar",
+    "status": "rejected",
+    "reason": "sin fecha de publicación en el feed"
+  },
+  {
+    "id": "inbox-f4c290c45b8f",
+    "title": "Improving Fable 5 Safeguards",
+    "url": "https://www.anthropic.com/news/improving-fable-5-s-biology-safeguards",
+    "canonicalUrl": "anthropic.com/news/improving-fable-5-s-biology-safeguards",
+    "publisher": "anthropic.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": null,
+    "discoveredVia": "s-007",
+    "vertical": "sin-clasificar",
+    "status": "rejected",
+    "reason": "sin fecha de publicación en el feed"
   }
 ]

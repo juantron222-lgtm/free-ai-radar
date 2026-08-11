@@ -83,6 +83,25 @@ const MINOR_MARKER = /\b(bug ?fix\w*|patch|hotfix|minor (?:fix|update|release)|t
 const FREE_MARKER = /\b(free|no cost|open[- ]weights?|open[- ]sourc\w+|apache[- ]?2|mit licen[cs]e|gguf|self-host\w*|download\w*|locally|on-device)\b/i;
 const PAID_MARKER = /\b(enterprise|per (?:million|1,?000|seat|month)|pricing|\$\d|subscription|contact sales|business plan)\b/i;
 
+/*
+ * The free access a headline advertises, in decreasing order of what it is
+ * worth to somebody who will not pay.
+ *
+ * Renewing credits come first because they are exactly what the old single
+ * marker could not see: "50 free generations every day" is a standing offer,
+ * and a seven-day trial is a countdown. Scoring them the same was what made a
+ * premium platform opening daily credits score zero.
+ */
+const RENEWING_CREDITS_MARKER =
+  /\b(daily|weekly|monthly)\s+(free\s+)?(credits?|generations?|renders?|images?|videos?|songs?)\b|\bcredits?\s+(that\s+)?(reset|refresh|renew)\w*\b|\bfree\s+credits?\s+(every|each)\s+(day|week|month)\b/i;
+
+const FREE_TIER_MARKER = /\b(free tier|free plan|forever free|always free|free forever|no credit card)\b/i;
+
+const FREE_GENERATION_MARKER =
+  /\bfree\s+(generations?|credits?|images?|videos?|renders?|minutes?|seconds?)\b|\btry\s+(it\s+)?(for\s+)?free\b|\bgenerate\s+.{0,20}\bfor free\b/i;
+
+const TRIAL_MARKER = /\b(free trial|\d+[- ]day trial|trial period|try free for)\b/i;
+
 const PRODUCT_CLASS_MAJOR = /\b(model|agent\w*|api\b|assistant|runtime|foundation model)\b/i;
 const PRODUCT_CLASS_TOOL = /\b(sdk|cli\b|library|toolkit|extension|plugin|integration|backend|framework)\b/i;
 
@@ -296,15 +315,40 @@ export function scoreStory(story) {
     signals.push(signal('impacto', 4, 20, 'no se aprecia nada accionable'));
   }
 
-  /* 3 — The free plan. */
-  if (FREE_MARKER.test(title)) {
-    signals.push(signal('plan-gratuito', 15, 15, 'menciona gratuidad, pesos abiertos o ejecución local'));
+  /*
+   * 3 — How useful the free access is.
+   *
+   * The axis this replaces asked one question — "does the headline say free,
+   * open weights or local?" — and scored everything else as a shrug. That is
+   * the definition of free this project started with, and it is too narrow: a
+   * premium platform opening daily credits scored **zero** on it, while a
+   * research repo with an Apache licence scored full marks.
+   *
+   * What matters to a reader is what they can do without paying, and renewable
+   * credits are worth more than a trial that ends. So the ordering is
+   * deliberate: credits that come back > a free tier that stays > a fixed
+   * allowance > a trial that expires.
+   *
+   * These are *headline signals*, not facts. Nothing here is written to
+   * `freeAccess` — that field only ever comes from a primary source a human
+   * read. This axis decides reading order, nothing more.
+   */
+  if (RENEWING_CREDITS_MARKER.test(title)) {
+    signals.push(signal('acceso-gratuito', 20, 20, 'créditos gratuitos que se renuevan'));
+  } else if (FREE_TIER_MARKER.test(title)) {
+    signals.push(signal('acceso-gratuito', 18, 20, 'capa gratuita permanente'));
+  } else if (FREE_MARKER.test(title)) {
+    signals.push(signal('acceso-gratuito', 16, 20, 'gratuidad, pesos abiertos o ejecución local'));
+  } else if (FREE_GENERATION_MARKER.test(title)) {
+    signals.push(signal('acceso-gratuito', 14, 20, 'generación gratuita, aunque limitada'));
   } else if (PREVIEW_MARKER.test(title)) {
-    signals.push(signal('plan-gratuito', 8, 15, 'una preview suele abrirse sin coste, por confirmar'));
+    signals.push(signal('acceso-gratuito', 8, 20, 'una preview suele abrirse sin coste, por confirmar'));
+  } else if (TRIAL_MARKER.test(title)) {
+    signals.push(signal('acceso-gratuito', 6, 20, 'prueba temporal: se acaba'));
   } else if (PAID_MARKER.test(title)) {
-    signals.push(signal('plan-gratuito', 2, 15, 'apunta a producto de pago o empresarial'));
+    signals.push(signal('acceso-gratuito', 2, 20, 'apunta a producto de pago o empresarial'));
   } else {
-    signals.push(signal('plan-gratuito', 6, 15, 'el titular no dice nada del acceso gratuito'));
+    signals.push(signal('acceso-gratuito', 6, 20, 'el titular no dice nada del acceso gratuito'));
   }
 
   /* 4 — How significant the thing itself is. */
@@ -442,6 +486,16 @@ export function sameEvent(a, b) {
 
 export const THRESHOLDS = { promote: 80, hold: 55 };
 
+/**
+ * The verticals Free AI Radar wants to cover and barely does.
+ *
+ * Measured, not assumed: of 140 candidates before this change, image had 2,
+ * video 1 and audio 5 — under 6% between them, against 67 items from a single
+ * language-model publisher. A list rather than a computation because it is an
+ * editorial priority, and it should take an edit and a reason to change it.
+ */
+const SCARCE_VERTICALS = new Set(['imagen', 'video', 'audio', 'voz', 'musica']);
+
 function decide(score) {
   if (score >= THRESHOLDS.promote) return 'promote';
   if (score >= THRESHOLDS.hold) return 'hold';
@@ -491,6 +545,48 @@ export function runTriage({ inbox, triagedAt }) {
       }
     }
 
+    /*
+     * Free access and product significance, multiplied rather than added.
+     *
+     * Adding them is what promotes the mediocre: a forgettable tool that turns
+     * free collects the same twenty points as a major platform that opens daily
+     * credits, and with enough of those points it clears the bar on gratuity
+     * alone. That is the outcome this bonus exists to prevent.
+     *
+     * So the free-access score is *scaled by* how significant the thing is.
+     * Nothing times a big number is still nothing, and the two together beat
+     * either alone — which is the rule as stated.
+     *
+     * Significance is not a reputation table. It is the axes already computed
+     * from the headline, every one of them explainable and visible in the
+     * reasons: is there a concrete artefact, is it usable, is it really
+     * available, how big is the change, and does it touch something already in
+     * the catalogue.
+     */
+    const points = (axis) => reasons.find((r) => r.axis === axis)?.points ?? 0;
+    const outOf = (axis) => reasons.find((r) => r.axis === axis)?.max ?? 1;
+
+    const freeAccess = points('acceso-gratuito') / outOf('acceso-gratuito');
+    const significance =
+      (points('impacto') / outOf('impacto')) * 0.3 +
+      (points('importancia') / outOf('importancia')) * 0.3 +
+      (points('disponibilidad') / outOf('disponibilidad')) * 0.2 +
+      (points('artefacto') / outOf('artefacto')) * 0.1 +
+      (points('relevancia') / outOf('relevancia')) * 0.1;
+
+    const interaction = Math.round(freeAccess * significance * 12);
+    if (interaction > 0) {
+      reasons.push(
+        signal(
+          'acceso-x-relevancia',
+          interaction,
+          12,
+          `acceso gratuito (${Math.round(freeAccess * 100)}%) sobre un producto relevante (${Math.round(significance * 100)}%)`
+        )
+      );
+      finalScore += interaction;
+    }
+
     finalScore = Math.max(0, Math.min(100, finalScore));
 
     /*
@@ -514,6 +610,35 @@ export function runTriage({ inbox, triagedAt }) {
         )
       );
       finalScore = THRESHOLDS.promote - 1;
+    }
+
+    /*
+     * A nudge for the verticals nobody is covering — and only a nudge.
+     *
+     * Image, video and audio are 6% of the inbox against six language-model
+     * sources, so an equally good story from those verticals loses the tie every
+     * time simply by being outnumbered. Three points breaks that tie.
+     *
+     * Two hard limits, because this is the axis most likely to be abused into a
+     * quota. It cannot lift a story out of `reject`, and it cannot carry one
+     * into `promote`: a story that only clears the bar because its vertical is
+     * thin stops one point below it. What is thin is the source list, and the
+     * answer to that is more sources, not a lower bar.
+     */
+    const scarce = SCARCE_VERTICALS.has(vertical);
+    if (scarce && finalScore >= THRESHOLDS.hold) {
+      const before = finalScore;
+      const bonus = Math.min(3, THRESHOLDS.promote - 1 - finalScore);
+      if (bonus > 0) {
+        finalScore += bonus;
+        reasons.push(
+          signal('cobertura', bonus, 3, `vertical con poca cobertura ("${vertical}"): desempate`)
+        );
+      } else if (before < THRESHOLDS.promote) {
+        reasons.push(
+          signal('cobertura', 0, 3, `vertical con poca cobertura ("${vertical}"), pero el desempate no puede llevar a promote`)
+        );
+      }
     }
 
     const decision = decide(finalScore);

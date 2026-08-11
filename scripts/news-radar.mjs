@@ -21,6 +21,7 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { fetchSource, judgeHealth } from './source-adapters.mjs';
 import { Inbox, runRadar, serializeInbox, summarize } from './radar/inbox.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -28,87 +29,12 @@ const sourcesPath = resolve(here, '../src/data/news-sources.json');
 const newsPath = resolve(here, '../src/data/news/news.json');
 const inboxPath = resolve(here, '../src/data/news/inbox.json');
 
-const TIMEOUT_MS = 8000;
+const healthPath = resolve(here, '../src/data/news/source-health.json');
 const args = new Set(process.argv.slice(2));
 const dryRun = args.has('--dry-run');
 const offline = args.has('--offline');
 
 /* ------------------------------------------------------------------ feed -- */
-
-function stripTags(value) {
-  if (!value) return '';
-  return value
-    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
-    .replace(/<[^>]*>/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&nbsp;/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-function pick(xml, tag) {
-  const cdata = xml.match(new RegExp(`<${tag}[^>]*><!\\[CDATA\\[([\\s\\S]*?)\\]\\]></${tag}>`, 'i'));
-  if (cdata) return stripTags(cdata[1]);
-  const plain = xml.match(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)</${tag}>`, 'i'));
-  return plain ? stripTags(plain[1]) : '';
-}
-
-/**
- * A date the feed actually carried, as a calendar day — or null.
- *
- * Never falls back to "now". A missing date is information: the classifier
- * rejects the row for it, which is the honest outcome, whereas stamping today
- * on it would invent the one field editorial rule 3 says never to invent.
- */
-function feedDate(raw) {
-  if (!raw) return null;
-  const parsed = new Date(raw);
-  if (Number.isNaN(parsed.getTime())) return null;
-  if (parsed.getTime() > Date.now() + 86_400_000) return null;
-  return parsed.toISOString().slice(0, 10);
-}
-
-function parseFeed(xml, sourceId) {
-  const blocks = xml.match(/<(item|entry)[^>]*>([\s\S]*?)<\/\1>/g) ?? [];
-
-  return blocks.map((block) => {
-    const link =
-      pick(block, 'link') || (block.match(/<link[^>]*href="([^"]+)"/i)?.[1] ?? '').trim();
-
-    return {
-      sourceId,
-      title: pick(block, 'title'),
-      url: link,
-      publishedAt:
-        feedDate(pick(block, 'pubDate')) ??
-        feedDate(pick(block, 'published')) ??
-        feedDate(pick(block, 'updated')) ??
-        feedDate(pick(block, 'dc:date')),
-    };
-  });
-}
-
-async function fetchFeed(source) {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
-  try {
-    const response = await fetch(source.feed_url, {
-      signal: controller.signal,
-      headers: {
-        'User-Agent': 'FreeAIRadar/2.0 (+https://www.freeairadar.com)',
-        Accept: 'application/rss+xml, application/atom+xml, application/xml, text/xml, */*',
-      },
-    });
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    return parseFeed(await response.text(), source.id);
-  } finally {
-    clearTimeout(timer);
-  }
-}
 
 /* ------------------------------------------------------------------- run -- */
 
@@ -163,16 +89,52 @@ async function main() {
   const rows = [];
   const failed = [];
 
+  /*
+   * What each source did last time.
+   *
+   * Without it, "returned nothing" cannot be told from "returns nothing" — a
+   * redesigned index page and a quiet week look identical. Comparing against
+   * the last run is what turns the first into a visible `degraded`.
+   */
+  const previousHealth = readJson(healthPath, {});
+  const health = {};
+
   if (!offline) {
     for (const source of sources) {
+      const previous = previousHealth[source.id] ?? { items: 0 };
+      let items = [];
+      let reachable = true;
+      let error = null;
+
       try {
-        const items = await fetchFeed(source);
-        rows.push(...items);
-        console.log(`✓ ${source.name}: ${items.length} elementos`);
-      } catch (error) {
-        failed.push(`${source.name} (${error.message})`);
-        console.error(`✗ ${source.name}: ${error.message}`);
+        items = await fetchSource(source);
+        rows.push(...items.map((item) => ({ ...item, sourceId: source.id })));
+      } catch (caught) {
+        reachable = false;
+        error = caught.message;
+        failed.push(`${source.name} (${caught.message})`);
       }
+
+      const status = judgeHealth({ reachable, items: items.length, previousItems: previous.items });
+      health[source.id] = {
+        name: source.name,
+        type: source.source_type,
+        vertical: source.category_defaults ?? null,
+        status,
+        items: items.length,
+        previousItems: previous.items,
+        checkedAt: new Date().toISOString().slice(0, 10),
+        ...(error ? { error } : {}),
+      };
+
+      const mark = status === 'healthy' ? '✓' : status === 'degraded' ? '⚠' : '✗';
+      const detail =
+        status === 'degraded'
+          ? `0 elementos, antes ${previous.items} — revisa el marcado del índice`
+          : reachable
+            ? `${items.length} elementos`
+            : error;
+      console.log(`${mark} ${source.name.padEnd(24)} ${status.padEnd(9)} ${detail}`);
     }
 
     /*
@@ -209,9 +171,31 @@ async function main() {
   console.log(`Fuera de la ventana de descubrimiento: ${outsideWindow}`);
   console.log(`Nuevos en esta ejecución: ${added.length}`);
 
+  /*
+   * A degraded source is the failure this whole health check exists for, and it
+   * has to be louder than a line in a table: it means a source that used to
+   * work is now silently contributing nothing.
+   */
+  const degradadas = Object.values(health).filter((h) => h.status === 'degraded');
+  const rotas = Object.values(health).filter((h) => h.status === 'broken');
+
+  if (degradadas.length || rotas.length) {
+    console.log('\nFuentes que necesitan atención');
+    console.log('─'.repeat(62));
+    for (const h of degradadas) {
+      console.log(`  ⚠ ${h.name.padEnd(24)} degradada — devolvía ${h.previousItems}, ahora 0`);
+    }
+    for (const h of rotas) console.log(`  ✗ ${h.name.padEnd(24)} rota — ${h.error}`);
+  }
+
   if (dryRun) {
     console.log('--dry-run: no se ha escrito nada.');
     return;
+  }
+
+  if (Object.keys(health).length) {
+    writeFileSync(healthPath, `${JSON.stringify(health, null, 2)}
+`, 'utf-8');
   }
 
   writeFileSync(inboxPath, serializeInbox(inbox), 'utf-8');

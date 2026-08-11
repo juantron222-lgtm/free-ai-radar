@@ -1,0 +1,164 @@
+{
+  "s-001": {
+    "name": "Google DeepMind",
+    "type": "rss",
+    "vertical": "investigacion",
+    "status": "healthy",
+    "items": 100,
+    "previousItems": 0,
+    "checkedAt": "2026-08-11"
+  },
+  "s-002": {
+    "name": "Hugging Face Blog",
+    "type": "rss",
+    "vertical": "open-source",
+    "status": "healthy",
+    "items": 839,
+    "previousItems": 0,
+    "checkedAt": "2026-08-11"
+  },
+  "s-003": {
+    "name": "NVIDIA AI Blog",
+    "type": "rss",
+    "vertical": "empresas",
+    "status": "healthy",
+    "items": 18,
+    "previousItems": 0,
+    "checkedAt": "2026-08-11"
+  },
+  "s-004": {
+    "name": "Microsoft AI Blog",
+    "type": "rss",
+    "vertical": "productos",
+    "status": "healthy",
+    "items": 10,
+    "previousItems": 0,
+    "checkedAt": "2026-08-11"
+  },
+  "s-005": {
+    "name": "OpenAI Blog",
+    "type": "rss",
+    "vertical": "modelos",
+    "status": "healthy",
+    "items": 1123,
+    "previousItems": 0,
+    "checkedAt": "2026-08-11"
+  },
+  "s-006": {
+    "name": "Google Research",
+    "type": "rss",
+    "vertical": "investigacion",
+    "status": "healthy",
+    "items": 100,
+    "previousItems": 0,
+    "checkedAt": "2026-08-11"
+  },
+  "s-007": {
+    "name": "Anthropic News",
+    "type": "html",
+    "vertical": "modelos",
+    "status": "healthy",
+    "items": 10,
+    "previousItems": 0,
+    "checkedAt": "2026-08-11"
+  },
+  "s-008": {
+    "name": "Mistral AI News",
+    "type": "rss",
+    "vertical": "modelos",
+    "status": "healthy",
+    "items": 80,
+    "previousItems": 0,
+    "checkedAt": "2026-08-11"
+  },
+  "s-010": {
+    "name": "Stability AI News",
+    "type": "rss",
+    "vertical": "imagen",
+    "status": "healthy",
+    "items": 20,
+    "previousItems": 0,
+    "checkedAt": "2026-08-11"
+  },
+  "s-011": {
+    "name": "Freepik Blog",
+    "type": "rss",
+    "vertical": "imagen",
+    "status": "healthy",
+    "items": 12,
+    "previousItems": 0,
+    "checkedAt": "2026-08-11"
+  },
+  "s-012": {
+    "name": "ComfyUI Blog",
+    "type": "rss",
+    "vertical": "imagen",
+    "status": "healthy",
+    "items": 20,
+    "previousItems": 0,
+    "checkedAt": "2026-08-11"
+  },
+  "s-013": {
+    "name": "fal.ai Blog",
+    "type": "rss",
+    "vertical": "imagen",
+    "status": "healthy",
+    "items": 15,
+    "previousItems": 0,
+    "checkedAt": "2026-08-11"
+  },
+  "s-014": {
+    "name": "Replicate Blog",
+    "type": "rss",
+    "vertical": "imagen",
+    "status": "healthy",
+    "items": 124,
+    "previousItems": 0,
+    "checkedAt": "2026-08-11"
+  },
+  "s-015": {
+    "name": "Black Forest Labs",
+    "type": "html",
+    "vertical": "imagen",
+    "status": "healthy",
+    "items": 8,
+    "previousItems": 0,
+    "checkedAt": "2026-08-11"
+  },
+  "s-016": {
+    "name": "Krea",
+    "type": "html",
+    "vertical": "imagen",
+    "status": "healthy",
+    "items": 8,
+    "previousItems": 0,
+    "checkedAt": "2026-08-11"
+  },
+  "s-017": {
+    "name": "HeyGen Blog",
+    "type": "html",
+    "vertical": "video",
+    "status": "healthy",
+    "items": 8,
+    "previousItems": 0,
+    "checkedAt": "2026-08-11"
+  },
+  "s-018": {
+    "name": "ElevenLabs Blog",
+    "type": "html",
+    "vertical": "voz",
+    "status": "healthy",
+    "items": 8,
+    "previousItems": 0,
+    "checkedAt": "2026-08-11"
+  },
+  "s-019": {
+    "name": "Suno Blog",
+    "type": "html",
+    "vertical": "musica",
+    "status": "healthy",
+    "items": 8,
+    "previousItems": 0,
+    "checkedAt": "2026-08-11"
+  }
+}
