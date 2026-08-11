@@ -1,0 +1,149 @@
+[
+  {
+    "candidateId": "inbox-89f494709e06",
+    "title": "Start building with Nano Banana 2 Lite and Gemini Omni Flash",
+    "checkedAt": "2026-08-11",
+    "decision": "verified",
+    "primarySources": [
+      {
+        "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-omni-flash-nano-banana-2-lite/",
+        "label": "Gemini Omni Flash y Nano Banana 2 Lite, en el blog oficial de Google",
+        "kind": "official",
+        "publisher": "blog.google",
+        "checkedAt": "2026-08-11",
+        "reachable": true,
+        "unreachableReason": null,
+        "redirectedTo": null
+      },
+      {
+        "url": "https://deepmind.google/blog/start-building-with-nano-banana-2-lite-and-gemini-omni-flash/",
+        "label": "Enlace descubierto por el radar, que redirige al anterior",
+        "kind": "official",
+        "publisher": "deepmind.google",
+        "checkedAt": "2026-08-11",
+        "reachable": false,
+        "unreachableReason": "302 hacia blog.google: no es la URL canónica del anuncio",
+        "redirectedTo": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-omni-flash-nano-banana-2-lite/"
+      }
+    ],
+    "verifiedFacts": [
+      {
+        "fact": "La fecha de publicación del anuncio es el 30 de junio de 2026, y coincide con la que trajo el feed.",
+        "quote": "June 30, 2026",
+        "sourceUrl": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-omni-flash-nano-banana-2-lite/"
+      },
+      {
+        "fact": "Nano Banana 2 Lite está disponible desde ese mismo día en AI Studio, la API de Gemini y Gemini Enterprise Agent Platform.",
+        "quote": "Nano Banana 2 Lite is available today in Google AI Studio, Gemini API and Gemini Enterprise Agent Platform.",
+        "sourceUrl": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-omni-flash-nano-banana-2-lite/"
+      },
+      {
+        "fact": "Gemini Omni Flash no sale como disponibilidad general, sino en preview pública, y con despliegue progresivo.",
+        "quote": "Gemini Omni is available in public preview starting today",
+        "sourceUrl": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-omni-flash-nano-banana-2-lite/"
+      },
+      {
+        "fact": "El identificador técnico de Nano Banana 2 Lite es gemini-3.1-flash-lite-image, y el de Gemini Omni Flash es gemini-omni-flash-preview.",
+        "quote": "gemini-3.1-flash-lite-image / gemini-omni-flash-preview",
+        "sourceUrl": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-omni-flash-nano-banana-2-lite/"
+      },
+      {
+        "fact": "Gemini Omni Flash se despliega el mismo día en Google AI Studio y en la API de Gemini, con despliegue progresivo.",
+        "quote": "Gemini Omni Flash is also rolling out today in Google AI Studio and the Gemini API",
+        "sourceUrl": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-omni-flash-nano-banana-2-lite/"
+      },
+      {
+        "fact": "Gemini Omni Flash tiene precio por segundo de vídeo generado: 0,10 dólares.",
+        "quote": "$0.10 per second of video output",
+        "sourceUrl": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-omni-flash-nano-banana-2-lite/"
+      },
+      {
+        "fact": "Nano Banana 2 Lite tiene precio por imagen: 0,034 dólares por cada 1.000 imágenes.",
+        "quote": "$0.034 per 1K image",
+        "sourceUrl": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-omni-flash-nano-banana-2-lite/"
+      },
+      {
+        "fact": "El acceso es por API y plataformas de Google; la página no ofrece pesos descargables.",
+        "quote": "available today in Google AI Studio, Gemini API and Gemini Enterprise Agent Platform",
+        "sourceUrl": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-omni-flash-nano-banana-2-lite/"
+      }
+    ],
+    "unconfirmed": [
+      "Si hay capa gratuita en AI Studio o en la API de Gemini para estos dos modelos: la página no lo menciona, ni para confirmarlo ni para negarlo.",
+      "Límites de uso, cuotas por minuto o restricciones por región: no aparecen en el anuncio.",
+      "Licencia de uso de las imágenes generadas: no se trata en esta página."
+    ],
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "affectsFreePlan": "unverified",
+    "verificationNotes": "El anuncio cubre dos modelos con disponibilidades distintas, y eso no cabe en una sola ficha: Nano Banana 2 Lite sale disponible («available today») mientras que Gemini Omni Flash sale en preview pública. Los campos de este registro describen Nano Banana 2 Lite, que es el que encabeza el titular y el que encaja en la vertical de imagen. Recomendación para la redacción: dos noticias separadas, o una sola centrada en Nano Banana 2 Lite que mencione Omni Flash como preview sin presentarlo como disponible. Aviso adicional: la URL que descubrió el radar (deepmind.google) redirige a blog.google, así que la cita tiene que ir a la canónica; publicar la primera dejaría el botón «leer el anuncio» apuntando a un redirect."
+  },
+  {
+    "candidateId": "inbox-cbee418d2292",
+    "title": "Improving GPT‑5.6 Sol in ChatGPT—and expanding access to GPT-5.6 Luna for free users",
+    "checkedAt": "2026-08-11",
+    "decision": "insufficient",
+    "primarySources": [
+      {
+        "url": "https://openai.com/index/improving-gpt-5-6-sol-in-chatgpt",
+        "label": "Anuncio de OpenAI (no se ha podido leer)",
+        "kind": "official",
+        "publisher": "openai.com",
+        "checkedAt": "2026-08-11",
+        "reachable": false,
+        "unreachableReason": "HTTP 403: openai.com rechaza la petición de nuestro lector",
+        "redirectedTo": null
+      },
+      {
+        "url": "https://openai.com/news/",
+        "label": "Índice de noticias de OpenAI (no se ha podido leer)",
+        "kind": "official",
+        "publisher": "openai.com",
+        "checkedAt": "2026-08-11",
+        "reachable": false,
+        "unreachableReason": "HTTP 403: mismo bloqueo en el índice",
+        "redirectedTo": null
+      }
+    ],
+    "verifiedFacts": [],
+    "unconfirmed": [
+      "Que GPT-5.6 Luna llegue a los usuarios del plan gratuito: es la afirmación central del titular y no está comprobada.",
+      "Con qué límites, cuotas o regiones llegaría, si llega.",
+      "Qué cambia exactamente en GPT-5.6 Sol.",
+      "La fecha del 6 de agosto de 2026, que procede del feed y no de la página."
+    ],
+    "eventType": null,
+    "availability": null,
+    "affectsFreePlan": "unverified",
+    "verificationNotes": "No se ha podido abrir la fuente primaria: openai.com devuelve 403 a nuestro lector, tanto en la entrada concreta como en el índice de noticias. Lo único que tenemos es el titular que trajo el feed RSS, y un titular no es una fuente. Esto pesa más de lo normal porque la afirmación es justo la de mayor riesgo editorial que existe en este sitio: acceso ampliado en el plan gratuito. Publicarla con esta evidencia sería exactamente el fallo que el sistema entero existe para impedir. Requiere que una persona abra la página en un navegador y transcriba lo que dice; hasta entonces no puede pasar a redacción."
+  },
+  {
+    "candidateId": "inbox-0e73be93a063",
+    "title": "GPT-5.6 is now the preferred model in Microsoft 365 Copilot",
+    "checkedAt": "2026-08-11",
+    "decision": "insufficient",
+    "primarySources": [
+      {
+        "url": "https://openai.com/index/gpt-5-6-preferred-model-microsoft-365-copilot",
+        "label": "Anuncio de OpenAI (no se ha podido leer)",
+        "kind": "official",
+        "publisher": "openai.com",
+        "checkedAt": "2026-08-11",
+        "reachable": false,
+        "unreachableReason": "HTTP 403: openai.com rechaza la petición de nuestro lector",
+        "redirectedTo": null
+      }
+    ],
+    "verifiedFacts": [],
+    "unconfirmed": [
+      "Que GPT-5.6 sea el modelo preferente en Microsoft 365 Copilot.",
+      "A qué licencias o planes de Copilot afecta, y si el despliegue es progresivo.",
+      "Si hay alguna vía de acceso sin coste, algo que Microsoft 365 Copilot normalmente no ofrece.",
+      "La fecha del 9 de julio de 2026, que procede del feed y no de la página."
+    ],
+    "eventType": null,
+    "availability": null,
+    "affectsFreePlan": "unverified",
+    "verificationNotes": "Mismo bloqueo 403 que el otro candidato de OpenAI. Además, este anuncio tiene una segunda fuente primaria natural que aquí no se ha consultado: Microsoft es la otra parte del hecho, y su changelog de Microsoft 365 Copilot lo confirmaría o lo matizaría. Aunque la página de OpenAI fuese legible, el reparto de la afirmación entre las dos partes pediría comprobar ambas antes de redactar. Queda pendiente de lectura humana o de la fuente de Microsoft."
+  }
+]

@@ -1,0 +1,102 @@
+[
+  {
+    "candidateId": "inbox-89f494709e06",
+    "id": "news-2026-06-30-nano-banana-2-lite",
+    "slug": "nano-banana-2-lite-disponible-en-la-api-de-gemini",
+    "title": "Google pone Nano Banana 2 Lite en la API de Gemini el mismo día que lo anuncia",
+    "summary": "El 30 de junio de 2026 Google publicó Nano Banana 2 Lite, un modelo de generación de imágenes que su propio anuncio identifica como «gemini-3.1-flash-lite-image». La página oficial dice que está disponible ese mismo día en Google AI Studio, en la API de Gemini y en Gemini Enterprise Agent Platform, y fija su precio en 0,034 dólares por cada 1.000 imágenes.",
+    "impact": "Anunciado y utilizable el mismo día, que no es lo habitual. El acceso es por API: el anuncio no ofrece pesos para descargar, así que no sirve para generar imágenes en tu propio equipo ni para librarte de una cuota. Sobre lo que le cuesta a quien no paga, la página no dice nada —ni menciona una capa gratuita ni la descarta—, de modo que el único coste demostrado es el de la API: 0,034 dólares por cada 1.000 imágenes.",
+    "category": "imagen",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "affectsFreePlan": "unverified",
+    "relatedTools": [
+      "google-gemini"
+    ],
+    "officialUrl": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-omni-flash-nano-banana-2-lite/",
+    "sources": [
+      {
+        "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-omni-flash-nano-banana-2-lite/",
+        "label": "Gemini Omni Flash y Nano Banana 2 Lite, en el blog oficial de Google",
+        "kind": "official",
+        "publisher": "blog.google",
+        "checkedAt": "2026-08-11"
+      }
+    ],
+    "factTrace": {
+      "summary": [
+        "June 30, 2026",
+        "gemini-3.1-flash-lite-image / gemini-omni-flash-preview",
+        "Nano Banana 2 Lite is available today in Google AI Studio, Gemini API and Gemini Enterprise Agent Platform.",
+        "$0.034 per 1K image"
+      ],
+      "impact": [
+        "Nano Banana 2 Lite is available today in Google AI Studio, Gemini API and Gemini Enterprise Agent Platform.",
+        "available today in Google AI Studio, Gemini API and Gemini Enterprise Agent Platform",
+        "$0.034 per 1K image"
+      ],
+      "eventType": [
+        "Nano Banana 2 Lite is available today in Google AI Studio, Gemini API and Gemini Enterprise Agent Platform."
+      ],
+      "availability": [
+        "Nano Banana 2 Lite is available today in Google AI Studio, Gemini API and Gemini Enterprise Agent Platform."
+      ],
+      "pricing": [
+        "$0.034 per 1K image"
+      ],
+      "freePlan": []
+    },
+    "status": "draft"
+  },
+  {
+    "candidateId": "inbox-89f494709e06",
+    "id": "news-2026-06-30-gemini-omni-flash",
+    "slug": "gemini-omni-flash-entra-en-preview-publica",
+    "title": "Gemini Omni Flash entra en preview pública, no en disponibilidad general",
+    "summary": "El mismo anuncio del 30 de junio de 2026 presenta Gemini Omni Flash, identificado como «gemini-omni-flash-preview». Google lo sitúa en preview pública desde ese día y describe su llegada a Google AI Studio y a la API de Gemini como un despliegue progresivo. Su precio, según la misma página, es de 0,10 dólares por segundo de vídeo generado.",
+    "impact": "Preview pública no es disponibilidad general, y aquí la diferencia está hasta en el nombre del modelo, que lleva el sufijo «preview». Google habla de un despliegue progresivo, así que el acceso puede no estar activo para todo el mundo a la vez, y lo que pruebes hoy puede cambiar antes de que el modelo salga de preview. Lo que sí queda fijado es el coste de usarlo: 0,10 dólares por segundo de vídeo. Si la API de Gemini tiene alguna capa gratuita que lo incluya, la página no lo indica.",
+    "category": "video",
+    "eventType": "preview-beta",
+    "availability": "preview",
+    "affectsFreePlan": "unverified",
+    "relatedTools": [
+      "google-gemini"
+    ],
+    "officialUrl": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-omni-flash-nano-banana-2-lite/",
+    "sources": [
+      {
+        "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-omni-flash-nano-banana-2-lite/",
+        "label": "Gemini Omni Flash y Nano Banana 2 Lite, en el blog oficial de Google",
+        "kind": "official",
+        "publisher": "blog.google",
+        "checkedAt": "2026-08-11"
+      }
+    ],
+    "factTrace": {
+      "summary": [
+        "June 30, 2026",
+        "gemini-3.1-flash-lite-image / gemini-omni-flash-preview",
+        "Gemini Omni is available in public preview starting today",
+        "Gemini Omni Flash is also rolling out today in Google AI Studio and the Gemini API",
+        "$0.10 per second of video output"
+      ],
+      "impact": [
+        "Gemini Omni is available in public preview starting today",
+        "Gemini Omni Flash is also rolling out today in Google AI Studio and the Gemini API",
+        "gemini-3.1-flash-lite-image / gemini-omni-flash-preview",
+        "$0.10 per second of video output"
+      ],
+      "eventType": [
+        "Gemini Omni is available in public preview starting today"
+      ],
+      "availability": [
+        "Gemini Omni is available in public preview starting today"
+      ],
+      "pricing": [
+        "$0.10 per second of video output"
+      ],
+      "freePlan": []
+    },
+    "status": "draft"
+  }
+]
