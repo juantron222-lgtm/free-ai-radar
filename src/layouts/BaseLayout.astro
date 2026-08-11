@@ -6,6 +6,7 @@ import ConsentBanner from '@components/consent/ConsentBanner.astro';
 import { SITE, canonicalFor, metaDescription, pageTitle, absoluteUrl } from '@lib/seo/site';
 import { graph, organizationSchema, websiteSchema, breadcrumbSchema, type Crumb } from '@lib/seo/structured-data';
 import Breadcrumbs from '@components/site/Breadcrumbs.astro';
+import Analytics from '@vercel/analytics/astro';
 
 interface Props {
   title: string;
@@ -112,6 +113,23 @@ const jsonLd = graph(
     {!bare && <Footer />}
 
     <ConsentBanner />
+
+    {/*
+      Vercel Web Analytics.
+
+      Sits inside our existing CSP without changing it, which is worth stating
+      because most analytics do not: in production the script is served from
+      `/_vercel/insights/script.js` and the beacon goes to
+      `/_vercel/insights/event`, both same-origin, so `script-src 'self'` and
+      `connect-src 'self'` already cover them. The one external URL in the
+      package, `va.vercel-scripts.com`, is the debug build and is only reached
+      when `isDevelopment()` — never from this build.
+
+      Not behind the consent banner, and that is a decision rather than an
+      oversight: this counts page views first-party with no cookie and no
+      cross-site identifier, so it is not what the banner exists to gate.
+    */}
+    <Analytics />
 
     <script src="/sw-register.js" is:inline defer></script>
   </body>
