@@ -145,5 +145,319 @@
     "availability": null,
     "affectsFreePlan": "unverified",
     "verificationNotes": "Mismo bloqueo 403 que el otro candidato de OpenAI. Además, este anuncio tiene una segunda fuente primaria natural que aquí no se ha consultado: Microsoft es la otra parte del hecho, y su changelog de Microsoft 365 Copilot lo confirmaría o lo matizaría. Aunque la página de OpenAI fuese legible, el reparto de la afirmación entre las dos partes pediría comprobar ambas antes de redactar. Queda pendiente de lectura humana o de la fuente de Microsoft."
+  },
+  {
+    "candidateId": "inbox-484f5ff16b80",
+    "title": "NVIDIA and Local AI Community Fuel Open Source Models and Intelligent Agents",
+    "checkedAt": "2026-08-12",
+    "decision": "insufficient",
+    "primarySources": [
+      {
+        "url": "https://blogs.nvidia.com/blog/local-ai-open-source-models-agents-nemotron/",
+        "label": "Anuncio oficial en blogs.nvidia.com",
+        "kind": "official",
+        "publisher": "blogs.nvidia.com",
+        "checkedAt": "2026-08-12",
+        "reachable": true,
+        "unreachableReason": null,
+        "redirectedTo": null
+      }
+    ],
+    "verifiedFacts": [],
+    "unconfirmed": [
+      "Cuál es el acontecimiento concreto: la página es un resumen mensual de comunidad, no el anuncio de una cosa.",
+      "Los modelos que menciona tienen cada uno su propio anuncio, que sería la fuente primaria de esos hechos.",
+      "Acceso gratuito de cada modelo citado: la página no trata precios ni planes."
+    ],
+    "eventType": null,
+    "availability": null,
+    "affectsFreePlan": "unverified",
+    "freeAccess": {
+      "model": "unknown",
+      "creditReset": "unknown"
+    },
+    "verificationNotes": "Cita literal: \"Throughout August, NVIDIA is celebrating the partners and open source communities moving local AI forward\". Eso es una campaña de recopilación, no un hecho fechado sobre un producto. El triaje lo puntuó alto por acumulación de marcadores de open source, que es exactamente la trampa que un recopilatorio le tiende a un clasificador de titulares. Publicarlo obligaría a elegir cuál de los modelos citados es la noticia, decisión que la fuente no toma y que no podemos tomar por ella."
+  },
+  {
+    "candidateId": "inbox-9aa5de0a729d",
+    "title": "Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS",
+    "checkedAt": "2026-08-12",
+    "decision": "verified",
+    "primarySources": [
+      {
+        "url": "https://huggingface.co/blog/nvidia/magpie-tts-multilingual-voice-agents",
+        "label": "Anuncio oficial en huggingface.co/blog",
+        "kind": "official",
+        "publisher": "huggingface.co/blog",
+        "checkedAt": "2026-08-12",
+        "reachable": true,
+        "unreachableReason": null,
+        "redirectedTo": null
+      }
+    ],
+    "verifiedFacts": [
+      {
+        "fact": "NVIDIA presenta Magpie Multilingual TTS, un modelo de sintesis de voz con pesos abiertos.",
+        "quote": "Magpie provides an open foundation for production voice AI",
+        "sourceUrl": "https://huggingface.co/blog/nvidia/magpie-tts-multilingual-voice-agents"
+      },
+      {
+        "fact": "Se puede probar sin instalar nada, en NVIDIA Build o en la demo de Hugging Face.",
+        "quote": "You can hear the difference yourself on NVIDIA Build or the Hugging Face demo",
+        "sourceUrl": "https://huggingface.co/blog/nvidia/magpie-tts-multilingual-voice-agents"
+      }
+    ],
+    "unconfirmed": [
+      "Que licencia concreta llevan los pesos: el articulo dice \"open weights\" pero no la nombra.",
+      "Si la demo de Hugging Face o NVIDIA Build tienen limites de uso, cuota o requieren cuenta.",
+      "Si existe una capa gratuita permanente para servir el modelo, mas alla de ejecutarlo por tu cuenta."
+    ],
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "affectsFreePlan": "unverified",
+    "freeAccess": {
+      "model": "unknown",
+      "creditReset": "unknown"
+    },
+    "verificationNotes": "Probar una demo no es un plan gratuito, y por eso freeAccess queda en unknown: la pagina ofrece una demo alojada y no documenta ni frecuencia, ni cuota, ni permanencia. Que los pesos sean abiertos dice que puedes ejecutar tu, no que te regala el fabricante en su infraestructura."
+  },
+  {
+    "candidateId": "inbox-d709b4cd1d1a",
+    "title": "Meta is back with Muse Glimmer: local, agentic, multimodal, and open source",
+    "checkedAt": "2026-08-12",
+    "decision": "verified",
+    "primarySources": [
+      {
+        "url": "https://huggingface.co/blog/muse-glimmer",
+        "label": "Anuncio oficial en huggingface.co/blog",
+        "kind": "official",
+        "publisher": "huggingface.co/blog",
+        "checkedAt": "2026-08-12",
+        "reachable": true,
+        "unreachableReason": null,
+        "redirectedTo": null
+      }
+    ],
+    "verifiedFacts": [
+      {
+        "fact": "Meta publica Muse Glimmer, un modelo multimodal destinado a uso agentico local.",
+        "quote": "released today, is Meta’s new multimodal model, especially designed for local agentic use cases",
+        "sourceUrl": "https://huggingface.co/blog/muse-glimmer"
+      },
+      {
+        "fact": "Se distribuye bajo licencia Apache 2.0, lo que permite ejecutarlo localmente.",
+        "quote": "Apache 2.0 license , it’s ideal deploying locally for privacy, reducing costs",
+        "sourceUrl": "https://huggingface.co/blog/muse-glimmer"
+      }
+    ],
+    "unconfirmed": [
+      "Si Meta ofrece ademas acceso alojado y en que condiciones: el articulo trata el despliegue local.",
+      "Requisitos de hardware concretos para las variantes publicadas."
+    ],
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "affectsFreePlan": "unverified",
+    "freeAccess": {
+      "model": "open_source",
+      "creditReset": "none",
+      "sourceUrl": "https://huggingface.co/blog/muse-glimmer",
+      "verifiedAt": "2026-08-12"
+    },
+    "verificationNotes": "Uno de los dos casos donde freeAccess se puede rellenar sin inferir: la licencia Apache 2.0 aparece citada y es lo que hace que el modelo se pueda usar sin pagar. creditReset es \"none\" porque no hay creditos de por medio, no porque no se sepa. La licencia abierta demuestra el tipo de acceso (freeAccess.model = open_source), pero la pagina no dice que esto cambie ningun plan gratuito: affectsFreePlan queda unverified. Son dos preguntas distintas y solo una tiene respuesta aqui."
+  },
+  {
+    "candidateId": "inbox-5d59e4b1febd",
+    "title": "Seedream 5.0 Pro Now Available in ComfyUI",
+    "checkedAt": "2026-08-12",
+    "decision": "verified",
+    "primarySources": [
+      {
+        "url": "https://blog.comfy.org/p/seedream-50-pro",
+        "label": "Anuncio oficial en blog.comfy.org",
+        "kind": "official",
+        "publisher": "blog.comfy.org",
+        "checkedAt": "2026-08-12",
+        "reachable": true,
+        "unreachableReason": null,
+        "redirectedTo": null
+      }
+    ],
+    "verifiedFacts": [
+      {
+        "fact": "Seedream 5.0 Pro, el modelo de imagen de ByteDance, queda disponible en ComfyUI mediante Partner Nodes.",
+        "quote": "Seedream 5.0 Pro , ByteDance’s latest image-generation model, is now available in ComfyUI via Partner Nodes",
+        "sourceUrl": "https://blog.comfy.org/p/seedream-50-pro"
+      }
+    ],
+    "unconfirmed": [
+      "Coste de usar el modelo: los Partner Nodes llaman a la API del fabricante y la pagina no menciona precio ni capa gratuita.",
+      "Si Comfy Cloud ofrece alguna generacion gratuita: la pagina dice \"Try on Comfy Cloud\" sin detallar condiciones."
+    ],
+    "eventType": "disponibilidad-general",
+    "availability": "available",
+    "affectsFreePlan": "unverified",
+    "freeAccess": {
+      "model": "unknown",
+      "creditReset": "unknown"
+    },
+    "verificationNotes": "Que un modelo llegue a una interfaz gratuita no lo hace gratuito. ComfyUI es libre; los Partner Nodes son llamadas de pago a la API del fabricante, y esta pagina no dice una palabra sobre coste."
+  },
+  {
+    "candidateId": "inbox-8f99016c0f78",
+    "title": "Seedance 2.5 is now available via Partner Nodes",
+    "checkedAt": "2026-08-12",
+    "decision": "verified",
+    "primarySources": [
+      {
+        "url": "https://blog.comfy.org/p/seedance-25-is-now-available-via",
+        "label": "Anuncio oficial en blog.comfy.org",
+        "kind": "official",
+        "publisher": "blog.comfy.org",
+        "checkedAt": "2026-08-12",
+        "reachable": true,
+        "unreachableReason": null,
+        "redirectedTo": null
+      }
+    ],
+    "verifiedFacts": [
+      {
+        "fact": "Seedance 2.5 queda disponible en ComfyUI mediante Partner Nodes.",
+        "quote": "Seedance 2.5 is now available via Partner Nodes",
+        "sourceUrl": "https://blog.comfy.org/p/seedance-25-is-now-available-via"
+      },
+      {
+        "fact": "Genera un segmento continuo de 30 segundos en una sola pasada.",
+        "quote": "A full 30 seconds in one pass. Seedance 2.5 generates a single continuous 30-second segment directly",
+        "sourceUrl": "https://blog.comfy.org/p/seedance-25-is-now-available-via"
+      }
+    ],
+    "unconfirmed": [
+      "Coste por generacion y si existe cualquier cuota gratuita: la pagina no lo trata."
+    ],
+    "eventType": "disponibilidad-general",
+    "availability": "available",
+    "affectsFreePlan": "unverified",
+    "freeAccess": {
+      "model": "unknown",
+      "creditReset": "unknown"
+    },
+    "verificationNotes": "Mismo caso que Seedream: disponibilidad en una interfaz libre a traves de nodos de pago, sin declaracion de acceso gratuito."
+  },
+  {
+    "candidateId": "inbox-0fa8b80b111d",
+    "title": "FLUX 3 is now available via Partner Nodes",
+    "checkedAt": "2026-08-12",
+    "decision": "verified",
+    "primarySources": [
+      {
+        "url": "https://blog.comfy.org/p/flux-3-is-now-available-via-partner",
+        "label": "Anuncio oficial en blog.comfy.org",
+        "kind": "official",
+        "publisher": "blog.comfy.org",
+        "checkedAt": "2026-08-12",
+        "reachable": true,
+        "unreachableReason": null,
+        "redirectedTo": null
+      }
+    ],
+    "verifiedFacts": [
+      {
+        "fact": "FLUX 3 Video queda disponible en ComfyUI mediante Partner Nodes, y lo que se publica hoy es la generacion de video.",
+        "quote": "Video generation is what ships today. Open weights are coming soon",
+        "sourceUrl": "https://blog.comfy.org/p/flux-3-is-now-available-via-partner"
+      }
+    ],
+    "unconfirmed": [
+      "Cuando llegaran los pesos abiertos y bajo que licencia: la pagina dice \"coming soon\" y no da fecha.",
+      "Coste de las generaciones via Partner Nodes."
+    ],
+    "eventType": "disponibilidad-general",
+    "availability": "available",
+    "affectsFreePlan": "unverified",
+    "freeAccess": {
+      "model": "unknown",
+      "creditReset": "unknown"
+    },
+    "verificationNotes": "\"Open weights are coming soon\" es una promesa de futuro, no un acceso existente, y registrarla como open_source seria exactamente el error que esta fase quiere evitar. Hoy FLUX 3 se usa por nodos de pago; freeAccess queda unknown hasta que los pesos existan."
+  },
+  {
+    "candidateId": "inbox-587c75930143",
+    "title": "NVIDIA Open Sources First GPU-Accelerated Medical Physics Simulation Framework",
+    "checkedAt": "2026-08-12",
+    "decision": "verified",
+    "primarySources": [
+      {
+        "url": "https://blogs.nvidia.com/blog/medical-physics-simulation-open-source/",
+        "label": "Anuncio oficial en blogs.nvidia.com",
+        "kind": "official",
+        "publisher": "blogs.nvidia.com",
+        "checkedAt": "2026-08-12",
+        "reachable": true,
+        "unreachableReason": null,
+        "redirectedTo": null
+      }
+    ],
+    "verifiedFacts": [
+      {
+        "fact": "NVIDIA publica como open source su marco de simulacion de fisica medica dentro de Isaac for Healthcare.",
+        "quote": "a new open source, GPU-accelerated capability within NVIDIA Isaac for Healthcare — announced today",
+        "sourceUrl": "https://blogs.nvidia.com/blog/medical-physics-simulation-open-source/"
+      }
+    ],
+    "unconfirmed": [
+      "Licencia concreta y repositorio: el articulo dice open source sin nombrar ninguna de las dos.",
+      "Requisitos de hardware para ejecutarlo."
+    ],
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "affectsFreePlan": "unverified",
+    "freeAccess": {
+      "model": "unknown",
+      "creditReset": "unknown"
+    },
+    "verificationNotes": "Los hechos se sostienen, pero encaja mal en Free AI Radar: es simulacion para robotica quirurgica, no una herramienta con la que una persona genere nada. Verificada como hecho, con reserva editorial explicita."
+  },
+  {
+    "candidateId": "inbox-d355ad0f21a2",
+    "title": "NVIDIA Alpamayo 2 Super, the Frontier Open Model for Robotaxis and Autonomous Vehicles, Now Available for Commercial Use",
+    "checkedAt": "2026-08-12",
+    "decision": "verified",
+    "primarySources": [
+      {
+        "url": "https://blogs.nvidia.com/blog/alpamayo-2-super-open-model-now-available/",
+        "label": "Anuncio oficial en blogs.nvidia.com",
+        "kind": "official",
+        "publisher": "blogs.nvidia.com",
+        "checkedAt": "2026-08-12",
+        "reachable": true,
+        "unreachableReason": null,
+        "redirectedTo": null
+      }
+    ],
+    "verifiedFacts": [
+      {
+        "fact": "Alpamayo 2 Super esta disponible en Hugging Face bajo la licencia OpenMDW-1.1 de la Linux Foundation.",
+        "quote": "available on Hugging Face under OpenMDW‑1.1, the Linux Foundation’s permissive license for open AI model distributions",
+        "sourceUrl": "https://blogs.nvidia.com/blog/alpamayo-2-super-open-model-now-available/"
+      },
+      {
+        "fact": "Se publica para uso comercial.",
+        "quote": "available now for commercial use",
+        "sourceUrl": "https://blogs.nvidia.com/blog/alpamayo-2-super-open-model-now-available/"
+      }
+    ],
+    "unconfirmed": [
+      "Tamano del modelo y requisitos para ejecutarlo."
+    ],
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "affectsFreePlan": "unverified",
+    "freeAccess": {
+      "model": "open_source",
+      "creditReset": "none",
+      "sourceUrl": "https://blogs.nvidia.com/blog/alpamayo-2-super-open-model-now-available/",
+      "verifiedAt": "2026-08-12"
+    },
+    "verificationNotes": "Licencia citada literalmente, asi que open_source es un hecho y no una lectura. Reserva editorial: es un modelo de conduccion autonoma, fuera de las verticales generativas que esta fase prioriza. La licencia abierta demuestra el tipo de acceso (freeAccess.model = open_source), pero la pagina no dice que esto cambie ningun plan gratuito: affectsFreePlan queda unverified. Son dos preguntas distintas y solo una tiene respuesta aqui."
   }
 ]

@@ -5,7 +5,7 @@
     "vertical": "investigacion",
     "status": "healthy",
     "items": 100,
-    "previousItems": 0,
+    "previousItems": 100,
     "checkedAt": "2026-08-11"
   },
   "s-002": {
@@ -14,7 +14,7 @@
     "vertical": "open-source",
     "status": "healthy",
     "items": 839,
-    "previousItems": 0,
+    "previousItems": 839,
     "checkedAt": "2026-08-11"
   },
   "s-003": {
@@ -23,7 +23,7 @@
     "vertical": "empresas",
     "status": "healthy",
     "items": 18,
-    "previousItems": 0,
+    "previousItems": 18,
     "checkedAt": "2026-08-11"
   },
   "s-004": {
@@ -32,7 +32,7 @@
     "vertical": "productos",
     "status": "healthy",
     "items": 10,
-    "previousItems": 0,
+    "previousItems": 10,
     "checkedAt": "2026-08-11"
   },
   "s-005": {
@@ -40,8 +40,8 @@
     "type": "rss",
     "vertical": "modelos",
     "status": "healthy",
-    "items": 1123,
-    "previousItems": 0,
+    "items": 1124,
+    "previousItems": 1124,
     "checkedAt": "2026-08-11"
   },
   "s-006": {
@@ -50,7 +50,7 @@
     "vertical": "investigacion",
     "status": "healthy",
     "items": 100,
-    "previousItems": 0,
+    "previousItems": 100,
     "checkedAt": "2026-08-11"
   },
   "s-007": {
@@ -59,7 +59,7 @@
     "vertical": "modelos",
     "status": "healthy",
     "items": 10,
-    "previousItems": 0,
+    "previousItems": 10,
     "checkedAt": "2026-08-11"
   },
   "s-008": {
@@ -68,7 +68,7 @@
     "vertical": "modelos",
     "status": "healthy",
     "items": 80,
-    "previousItems": 0,
+    "previousItems": 80,
     "checkedAt": "2026-08-11"
   },
   "s-010": {
@@ -77,7 +77,7 @@
     "vertical": "imagen",
     "status": "healthy",
     "items": 20,
-    "previousItems": 0,
+    "previousItems": 20,
     "checkedAt": "2026-08-11"
   },
   "s-011": {
@@ -86,7 +86,7 @@
     "vertical": "imagen",
     "status": "healthy",
     "items": 12,
-    "previousItems": 0,
+    "previousItems": 12,
     "checkedAt": "2026-08-11"
   },
   "s-012": {
@@ -95,7 +95,7 @@
     "vertical": "imagen",
     "status": "healthy",
     "items": 20,
-    "previousItems": 0,
+    "previousItems": 20,
     "checkedAt": "2026-08-11"
   },
   "s-013": {
@@ -104,7 +104,7 @@
     "vertical": "imagen",
     "status": "healthy",
     "items": 15,
-    "previousItems": 0,
+    "previousItems": 15,
     "checkedAt": "2026-08-11"
   },
   "s-014": {
@@ -113,7 +113,7 @@
     "vertical": "imagen",
     "status": "healthy",
     "items": 124,
-    "previousItems": 0,
+    "previousItems": 124,
     "checkedAt": "2026-08-11"
   },
   "s-015": {
@@ -122,7 +122,7 @@
     "vertical": "imagen",
     "status": "healthy",
     "items": 8,
-    "previousItems": 0,
+    "previousItems": 8,
     "checkedAt": "2026-08-11"
   },
   "s-016": {
@@ -131,7 +131,7 @@
     "vertical": "imagen",
     "status": "healthy",
     "items": 8,
-    "previousItems": 0,
+    "previousItems": 8,
     "checkedAt": "2026-08-11"
   },
   "s-017": {
@@ -140,7 +140,7 @@
     "vertical": "video",
     "status": "healthy",
     "items": 8,
-    "previousItems": 0,
+    "previousItems": 8,
     "checkedAt": "2026-08-11"
   },
   "s-018": {
@@ -149,7 +149,7 @@
     "vertical": "voz",
     "status": "healthy",
     "items": 8,
-    "previousItems": 0,
+    "previousItems": 8,
     "checkedAt": "2026-08-11"
   },
   "s-019": {
@@ -158,7 +158,43 @@
     "vertical": "musica",
     "status": "healthy",
     "items": 8,
-    "previousItems": 0,
+    "previousItems": 8,
+    "checkedAt": "2026-08-11"
+  },
+  "s-021": {
+    "name": "Luma AI",
+    "type": "html",
+    "vertical": "video",
+    "status": "healthy",
+    "items": 8,
+    "previousItems": 8,
+    "checkedAt": "2026-08-11"
+  },
+  "s-022": {
+    "name": "Descript",
+    "type": "html",
+    "vertical": "video",
+    "status": "healthy",
+    "items": 8,
+    "previousItems": 8,
+    "checkedAt": "2026-08-11"
+  },
+  "s-023": {
+    "name": "Cartesia",
+    "type": "html",
+    "vertical": "voz",
+    "status": "healthy",
+    "items": 8,
+    "previousItems": 8,
+    "checkedAt": "2026-08-11"
+  },
+  "s-024": {
+    "name": "Udio",
+    "type": "html",
+    "vertical": "musica",
+    "status": "healthy",
+    "items": 5,
+    "previousItems": 6,
     "checkedAt": "2026-08-11"
   }
 }

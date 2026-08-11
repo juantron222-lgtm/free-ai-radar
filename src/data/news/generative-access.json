@@ -1,0 +1,199 @@
+[
+  {
+    "platform": "Suno",
+    "vertical": "musica",
+    "freeAccess": {
+      "model": "credits",
+      "creditReset": "daily",
+      "creditsAmount": "50 credits",
+      "sourceUrl": "https://suno.com/pricing",
+      "verifiedAt": "2026-08-12"
+    },
+    "quote": "Free Plan Our starter plan 50 credits renew daily",
+    "requiresCard": "unverified",
+    "canActuallyGenerate": "yes",
+    "restrictions": [
+      "No commercial use — citado: \"No commercial use\"",
+      "No monthly song downloads (starting 9/3/26) — citado literalmente en el plan gratuito",
+      "Shared creation queue",
+      "No add-on credit purchases"
+    ],
+    "notes": "El caso que originó toda la fase: plataforma potente, créditos que se renuevan a diario, cifra y frecuencia documentadas en la propia página de precios. Es la única de la auditoría donde 'daily' está escrito por el fabricante."
+  },
+  {
+    "platform": "ElevenLabs",
+    "vertical": "voz",
+    "freeAccess": {
+      "model": "credits",
+      "creditReset": "monthly",
+      "creditsAmount": "10k credits per month",
+      "sourceUrl": "https://elevenlabs.io/pricing",
+      "verifiedAt": "2026-08-12"
+    },
+    "quote": "Free $0 per month Build for free Text to Speech Speech to Text Sound Effects Voice Design Music Productions ... 10k credits per month",
+    "requiresCard": "unverified",
+    "canActuallyGenerate": "yes",
+    "restrictions": [
+      "Licencia comercial sólo desde el plan Starter — citado: \"Everything in free, plus Commercial License\"",
+      "3 Projects in Studio en el plan gratuito"
+    ],
+    "notes": "Mensual, no diario. La cifra y la frecuencia aparecen juntas en la tabla de precios."
+  },
+  {
+    "platform": "Cartesia",
+    "vertical": "voz",
+    "freeAccess": {
+      "model": "credits",
+      "creditReset": "monthly",
+      "creditsAmount": "20K credits / month",
+      "sourceUrl": "https://cartesia.ai/pricing",
+      "verifiedAt": "2026-08-12"
+    },
+    "quote": "Free $0 /mo Start free 20K credits / month",
+    "requiresCard": "unverified",
+    "canActuallyGenerate": "yes",
+    "restrictions": [],
+    "notes": "Frecuencia documentada en la propia etiqueta del plan."
+  },
+  {
+    "platform": "HeyGen",
+    "vertical": "video",
+    "freeAccess": {
+      "model": "credits",
+      "creditReset": "unknown",
+      "creditsAmount": "600 credits",
+      "sourceUrl": "https://www.heygen.com/pricing",
+      "verifiedAt": "2026-08-12"
+    },
+    "quote": "Free $0/mo ... Get started 600 credits",
+    "requiresCard": "unverified",
+    "canActuallyGenerate": "yes",
+    "restrictions": [
+      "\"Credit rollovers\" figura como ventaja de un plan superior, lo que sugiere que en el gratuito no los hay — pero sugerir no es documentar"
+    ],
+    "notes": "Deliberadamente 'unknown' en la frecuencia. La página dice 600 créditos y el plan se rotula $0/mo, pero en ninguna parte dice que esos 600 se renueven cada mes. El precio es mensual; la asignación de créditos no está declarada como recurrente. Escribir 'monthly' aquí sería exactamente la inferencia que esta fase prohíbe."
+  },
+  {
+    "platform": "Descript",
+    "vertical": "video",
+    "freeAccess": {
+      "model": "freemium",
+      "creditReset": "unknown",
+      "sourceUrl": "https://www.descript.com/pricing",
+      "verifiedAt": "2026-08-12"
+    },
+    "quote": "Free $0 Get started on your creative journey with text-based editing and give our AI tools a spin.",
+    "requiresCard": "unverified",
+    "canActuallyGenerate": "unverified",
+    "restrictions": [
+      "Los planes de pago detallan horas de medios y créditos de IA al mes; el gratuito no publica ninguna cifra en esta página"
+    ],
+    "notes": "Hay plan gratuito y no hay números. \"Give our AI tools a spin\" no dice cuánto, así que creditsAmount se queda vacío y canActuallyGenerate en unverified: no consta si el plan gratuito genera o sólo deja editar."
+  },
+  {
+    "platform": "Comfy Cloud",
+    "vertical": "imagen",
+    "freeAccess": {
+      "model": "credits",
+      "creditReset": "one_off",
+      "creditsAmount": "5 free runs",
+      "sourceUrl": "https://www.comfy.org/pricing",
+      "verifiedAt": "2026-08-12"
+    },
+    "quote": "Start free. Upgrade when you're ready. 5 free runs on real GPUs — no credit card required.",
+    "requiresCard": "no",
+    "canActuallyGenerate": "yes",
+    "restrictions": ["Cinco ejecuciones, sin renovación declarada"],
+    "notes": "El único de la auditoría donde 'no requiere tarjeta' está escrito con esas palabras. 'one_off' porque la página ofrece cinco ejecuciones para empezar y no menciona que vuelvan: no es una capa gratuita permanente ni una prueba con fecha de caducidad."
+  },
+  {
+    "platform": "Freepik",
+    "vertical": "imagen",
+    "freeAccess": {
+      "model": "unknown",
+      "creditReset": "unknown",
+      "sourceUrl": "https://www.freepik.com/pricing",
+      "verifiedAt": "2026-08-12"
+    },
+    "quote": null,
+    "requiresCard": "unverified",
+    "canActuallyGenerate": "unverified",
+    "restrictions": [],
+    "notes": "La página de precios sólo enumera planes de pago; el plan gratuito, si existe, no aparece ahí. Un dato importante que sí está: \"Credits valid for 1 year, no monthly resets\" — pero es de un plan de pago, y trasladarlo al gratuito sería inventar."
+  },
+  {
+    "platform": "Luma AI",
+    "vertical": "video",
+    "freeAccess": {
+      "model": "unknown",
+      "creditReset": "unknown",
+      "sourceUrl": "https://lumalabs.ai/dream-machine/pricing",
+      "verifiedAt": "2026-08-12"
+    },
+    "quote": null,
+    "requiresCard": "unverified",
+    "canActuallyGenerate": "unverified",
+    "restrictions": [],
+    "notes": "La página de precios responde 200 y no contiene la palabra \"free\" ni una sola vez. Sin declaración, unknown."
+  },
+  {
+    "platform": "Udio",
+    "vertical": "musica",
+    "freeAccess": {
+      "model": "unknown",
+      "creditReset": "unknown",
+      "sourceUrl": "https://www.udio.com/pricing",
+      "verifiedAt": "2026-08-12"
+    },
+    "quote": null,
+    "requiresCard": "unverified",
+    "canActuallyGenerate": "unverified",
+    "restrictions": [],
+    "notes": "La página devuelve 51 caracteres de texto: monta los precios con JavaScript. No se elude la protección ni se simula un navegador; sin una fuente oficial legible, unknown."
+  },
+  {
+    "platform": "Higgsfield",
+    "vertical": "video",
+    "freeAccess": {
+      "model": "unknown",
+      "creditReset": "unknown",
+      "sourceUrl": "https://higgsfield.ai/pricing",
+      "verifiedAt": "2026-08-12"
+    },
+    "quote": null,
+    "requiresCard": "unverified",
+    "canActuallyGenerate": "unverified",
+    "restrictions": [],
+    "notes": "400 caracteres de texto y ninguna señal de plan. Mismo caso que Udio."
+  },
+  {
+    "platform": "Black Forest Labs",
+    "vertical": "imagen",
+    "freeAccess": {
+      "model": "unknown",
+      "creditReset": "unknown",
+      "sourceUrl": "https://bfl.ai/pricing",
+      "verifiedAt": "2026-08-12"
+    },
+    "quote": null,
+    "requiresCard": "unverified",
+    "canActuallyGenerate": "unverified",
+    "restrictions": [],
+    "notes": "Precios de API sin mención de capa gratuita. Aviso aparte: los pesos abiertos de FLUX anteriores no dicen nada sobre el acceso a la plataforma alojada, y confundir las dos cosas es uno de los errores que esta fase prohíbe explícitamente."
+  },
+  {
+    "platform": "Krea",
+    "vertical": "imagen",
+    "freeAccess": {
+      "model": "unknown",
+      "creditReset": "unknown",
+      "sourceUrl": "https://www.krea.ai/pricing",
+      "verifiedAt": "2026-08-12"
+    },
+    "quote": null,
+    "requiresCard": "unverified",
+    "canActuallyGenerate": "unverified",
+    "restrictions": [],
+    "notes": "La petición a la página de precios falla desde aquí. No se ha intentado rodear ninguna protección: queda unknown hasta que alguien la lea."
+  }
+]

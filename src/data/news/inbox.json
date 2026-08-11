@@ -39,6 +39,32 @@
     "reason": null
   },
   {
+    "id": "inbox-32c9cf4747ef",
+    "title": "Cartesia | New to Ink-2: keyterm prompting and configurable turn detection",
+    "url": "https://www.cartesia.ai/blog/keyterm-prompting",
+    "canonicalUrl": "cartesia.ai/blog/keyterm-prompting",
+    "publisher": "cartesia.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-11",
+    "discoveredVia": "s-023",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
+    "id": "inbox-46fcaccfcad8",
+    "title": "Introducing Luma Scenes | Luma",
+    "url": "https://lumalabs.ai/news/introducing-luma-scenes",
+    "canonicalUrl": "lumalabs.ai/news/introducing-luma-scenes",
+    "publisher": "lumalabs.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-11",
+    "discoveredVia": "s-021",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
     "id": "inbox-484f5ff16b80",
     "title": "NVIDIA and Local AI Community Fuel Open Source Models and Intelligent Agents",
     "url": "https://blogs.nvidia.com/blog/local-ai-open-source-models-agents-nemotron/",
@@ -65,6 +91,32 @@
     "reason": null
   },
   {
+    "id": "inbox-7a65530242f2",
+    "title": "Remove Text from an Image with AI (Without Wrecking What&#x27;s Behind It) | Luma",
+    "url": "https://lumalabs.ai/news/remove-text-image-with-ai",
+    "canonicalUrl": "lumalabs.ai/news/remove-text-image-with-ai",
+    "publisher": "lumalabs.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-11",
+    "discoveredVia": "s-021",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
+    "id": "inbox-80acc4a043d2",
+    "title": "6 Best AI Background Changers for Product and Brand Imagery (2026) | Luma",
+    "url": "https://lumalabs.ai/news/ai-background-changers-product-brand-imagery",
+    "canonicalUrl": "lumalabs.ai/news/ai-background-changers-product-brand-imagery",
+    "publisher": "lumalabs.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-11",
+    "discoveredVia": "s-021",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
     "id": "inbox-add5a4c73035",
     "title": "Why Scaling AI Compute Performance Requires a New Power Architecture",
     "url": "https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/",
@@ -73,6 +125,32 @@
     "observedAt": "2026-08-11",
     "publishedAt": "2026-08-11",
     "discoveredVia": "s-003",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
+    "id": "inbox-c7dfbdec9d4f",
+    "title": "AI Object Removal and Replacement: How to Edit One Object, Not the Whole Image | Luma",
+    "url": "https://lumalabs.ai/news/ai-object-removal-replacement",
+    "canonicalUrl": "lumalabs.ai/news/ai-object-removal-replacement",
+    "publisher": "lumalabs.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-11",
+    "discoveredVia": "s-021",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
+    "id": "inbox-c995d7a1020b",
+    "title": "Daybreak models are now available on AWS",
+    "url": "https://openai.com/index/daybreak-models-are-now-available-on-aws",
+    "canonicalUrl": "openai.com/index/daybreak-models-are-now-available-on-aws",
+    "publisher": "openai.com",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-11",
+    "discoveredVia": "s-005",
     "vertical": "sin-clasificar",
     "status": "discovered",
     "reason": null
@@ -88,6 +166,19 @@
     "discoveredVia": "s-003",
     "vertical": "agentes",
     "status": "candidate",
+    "reason": null
+  },
+  {
+    "id": "inbox-f26ee98f3fed",
+    "title": "7 Best AI Image Editors for Precision Editing, Ranked (2026) | Luma",
+    "url": "https://lumalabs.ai/news/ai-image-editors-precision-editing",
+    "canonicalUrl": "lumalabs.ai/news/ai-image-editors-precision-editing",
+    "publisher": "lumalabs.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-11",
+    "discoveredVia": "s-021",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
     "reason": null
   },
   {
@@ -377,6 +468,19 @@
     "reason": null
   },
   {
+    "id": "inbox-5d3247b38929",
+    "title": "MiniMax H3 Available Now | Luma",
+    "url": "https://lumalabs.ai/news/minimax-h3-now-available-in-luma-agents",
+    "canonicalUrl": "lumalabs.ai/news/minimax-h3-now-available-in-luma-agents",
+    "publisher": "lumalabs.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-06",
+    "discoveredVia": "s-021",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
     "id": "inbox-5f3c194cd421",
     "title": "GeForce NOW Shakes Up August With 26 New Games",
     "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-august-2026-games-list/",
@@ -546,6 +650,19 @@
     "reason": null
   },
   {
+    "id": "inbox-8a0bb7dd5453",
+    "title": "Luma vs Canva | Luma",
+    "url": "https://lumalabs.ai/news/luma-vs-canva",
+    "canonicalUrl": "lumalabs.ai/news/luma-vs-canva",
+    "publisher": "lumalabs.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-04",
+    "discoveredVia": "s-021",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
     "id": "inbox-af458fd3ba3b",
     "title": "NVIDIA Joins NSF State and Regional AI Hubs Program to Expand AI Research and Education Across the US",
     "url": "https://blogs.nvidia.com/blog/nsf-state-regional-ai-hub-program/",
@@ -583,6 +700,19 @@
     "vertical": "video",
     "status": "rejected",
     "reason": "investigación sin producto"
+  },
+  {
+    "id": "inbox-cfe5b912740c",
+    "title": "Synthesia Alternatives 2026 | Luma",
+    "url": "https://lumalabs.ai/news/synthesia-alternatives",
+    "canonicalUrl": "lumalabs.ai/news/synthesia-alternatives",
+    "publisher": "lumalabs.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-08-04",
+    "discoveredVia": "s-021",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
   },
   {
     "id": "inbox-d355ad0f21a2",
@@ -946,6 +1076,19 @@
     "discoveredVia": "s-004",
     "vertical": "sin-clasificar",
     "status": "discovered",
+    "reason": null
+  },
+  {
+    "id": "inbox-a4807b1b00de",
+    "title": "Cartesia | Is this TTS model good?",
+    "url": "https://www.cartesia.ai/blog/is-this-tts-model-good",
+    "canonicalUrl": "cartesia.ai/blog/is-this-tts-model-good",
+    "publisher": "cartesia.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-28",
+    "discoveredVia": "s-023",
+    "vertical": "audio",
+    "status": "candidate",
     "reason": null
   },
   {
@@ -1859,6 +2002,19 @@
     "reason": "programa o concurso"
   },
   {
+    "id": "inbox-da50e959cec2",
+    "title": "Cartesia | Introducing Ink-2: The #1-ranked STT built for voice agents",
+    "url": "https://www.cartesia.ai/blog/ink-2",
+    "canonicalUrl": "cartesia.ai/blog/ink-2",
+    "publisher": "cartesia.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-07-09",
+    "discoveredVia": "s-023",
+    "vertical": "audio",
+    "status": "candidate",
+    "reason": null
+  },
+  {
     "id": "inbox-f4e4ea99d50e",
     "title": "GPT-5.6: Frontier intelligence that scales with your ambition",
     "url": "https://openai.com/index/gpt-5-6",
@@ -2301,6 +2457,19 @@
     "reason": null
   },
   {
+    "id": "inbox-8d59a6b0f87d",
+    "title": "Cartesia | A Guide to Choosing Voice AI Models",
+    "url": "https://www.cartesia.ai/blog/choosing-voice-ai-models",
+    "canonicalUrl": "cartesia.ai/blog/choosing-voice-ai-models",
+    "publisher": "cartesia.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-06-30",
+    "discoveredVia": "s-023",
+    "vertical": "audio",
+    "status": "candidate",
+    "reason": null
+  },
+  {
     "id": "inbox-946bb68c0f7d",
     "title": "ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration",
     "url": "https://huggingface.co/blog/ibm-research/scarfbench",
@@ -2348,6 +2517,19 @@
     "observedAt": "2026-08-11",
     "publishedAt": "2026-06-30",
     "discoveredVia": "s-002",
+    "vertical": "sin-clasificar",
+    "status": "discovered",
+    "reason": null
+  },
+  {
+    "id": "inbox-d574f0127eae",
+    "title": "Cartesia | A Beginner",
+    "url": "https://www.cartesia.ai/blog/voice-terminology",
+    "canonicalUrl": "cartesia.ai/blog/voice-terminology",
+    "publisher": "cartesia.ai",
+    "observedAt": "2026-08-11",
+    "publishedAt": "2026-06-30",
+    "discoveredVia": "s-023",
     "vertical": "sin-clasificar",
     "status": "discovered",
     "reason": null

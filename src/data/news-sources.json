@@ -264,5 +264,87 @@
     ],
     "category_defaults": "musica",
     "notes": "Música generativa. Sin RSS."
+  },
+  {
+    "id": "s-020",
+    "official": true,
+    "enabled": false,
+    "language": "en",
+    "name": "Higgsfield",
+    "homepage": "https://higgsfield.ai/blog",
+    "feed_url": "https://higgsfield.ai/blog/rss.xml",
+    "source_type": "rss",
+    "category_defaults": "video",
+    "notes": "APAGADA tras inspeccionar lo que publica. Tiene RSS oficial y funciona, pero su blog es marketing de contenidos: listicles (\"7 Best AI Avatar Generators\"), tutoriales y comparativas de pago. No es un changelog ni notas de version, y la regla editorial excluye blogs SEO como fuente. La anadi mirando el extractor y no lo que salia por el: 90 de 104 elementos nuevos venian de aqui."
+  },
+  {
+    "id": "s-021",
+    "official": true,
+    "enabled": true,
+    "language": "en",
+    "name": "Luma AI",
+    "homepage": "https://lumalabs.ai/news",
+    "index_url": "https://lumalabs.ai/news",
+    "source_type": "html",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+    "max_items": 8,
+    "item_link_pattern": "^/news/[a-z0-9-]+$",
+    "exclude_patterns": [
+      "^/news/?$"
+    ],
+    "category_defaults": "video",
+    "notes": "Text-to-video e image-to-video. Sin RSS; el indice lista las notas en HTML estatico."
+  },
+  {
+    "id": "s-022",
+    "official": true,
+    "enabled": true,
+    "language": "en",
+    "name": "Descript",
+    "homepage": "https://www.descript.com/blog",
+    "index_url": "https://www.descript.com/blog",
+    "source_type": "html",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+    "max_items": 8,
+    "item_link_pattern": "^/blog/article/[a-z0-9-]+$",
+    "exclude_patterns": [],
+    "category_defaults": "video",
+    "notes": "Edicion de video y audio con IA. Los articulos cuelgan de /blog/article/, no de /blog/."
+  },
+  {
+    "id": "s-023",
+    "official": true,
+    "enabled": true,
+    "language": "en",
+    "name": "Cartesia",
+    "homepage": "https://cartesia.ai/blog",
+    "index_url": "https://cartesia.ai/blog",
+    "source_type": "html",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+    "max_items": 8,
+    "item_link_pattern": "^/blog/[a-z0-9-]+$",
+    "exclude_patterns": [
+      "^/blog/?$"
+    ],
+    "category_defaults": "voz",
+    "notes": "Voz generativa de baja latencia. Sin RSS."
+  },
+  {
+    "id": "s-024",
+    "official": true,
+    "enabled": true,
+    "language": "en",
+    "name": "Udio",
+    "homepage": "https://www.udio.com/blog",
+    "index_url": "https://www.udio.com/blog",
+    "source_type": "html",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+    "max_items": 8,
+    "item_link_pattern": "^/blog/[a-z0-9-]+$",
+    "exclude_patterns": [
+      "^/blog/?$"
+    ],
+    "category_defaults": "musica",
+    "notes": "Musica generativa. Sin RSS."
   }
 ]
