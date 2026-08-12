@@ -200,7 +200,8 @@ export type FreeModel =
   | 'open_source'
   | 'local'
   | 'demo'
-  | 'paid_only';
+  | 'paid_only'
+  | 'unknown';
 
 export interface FreeModelDef {
   id: FreeModel;
@@ -258,6 +259,20 @@ export const FREE_MODELS: readonly FreeModelDef[] = [
     label: 'Sin capa gratuita',
     meaning: 'No hay nada gratis utilizable. Se documenta para que no pierdas el tiempo.',
     tone: 'bad',
+  },
+  {
+    /*
+     * The honest answer when the vendor's page cannot be read.
+     *
+     * Four of the catalogue's tools sit behind protections that refuse
+     * automated reads, and before this the only way to store that was to pick
+     * one of the other eight — which turns "we could not check" into a claim.
+     * Midjourney was stored as `trial` on exactly that basis.
+     */
+    id: 'unknown',
+    label: 'Sin confirmar',
+    meaning: 'No hemos podido comprobarlo en una fuente oficial. No afirmamos nada todavía.',
+    tone: 'neutral',
   },
 ] as const;
 
@@ -341,7 +356,15 @@ export const HOSTING_LABEL: Record<Hosting, string> = {
   hybrid: 'Nube o local',
 };
 
-export const CREDIT_RESET = ['none', 'daily', 'weekly', 'monthly', 'one_off'] as const;
+/*
+ * `unknown` is not a gap in this list, it is a value.
+ *
+ * Without it, a tool whose page mentions credits but never says how often they
+ * come back had to be stored as `none` — which reads as "there are no credits"
+ * and is a different, false claim. The audit found four tools with documented
+ * credits and every one of them stored as `none`.
+ */
+export const CREDIT_RESET = ['none', 'daily', 'weekly', 'monthly', 'one_off', 'unknown'] as const;
 export type CreditReset = (typeof CREDIT_RESET)[number];
 
 export const CREDIT_RESET_LABEL: Record<CreditReset, string> = {
@@ -350,4 +373,5 @@ export const CREDIT_RESET_LABEL: Record<CreditReset, string> = {
   weekly: 'Semanal',
   monthly: 'Mensual',
   one_off: 'Única (no se renueva)',
+  unknown: 'Sin confirmar',
 };

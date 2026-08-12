@@ -27,7 +27,12 @@ let exec: Exec;
 beforeEach(async () => {
   // Only the core schema: the tables, constraints and triggers under test. The
   // RLS migrations add policies that say nothing about synchronising.
-  ({ db } = await createSchema({ migrations: ['supabase/migrations/0001_core_schema.sql'] }));
+  ({ db } = await createSchema({ migrations: [
+      'supabase/migrations/0001_core_schema.sql',
+      // El enum free_model necesita 'unknown' para que una ficha pueda decir
+      // que no se ha podido comprobar. Ver 0009.
+      'supabase/migrations/0009_free_model_unknown.sql',
+    ] }));
   exec = async (sql, params = []) => (await db.query(sql, params)).rows;
 });
 

@@ -1,8 +1,7 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import ScoreBadge from '@components/tools/ScoreBadge.astro';
+import AccessBadge from '@components/tools/AccessBadge.astro';
 import FactChips from '@components/tools/FactChips.astro';
-import ScoreBreakdown from '@components/tools/ScoreBreakdown.astro';
 import FreshnessNotice from '@components/tools/FreshnessNotice.astro';
 import OutboundButton from '@components/tools/OutboundButton.astro';
 import ToolActions from '@components/tools/ToolActions.astro';
@@ -22,7 +21,6 @@ import {
 } from '@lib/domain/taxonomy';
 import { TRI_STATE_LABEL } from '@lib/domain/primitives';
 import { VERIFICATION_LABEL, type ToolRecord } from '@lib/domain/tool';
-import { SCORE_BAND_LABEL } from '@lib/domain/scoring';
 import { ROUTES } from '@lib/nav';
 
 export function getStaticPaths() {
@@ -111,7 +109,7 @@ const VERIFICATION_MEANING: Record<ToolRecord['verification'], string> = {
 
       <aside class="tool-verdict card" aria-labelledby="verdict-title">
         <p class="eyebrow" id="verdict-title">Veredicto</p>
-        <ScoreBadge score={tool.scoreTotal} size="lg" showLabel />
+        <AccessBadge tool={tool} size="lg" />
         <p class="tool-verdict-text">{tool.verdict || freeModel.meaning}</p>
         <OutboundButton tool={tool} />
         <ToolActions slug={tool.slug} name={tool.name} />
@@ -160,15 +158,15 @@ const VERIFICATION_MEANING: Record<ToolRecord['verification'], string> = {
           </p>
         </section>
 
-        <section aria-labelledby="score-title" class="tool-section">
-          <h2 id="score-title">Por qué {tool.scoreTotal} y no otra cifra</h2>
-          <p>
-            La puntuación es <strong>{SCORE_BAND_LABEL[tool.band].toLowerCase()}</strong> y se
-            calcula siempre igual, con la misma fórmula pública para todas las herramientas.
-            Ni se compra ni se ajusta a mano.
-          </p>
-          <ScoreBreakdown tool={tool} />
-        </section>
+        {/*
+          La sección "Por qué 89 y no otra cifra" se ha retirado junto con la
+          nota única. Explicaba con precisión un número que no debía existir:
+          una media ponderada responde a "¿cuál es mejor?", y esa pregunta no
+          tiene respuesta sin saber para quién. AUTOMATIC1111 sacaba 89 y
+          Midjourney 65, y el 89 es una instalación de Python que necesita GPU.
+          Lo que el lector necesita —qué obtiene sin pagar y cuánto cuesta
+          empezar— lo dice ahora AccessBadge, con los hechos verificados.
+        */}
 
         {tool.descriptionLong && (
           <section aria-labelledby="about-title" class="tool-section prose">
@@ -387,7 +385,6 @@ const VERIFICATION_MEANING: Record<ToolRecord['verification'], string> = {
             <div><dt>Categoría</dt><dd><a href={ROUTES.category(category.slug)}>{category.name}</a></dd></div>
             <div><dt>Ejecución</dt><dd>{HOSTING_LABEL[tool.hosting]}</dd></div>
             <div><dt>Nivel</dt><dd>{SKILL_LEVEL_LABEL[tool.skillLevel]}</dd></div>
-            <div><dt>Puntuación</dt><dd class="tnum">{tool.scoreTotal}/100</dd></div>
           </dl>
           <p class="tool-aside-meaning">{freeModel.meaning}</p>
         </div>

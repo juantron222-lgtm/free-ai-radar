@@ -175,6 +175,7 @@ export const ToolRecord = z.object({
     'local',
     'demo',
     'paid_only',
+    'unknown',
   ]),
   freePlan: FreePlan,
 

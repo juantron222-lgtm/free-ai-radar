@@ -1,6 +1,6 @@
 ---
 import type { Tool } from '@lib/domain/tool';
-import ScoreBadge from './ScoreBadge.astro';
+import AccessBadge from './AccessBadge.astro';
 import FactChips from './FactChips.astro';
 import CompareToggle from './CompareToggle.astro';
 import { getCategory } from '@lib/domain/taxonomy';
@@ -40,7 +40,7 @@ const href = ROUTES.tool(tool.slug);
         )}
       </p>
     </div>
-    <ScoreBadge score={tool.scoreTotal} size="md" />
+    <AccessBadge tool={tool} size="md" />
   </div>
 
   {variant === 'default' && <p class="tool-card-tagline">{tool.tagline}</p>}

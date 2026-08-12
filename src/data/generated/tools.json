@@ -1,5 +1,85 @@
 [
   {
+    "id": "tool_adobe-firefly",
+    "kind": "app",
+    "verification": "verified",
+    "nextReviewAt": "2026-11-12",
+    "categorySlug": "imagen",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "openSource": "no",
+    "hosting": "cloud",
+    "platforms": [
+      "web"
+    ],
+    "languages": [
+      "en"
+    ],
+    "skillLevel": "beginner",
+    "privacy": {},
+    "sources": [
+      {
+        "url": "https://www.adobe.com/products/firefly.html",
+        "label": "Página oficial de precios o producto",
+        "kind": "official",
+        "publisher": "adobe.com",
+        "checkedAt": "2026-08-12"
+      }
+    ],
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-12",
+    "lastVerifiedAt": "2026-08-12",
+    "updatedAt": "2026-08-12",
+    "slug": "adobe-firefly",
+    "name": "Adobe Firefly",
+    "tagline": "Generaciones gratuitas diarias, según la propia documentación de Adobe.",
+    "descriptionShort": "Suite generativa de Adobe para imagen, vídeo, audio y diseño. Su documentación confirma un plan gratuito con generaciones diarias.",
+    "officialUrl": "https://www.adobe.com/products/firefly.html",
+    "freeModel": "credits",
+    "freePlan": {
+      "summary": "Adobe documenta un plan gratuito con generaciones diarias para probar Firefly. No publica la cantidad en esa página, así que no la afirmamos.",
+      "limits": [
+        "Generaciones diarias, cantidad no publicada en la página oficial"
+      ],
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "daily",
+      "verifiedAt": "2026-08-12"
+    },
+    "scores": {
+      "freeReal": 7,
+      "usefulness": 8,
+      "ease": 9,
+      "transparency": 7,
+      "creatorValue": 7
+    },
+    "verdict": "La frecuencia está documentada y la cantidad no. Se registra lo primero y se calla lo segundo.",
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://www.adobe.com/products/firefly.html",
+        "verifiedAt": "2026-08-12",
+        "quote": "Is Adobe Firefly free to use? Yes, Adobe has a free plan that provides users with free daily generations to try Adobe Firefly"
+      }
+    },
+    "descriptionLong": ""
+  },
+  {
     "id": "tool_bolt-new",
     "slug": "bolt-new",
     "name": "Bolt.new",
@@ -30,9 +110,9 @@
         "Apps complejas pueden consumir tokens rápidamente"
       ],
       "requiresSignup": "yes",
-      "requiresCreditCard": "no",
-      "hasWatermark": "no",
-      "commercialUse": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
       "creditReset": "none",
       "verifiedAt": "2026-07-08"
     },
@@ -89,10 +169,7 @@
     "alternatives": [
       "v0-by-vercel"
     ],
-    "alternativeNames": [
-      "Lovable",
-      "Replit Agent"
-    ],
+    "alternativeNames": [],
     "changelog": [
       {
         "date": "2024-06-01",
@@ -143,9 +220,9 @@
         "Modelo gratuito limitado vs GPT-4o completo"
       ],
       "requiresSignup": "yes",
-      "requiresCreditCard": "no",
-      "hasWatermark": "no",
-      "commercialUse": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
       "creditReset": "none",
       "verifiedAt": "2026-07-08"
     },
@@ -210,9 +287,7 @@
       "claude",
       "google-gemini"
     ],
-    "alternativeNames": [
-      "HuggingChat"
-    ],
+    "alternativeNames": [],
     "changelog": [
       {
         "date": "2022-11-30",
@@ -253,7 +328,7 @@
       "Generar imágenes online sin instalar nada",
       "Entrenar LoRAs en la nube (con buzz)"
     ],
-    "freeModel": "free_real",
+    "freeModel": "credits",
     "freePlan": {
       "summary": "Descarga ilimitada de modelos gratis. Generación online con buzz diario gratuito. Registro opcional para funciones sociales.",
       "limits": [
@@ -263,11 +338,11 @@
         "La generación online es limitada comparada con uso local"
       ],
       "requiresSignup": "no",
-      "requiresCreditCard": "no",
-      "hasWatermark": "no",
-      "commercialUse": "partial",
-      "creditReset": "none",
-      "verifiedAt": "2026-07-08"
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "unknown",
+      "verifiedAt": "2026-08-12"
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -330,10 +405,7 @@
     "alternatives": [
       "hugging-face-spaces"
     ],
-    "alternativeNames": [
-      "Tensor.Art",
-      "SeaArt"
-    ],
+    "alternativeNames": [],
     "changelog": [
       {
         "date": "2023-02-01",
@@ -351,7 +423,17 @@
     "status": "published",
     "detectedAt": "2023-02-01",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://civitai.com/pricing",
+        "verifiedAt": "2026-08-12",
+        "quote": "Buzz on daily rewards"
+      }
+    },
+    "auditNotes": [
+      "La página menciona recompensas diarias de Buzz, pero no documenta cuántas ni si esa es la renovación del plan gratuito. creditReset queda unknown a propósito: \"daily rewards\" no es lo mismo que \"los créditos se renuevan a diario\"."
+    ]
   },
   {
     "id": "tool_claude",
@@ -382,9 +464,9 @@
         "Menos funciones multimodales que ChatGPT"
       ],
       "requiresSignup": "yes",
-      "requiresCreditCard": "no",
-      "hasWatermark": "no",
-      "commercialUse": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
       "creditReset": "none",
       "verifiedAt": "2026-07-08"
     },
@@ -449,9 +531,7 @@
       "chatgpt",
       "google-gemini"
     ],
-    "alternativeNames": [
-      "HuggingChat"
-    ],
+    "alternativeNames": [],
     "changelog": [
       {
         "date": "2023-07-01",
@@ -502,7 +582,7 @@
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
-      "hasWatermark": "no",
+      "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
       "verifiedAt": "2026-08-07"
@@ -586,6 +666,178 @@
     "updatedAt": "2026-08-07"
   },
   {
+    "id": "tool_clipdrop",
+    "kind": "app",
+    "verification": "verified",
+    "nextReviewAt": "2026-11-12",
+    "categorySlug": "imagen",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "openSource": "no",
+    "hosting": "cloud",
+    "platforms": [
+      "web"
+    ],
+    "languages": [
+      "en"
+    ],
+    "skillLevel": "beginner",
+    "privacy": {},
+    "sources": [
+      {
+        "url": "https://clipdrop.co/pricing",
+        "label": "Página oficial de precios o producto",
+        "kind": "pricing",
+        "publisher": "clipdrop.co",
+        "checkedAt": "2026-08-12"
+      }
+    ],
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-12",
+    "lastVerifiedAt": "2026-08-12",
+    "updatedAt": "2026-08-12",
+    "slug": "clipdrop",
+    "name": "Clipdrop",
+    "tagline": "Generación y edición de imagen con cuotas gratuitas que se renuevan cada 24 horas.",
+    "descriptionShort": "Suite de imagen en el navegador: texto a imagen, quitar fondo, reencuadrar, escalar y limpiar. Su plan gratuito asigna cuotas por herramienta que se renuevan cada 24 horas.",
+    "officialUrl": "https://clipdrop.co/",
+    "pricingUrl": "https://clipdrop.co/pricing",
+    "freeModel": "credits",
+    "freePlan": {
+      "summary": "Plan gratuito con cuotas por herramienta que se renuevan cada 24 horas: 20 usos en quitar fondo, escalado, limpieza y reiluminación, y 50 en el borrador de texto.",
+      "limits": [
+        "Background Removal 20/24h",
+        "Image Upscaler x2 20/24h",
+        "Cleanup 20/24h",
+        "Text Remover 50/24h"
+      ],
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "daily",
+      "creditsAmount": "20/24h por herramienta",
+      "verifiedAt": "2026-08-12"
+    },
+    "scores": {
+      "freeReal": 8,
+      "usefulness": 8,
+      "ease": 9,
+      "transparency": 8,
+      "creatorValue": 7
+    },
+    "verdict": "Cuotas diarias documentadas por herramienta, que es justo lo que un catálogo de acceso gratuito debe poder decir.",
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://clipdrop.co/pricing",
+        "verifiedAt": "2026-08-12",
+        "quote": "Free 0 - Start for free Text to image Uncrop Background Removal 20/24h Image Upscaler x2 20/24h Cleanup 20/24h Relight 20/24h Text Remover 50/24h"
+      }
+    },
+    "descriptionLong": ""
+  },
+  {
+    "id": "tool_comfy-cloud",
+    "kind": "platform",
+    "verification": "verified",
+    "nextReviewAt": "2026-11-12",
+    "categorySlug": "imagen",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "openSource": "no",
+    "hosting": "cloud",
+    "platforms": [
+      "web"
+    ],
+    "languages": [
+      "en"
+    ],
+    "skillLevel": "intermediate",
+    "privacy": {},
+    "sources": [
+      {
+        "url": "https://www.comfy.org/pricing",
+        "label": "Página oficial de precios o producto",
+        "kind": "pricing",
+        "publisher": "comfy.org",
+        "checkedAt": "2026-08-12"
+      }
+    ],
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-12",
+    "lastVerifiedAt": "2026-08-12",
+    "updatedAt": "2026-08-12",
+    "slug": "comfy-cloud",
+    "name": "Comfy Cloud",
+    "tagline": "ComfyUI alojado, con cinco ejecuciones gratuitas y sin tarjeta.",
+    "descriptionShort": "La versión alojada de ComfyUI: los mismos flujos de nodos sin instalar nada ni tener GPU. Ofrece cinco ejecuciones gratuitas para empezar.",
+    "officialUrl": "https://www.comfy.org/",
+    "pricingUrl": "https://www.comfy.org/pricing",
+    "freeModel": "credits",
+    "freePlan": {
+      "summary": "Cinco ejecuciones gratuitas en GPU real, sin tarjeta. La página no dice que se renueven, así que se registran como asignación única.",
+      "limits": [
+        "5 free runs on real GPUs"
+      ],
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "no",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "one_off",
+      "creditsAmount": "5 free runs",
+      "verifiedAt": "2026-08-12"
+    },
+    "scores": {
+      "freeReal": 6,
+      "usefulness": 8,
+      "ease": 6,
+      "transparency": 9,
+      "creatorValue": 7
+    },
+    "verdict": "Cinco ejecuciones no son una capa gratuita, y el fabricante no pretende que lo sean. Sirve para probar los flujos sin comprar una GPU.",
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://www.comfy.org/pricing",
+        "verifiedAt": "2026-08-12",
+        "quote": "Start free. Upgrade when you're ready. 5 free runs on real GPUs — no credit card required."
+      },
+      "requiresCreditCard": {
+        "sourceUrl": "https://www.comfy.org/pricing",
+        "verifiedAt": "2026-08-12",
+        "quote": "no credit card required"
+      }
+    },
+    "descriptionLong": ""
+  },
+  {
     "id": "tool_comfyui",
     "slug": "comfyui",
     "name": "ComfyUI",
@@ -615,9 +867,9 @@
         "Los workflows complejos pueden ser difíciles de depurar"
       ],
       "requiresSignup": "no",
-      "requiresCreditCard": "no",
-      "hasWatermark": "no",
-      "commercialUse": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
       "creditReset": "none",
       "verifiedAt": "2026-07-08"
     },
@@ -635,9 +887,9 @@
       "trainsOnUserData": "unverified",
       "optOutAvailable": "unverified"
     },
-    "officialUrl": "https://github.com/comfyanonymous/ComfyUI",
+    "officialUrl": "https://github.com/Comfy-Org/ComfyUI",
     "docsUrl": "https://comfyanonymous.github.io/ComfyUI_examples/",
-    "repoUrl": "https://github.com/comfyanonymous/ComfyUI",
+    "repoUrl": "https://github.com/Comfy-Org/ComfyUI",
     "sources": [
       {
         "url": "https://github.com/comfyanonymous/ComfyUI",
@@ -678,9 +930,7 @@
       "stable-diffusion-webui",
       "fooocus"
     ],
-    "alternativeNames": [
-      "InvokeAI"
-    ],
+    "alternativeNames": [],
     "changelog": [
       {
         "date": "2024-02-20",
@@ -698,7 +948,10 @@
     "status": "published",
     "detectedAt": "2024-02-20",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "auditNotes": [
+      "El repositorio pasó de comfyanonymous/ComfyUI a Comfy-Org/ComfyUI. La URL anterior redirige, pero nombraba a un propietario que ya no lo es."
+    ]
   },
   {
     "id": "tool_cursor",
@@ -732,8 +985,8 @@
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "no",
-      "hasWatermark": "no",
-      "commercialUse": "yes",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
       "creditReset": "none",
       "verifiedAt": "2026-07-08"
     },
@@ -791,11 +1044,7 @@
     "bestFor": [],
     "notFor": [],
     "alternatives": [],
-    "alternativeNames": [
-      "GitHub Copilot",
-      "Windsurf",
-      "Continue.dev"
-    ],
+    "alternativeNames": [],
     "changelog": [
       {
         "date": "2023-10-01",
@@ -813,7 +1062,14 @@
     "status": "published",
     "detectedAt": "2023-10-01",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "evidence": {
+      "requiresCreditCard": {
+        "sourceUrl": "https://cursor.com/pricing",
+        "verifiedAt": "2026-08-12",
+        "quote": "Hobby Free Includes: ✓ No credit card required"
+      }
+    }
   },
   {
     "id": "tool_elevenlabs",
@@ -836,7 +1092,7 @@
       "Voces para proyectos interactivos",
       "Generación de efectos de sonido IA"
     ],
-    "freeModel": "freemium",
+    "freeModel": "credits",
     "freePlan": {
       "summary": "Plan gratuito con 10,000 caracteres/mes (~10 minutos de audio). Acceso a voces básicas. Sin clonación de voz en plan gratuito.",
       "limits": [
@@ -846,11 +1102,12 @@
         "Voces premium bloqueadas en plan gratuito"
       ],
       "requiresSignup": "yes",
-      "requiresCreditCard": "no",
-      "hasWatermark": "no",
-      "commercialUse": "partial",
-      "creditReset": "none",
-      "verifiedAt": "2026-07-08"
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "monthly",
+      "verifiedAt": "2026-08-12",
+      "creditsAmount": "10k credits per month"
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -904,11 +1161,7 @@
     "bestFor": [],
     "notFor": [],
     "alternatives": [],
-    "alternativeNames": [
-      "PlayHT",
-      "Murf AI",
-      "Coqui TTS (open source)"
-    ],
+    "alternativeNames": [],
     "changelog": [
       {
         "date": "2023-03-01",
@@ -926,7 +1179,14 @@
     "status": "published",
     "detectedAt": "2023-03-01",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://elevenlabs.io/pricing",
+        "verifiedAt": "2026-08-12",
+        "quote": "Free $0 per month ... 10k credits per month"
+      }
+    }
   },
   {
     "id": "tool_fooocus",
@@ -958,9 +1218,9 @@
         "Personalización avanzada limitada"
       ],
       "requiresSignup": "no",
-      "requiresCreditCard": "no",
-      "hasWatermark": "no",
-      "commercialUse": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
       "creditReset": "none",
       "verifiedAt": "2026-07-08"
     },
@@ -973,7 +1233,7 @@
       "cli"
     ],
     "languages": [],
-    "skillLevel": "beginner",
+    "skillLevel": "intermediate",
     "privacy": {
       "trainsOnUserData": "unverified",
       "optOutAvailable": "unverified"
@@ -1021,9 +1281,7 @@
       "stable-diffusion-webui",
       "comfyui"
     ],
-    "alternativeNames": [
-      "InvokeAI"
-    ],
+    "alternativeNames": [],
     "changelog": [
       {
         "date": "2023-08-15",
@@ -1041,7 +1299,10 @@
     "status": "published",
     "detectedAt": "2023-08-15",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "auditNotes": [
+      "Aplicación Python local que exige GPU e instalación. Presentarla como \"beginner\" junto a generadores web es la comparación engañosa que la auditoría señaló. Último push del repositorio: 2025-12-01."
+    ]
   },
   {
     "id": "tool_gemma-4",
@@ -1074,9 +1335,9 @@
         "Las generaciones Gemma 1 a 3 siguen bajo la licencia propia de Google, no Apache 2.0"
       ],
       "requiresSignup": "no",
-      "requiresCreditCard": "no",
-      "hasWatermark": "no",
-      "commercialUse": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
       "creditReset": "none",
       "verifiedAt": "2026-08-07"
     },
@@ -1181,7 +1442,7 @@
       "Escritura y edición colaborativa",
       "Análisis de contenido multimedia (YouTube, imágenes)"
     ],
-    "freeModel": "free_real",
+    "freeModel": "unknown",
     "freePlan": {
       "summary": "Plan gratuito generoso con acceso a Gemini (modelo principal). Integración con servicios Google. Generación de imágenes incluida. Sin tarjeta.",
       "limits": [
@@ -1191,9 +1452,9 @@
         "Menos preciso en razonamiento complejo que Claude"
       ],
       "requiresSignup": "yes",
-      "requiresCreditCard": "no",
-      "hasWatermark": "no",
-      "commercialUse": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
       "creditReset": "none",
       "verifiedAt": "2026-07-08"
     },
@@ -1259,9 +1520,7 @@
       "chatgpt",
       "claude"
     ],
-    "alternativeNames": [
-      "HuggingChat"
-    ],
+    "alternativeNames": [],
     "changelog": [
       {
         "date": "2023-12-06",
@@ -1279,7 +1538,10 @@
     "status": "published",
     "detectedAt": "2023-12-06",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "auditNotes": [
+      "Su página no se puede leer de forma automatizada."
+    ]
   },
   {
     "id": "tool_hugging-face-spaces",
@@ -1310,8 +1572,8 @@
         "No es una herramienta única sino un repositorio"
       ],
       "requiresSignup": "no",
-      "requiresCreditCard": "no",
-      "hasWatermark": "no",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
       "verifiedAt": "2026-07-08"
@@ -1378,9 +1640,7 @@
       "replicate",
       "pinokio"
     ],
-    "alternativeNames": [
-      "Google Colab"
-    ],
+    "alternativeNames": [],
     "changelog": [
       {
         "date": "2023-01-10",
@@ -1399,6 +1659,91 @@
     "detectedAt": "2023-01-10",
     "lastVerifiedAt": "2026-07-08",
     "updatedAt": "2026-07-08"
+  },
+  {
+    "id": "tool_invokeai",
+    "kind": "interface",
+    "verification": "verified",
+    "nextReviewAt": "2026-11-12",
+    "categorySlug": "imagen",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "openSource": "yes",
+    "hosting": "local",
+    "platforms": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "languages": [
+      "en"
+    ],
+    "skillLevel": "intermediate",
+    "privacy": {},
+    "sources": [
+      {
+        "url": "https://api.github.com/repos/invoke-ai/InvokeAI",
+        "label": "Metadatos oficiales del repositorio",
+        "kind": "repo",
+        "publisher": "github.com/invoke-ai",
+        "checkedAt": "2026-08-12"
+      }
+    ],
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-12",
+    "lastVerifiedAt": "2026-08-12",
+    "updatedAt": "2026-08-12",
+    "slug": "invokeai",
+    "name": "InvokeAI",
+    "tagline": "Interfaz local de generación con licencia Apache 2.0 y desarrollo activo.",
+    "descriptionShort": "Interfaz profesional para difusión local, con lienzo de edición y control de flujos. Se instala en tu equipo y necesita GPU.",
+    "officialUrl": "https://github.com/invoke-ai/InvokeAI",
+    "repoUrl": "https://github.com/invoke-ai/InvokeAI",
+    "licence": "Apache-2.0",
+    "freeModel": "open_source",
+    "freePlan": {
+      "summary": "Software libre bajo Apache 2.0. Gratis por licencia; el coste real es tu hardware y la instalación.",
+      "limits": [
+        "Requiere GPU",
+        "Requiere instalación local"
+      ],
+      "requiresSignup": "no",
+      "requiresCreditCard": "no",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-08-12"
+    },
+    "scores": {
+      "freeReal": 10,
+      "usefulness": 8,
+      "ease": 5,
+      "transparency": 9,
+      "creatorValue": 8
+    },
+    "verdict": "Licencia y actividad verificadas en el repositorio oficial. No es para quien quiere abrir una web y generar.",
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://api.github.com/repos/invoke-ai/InvokeAI",
+        "verifiedAt": "2026-08-12",
+        "quote": "spdx_id: Apache-2.0 · archived: false · pushed_at: 2026-08-09"
+      }
+    },
+    "descriptionLong": ""
   },
   {
     "id": "tool_leonardo-ai",
@@ -1421,7 +1766,7 @@
       "Fine-tuning de modelos con imágenes propias",
       "Producción de imágenes para uso comercial"
     ],
-    "freeModel": "freemium",
+    "freeModel": "unknown",
     "freePlan": {
       "summary": "Plan gratuito con ~150 créditos diarios (se renuevan cada día). Acceso a la mayoría de modelos. Sin marca de agua. Uso comercial permitido en imágenes generadas.",
       "limits": [
@@ -1431,9 +1776,9 @@
         "Propietario (no open-source)"
       ],
       "requiresSignup": "yes",
-      "requiresCreditCard": "no",
-      "hasWatermark": "no",
-      "commercialUse": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
       "creditReset": "none",
       "verifiedAt": "2026-07-08"
     },
@@ -1517,7 +1862,10 @@
     "status": "published",
     "detectedAt": "2023-06-15",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "auditNotes": [
+      "Su sitio devuelve 403 a lectura automatizada. Sin fuente legible, no afirmamos nada."
+    ]
   },
   {
     "id": "tool_lm-studio",
@@ -1547,8 +1895,8 @@
         "Rendimiento depende del hardware local"
       ],
       "requiresSignup": "no",
-      "requiresCreditCard": "no",
-      "hasWatermark": "no",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
       "verifiedAt": "2026-07-08"
@@ -1562,7 +1910,7 @@
       "api"
     ],
     "languages": [],
-    "skillLevel": "beginner",
+    "skillLevel": "intermediate",
     "privacy": {
       "trainsOnUserData": "unverified",
       "optOutAvailable": "unverified"
@@ -1608,10 +1956,7 @@
     "alternatives": [
       "ollama"
     ],
-    "alternativeNames": [
-      "GPT4All",
-      "Jan"
-    ],
+    "alternativeNames": [],
     "changelog": [
       {
         "date": "2024-01-10",
@@ -1652,7 +1997,7 @@
       "Generación de imágenes con estilo artístico único",
       "Referencias visuales para diseñadores y artistas"
     ],
-    "freeModel": "trial",
+    "freeModel": "unknown",
     "freePlan": {
       "summary": "Sin plan gratuito permanente. Ocasionalmente ofrece trials de ~25 generaciones para nuevos usuarios. Después requiere suscripción (desde $10/mes).",
       "limits": [
@@ -1662,9 +2007,9 @@
         "No open-source ni ejecutable localmente"
       ],
       "requiresSignup": "yes",
-      "requiresCreditCard": "no",
-      "hasWatermark": "no",
-      "commercialUse": "partial",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
       "creditReset": "none",
       "verifiedAt": "2026-07-08"
     },
@@ -1748,7 +2093,10 @@
     "status": "published",
     "detectedAt": "2022-07-12",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "auditNotes": [
+      "Su web y su centro de ayuda devuelven 403 a lectura automatizada. El \"trial\" que declaraba la ficha no se puede demostrar, y un trial sin prueba invita a intentar registrarse gratis y no poder."
+    ]
   },
   {
     "id": "tool_ollama",
@@ -1778,9 +2126,9 @@
         "No tiene interfaz gráfica oficial (solo CLI y API)"
       ],
       "requiresSignup": "no",
-      "requiresCreditCard": "no",
-      "hasWatermark": "no",
-      "commercialUse": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
       "creditReset": "none",
       "verifiedAt": "2026-07-08"
     },
@@ -1794,7 +2142,7 @@
       "api"
     ],
     "languages": [],
-    "skillLevel": "beginner",
+    "skillLevel": "intermediate",
     "privacy": {
       "trainsOnUserData": "unverified",
       "optOutAvailable": "unverified"
@@ -1847,10 +2195,7 @@
     "alternatives": [
       "lm-studio"
     ],
-    "alternativeNames": [
-      "llama.cpp",
-      "GPT4All"
-    ],
+    "alternativeNames": [],
     "changelog": [
       {
         "date": "2023-10-15",
@@ -1889,7 +2234,7 @@
       "Análisis de documentos con IA",
       "Seguimiento de noticias y tendencias"
     ],
-    "freeModel": "free_real",
+    "freeModel": "unknown",
     "freePlan": {
       "summary": "Plan gratuito con búsquedas ilimitadas usando Sonar (modelo propio). Acceso a búsqueda web, citas, y subida de archivos. Sin necesidad de tarjeta.",
       "limits": [
@@ -1899,9 +2244,9 @@
         "No open-source ni ejecutable localmente"
       ],
       "requiresSignup": "no",
-      "requiresCreditCard": "no",
-      "hasWatermark": "no",
-      "commercialUse": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
       "creditReset": "none",
       "verifiedAt": "2026-07-08"
     },
@@ -1960,9 +2305,7 @@
       "chatgpt",
       "google-gemini"
     ],
-    "alternativeNames": [
-      "You.com"
-    ],
+    "alternativeNames": [],
     "changelog": [
       {
         "date": "2023-08-01",
@@ -1980,7 +2323,10 @@
     "status": "published",
     "detectedAt": "2023-08-01",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "auditNotes": [
+      "Su sitio devuelve 403 a lectura automatizada."
+    ]
   },
   {
     "id": "tool_pika-labs",
@@ -2003,7 +2349,7 @@
       "Contenido creativo para redes sociales",
       "Animaciones simples desde imágenes estáticas"
     ],
-    "freeModel": "freemium",
+    "freeModel": "credits",
     "freePlan": {
       "summary": "Plan gratuito con generaciones limitadas. Créditos diarios/semanales que se renuevan. Sin marca de agua en plan gratuito (confirmar vigencia).",
       "limits": [
@@ -2013,11 +2359,12 @@
         "Calidad variable según el prompt"
       ],
       "requiresSignup": "yes",
-      "requiresCreditCard": "no",
+      "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
-      "creditReset": "none",
-      "verifiedAt": "2026-07-08"
+      "creditReset": "monthly",
+      "verifiedAt": "2026-08-12",
+      "creditsAmount": "80 monthly video credits"
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -2072,10 +2419,7 @@
     "alternatives": [
       "runwayml"
     ],
-    "alternativeNames": [
-      "Kling AI",
-      "Hailuo AI"
-    ],
+    "alternativeNames": [],
     "changelog": [
       {
         "date": "2024-03-10",
@@ -2093,7 +2437,14 @@
     "status": "published",
     "detectedAt": "2024-03-10",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://pika.art/pricing",
+        "verifiedAt": "2026-08-12",
+        "quote": "$0 Free billed yearly Basic ... 80 monthly video credits"
+      }
+    }
   },
   {
     "id": "tool_pinokio",
@@ -2124,8 +2475,8 @@
         "Interfaz a veces poco intuitiva"
       ],
       "requiresSignup": "no",
-      "requiresCreditCard": "no",
-      "hasWatermark": "no",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
       "verifiedAt": "2026-07-08"
@@ -2185,11 +2536,7 @@
     "bestFor": [],
     "notFor": [],
     "alternatives": [],
-    "alternativeNames": [
-      "Stability Matrix",
-      "Instalación manual",
-      "Docker"
-    ],
+    "alternativeNames": [],
     "changelog": [
       {
         "date": "2023-09-01",
@@ -2210,6 +2557,259 @@
     "updatedAt": "2026-07-08"
   },
   {
+    "id": "tool_pixelcut",
+    "kind": "app",
+    "verification": "verified",
+    "nextReviewAt": "2026-11-12",
+    "categorySlug": "imagen",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "openSource": "no",
+    "hosting": "cloud",
+    "platforms": [
+      "web"
+    ],
+    "languages": [
+      "en"
+    ],
+    "skillLevel": "beginner",
+    "privacy": {},
+    "sources": [
+      {
+        "url": "https://www.pixelcut.ai/pricing",
+        "label": "Página oficial de precios o producto",
+        "kind": "pricing",
+        "publisher": "pixelcut.ai",
+        "checkedAt": "2026-08-12"
+      }
+    ],
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-12",
+    "lastVerifiedAt": "2026-08-12",
+    "updatedAt": "2026-08-12",
+    "slug": "pixelcut",
+    "name": "Pixelcut",
+    "tagline": "Edición de producto con exportación sin marca de agua en el plan gratuito.",
+    "descriptionShort": "Editor de imagen orientado a fotografía de producto: quitar fondo, escalar y generar escenas. El plan gratuito exporta sin marca de agua.",
+    "officialUrl": "https://www.pixelcut.ai/",
+    "pricingUrl": "https://www.pixelcut.ai/pricing",
+    "freeModel": "freemium",
+    "freePlan": {
+      "summary": "Plan gratuito a 0 $/mes con quitar fondo y escalado limitados, y exportación sin marca de agua.",
+      "limits": [
+        "Limited Background Removal",
+        "Limited Upscale"
+      ],
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "no",
+      "commercialUse": "unverified",
+      "creditReset": "unknown",
+      "verifiedAt": "2026-08-12"
+    },
+    "scores": {
+      "freeReal": 7,
+      "usefulness": 7,
+      "ease": 9,
+      "transparency": 8,
+      "creatorValue": 7
+    },
+    "verdict": "Una de las pocas donde «sin marca de agua» está escrito por el fabricante en el propio plan gratuito.",
+    "evidence": {
+      "watermark": {
+        "sourceUrl": "https://www.pixelcut.ai/pricing",
+        "verifiedAt": "2026-08-12",
+        "quote": "Free $0 per month Continue Limited Background Removal Limited Upscale Free export without watermark"
+      }
+    },
+    "descriptionLong": ""
+  },
+  {
+    "id": "tool_playground-ai",
+    "kind": "app",
+    "verification": "verified",
+    "nextReviewAt": "2026-11-12",
+    "categorySlug": "imagen",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "openSource": "no",
+    "hosting": "cloud",
+    "platforms": [
+      "web"
+    ],
+    "languages": [
+      "en"
+    ],
+    "skillLevel": "beginner",
+    "privacy": {},
+    "sources": [
+      {
+        "url": "https://playground.com/pricing",
+        "label": "Página oficial de precios o producto",
+        "kind": "pricing",
+        "publisher": "playground.com",
+        "checkedAt": "2026-08-12"
+      }
+    ],
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-12",
+    "lastVerifiedAt": "2026-08-12",
+    "updatedAt": "2026-08-12",
+    "slug": "playground-ai",
+    "name": "Playground",
+    "tagline": "Diez imágenes cada tres horas en el plan gratuito, con licencia comercial.",
+    "descriptionShort": "Generador de imagen en el navegador. El plan gratuito documenta su límite —diez imágenes cada tres horas— y concede licencia comercial sobre lo generado.",
+    "officialUrl": "https://playground.com/",
+    "pricingUrl": "https://playground.com/pricing",
+    "freeModel": "credits",
+    "freePlan": {
+      "summary": "Plan gratuito activo con hasta diez imágenes cada tres horas y tres generaciones mensuales en los modelos premium. La licencia comercial se concede también en el plan gratuito.",
+      "limits": [
+        "Create up to 10 images every 3 hours",
+        "3 monthly generations across Nano Banana, GPT Image 2, and Seedream",
+        "Slower generation during peak hours"
+      ],
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "yes",
+      "creditReset": "daily",
+      "creditsAmount": "10 imágenes cada 3 horas",
+      "verifiedAt": "2026-08-12"
+    },
+    "scores": {
+      "freeReal": 8,
+      "usefulness": 8,
+      "ease": 9,
+      "transparency": 8,
+      "creatorValue": 8
+    },
+    "verdict": "De las pocas que documentan a la vez el límite del plan gratuito y que puedes usar comercialmente lo que genera.",
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://playground.com/pricing",
+        "verifiedAt": "2026-08-12",
+        "quote": "Free ACTIVE For exploring and casual creation Limited image generation Create up to 10 images every 3 hours Limited model access 3 monthly generations across Nano Banana, GPT Image 2, and Seedream"
+      },
+      "commercialUse": {
+        "sourceUrl": "https://playground.com/pricing",
+        "verifiedAt": "2026-08-12",
+        "quote": "Commercial use World-wide, royalty free license"
+      }
+    },
+    "descriptionLong": ""
+  },
+  {
+    "id": "tool_recraft",
+    "kind": "app",
+    "verification": "verified",
+    "nextReviewAt": "2026-11-12",
+    "categorySlug": "imagen",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "openSource": "no",
+    "hosting": "cloud",
+    "platforms": [
+      "web"
+    ],
+    "languages": [
+      "en"
+    ],
+    "skillLevel": "beginner",
+    "privacy": {},
+    "sources": [
+      {
+        "url": "https://www.recraft.ai/pricing",
+        "label": "Página oficial de precios o producto",
+        "kind": "pricing",
+        "publisher": "recraft.ai",
+        "checkedAt": "2026-08-12"
+      }
+    ],
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-12",
+    "lastVerifiedAt": "2026-08-12",
+    "updatedAt": "2026-08-12",
+    "slug": "recraft",
+    "name": "Recraft",
+    "tagline": "Generación vectorial y de marca. Lo gratuito no se puede usar comercialmente.",
+    "descriptionShort": "Generador orientado a diseño gráfico y vectores. Su plan gratuito es utilizable, pero las imágenes son propiedad de Recraft y no llevan licencia comercial.",
+    "officialUrl": "https://www.recraft.ai/",
+    "pricingUrl": "https://www.recraft.ai/pricing",
+    "freeModel": "freemium",
+    "freePlan": {
+      "summary": "Hay plan gratuito, pero las imágenes generadas en él son propiedad de Recraft, se muestran públicamente en la galería de la comunidad y no llevan licencia de uso comercial.",
+      "limits": [
+        "Las imágenes del plan gratuito son propiedad de Recraft",
+        "Visibles públicamente en la galería"
+      ],
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "no",
+      "creditReset": "unknown",
+      "verifiedAt": "2026-08-12"
+    },
+    "scores": {
+      "freeReal": 5,
+      "usefulness": 8,
+      "ease": 9,
+      "transparency": 9,
+      "creatorValue": 5
+    },
+    "verdict": "Buena para probar y mala para publicar: el propio fabricante dice que lo gratuito no es tuyo ni se puede usar comercialmente.",
+    "evidence": {
+      "commercialUse": {
+        "sourceUrl": "https://www.recraft.ai/pricing",
+        "verifiedAt": "2026-08-12",
+        "quote": "Images generated on the Free plan are owned by Recraft. They are publicly visible in the community gallery and are not licensed for commercial use."
+      }
+    },
+    "descriptionLong": ""
+  },
+  {
     "id": "tool_replicate",
     "slug": "replicate",
     "name": "Replicate",
@@ -2228,7 +2828,7 @@
       "Prototipado rápido de features con IA",
       "Ejecutar modelos en cloud sin GPU local"
     ],
-    "freeModel": "demo",
+    "freeModel": "unknown",
     "freePlan": {
       "summary": "Free tier con créditos limitados para probar modelos. Las ejecuciones en CPU de modelos pequeños pueden ser muy baratas o gratuitas.",
       "limits": [
@@ -2239,8 +2839,8 @@
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
-      "hasWatermark": "no",
-      "commercialUse": "yes",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
       "creditReset": "none",
       "verifiedAt": "2026-07-08"
     },
@@ -2307,10 +2907,7 @@
     "alternatives": [
       "hugging-face-spaces"
     ],
-    "alternativeNames": [
-      "Modal",
-      "Google Colab"
-    ],
+    "alternativeNames": [],
     "changelog": [
       {
         "date": "2023-04-01",
@@ -2328,7 +2925,10 @@
     "status": "published",
     "detectedAt": "2023-04-01",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "auditNotes": [
+      "\"demo\" no describe ninguno de los accesos que ofrece: es una plataforma de inferencia de pago por uso. Sin lectura de su plan gratuito, unknown."
+    ]
   },
   {
     "id": "tool_runwayml",
@@ -2362,9 +2962,9 @@
         "No se ejecuta localmente (cloud-only)"
       ],
       "requiresSignup": "yes",
-      "requiresCreditCard": "no",
-      "hasWatermark": "yes",
-      "commercialUse": "partial",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
       "creditReset": "none",
       "verifiedAt": "2026-07-08"
     },
@@ -2422,10 +3022,7 @@
     "alternatives": [
       "pika-labs"
     ],
-    "alternativeNames": [
-      "Kling AI",
-      "Hailuo AI"
-    ],
+    "alternativeNames": [],
     "changelog": [
       {
         "date": "2023-06-01",
@@ -2444,6 +3041,91 @@
     "detectedAt": "2023-06-01",
     "lastVerifiedAt": "2026-07-08",
     "updatedAt": "2026-07-08"
+  },
+  {
+    "id": "tool_sdnext",
+    "kind": "interface",
+    "verification": "verified",
+    "nextReviewAt": "2026-11-12",
+    "categorySlug": "imagen",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "openSource": "yes",
+    "hosting": "local",
+    "platforms": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "languages": [
+      "en"
+    ],
+    "skillLevel": "advanced",
+    "privacy": {},
+    "sources": [
+      {
+        "url": "https://api.github.com/repos/vladmandic/sdnext",
+        "label": "Metadatos oficiales del repositorio",
+        "kind": "repo",
+        "publisher": "github.com/vladmandic",
+        "checkedAt": "2026-08-12"
+      }
+    ],
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-12",
+    "lastVerifiedAt": "2026-08-12",
+    "updatedAt": "2026-08-12",
+    "slug": "sdnext",
+    "name": "SD.Next",
+    "tagline": "Interfaz local avanzada, Apache 2.0, con desarrollo muy activo.",
+    "descriptionShort": "Bifurcación muy mantenida de las interfaces de difusión locales, con soporte amplio de modelos y backends. Para quien ya sabe lo que hace.",
+    "officialUrl": "https://github.com/vladmandic/sdnext",
+    "repoUrl": "https://github.com/vladmandic/sdnext",
+    "licence": "Apache-2.0",
+    "freeModel": "open_source",
+    "freePlan": {
+      "summary": "Software libre bajo Apache 2.0, con actividad diaria en el repositorio.",
+      "limits": [
+        "Requiere GPU",
+        "Requiere instalación y configuración"
+      ],
+      "requiresSignup": "no",
+      "requiresCreditCard": "no",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-08-12"
+    },
+    "scores": {
+      "freeReal": 10,
+      "usefulness": 8,
+      "ease": 3,
+      "transparency": 9,
+      "creatorValue": 8
+    },
+    "verdict": "Técnica de principio a fin, y honesta al respecto.",
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://api.github.com/repos/vladmandic/sdnext",
+        "verifiedAt": "2026-08-12",
+        "quote": "spdx_id: Apache-2.0 · archived: false · pushed_at: 2026-08-12"
+      }
+    },
+    "descriptionLong": ""
   },
   {
     "id": "tool_stable-diffusion-webui",
@@ -2475,9 +3157,9 @@
         "No incluye modelos por defecto (hay que descargarlos)"
       ],
       "requiresSignup": "no",
-      "requiresCreditCard": "no",
-      "hasWatermark": "no",
-      "commercialUse": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
       "creditReset": "none",
       "verifiedAt": "2026-07-08"
     },
@@ -2491,7 +3173,7 @@
       "extension"
     ],
     "languages": [],
-    "skillLevel": "intermediate",
+    "skillLevel": "advanced",
     "privacy": {
       "trainsOnUserData": "unverified",
       "optOutAvailable": "unverified"
@@ -2539,9 +3221,7 @@
       "comfyui",
       "fooocus"
     ],
-    "alternativeNames": [
-      "InvokeAI"
-    ],
+    "alternativeNames": [],
     "changelog": [
       {
         "date": "2024-01-15",
@@ -2582,7 +3262,7 @@
       "Experimentar con géneros musicales",
       "Bocetos rápidos de ideas musicales"
     ],
-    "freeModel": "freemium",
+    "freeModel": "credits",
     "freePlan": {
       "summary": "Plan gratuito con ~50 créditos diarios (5 generaciones de 2 canciones cada una). Uso no comercial. Las canciones generadas son propiedad de Suno en plan gratuito.",
       "limits": [
@@ -2592,11 +3272,12 @@
         "Menos control sobre estructura musical específica"
       ],
       "requiresSignup": "yes",
-      "requiresCreditCard": "no",
-      "hasWatermark": "no",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
       "commercialUse": "no",
-      "creditReset": "none",
-      "verifiedAt": "2026-07-08"
+      "creditReset": "daily",
+      "verifiedAt": "2026-08-12",
+      "creditsAmount": "50 credits"
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -2649,11 +3330,7 @@
     "bestFor": [],
     "notFor": [],
     "alternatives": [],
-    "alternativeNames": [
-      "Udio",
-      "Stable Audio",
-      "Aiva"
-    ],
+    "alternativeNames": [],
     "changelog": [
       {
         "date": "2024-01-20",
@@ -2671,7 +3348,19 @@
     "status": "published",
     "detectedAt": "2024-01-20",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://suno.com/pricing",
+        "verifiedAt": "2026-08-12",
+        "quote": "Free Plan Our starter plan 50 credits renew daily"
+      },
+      "commercialUse": {
+        "sourceUrl": "https://suno.com/pricing",
+        "verifiedAt": "2026-08-12",
+        "quote": "No commercial use"
+      }
+    }
   },
   {
     "id": "tool_v0-by-vercel",
@@ -2704,9 +3393,9 @@
         "Requiere registro con cuenta de Vercel/GitHub"
       ],
       "requiresSignup": "yes",
-      "requiresCreditCard": "no",
-      "hasWatermark": "no",
-      "commercialUse": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
       "creditReset": "none",
       "verifiedAt": "2026-07-08"
     },
@@ -2771,9 +3460,7 @@
       "bolt-new",
       "cursor"
     ],
-    "alternativeNames": [
-      "Lovable"
-    ],
+    "alternativeNames": [],
     "changelog": [
       {
         "date": "2023-09-15",

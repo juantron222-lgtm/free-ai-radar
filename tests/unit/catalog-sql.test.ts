@@ -29,7 +29,12 @@ let db: {
 let exec: (sql: string, params?: unknown[]) => Promise<Row[]>;
 
 beforeEach(async () => {
-  ({ db } = await createSchema({ migrations: ['supabase/migrations/0001_core_schema.sql'] }));
+  ({ db } = await createSchema({ migrations: [
+      'supabase/migrations/0001_core_schema.sql',
+      // El enum free_model necesita 'unknown' para que una ficha pueda decir
+      // que no se ha podido comprobar. Ver 0009.
+      'supabase/migrations/0009_free_model_unknown.sql',
+    ] }));
   exec = async (sql, params = []) => (await db.query(sql, params)).rows;
 });
 
@@ -86,7 +91,12 @@ describe('la semilla SQL de producción', () => {
 
     // The live path, on a database of its own.
     const { db: other } = await createSchema({
-      migrations: ['supabase/migrations/0001_core_schema.sql'],
+      migrations: [
+      'supabase/migrations/0001_core_schema.sql',
+      // El enum free_model necesita 'unknown' para que una ficha pueda decir
+      // que no se ha podido comprobar. Ver 0009.
+      'supabase/migrations/0009_free_model_unknown.sql',
+    ],
     });
     const otherExec = async (sql: string, params: unknown[] = []) =>
       (await other.query(sql, params)).rows;

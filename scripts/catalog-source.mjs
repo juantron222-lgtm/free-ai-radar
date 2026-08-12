@@ -80,6 +80,9 @@ const TOOL_COLUMNS = new Set([
   'detected_at', 'last_verified_at', 'created_at', 'updated_at',
 ]);
 
+/** Campos que sólo viven en el repositorio. Ver el motivo en catalogRows(). */
+const EDITORIAL_ONLY = new Set(['evidence', 'auditNotes']);
+
 export async function catalogRows() {
   const tools = JSON.parse(readFileSync(join(ROOT, 'src/data/generated/tools.json'), 'utf8'));
   const categories = await loadCategories();
@@ -90,6 +93,20 @@ export async function catalogRows() {
   const toolRows = tools.map((tool) => {
     const row = {};
     for (const [key, value] of Object.entries(tool)) {
+      /*
+       * Editorial-only fields, left out of the mirror on purpose.
+       *
+       * `evidence` carries the quote and the date behind each perishable claim,
+       * and `auditNotes` records why a field says what it says. Both belong to
+       * the repository, where they are reviewed in a diff — the mirror exists so
+       * a favourite can reference a tool by foreign key, and nothing in Postgres
+       * reads either of them.
+       *
+       * Declared here rather than added as columns because a column nobody
+       * queries is a column that drifts out of date silently.
+       */
+      if (EDITORIAL_ONLY.has(key)) continue;
+
       const column = snake(key);
       if (!TOOL_COLUMNS.has(column)) {
         unknown.add(key);

@@ -41,6 +41,7 @@ const MIGRATIONS = [
   'supabase/migrations/0006_auth_user_trigger.sql',
   'supabase/migrations/0007_amazon_cache_instant.sql',
   'supabase/migrations/0008_amazon_creators_state.sql',
+  'supabase/migrations/0009_free_model_unknown.sql',
 ];
 
 const SUITE = 'supabase/tests/rls_adversarial.sql';
