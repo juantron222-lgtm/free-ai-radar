@@ -34,6 +34,7 @@ beforeEach(async () => {
       // El enum free_model necesita 'unknown' para que una ficha pueda decir
       // que no se ha podido comprobar. Ver 0009.
       'supabase/migrations/0009_free_model_unknown.sql',
+      'supabase/migrations/0010_capabilities_start_effort.sql',
     ] }));
   exec = async (sql, params = []) => (await db.query(sql, params)).rows;
 });
@@ -96,6 +97,7 @@ describe('la semilla SQL de producción', () => {
       // El enum free_model necesita 'unknown' para que una ficha pueda decir
       // que no se ha podido comprobar. Ver 0009.
       'supabase/migrations/0009_free_model_unknown.sql',
+      'supabase/migrations/0010_capabilities_start_effort.sql',
     ],
     });
     const otherExec = async (sql: string, params: unknown[] = []) =>

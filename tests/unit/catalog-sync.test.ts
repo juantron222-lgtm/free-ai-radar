@@ -32,6 +32,7 @@ beforeEach(async () => {
       // El enum free_model necesita 'unknown' para que una ficha pueda decir
       // que no se ha podido comprobar. Ver 0009.
       'supabase/migrations/0009_free_model_unknown.sql',
+      'supabase/migrations/0010_capabilities_start_effort.sql',
     ] }));
   exec = async (sql, params = []) => (await db.query(sql, params)).rows;
 });
@@ -67,6 +68,8 @@ function tool(slug: string, overrides: Row = {}): Row {
     platforms: [],
     languages: [],
     skill_level: 'beginner',
+    capabilities: [],
+    start_effort: 'signup',
     privacy: {},
     official_url: `https://${slug}.example`,
     sources: [],

@@ -375,3 +375,110 @@ export const CREDIT_RESET_LABEL: Record<CreditReset, string> = {
   one_off: 'Única (no se renueva)',
   unknown: 'Sin confirmar',
 };
+
+// ---------------------------------------------------------------------------
+// Capacidades
+// ---------------------------------------------------------------------------
+
+/**
+ * Qué sabe hacer una herramienta, separado de en qué categoría vive.
+ *
+ * La categoría dice de qué trata; la capacidad dice qué puedes pedirle. Sin
+ * esta separación, "Imagen" contenía a la vez una comunidad de modelos, dos
+ * interfaces locales, un grafo de nodos y dos generadores web — seis cosas que
+ * no se pueden comparar entre sí porque no hacen lo mismo.
+ *
+ * **Una capacidad sólo se marca si una página oficial la nombra.** No se deduce
+ * de que "todos los generadores hacen esto": el catálogo acaba de salir de una
+ * auditoría donde veintidós fichas afirmaban por defecto algo que nadie había
+ * comprobado, y esta lista es exactamente igual de fácil de rellenar a ojo.
+ */
+export const CAPABILITIES = [
+  // Imagen
+  'text-to-image',
+  'image-to-image',
+  'image-editing',
+  'inpainting',
+  'outpainting',
+  'reference-image',
+  'character-consistency',
+  'upscaling',
+  'background-removal',
+  // Vídeo
+  'text-to-video',
+  'image-to-video',
+  'video-editing',
+  // Audio
+  'text-to-speech',
+  'voice-clone',
+  'text-to-music',
+  'transcription',
+  // Texto y código
+  'text-generation',
+  'code-generation',
+  'agents',
+  // Infraestructura
+  'api',
+  'model-hosting',
+  'model-download',
+] as const;
+export type Capability = (typeof CAPABILITIES)[number];
+
+export const CAPABILITY_LABEL: Record<Capability, string> = {
+  'text-to-image': 'Texto a imagen',
+  'image-to-image': 'Imagen a imagen',
+  'image-editing': 'Edición de imagen',
+  inpainting: 'Rellenar zonas',
+  outpainting: 'Ampliar el encuadre',
+  'reference-image': 'Imagen de referencia',
+  'character-consistency': 'Personaje consistente',
+  upscaling: 'Escalado',
+  'background-removal': 'Quitar fondo',
+  'text-to-video': 'Texto a vídeo',
+  'image-to-video': 'Imagen a vídeo',
+  'video-editing': 'Edición de vídeo',
+  'text-to-speech': 'Texto a voz',
+  'voice-clone': 'Clonación de voz',
+  'text-to-music': 'Texto a música',
+  transcription: 'Transcripción',
+  'text-generation': 'Generación de texto',
+  'code-generation': 'Generación de código',
+  agents: 'Agentes',
+  api: 'API',
+  'model-hosting': 'Ejecuta modelos alojados',
+  'model-download': 'Descarga de modelos',
+};
+
+// ---------------------------------------------------------------------------
+// Esfuerzo para empezar
+// ---------------------------------------------------------------------------
+
+/**
+ * Cuánto hay entre abrir la página y obtener un resultado.
+ *
+ * Sustituye a `skillLevel`, que medía la pericia del usuario y no el trabajo
+ * que exige la herramienta. Con `skillLevel` se podía llamar "principiante" a
+ * Fooocus —una aplicación Python que necesita GPU— y a un generador web, y la
+ * comparación resultante era engañosa aunque cada etiqueta fuese defendible por
+ * separado.
+ *
+ * Esto no es una afirmación sobre el fabricante, sino una lectura editorial de
+ * lo que cuesta empezar. Por eso no exige cita: lo que exige cita es lo que la
+ * empresa promete, no lo que nosotros observamos.
+ */
+export const START_EFFORT = ['instant', 'signup', 'install', 'technical'] as const;
+export type StartEffort = (typeof START_EFFORT)[number];
+
+export const START_EFFORT_LABEL: Record<StartEffort, string> = {
+  instant: 'Abres y generas',
+  signup: 'Cuenta y algo de configuración',
+  install: 'Instalación sencilla',
+  technical: 'Instalación técnica, modelos o GPU',
+};
+
+export const START_EFFORT_MEANING: Record<StartEffort, string> = {
+  instant: 'Entras en la web y generas. Sin instalar nada.',
+  signup: 'Hace falta crear cuenta o configurar algo antes del primer resultado.',
+  install: 'Se instala en tu equipo, pero el proceso es guiado y no exige conocimientos.',
+  technical: 'Exige descargar modelos, configurar entornos o disponer de GPU.',
+};

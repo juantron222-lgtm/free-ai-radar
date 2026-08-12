@@ -110,7 +110,18 @@
     "status": "published",
     "detectedAt": "2024-06-01",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "startEffort": "signup",
+    "capabilities": [
+      "agents"
+    ],
+    "evidence": {
+      "capabilities": {
+        "sourceUrl": "https://bolt.new",
+        "verifiedAt": "2026-08-12",
+        "quote": "ng product builders with the most powerful coding agents Bolt does the heavy lifting for you, so you can focus"
+      }
+    }
   },
   {
     "id": "tool_chatgpt",
@@ -230,7 +241,19 @@
     "status": "published",
     "detectedAt": "2022-11-30",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "startEffort": "instant",
+    "capabilities": [
+      "text-generation",
+      "api"
+    ],
+    "evidence": {
+      "capabilities": {
+        "sourceUrl": "https://chat.openai.com",
+        "verifiedAt": "2026-08-12",
+        "quote": "ose a model Pricing Model selection Text and code Text generation Code generation Structured output Prompting  · Pro, Feature: Analytics dashboard, No Compliance API Logs Platform Plan: Free, Feature: Compliance API Logs Pl"
+      }
+    }
   },
   {
     "id": "tool_civitai",
@@ -357,10 +380,19 @@
         "sourceUrl": "https://civitai.com/pricing",
         "verifiedAt": "2026-08-12",
         "quote": "Buzz on daily rewards"
+      },
+      "capabilities": {
+        "sourceUrl": "https://civitai.com",
+        "verifiedAt": "2026-08-12",
+        "quote": "re © Civitai 2026 Terms of Service Privacy Safety API Status Known Issues Education Creators 🛟 Support Home -"
       }
     },
     "auditNotes": [
       "La página menciona recompensas diarias de Buzz, pero no documenta cuántas ni si esa es la renovación del plan gratuito. creditReset queda unknown a propósito: \"daily rewards\" no es lo mismo que \"los créditos se renuevan a diario\"."
+    ],
+    "startEffort": "signup",
+    "capabilities": [
+      "api"
     ]
   },
   {
@@ -479,7 +511,18 @@
     "status": "published",
     "detectedAt": "2023-07-01",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "startEffort": "instant",
+    "capabilities": [
+      "api"
+    ],
+    "evidence": {
+      "capabilities": {
+        "sourceUrl": "https://www.anthropic.com/pricing",
+        "verifiedAt": "2026-08-12",
+        "quote": "eachers Life sciences Nonprofits Pricing Overview API Resources Insights Blog Customer stories Anthropic news "
+      }
+    }
   },
   {
     "id": "tool_claude-sonnet-5",
@@ -593,7 +636,18 @@
     "status": "published",
     "detectedAt": "2026-08-07",
     "lastVerifiedAt": "2026-08-07",
-    "updatedAt": "2026-08-07"
+    "updatedAt": "2026-08-07",
+    "startEffort": "signup",
+    "capabilities": [
+      "api"
+    ],
+    "evidence": {
+      "capabilities": {
+        "sourceUrl": "https://docs.anthropic.com/en/docs/about-claude/models/overview",
+        "verifiedAt": "2026-08-12",
+        "quote": "odels & pricing  CLI, SDKs, and libraries Claude API skill Release notes  API reference  English   Consol"
+      }
+    }
   },
   {
     "id": "tool_comfyui",
@@ -711,7 +765,24 @@
     "updatedAt": "2026-07-08",
     "auditNotes": [
       "El repositorio pasó de comfyanonymous/ComfyUI a Comfy-Org/ComfyUI. La URL anterior redirige, pero nombraba a un propietario que ya no lo es."
-    ]
+    ],
+    "startEffort": "technical",
+    "capabilities": [
+      "text-to-image",
+      "image-to-image",
+      "image-editing",
+      "inpainting",
+      "outpainting",
+      "upscaling",
+      "api"
+    ],
+    "evidence": {
+      "capabilities": {
+        "sourceUrl": "https://github.com/Comfy-Org/ComfyUI",
+        "verifiedAt": "2026-08-12",
+        "quote": "Image generation : Stable Diffusion 1 · advanced examples: “Hires Fix” aka 2 Pass Txt2Img Img2Img Inpainting Lora Hypernetworks Embeddings/Textual Inv · Image editing : Flux Kontext, Flux"
+      }
+    }
   },
   {
     "id": "tool_cursor",
@@ -832,8 +903,18 @@
         "sourceUrl": "https://cursor.com/pricing",
         "verifiedAt": "2026-08-12",
         "quote": "Hobby Free Includes: ✓ No credit card required"
+      },
+      "capabilities": {
+        "sourceUrl": "https://cursor.com",
+        "verifiedAt": "2026-08-12",
+        "quote": "Cursor: AI coding agent Skip to content Cursor Models Grok Composer Evals Product ↓ · Add rate limits to public routes Working · cursor/api Cache repository search results Working · cursor/web Inv"
       }
-    }
+    },
+    "startEffort": "install",
+    "capabilities": [
+      "agents",
+      "api"
+    ]
   },
   {
     "id": "tool_elevenlabs",
@@ -953,8 +1034,21 @@
         "sourceUrl": "https://elevenlabs.io/pricing",
         "verifiedAt": "2026-08-12",
         "quote": "Free $0 per month ... 10k credits per month"
+      },
+      "capabilities": {
+        "sourceUrl": "https://elevenlabs.io",
+        "verifiedAt": "2026-08-12",
+        "quote": "venAgents Agents ElevenAPI API AI Voice Generator Text to Speech Music Speech to Text Voice Cloning Dubbing Na · ice Generator Text to Speech Music Speech to Text Voice Cloning Dubbing Narration Expressive voices that bring · adford David Castlemore Frederick Surrey Jon Play Music Generate studio-quality tracks instantly, any genre, a"
       }
-    }
+    },
+    "startEffort": "signup",
+    "capabilities": [
+      "text-to-speech",
+      "voice-clone",
+      "text-to-music",
+      "transcription",
+      "api"
+    ]
   },
   {
     "id": "tool_fooocus",
@@ -1072,7 +1166,23 @@
     "updatedAt": "2026-07-08",
     "auditNotes": [
       "Aplicación Python local que exige GPU e instalación. Presentarla como \"beginner\" junto a generadores web es la comparación engañosa que la auditoría señaló. Último push del repositorio: 2025-12-01."
-    ]
+    ],
+    "startEffort": "install",
+    "capabilities": [
+      "text-to-image",
+      "image-to-image",
+      "inpainting",
+      "outpainting",
+      "upscaling",
+      "api"
+    ],
+    "evidence": {
+      "capabilities": {
+        "sourceUrl": "https://github.com/lllyasviel/Fooocus",
+        "verifiedAt": "2026-08-12",
+        "quote": "urney's examples: Midjourney Fooocus High-quality text-to-image without needing much prompt engineering or par · oint swap system of the refiner now also supports img2img and upscale in a seamless way · 5x) / Upscale (2x) Inpaint / Up / Down / Left / Right (Pan) Input Image -&gt; Inpaint"
+      }
+    }
   },
   {
     "id": "tool_gemma-4",
@@ -1191,7 +1301,9 @@
     "status": "published",
     "detectedAt": "2026-08-07",
     "lastVerifiedAt": "2026-08-07",
-    "updatedAt": "2026-08-07"
+    "updatedAt": "2026-08-07",
+    "startEffort": "technical",
+    "capabilities": []
   },
   {
     "id": "tool_google-gemini",
@@ -1313,7 +1425,18 @@
     "updatedAt": "2026-07-08",
     "auditNotes": [
       "Su página no se puede leer de forma automatizada."
-    ]
+    ],
+    "startEffort": "instant",
+    "capabilities": [
+      "api"
+    ],
+    "evidence": {
+      "capabilities": {
+        "sourceUrl": "https://one.google.com/about/ai-premium",
+        "verifiedAt": "2026-08-12",
+        "quote": "lican los Términos del Servicio Adicionales de la API de Gemini y la Política de Privacidad de Google al uso q"
+      }
+    }
   },
   {
     "id": "tool_hugging-face-spaces",
@@ -1432,7 +1555,19 @@
     "status": "published",
     "detectedAt": "2023-01-10",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "startEffort": "signup",
+    "capabilities": [
+      "api",
+      "model-hosting"
+    ],
+    "evidence": {
+      "capabilities": {
+        "sourceUrl": "https://huggingface.co/spaces",
+        "verifiedAt": "2026-08-12",
+        "quote": "rom the Team plan Highest storage, bandwidth, and API rate limits Automated user management with SCIM provisio · & Enterprise Hugging Face PRO Enterprise Support Inference Providers Inference Endpoints Storage Buckets Log I"
+      }
+    }
   },
   {
     "id": "tool_leonardo-ai",
@@ -1554,7 +1689,20 @@
     "updatedAt": "2026-07-08",
     "auditNotes": [
       "Su sitio devuelve 403 a lectura automatizada. Sin fuente legible, no afirmamos nada."
-    ]
+    ],
+    "startEffort": "signup",
+    "capabilities": [
+      "text-to-image",
+      "upscaling",
+      "api"
+    ],
+    "evidence": {
+      "capabilities": {
+        "sourceUrl": "https://docs.leonardo.ai",
+        "verifiedAt": "2026-08-12",
+        "quote": "Generation Music v1 Sound Effects v2 Dialogue v3 Image Generation FLUX Dev FLUX Schnell FLUX · -Go (PAYG) Guide Plan with the Pricing Calculator Upscale Generation Pro Upscaler Precise Pro Upscaler Creativ · Jump to Content Guides Recipes API Reference v1"
+      }
+    }
   },
   {
     "id": "tool_lm-studio",
@@ -1666,7 +1814,9 @@
     "status": "published",
     "detectedAt": "2024-01-10",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "startEffort": "install",
+    "capabilities": []
   },
   {
     "id": "tool_midjourney",
@@ -1788,7 +1938,9 @@
     "updatedAt": "2026-07-08",
     "auditNotes": [
       "Su web y su centro de ayuda devuelven 403 a lectura automatizada. El \"trial\" que declaraba la ficha no se puede demostrar, y un trial sin prueba invita a intentar registrarse gratis y no poder."
-    ]
+    ],
+    "startEffort": "signup",
+    "capabilities": []
   },
   {
     "id": "tool_ollama",
@@ -1908,7 +2060,19 @@
     "status": "published",
     "detectedAt": "2023-10-15",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "startEffort": "install",
+    "capabilities": [
+      "api",
+      "model-download"
+    ],
+    "evidence": {
+      "capabilities": {
+        "sourceUrl": "https://ollama.com",
+        "verifiedAt": "2026-08-12",
+        "quote": "nect editors and frameworks through Ollama&apos;s API · Ollama Models Docs Pricing Sign in Download Models Download Docs Pricing Sign in Build with open models, on yo"
+      }
+    }
   },
   {
     "id": "tool_perplexity-ai",
@@ -2023,7 +2187,18 @@
     "updatedAt": "2026-07-08",
     "auditNotes": [
       "Su sitio devuelve 403 a lectura automatizada."
-    ]
+    ],
+    "startEffort": "instant",
+    "capabilities": [
+      "api"
+    ],
+    "evidence": {
+      "capabilities": {
+        "sourceUrl": "https://docs.perplexity.ai",
+        "verifiedAt": "2026-08-12",
+        "quote": "Perplexity home page Docs Cookbook API Reference Get Started Get Started Search"
+      }
+    }
   },
   {
     "id": "tool_pika-labs",
@@ -2143,8 +2318,19 @@
         "sourceUrl": "https://pika.art/pricing",
         "verifiedAt": "2026-08-12",
         "quote": "$0 Free billed yearly Basic ... 80 monthly video credits"
+      },
+      "capabilities": {
+        "sourceUrl": "https://pika.art",
+        "verifiedAt": "2026-08-12",
+        "quote": "n 20 credits Free 35 credits Paid 65 credits Paid Text-to-Video & Image-to-Video Quality 480p 720p 1080p Durat · , Pikadditions, Pikaswaps, Pikatwists, Pikaffects Image-to-Video only Download videos with no watermark Purcha · Pika Careers Referral Contact Us Pricing API Experiments Login Sign Up Careers Referral Contact Us Prici"
       }
-    }
+    },
+    "startEffort": "signup",
+    "capabilities": [
+      "text-to-video",
+      "image-to-video",
+      "api"
+    ]
   },
   {
     "id": "tool_pinokio",
@@ -2258,7 +2444,19 @@
     "status": "published",
     "detectedAt": "2023-09-01",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "startEffort": "install",
+    "capabilities": [
+      "api",
+      "model-hosting"
+    ],
+    "evidence": {
+      "capabilities": {
+        "sourceUrl": "https://pinokio.computer",
+        "verifiedAt": "2026-08-12",
+        "quote": "More Store Type: api api plugin All Platform: All All macOS Windows Linux GPU: All A · c, a Metal-only DeepSeek V4 Flash inference server"
+      }
+    }
   },
   {
     "id": "tool_replicate",
@@ -2382,7 +2580,19 @@
     "updatedAt": "2026-07-08",
     "auditNotes": [
       "\"demo\" no describe ninguno de los accesos que ofrece: es una plataforma de inferencia de pago por uso. Sin lectura de su plan gratuito, unknown."
-    ]
+    ],
+    "startEffort": "signup",
+    "capabilities": [
+      "api",
+      "model-hosting"
+    ],
+    "evidence": {
+      "capabilities": {
+        "sourceUrl": "https://replicate.com",
+        "verifiedAt": "2026-08-12",
+        "quote": "Replicate - Run AI with an API ByteDance Logo Seedance 2 · Run models Our community has already published thousands of models tha"
+      }
+    }
   },
   {
     "id": "tool_runwayml",
@@ -2497,7 +2707,20 @@
     "status": "published",
     "detectedAt": "2023-06-01",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "startEffort": "signup",
+    "capabilities": [
+      "upscaling",
+      "video-editing",
+      "api"
+    ],
+    "evidence": {
+      "capabilities": {
+        "sourceUrl": "https://runwayml.com",
+        "verifiedAt": "2026-08-12",
+        "quote": "1, and more) 4K Upscaling No watermarks Gen-4 · platform that offers endless ways to generate and edit video, images and audio in one workspace · Get API Key Learn more For Enterprise Runway Robotics A complete to"
+      }
+    }
   },
   {
     "id": "tool_stable-diffusion-webui",
@@ -2613,7 +2836,23 @@
     "status": "published",
     "detectedAt": "2024-01-15",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "startEffort": "technical",
+    "capabilities": [
+      "text-to-image",
+      "image-to-image",
+      "inpainting",
+      "outpainting",
+      "upscaling",
+      "api"
+    ],
+    "evidence": {
+      "capabilities": {
+        "sourceUrl": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
+        "verifiedAt": "2026-08-12",
+        "quote": "can be tiled like textures Progress bar and live image generation preview Can use a separate neural network to · ature showcase with images : Original txt2img and img2img modes One click install and run script (but you stil · ou still must install python and git) Outpainting Inpainting Color Sketch Prompt Matrix Stable Diffusion Upsca"
+      }
+    }
   },
   {
     "id": "tool_suno-ai",
@@ -2737,8 +2976,17 @@
         "sourceUrl": "https://suno.com/pricing",
         "verifiedAt": "2026-08-12",
         "quote": "No commercial use"
+      },
+      "capabilities": {
+        "sourceUrl": "https://suno.com",
+        "verifiedAt": "2026-08-12",
+        "quote": "Suno | AI Music Generator Log in Open App Log in Join Suno for free Make any song y"
       }
-    }
+    },
+    "startEffort": "signup",
+    "capabilities": [
+      "text-to-music"
+    ]
   },
   {
     "id": "tool_v0-by-vercel",
@@ -2858,7 +3106,20 @@
     "status": "published",
     "detectedAt": "2023-09-15",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "startEffort": "signup",
+    "capabilities": [
+      "code-generation",
+      "agents",
+      "api"
+    ],
+    "evidence": {
+      "capabilities": {
+        "sourceUrl": "https://v0.dev",
+        "verifiedAt": "2026-08-12",
+        "quote": "Multi-modal : Combines code generation, web browsing, debugging, and external API interactions · cel Connect GitHub MCP Integrations Pre-installed Agents Slack Ship Deployments Custom domain Sharing Template · Web Plan DB API Deploy LLM Create from your phone Build anywhere with the v"
+      }
+    }
   },
   {
     "id": "tool_clipdrop",
@@ -2941,9 +3202,23 @@
         "sourceUrl": "https://clipdrop.co/pricing",
         "verifiedAt": "2026-08-12",
         "quote": "Free 0 - Start for free Text to image Uncrop Background Removal 20/24h Image Upscaler x2 20/24h Cleanup 20/24h Relight 20/24h Text Remover 50/24h"
+      },
+      "capabilities": {
+        "sourceUrl": "https://clipdrop.co/",
+        "verifiedAt": "2026-08-12",
+        "quote": "l Resizer Resize your images for any social media Text to image Text to image Generate high-resolution realist · picture? To remove a person from a photo, use our inpainting algorithm · Uncrop Uncrop Uncrop your photos to any image format Image upscaler Image upscal"
       }
     },
-    "descriptionLong": ""
+    "descriptionLong": "",
+    "startEffort": "instant",
+    "capabilities": [
+      "text-to-image",
+      "inpainting",
+      "outpainting",
+      "upscaling",
+      "background-removal",
+      "api"
+    ]
   },
   {
     "id": "tool_playground-ai",
@@ -3030,9 +3305,22 @@
         "sourceUrl": "https://playground.com/pricing",
         "verifiedAt": "2026-08-12",
         "quote": "Commercial use World-wide, royalty free license"
+      },
+      "capabilities": {
+        "sourceUrl": "https://playground.com/",
+        "verifiedAt": "2026-08-12",
+        "quote": "ACTIVE For exploring and casual creation Limited image generation Create up to 10 images every 3 hours Limited · ess to the full premium template library Enhanced image editing Upscaling and background removal included Up t · sthetic Background Image Tools Background Removal Upscale AI Resize Logo Generator Mockup Generator File Conve"
       }
     },
-    "descriptionLong": ""
+    "descriptionLong": "",
+    "startEffort": "signup",
+    "capabilities": [
+      "text-to-image",
+      "image-editing",
+      "upscaling",
+      "background-removal",
+      "api"
+    ]
   },
   {
     "id": "tool_recraft",
@@ -3112,9 +3400,24 @@
         "sourceUrl": "https://www.recraft.ai/pricing",
         "verifiedAt": "2026-08-12",
         "quote": "Images generated on the Free plan are owned by Recraft. They are publicly visible in the community gallery and are not licensed for commercial use."
+      },
+      "capabilities": {
+        "sourceUrl": "https://www.recraft.ai/",
+        "verifiedAt": "2026-08-12",
+        "quote": "')\"> ')\"> Unlike some other image generators like Midjourney, Recraft is highly customizable · erator AI Image Vectorizer AI Vector Generator AI Photo Editor Mockup Generator Image Upscaler Background Remo · d vector generation, editing, background removal, inpainting, outpainting, batch jobs, and asynchronous proces"
       }
     },
-    "descriptionLong": ""
+    "descriptionLong": "",
+    "startEffort": "signup",
+    "capabilities": [
+      "text-to-image",
+      "image-editing",
+      "inpainting",
+      "outpainting",
+      "upscaling",
+      "background-removal",
+      "api"
+    ]
   },
   {
     "id": "tool_pixelcut",
@@ -3194,9 +3497,24 @@
         "sourceUrl": "https://www.pixelcut.ai/pricing",
         "verifiedAt": "2026-08-12",
         "quote": "Free $0 per month Continue Limited Background Removal Limited Upscale Free export without watermark"
+      },
+      "capabilities": {
+        "sourceUrl": "https://www.pixelcut.ai/",
+        "verifiedAt": "2026-08-12",
+        "quote": "kground Remover Change Background Magic Eraser AI Image Generator AI Video Generator Generative Fill Uncrop AI · fers a free version that provides access to basic image editing tools, allowing users to get started with crea · mage Generator AI Video Generator Generative Fill Uncrop AI Ads Bulk Image Editor Products Pixelcut for Claude"
       }
     },
-    "descriptionLong": ""
+    "descriptionLong": "",
+    "startEffort": "signup",
+    "capabilities": [
+      "text-to-image",
+      "image-editing",
+      "outpainting",
+      "character-consistency",
+      "upscaling",
+      "background-removal",
+      "api"
+    ]
   },
   {
     "id": "tool_adobe-firefly",
@@ -3274,9 +3592,19 @@
         "sourceUrl": "https://www.adobe.com/products/firefly.html",
         "verifiedAt": "2026-08-12",
         "quote": "Is Adobe Firefly free to use? Yes, Adobe has a free plan that provides users with free daily generations to try Adobe Firefly"
+      },
+      "capabilities": {
+        "sourceUrl": "https://www.adobe.com/products/firefly.html",
+        "verifiedAt": "2026-08-12",
+        "quote": "range of aesthetic styles and capabilities across text-to-image, text-to-video, and image-to-video workflows,  · Generate and edit images, video, audio, and designs using top AI models from Adobe,"
       }
     },
-    "descriptionLong": ""
+    "descriptionLong": "",
+    "startEffort": "signup",
+    "capabilities": [
+      "text-to-image",
+      "image-editing"
+    ]
   },
   {
     "id": "tool_invokeai",
@@ -3359,9 +3687,22 @@
         "sourceUrl": "https://api.github.com/repos/invoke-ai/InvokeAI",
         "verifiedAt": "2026-08-12",
         "quote": "spdx_id: Apache-2.0 · archived: false · pushed_at: 2026-08-09"
+      },
+      "capabilities": {
+        "sourceUrl": "https://github.com/invoke-ai/InvokeAI",
+        "verifiedAt": "2026-08-12",
+        "quote": "cial-intelligence generative-art image-generation img2img inpainting latent-diffusion linux macos outpainting  · elligence generative-art image-generation img2img inpainting latent-diffusion linux macos outpainting stable-d · n img2img inpainting latent-diffusion linux macos outpainting stable-diffusion txt2img windows Resources Readm"
       }
     },
-    "descriptionLong": ""
+    "descriptionLong": "",
+    "startEffort": "technical",
+    "capabilities": [
+      "image-to-image",
+      "inpainting",
+      "outpainting",
+      "upscaling",
+      "api"
+    ]
   },
   {
     "id": "tool_sdnext",
@@ -3446,7 +3787,9 @@
         "quote": "spdx_id: Apache-2.0 · archived: false · pushed_at: 2026-08-12"
       }
     },
-    "descriptionLong": ""
+    "descriptionLong": "",
+    "startEffort": "technical",
+    "capabilities": []
   },
   {
     "id": "tool_comfy-cloud",
@@ -3531,8 +3874,110 @@
         "sourceUrl": "https://www.comfy.org/pricing",
         "verifiedAt": "2026-08-12",
         "quote": "no credit card required"
+      },
+      "capabilities": {
+        "sourceUrl": "https://www.comfy.org/",
+        "verifiedAt": "2026-08-12",
+        "quote": "SEE CLOUD FEATURES Comfy API Turn workflows into production endpoints · View Model Features Try Workflows Open Weights Partner Nodes HOW WORKS Connect models, processing steps, a"
       }
     },
-    "descriptionLong": ""
+    "descriptionLong": "",
+    "startEffort": "signup",
+    "capabilities": [
+      "api",
+      "model-download"
+    ]
+  },
+  {
+    "id": "tool_grok-imagine",
+    "slug": "grok-imagine",
+    "name": "Grok Imagine",
+    "tagline": "La generación de imagen y vídeo de xAI. Sus capacidades constan; su acceso gratuito, no.",
+    "descriptionShort": "El apartado generativo de Grok, de xAI. Su documentación oficial enumera generación y edición de imagen, edición múltiple, generación de vídeo, imagen a vídeo y referencia a vídeo. Las condiciones de uso gratuito no son legibles desde fuera.",
+    "descriptionLong": "",
+    "kind": "app",
+    "verification": "partially_verified",
+    "nextReviewAt": "2026-09-12",
+    "categorySlug": "imagen",
+    "secondaryCategories": [
+      "video"
+    ],
+    "tags": [],
+    "useCases": [],
+    "freeModel": "unknown",
+    "freePlan": {
+      "summary": "No consta. x.ai/grok y x.ai/api devuelven 403 a lectura automatizada, y no hay página de precios legible. Nada afirmado.",
+      "limits": [],
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "unknown",
+      "verifiedAt": "2026-08-12"
+    },
+    "openSource": "no",
+    "hosting": "cloud",
+    "platforms": [
+      "web"
+    ],
+    "languages": [
+      "en"
+    ],
+    "skillLevel": "beginner",
+    "startEffort": "signup",
+    "capabilities": [
+      "text-to-image",
+      "image-editing",
+      "text-to-video",
+      "image-to-video",
+      "reference-image"
+    ],
+    "privacy": {},
+    "officialUrl": "https://docs.x.ai/docs/overview",
+    "docsUrl": "https://docs.x.ai/docs/overview",
+    "sources": [
+      {
+        "url": "https://docs.x.ai/docs/overview",
+        "label": "Documentación oficial de xAI",
+        "kind": "docs",
+        "publisher": "x.ai",
+        "checkedAt": "2026-08-12"
+      }
+    ],
+    "scores": {
+      "freeReal": 5,
+      "usefulness": 8,
+      "ease": 9,
+      "transparency": 4,
+      "creatorValue": 7
+    },
+    "verdict": "Entra en el catálogo porque sus capacidades están documentadas, y entra con el acceso gratuito en unknown porque no lo está. Excluirla por una página con 403 habría sido peor: la herramienta existe y es relevante.",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-12",
+    "lastVerifiedAt": "2026-08-12",
+    "updatedAt": "2026-08-12",
+    "evidence": {
+      "capabilities": {
+        "sourceUrl": "https://docs.x.ai/docs/overview",
+        "verifiedAt": "2026-08-12",
+        "quote": "Imagine Overview Image Generation Image Editing Multi-Image Editing Video Generation Image-to-Video Reference-to-Video"
+      }
+    },
+    "auditNotes": [
+      "x.ai/grok y x.ai/api devuelven 403; docs.x.ai sí responde. Las capacidades salen de la navegación de la documentación oficial. Los precios y el plan gratuito quedan para verificación manual."
+    ]
   }
 ]

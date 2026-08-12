@@ -8,8 +8,10 @@ import {
   TriState,
 } from './primitives';
 import {
+  CAPABILITIES,
   CATEGORY_SLUGS,
   CREDIT_RESET,
+  START_EFFORT,
   HOSTING,
   PLATFORMS,
   SKILL_LEVELS,
@@ -178,6 +180,24 @@ export const ToolRecord = z.object({
     'unknown',
   ]),
   freePlan: FreePlan,
+
+  /**
+   * Qué sabe hacer, separado de dónde vive.
+   *
+   * Vacío por defecto y sin rellenar salvo que una página oficial lo nombre.
+   * Un array de capacidades es tan fácil de rellenar a ojo como lo fue
+   * `requiresCreditCard: no`, y acabaría igual.
+   */
+  capabilities: z.array(z.enum(CAPABILITIES)).default([]),
+
+  /**
+   * Cuánto hay entre abrir la página y obtener un resultado.
+   *
+   * Distinto de `skillLevel`, que describe al usuario. Esto describe la
+   * herramienta, y es lo que impide volver a presentar Fooocus y un generador
+   * web como si fueran el mismo recado.
+   */
+  startEffort: z.enum(START_EFFORT).default('signup'),
 
   openSource: TriState.default('unverified'),
   licence: z.string().optional(),
