@@ -1,5 +1,5 @@
 ---
-import { FREE_MODELS, PLATFORM_LABEL, PLATFORMS, SKILL_LEVEL_LABEL, SKILL_LEVELS, HOSTING_LABEL, HOSTING } from '@lib/domain/taxonomy';
+import { FREE_MODELS, PLATFORM_LABEL, PLATFORMS, START_EFFORT_LABEL, START_EFFORT_MEANING, START_EFFORT, HOSTING_LABEL, HOSTING } from '@lib/domain/taxonomy';
 import { getPopulatedCategories } from '@lib/data/catalog';
 import { SORT_OPTIONS } from '@lib/search/filters';
 
@@ -137,16 +137,22 @@ const HARD_REQUIREMENTS = [
         </div>
       </fieldset>
 
+      {/*
+        Cuánto cuesta empezar, no cuánta pericia hace falta.
+        «Nivel técnico» leía `skillLevel`, que describe al lector: marcando
+        «principiante» salían a la vez una web donde escribes y generas y una
+        aplicación Python que necesita GPU.
+      */}
       <fieldset class="filters-group">
-        <legend class="eyebrow">Nivel técnico</legend>
+        <legend class="eyebrow">Cuánto cuesta empezar</legend>
         <div class="filters-options">
-          {SKILL_LEVELS.map((level) => (
-            <label class="filter-chip">
-              <input type="checkbox" name="skill" value={level} class="sr-only" data-filter-list="skill" />
+          {START_EFFORT.map((effort) => (
+            <label class="filter-chip" title={START_EFFORT_MEANING[effort]}>
+              <input type="checkbox" name="effort" value={effort} class="sr-only" data-filter-list="effort" />
               <span class="filter-chip-tick" aria-hidden="true">
                 <svg width="11" height="11" viewBox="0 0 12 12"><path d="M2 6.4 4.6 9 10 3.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
-              {SKILL_LEVEL_LABEL[level]}
+              {START_EFFORT_LABEL[effort]}
             </label>
           ))}
         </div>

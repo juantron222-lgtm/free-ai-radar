@@ -61,7 +61,7 @@ const tools = [
     openSource: 'yes',
     hosting: 'local',
     platforms: ['windows', 'linux'],
-    skillLevel: 'advanced',
+    startEffort: 'technical',
     detectedAt: '2026-06-01',
     scores: { freeReal: 10, usefulness: 8, ease: 4, transparency: 9, creatorValue: 8 },
   }),
@@ -145,6 +145,22 @@ describe('applyFilters', () => {
   it('filtra por open source verificado', () => {
     const result = applyFilters(tools, { ...EMPTY_FILTERS, openSource: true });
     expect(result.map((t) => t.slug)).toEqual(['local-oss']);
+  });
+
+  /*
+   * El filtro pregunta por la herramienta, no por el lector.
+   *
+   * Cuando leía `skillLevel`, marcar «principiante» devolvía a la vez una web
+   * donde escribes y generas y una aplicación local que necesita GPU, porque
+   * ambas estaban etiquetadas para principiantes. Con `startEffort` las dos
+   * caen en cubos distintos, que es lo que el filtro pretendía hacer.
+   */
+  it('filtra por cuánto cuesta empezar, no por la pericia del lector', () => {
+    const instant = applyFilters(tools, { ...EMPTY_FILTERS, effort: ['instant'] });
+    expect(instant.map((t) => t.slug)).not.toContain('local-oss');
+
+    const technical = applyFilters(tools, { ...EMPTY_FILTERS, effort: ['technical'] });
+    expect(technical.map((t) => t.slug)).toEqual(['local-oss']);
   });
 
   it('una combinación imposible devuelve lista vacía, no todo', () => {

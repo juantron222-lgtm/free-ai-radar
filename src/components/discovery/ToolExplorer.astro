@@ -220,7 +220,7 @@ const index = buildClientIndex(tools, (slug) => getCategory(slug)?.name ?? slug)
       free: state.freeModels,
       plat: state.platforms,
       host: state.hosting,
-      skill: state.skill,
+      effort: state.effort,
     };
     for (const input of Array.from(form!.querySelectorAll<HTMLInputElement>('[data-filter-list]'))) {
       const list = listValues[input.dataset['filterList']!] ?? [];

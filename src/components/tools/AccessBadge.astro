@@ -75,29 +75,46 @@ const effort = START_EFFORT_LABEL[tool.startEffort];
     line-height: 1.25;
   }
 
+  /*
+   * Colores del sistema, no inventados aquí.
+   *
+   * Esta hoja pedía `--surface-2`, `--surface-3`, `--text-2`, `--text-3` y seis
+   * variantes de `--tone-*`. **Ninguna existe** en `global.css`, así que todas
+   * caían siempre al valor de reserva escrito al lado — valores fijos, ajenos a
+   * la paleta y ciegos al tema.
+   *
+   * Con el tema oscuro eso dejaba la línea de esfuerzo en `rgb(0 0 0 / 0.6)`
+   * sobre una superficie casi negra: **1,11:1**, texto invisible en ciento doce
+   * de las vistas medidas. Un `var()` con reserva no avisa de que la variable no
+   * existe; simplemente se ve mal y nadie sabe por qué.
+   *
+   * Los tokens de abajo sí existen y ya se redefinen en el bloque oscuro de
+   * `global.css`, así que el bloque `@media` que había aquí sobra.
+   */
   .access-model {
     font-weight: 700;
     padding: 0.15em 0.5em;
-    border-radius: var(--radius-sm, 0.375rem);
-    background: var(--surface-2, rgb(0 0 0 / 0.05));
+    border-radius: var(--radius-s);
+    background: var(--neutral-soft);
+    color: var(--ink);
   }
 
-  /* Tone carries meaning, so it is never the only carrier: the label says it. */
+  /* El tono acompaña; nunca informa solo: la etiqueta ya lo dice con palabras. */
   .access[data-tone='good'] .access-model {
-    background: var(--tone-good-bg, rgb(16 122 72 / 0.12));
-    color: var(--tone-good-fg, rgb(9 88 51));
+    background: var(--signal-soft);
+    color: var(--signal-strong);
   }
   .access[data-tone='warn'] .access-model {
-    background: var(--tone-warn-bg, rgb(160 98 0 / 0.12));
-    color: var(--tone-warn-fg, rgb(120 74 0));
+    background: var(--warn-soft);
+    color: var(--warn);
   }
   .access[data-tone='bad'] .access-model {
-    background: var(--tone-bad-bg, rgb(160 32 32 / 0.12));
-    color: var(--tone-bad-fg, rgb(130 26 26));
+    background: var(--alert-soft);
+    color: var(--alert);
   }
   .access[data-tone='neutral'] .access-model {
-    background: var(--surface-3, rgb(0 0 0 / 0.06));
-    color: var(--text-2, inherit);
+    background: var(--neutral-soft);
+    color: var(--ink);
   }
 
   .access-credits {
@@ -106,7 +123,7 @@ const effort = START_EFFORT_LABEL[tool.startEffort];
   }
 
   .access-effort {
-    color: var(--text-3, rgb(0 0 0 / 0.6));
+    color: var(--ink-muted);
     font-size: 0.875em;
   }
 
@@ -115,17 +132,5 @@ const effort = START_EFFORT_LABEL[tool.startEffort];
   }
   .access-lg {
     font-size: 1.0625rem;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    .access[data-tone='good'] .access-model {
-      color: var(--tone-good-fg-dark, rgb(126 222 174));
-    }
-    .access[data-tone='warn'] .access-model {
-      color: var(--tone-warn-fg-dark, rgb(232 186 96));
-    }
-    .access[data-tone='bad'] .access-model {
-      color: var(--tone-bad-fg-dark, rgb(240 150 150));
-    }
   }
 </style>

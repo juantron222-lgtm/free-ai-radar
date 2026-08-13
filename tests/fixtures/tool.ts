@@ -32,6 +32,9 @@ export function makeToolRecord(overrides: Partial<ToolRecord> = {}): ToolRecord 
     platforms: ['web'],
     languages: [],
     skillLevel: 'beginner',
+    startEffort: 'instant',
+    startEffortReason: 'Fixture: se abre y se genera.',
+    capabilities: [],
     privacy: {
       trainsOnUserData: 'unverified',
       optOutAvailable: 'unverified',

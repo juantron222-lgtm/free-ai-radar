@@ -350,7 +350,7 @@ export interface ToolSummary {
   openSource: Tool['openSource'];
   hosting: Tool['hosting'];
   platforms: Tool['platforms'];
-  skillLevel: Tool['skillLevel'];
+  startEffort: Tool['startEffort'];
   tags: string[];
   lastVerifiedAt: string;
   isSponsored: boolean;
@@ -371,7 +371,7 @@ export function toSummary(tool: Tool): ToolSummary {
     openSource: tool.openSource,
     hosting: tool.hosting,
     platforms: tool.platforms,
-    skillLevel: tool.skillLevel,
+    startEffort: tool.startEffort,
     tags: tool.tags,
     lastVerifiedAt: tool.lastVerifiedAt,
     isSponsored: tool.sponsorship.isSponsored,

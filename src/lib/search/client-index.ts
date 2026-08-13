@@ -26,7 +26,7 @@ export function buildClientIndex(
     freeModel: tool.freeModel,
     platforms: tool.platforms,
     hosting: tool.hosting,
-    skillLevel: tool.skillLevel,
+    startEffort: tool.startEffort,
     openSource: tool.openSource,
     scoreTotal: tool.scoreTotal,
     freshness: tool.freshness,

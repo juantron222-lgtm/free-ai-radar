@@ -63,7 +63,12 @@ const last = crumbs.length - 1;
     font-weight: 550;
   }
 
+  /*
+   * `--line-strong` es un color de línea, no de texto: da 1,57:1 sobre el papel
+   * claro. Aunque la barra va `aria-hidden` y es puramente decorativa, sigue
+   * siendo un glifo que alguien tiene que ver para separar dos enlaces.
+   */
   .breadcrumbs-sep {
-    color: var(--line-strong);
+    color: var(--ink-subtle);
   }
 </style>

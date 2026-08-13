@@ -15,7 +15,7 @@ import {
   CREDIT_RESET_LABEL,
   HOSTING_LABEL,
   PLATFORM_LABEL,
-  SKILL_LEVEL_LABEL,
+  START_EFFORT_LABEL,
   getCategory,
   getFreeModel,
 } from '@lib/domain/taxonomy';
@@ -61,7 +61,7 @@ const facts = [
   ...(tool.freeModel === 'credits'
     ? [{ label: 'Renovación de créditos', value: CREDIT_RESET_LABEL[tool.freePlan.creditReset], good: tool.freePlan.creditReset !== 'one_off' }]
     : []),
-  { label: 'Nivel técnico', value: SKILL_LEVEL_LABEL[tool.skillLevel], good: false },
+  { label: 'Cuánto cuesta empezar', value: START_EFFORT_LABEL[tool.startEffort], good: false },
   ...(tool.licence ? [{ label: 'Licencia', value: tool.licence, good: false }] : []),
 ];
 
@@ -217,7 +217,7 @@ const VERIFICATION_MEANING: Record<ToolRecord['verification'], string> = {
                       <li>Buscas {category.name.toLowerCase()} sin pagar nada por adelantado.</li>
                       {tool.freePlan.requiresCreditCard === 'no' && <li>No quieres dar la tarjeta sólo para probar.</li>}
                       {tool.hosting !== 'cloud' && <li>Prefieres que tus archivos no salgan de tu equipo.</li>}
-                      {tool.skillLevel === 'beginner' && <li>Es tu primera herramienta de este tipo.</li>}
+                      {tool.startEffort === 'instant' && <li>Quieres probar ahora mismo, sin crear ninguna cuenta.</li>}
                     </>
                   )}
               </ul>
@@ -232,7 +232,7 @@ const VERIFICATION_MEANING: Record<ToolRecord['verification'], string> = {
                       {tool.freePlan.hasWatermark === 'yes' && <li>Necesitas entregar el resultado limpio a un cliente.</li>}
                       {tool.freePlan.commercialUse !== 'yes' && <li>Vas a monetizar directamente lo que generes.</li>}
                       {tool.freePlan.requiresCreditCard === 'yes' && <li>No quieres introducir una tarjeta para acceder.</li>}
-                      {tool.skillLevel === 'advanced' && <li>Buscas algo que funcione sin configurar nada.</li>}
+                      {tool.startEffort === 'technical' && <li>Buscas algo que funcione sin instalar ni configurar nada.</li>}
                       <li>Necesitas volumen alto de forma continuada: el plan gratuito no da para eso.</li>
                     </>
                   )}
@@ -384,7 +384,7 @@ const VERIFICATION_MEANING: Record<ToolRecord['verification'], string> = {
             <div><dt>Modelo</dt><dd>{freeModel.label}</dd></div>
             <div><dt>Categoría</dt><dd><a href={ROUTES.category(category.slug)}>{category.name}</a></dd></div>
             <div><dt>Ejecución</dt><dd>{HOSTING_LABEL[tool.hosting]}</dd></div>
-            <div><dt>Nivel</dt><dd>{SKILL_LEVEL_LABEL[tool.skillLevel]}</dd></div>
+            <div><dt>Empezar</dt><dd title={tool.startEffortReason || undefined}>{START_EFFORT_LABEL[tool.startEffort]}</dd></div>
           </dl>
           <p class="tool-aside-meaning">{freeModel.meaning}</p>
         </div>

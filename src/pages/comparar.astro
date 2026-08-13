@@ -6,7 +6,7 @@ import { TRI_STATE_LABEL } from '@lib/domain/primitives';
 import {
   CREDIT_RESET_LABEL,
   HOSTING_LABEL,
-  SKILL_LEVEL_LABEL,
+  START_EFFORT_LABEL,
   getCategory,
   getFreeModel,
 } from '@lib/domain/taxonomy';
@@ -93,7 +93,7 @@ const ROWS: Row[] = [
     better: (v) => v === 'Sí',
   },
   { label: 'Dónde se ejecuta', kind: 'fact', values: (t) => HOSTING_LABEL[t.hosting] },
-  { label: 'Nivel técnico', kind: 'fact', values: (t) => SKILL_LEVEL_LABEL[t.skillLevel] },
+  { label: 'Cuánto cuesta empezar', kind: 'fact', values: (t) => START_EFFORT_LABEL[t.startEffort] },
   {
     label: 'Renovación de créditos',
     kind: 'fact',

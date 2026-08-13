@@ -1,4 +1,4 @@
-import type { FreeModel, Hosting, Platform, SkillLevel } from '@lib/domain/taxonomy';
+import type { FreeModel, Hosting, Platform, StartEffort } from '@lib/domain/taxonomy';
 import type { TriState } from '@lib/domain/primitives';
 import type { Freshness } from '@lib/domain/scoring';
 
@@ -17,7 +17,7 @@ export interface FilterableTool {
   freeModel: FreeModel;
   platforms: readonly Platform[];
   hosting: Hosting;
-  skillLevel: SkillLevel;
+  startEffort: StartEffort;
   openSource: TriState;
   scoreTotal: number;
   freshness: Freshness;
@@ -45,7 +45,17 @@ export interface FilterState {
   freeModels: FreeModel[];
   platforms: Platform[];
   hosting: Hosting[];
-  skill: SkillLevel[];
+  /**
+   * Cuánto cuesta empezar.
+   *
+   * Antes filtraba por `skillLevel`, que describe al lector y no a la
+   * herramienta. Con él se podía marcar «principiante» y recibir a la vez una
+   * web donde escribes y generas y una aplicación Python que necesita GPU: dos
+   * etiquetas defendibles por separado que juntas engañan. `startEffort` mide
+   * el trabajo que exige la herramienta, que es lo que este filtro pretendía
+   * preguntar desde el principio.
+   */
+  effort: StartEffort[];
   /** Hard requirements — each one is an AND. */
   noCard: boolean;
   noSignup: boolean;
@@ -72,7 +82,7 @@ export const EMPTY_FILTERS: FilterState = {
   freeModels: [],
   platforms: [],
   hosting: [],
-  skill: [],
+  effort: [],
   noCard: false,
   noSignup: false,
   noWatermark: false,
@@ -107,7 +117,7 @@ export function parseFilters(input: URLSearchParams | string): FilterState {
     freeModels: readList(params, 'free') as FreeModel[],
     platforms: readList(params, 'plat') as Platform[],
     hosting: readList(params, 'host') as Hosting[],
-    skill: readList(params, 'skill') as SkillLevel[],
+    effort: readList(params, 'effort') as StartEffort[],
     noCard: readFlag(params, 'nocard'),
     noSignup: readFlag(params, 'nosignup'),
     noWatermark: readFlag(params, 'nowm'),
@@ -127,7 +137,7 @@ export function serializeFilters(state: FilterState): string {
   if (state.freeModels.length) params.set('free', state.freeModels.join(LIST_SEPARATOR));
   if (state.platforms.length) params.set('plat', state.platforms.join(LIST_SEPARATOR));
   if (state.hosting.length) params.set('host', state.hosting.join(LIST_SEPARATOR));
-  if (state.skill.length) params.set('skill', state.skill.join(LIST_SEPARATOR));
+  if (state.effort.length) params.set('effort', state.effort.join(LIST_SEPARATOR));
   if (state.noCard) params.set('nocard', '1');
   if (state.noSignup) params.set('nosignup', '1');
   if (state.noWatermark) params.set('nowm', '1');
@@ -150,7 +160,7 @@ export function countActiveFilters(state: FilterState): number {
     state.freeModels.length +
     state.platforms.length +
     state.hosting.length +
-    state.skill.length +
+    state.effort.length +
     (state.noCard ? 1 : 0) +
     (state.noSignup ? 1 : 0) +
     (state.noWatermark ? 1 : 0) +
@@ -187,7 +197,7 @@ export function applyFilters<T extends FilterableTool>(
       return false;
     }
     if (state.hosting.length && !state.hosting.includes(tool.hosting)) return false;
-    if (state.skill.length && !state.skill.includes(tool.skillLevel)) return false;
+    if (state.effort.length && !state.effort.includes(tool.startEffort)) return false;
 
     if (state.noCard && tool.freePlan.requiresCreditCard !== 'no') return false;
     if (state.noSignup && tool.freePlan.requiresSignup !== 'no') return false;

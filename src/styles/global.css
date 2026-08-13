@@ -28,11 +28,26 @@
     --surface-raised: #ffffff;
     --overlay: rgb(23 22 20 / 0.45);
 
-    /* --- Ink --- */
+    /*
+     * --- Ink ---
+     *
+     * `--ink-subtle` era #82889a, que sobre el papel claro da 3,39:1 y sobre
+     * blanco 3,54:1. WCAG 2.2 AA exige 4,5:1 para texto normal, y este token
+     * viste precisamente el texto pequeño: fechas, contadores, etiquetas de
+     * ficha, notas al pie. Estaba usado en cincuenta ficheros, así que el fallo
+     * no era de una página sino del sistema.
+     *
+     * El valor nuevo se eligió contra el fondo más exigente de cada tema —el
+     * hundido en claro, el elevado en oscuro— y mantiene un escalón visible
+     * respecto de `--ink-muted`, que es para lo que existe el token.
+     *
+     *   claro   #666c7f → 5,23:1 sobre blanco · 4,67:1 sobre el hundido
+     *   oscuro  #858ea1 → 5,46:1 sobre la superficie · 5,02:1 sobre el elevado
+     */
     --ink: #16181d;
     --ink-strong: #000000;
     --ink-muted: #5a6070;
-    --ink-subtle: #82889a;
+    --ink-subtle: #666c7f;
     --ink-inverse: #fbfaf7;
 
     /* --- Lines --- */
@@ -108,7 +123,8 @@
       --ink: #e7e9ec;
       --ink-strong: #ffffff;
       --ink-muted: #9aa2b1;
-      --ink-subtle: #737c8c;
+      /* 4,27:1 sobre la superficie oscura. Ver la nota del tema claro. */
+      --ink-subtle: #858ea1;
       --ink-inverse: #0c0e11;
 
       --line: #262b33;
