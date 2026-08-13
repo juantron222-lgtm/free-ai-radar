@@ -157,33 +157,63 @@ const AUDIT = `(() => {
   return out;
 })()`;
 
+/**
+ * Los cuatro caminos por los que se decide el tema, no dos.
+ *
+ * La paleta se declara tres veces: en `:root`, dentro de
+ * `@media (prefers-color-scheme: dark)` y otra vez en `:root[data-theme='dark']`
+ * para que la elección manual gane sobre la del sistema. Un barrido que sólo
+ * emula la preferencia del sistema nunca ejecuta la tercera, y eso es
+ * exactamente lo que pasó: `--ink-subtle` se corrigió en el bloque del `@media`,
+ * la revisión salió limpia, y quien elige el tema oscuro a mano seguía viendo
+ * el valor viejo.
+ *
+ * Los dos últimos modos cruzan la preferencia con el atributo a propósito: si
+ * el atributo no ganara, el resultado sería un tema mezclado y saldría aquí.
+ */
+const MODES = [
+  { name: 'sistema-claro', scheme: 'light', attr: null },
+  { name: 'sistema-oscuro', scheme: 'dark', attr: null },
+  { name: 'elegido-claro', scheme: 'dark', attr: 'light' },
+  { name: 'elegido-oscuro', scheme: 'light', attr: 'dark' },
+];
+
 const browser = await chromium.launch();
 let total = 0;
 const seen = new Map();
 
-for (const scheme of ['light', 'dark']) {
+for (const mode of MODES) {
   for (const vp of VIEWPORTS) {
     const context = await browser.newContext({
-      colorScheme: scheme,
+      colorScheme: mode.scheme,
       viewport: { width: vp.width, height: vp.height },
     });
     const page = await context.newPage();
     for (const path of PAGES) {
       await page.goto(`${BASE}${path}`, { waitUntil: 'domcontentloaded' });
       // El banner de consentimiento tapa la página y falsea el fondo medido.
-      await page.evaluate(() => {
+      await page.evaluate((attr) => {
         const b = [...document.querySelectorAll('.consent-actions button')].find((x) =>
           /Rechazar/.test(x.textContent || '')
         );
         if (b) b.click();
-      });
-      await page.waitForTimeout(120);
+        /*
+         * Sin transiciones: cambiar el tema anima el color, y medir a mitad de
+         * la animación da un valor que no existe en ninguno de los dos temas.
+         * Salía un 4,41:1 con un verde que no era ni el claro ni el oscuro.
+         */
+        const kill = document.createElement('style');
+        kill.textContent = '*,*::before,*::after{transition:none!important;animation:none!important}';
+        document.head.appendChild(kill);
+        if (attr) document.documentElement.setAttribute('data-theme', attr);
+      }, mode.attr);
+      await page.waitForTimeout(150);
       const fails = await page.evaluate(AUDIT);
       total += fails.length;
       for (const f of fails) {
         const key = `${f.sel}|${f.px}|${f.color}`;
         if (!seen.has(key)) seen.set(key, { ...f, where: [] });
-        seen.get(key).where.push(`${scheme}/${vp.name}${path}`);
+        seen.get(key).where.push(`${mode.name}/${vp.name}${path}`);
       }
     }
     await context.close();
@@ -192,7 +222,10 @@ for (const scheme of ['light', 'dark']) {
 
 await browser.close();
 
-console.log(`Páginas: ${PAGES.length} × 2 temas × 2 anchos = ${PAGES.length * 4} vistas`);
+const views = PAGES.length * MODES.length * VIEWPORTS.length;
+console.log(
+  `Páginas: ${PAGES.length} × ${MODES.length} temas × ${VIEWPORTS.length} anchos = ${views} vistas`
+);
 console.log(`Fallos de contraste: ${total}`);
 if (seen.size) {
   console.log('\nDistintos:');

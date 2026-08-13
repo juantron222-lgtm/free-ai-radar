@@ -169,7 +169,15 @@
     --ink: #e7e9ec;
     --ink-strong: #ffffff;
     --ink-muted: #9aa2b1;
-    --ink-subtle: #737c8c;
+    /*
+     * El mismo valor que el bloque de `prefers-color-scheme`, y el motivo por
+     * el que conviene mirar las dos copias: el barrido de contraste emula la
+     * preferencia del sistema, no el atributo, así que este bloque —el que
+     * gobierna a quien elige el tema oscuro a mano— se quedó con el valor viejo
+     * y pasó la revisión sin que nadie lo mirara. Dos copias de una regla, una
+     * de ellas vieja, otra vez.
+     */
+    --ink-subtle: #858ea1;
     --ink-inverse: #0c0e11;
 
     --line: #262b33;
