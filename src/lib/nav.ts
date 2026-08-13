@@ -5,7 +5,14 @@ export const ROUTES = {
   tools: '/herramientas',
   tool: (slug: string) => `/herramientas/${slug}`,
   categories: '/categorias',
-  category: (slug: string) => `/categorias/${slug}`,
+  /**
+   * Imagen tiene página propia mientras se prueba la arquitectura por intención.
+   *
+   * Se resuelve aquí y no en cada enlace para que exista una sola URL canónica:
+   * dos rutas con el mismo contenido compiten entre sí en los buscadores y
+   * reparten los enlaces entrantes. `/categorias/imagen` sigue redirigiendo.
+   */
+  category: (slug: string) => (slug === 'imagen' ? '/imagen' : `/categorias/${slug}`),
   models: '/modelos',
   agents: '/agentes',
   compare: '/comparar',

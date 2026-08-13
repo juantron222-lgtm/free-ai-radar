@@ -36,6 +36,7 @@ export const ALL_MIGRATIONS = [
   'supabase/migrations/0008_amazon_creators_state.sql',
   'supabase/migrations/0009_free_model_unknown.sql',
   'supabase/migrations/0010_capabilities_start_effort.sql',
+  'supabase/migrations/0011_start_effort_reason.sql',
 ];
 
 /**

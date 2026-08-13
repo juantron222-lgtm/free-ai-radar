@@ -35,6 +35,7 @@ beforeEach(async () => {
       // que no se ha podido comprobar. Ver 0009.
       'supabase/migrations/0009_free_model_unknown.sql',
       'supabase/migrations/0010_capabilities_start_effort.sql',
+      'supabase/migrations/0011_start_effort_reason.sql',
     ] }));
   exec = async (sql, params = []) => (await db.query(sql, params)).rows;
 });
@@ -98,6 +99,7 @@ describe('la semilla SQL de producción', () => {
       // que no se ha podido comprobar. Ver 0009.
       'supabase/migrations/0009_free_model_unknown.sql',
       'supabase/migrations/0010_capabilities_start_effort.sql',
+      'supabase/migrations/0011_start_effort_reason.sql',
     ],
     });
     const otherExec = async (sql: string, params: unknown[] = []) =>

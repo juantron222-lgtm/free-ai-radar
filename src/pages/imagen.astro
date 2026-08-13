@@ -1,0 +1,629 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ImagenCard from '@components/imagen/ImagenCard.astro';
+import { getToolsByCategory } from '@lib/data/catalog';
+import { getCategory } from '@lib/domain/taxonomy';
+import {
+  catalogueOrder,
+  decideFilters,
+  easyToStart,
+  freeNow,
+  localControl,
+  professional,
+} from '@lib/data/imagen';
+import { faqSchema, itemListSchema } from '@lib/seo/structured-data';
+import { ROUTES } from '@lib/nav';
+
+/**
+ * Imagen, reconstruida alrededor de lo que la gente viene a hacer.
+ *
+ * La versión anterior era una rejilla ordenada por una nota sobre cien, y esa
+ * nota mezclaba propiedades del código con propiedades del producto: casi la
+ * mitad premiaba ser open source. El resultado encabezaba la categoría con una
+ * instalación de Python que necesita GPU, delante de webs donde escribes y
+ * generas. Cada tarjeta era defendible por separado y el conjunto engañaba.
+ *
+ * Aquí no hay una lista: hay cinco preguntas. Cada bloque declara su propio
+ * criterio de orden en `@lib/data/imagen`, porque «mejor» depende de para qué.
+ *
+ * Piloto: ninguna otra categoría cambia hasta que esta se revise.
+ */
+
+const category = getCategory('imagen')!;
+const tools = getToolsByCategory('imagen');
+
+const gratis = freeNow(tools);
+const faciles = easyToStart(tools).slice(0, 5);
+const potentes = professional(tools).slice(0, 5);
+const { install, technical } = localControl(tools);
+const todas = catalogueOrder(tools);
+
+const decisions = decideFilters(tools);
+const filters = decisions.filter((d) => d.shown);
+const hidden = decisions.filter((d) => !d.shown);
+
+/**
+ * Qué filtros cumple cada herramienta, calculado aquí y enviado ya resuelto.
+ *
+ * El navegador no vuelve a evaluar las reglas: si lo hiciera existirían dos
+ * copias del criterio y una de ellas envejecería. Es la misma lección que dejó
+ * la sincronización del catálogo, y sale más barata aprendida una vez.
+ */
+const matches: Record<string, string[]> = {};
+for (const tool of tools) {
+  matches[tool.slug] = filters.filter((d) => d.filter.matches(tool)).map((d) => d.filter.id);
+}
+
+const conCreditosDocumentados = tools.filter(
+  (t) => t.freePlan.creditsAmount && ['daily', 'weekly', 'monthly'].includes(t.freePlan.creditReset)
+).length;
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Categorías', path: ROUTES.categories },
+  { name: category.name, path: ROUTES.category('imagen') },
+];
+
+/** Cada respuesta es un dato que esta misma página enseña. */
+const faqs = [
+  {
+    question: '¿Qué herramientas de imagen puedo usar gratis ahora mismo?',
+    answer: `${gratis.length} de las ${tools.length} que hemos verificado generan imágenes, funcionan en el navegador y tienen acceso gratuito utilizable hoy: ${gratis
+      .slice(0, 5)
+      .map((t) => t.name)
+      .join(', ')}. Las herramientas locales quedan fuera de esa lista porque hay que instalarlas antes de generar nada.`,
+  },
+  {
+    question: '¿Cuáles publican cuántas imágenes gratis dan y cada cuánto?',
+    answer: `${conCreditosDocumentados}. En el resto sólo consta que hay créditos, no cuántos: cuando el fabricante no publica la cantidad, no la estimamos.`,
+  },
+  {
+    question: '¿Es lo mismo «gratis online» que «open source local»?',
+    answer:
+      'No, y por eso van en bloques distintos. Una web gratuita se abre y se usa; una herramienta local es gratis por licencia pero el coste se traslada a tu equipo: instalación, modelos de varios gigas y, casi siempre, una GPU.',
+  },
+];
+---
+
+<BaseLayout
+  title={`IA para imágenes: ${tools.length} herramientas verificadas y qué dan gratis`}
+  description={`Cuáles generan imágenes gratis hoy, cuáles piden instalación y qué da exactamente cada plan gratuito. ${tools.length} herramientas verificadas contra la página oficial de cada fabricante.`}
+  crumbs={crumbs}
+  schemas={[itemListSchema(tools, 'Herramientas de imagen con IA'), faqSchema(faqs)]}
+>
+  <div class="page im">
+    <header class="im-hero">
+      <h1 class="im-h1">IA para imágenes</h1>
+      <p class="im-lede">
+        Qué hace cada herramienta, qué te deja hacer sin pagar y cuánto cuesta empezar.
+        Sin puntuaciones: lo que hay debajo de cada tarjeta es lo que dice la página
+        oficial del fabricante.
+      </p>
+      <p class="im-jump">
+        <a href="#gratis">Gratis ahora</a>
+        <a href="#faciles">Fáciles</a>
+        <a href="#potentes">Profesionales</a>
+        <a href="#local">Local</a>
+        <a href="#todas">Todas</a>
+      </p>
+    </header>
+
+    <!-- ------------------------------------------------------------------ -->
+    <section class="im-block" id="gratis" aria-labelledby="gratis-h">
+      <div class="im-block-head">
+        <h2 class="im-h2" id="gratis-h">Genera imágenes gratis ahora</h2>
+        <p class="im-block-lede">
+          Generan imágenes, funcionan en el navegador y su acceso gratuito se puede
+          usar hoy. Ninguna local: instalar no es empezar.
+        </p>
+      </div>
+      <ul class="im-grid">
+        {gratis.map((tool) => (
+          <li><ImagenCard tool={tool} /></li>
+        ))}
+      </ul>
+      <p class="im-note">
+        Donde no aparece una cantidad es porque el fabricante no la publica. No la
+        estimamos.
+      </p>
+    </section>
+
+    <!-- ------------------------------------------------------------------ -->
+    <section class="im-block" id="faciles" aria-labelledby="faciles-h">
+      <div class="im-block-head">
+        <h2 class="im-h2" id="faciles-h">Fáciles para empezar</h2>
+        <p class="im-block-lede">
+          Nada que instalar. Primero las que no piden ni cuenta. Que sean de pago no
+          las descalifica: aquí la pregunta es cuánto cuesta empezar, no cuánto cuesta.
+        </p>
+      </div>
+      <ul class="im-grid">
+        {faciles.map((tool) => (
+          <li><ImagenCard tool={tool} /></li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- ------------------------------------------------------------------ -->
+    <section class="im-block" id="potentes" aria-labelledby="potentes-h">
+      <div class="im-block-head">
+        <h2 class="im-h2" id="potentes-h">Potentes y profesionales</h2>
+        <p class="im-block-lede">
+          Herramientas de las que podemos describir seis funciones o más con una cita
+          oficial detrás de cada una. No es una nota más alta: es que sabemos
+          exactamente qué hacen.
+        </p>
+      </div>
+      <ul class="im-grid">
+        {potentes.map((tool) => (
+          <li><ImagenCard tool={tool} /></li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- ------------------------------------------------------------------ -->
+    <section class="im-block" id="local" aria-labelledby="local-h">
+      <div class="im-block-head">
+        <h2 class="im-h2" id="local-h">Local y máximo control</h2>
+        <p class="im-block-lede">
+          Se ejecutan en tu equipo: sin cuotas, sin enviar nada a nadie y sin depender
+          de que alguien cambie su plan gratuito. El coste se traslada al hardware.
+        </p>
+      </div>
+
+      {install.length > 0 && (
+        <div class="im-sub">
+          <h3 class="im-h3">Se instalan y ya</h3>
+          <p class="im-sub-lede">Instalador o un solo ejecutable. Sigue haciendo falta una GPU.</p>
+          <ul class="im-grid">
+            {install.map((tool) => (
+              <li><ImagenCard tool={tool} headingLevel="h4" /></li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {technical.length > 0 && (
+        <div class="im-sub">
+          <h3 class="im-h3">Configuración técnica</h3>
+          <p class="im-sub-lede">
+            Entorno, descarga de modelos y, en algún caso, un grafo de nodos que montar.
+            No se parecen a abrir una web y generar.
+          </p>
+          <ul class="im-grid">
+            {technical.map((tool) => (
+              <li><ImagenCard tool={tool} headingLevel="h4" /></li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </section>
+
+    <!-- ------------------------------------------------------------------ -->
+    <section class="im-block im-all" id="todas" aria-labelledby="todas-h">
+      <div class="im-block-head">
+        <h2 class="im-h2" id="todas-h">Todas las herramientas de imagen</h2>
+        <p class="im-block-lede">Las {tools.length} verificadas, con filtros que se combinan.</p>
+      </div>
+
+      <form class="im-filters" id="im-filters" aria-label="Filtrar herramientas de imagen">
+        <ul class="im-chips">
+          {filters.map((d) => (
+            <li>
+              <label class="im-chip">
+                <input type="checkbox" value={d.filter.id} data-im-filter />
+                <span class="im-chip-label" title={d.filter.hint}>{d.filter.label}</span>
+                <span class="im-chip-count tnum">{d.count}</span>
+              </label>
+            </li>
+          ))}
+        </ul>
+        <div class="im-filters-foot">
+          <p class="im-result" role="status" aria-live="polite">
+            <span id="im-count" class="tnum">{tools.length}</span>{' '}
+            <span id="im-noun">herramientas</span>
+          </p>
+          <button type="button" class="btn btn-secondary btn-sm" id="im-reset" hidden>
+            Quitar filtros
+          </button>
+        </div>
+      </form>
+
+      <ul class="im-grid" id="im-results">
+        {todas.map((tool) => (
+          <li data-im-item data-slug={tool.slug}>
+            <ImagenCard tool={tool} capabilityLimit={5} />
+          </li>
+        ))}
+      </ul>
+
+      <div class="card im-empty" id="im-empty" hidden>
+        <h3 class="im-empty-title">Ninguna cumple todo lo que has pedido a la vez</h3>
+        <p class="im-empty-body" id="im-empty-reason"></p>
+        <button type="button" class="btn btn-secondary btn-sm" id="im-empty-reset">Quitar filtros</button>
+      </div>
+
+      {hidden.length > 0 && (
+        <details class="im-hidden">
+          <summary>Por qué faltan {hidden.length} filtros</summary>
+          <p class="im-hidden-intro">
+            Un filtro que convierte «no consta» en «no» miente sobre las fichas que no
+            selecciona. Estos vuelven en cuanto los datos los sostengan.
+          </p>
+          <ul class="im-hidden-list">
+            {hidden.map((d) => (
+              <li><strong>{d.filter.label}</strong>: {d.reason}.</li>
+            ))}
+          </ul>
+        </details>
+      )}
+    </section>
+
+    <p class="im-tail">
+      ¿Falta alguna, o hay un dato que ya no es cierto?
+      <a href={ROUTES.submit}>Cuéntanoslo</a> — cada ficha lleva la fecha en que se
+      comprobó y el enlace a la página que lo dice.
+    </p>
+
+    <script type="application/json" id="im-matches" is:inline set:html={JSON.stringify(matches)} />
+  </div>
+</BaseLayout>
+
+<style>
+  .im {
+    display: grid;
+    gap: var(--space-xl);
+  }
+
+  .im-hero {
+    display: grid;
+    gap: var(--space-2xs);
+    max-width: var(--measure);
+  }
+
+  .im-h1 {
+    margin: 0;
+    font-size: clamp(1.9rem, 5vw, 2.9rem);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
+
+  .im-lede {
+    margin: 0;
+    font-size: 1.0625rem;
+    color: var(--ink-muted);
+    line-height: 1.55;
+  }
+
+  .im-jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3xs) var(--space-2xs);
+    margin: var(--space-2xs) 0 0;
+    font-size: 0.8125rem;
+  }
+
+  .im-jump a {
+    padding: 0.3rem 0.6rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    color: var(--ink-muted);
+    min-height: 32px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .im-jump a:hover {
+    border-color: var(--signal-line);
+    color: var(--signal);
+  }
+
+  .im-block {
+    display: grid;
+    gap: var(--space-s);
+    scroll-margin-block-start: var(--space-l);
+  }
+
+  .im-block-head {
+    display: grid;
+    gap: var(--space-3xs);
+    max-width: var(--measure);
+  }
+
+  .im-h2 {
+    margin: 0;
+    font-size: clamp(1.35rem, 3.2vw, 1.75rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
+  .im-block-lede {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--ink-muted);
+    line-height: 1.5;
+  }
+
+  .im-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2xs);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 34rem) {
+    .im-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 60rem) {
+    .im-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-xs);
+    }
+  }
+
+  .im-grid > li {
+    display: flex;
+  }
+
+  .im-grid > li > :global(*) {
+    width: 100%;
+  }
+
+  .im-note {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+  }
+
+  .im-sub {
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .im-h3 {
+    margin: 0;
+    font-size: 1.0625rem;
+  }
+
+  .im-sub-lede {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    max-width: var(--measure);
+  }
+
+  /* ---- Filtros ---- */
+
+  .im-filters {
+    display: grid;
+    gap: var(--space-2xs);
+    padding: var(--space-xs);
+    background: var(--surface-sunken);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-m);
+  }
+
+  .im-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3xs);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .im-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.7rem;
+    min-height: 36px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-full);
+    font-size: 0.8125rem;
+    cursor: pointer;
+  }
+
+  .im-chip input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+  }
+
+  .im-chip:hover {
+    border-color: var(--line-strong);
+  }
+
+  .im-chip:has(input:checked) {
+    background: var(--signal-soft);
+    border-color: var(--signal-line);
+    color: var(--signal-strong);
+    font-weight: 600;
+  }
+
+  .im-chip:has(input:focus-visible) {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .im-chip-count {
+    color: var(--ink-muted);
+    font-size: 0.75rem;
+  }
+
+  .im-chip:has(input:checked) .im-chip-count {
+    color: inherit;
+  }
+
+  .im-filters-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+    padding-block-start: var(--space-3xs);
+    border-block-start: 1px solid var(--line);
+  }
+
+  .im-result {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .im-result #im-count {
+    font-weight: 700;
+    color: var(--ink-strong);
+  }
+
+  .im-empty {
+    padding: var(--space-l) var(--space-s);
+    text-align: center;
+  }
+
+  .im-empty-title {
+    margin: 0 0 var(--space-3xs);
+    font-size: 1.0625rem;
+  }
+
+  .im-empty-body {
+    margin: 0 auto var(--space-2xs);
+    max-width: 44ch;
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+  }
+
+  .im-hidden {
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .im-hidden summary {
+    cursor: pointer;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+  }
+
+  .im-hidden-intro {
+    margin: var(--space-3xs) 0;
+    max-width: var(--measure);
+  }
+
+  .im-hidden-list {
+    margin: 0;
+    padding-inline-start: 1.1rem;
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  .im-tail {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--ink-muted);
+    max-width: var(--measure);
+  }
+</style>
+
+<script>
+  /**
+   * Filtrado del catálogo completo.
+   *
+   * Sólo interseca conjuntos: qué filtros cumple cada ficha se calculó al
+   * construir la página, con las mismas funciones que decidieron enseñar cada
+   * chip. Reevaluarlas aquí sería tener dos copias del criterio, y una de las
+   * dos acabaría vieja.
+   *
+   * Sin JavaScript la sección sigue siendo un catálogo completo y legible: los
+   * filtros son un atajo, no la única puerta.
+   */
+  const form = document.getElementById('im-filters') as HTMLFormElement | null;
+  const node = document.getElementById('im-matches');
+  if (form && node?.textContent) {
+    const matches: Record<string, string[]> = JSON.parse(node.textContent);
+
+    const items = new Map<string, HTMLElement>();
+    for (const li of Array.from(document.querySelectorAll<HTMLElement>('[data-im-item]'))) {
+      items.set(li.dataset['slug']!, li);
+    }
+
+    const boxes = Array.from(form.querySelectorAll<HTMLInputElement>('[data-im-filter]'));
+    const labels = new Map(
+      boxes.map((b) => [b.value, b.parentElement?.querySelector('.im-chip-label')?.textContent ?? b.value])
+    );
+
+    const countEl = document.getElementById('im-count')!;
+    const nounEl = document.getElementById('im-noun')!;
+    const resultsEl = document.getElementById('im-results')!;
+    const emptyEl = document.getElementById('im-empty')!;
+    const emptyReason = document.getElementById('im-empty-reason')!;
+    const resetBtn = document.getElementById('im-reset') as HTMLButtonElement;
+    const emptyReset = document.getElementById('im-empty-reset') as HTMLButtonElement;
+
+    const countFor = (active: string[]) =>
+      [...items.keys()].filter((slug) => active.every((id) => matches[slug]?.includes(id))).length;
+
+    /** Cuál de los requisitos activos es el que deja la lista vacía. */
+    function blocker(active: string[]): string | null {
+      for (const id of active) {
+        if (countFor(active.filter((other) => other !== id)) > 0) return labels.get(id) ?? id;
+      }
+      return null;
+    }
+
+    function apply() {
+      const active = boxes.filter((b) => b.checked).map((b) => b.value);
+      let visible = 0;
+
+      for (const [slug, li] of items) {
+        const ok = active.every((id) => matches[slug]?.includes(id));
+        li.hidden = !ok;
+        if (ok) visible += 1;
+      }
+
+      countEl.textContent = String(visible);
+      nounEl.textContent = visible === 1 ? 'herramienta' : 'herramientas';
+      resetBtn.hidden = active.length === 0;
+      resultsEl.hidden = visible === 0;
+      emptyEl.hidden = visible > 0;
+
+      if (visible === 0) {
+        const name = blocker(active);
+        emptyReason.textContent = name
+          ? `El filtro «${name}» es el que lo deja vacío. Sin él sí hay resultados.`
+          : 'Prueba a quitar alguno de los requisitos.';
+      }
+
+      const params = new URLSearchParams(location.search);
+      if (active.length) params.set('f', active.join(','));
+      else params.delete('f');
+      const query = params.toString();
+      history.replaceState({}, '', query ? `${location.pathname}?${query}#todas` : location.pathname);
+    }
+
+    function reset() {
+      for (const box of boxes) box.checked = false;
+      apply();
+    }
+
+    form.addEventListener('change', apply);
+    resetBtn.addEventListener('click', reset);
+    emptyReset.addEventListener('click', reset);
+
+    // Arranca desde lo que ya diga la URL, para que un enlace compartido llegue
+    // con los mismos filtros puestos.
+    const initial = new URLSearchParams(location.search).get('f');
+    if (initial) {
+      const wanted = new Set(initial.split(','));
+      for (const box of boxes) box.checked = wanted.has(box.value);
+      apply();
+    }
+  }
+</script>

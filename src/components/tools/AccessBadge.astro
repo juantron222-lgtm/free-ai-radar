@@ -1,5 +1,5 @@
 ---
-import { getFreeModel, CREDIT_RESET_LABEL } from '@lib/domain/taxonomy';
+import { getFreeModel, CREDIT_RESET_LABEL, START_EFFORT_LABEL } from '@lib/domain/taxonomy';
 import type { Tool } from '@lib/domain/tool';
 
 /**
@@ -17,7 +17,7 @@ import type { Tool } from '@lib/domain/tool';
  */
 
 interface Props {
-  tool: Pick<Tool, 'freeModel' | 'freePlan' | 'hosting' | 'skillLevel'>;
+  tool: Pick<Tool, 'freeModel' | 'freePlan' | 'startEffort'>;
   size?: 'sm' | 'md' | 'lg';
 }
 
@@ -31,20 +31,31 @@ const model = getFreeModel(tool.freeModel);
  */
 const reset = tool.freePlan.creditReset;
 const amount = tool.freePlan.creditsAmount;
+
+/*
+ * Muchas cantidades ya llevan su periodo dentro — "150 Fast Tokens/día",
+ * "10 imágenes cada 3 horas", "20/24h por herramienta" — y añadir la etiqueta
+ * de renovación producía "100 unidades/día · diaria". Se repite sólo cuando la
+ * cantidad no dice ya cada cuánto.
+ */
+const SAYS_PERIOD = /\/\s*(día|dia|d|semana|mes|h|24h|hora)|cada\s|\bal\s(día|dia|mes)\b|semanal|mensual|diari/i;
+
 const credits =
   amount && reset !== 'none' && reset !== 'unknown'
-    ? `${amount} · ${CREDIT_RESET_LABEL[reset].toLowerCase()}`
+    ? SAYS_PERIOD.test(amount)
+      ? amount
+      : `${amount} · ${CREDIT_RESET_LABEL[reset].toLowerCase()}`
     : null;
 
-/** How much stands between opening the page and getting a result. */
-const effort =
-  tool.hosting === 'local'
-    ? 'Se instala en tu equipo'
-    : tool.skillLevel === 'beginner'
-      ? 'Se usa desde el navegador'
-      : tool.skillLevel === 'intermediate'
-        ? 'Requiere configuración'
-        : 'Técnica';
+/*
+ * How much stands between opening the page and getting a result.
+ *
+ * Reads `startEffort`, which describes the tool. It used to read `skillLevel`,
+ * which describes the reader — and that is how a Python application needing a
+ * GPU and a web page where you type and generate both ended up labelled
+ * "beginner", side by side, as if they were the same errand.
+ */
+const effort = START_EFFORT_LABEL[tool.startEffort];
 ---
 
 <span class={`access access-${size}`} data-tone={model.tone}>

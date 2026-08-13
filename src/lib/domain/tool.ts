@@ -199,6 +199,17 @@ export const ToolRecord = z.object({
    */
   startEffort: z.enum(START_EFFORT).default('signup'),
 
+  /**
+   * Por qué esta ficha tiene ese `startEffort`.
+   *
+   * `startEffort` es el único campo del catálogo exento de cita, porque
+   * describe lo que cuesta empezar y eso lo observamos nosotros. Esa exención
+   * lo vuelve el más fácil de rellenar a ojo y el más difícil de discutir
+   * después. Esto es el rastro: una línea con lo que se observó, para que quien
+   * revise dentro de seis meses pueda contradecirla sin rehacer el argumento.
+   */
+  startEffortReason: z.string().max(160).default(''),
+
   openSource: TriState.default('unverified'),
   licence: z.string().optional(),
   hosting: z.enum(HOSTING).default('cloud'),

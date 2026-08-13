@@ -49,6 +49,9 @@ export default defineConfig({
     // so that is where its readers should land.
     '/cambios': { status: 301, destination: '/noticias' },
     '/changelog': { status: 301, destination: '/noticias' },
+    // Imagen se rehízo como página propia. Una sola URL canónica: la vieja
+    // conserva sus enlaces entrantes en vez de competir con la nueva.
+    '/categorias/imagen': { status: 301, destination: '/imagen' },
   },
   vite: {
     plugins: [tailwindcss()],

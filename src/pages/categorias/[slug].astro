@@ -5,11 +5,20 @@ import { getPopulatedCategories, getToolsByCategory } from '@lib/data/catalog';
 import { faqSchema, itemListSchema } from '@lib/seo/structured-data';
 import { ROUTES } from '@lib/nav';
 
+/**
+ * Imagen no se genera aquí: tiene su propia página en `/imagen`, construida
+ * alrededor de la intención del lector en vez de una rejilla ordenada por nota.
+ * Generarla en los dos sitios crearía dos URLs con el mismo contenido, que es
+ * la forma más rápida de que ninguna de las dos posicione. `/categorias/imagen`
+ * redirige (ver `astro.config.mjs`).
+ */
 export function getStaticPaths() {
-  return getPopulatedCategories().map((category) => ({
-    params: { slug: category.slug },
-    props: { category, tools: getToolsByCategory(category.slug) },
-  }));
+  return getPopulatedCategories()
+    .filter((category) => category.slug !== 'imagen')
+    .map((category) => ({
+      params: { slug: category.slug },
+      props: { category, tools: getToolsByCategory(category.slug) },
+    }));
 }
 
 const { category, tools } = Astro.props;

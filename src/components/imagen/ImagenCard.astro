@@ -1,0 +1,239 @@
+---
+import type { Tool } from '@lib/domain/tool';
+import { CAPABILITY_LABEL, HOSTING_LABEL, START_EFFORT_LABEL } from '@lib/domain/taxonomy';
+import { freeAccessLabel, IMAGE_CAPABILITIES } from '@lib/data/imagen';
+import { ROUTES } from '@lib/nav';
+
+/**
+ * Una tarjeta que contesta cuatro preguntas y ninguna más.
+ *
+ *   1. ¿Qué hace?           → las capacidades citadas, en castellano
+ *   2. ¿Puedo usarla gratis? → el tipo de gratuidad, con cantidad sólo si consta
+ *   3. ¿Online o local?      → dónde se ejecuta
+ *   4. ¿Cuánto cuesta empezar? → el esfuerzo, con el motivo en el `title`
+ *
+ * Sin número sobre cien. La nota global respondía «¿cuál es mejor?», y esa
+ * pregunta no tiene respuesta sin saber quién la hace: AUTOMATIC1111 sacaba 89
+ * y Midjourney 65, lo que a alguien que quiere una imagen ahora no le decía
+ * nada, porque el 89 es una instalación de Python que necesita GPU.
+ *
+ * Lo que no consta no se pinta. Un hueco es más honesto que una etiqueta
+ * tranquilizadora, y mucho más que una alarmante: `unverified` significa que no
+ * lo hemos comprobado, no que la respuesta sea «no».
+ */
+
+interface Props {
+  tool: Tool;
+  headingLevel?: 'h3' | 'h4';
+  /** Cuántas capacidades caben antes de resumir el resto. */
+  capabilityLimit?: number;
+}
+
+const { tool, headingLevel: Heading = 'h3', capabilityLimit = 4 } = Astro.props;
+
+const access = freeAccessLabel(tool);
+const shown = IMAGE_CAPABILITIES.filter((c) => tool.capabilities.includes(c));
+const visible = shown.slice(0, capabilityLimit);
+const rest = shown.length - visible.length;
+
+const local = tool.hosting !== 'cloud';
+---
+
+<article
+  class="ic card card-interactive"
+  data-imagen-card
+  data-slug={tool.slug}
+  data-name={tool.name.toLowerCase()}
+>
+  <div class="ic-head">
+    <Heading class="ic-name">
+      <a href={ROUTES.tool(tool.slug)} class="ic-link">{tool.name}</a>
+    </Heading>
+    <span class="chip ic-access" data-tone={access.tone}>{access.kind}</span>
+  </div>
+
+  {/* 1. Qué hace. Si no consta ninguna capacidad, se dice, no se rellena. */}
+  {visible.length > 0 ? (
+    <p class="ic-does">
+      {visible.map((c, i) => (
+        <>
+          {i > 0 && <span aria-hidden="true"> · </span>}
+          <span class="ic-cap">{CAPABILITY_LABEL[c]}</span>
+        </>
+      ))}
+      {rest > 0 && <span class="ic-more"> +{rest}</span>}
+    </p>
+  ) : (
+    <p class="ic-does ic-does-empty">Capacidades sin confirmar en fuente oficial</p>
+  )}
+
+  <dl class="ic-facts">
+    {/* Cuánto da, o el hecho de que no lo digan: nunca una cifra estimada. */}
+    <div class="ic-fact">
+      <dt>Cuánto</dt>
+      <dd class={access.amount ? undefined : 'ic-unpublished'}>{access.amount ?? access.amountFallback}</dd>
+    </div>
+    <div class="ic-fact">
+      <dt>Dónde</dt>
+      <dd>{local ? HOSTING_LABEL[tool.hosting] : 'En el navegador'}</dd>
+    </div>
+    <div class="ic-fact ic-fact-effort">
+      <dt>Empezar</dt>
+      <dd title={tool.startEffortReason || undefined}>{START_EFFORT_LABEL[tool.startEffort]}</dd>
+    </div>
+  </dl>
+
+  <p class="ic-foot">
+    <span class="ic-cta">Ver ficha</span>
+    <time class="ic-date" datetime={tool.lastVerifiedAt}>
+      {new Date(`${tool.lastVerifiedAt}T00:00:00Z`).toLocaleDateString('es-ES', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        timeZone: 'UTC',
+      })}
+    </time>
+  </p>
+</article>
+
+<style>
+  .ic {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+    padding: var(--space-s);
+    height: 100%;
+  }
+
+  .ic-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+  }
+
+  .ic-name {
+    margin: 0;
+    font-size: 1.0625rem;
+    font-weight: 650;
+    overflow-wrap: anywhere;
+  }
+
+  .ic-link {
+    text-decoration: none;
+    color: var(--ink-strong);
+  }
+
+  /* Toda la tarjeta es pulsable con una sola parada de tabulación. */
+  .ic-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+  .ic-link:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--signal);
+  }
+
+  .ic-access {
+    flex: none;
+    font-size: 0.6875rem;
+    white-space: nowrap;
+  }
+
+  /* El color acompaña, nunca informa por su cuenta: el texto ya lo dice. */
+  .ic-access[data-tone='good'] {
+    background: var(--signal-soft);
+    color: var(--signal-strong);
+    border-color: var(--signal-line);
+  }
+  .ic-access[data-tone='warn'] {
+    background: var(--warn-soft);
+    color: var(--warn);
+    border-color: var(--warn-line);
+  }
+
+  .ic-does {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--ink);
+    line-height: 1.45;
+  }
+
+  /*
+   * `--ink-subtle` da 3.54:1 sobre el papel claro, y a 11–14 px eso incumple el
+   * 4.5:1 que exige WCAG 2.2 AA para texto normal. Lo secundario de estas
+   * tarjetas usa `--ink-muted`, que sí lo cumple en los dos temas.
+   */
+  .ic-does-empty {
+    color: var(--ink-muted);
+    font-style: italic;
+  }
+
+  .ic-more {
+    color: var(--ink-muted);
+  }
+
+  .ic-facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+    gap: var(--space-3xs) var(--space-2xs);
+    margin: var(--space-3xs) 0 0;
+    padding-block-start: var(--space-2xs);
+    border-block-start: 1px solid var(--line-hairline);
+  }
+
+  .ic-fact dt {
+    margin: 0;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink-muted);
+  }
+
+  .ic-fact dd {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+
+  .ic-fact-effort dd {
+    font-weight: 500;
+    color: var(--ink-muted);
+  }
+
+  /*
+   * Lo que no consta se ve distinto de lo que sí, sin parecer una alarma.
+   * Va anidado bajo `.ic-fact` porque `.ic-fact dd` tiene más especificidad que
+   * una clase suelta y se comía la regla entera.
+   */
+  .ic-fact dd.ic-unpublished {
+    font-weight: 500;
+    font-style: italic;
+    color: var(--ink-muted);
+  }
+
+  .ic-foot {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+    margin: auto 0 0;
+    padding-block-start: var(--space-2xs);
+    font-size: 0.75rem;
+  }
+
+  .ic-cta {
+    font-weight: 600;
+    color: var(--signal);
+  }
+
+  .ic-date {
+    color: var(--ink-muted);
+  }
+</style>
