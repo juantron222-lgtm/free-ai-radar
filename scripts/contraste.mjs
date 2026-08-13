@@ -187,6 +187,14 @@ for (const mode of MODES) {
     const context = await browser.newContext({
       colorScheme: mode.scheme,
       viewport: { width: vp.width, height: vp.height },
+      /*
+       * Para medir contra un Preview protegido. Sólo la cabecera: el valor no
+       * se imprime, no se registra y nunca va en la URL, donde quedaría en los
+       * accesos del servidor y en el historial.
+       */
+      ...(process.env.VERCEL_PROTECTION_BYPASS
+        ? { extraHTTPHeaders: { 'x-vercel-protection-bypass': process.env.VERCEL_PROTECTION_BYPASS } }
+        : {}),
     });
     const page = await context.newPage();
     for (const path of PAGES) {
