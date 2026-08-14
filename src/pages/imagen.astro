@@ -94,10 +94,20 @@ const faqs = [
   <div class="page im">
     <header class="im-hero">
       <h1 class="im-h1">IA para imágenes</h1>
+      {/*
+        Un párrafo con dos frases: la promesa y el método.
+        Van en el mismo `<p>` para que en el escritorio se lean seguidas, como
+        siempre; el `<span>` sólo existe para que en el móvil la segunda baje de
+        tamaño y salte de línea. Nada de lo que esta página dice sobre cómo
+        trabaja se esconde según el ancho de la pantalla: pesa menos donde el
+        alto es el recurso escaso, y nada más.
+      */}
       <p class="im-lede">
         Qué hace cada herramienta, qué te deja hacer sin pagar y cuánto cuesta empezar.
-        Sin puntuaciones: lo que hay debajo de cada tarjeta es lo que dice la página
-        oficial del fabricante.
+        <span class="im-lede-method">
+          Sin puntuaciones: lo que hay debajo de cada tarjeta es lo que dice la página
+          oficial del fabricante.
+        </span>
       </p>
       <p class="im-jump">
         <a href="#gratis">Gratis ahora</a>
@@ -293,6 +303,12 @@ const faqs = [
     font-size: 1.0625rem;
     color: var(--ink-muted);
     line-height: 1.55;
+  }
+
+  /* En escritorio no es nada: la frase sigue en el párrafo, seguida. */
+  .im-lede-method {
+    font: inherit;
+    color: inherit;
   }
 
   .im-jump {
@@ -529,6 +545,85 @@ const faqs = [
     font-size: 0.9375rem;
     color: var(--ink-muted);
     max-width: var(--measure);
+  }
+
+  /* -------------------------------------------------------------------- *
+   * Móvil: el alto es el recurso escaso
+   *
+   * Medido a 375 px, la primera herramienta arrancaba a 523 px. En un
+   * iPhone SE eso deja 144 px de una tarjeta de 238: el lector llega al
+   * primer resultado sin haberlo visto entero, y una página que se llama
+   * «genera imágenes gratis ahora» tiene que enseñar una.
+   *
+   * Nada se elimina. Lo que cambia es cuánto pesa cada cosa: la segunda
+   * frase del encabezado baja de tamaño, los atajos pasan a una fila que se
+   * desplaza en vez de romper en dos, y los huecos entre bloques dejan de
+   * ser los del escritorio, donde sobra alto y el aire ayuda a leer.
+   * -------------------------------------------------------------------- */
+  @media (max-width: 600px) {
+    .im {
+      gap: var(--space-l);
+    }
+
+    .im-h1 {
+      font-size: 1.75rem;
+      line-height: 1.12;
+    }
+
+    .im-lede {
+      font-size: 0.9375rem;
+      line-height: 1.45;
+    }
+
+    .im-lede-method {
+      display: block;
+      margin-block-start: 0.2rem;
+      font-size: 0.8125rem;
+      line-height: 1.4;
+      color: var(--ink-subtle);
+    }
+
+    /*
+     * Una fila que se desplaza, no dos que se apilan.
+     * Sangra hasta los bordes para que el último atajo se corte a la mitad:
+     * un corte limpio en el margen parece un fallo de maquetación, y un
+     * corte en el borde de la pantalla se lee como «hay más a la derecha».
+     */
+    .im-jump {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+      margin-block-start: var(--space-3xs);
+      margin-inline: calc(var(--space-s) * -1);
+      padding-inline: var(--space-s);
+      padding-block-end: 0.2rem;
+    }
+
+    .im-jump::-webkit-scrollbar {
+      display: none;
+    }
+
+    .im-jump a {
+      flex: none;
+    }
+
+    .im-block {
+      gap: var(--space-2xs);
+    }
+
+    .im-h2 {
+      font-size: 1.25rem;
+    }
+
+    .im-block-lede {
+      font-size: 0.875rem;
+      line-height: 1.45;
+    }
+
+    .im-sub-lede {
+      font-size: 0.8125rem;
+      line-height: 1.45;
+    }
   }
 </style>
 
