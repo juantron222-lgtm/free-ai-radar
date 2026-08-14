@@ -104,19 +104,43 @@ test.describe('descubrimiento', () => {
   const filterChip = (page: Page, label: string) =>
     page.locator('.filter-chip').filter({ hasText: new RegExp(`^${label}`) }).first();
 
+  /**
+   * Comprueba el mecanismo, no una coincidencia del catálogo.
+   *
+   * La versión anterior exigía que «sin tarjeta» y «uso comercial» dejaran
+   * algún resultado. Trece fichas cumplían las dos hasta que la auditoría
+   * devolvió a `unverified` todo lo que nadie había comprobado, y la
+   * intersección se quedó en cero: la prueba se puso roja por un cambio de
+   * datos correcto.
+   *
+   * Una intersección vacía es un estado legítimo y la aplicación lo trata —
+   * dice qué filtro es el responsable—. Así que eso es lo que se comprueba:
+   * que los filtros se combinen, viajen en la URL, no amplíen nunca el
+   * resultado, y que si lo dejan vacío el explorador lo explique.
+   */
   test('los filtros se combinan y quedan en la URL', async ({ page }) => {
-    const before = await page.locator('[data-result-item]:visible').count();
+    const visible = () => page.locator('[data-result-item]:visible').count();
+    const before = await visible();
 
     await filterChip(page, 'Sin tarjeta').click();
     await expect(page).toHaveURL(/nocard=1/);
+    const conUno = await visible();
+    expect(conUno).toBeLessThanOrEqual(before);
 
     await filterChip(page, 'Uso comercial').click();
     await expect(page).toHaveURL(/nocard=1/);
     await expect(page).toHaveURL(/comm=1/);
 
-    const after = await page.locator('[data-result-item]:visible').count();
-    expect(after).toBeLessThanOrEqual(before);
-    expect(after).toBeGreaterThan(0);
+    const conDos = await visible();
+    expect(conDos, 'añadir un requisito nunca puede devolver más resultados').toBeLessThanOrEqual(
+      conUno
+    );
+
+    if (conDos === 0) {
+      // Callejón sin salida, pero con salida: el explorador nombra al culpable.
+      await expect(page.locator('#empty-state')).toBeVisible();
+      await expect(page.locator('#empty-reason')).not.toBeEmpty();
+    }
   });
 
   test('los filtros son operables por teclado', async ({ page }) => {
@@ -192,10 +216,22 @@ test.describe('ficha de herramienta', () => {
     await page.waitForURL(/\/herramientas\/[a-z0-9-]+$/);
 
     await expect(page.getByRole('heading', { name: 'Qué te dan gratis' })).toBeVisible();
-    await expect(page.getByRole('heading', { name: /Por qué \d+ y no otra cifra/ })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Fuentes' })).toBeVisible();
     await expect(page.getByRole('heading', { name: /Para quién sirve/ })).toBeVisible();
     await expect(page.locator('#reportar')).toBeVisible();
+
+    /*
+     * Aquí había una comprobación de «Por qué 89 y no otra cifra», la sección
+     * que justificaba la nota única. La nota se retiró —una media ponderada
+     * contesta «¿cuál es mejor?», y esa pregunta no tiene respuesta sin saber
+     * para quién—, así que la comprobación llevaba dos commits en rojo.
+     *
+     * En su lugar se vigila lo contrario, que es lo que ahora hay que sostener:
+     * que ninguna ficha vuelva a publicar un número sobre cien. Es la clase de
+     * cosa que reaparece sola cuando alguien recupera un componente viejo.
+     */
+    await expect(page.locator('body')).not.toContainText(/\b\d{1,3}\s*\/\s*100\b/);
+    await expect(page.locator('[data-score-badge], .score-badge')).toHaveCount(0);
   });
 
   test('el enlace saliente se abre en pestaña nueva con rel seguro', async ({ page }) => {

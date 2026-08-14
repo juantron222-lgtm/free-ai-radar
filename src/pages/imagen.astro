@@ -109,13 +109,21 @@ const faqs = [
           oficial del fabricante.
         </span>
       </p>
-      <p class="im-jump">
+      {/*
+        Un `nav` con nombre, no un párrafo de enlaces.
+        Es navegación dentro de la página, así que decirlo cuesta un atributo y
+        se lo gana quien usa un lector de pantalla: aparece en la lista de
+        regiones en vez de como texto suelto. De paso da un asidero estable —el
+        nombre accesible— a la prueba que vigila el alto en el móvil, en lugar
+        de una clase CSS que cualquiera puede renombrar.
+      */}
+      <nav class="im-jump" aria-label="Ir a un bloque">
         <a href="#gratis">Gratis ahora</a>
         <a href="#faciles">Fáciles</a>
         <a href="#potentes">Profesionales</a>
         <a href="#local">Local</a>
         <a href="#todas">Todas</a>
-      </p>
+      </nav>
     </header>
 
     <!-- ------------------------------------------------------------------ -->
