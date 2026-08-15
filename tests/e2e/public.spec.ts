@@ -1,5 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
-import { seedConsent } from './helpers';
+import { isThirdPartyNoise, seedConsent, trackThirdPartyFailures } from './helpers';
 
 /**
  * Public navigation, search, filtering and the tool page.
@@ -30,26 +30,20 @@ test.describe('portada', () => {
     expect(Array.isArray(parsed['@graph'])).toBe(true);
   });
 
-  test('no hay errores de consola', async ({ page }) => {
+  test('no hay errores de consola', async ({ page, baseURL }) => {
     const errors: string[] = [];
+    // Se atan antes de navegar: si se atan después, el primer error ya pasó.
+    const fallosDeTerceros = trackThirdPartyFailures(page, baseURL ?? '');
+
     page.on('console', (message) => {
       if (message.type() !== 'error') return;
       const text = message.text();
-
-      /*
-       * Vercel injects its preview toolbar (vercel.live) into every preview
-       * deployment, and our CSP — `script-src 'self'` — refuses to run it.
-       * The console error is the policy working, not the site failing: a
-       * third-party script we did not ask for was blocked. It does not happen
-       * in production, where the toolbar is not injected.
-       *
-       * Filtered rather than silenced wholesale: any other console error still
-       * fails this test.
-       */
-      if (/vercel\.live|behind a redirect, which is disallowed/i.test(text)) return;
-
+      // Guiones de terceros que fallan fuera de producción. Ver el ayudante:
+      // filtrado, nunca silenciado — cualquier otro error rompe la prueba.
+      if (isThirdPartyNoise(text, fallosDeTerceros)) return;
       errors.push(text);
     });
+
     await page.goto('/');
     await page.waitForLoadState('networkidle');
     expect(errors).toEqual([]);

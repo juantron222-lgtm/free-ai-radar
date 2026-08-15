@@ -1,5 +1,5 @@
 import { test, expect, type Page, type Request } from '@playwright/test';
-import { seedConsent } from './helpers';
+import { isThirdPartyNoise, seedConsent, trackThirdPartyFailures } from './helpers';
 
 /**
  * The crawler.
@@ -85,6 +85,8 @@ async function crawl(page: Page, origin: string, limit = RUNAWAY_LIMIT): Promise
 
   let currentPath = '/';
 
+  const fallosDeTerceros = trackThirdPartyFailures(page, origin);
+
   page.on('console', (message) => {
     if (message.type() !== 'error') return;
     const text = message.text();
@@ -92,15 +94,14 @@ async function crawl(page: Page, origin: string, limit = RUNAWAY_LIMIT): Promise
     if (/favicon|\[vite\]|HMR|WebSocket/i.test(text)) return;
 
     /*
-     * Nor is our own CSP refusing Vercel's preview toolbar.
+     * Ni los guiones de terceros que fallan fuera de producción: la barra de
+     * previsualización de Vercel, que nuestra CSP bloquea, y Web Analytics, que
+     * en local pide un fichero de depuración y recibe un 403.
      *
-     * Vercel injects `vercel.live` into every preview deployment;
-     * `script-src 'self'` blocks it. The console error is the policy working —
-     * a third-party script nobody asked for was stopped — and it does not
-     * occur in production, where the toolbar is not injected. Every other
-     * console error still fails the run.
+     * El criterio vive en `helpers.ts` porque esta misma regla la necesitan dos
+     * ficheros, y dos copias de una regla acaban siendo una copia vieja.
      */
-    if (/vercel\.live|behind a redirect, which is disallowed/i.test(text)) return;
+    if (isThirdPartyNoise(text, fallosDeTerceros)) return;
     result.consoleErrors.push(`${currentPath} → ${text}`);
   });
 
