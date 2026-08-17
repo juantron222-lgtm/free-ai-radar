@@ -1,11 +1,11 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { randomUUID } from 'node:crypto';
-import { join } from 'node:path';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { supabase as supabaseConfig, isProduction } from '@lib/config';
 import { logger } from '@lib/observability/logger';
 import { slugify } from '@lib/domain/primitives';
 import { createMutex } from './mutex';
+import { DATA_DIR, dataFile } from './data-dir';
 
 /**
  * User-owned data (favourites, lists, alerts, preferences).
@@ -15,7 +15,8 @@ import { createMutex } from './mutex';
  *     already authorised the caller via `Astro.locals.user`. RLS still protects
  *     anything reached with the anon key, but these endpoints scope every query
  *     by `user_id` explicitly so a bug cannot cross tenants.
- *   · A JSON file under `.data/`, for development and tests. Refuses to load in
+ *   · A JSON file under the local data directory, for development and tests.
+ *     Refuses to load in
  *     production.
  */
 
@@ -81,7 +82,7 @@ export const MAX_HISTORY = 50;
 // Local backend
 // ---------------------------------------------------------------------------
 
-const LOCAL_FILE = join(process.cwd(), '.data', 'user-data.json');
+const LOCAL_FILE = dataFile('user-data.json');
 const localLock = createMutex();
 
 let cache: Record<string, UserData> | null = null;
@@ -101,7 +102,7 @@ async function readLocal(): Promise<Record<string, UserData>> {
 async function writeLocal(all: Record<string, UserData>): Promise<void> {
   if (isProduction) throw new Error('El almacén local está desactivado en producción.');
   cache = all;
-  await mkdir(join(process.cwd(), '.data'), { recursive: true });
+  await mkdir(DATA_DIR, { recursive: true });
   await writeFile(LOCAL_FILE, JSON.stringify(all, null, 2), 'utf8');
 }
 

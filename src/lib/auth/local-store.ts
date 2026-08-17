@@ -8,9 +8,10 @@ import {
 } from 'node:crypto';
 import { promisify } from 'node:util';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
+import { dirname } from 'node:path';
 import { isProduction } from '@lib/config';
 import { createMutex } from '@lib/data/mutex';
+import { dataFile } from '@lib/data/data-dir';
 import type { UserRole } from '@lib/domain/primitives';
 
 /**
@@ -30,7 +31,8 @@ import type { UserRole } from '@lib/domain/primitives';
  * development stub that stores plaintext passwords is a bad habit that leaks
  * into real systems.
  *
- * Data lives in `.data/dev-users.json`, which is gitignored.
+ * Data lives in `dev-users.json` under the local data directory (`.data/` by
+ * default, gitignored). See `@lib/data/data-dir`.
  *
  * See `docs/technical-decisions.md` § "Autenticación en local".
  */
@@ -46,8 +48,7 @@ const scryptAsync = promisify(scrypt) as (
   options: ScryptOptions
 ) => Promise<Buffer>;
 
-const DATA_DIR = join(process.cwd(), '.data');
-const USERS_FILE = join(DATA_DIR, 'dev-users.json');
+const USERS_FILE = dataFile('dev-users.json');
 
 const SCRYPT_KEYLEN = 64;
 const SCRYPT_PARAMS = { N: 16384, r: 8, p: 1, maxmem: 64 * 1024 * 1024 } as const;

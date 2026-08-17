@@ -1,5 +1,6 @@
 import type { FullConfig } from '@playwright/test';
 import { existsSync, readFileSync } from 'node:fs';
+import { resetRunState } from './run-state';
 
 /** Same secret the config sends, read the same way. Never logged. */
 function bypassHeaders(): Record<string, string> {
@@ -105,18 +106,44 @@ export default async function globalSetup(config: FullConfig): Promise<void> {
     return;
   }
 
-  const baseURL =
-    process.env['E2E_BASE_URL'] ??
-    config.projects[0]?.use?.baseURL ??
-    `http://localhost:${process.env['E2E_PORT'] ?? 4321}`;
+  /*
+   * Estado limpio antes de la primera prueba.
+   *
+   * Cada proyecto tiene su propio directorio bajo esta raíz. Vaciarla aquí es
+   * lo que hace determinista el arranque: ninguna prueba puede pasar porque
+   * quedara una cuenta, una lista o un favorito de la ejecución anterior, que
+   * es la clase de aprobado que no se nota hasta que un día falta.
+   */
+  resetRunState();
 
-  const problem = await check(baseURL);
-  if (!problem) return;
+  /*
+   * Se comprueban todos los servidores, no sólo el primero.
+   *
+   * Con un servidor por proyecto, revisar únicamente `projects[0]` dejaría
+   * cinco sin mirar, y el sexto proyecto fallaría veinte minutos después con
+   * un error que no dice que el problema era el arranque.
+   */
+  const urls = [
+    ...new Set(
+      config.projects
+        .map((project) => project.use?.baseURL)
+        .filter((url): url is string => typeof url === 'string' && url.length > 0)
+    ),
+  ];
+
+  const targets = urls.length ? urls : [`http://localhost:${process.env['E2E_PORT'] ?? 4321}`];
+
+  const problems = (await Promise.all(targets.map(async (url) => [url, await check(url)] as const)))
+    .filter((entry): entry is readonly [string, string] => entry[1] !== null)
+    .map(([url, problem]) => `  · ${url}: ${problem}`);
+
+  if (!problems.length) return;
 
   throw new Error(
     [
       '',
-      `El servidor de pruebas en ${baseURL} no está en condiciones: ${problem}.`,
+      `${problems.length} de ${targets.length} servidores de pruebas no están en condiciones:`,
+      ...problems,
       '',
       'Casi siempre es un servidor de desarrollo reutilizado que lleva demasiado',
       'tiempo vivo y ha perdido su grafo de módulos. Párelo y repita:',

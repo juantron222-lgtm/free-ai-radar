@@ -383,7 +383,17 @@ test.describe('accesibilidad', () => {
   test('cada página tiene exactamente un h1', async ({ page }) => {
     for (const path of ['/', '/herramientas', '/categorias', '/metodologia', '/pro']) {
       await page.goto(path);
-      expect(await page.locator('h1').count(), path).toBe(1);
+      /*
+       * `toHaveCount` en vez de `expect(await …count())`.
+       *
+       * La segunda forma toma una única muestra en el instante en que se
+       * ejecuta, y con `prefetchAll` activado el navegador puede estar todavía
+       * intercambiando documentos: bajo carga, Firefox devolvía cero. La
+       * afirmación web-first reintenta hasta que el DOM se asienta, que es
+       * esperar a una condición concreta y no tapar nada — si de verdad
+       * hubiera dos `h1`, seguiría fallando igual.
+       */
+      await expect(page.locator('h1'), path).toHaveCount(1);
     }
   });
 });
