@@ -95,10 +95,27 @@ export const GET: APIRoute = () => {
     })),
   ];
 
+  /*
+   * Una URL, una entrada.
+   *
+   * `musica` y `voz` son dos categorías técnicas que comparten una sola página
+   * pública, así que `ROUTES.category()` devuelve `/audio` para las dos y el
+   * mapa acababa listándola dos veces. Un sitemap con duplicados es un sitemap
+   * que un buscador señala, y el arreglo tiene que estar aquí y no en la lista
+   * de categorías: en cuanto otra vertical se unifique, volvería a pasar.
+   *
+   * Gana la primera aparición, que es la de mayor prioridad por construcción.
+   */
+  const porRuta = new Map<string, Entry>();
+  for (const entry of entries) {
+    if (!porRuta.has(entry.path)) porRuta.set(entry.path, entry);
+  }
+  const unicas = [...porRuta.values()];
+
   const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
-${entries
+${unicas
   .map(
     (entry) => `  <url>
     <loc>${escapeXml(absoluteUrl(entry.path))}</loc>${

@@ -62,7 +62,25 @@ const facts = [
     ? [{ label: 'Renovación de créditos', value: CREDIT_RESET_LABEL[tool.freePlan.creditReset], good: tool.freePlan.creditReset !== 'one_off' }]
     : []),
   { label: 'Cuánto cuesta empezar', value: START_EFFORT_LABEL[tool.startEffort], good: false },
-  ...(tool.licence ? [{ label: 'Licencia', value: tool.licence, good: false }] : []),
+  /*
+   * La licencia, capa por capa, cuando difieren.
+   *
+   * Una sola fila diciendo «Apache-2.0» de un proyecto cuyos pesos son
+   * CC-BY-NC es media verdad, y la mitad que falta es la que decide si puedes
+   * usarlo en un encargo. Cuando las dos coinciden se enseña una fila, porque
+   * partirla entonces sería ruido.
+   */
+  ...(tool.licences.code && tool.licences.weights && tool.licences.code !== tool.licences.weights
+    ? [
+        { label: 'Licencia del código', value: tool.licences.code, good: false },
+        { label: 'Licencia de los pesos', value: tool.licences.weights, good: false },
+      ]
+    : tool.licence
+      ? [{ label: 'Licencia', value: tool.licence, good: false }]
+      : []),
+  ...(tool.licences.outputs
+    ? [{ label: 'Lo que generas', value: tool.licences.outputs, good: false }]
+    : []),
 ];
 
 const description = `${tool.tagline} Analizamos su plan gratuito: ${tool.freePlan.summary}`;

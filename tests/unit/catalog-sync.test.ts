@@ -34,6 +34,7 @@ beforeEach(async () => {
       'supabase/migrations/0009_free_model_unknown.sql',
       'supabase/migrations/0010_capabilities_start_effort.sql',
       'supabase/migrations/0011_start_effort_reason.sql',
+      'supabase/migrations/0012_licence_layers.sql',
     ] }));
   exec = async (sql, params = []) => (await db.query(sql, params)).rows;
 });
@@ -72,6 +73,8 @@ function tool(slug: string, overrides: Row = {}): Row {
     capabilities: [],
     start_effort: 'signup',
     start_effort_reason: '',
+    // La columna es `not null`: una clave ausente llega como NULL explícito.
+    licences: {},
     privacy: {},
     official_url: `https://${slug}.example`,
     sources: [],

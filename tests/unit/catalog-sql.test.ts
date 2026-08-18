@@ -36,6 +36,7 @@ beforeEach(async () => {
       'supabase/migrations/0009_free_model_unknown.sql',
       'supabase/migrations/0010_capabilities_start_effort.sql',
       'supabase/migrations/0011_start_effort_reason.sql',
+      'supabase/migrations/0012_licence_layers.sql',
     ] }));
   exec = async (sql, params = []) => (await db.query(sql, params)).rows;
 });
@@ -100,6 +101,7 @@ describe('la semilla SQL de producción', () => {
       'supabase/migrations/0009_free_model_unknown.sql',
       'supabase/migrations/0010_capabilities_start_effort.sql',
       'supabase/migrations/0011_start_effort_reason.sql',
+      'supabase/migrations/0012_licence_layers.sql',
     ],
     });
     const otherExec = async (sql: string, params: unknown[] = []) =>

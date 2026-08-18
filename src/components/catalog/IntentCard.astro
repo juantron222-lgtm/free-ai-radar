@@ -52,6 +52,31 @@ const visible = shown.slice(0, capabilityLimit);
 const rest = shown.length - visible.length;
 
 const local = tool.hosting !== 'cloud';
+
+/*
+ * «Sólo uso personal», junto a la etiqueta de gratuidad y no enterrado abajo.
+ *
+ * Es la condición que más decisiones cambia y la que peor se ve: Suno da
+ * cincuenta créditos al día y no deja monetizar nada; ElevenLabs reserva la
+ * licencia comercial para los planes de pago; los pesos de AudioCraft y F5-TTS
+ * son CC-BY-NC. Saberlo después de integrar la herramienta en un encargo es
+ * saberlo tarde.
+ *
+ * Sólo aparece cuando está **verificado** como `no`. `unverified` no se pinta:
+ * no haberlo comprobado no es lo mismo que tenerlo prohibido, y esa confusión
+ * es justo la que este catálogo salió a corregir.
+ */
+const soloPersonal = tool.freePlan.commercialUse === 'no';
+
+/*
+ * La licencia, por capas, cuando no coinciden.
+ *
+ * Un proyecto puede publicar el código con una licencia permisiva y los pesos
+ * con otra que prohíbe el uso comercial. Resumirlo en «Open source» sería
+ * cierto a medias, y la mitad que se pierde es la que decide.
+ */
+const capas = tool.licences ?? {};
+const licenciaDividida = Boolean(capas.code && capas.weights && capas.code !== capas.weights);
 ---
 
 <article
@@ -66,6 +91,13 @@ const local = tool.hosting !== 'cloud';
     </Heading>
     <span class="chip ic-access" data-tone={access.tone}>{access.kind}</span>
   </div>
+
+  {soloPersonal && (
+    <p class="ic-personal">
+      <span class="chip chip-warn ic-personal-chip">Solo uso personal</span>
+      {licenciaDividida && <span class="ic-personal-why">pesos {capas.weights}</span>}
+    </p>
+  )}
 
   {/* 1. Qué hace. Si no consta ninguna capacidad, se dice, no se rellena. */}
   {visible.length > 0 ? (
@@ -169,6 +201,24 @@ const local = tool.hosting !== 'cloud';
     background: var(--warn-soft);
     color: var(--warn);
     border-color: var(--warn-line);
+  }
+
+  /* Pegada a la etiqueta de gratuidad: es la letra pequeña de esa promesa. */
+  .ic-personal {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35rem;
+    margin: -0.15rem 0 0;
+  }
+
+  .ic-personal-chip {
+    font-size: 0.6875rem;
+  }
+
+  .ic-personal-why {
+    font-size: 0.75rem;
+    color: var(--ink-muted);
   }
 
   .ic-does {

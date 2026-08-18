@@ -211,7 +211,30 @@ export const ToolRecord = z.object({
   startEffortReason: z.string().max(160).default(''),
 
   openSource: TriState.default('unverified'),
+  /** Resumen legible de una línea, cuando las tres capas coinciden. */
   licence: z.string().optional(),
+
+  /**
+   * La licencia, por capas, porque no es una sola cosa.
+   *
+   * AudioCraft publica su código con licencia MIT y sus pesos con CC-BY-NC.
+   * F5-TTS, igual. Las dos afirmaciones son ciertas por separado y juntas
+   * engañan: quien lee «open source» y va a usarlo en un encargo se lleva la
+   * sorpresa después de haberlo integrado, que es el peor momento.
+   *
+   * `outputs` existe aunque casi nadie lo documente. Que sea un hueco explícito
+   * es mejor que darlo por hecho: lo que puedes hacer con lo que generas es una
+   * pregunta distinta de bajo qué licencia se publicó el modelo.
+   *
+   * Cada capa se rellena sólo si una fuente oficial la declara.
+   */
+  licences: z
+    .object({
+      code: z.string().optional(),
+      weights: z.string().optional(),
+      outputs: z.string().optional(),
+    })
+    .default({}),
   hosting: z.enum(HOSTING).default('cloud'),
   platforms: z.array(z.enum(PLATFORMS)).default([]),
   languages: z.array(z.string()).default([]),

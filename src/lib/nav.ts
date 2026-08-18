@@ -9,6 +9,15 @@
  */
 const RUTA_PROPIA = new Set(['imagen', 'video']);
 
+/**
+ * Dos categorías técnicas, una sola página.
+ *
+ * `musica` y `voz` siguen sirviendo para la taxonomía y los filtros, pero como
+ * páginas eran una ficha cada una y nadie busca «voz» sabiendo que no es
+ * «audio». Las dos apuntan a /audio.
+ */
+const RUTA_UNIFICADA: Record<string, string> = { musica: '/audio', voz: '/audio' };
+
 export const ROUTES = {
   home: '/',
   tools: '/herramientas',
@@ -21,7 +30,8 @@ export const ROUTES = {
    * dos rutas con el mismo contenido compiten entre sí en los buscadores y
    * reparten los enlaces entrantes. `/categorias/imagen` sigue redirigiendo.
    */
-  category: (slug: string) => (RUTA_PROPIA.has(slug) ? `/${slug}` : `/categorias/${slug}`),
+  category: (slug: string) =>
+    RUTA_UNIFICADA[slug] ?? (RUTA_PROPIA.has(slug) ? `/${slug}` : `/categorias/${slug}`),
   models: '/modelos',
   agents: '/agentes',
   compare: '/comparar',

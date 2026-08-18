@@ -1,0 +1,225 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import IntentCard from '@components/catalog/IntentCard.astro';
+import CatalogFilters from '@components/catalog/CatalogFilters.astro';
+import { catalogueOrder, decideFilters } from '@lib/data/category-page';
+import {
+  AUDIO_CAPABILITIES,
+  CANDIDATE_FILTERS,
+  MIN_BLOQUE,
+  audioTools,
+  freeNow,
+  localControl,
+  professional,
+  withCapability,
+} from '@lib/data/audio';
+import { faqSchema, itemListSchema } from '@lib/seo/structured-data';
+import { ROUTES } from '@lib/nav';
+
+/**
+ * Audio: una página, dos categorías técnicas, y bloques sólo donde hay
+ * catálogo.
+ *
+ * `musica` y `voz` seguían siendo dos categorías con una ficha cada una. Como
+ * páginas no respondían a nada, y quien busca «generar voz gratis» no sabe si
+ * eso vive en «voz» o en «audio». Lo que unifica esto son las intenciones.
+ *
+ * Los bloques se levantan sólo cuando hay al menos tres fichas que respondan:
+ * un bloque de una tarjeta no es una recomendación, es un hueco con título. Por
+ * eso hoy no hay bloque de doblaje ni de efectos de sonido, aunque las
+ * capacidades existan y estén verificadas.
+ */
+
+const tools = audioTools();
+
+const gratis = freeNow(tools);
+const musica = withCapability(tools, 'text-to-music');
+const voz = withCapability(tools, 'text-to-speech');
+const clonar = withCapability(tools, 'voice-clone');
+const transcribir = withCapability(tools, 'transcription');
+const potentes = professional(tools).slice(0, 5);
+const { install, technical } = localControl(tools);
+const todas = catalogueOrder(tools);
+
+const decisions = decideFilters(tools, CANDIDATE_FILTERS);
+const filters = decisions.filter((d) => d.shown);
+const hidden = decisions.filter((d) => !d.shown);
+
+/** Bloques por intención que hoy tienen catálogo suficiente. */
+const intenciones = [
+  { id: 'musica', titulo: 'Crear música', lista: musica, lede: 'Componer desde una descripción, sin instrumentos ni estudio.' },
+  { id: 'voz', titulo: 'Generar voz', lista: voz, lede: 'Convertir un texto en habla que se pueda usar en un vídeo, un pódcast o una aplicación.' },
+  { id: 'clonar', titulo: 'Clonar una voz', lista: clonar, lede: 'Reproducir una voz concreta a partir de una muestra. Comprueba siempre de quién es la voz y qué permite el plan.' },
+  { id: 'transcribir', titulo: 'Transcribir', lista: transcribir, lede: 'Pasar audio a texto. Es donde lo local compite de tú a tú con la nube.' },
+].filter((b) => b.lista.length >= MIN_BLOQUE);
+
+const sinComercial = tools.filter((t) => t.freePlan.commercialUse === 'no');
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Categorías', path: ROUTES.categories },
+  { name: 'Audio IA', path: '/audio' },
+];
+
+/** Cada respuesta es un dato que esta misma página enseña. */
+const faqs = [
+  {
+    question: '¿Qué herramientas de audio puedo usar gratis ahora mismo?',
+    answer: `${gratis.length} de las ${tools.length} verificadas: ${gratis
+      .slice(0, 5)
+      .map((t) => t.name)
+      .join(', ')}. Ojo a la letra pequeña: varias de ellas no permiten usar comercialmente lo que generes.`,
+  },
+  {
+    question: '¿Puedo monetizar lo que genere con el plan gratuito?',
+    answer: `No siempre. ${sinComercial.length} de las ${tools.length} fichas declaran expresamente que su plan gratuito o sus pesos no permiten uso comercial: Suno lo dice en su tabla de precios, ElevenLabs reserva la licencia comercial para los planes de pago, y los pesos de AudioCraft y F5-TTS son CC-BY-NC.`,
+  },
+  {
+    question: '¿«Open source» significa que puedo usarlo en un trabajo?',
+    answer:
+      'No necesariamente, y en audio menos que en ninguna parte. AudioCraft y F5-TTS publican su código con licencia MIT y sus pesos con CC-BY-NC, que excluye el uso comercial. Whisper y Kokoro sí son permisivos: MIT y Apache 2.0.',
+  },
+];
+---
+
+<BaseLayout
+  title={`IA para audio: ${tools.length} herramientas verificadas y qué dan gratis`}
+  description={`Música, voz, clonación y transcripción con IA. Qué da cada plan gratuito, cuáles permiten uso comercial y cuáles se ejecutan en tu equipo. ${tools.length} herramientas verificadas contra la página oficial de cada fabricante.`}
+  crumbs={crumbs}
+  schemas={[itemListSchema(tools, 'Herramientas de audio con IA'), faqSchema(faqs)]}
+>
+  <div class="page vert">
+    <header class="vert-hero">
+      <h1 class="vert-h1">IA para audio</h1>
+      <p class="vert-lede">
+        Música, voz, clonación y transcripción. Qué da cada plan gratuito y si puedes
+        publicarlo.
+        <span class="vert-lede-method">
+          Sin puntuaciones: lo que hay debajo de cada tarjeta es lo que dice la página
+          oficial del fabricante.
+        </span>
+      </p>
+      <nav class="vert-jump" aria-label="Ir a un bloque">
+        <a href="#gratis">Gratis ahora</a>
+        {intenciones.map((b) => <a href={`#${b.id}`}>{b.titulo}</a>)}
+        <a href="#local">En tu equipo</a>
+        <a href="#todas">Todas</a>
+      </nav>
+    </header>
+
+    <!-- ------------------------------------------------------------------ -->
+    <section class="vert-block" id="gratis" aria-labelledby="gratis-h">
+      <div class="vert-block-head">
+        <h2 class="vert-h2" id="gratis-h">Usar gratis ahora</h2>
+        <p class="vert-block-lede">
+          Funcionan en el navegador y su acceso gratuito se renueva. Mira la condición
+          antes de empezar: en audio, gratis y «puedo publicarlo» no van juntos casi
+          nunca.
+        </p>
+      </div>
+      <ul class="vert-grid">
+        {gratis.map((tool) => (
+          <li><IntentCard tool={tool} capabilityOrder={AUDIO_CAPABILITIES} /></li>
+        ))}
+      </ul>
+      <p class="vert-note">
+        Las cantidades van tal y como las publica cada fabricante. No convertimos
+        créditos en minutos salvo que la propia página lo haga.
+      </p>
+    </section>
+
+    <!-- ------------------------------------------------------------------ -->
+    {intenciones.map((bloque) => (
+      <section class="vert-block" id={bloque.id} aria-labelledby={`${bloque.id}-h`}>
+        <div class="vert-block-head">
+          <h2 class="vert-h2" id={`${bloque.id}-h`}>{bloque.titulo}</h2>
+          <p class="vert-block-lede">{bloque.lede}</p>
+        </div>
+        <ul class="vert-grid">
+          {bloque.lista.map((tool) => (
+            <li><IntentCard tool={tool} capabilityOrder={AUDIO_CAPABILITIES} /></li>
+          ))}
+        </ul>
+      </section>
+    ))}
+
+    <!-- ------------------------------------------------------------------ -->
+    {potentes.length >= MIN_BLOQUE && (
+      <section class="vert-block" id="potentes" aria-labelledby="potentes-h">
+        <div class="vert-block-head">
+          <h2 class="vert-h2" id="potentes-h">Potentes y profesionales</h2>
+          <p class="vert-block-lede">
+            Plataformas cuyas capacidades podemos describir con una cita oficial detrás
+            de cada una. No es una nota más alta: es que sabemos qué hacen.
+          </p>
+        </div>
+        <ul class="vert-grid">
+          {potentes.map((tool) => (
+            <li><IntentCard tool={tool} capabilityOrder={AUDIO_CAPABILITIES} /></li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <!-- ------------------------------------------------------------------ -->
+    <section class="vert-block" id="local" aria-labelledby="local-h">
+      <div class="vert-block-head">
+        <h2 class="vert-h2" id="local-h">En tu equipo</h2>
+        <p class="vert-block-lede">
+          Modelos que se ejecutan en tu máquina, sin cuotas ni cuenta. Aquí la licencia
+          de los <em>pesos</em> manda sobre la del código, y no siempre coinciden.
+        </p>
+      </div>
+
+      {install.length > 0 && (
+        <div class="vert-sub">
+          <h3 class="vert-h3">Se instalan y ya</h3>
+          <ul class="vert-grid">
+            {install.map((tool) => (
+              <li><IntentCard tool={tool} headingLevel="h4" capabilityOrder={AUDIO_CAPABILITIES} /></li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {technical.length > 0 && (
+        <div class="vert-sub">
+          <h3 class="vert-h3">Configuración técnica</h3>
+          <p class="vert-sub-lede">
+            Entorno de Python y, en los de música, una GPU. Whisper y Kokoro son los más
+            modestos: el primero arranca con un giga de memoria de vídeo.
+          </p>
+          <ul class="vert-grid">
+            {technical.map((tool) => (
+              <li><IntentCard tool={tool} headingLevel="h4" capabilityOrder={AUDIO_CAPABILITIES} /></li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </section>
+
+    <!-- ------------------------------------------------------------------ -->
+    <section class="vert-block" id="todas" aria-labelledby="todas-h">
+      <div class="vert-block-head">
+        <h2 class="vert-h2" id="todas-h">Todas las herramientas de audio</h2>
+        <p class="vert-block-lede">
+          Las {tools.length} verificadas, con filtros que se combinan.
+        </p>
+      </div>
+
+      <CatalogFilters
+        tools={todas}
+        shown={filters}
+        hidden={hidden}
+        capabilityOrder={AUDIO_CAPABILITIES}
+        noun="audio"
+      />
+    </section>
+
+    <p class="vert-tail">
+      ¿Falta alguna, o hay un dato que ya no es cierto?
+      <a href={ROUTES.submit}>Cuéntanoslo</a> — cada ficha lleva la fecha en que se
+      comprobó y el enlace a la página que lo dice.
+    </p>
+  </div>
+</BaseLayout>

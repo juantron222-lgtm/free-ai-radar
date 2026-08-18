@@ -53,6 +53,10 @@ export default defineConfig({
     // conserva sus enlaces entrantes en vez de competir con la nueva.
     '/categorias/imagen': { status: 301, destination: '/imagen' },
     '/categorias/video': { status: 301, destination: '/video' },
+    // Música y voz se unifican en una sola experiencia. Las dos viejas
+    // conservan sus enlaces entrantes apuntando al mismo sitio.
+    '/categorias/musica': { status: 301, destination: '/audio' },
+    '/categorias/voz': { status: 301, destination: '/audio' },
   },
   vite: {
     plugins: [tailwindcss()],

@@ -88,7 +88,110 @@
       "text-to-image",
       "image-editing"
     ],
-    "startEffortReason": "Requiere iniciar sesión con Adobe ID antes de la primera generación."
+    "startEffortReason": "Requiere iniciar sesión con Adobe ID antes de la primera generación.",
+    "licences": {}
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [
+      "modelos-open-source"
+    ],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-18",
+    "id": "tool_audiocraft",
+    "slug": "audiocraft",
+    "name": "AudioCraft (MusicGen)",
+    "kind": "model",
+    "verification": "verified",
+    "categorySlug": "musica",
+    "officialUrl": "https://github.com/facebookresearch/audiocraft",
+    "repoUrl": "https://github.com/facebookresearch/audiocraft",
+    "hosting": "local",
+    "openSource": "yes",
+    "licence": "MIT (código) · CC-BY-NC 4.0 (pesos)",
+    "platforms": [
+      "linux"
+    ],
+    "freeModel": "open_source",
+    "tagline": "Música y sonido en local, con pesos que no permiten uso comercial.",
+    "descriptionShort": "Biblioteca de Meta con MusicGen (texto a música), AudioGen (texto a sonido), MAGNeT y JASCO, condicionable por acordes, melodía y percusión. Código MIT; **pesos CC-BY-NC 4.0**.",
+    "verdict": "La vía para generar música sin depender de nadie, con el mismo pero que F5-TTS: los pesos no son comerciales. Sirve para aprender, prototipar y uso personal.",
+    "freePlan": {
+      "summary": "Código publicado con licencia MIT. Pesos de los modelos publicados con licencia CC-BY-NC 4.0, es decir, sin uso comercial. Sin cuotas ni cuenta.",
+      "limits": [
+        "Código: MIT",
+        "Pesos: CC-BY-NC 4.0, sin uso comercial",
+        "Sin cuotas ni cuenta: el coste es el hardware"
+      ],
+      "requiresSignup": "no",
+      "requiresCreditCard": "no",
+      "hasWatermark": "unverified",
+      "commercialUse": "no",
+      "creditReset": "none",
+      "verifiedAt": "2026-08-18"
+    },
+    "capabilities": [
+      "text-to-music",
+      "sound-effects",
+      "model-download"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Exige entorno de Python, descarga de pesos y GPU.",
+    "scores": {
+      "freeReal": 8,
+      "usefulness": 7,
+      "ease": 3,
+      "transparency": 9,
+      "creatorValue": 6
+    },
+    "sources": [
+      {
+        "url": "https://github.com/facebookresearch/audiocraft",
+        "label": "Repositorio oficial",
+        "kind": "repo",
+        "publisher": "github.com",
+        "checkedAt": "2026-08-18"
+      }
+    ],
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://github.com/facebookresearch/audiocraft",
+        "verifiedAt": "2026-08-18",
+        "quote": "The code in this repository is released under the MIT license as found in the LICENSE file. The models weights in this repository are released under the CC-BY-NC 4.0 license as found in the LICENSE_weights file."
+      },
+      "capabilities": {
+        "sourceUrl": "https://github.com/facebookresearch/audiocraft",
+        "verifiedAt": "2026-08-18",
+        "quote": "MusicGen: A controllable text-to-music generation system · AudioGen: A text-to-sound synthesis model · MAGNeT · JASCO, conditioned on chords, melodies and drum tracks"
+      }
+    },
+    "nextReviewAt": "2026-11-16",
+    "lastVerifiedAt": "2026-08-18",
+    "updatedAt": "2026-08-18",
+    "licences": {
+      "code": "MIT",
+      "weights": "CC-BY-NC 4.0"
+    }
   },
   {
     "id": "tool_bolt-new",
@@ -210,7 +313,115 @@
         "quote": "ng product builders with the most powerful coding agents Bolt does the heavy lifting for you, so you can focus"
       }
     },
-    "startEffortReason": "Requiere cuenta para conservar y desplegar el proyecto que genera."
+    "startEffortReason": "Requiere cuenta para conservar y desplegar el proyecto que genera.",
+    "licences": {}
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-18",
+    "id": "tool_cartesia",
+    "slug": "cartesia",
+    "name": "Cartesia",
+    "kind": "platform",
+    "verification": "verified",
+    "categorySlug": "voz",
+    "officialUrl": "https://cartesia.ai/",
+    "pricingUrl": "https://cartesia.ai/pricing",
+    "hosting": "cloud",
+    "openSource": "no",
+    "platforms": [
+      "web",
+      "api"
+    ],
+    "freeModel": "credits",
+    "tagline": "Veinte mil créditos al mes, con la equivalencia en minutos publicada.",
+    "descriptionShort": "Plataforma de voz en tiempo real con texto a voz (Sonic), transcripción (Ink) y clonación instantánea o profesional. Su plan gratuito da 20.000 créditos al mes, que su propia tabla equipara a unos 27 minutos de audio.",
+    "verdict": "De las pocas que publican a cuántos minutos equivalen sus créditos, que es justo lo que hace falta para saber si alcanzan. Orientada a agentes de voz y a integrarse por API.",
+    "freePlan": {
+      "summary": "Plan gratuito con 20.000 créditos al mes, que la tabla oficial equipara a unos 27 minutos de audio generado. Incluye texto a voz y transcripción, un espacio de agente con ocho llamadas simultáneas. El plan de pago más barato es Pro, 5 $/mes con 100.000 créditos.",
+      "limits": [
+        "20.000 créditos al mes (≈27 minutos según su tabla)",
+        "1 espacio de agente, 8 llamadas simultáneas",
+        "Plan de pago más barato: Pro, 5 $/mes (100.000 créditos, ≈133 minutos)"
+      ],
+      "requiresSignup": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditsAmount": "20.000 créditos/mes (≈27 min)",
+      "creditReset": "monthly",
+      "verifiedAt": "2026-08-18"
+    },
+    "capabilities": [
+      "text-to-speech",
+      "transcription",
+      "voice-clone",
+      "api"
+    ],
+    "startEffort": "signup",
+    "startEffortReason": "Requiere cuenta y clave de API; está pensada para integrarse en código.",
+    "scores": {
+      "freeReal": 6,
+      "usefulness": 8,
+      "ease": 6,
+      "transparency": 9,
+      "creatorValue": 6
+    },
+    "sources": [
+      {
+        "url": "https://cartesia.ai/",
+        "label": "Web oficial",
+        "kind": "official",
+        "publisher": "cartesia.ai",
+        "checkedAt": "2026-08-18"
+      },
+      {
+        "url": "https://cartesia.ai/pricing",
+        "label": "Página oficial de precios",
+        "kind": "pricing",
+        "publisher": "cartesia.ai",
+        "checkedAt": "2026-08-18"
+      }
+    ],
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://cartesia.ai/pricing",
+        "verifiedAt": "2026-08-18",
+        "quote": "Free — 20K credits / month · Text to Speech and Speech to Text · approximately 27 minutes of generated audio monthly · 1 agent slot with 8 concurrent calls"
+      },
+      "capabilities": {
+        "sourceUrl": "https://cartesia.ai/pricing",
+        "verifiedAt": "2026-08-18",
+        "quote": "Text to Speech (Sonic) · Speech to Text (Ink) · Voice Cloning (instant and professional) · Voice Agents (Line)"
+      }
+    },
+    "auditNotes": "La equivalencia en minutos se recoge porque la publica la propia tabla. Si no la publicara, se habrían dejado los créditos a secas.",
+    "nextReviewAt": "2026-11-16",
+    "lastVerifiedAt": "2026-08-18",
+    "updatedAt": "2026-08-18",
+    "licences": {}
   },
   {
     "id": "tool_chatgpt",
@@ -341,7 +552,8 @@
         "quote": "ose a model Pricing Model selection Text and code Text generation Code generation Structured output Prompting  · Pro, Feature: Analytics dashboard, No Compliance API Logs Platform Plan: Free, Feature: Compliance API Logs Pl"
       }
     },
-    "startEffortReason": "Se puede escribir en la caja y obtener respuesta nada más entrar."
+    "startEffortReason": "Se puede escribir en la caja y obtener respuesta nada más entrar.",
+    "licences": {}
   },
   {
     "id": "tool_civitai",
@@ -479,7 +691,8 @@
     "capabilities": [
       "api"
     ],
-    "startEffortReason": "Requiere cuenta para descargar modelos y para generar en su nube."
+    "startEffortReason": "Requiere cuenta para descargar modelos y para generar en su nube.",
+    "licences": {}
   },
   {
     "id": "tool_claude",
@@ -607,7 +820,8 @@
         "quote": "eachers Life sciences Nonprofits Pricing Overview API Resources Insights Blog Customer stories Anthropic news "
       }
     },
-    "startEffortReason": "Se puede escribir en la caja y obtener respuesta nada más entrar."
+    "startEffortReason": "Se puede escribir en la caja y obtener respuesta nada más entrar.",
+    "licences": {}
   },
   {
     "id": "tool_claude-sonnet-5",
@@ -733,7 +947,8 @@
         "quote": "odels & pricing  CLI, SDKs, and libraries Claude API skill Release notes  API reference  English   Consol"
       }
     },
-    "startEffortReason": "Se usa a través de un producto o de la API: en ambos casos hay que identificarse antes."
+    "startEffortReason": "Se usa a través de un producto o de la API: en ambos casos hay que identificarse antes.",
+    "licences": {}
   },
   {
     "id": "tool_clipdrop",
@@ -833,7 +1048,8 @@
       "background-removal",
       "api"
     ],
-    "startEffortReason": "Cada herramienta se usa desde su página sin pasar por un alta previa."
+    "startEffortReason": "Cada herramienta se usa desde su página sin pasar por un alta previa.",
+    "licences": {}
   },
   {
     "id": "tool_comfy-cloud",
@@ -931,7 +1147,8 @@
       "api",
       "model-download"
     ],
-    "startEffortReason": "Requiere cuenta y un flujo de trabajo antes de producir nada."
+    "startEffortReason": "Requiere cuenta y un flujo de trabajo antes de producir nada.",
+    "licences": {}
   },
   {
     "id": "tool_comfyui",
@@ -1065,7 +1282,8 @@
         "quote": "Image generation : Stable Diffusion 1 · advanced examples: “Hires Fix” aka 2 Pass Txt2Img Img2Img Inpainting Lora Hypernetworks Embeddings/Textual Inv · Image editing : Flux Kontext, Flux"
       }
     },
-    "startEffortReason": "Exige instalar el entorno, descargar los modelos y montar el grafo de nodos."
+    "startEffortReason": "Exige instalar el entorno, descargar los modelos y montar el grafo de nodos.",
+    "licences": {}
   },
   {
     "id": "tool_cursor",
@@ -1194,10 +1412,13 @@
       "agents",
       "api"
     ],
-    "startEffortReason": "Se descarga e instala como cualquier editor de escritorio; el resto es configuración normal."
+    "startEffortReason": "Se descarga e instala como cualquier editor de escritorio; el resto es configuración normal.",
+    "licences": {}
   },
   {
-    "secondaryCategories": [],
+    "secondaryCategories": [
+      "voz"
+    ],
     "tags": [],
     "useCases": [],
     "languages": [
@@ -1298,23 +1519,26 @@
         "quote": "text-based editing · dynamic captions · transitions · green screen removal · eye contact correction · automatic multicam · avatar-based video generation"
       }
     },
-    "nextReviewAt": "2026-11-13",
-    "lastVerifiedAt": "2026-08-15",
-    "updatedAt": "2026-08-15",
-    "skillLevel": "beginner"
+    "nextReviewAt": "2026-11-16",
+    "lastVerifiedAt": "2026-08-18",
+    "updatedAt": "2026-08-18",
+    "skillLevel": "beginner",
+    "licences": {}
   },
   {
     "id": "tool_elevenlabs",
     "slug": "elevenlabs",
     "name": "ElevenLabs",
-    "tagline": "Síntesis de voz ultrarrealista con clonación de voz, texto a voz multilingüe y generación de efectos de sonido por IA.",
-    "descriptionShort": "Síntesis de voz ultrarrealista con clonación de voz, texto a voz multilingüe y generación de efectos de sonido por IA.",
+    "tagline": "Diez mil créditos al mes, y la licencia comercial empieza en el plan de pago.",
+    "descriptionShort": "Plataforma de voz con texto a voz, transcripción, efectos de sonido, diseño de voz y música. Su plan gratuito da 10.000 créditos al mes; la clonación de voz y el doblaje son de pago, y la licencia comercial también.",
     "descriptionLong": "ElevenLabs es el estándar de oro en síntesis de voz IA. Ofrece texto a voz en decenas de idiomas con calidad casi indistinguible de una voz humana real. Permite clonar voces a partir de muestras de audio, generar locuciones con control de emoción y entonación, y crear efectos de sonido desde descripciones de texto. Usado por creadores de contenido, podcasts y audiobooks.",
     "kind": "app",
-    "verification": "pending_review",
-    "nextReviewAt": "2026-10-06",
+    "verification": "verified",
+    "nextReviewAt": "2026-11-16",
     "categorySlug": "voz",
-    "secondaryCategories": [],
+    "secondaryCategories": [
+      "musica"
+    ],
     "tags": [
       "Ideal para creadores"
     ],
@@ -1326,20 +1550,21 @@
     ],
     "freeModel": "credits",
     "freePlan": {
-      "summary": "Plan gratuito con 10,000 caracteres/mes (~10 minutos de audio). Acceso a voces básicas. Sin clonación de voz en plan gratuito.",
+      "summary": "Plan gratuito con 10.000 créditos al mes que se reinician al empezar cada ciclo de facturación. Incluye texto a voz, transcripción, efectos de sonido, diseño de voz, música y tres proyectos de Studio. La clonación de voz y el doblaje no están incluidos, y la licencia comercial empieza en el plan Starter, 6 $/mes con 30.000 créditos.",
       "limits": [
-        "Plan gratuito muy limitado (10K caracteres/mes)",
-        "Clonación de voz solo en planes de pago",
-        "No open-source ni ejecutable localmente",
-        "Voces premium bloqueadas en plan gratuito"
+        "10.000 créditos al mes",
+        "Licencia comercial NO incluida: empieza en Starter",
+        "Clonación de voz y doblaje: no incluidos en el plan gratuito",
+        "3 proyectos en Studio",
+        "Plan de pago más barato: Starter, 6 $/mes (30.000 créditos)"
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
-      "commercialUse": "unverified",
+      "commercialUse": "no",
+      "creditsAmount": "10.000 créditos/mes",
       "creditReset": "monthly",
-      "verifiedAt": "2026-08-12",
-      "creditsAmount": "10k credits per month"
+      "verifiedAt": "2026-08-18"
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -1352,27 +1577,23 @@
       "trainsOnUserData": "unverified",
       "optOutAvailable": "unverified"
     },
-    "officialUrl": "https://elevenlabs.io",
+    "officialUrl": "https://elevenlabs.io/",
     "pricingUrl": "https://elevenlabs.io/pricing",
     "docsUrl": "https://elevenlabs.io/docs",
     "sources": [
       {
-        "url": "https://elevenlabs.io",
+        "url": "https://elevenlabs.io/",
         "label": "Web oficial",
         "kind": "official",
-        "checkedAt": "2026-07-08"
+        "publisher": "elevenlabs.io",
+        "checkedAt": "2026-08-18"
       },
       {
         "url": "https://elevenlabs.io/pricing",
-        "label": "Página de precios",
+        "label": "Página oficial de precios",
         "kind": "pricing",
-        "checkedAt": "2026-07-08"
-      },
-      {
-        "url": "https://elevenlabs.io/docs",
-        "label": "Documentación",
-        "kind": "docs",
-        "checkedAt": "2026-07-08"
+        "publisher": "elevenlabs.io",
+        "checkedAt": "2026-08-18"
       }
     ],
     "scores": {
@@ -1382,7 +1603,7 @@
       "transparency": 5,
       "creatorValue": 7
     },
-    "verdict": "Calidad de voz increíble pero el plan gratuito es testimonial. Ideal para probar, pero necesitarás pagar para uso real.",
+    "verdict": "La referencia en voz sintética, y su plan gratuito sirve para probarlo todo salvo lo que probablemente vas buscando: clonar una voz y poder usar el resultado en un trabajo.",
     "pros": [],
     "cons": [
       "Plan gratuito muy limitado (10K caracteres/mes)",
@@ -1410,29 +1631,229 @@
     },
     "status": "published",
     "detectedAt": "2023-03-01",
-    "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08",
+    "lastVerifiedAt": "2026-08-18",
+    "updatedAt": "2026-08-18",
     "evidence": {
       "freePlan": {
         "sourceUrl": "https://elevenlabs.io/pricing",
-        "verifiedAt": "2026-08-12",
-        "quote": "Free $0 per month ... 10k credits per month"
-      },
-      "capabilities": {
-        "sourceUrl": "https://elevenlabs.io",
-        "verifiedAt": "2026-08-12",
-        "quote": "venAgents Agents ElevenAPI API AI Voice Generator Text to Speech Music Speech to Text Voice Cloning Dubbing Na · ice Generator Text to Speech Music Speech to Text Voice Cloning Dubbing Narration Expressive voices that bring · adford David Castlemore Frederick Surrey Jon Play Music Generate studio-quality tracks instantly, any genre, a"
+        "verifiedAt": "2026-08-18",
+        "quote": "10k credits per month · Text to Speech, Speech to Text, Sound Effects, Voice Design, Music, Productions, Image · 3 Projects in Studio. [Commercial License aparece a partir de Starter; clonación y doblaje, en planes de pago.]"
       }
     },
     "startEffort": "signup",
     "capabilities": [
       "text-to-speech",
-      "voice-clone",
+      "transcription",
+      "sound-effects",
       "text-to-music",
+      "voice-clone",
+      "dubbing",
+      "api"
+    ],
+    "startEffortReason": "Requiere cuenta; los créditos mensuales van asociados a ella.",
+    "auditNotes": "Las capacidades describen la plataforma; el plan gratuito no incluye clonación ni doblaje y así consta en los límites. 10.000 créditos no se traducen a minutos ni a caracteres: la página no publica esa equivalencia.",
+    "licences": {}
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [
+      "modelos-open-source"
+    ],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-18",
+    "id": "tool_f5-tts",
+    "slug": "f5-tts",
+    "name": "F5-TTS",
+    "kind": "model",
+    "verification": "verified",
+    "categorySlug": "voz",
+    "officialUrl": "https://github.com/SWivid/F5-TTS",
+    "repoUrl": "https://github.com/SWivid/F5-TTS",
+    "hosting": "local",
+    "openSource": "yes",
+    "licence": "MIT (código) · CC-BY-NC (pesos)",
+    "platforms": [
+      "linux",
+      "windows"
+    ],
+    "freeModel": "open_source",
+    "tagline": "Código MIT, pesos no comerciales. La diferencia importa.",
+    "descriptionShort": "Modelo de voz que imita a partir de un audio de referencia, con generación multiestilo y multihablante. Su código es MIT, pero **los pesos preentrenados son CC-BY-NC** por el conjunto de datos con el que se entrenaron.",
+    "verdict": "Un ejemplo de por qué «open source» no basta como etiqueta: el código se puede usar para lo que sea, y los pesos que lo hacen útil no permiten uso comercial.",
+    "freePlan": {
+      "summary": "Código con licencia MIT. Pesos preentrenados con licencia CC-BY-NC, es decir, no comercial, por el conjunto de datos Emilia con el que se entrenaron. Sin cuotas ni cuenta.",
+      "limits": [
+        "Código: MIT",
+        "Pesos preentrenados: CC-BY-NC, sin uso comercial",
+        "Sin cuotas ni cuenta: el coste es el hardware"
+      ],
+      "requiresSignup": "no",
+      "requiresCreditCard": "no",
+      "hasWatermark": "unverified",
+      "commercialUse": "no",
+      "creditReset": "none",
+      "verifiedAt": "2026-08-18"
+    },
+    "capabilities": [
+      "text-to-speech",
+      "voice-clone",
+      "model-download"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Exige entorno de Python, descarga de pesos y GPU.",
+    "scores": {
+      "freeReal": 8,
+      "usefulness": 8,
+      "ease": 3,
+      "transparency": 9,
+      "creatorValue": 6
+    },
+    "sources": [
+      {
+        "url": "https://github.com/SWivid/F5-TTS",
+        "label": "Repositorio oficial",
+        "kind": "repo",
+        "publisher": "github.com",
+        "checkedAt": "2026-08-18"
+      }
+    ],
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://github.com/SWivid/F5-TTS",
+        "verifiedAt": "2026-08-18",
+        "quote": "The pre-trained models are licensed under the CC-BY-NC license due to the training data Emilia, which is an in-the-wild dataset."
+      },
+      "capabilities": {
+        "sourceUrl": "https://github.com/SWivid/F5-TTS",
+        "verifiedAt": "2026-08-18",
+        "quote": "Basic TTS with Chunk Inference · Multi-Style / Multi-Speaker Generation · Voice Chat"
+      }
+    },
+    "auditNotes": "`commercialUse: no` viene de la licencia de los pesos, no del código. La ficha lo dice en el titular porque es el dato que cambia la decisión.",
+    "nextReviewAt": "2026-11-16",
+    "lastVerifiedAt": "2026-08-18",
+    "updatedAt": "2026-08-18",
+    "licences": {
+      "code": "MIT",
+      "weights": "CC-BY-NC"
+    }
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-18",
+    "id": "tool_fish-audio",
+    "slug": "fish-audio",
+    "name": "Fish Audio",
+    "kind": "app",
+    "verification": "partially_verified",
+    "categorySlug": "voz",
+    "officialUrl": "https://fish.audio/",
+    "hosting": "cloud",
+    "openSource": "unverified",
+    "platforms": [
+      "web",
+      "api"
+    ],
+    "freeModel": "freemium",
+    "tagline": "Clona una voz en quince segundos. El plan gratuito es sólo para uso personal.",
+    "descriptionShort": "Plataforma de voz con clonación en quince segundos, más de treinta idiomas y etiquetas de emoción. Tiene plan gratuito con «generaciones mensuales» cuya cantidad no publica, y su web dice sin rodeos que ese plan es sólo para uso personal.",
+    "verdict": "La clonación rápida es su argumento, y la letra pequeña está donde importa: para monetizar en YouTube, en un pódcast o en un negocio hay que pagar.",
+    "freePlan": {
+      "summary": "Existe un plan gratuito con «generaciones mensuales» cuya cantidad no se publica. La web afirma que el plan gratuito es sólo para uso personal: monetizar contenido o usar las voces comercialmente exige un plan de pago.",
+      "limits": [
+        "Sólo uso personal: monetizar exige plan de pago",
+        "La cantidad de generaciones mensuales no se publica"
+      ],
+      "requiresSignup": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "no",
+      "creditReset": "unknown",
+      "verifiedAt": "2026-08-18"
+    },
+    "capabilities": [
+      "text-to-speech",
+      "voice-clone",
       "transcription",
       "api"
     ],
-    "startEffortReason": "Requiere cuenta antes de generar audio y los créditos van asociados a ella."
+    "startEffort": "signup",
+    "startEffortReason": "Requiere cuenta antes de generar o clonar.",
+    "scores": {
+      "freeReal": 5,
+      "usefulness": 8,
+      "ease": 8,
+      "transparency": 5,
+      "creatorValue": 5
+    },
+    "sources": [
+      {
+        "url": "https://fish.audio/",
+        "label": "Web oficial",
+        "kind": "official",
+        "publisher": "fish.audio",
+        "checkedAt": "2026-08-18"
+      }
+    ],
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://fish.audio/",
+        "verifiedAt": "2026-08-18",
+        "quote": "Fish Audio's free plan is for personal use only. To monetize content or use voices commercially (YouTube, podcasts, business), upgrade to our paid plans for full commercial rights."
+      },
+      "capabilities": {
+        "sourceUrl": "https://fish.audio/",
+        "verifiedAt": "2026-08-18",
+        "quote": "text-to-speech, voice cloning, speech-to-text · Voice cloning in as little as 15 seconds · 30+ languages"
+      }
+    },
+    "auditNotes": "Publica modelos abiertos (Fish Speech), pero `openSource` se queda en `unverified`: no se leyó el identificador de licencia del repositorio en esta comprobación.",
+    "nextReviewAt": "2026-11-16",
+    "lastVerifiedAt": "2026-08-18",
+    "updatedAt": "2026-08-18",
+    "licences": {}
   },
   {
     "id": "tool_fooocus",
@@ -1565,7 +1986,8 @@
         "quote": "urney's examples: Midjourney Fooocus High-quality text-to-image without needing much prompt engineering or par · oint swap system of the refiner now also supports img2img and upscale in a seamless way · 5x) / Upscale (2x) Inpaint / Up / Down / Left / Right (Pan) Input Image -&gt; Inpaint"
       }
     },
-    "startEffortReason": "Se descarga y se ejecuta con un solo fichero, pero exige GPU y descarga modelos de varios gigas."
+    "startEffortReason": "Se descarga y se ejecuta con un solo fichero, pero exige GPU y descarga modelos de varios gigas.",
+    "licences": {}
   },
   {
     "id": "tool_gemma-4",
@@ -1687,7 +2109,8 @@
     "updatedAt": "2026-08-07",
     "startEffort": "technical",
     "capabilities": [],
-    "startEffortReason": "Son pesos que hay que descargar y servir con otra herramienta."
+    "startEffortReason": "Son pesos que hay que descargar y servir con otra herramienta.",
+    "licences": {}
   },
   {
     "id": "tool_google-gemini",
@@ -1830,7 +2253,8 @@
         "quote": "To generate images, you must be 13 (or the applicable age in your country) or over […] If you reach your daily quota of Nano Banana 2 images, you can’t redo any additional images with Nano Banana Pro"
       }
     },
-    "startEffortReason": "Para generar imágenes hay que estar identificado en la app con una cuenta de Google."
+    "startEffortReason": "Para generar imágenes hay que estar identificado en la app con una cuenta de Google.",
+    "licences": {}
   },
   {
     "id": "tool_grok-imagine",
@@ -1953,7 +2377,8 @@
     },
     "auditNotes": "La tarjeta de SuperGrok anuncia «Image and video generation», lo que sugiere que ninguna de las dos está en el plan gratuito; la tabla comparativa dice lo contrario para imagen. Se toma la tabla, que es donde xAI declara plan por plan. Filas de control usadas: SSO y RBAC, marcadas sólo en Enterprise.",
     "pricingUrl": "https://x.ai/pricing",
-    "startEffortReason": "Hay que iniciar sesión con cuenta de X o correo antes de poder generar."
+    "startEffortReason": "Hay que iniciar sesión con cuenta de X o correo antes de poder generar.",
+    "licences": {}
   },
   {
     "secondaryCategories": [],
@@ -2042,7 +2467,8 @@
     "nextReviewAt": "2026-11-13",
     "lastVerifiedAt": "2026-08-15",
     "updatedAt": "2026-08-15",
-    "skillLevel": "beginner"
+    "skillLevel": "beginner",
+    "licences": {}
   },
   {
     "secondaryCategories": [],
@@ -2146,7 +2572,8 @@
     "nextReviewAt": "2026-11-13",
     "lastVerifiedAt": "2026-08-15",
     "updatedAt": "2026-08-15",
-    "skillLevel": "beginner"
+    "skillLevel": "beginner",
+    "licences": {}
   },
   {
     "secondaryCategories": [],
@@ -2251,7 +2678,8 @@
     "nextReviewAt": "2026-11-13",
     "lastVerifiedAt": "2026-08-15",
     "updatedAt": "2026-08-15",
-    "skillLevel": "beginner"
+    "skillLevel": "beginner",
+    "licences": {}
   },
   {
     "id": "tool_hugging-face-spaces",
@@ -2381,7 +2809,8 @@
         "quote": "rom the Team plan Highest storage, bandwidth, and API rate limits Automated user management with SCIM provisio · & Enterprise Hugging Face PRO Enterprise Support Inference Providers Inference Endpoints Storage Buckets Log I"
       }
     },
-    "startEffortReason": "Muchos Spaces se abren sin cuenta, pero las colas y los límites empiezan a exigirla."
+    "startEffortReason": "Muchos Spaces se abren sin cuenta, pero las colas y los límites empiezan a exigirla.",
+    "licences": {}
   },
   {
     "secondaryCategories": [
@@ -2474,7 +2903,8 @@
     "nextReviewAt": "2026-11-13",
     "lastVerifiedAt": "2026-08-15",
     "updatedAt": "2026-08-15",
-    "skillLevel": "beginner"
+    "skillLevel": "beginner",
+    "licences": {}
   },
   {
     "secondaryCategories": [],
@@ -2595,7 +3025,8 @@
     "auditNotes": "Las capacidades describen la herramienta completa; en el plan gratuito seis de ellas constan como no incluidas y así figura en los límites. Marca de agua y tarjeta no aparecen en ninguna página oficial.",
     "nextReviewAt": "2026-11-11",
     "lastVerifiedAt": "2026-08-13",
-    "updatedAt": "2026-08-13"
+    "updatedAt": "2026-08-13",
+    "licences": {}
   },
   {
     "id": "tool_invokeai",
@@ -2694,7 +3125,8 @@
       "upscaling",
       "api"
     ],
-    "startEffortReason": "Exige instalación, descarga de modelos y una GPU con memoria suficiente."
+    "startEffortReason": "Exige instalación, descarga de modelos y una GPU con memoria suficiente.",
+    "licences": {}
   },
   {
     "secondaryCategories": [],
@@ -2801,7 +3233,107 @@
     "nextReviewAt": "2026-11-13",
     "lastVerifiedAt": "2026-08-15",
     "updatedAt": "2026-08-15",
-    "skillLevel": "beginner"
+    "skillLevel": "beginner",
+    "licences": {}
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [
+      "modelos-open-source"
+    ],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-18",
+    "id": "tool_kokoro",
+    "slug": "kokoro",
+    "name": "Kokoro",
+    "kind": "model",
+    "verification": "verified",
+    "categorySlug": "voz",
+    "officialUrl": "https://github.com/hexgrad/kokoro",
+    "repoUrl": "https://github.com/hexgrad/kokoro",
+    "hosting": "local",
+    "openSource": "yes",
+    "licence": "Apache-2.0",
+    "platforms": [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "freeModel": "open_source",
+    "tagline": "Ochenta y dos millones de parámetros, Apache 2.0, y cabe en un Colab.",
+    "descriptionShort": "Modelo de texto a voz de 82 millones de parámetros con licencia Apache 2.0. Habla nueve idiomas, genera a 24 kHz y se instala con pip; su repositorio lo describe como comparable en calidad a modelos mayores y bastante más rápido.",
+    "verdict": "La opción a mirar cuando la voz tiene que salir de tu equipo y con licencia permisiva. Apache 2.0 en un terreno donde la mayoría de los pesos abiertos son no comerciales.",
+    "freePlan": {
+      "summary": "Publicado con licencia Apache 2.0. Sin cuotas ni cuenta. 82 millones de parámetros, salida a 24 kHz, nueve idiomas y ejecución posible en Google Colab según su repositorio.",
+      "limits": [
+        "82 millones de parámetros",
+        "Nueve idiomas: inglés americano y británico, español, francés, hindi, italiano, japonés, portugués de Brasil y chino mandarín",
+        "Salida a 24 kHz",
+        "Sin cuotas ni cuenta: el coste es el hardware"
+      ],
+      "requiresSignup": "no",
+      "requiresCreditCard": "no",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-08-18"
+    },
+    "capabilities": [
+      "text-to-speech",
+      "model-download"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Se instala con pip y se usa desde código; no hay interfaz.",
+    "scores": {
+      "freeReal": 10,
+      "usefulness": 8,
+      "ease": 4,
+      "transparency": 9,
+      "creatorValue": 8
+    },
+    "sources": [
+      {
+        "url": "https://github.com/hexgrad/kokoro",
+        "label": "Repositorio oficial",
+        "kind": "repo",
+        "publisher": "github.com",
+        "checkedAt": "2026-08-18"
+      }
+    ],
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://github.com/hexgrad/kokoro",
+        "verifiedAt": "2026-08-18",
+        "quote": "Apache-2.0 · 82 million parameters · comparable quality to larger models while being significantly faster and more cost-efficient · 24,000 Hz"
+      }
+    },
+    "nextReviewAt": "2026-11-16",
+    "lastVerifiedAt": "2026-08-18",
+    "updatedAt": "2026-08-18",
+    "licences": {
+      "code": "Apache-2.0",
+      "weights": "Apache-2.0"
+    }
   },
   {
     "secondaryCategories": [
@@ -2914,7 +3446,8 @@
     "auditNotes": "commercialUse es «no» y no «unverified» porque la tabla lo declara explícitamente: «Commercial license» aparece con aspa en la columna Free y con visto en Basic, Pro y Max. Los precios de los planes de pago no están en el DOM de la página, así que el precio mínimo queda sin verificar.",
     "nextReviewAt": "2026-11-11",
     "lastVerifiedAt": "2026-08-13",
-    "updatedAt": "2026-08-15"
+    "updatedAt": "2026-08-15",
+    "licences": {}
   },
   {
     "id": "tool_leonardo-ai",
@@ -3072,7 +3605,8 @@
         "quote": "Inpainting in Canvas Editor effectively allows you to select specific areas of a base image […] Outpainting allows you to generate a coherent extension of your base image […] Text2Img […] Img2Img […] Sketch2Image"
       }
     },
-    "startEffortReason": "Hay que crear cuenta y elegir plan —aunque sea el de 0 $— antes de generar."
+    "startEffortReason": "Hay que crear cuenta y elegir plan —aunque sea el de 0 $— antes de generar.",
+    "licences": {}
   },
   {
     "id": "tool_lm-studio",
@@ -3184,7 +3718,8 @@
     "updatedAt": "2026-07-08",
     "startEffort": "install",
     "capabilities": [],
-    "startEffortReason": "Instalador de escritorio con catálogo de modelos integrado: no hay que tocar la línea de órdenes."
+    "startEffortReason": "Instalador de escritorio con catálogo de modelos integrado: no hay que tocar la línea de órdenes.",
+    "licences": {}
   },
   {
     "secondaryCategories": [
@@ -3280,7 +3815,11 @@
     "lastVerifiedAt": "2026-08-15",
     "updatedAt": "2026-08-15",
     "hardwareRequirements": "Referencia del repositorio: GPU H100.",
-    "skillLevel": "beginner"
+    "skillLevel": "beginner",
+    "licences": {
+      "code": "Apache-2.0",
+      "weights": "Apache-2.0"
+    }
   },
   {
     "secondaryCategories": [],
@@ -3377,7 +3916,8 @@
     "nextReviewAt": "2026-11-13",
     "lastVerifiedAt": "2026-08-15",
     "updatedAt": "2026-08-15",
-    "skillLevel": "beginner"
+    "skillLevel": "beginner",
+    "licences": {}
   },
   {
     "id": "tool_midjourney",
@@ -3532,7 +4072,8 @@
         "verifiedAt": "2026-08-13",
         "quote": "Turn your images into captivating 5 second videos using Midjourney! […] feeding Midjourney an image to serve as the first frame"
       }
-    }
+    },
+    "licences": {}
   },
   {
     "secondaryCategories": [
@@ -3626,7 +4167,11 @@
     "nextReviewAt": "2026-11-13",
     "lastVerifiedAt": "2026-08-15",
     "updatedAt": "2026-08-15",
-    "skillLevel": "beginner"
+    "skillLevel": "beginner",
+    "licences": {
+      "code": "Apache-2.0",
+      "weights": "Apache-2.0"
+    }
   },
   {
     "id": "tool_ollama",
@@ -3756,7 +4301,8 @@
         "quote": "nect editors and frameworks through Ollama&apos;s API · Ollama Models Docs Pricing Sign in Download Models Download Docs Pricing Sign in Build with open models, on yo"
       }
     },
-    "startEffortReason": "Instalador propio y una sola orden para descargar un modelo."
+    "startEffortReason": "Instalador propio y una sola orden para descargar un modelo.",
+    "licences": {}
   },
   {
     "id": "tool_perplexity-ai",
@@ -3884,7 +4430,8 @@
         "quote": "What do I get with the Free (Standard) plan? Search history access · Practically unlimited basic searches · Very limited amount of Pro Searches · Basic file uploads (limited) · No access to advanced AI models, image generation, or premium support."
       }
     },
-    "startEffortReason": "El plan gratuito es un plan con historial y cuotas, así que arranca en una cuenta."
+    "startEffortReason": "El plan gratuito es un plan con historial y cuotas, así que arranca en una cuenta.",
+    "licences": {}
   },
   {
     "id": "tool_pika-labs",
@@ -4007,7 +4554,8 @@
       "video-editing"
     ],
     "startEffortReason": "Requiere cuenta; los créditos mensuales van asociados a ella.",
-    "auditNotes": "`hasWatermark: no` es de las pocas veces que este campo puede afirmarse: la página lo dice del plan gratuito con esas palabras. Uso comercial y tarjeta siguen sin constar."
+    "auditNotes": "`hasWatermark: no` es de las pocas veces que este campo puede afirmarse: la página lo dice del plan gratuito con esas palabras. Uso comercial y tarjeta siguen sin constar.",
+    "licences": {}
   },
   {
     "id": "tool_pinokio",
@@ -4130,7 +4678,8 @@
         "quote": "More Store Type: api api plugin All Platform: All All macOS Windows Linux GPU: All A · c, a Metal-only DeepSeek V4 Flash inference server"
       }
     },
-    "startEffortReason": "Instalador de escritorio que se encarga de las dependencias de cada aplicación."
+    "startEffortReason": "Instalador de escritorio que se encarga de las dependencias de cada aplicación.",
+    "licences": {}
   },
   {
     "id": "tool_pixelcut",
@@ -4228,7 +4777,8 @@
       "background-removal",
       "api"
     ],
-    "startEffortReason": "Requiere cuenta para guardar y exportar el resultado."
+    "startEffortReason": "Requiere cuenta para guardar y exportar el resultado.",
+    "licences": {}
   },
   {
     "id": "tool_playground-ai",
@@ -4331,7 +4881,8 @@
       "background-removal",
       "api"
     ],
-    "startEffortReason": "Requiere cuenta: los créditos y su renovación van asociados al usuario."
+    "startEffortReason": "Requiere cuenta: los créditos y su renovación van asociados al usuario.",
+    "licences": {}
   },
   {
     "id": "tool_recraft",
@@ -4429,7 +4980,8 @@
       "background-removal",
       "api"
     ],
-    "startEffortReason": "Requiere cuenta antes de generar."
+    "startEffortReason": "Requiere cuenta antes de generar.",
+    "licences": {}
   },
   {
     "id": "tool_replicate",
@@ -4558,7 +5110,8 @@
         "quote": "Free limits — You can run select models on Replicate for free, but after a bit you’ll be asked to set up billing. Some features are only available to customers with billing set up."
       }
     },
-    "startEffortReason": "Se usa con token de API desde código; no hay una interfaz donde escribir y generar."
+    "startEffortReason": "Se usa con token de API desde código; no hay una interfaz donde escribir y generar.",
+    "licences": {}
   },
   {
     "id": "tool_runwayml",
@@ -4682,7 +5235,8 @@
       }
     },
     "startEffortReason": "Requiere cuenta antes de generar; los créditos van asociados a ella.",
-    "auditNotes": "La ficha decía `freemium`. La página dice «one-time»: es `credits` con `one_off`, que es una tercera cosa distinta de freemium y de trial. La marca de agua queda sin confirmar: que «No watermarks» aparezca como característica de Standard sugiere que el gratuito la lleva, pero sugerir no es afirmar."
+    "auditNotes": "La ficha decía `freemium`. La página dice «one-time»: es `credits` con `one_off`, que es una tercera cosa distinta de freemium y de trial. La marca de agua queda sin confirmar: que «No watermarks» aparezca como característica de Standard sugiere que el gratuito la lleva, pero sugerir no es afirmar.",
+    "licences": {}
   },
   {
     "id": "tool_sdnext",
@@ -4770,7 +5324,8 @@
     "descriptionLong": "",
     "startEffort": "technical",
     "capabilities": [],
-    "startEffortReason": "Exige entorno de Python, descarga de modelos y configuración manual."
+    "startEffortReason": "Exige entorno de Python, descarga de modelos y configuración manual.",
+    "licences": {}
   },
   {
     "id": "tool_stable-diffusion-webui",
@@ -4901,18 +5456,19 @@
         "quote": "can be tiled like textures Progress bar and live image generation preview Can use a separate neural network to · ature showcase with images : Original txt2img and img2img modes One click install and run script (but you stil · ou still must install python and git) Outpainting Inpainting Color Sketch Prompt Matrix Stable Diffusion Upsca"
       }
     },
-    "startEffortReason": "Exige entorno de Python, descarga de modelos y GPU."
+    "startEffortReason": "Exige entorno de Python, descarga de modelos y GPU.",
+    "licences": {}
   },
   {
     "id": "tool_suno-ai",
     "slug": "suno-ai",
     "name": "Suno AI",
-    "tagline": "Genera canciones completas con letra, voz e instrumentación desde un prompt de texto.",
-    "descriptionShort": "Genera canciones completas con letra, voz e instrumentación desde un prompt de texto. El líder indiscutible en música IA.",
+    "tagline": "Cincuenta créditos al día, diez canciones, y nada de uso comercial.",
+    "descriptionShort": "Generador de canciones completas —letra, voz e instrumentación— desde una descripción. Su plan gratuito renueva 50 créditos cada día, que su propia página equipara a diez canciones, y no permite usar comercialmente lo que produces.",
     "descriptionLong": "Suno AI genera canciones completas — con voz, letra, melodía e instrumentación — a partir de una simple descripción de texto o incluso de tus propias letras. La calidad ha mejorado drásticamente con cada versión (v3, v3.5, v4), produciendo canciones que suenan sorprendentemente profesionales. Cubre prácticamente cualquier género musical.",
     "kind": "app",
-    "verification": "partially_verified",
-    "nextReviewAt": "2026-10-06",
+    "verification": "verified",
+    "nextReviewAt": "2026-11-16",
     "categorySlug": "musica",
     "secondaryCategories": [],
     "tags": [
@@ -4926,20 +5482,21 @@
     ],
     "freeModel": "credits",
     "freePlan": {
-      "summary": "Plan gratuito con ~50 créditos diarios (5 generaciones de 2 canciones cada una). Uso no comercial. Las canciones generadas son propiedad de Suno en plan gratuito.",
+      "summary": "Plan gratuito con 50 créditos que se renuevan a diario, equivalentes a diez canciones según la propia página. Sin uso comercial. Sin descargas mensuales de canciones a partir del 3/9/26 y sin compra de créditos adicionales. El plan de pago más barato es Pro, 8 $/mes.",
       "limits": [
-        "Plan gratuito no permite uso comercial",
-        "Créditos diarios limitados (50/día)",
-        "Las canciones del plan gratuito pertenecen a Suno",
-        "Menos control sobre estructura musical específica"
+        "50 créditos al día (10 canciones)",
+        "Uso comercial NO permitido",
+        "Sin descargas mensuales de canciones a partir del 3/9/26",
+        "Sin compra de créditos adicionales",
+        "Plan de pago más barato: Pro, 8 $/mes"
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "no",
+      "creditsAmount": "50 créditos/día (10 canciones)",
       "creditReset": "daily",
-      "verifiedAt": "2026-08-12",
-      "creditsAmount": "50 credits"
+      "verifiedAt": "2026-08-18"
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -4952,26 +5509,22 @@
       "trainsOnUserData": "unverified",
       "optOutAvailable": "unverified"
     },
-    "officialUrl": "https://suno.com",
+    "officialUrl": "https://suno.com/",
     "pricingUrl": "https://suno.com/pricing",
     "sources": [
       {
-        "url": "https://suno.com",
+        "url": "https://suno.com/",
         "label": "Web oficial",
         "kind": "official",
-        "checkedAt": "2026-07-08"
+        "publisher": "suno.com",
+        "checkedAt": "2026-08-18"
       },
       {
         "url": "https://suno.com/pricing",
-        "label": "Página de precios",
+        "label": "Página oficial de precios",
         "kind": "pricing",
-        "checkedAt": "2026-07-08"
-      },
-      {
-        "url": "https://www.reddit.com/r/SunoAI/",
-        "label": "reddit.com",
-        "kind": "community",
-        "checkedAt": "2026-07-08"
+        "publisher": "suno.com",
+        "checkedAt": "2026-08-18"
       }
     ],
     "scores": {
@@ -4981,7 +5534,7 @@
       "transparency": 5,
       "creatorValue": 8
     },
-    "verdict": "Impresionante para generar canciones rápidamente. El plan gratuito es generoso para experimentar, pero recuerda que no puedes usar las canciones comercialmente.",
+    "verdict": "De los planes gratuitos más generosos que existen en música, con una condición que conviene leer antes de invertir una tarde: lo que salga de ahí no se puede monetizar.",
     "pros": [],
     "cons": [
       "Plan gratuito no permite uso comercial",
@@ -5009,30 +5562,22 @@
     },
     "status": "published",
     "detectedAt": "2024-01-20",
-    "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08",
+    "lastVerifiedAt": "2026-08-18",
+    "updatedAt": "2026-08-18",
     "evidence": {
       "freePlan": {
         "sourceUrl": "https://suno.com/pricing",
-        "verifiedAt": "2026-08-12",
-        "quote": "Free Plan Our starter plan 50 credits renew daily"
-      },
-      "commercialUse": {
-        "sourceUrl": "https://suno.com/pricing",
-        "verifiedAt": "2026-08-12",
-        "quote": "No commercial use"
-      },
-      "capabilities": {
-        "sourceUrl": "https://suno.com",
-        "verifiedAt": "2026-08-12",
-        "quote": "Suno | AI Music Generator Log in Open App Log in Join Suno for free Make any song y"
+        "verifiedAt": "2026-08-18",
+        "quote": "50 credits renew daily (10 songs) · No commercial use · No monthly song downloads (starting 9/3/26) · No add-on credit purchases"
       }
     },
     "startEffort": "signup",
     "capabilities": [
       "text-to-music"
     ],
-    "startEffortReason": "Requiere cuenta antes de generar música."
+    "startEffortReason": "Requiere cuenta; los créditos diarios van asociados a ella.",
+    "auditNotes": "La equivalencia «10 canciones» se publica en la misma línea que los créditos, así que se recoge tal cual. No se convierte nada que la página no convierta.",
+    "licences": {}
   },
   {
     "secondaryCategories": [],
@@ -5137,7 +5682,8 @@
     "nextReviewAt": "2026-11-13",
     "lastVerifiedAt": "2026-08-15",
     "updatedAt": "2026-08-15",
-    "skillLevel": "beginner"
+    "skillLevel": "beginner",
+    "licences": {}
   },
   {
     "id": "tool_v0-by-vercel",
@@ -5269,7 +5815,8 @@
         "quote": "Multi-modal : Combines code generation, web browsing, debugging, and external API interactions · cel Connect GitHub MCP Integrations Pre-installed Agents Slack Ship Deployments Custom domain Sharing Template · Web Plan DB API Deploy LLM Create from your phone Build anywhere with the v"
       }
     },
-    "startEffortReason": "Requiere cuenta de Vercel para generar y desplegar."
+    "startEffortReason": "Requiere cuenta de Vercel para generar y desplegar.",
+    "licences": {}
   },
   {
     "secondaryCategories": [
@@ -5371,6 +5918,109 @@
     "nextReviewAt": "2026-11-13",
     "lastVerifiedAt": "2026-08-15",
     "updatedAt": "2026-08-15",
-    "skillLevel": "beginner"
+    "skillLevel": "beginner",
+    "licences": {
+      "code": "Apache-2.0",
+      "weights": "Apache-2.0"
+    }
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [
+      "modelos-open-source"
+    ],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-18",
+    "id": "tool_whisper",
+    "slug": "whisper",
+    "name": "Whisper",
+    "kind": "model",
+    "verification": "verified",
+    "categorySlug": "voz",
+    "officialUrl": "https://github.com/openai/whisper",
+    "repoUrl": "https://github.com/openai/whisper",
+    "hosting": "local",
+    "openSource": "yes",
+    "licence": "MIT",
+    "platforms": [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "freeModel": "open_source",
+    "tagline": "Transcribir en tu equipo con licencia MIT, desde 1 GB de memoria de vídeo.",
+    "descriptionShort": "Modelo de reconocimiento de voz de OpenAI publicado con licencia MIT, código y pesos. Transcribe y traduce en varios idiomas. Sus seis tamaños van de 1 GB de VRAM en el más pequeño a 10 GB en el mayor.",
+    "verdict": "La respuesta por defecto cuando la transcripción no puede salir de tu equipo. MIT en código y pesos, que en audio abierto es menos común de lo que parece.",
+    "freePlan": {
+      "summary": "Código y pesos publicados con licencia MIT. Sin cuotas ni cuenta: el coste es el equipo. Seis tamaños de modelo, de 39M de parámetros y ~1 GB de VRAM al de 1550M y ~10 GB.",
+      "limits": [
+        "tiny y base: ~1 GB de VRAM",
+        "small: ~2 GB · medium: ~5 GB · turbo: ~6 GB · large: ~10 GB",
+        "Sin cuotas ni cuenta: el coste es el hardware"
+      ],
+      "requiresSignup": "no",
+      "requiresCreditCard": "no",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-08-18"
+    },
+    "capabilities": [
+      "transcription",
+      "model-download"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Se instala con pip y se ejecuta desde la terminal o desde código.",
+    "hardwareRequirements": "De ~1 GB de VRAM (tiny) a ~10 GB (large).",
+    "scores": {
+      "freeReal": 10,
+      "usefulness": 9,
+      "ease": 4,
+      "transparency": 10,
+      "creatorValue": 9
+    },
+    "sources": [
+      {
+        "url": "https://github.com/openai/whisper",
+        "label": "Repositorio oficial",
+        "kind": "repo",
+        "publisher": "github.com",
+        "checkedAt": "2026-08-18"
+      }
+    ],
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://github.com/openai/whisper",
+        "verifiedAt": "2026-08-18",
+        "quote": "Whisper's code and model weights are released under the MIT License."
+      }
+    },
+    "nextReviewAt": "2026-11-16",
+    "lastVerifiedAt": "2026-08-18",
+    "updatedAt": "2026-08-18",
+    "licences": {
+      "code": "MIT",
+      "weights": "MIT"
+    }
   }
 ]

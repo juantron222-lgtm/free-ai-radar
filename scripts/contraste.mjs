@@ -41,6 +41,7 @@ const PAGES = [
   '/',
   '/imagen',
   '/video',
+  '/audio',
   '/herramientas',
   '/herramientas/krea',
   '/herramientas/comfyui',
