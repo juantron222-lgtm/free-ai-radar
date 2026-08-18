@@ -13,8 +13,16 @@ import { ROUTES } from '@lib/nav';
  * redirige (ver `astro.config.mjs`).
  */
 export function getStaticPaths() {
+  /*
+   * Declarado dentro y no fuera: Astro extrae `getStaticPaths` a su propio
+   * módulo, así que una constante del frontmatter no está en su ámbito. El
+   * error que da es «CON_PAGINA_PROPIA is not defined» durante el prerenderizado
+   * y no menciona nada de esto.
+   */
+  const conPaginaPropia = new Set(['imagen', 'video']);
+
   return getPopulatedCategories()
-    .filter((category) => category.slug !== 'imagen')
+    .filter((category) => !conPaginaPropia.has(category.slug))
     .map((category) => ({
       params: { slug: category.slug },
       props: { category, tools: getToolsByCategory(category.slug) },
@@ -45,11 +53,20 @@ const faqs = [
     question: `¿Cuántas herramientas de ${category.name.toLowerCase()} gratuitas hay verificadas?`,
     answer: `Hemos verificado ${tools.length} herramientas en esta categoría. De ellas, ${noCard.length} no piden tarjeta y ${commercial.length} permiten uso comercial en su plan gratuito.`,
   },
+  /*
+   * Aquí había «obtiene 89 sobre 100».
+   *
+   * La nota única se retiró del sitio: una media ponderada contesta «¿cuál es
+   * mejor?», y esa pregunta no tiene respuesta sin saber para quién. Quedaba
+   * viva en estos datos estructurados, que es justo donde menos se ve y más
+   * lejos llega — Google la habría seguido enseñando en el resultado de
+   * búsqueda mucho después de desaparecer de la página.
+   */
   ...(best
     ? [
         {
-          question: `¿Cuál es la mejor herramienta gratuita de ${category.name.toLowerCase()}?`,
-          answer: `Según nuestra puntuación editorial, ${best.name} obtiene ${best.scoreTotal} sobre 100. ${best.verdict || best.tagline}`,
+          question: `¿Qué herramienta de ${category.name.toLowerCase()} recomendáis empezar mirando?`,
+          answer: `${best.name}. ${best.verdict || best.tagline}`,
         },
       ]
     : []),

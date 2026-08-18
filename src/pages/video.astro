@@ -1,0 +1,235 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import IntentCard from '@components/catalog/IntentCard.astro';
+import CatalogFilters from '@components/catalog/CatalogFilters.astro';
+import { getToolsByCategory } from '@lib/data/catalog';
+import { getCategory } from '@lib/domain/taxonomy';
+import { catalogueOrder, decideFilters } from '@lib/data/category-page';
+import {
+  CANDIDATE_FILTERS,
+  VIDEO_CAPABILITIES,
+  easyToStart,
+  freeNow,
+  localControl,
+  professional,
+  talkingHead,
+} from '@lib/data/video';
+import { faqSchema, itemListSchema } from '@lib/seo/structured-data';
+import { ROUTES } from '@lib/nav';
+
+/**
+ * Vídeo, construida con el método de Imagen y con otros bloques.
+ *
+ * En imagen casi todo el mundo viene a lo mismo: generar. En vídeo hay al menos
+ * tres viajes que no se parecen —hacer un plano, poner a una persona a hablar a
+ * cámara, y montar material ya grabado—, así que copiar los cinco bloques de
+ * Imagen habría metido a HeyGen y a Descript en «genera vídeos gratis», donde
+ * no responden a lo que se pregunta.
+ *
+ * De 2 herramientas a 16. Las dos que había estaban sin verificar, y una de
+ * ellas, Runway, figuraba como `freemium` cuando sus 125 créditos no se
+ * renuevan.
+ */
+
+const category = getCategory('video')!;
+const tools = getToolsByCategory('video');
+
+const gratis = freeNow(tools);
+const faciles = easyToStart(tools).slice(0, 6);
+const personas = talkingHead(tools).slice(0, 5);
+const potentes = professional(tools).slice(0, 5);
+const { install, technical } = localControl(tools);
+const todas = catalogueOrder(tools);
+
+const decisions = decideFilters(tools, CANDIDATE_FILTERS);
+const filters = decisions.filter((d) => d.shown);
+const hidden = decisions.filter((d) => !d.shown);
+
+const conCifra = tools.filter(
+  (t) => t.freePlan.creditsAmount && ['daily', 'weekly', 'monthly'].includes(t.freePlan.creditReset)
+).length;
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Categorías', path: ROUTES.categories },
+  { name: category.name, path: ROUTES.category('video') },
+];
+
+/** Cada respuesta es un dato que esta misma página enseña. */
+const faqs = [
+  {
+    question: '¿Qué herramientas de vídeo puedo usar gratis ahora mismo?',
+    answer: `${gratis.length} de las ${tools.length} verificadas generan vídeo en el navegador con un acceso gratuito que sirve hoy: ${gratis
+      .slice(0, 5)
+      .map((t) => t.name)
+      .join(', ')}. Quedan fuera las que sólo dan créditos de una vez y las que hay que instalar.`,
+  },
+  {
+    question: '¿Por qué Runway no aparece en «gratis ahora»?',
+    answer:
+      'Porque sus 125 créditos son, en palabras de su propia página, «one-time»: se gastan y no vuelven. Eso sirve para probar, no para trabajar sin pagar, y mezclarlo con planes que se renuevan cada mes haría el bloque inútil.',
+  },
+  {
+    question: '¿Puedo generar vídeo en mi ordenador?',
+    answer: `Sí, con pesos abiertos, y el límite es la tarjeta gráfica. La variante pequeña de Wan 2.2 declara funcionar con 24 GB de memoria de vídeo; HunyuanVideo pide 60 GB a 720p. Por eso van en un bloque aparte: no es la misma oferta que abrir una web.`,
+  },
+];
+---
+
+<BaseLayout
+  title={`IA para vídeo: ${tools.length} herramientas verificadas y qué dan gratis`}
+  description={`Cuáles generan vídeo gratis hoy, cuáles sólo dan créditos que no vuelven y qué pide cada modelo local. ${tools.length} herramientas verificadas contra la página oficial de cada fabricante.`}
+  crumbs={crumbs}
+  schemas={[itemListSchema(tools, 'Herramientas de vídeo con IA'), faqSchema(faqs)]}
+>
+  <div class="page vert">
+    <header class="vert-hero">
+      <h1 class="vert-h1">IA para vídeo</h1>
+      <p class="vert-lede">
+        Qué genera cada herramienta, qué te deja hacer sin pagar y cuánto cuesta empezar.
+        <span class="vert-lede-method">
+          Sin puntuaciones: lo que hay debajo de cada tarjeta es lo que dice la página
+          oficial del fabricante.
+        </span>
+      </p>
+      <nav class="vert-jump" aria-label="Ir a un bloque">
+        <a href="#gratis">Gratis ahora</a>
+        <a href="#faciles">Fáciles</a>
+        <a href="#personas">Persona a cámara</a>
+        <a href="#potentes">Profesionales</a>
+        <a href="#local">En tu equipo</a>
+        <a href="#todas">Todas</a>
+      </nav>
+    </header>
+
+    <!-- ------------------------------------------------------------------ -->
+    <section class="vert-block" id="gratis" aria-labelledby="gratis-h">
+      <div class="vert-block-head">
+        <h2 class="vert-h2" id="gratis-h">Genera vídeos gratis ahora</h2>
+        <p class="vert-block-lede">
+          Generan vídeo, funcionan en el navegador y su acceso gratuito se renueva.
+          Fuera lo que hay que instalar y fuera los créditos que se gastan una sola vez.
+        </p>
+      </div>
+      <ul class="vert-grid">
+        {gratis.map((tool) => (
+          <li><IntentCard tool={tool} capabilityOrder={VIDEO_CAPABILITIES} /></li>
+        ))}
+      </ul>
+      <p class="vert-note">
+        Donde no aparece una cantidad es porque el fabricante no la publica. No la
+        estimamos.
+      </p>
+    </section>
+
+    <!-- ------------------------------------------------------------------ -->
+    <section class="vert-block" id="faciles" aria-labelledby="faciles-h">
+      <div class="vert-block-head">
+        <h2 class="vert-h2" id="faciles-h">Fáciles para empezar</h2>
+        <p class="vert-block-lede">
+          Nada que instalar. Que sean de pago no las descalifica: aquí la pregunta es
+          cuánto cuesta empezar, no cuánto cuesta.
+        </p>
+      </div>
+      <ul class="vert-grid">
+        {faciles.map((tool) => (
+          <li><IntentCard tool={tool} capabilityOrder={VIDEO_CAPABILITIES} /></li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- ------------------------------------------------------------------ -->
+    <section class="vert-block" id="personas" aria-labelledby="personas-h">
+      <div class="vert-block-head">
+        <h2 class="vert-h2" id="personas-h">Una persona hablando a cámara</h2>
+        <p class="vert-block-lede">
+          Avatares, sincronía labial y doblaje. Es otro encargo: quien necesita a
+          alguien explicando algo no está eligiendo entre generadores de planos.
+        </p>
+      </div>
+      <ul class="vert-grid">
+        {personas.map((tool) => (
+          <li><IntentCard tool={tool} capabilityOrder={VIDEO_CAPABILITIES} /></li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- ------------------------------------------------------------------ -->
+    <section class="vert-block" id="potentes" aria-labelledby="potentes-h">
+      <div class="vert-block-head">
+        <h2 class="vert-h2" id="potentes-h">Potentes y profesionales</h2>
+        <p class="vert-block-lede">
+          Herramientas cuyas capacidades podemos describir con una cita oficial detrás
+          de cada una. No es una nota más alta: es que sabemos qué hacen.
+        </p>
+      </div>
+      <ul class="vert-grid">
+        {potentes.map((tool) => (
+          <li><IntentCard tool={tool} capabilityOrder={VIDEO_CAPABILITIES} /></li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- ------------------------------------------------------------------ -->
+    <section class="vert-block" id="local" aria-labelledby="local-h">
+      <div class="vert-block-head">
+        <h2 class="vert-h2" id="local-h">En tu equipo</h2>
+        <p class="vert-block-lede">
+          Pesos abiertos que se ejecutan en tu máquina: sin cuotas y sin depender de que
+          nadie cambie su plan. El límite aquí no es el precio, es la tarjeta gráfica.
+        </p>
+      </div>
+
+      {install.length > 0 && (
+        <div class="vert-sub">
+          <h3 class="vert-h3">Se instalan y ya</h3>
+          <ul class="vert-grid">
+            {install.map((tool) => (
+              <li><IntentCard tool={tool} headingLevel="h4" capabilityOrder={VIDEO_CAPABILITIES} /></li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {technical.length > 0 && (
+        <div class="vert-sub">
+          <h3 class="vert-h3">Configuración técnica</h3>
+          <p class="vert-sub-lede">
+            Entorno, pesos de varios gigas y una GPU que aguante. La memoria de vídeo
+            que pide cada uno está en su ficha, porque es lo que decide si cabe.
+          </p>
+          <ul class="vert-grid">
+            {technical.map((tool) => (
+              <li><IntentCard tool={tool} headingLevel="h4" capabilityOrder={VIDEO_CAPABILITIES} /></li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </section>
+
+    <!-- ------------------------------------------------------------------ -->
+    <section class="vert-block" id="todas" aria-labelledby="todas-h">
+      <div class="vert-block-head">
+        <h2 class="vert-h2" id="todas-h">Todas las herramientas de vídeo</h2>
+        <p class="vert-block-lede">
+          Las {tools.length} verificadas, con filtros que se combinan. {conCifra} publican
+          cuánto dan y cada cuánto.
+        </p>
+      </div>
+
+      <CatalogFilters
+        tools={todas}
+        shown={filters}
+        hidden={hidden}
+        capabilityOrder={VIDEO_CAPABILITIES}
+        noun="vídeo"
+      />
+    </section>
+
+    <p class="vert-tail">
+      ¿Falta alguna, o hay un dato que ya no es cierto?
+      <a href={ROUTES.submit}>Cuéntanoslo</a> — cada ficha lleva la fecha en que se
+      comprobó y el enlace a la página que lo dice.
+    </p>
+  </div>
+</BaseLayout>

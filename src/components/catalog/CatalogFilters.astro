@@ -1,0 +1,181 @@
+---
+import IntentCard from './IntentCard.astro';
+import type { Tool } from '@lib/domain/tool';
+import type { Capability } from '@lib/domain/taxonomy';
+import type { FilterDecision } from '@lib/data/category-page';
+
+/**
+ * El catálogo completo de una categoría, con sus filtros.
+ *
+ * Vive aquí y no en cada página porque el guion que interseca conjuntos es
+ * idéntico en todas las verticales, y una segunda copia sería la sexta pareja
+ * de reglas duplicadas de este repositorio. Lo que cambia entre categorías
+ * —qué filtros hay, qué capacidades enseña la tarjeta, cómo se llaman las
+ * herramientas— entra por props.
+ *
+ * El navegador no vuelve a evaluar ninguna regla: qué filtros cumple cada ficha
+ * se calcula al construir la página, con las mismas funciones que decidieron
+ * enseñar cada chip. Sin JavaScript la sección sigue siendo un catálogo
+ * completo y legible: los filtros son un atajo, no la única puerta.
+ */
+
+interface Props {
+  /** En el orden en que se van a listar. */
+  tools: readonly Tool[];
+  shown: readonly FilterDecision[];
+  hidden: readonly FilterDecision[];
+  capabilityOrder: readonly Capability[];
+  /** Para el `aria-label` del formulario: «Filtrar herramientas de vídeo». */
+  noun: string;
+}
+
+const { tools, shown, hidden, capabilityOrder, noun } = Astro.props;
+
+/** Qué filtros cumple cada herramienta, resuelto en el servidor. */
+const matches: Record<string, string[]> = {};
+for (const tool of tools) {
+  matches[tool.slug] = shown.filter((d) => d.filter.matches(tool)).map((d) => d.filter.id);
+}
+---
+
+<form class="vert-filters" id="cat-filters" aria-label={`Filtrar herramientas de ${noun}`}>
+  <ul class="vert-chips">
+    {shown.map((d) => (
+      <li>
+        <label class="vert-chip">
+          <input type="checkbox" value={d.filter.id} data-cat-filter />
+          <span class="vert-chip-label" title={d.filter.hint}>{d.filter.label}</span>
+          <span class="vert-chip-count tnum">{d.count}</span>
+        </label>
+      </li>
+    ))}
+  </ul>
+  <div class="vert-filters-foot">
+    <p class="vert-result" role="status" aria-live="polite">
+      <span id="cat-count" class="tnum">{tools.length}</span>{' '}
+      <span id="cat-noun">herramientas</span>
+    </p>
+    <button type="button" class="btn btn-secondary btn-sm" id="cat-reset" hidden>
+      Quitar filtros
+    </button>
+  </div>
+</form>
+
+<ul class="vert-grid" id="cat-results">
+  {tools.map((tool) => (
+    <li data-cat-item data-slug={tool.slug}>
+      <IntentCard tool={tool} capabilityLimit={5} capabilityOrder={capabilityOrder} />
+    </li>
+  ))}
+</ul>
+
+<div class="card vert-empty" id="cat-empty" hidden>
+  <h3 class="vert-empty-title">Ninguna cumple todo lo que has pedido a la vez</h3>
+  <p class="vert-empty-body" id="cat-empty-reason"></p>
+  <button type="button" class="btn btn-secondary btn-sm" id="cat-empty-reset">Quitar filtros</button>
+</div>
+
+{hidden.length > 0 && (
+  <details class="vert-hidden">
+    <summary>Por qué faltan {hidden.length} filtros</summary>
+    <p class="vert-hidden-intro">
+      Un filtro que convierte «no consta» en «no» miente sobre las fichas que no
+      selecciona. Estos vuelven en cuanto los datos los sostengan.
+    </p>
+    <ul class="vert-hidden-list">
+      {hidden.map((d) => (
+        <li><strong>{d.filter.label}</strong>: {d.reason}.</li>
+      ))}
+    </ul>
+  </details>
+)}
+
+<script type="application/json" id="cat-matches" is:inline set:html={JSON.stringify(matches)} />
+
+<script>
+  const form = document.getElementById('cat-filters') as HTMLFormElement | null;
+  const node = document.getElementById('cat-matches');
+  if (form && node?.textContent) {
+    const matches: Record<string, string[]> = JSON.parse(node.textContent);
+
+    const items = new Map<string, HTMLElement>();
+    for (const li of Array.from(document.querySelectorAll<HTMLElement>('[data-cat-item]'))) {
+      items.set(li.dataset['slug']!, li);
+    }
+
+    const boxes = Array.from(form.querySelectorAll<HTMLInputElement>('[data-cat-filter]'));
+    const labels = new Map(
+      boxes.map((b) => [
+        b.value,
+        b.parentElement?.querySelector('.vert-chip-label')?.textContent ?? b.value,
+      ])
+    );
+
+    const countEl = document.getElementById('cat-count')!;
+    const nounEl = document.getElementById('cat-noun')!;
+    const resultsEl = document.getElementById('cat-results')!;
+    const emptyEl = document.getElementById('cat-empty')!;
+    const emptyReason = document.getElementById('cat-empty-reason')!;
+    const resetBtn = document.getElementById('cat-reset') as HTMLButtonElement;
+    const emptyReset = document.getElementById('cat-empty-reset') as HTMLButtonElement;
+
+    const countFor = (active: string[]) =>
+      [...items.keys()].filter((slug) => active.every((id) => matches[slug]?.includes(id))).length;
+
+    /** Cuál de los requisitos activos es el que deja la lista vacía. */
+    function blocker(active: string[]): string | null {
+      for (const id of active) {
+        if (countFor(active.filter((other) => other !== id)) > 0) return labels.get(id) ?? id;
+      }
+      return null;
+    }
+
+    function apply() {
+      const active = boxes.filter((b) => b.checked).map((b) => b.value);
+      let visible = 0;
+
+      for (const [slug, li] of items) {
+        const ok = active.every((id) => matches[slug]?.includes(id));
+        li.hidden = !ok;
+        if (ok) visible += 1;
+      }
+
+      countEl.textContent = String(visible);
+      nounEl.textContent = visible === 1 ? 'herramienta' : 'herramientas';
+      resetBtn.hidden = active.length === 0;
+      resultsEl.hidden = visible === 0;
+      emptyEl.hidden = visible > 0;
+
+      if (visible === 0) {
+        const name = blocker(active);
+        emptyReason.textContent = name
+          ? `El filtro «${name}» es el que lo deja vacío. Sin él sí hay resultados.`
+          : 'Prueba a quitar alguno de los requisitos.';
+      }
+
+      const params = new URLSearchParams(location.search);
+      if (active.length) params.set('f', active.join(','));
+      else params.delete('f');
+      const query = params.toString();
+      history.replaceState({}, '', query ? `${location.pathname}?${query}#todas` : location.pathname);
+    }
+
+    function reset() {
+      for (const box of boxes) box.checked = false;
+      apply();
+    }
+
+    form.addEventListener('change', apply);
+    resetBtn.addEventListener('click', reset);
+    emptyReset.addEventListener('click', reset);
+
+    // Arranca desde lo que ya diga la URL, para que un enlace compartido llegue
+    // con los mismos filtros puestos.
+    const initial = new URLSearchParams(location.search).get('f');
+    if (initial) {
+      const wanted = new Set(initial.split(','));
+      for (const box of boxes) box.checked = wanted.has(box.value);
+      apply();
+    }
+  }
+</script>

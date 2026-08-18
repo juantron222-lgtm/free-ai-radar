@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { seedConsent } from './helpers';
 
 /**
- * El encabezado de /imagen no puede volver a comerse la primera pantalla.
+ * El encabezado de una categoría no puede comerse la primera pantalla.
  *
  * La página promete «genera imágenes gratis ahora». Si para ver la primera
  * herramienta hay que desplazarse, la promesa la cumple el segundo viewport, y
@@ -23,8 +23,21 @@ import { seedConsent } from './helpers';
 const ANCHO = 375;
 const ALTO = 667;
 
-/** Por encima de esto, la primera herramienta deja de estar al alcance. */
+/**
+ * Por encima de esto, la primera herramienta deja de estar al alcance.
+ *
+ * Un único umbral para todas las verticales porque todas comparten plantilla:
+ * el encabezado tiene la misma estructura —título, entradilla, fila de atajos—
+ * y la misma consulta `@media`. Si una categoría necesitara un encabezado
+ * distinto, este número tendría que dejar de ser único, no subirse.
+ */
 const TOPE_PX = 420;
+
+/** Las categorías reconstruidas alrededor de la intención. */
+const CATEGORIAS = [
+  { ruta: '/imagen', bloque: /genera imágenes gratis ahora/i },
+  { ruta: '/video', bloque: /genera vídeos gratis ahora/i },
+];
 
 /*
  * Sólo el ancho: `isMobile` no lo admite Firefox y aquí no hace falta. Lo que
@@ -32,11 +45,12 @@ const TOPE_PX = 420;
  */
 test.use({ viewport: { width: ANCHO, height: ALTO } });
 
-test.describe(`/imagen en ${ANCHO}×${ALTO}`, () => {
+for (const categoria of CATEGORIAS) {
+test.describe(`${categoria.ruta} en ${ANCHO}×${ALTO}`, () => {
   test.beforeEach(async ({ page }) => {
     // El diálogo de consentimiento es modal y taparía lo que se está midiendo.
     await seedConsent(page);
-    await page.goto('/imagen');
+    await page.goto(categoria.ruta);
   });
 
   test('la primera herramienta gratuita empieza dentro de la primera pantalla', async ({ page }) => {
@@ -48,8 +62,8 @@ test.describe(`/imagen en ${ANCHO}×${ALTO}`, () => {
      * *es*, y sobreviven a un cambio de nombre de clase o de hoja de estilos —
      * que es justo lo que esta prueba no debería vigilar.
      */
-    const bloque = page.getByRole('region', { name: /genera imágenes gratis ahora/i });
-    await expect(bloque, 'el bloque «Genera imágenes gratis ahora» debe existir').toBeVisible();
+    const bloque = page.getByRole('region', { name: categoria.bloque });
+    await expect(bloque, 'el primer bloque de la categoría debe existir').toBeVisible();
 
     const primera = bloque.getByRole('article').first();
     await expect(primera, 'el bloque debe traer al menos una herramienta').toBeVisible();
@@ -60,8 +74,8 @@ test.describe(`/imagen en ${ANCHO}×${ALTO}`, () => {
       top,
       `La primera herramienta arranca a ${top} px del principio del documento. ` +
         `Por encima de ${TOPE_PX} px el lector de un móvil pequeño llega al primer ` +
-        `resultado sin verlo. Revisa el encabezado de /imagen: título, entradilla, ` +
-        `fila de atajos y los huecos de la consulta @media (max-width: 600px).`
+        `resultado sin verlo. Revisa el encabezado de ${categoria.ruta}: título, ` +
+        `entradilla, fila de atajos y los huecos de @media (max-width: 600px).`
     ).toBeLessThanOrEqual(TOPE_PX);
   });
 
@@ -115,3 +129,4 @@ test.describe(`/imagen en ${ANCHO}×${ALTO}`, () => {
     );
   });
 });
+}

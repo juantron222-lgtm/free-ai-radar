@@ -1,7 +1,8 @@
 ---
 import type { Tool } from '@lib/domain/tool';
 import { CAPABILITY_LABEL, HOSTING_LABEL, START_EFFORT_LABEL } from '@lib/domain/taxonomy';
-import { freeAccessLabel, IMAGE_CAPABILITIES } from '@lib/data/imagen';
+import type { Capability } from '@lib/domain/taxonomy';
+import { freeAccessLabel } from '@lib/data/category-page';
 import { ROUTES } from '@lib/nav';
 
 /**
@@ -27,12 +28,26 @@ interface Props {
   headingLevel?: 'h3' | 'h4';
   /** Cuántas capacidades caben antes de resumir el resto. */
   capabilityLimit?: number;
+  /**
+   * Qué capacidades enseña esta categoría, y en qué orden.
+   *
+   * Cada vertical decide las suyas: en Imagen «texto a imagen» encabeza, en
+   * Vídeo lo hace «texto a vídeo», y ninguna de las dos quiere enseñar las de
+   * la otra aunque la ficha las tenga. Sin esta prop, la tarjeta tendría que
+   * saber de categorías, que es exactamente lo que no debe saber.
+   */
+  capabilityOrder: readonly Capability[];
 }
 
-const { tool, headingLevel: Heading = 'h3', capabilityLimit = 4 } = Astro.props;
+const {
+  tool,
+  headingLevel: Heading = 'h3',
+  capabilityLimit = 4,
+  capabilityOrder,
+} = Astro.props;
 
 const access = freeAccessLabel(tool);
-const shown = IMAGE_CAPABILITIES.filter((c) => tool.capabilities.includes(c));
+const shown = capabilityOrder.filter((c) => tool.capabilities.includes(c));
 const visible = shown.slice(0, capabilityLimit);
 const rest = shown.length - visible.length;
 

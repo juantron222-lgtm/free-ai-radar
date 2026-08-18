@@ -52,6 +52,7 @@ export default defineConfig({
     // Imagen se rehízo como página propia. Una sola URL canónica: la vieja
     // conserva sus enlaces entrantes en vez de competir con la nueva.
     '/categorias/imagen': { status: 301, destination: '/imagen' },
+    '/categorias/video': { status: 301, destination: '/video' },
   },
   vite: {
     plugins: [tailwindcss()],

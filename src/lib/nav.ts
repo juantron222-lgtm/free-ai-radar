@@ -1,5 +1,14 @@
 /** Single source of truth for site navigation and route paths. */
 
+/**
+ * Categorías con página propia, reconstruidas alrededor de la intención.
+ *
+ * Se resuelve aquí y no en cada enlace para que exista una sola URL canónica:
+ * dos rutas con el mismo contenido compiten entre sí y reparten los enlaces
+ * entrantes. Las viejas `/categorias/<slug>` siguen redirigiendo con un 301.
+ */
+const RUTA_PROPIA = new Set(['imagen', 'video']);
+
 export const ROUTES = {
   home: '/',
   tools: '/herramientas',
@@ -12,7 +21,7 @@ export const ROUTES = {
    * dos rutas con el mismo contenido compiten entre sí en los buscadores y
    * reparten los enlaces entrantes. `/categorias/imagen` sigue redirigiendo.
    */
-  category: (slug: string) => (slug === 'imagen' ? '/imagen' : `/categorias/${slug}`),
+  category: (slug: string) => (RUTA_PROPIA.has(slug) ? `/${slug}` : `/categorias/${slug}`),
   models: '/modelos',
   agents: '/agentes',
   compare: '/comparar',

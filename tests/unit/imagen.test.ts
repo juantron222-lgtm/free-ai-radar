@@ -146,7 +146,7 @@ describe('cómo se nombra la gratuidad', () => {
 });
 
 describe('filtros', () => {
-  const decisions = decideFilters(imagen);
+  const decisions = decideFilters(imagen, CANDIDATE_FILTERS);
 
   it('esconde el que sólo puede afirmarse en muy pocas fichas', () => {
     const card = decisions.find((d) => d.filter.id === 'sin-tarjeta')!;

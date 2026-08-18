@@ -923,3 +923,364 @@
 .hub-news-list a:hover {
   text-decoration: underline;
 }
+
+
+/* =========================================================================
+ * Páginas de categoría por intención
+ *
+ * Estas clases las comparten /imagen, /video y las verticales que vengan
+ * después. Vivían dentro del `<style>` de `imagen.astro`, y dejarlas allí
+ * habría obligado a copiar setecientas líneas de CSS en cada categoría nueva:
+ * cuatro copias de la misma regla, que es la forma en la que este repositorio
+ * ya se ha equivocado cinco veces.
+ *
+ * Lo que cambia entre verticales es la maqueta de los bloques —cuántos hay y
+ * qué preguntan—, no cómo se ve una rejilla de tarjetas ni cómo se comporta la
+ * fila de atajos en el móvil.
+ * ========================================================================= */
+
+.vert {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.vert-hero {
+  display: grid;
+  gap: var(--space-2xs);
+  max-width: var(--measure);
+}
+
+.vert-h1 {
+  margin: 0;
+  font-size: clamp(1.9rem, 5vw, 2.9rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+.vert-lede {
+  margin: 0;
+  font-size: 1.0625rem;
+  color: var(--ink-muted);
+  line-height: 1.55;
+}
+
+/* En escritorio no es nada: la frase sigue en el párrafo, seguida. */
+.vert-lede-method {
+  font: inherit;
+  color: inherit;
+}
+
+.vert-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3xs) var(--space-2xs);
+  margin: var(--space-2xs) 0 0;
+  font-size: 0.8125rem;
+}
+
+.vert-jump a {
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  color: var(--ink-muted);
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.vert-jump a:hover {
+  border-color: var(--signal-line);
+  color: var(--signal);
+}
+
+.vert-block {
+  display: grid;
+  gap: var(--space-s);
+  scroll-margin-block-start: var(--space-l);
+}
+
+.vert-block-head {
+  display: grid;
+  gap: var(--space-3xs);
+  max-width: var(--measure);
+}
+
+.vert-h2 {
+  margin: 0;
+  font-size: clamp(1.35rem, 3.2vw, 1.75rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.vert-block-lede {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+.vert-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-2xs);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 34rem) {
+  .vert-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 60rem) {
+  .vert-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xs);
+  }
+}
+
+.vert-grid > li {
+  display: flex;
+}
+
+.vert-grid > li > * {
+  width: 100%;
+}
+
+.vert-note {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--ink-muted);
+}
+
+.vert-sub {
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.vert-h3 {
+  margin: 0;
+  font-size: 1.0625rem;
+}
+
+.vert-sub-lede {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--ink-muted);
+  max-width: var(--measure);
+}
+
+/* ---- Filtros ---- */
+
+.vert-filters {
+  display: grid;
+  gap: var(--space-2xs);
+  padding: var(--space-xs);
+  background: var(--surface-sunken);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+}
+
+.vert-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3xs);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.vert-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.7rem;
+  min-height: 36px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-full);
+  font-size: 0.8125rem;
+  cursor: pointer;
+}
+
+.vert-chip input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.vert-chip:hover {
+  border-color: var(--line-strong);
+}
+
+.vert-chip:has(input:checked) {
+  background: var(--signal-soft);
+  border-color: var(--signal-line);
+  color: var(--signal-strong);
+  font-weight: 600;
+}
+
+.vert-chip:has(input:focus-visible) {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.vert-chip-count {
+  color: var(--ink-muted);
+  font-size: 0.75rem;
+}
+
+.vert-chip:has(input:checked) .vert-chip-count {
+  color: inherit;
+}
+
+.vert-filters-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2xs);
+  padding-block-start: var(--space-3xs);
+  border-block-start: 1px solid var(--line);
+}
+
+.vert-result {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--ink-muted);
+}
+
+.vert-result #im-count {
+  font-weight: 700;
+  color: var(--ink-strong);
+}
+
+.vert-empty {
+  padding: var(--space-l) var(--space-s);
+  text-align: center;
+}
+
+.vert-empty-title {
+  margin: 0 0 var(--space-3xs);
+  font-size: 1.0625rem;
+}
+
+.vert-empty-body {
+  margin: 0 auto var(--space-2xs);
+  max-width: 44ch;
+  color: var(--ink-muted);
+  font-size: 0.9375rem;
+}
+
+.vert-hidden {
+  font-size: 0.875rem;
+  color: var(--ink-muted);
+}
+
+.vert-hidden summary {
+  cursor: pointer;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+}
+
+.vert-hidden-intro {
+  margin: var(--space-3xs) 0;
+  max-width: var(--measure);
+}
+
+.vert-hidden-list {
+  margin: 0;
+  padding-inline-start: 1.1rem;
+  display: grid;
+  gap: 0.2rem;
+}
+
+.vert-tail {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--ink-muted);
+  max-width: var(--measure);
+}
+
+/* -------------------------------------------------------------------- *
+ * Móvil: el alto es el recurso escaso
+ *
+ * Medido a 375 px, la primera herramienta arrancaba a 523 px. En un
+ * iPhone SE eso deja 144 px de una tarjeta de 238: el lector llega al
+ * primer resultado sin haberlo visto entero, y una página que se llama
+ * «genera imágenes gratis ahora» tiene que enseñar una.
+ *
+ * Nada se elimina. Lo que cambia es cuánto pesa cada cosa: la segunda
+ * frase del encabezado baja de tamaño, los atajos pasan a una fila que se
+ * desplaza en vez de romper en dos, y los huecos entre bloques dejan de
+ * ser los del escritorio, donde sobra alto y el aire ayuda a leer.
+ * -------------------------------------------------------------------- */
+@media (max-width: 600px) {
+  .vert {
+    gap: var(--space-l);
+  }
+
+  .vert-h1 {
+    font-size: 1.75rem;
+    line-height: 1.12;
+  }
+
+  .vert-lede {
+    font-size: 0.9375rem;
+    line-height: 1.45;
+  }
+
+  .vert-lede-method {
+    display: block;
+    margin-block-start: 0.2rem;
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    color: var(--ink-subtle);
+  }
+
+  /*
+   * Una fila que se desplaza, no dos que se apilan.
+   * Sangra hasta los bordes para que el último atajo se corte a la mitad:
+   * un corte limpio en el margen parece un fallo de maquetación, y un
+   * corte en el borde de la pantalla se lee como «hay más a la derecha».
+   */
+  .vert-jump {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin-block-start: var(--space-3xs);
+    margin-inline: calc(var(--space-s) * -1);
+    padding-inline: var(--space-s);
+    padding-block-end: 0.2rem;
+  }
+
+  .vert-jump::-webkit-scrollbar {
+    display: none;
+  }
+
+  .vert-jump a {
+    flex: none;
+  }
+
+  .vert-block {
+    gap: var(--space-2xs);
+  }
+
+  .vert-h2 {
+    font-size: 1.25rem;
+  }
+
+  .vert-block-lede {
+    font-size: 0.875rem;
+    line-height: 1.45;
+  }
+
+  .vert-sub-lede {
+    font-size: 0.8125rem;
+    line-height: 1.45;
+  }
+}

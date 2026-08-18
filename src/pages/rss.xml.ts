@@ -35,7 +35,15 @@ export const GET: APIRoute = () => {
 
   const additions = getRecentlyAdded(20).map((tool) => ({
     title: `Nueva en el radar: ${tool.name}`,
-    description: `${tool.tagline} Puntuación ${tool.scoreTotal}/100. ${tool.freePlan.summary}`,
+    /*
+     * Sin nota sobre cien.
+     *
+     * El RSS la seguía emitiendo mucho después de que desapareciera de las
+     * páginas, y un lector de feeds la habría enseñado durante meses. Un número
+     * retirado del sitio pero vivo en la sindicación es un número retirado a
+     * medias.
+     */
+    description: `${tool.tagline} ${tool.freePlan.summary}`,
     link: absoluteUrl(ROUTES.tool(tool.slug)),
     guid: `tool-${tool.slug}-${tool.detectedAt}`,
     date: tool.detectedAt,

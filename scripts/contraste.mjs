@@ -40,11 +40,12 @@ const BASE = process.env.BASE ?? 'http://localhost:4321';
 const PAGES = [
   '/',
   '/imagen',
+  '/video',
   '/herramientas',
   '/herramientas/krea',
   '/herramientas/comfyui',
   '/categorias',
-  '/categorias/video',
+  '/categorias/codigo',
   '/comparar',
   '/noticias',
   '/metodologia',
