@@ -29,7 +29,20 @@ async function register(page: Page, email = uniqueEmail()): Promise<string> {
   await page.getByLabel('Correo electrónico').fill(email);
   await page.getByLabel('Contraseña', { exact: true }).fill(PASSWORD);
   await page.getByRole('button', { name: 'Crear cuenta gratis' }).click();
-  await page.waitForURL(/\/cuenta$/, { timeout: 15_000 });
+  /*
+   * `domcontentloaded`, no `load`.
+   *
+   * `waitForURL` espera por defecto al evento `load`, que no llega hasta que
+   * termina el último subrecurso — incluidos los guiones de terceros. En WebKit,
+   * la petición de Vercel Web Analytics se queda colgada fuera de producción y el
+   * `load` no llegaba nunca: el registro había funcionado, el navegador ya estaba
+   * en /cuenta y el `domcontentloaded` había disparado, pero la prueba agotaba
+   * los treinta segundos esperando un fichero ajeno.
+   *
+   * Lo que estas pruebas comprueban es que la navegación ocurrió, no que un
+   * script de analítica terminara de bajar. Sigue exigiendo llegar a la URL.
+   */
+  await page.waitForURL(/\/cuenta$/, { timeout: 15_000, waitUntil: 'domcontentloaded' });
   return email;
 }
 
@@ -72,7 +85,7 @@ test.describe('inicio y cierre de sesión', () => {
     await page.getByLabel('Contraseña').fill(PASSWORD);
     await page.getByRole('button', { name: 'Entrar' }).click();
 
-    await page.waitForURL(/\/cuenta$/, { timeout: 15_000 });
+    await page.waitForURL(/\/cuenta$/, { timeout: 15_000, waitUntil: 'domcontentloaded' });
     await expect(page.getByText(email)).toBeVisible();
   });
 
@@ -111,7 +124,7 @@ test.describe('inicio y cierre de sesión', () => {
   test('cierra sesión y protege la ruta privada', async ({ page }) => {
     await register(page);
     await page.getByRole('button', { name: 'Salir' }).click();
-    await page.waitForURL('/');
+    await page.waitForURL('/', { waitUntil: 'domcontentloaded' });
 
     await page.goto('/cuenta');
     await expect(page).toHaveURL(/\/cuenta\/entrar/);
@@ -126,7 +139,7 @@ test.describe('inicio y cierre de sesión', () => {
   test('vuelve al destino solicitado tras entrar', async ({ page }) => {
     await register(page);
     await page.getByRole('button', { name: 'Salir' }).click();
-    await page.waitForURL('/');
+    await page.waitForURL('/', { waitUntil: 'domcontentloaded' });
 
     await page.goto('/cuenta/favoritos');
     await expect(page).toHaveURL(/next=/);

@@ -80,7 +80,46 @@ async function check(baseURL: string): Promise<string | null> {
     return `la sesión no sobrevive: /cuenta devuelve ${account.status}`;
   }
 
+  await warm(baseURL);
   return null;
+}
+
+/**
+ * Compila las rutas pesadas antes de que empiece la primera prueba.
+ *
+ * Playwright da por listo un servidor en cuanto su URL responde, y un servidor
+ * de desarrollo responde a `/` mucho antes de haber compilado el resto. Con
+ * seis arrancando a la vez —uno por proyecto, para aislar el estado— las seis
+ * compilaciones compiten por la máquina, y la primera navegación de la primera
+ * prueba se comía los treinta segundos de tope: cuatro fallos, todos
+ * `page.goto: Test timeout`, todos en el primer proyecto.
+ *
+ * No es un reintento ni un tope más generoso. Es hacer que «el servidor está
+ * listo» signifique lo que la suite necesita que signifique, que es justo para
+ * lo que existe este fichero.
+ *
+ * Se piden en paralelo y se ignoran los errores: aquí sólo se está calentando.
+ * Si alguna ruta estuviera rota de verdad, la prueba que la usa lo dirá con un
+ * mensaje que señala la ruta, no un tiempo agotado que no señala nada.
+ */
+async function warm(baseURL: string): Promise<void> {
+  const rutas = [
+    '/',
+    '/cuenta/crear',
+    '/cuenta/entrar',
+    '/herramientas',
+    '/imagen',
+    '/video',
+    '/categorias',
+    '/comparar',
+    '/noticias',
+  ];
+
+  await Promise.all(
+    rutas.map((ruta) =>
+      fetch(`${baseURL}${ruta}`).catch(() => undefined)
+    )
+  );
 }
 
 export default async function globalSetup(config: FullConfig): Promise<void> {

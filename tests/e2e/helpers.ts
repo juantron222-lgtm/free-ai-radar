@@ -86,11 +86,32 @@ export interface FailedRequests {
   terceros: string[];
   /** Peticiones al propio sitio que fallaron. Estas nunca se perdonan. */
   propios: string[];
+  /**
+   * Vacía las dos listas. Hay que llamarlo en cada navegación.
+   *
+   * El rastreo recorre cuarenta URLs con un solo objeto `page`, así que sin
+   * esto las listas se acumulan durante todo el recorrido: bastaba con que una
+   * página cualquiera tuviera un 4xx propio para que, de ahí en adelante, el
+   * 403 anónimo de Web Analytics dejara de perdonarse en todas las demás. El
+   * resultado era un rojo que aparecía o no según el orden del rastreo, que es
+   * la peor forma de fallar.
+   *
+   * La pregunta que la guarda quiere responder es «en *esta* página, ¿lo único
+   * que falló fue de fuera?», y para eso tiene que mirar sólo esta página.
+   */
+  reset(): void;
 }
 
 /** Registra qué peticiones fallaron y de quién eran. Ver `isThirdPartyNoise`. */
 export function trackThirdPartyFailures(page: Page, origin: string): FailedRequests {
-  const fallos: FailedRequests = { terceros: [], propios: [] };
+  const fallos: FailedRequests = {
+    terceros: [],
+    propios: [],
+    reset() {
+      this.terceros.length = 0;
+      this.propios.length = 0;
+    },
+  };
   const anotar = (url: string) => {
     (url.startsWith(origin) ? fallos.propios : fallos.terceros).push(url);
   };

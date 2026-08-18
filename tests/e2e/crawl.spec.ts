@@ -141,6 +141,8 @@ async function crawl(page: Page, origin: string, limit = RUNAWAY_LIMIT): Promise
   while (queue.length > 0 && result.visited.size < limit) {
     const path = queue.shift()!;
     currentPath = path;
+    // Lo que falló en la página anterior no dice nada de esta. Ver `reset()`.
+    fallosDeTerceros.reset();
 
     /*
      * One retry on an aborted navigation.

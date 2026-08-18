@@ -207,7 +207,8 @@ test.describe('ficha de herramienta', () => {
     await page.goto('/herramientas');
 
     await page.locator('[data-result-item]:visible .tool-card-link').first().click();
-    await page.waitForURL(/\/herramientas\/[a-z0-9-]+$/);
+    // `domcontentloaded`: ver la nota en account.spec.ts sobre el evento `load`.
+    await page.waitForURL(/\/herramientas\/[a-z0-9-]+$/, { waitUntil: 'domcontentloaded' });
 
     await expect(page.getByRole('heading', { name: 'Qué te dan gratis' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Fuentes' })).toBeVisible();
