@@ -80,6 +80,30 @@ test.describe(`${categoria.ruta} en ${ANCHO}×${ALTO}`, () => {
     ).toBeLessThanOrEqual(TOPE_PX);
   });
 
+  /*
+   * Dos frases con una etiqueta en medio siguen siendo dos frases.
+   *
+   * La entradilla termina con la frase del método dentro de un `<span>`, que en
+   * móvil es un bloque aparte y en escritorio continúa el párrafo. El compilador
+   * de Astro se come el espacio en blanco que había entre el texto y la
+   * etiqueta, así que en escritorio salía «publicarlo.Sin puntuaciones» — y en
+   * móvil no se veía, porque el salto de línea lo tapaba. Estaba en las tres
+   * verticales.
+   *
+   * Se mira el texto del documento y no cómo se pinta: el defecto está en el
+   * DOM, y así una regresión sale igual en cualquier ancho.
+   */
+  test('la entradilla no pega dos frases', async ({ page }) => {
+    const texto = (await page.locator('h1 + p').textContent()) ?? '';
+
+    expect(texto.trim().length, 'la entradilla no puede estar vacía').toBeGreaterThan(0);
+    expect(
+      texto,
+      `La entradilla de ${categoria.ruta} junta un punto con la palabra siguiente. ` +
+        'Falta un espacio explícito antes de la etiqueta que abre la segunda frase.'
+    ).not.toMatch(/[.:;][A-ZÁÉÍÓÚÑ¿¡«]/u);
+  });
+
   test('el documento no se desborda en horizontal', async ({ page }) => {
     const { scroll, ancho, culpables } = await page.evaluate(() => ({
       scroll: document.documentElement.scrollWidth,
