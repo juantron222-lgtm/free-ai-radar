@@ -110,9 +110,21 @@ async function warm(baseURL: string): Promise<void> {
     '/herramientas',
     '/imagen',
     '/video',
+    '/audio',
     '/categorias',
     '/comparar',
     '/noticias',
+    /*
+     * Las dos rutas que compilan por primera vez dentro de una prueba.
+     *
+     * `/cuenta/favoritos` responde una redirección a quien no ha entrado, pero
+     * compilarla cuesta lo mismo; y `herramientas/[slug]` es una plantilla
+     * distinta de la del listado. Las pruebas de cuenta las visitan en frío, y
+     * en frío con otros cinco servidores compilando a la vez es donde se agota
+     * el tiempo.
+     */
+    '/cuenta/favoritos',
+    '/herramientas/ollama',
   ];
 
   await Promise.all(

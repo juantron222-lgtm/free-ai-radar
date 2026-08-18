@@ -14,6 +14,20 @@ import { join } from 'node:path';
 let workDir: string;
 let originalCwd: string;
 
+/*
+ * scrypt cuesta lo que tiene que costar.
+ *
+ * `SCRYPT_PARAMS` usa N = 16384 a propósito: derivar una clave es lento porque
+ * eso es lo que protege una contraseña. Cada prueba de este fichero registra o
+ * autentica al menos una vez, así que el presupuesto por defecto de 5 s se
+ * agota en cuanto la máquina está ocupada — y el fallo dice «timeout», que no
+ * señala a nada.
+ *
+ * Subirlo no tapa lentitud: si scrypt dejara de ser el cuello de botella o el
+ * almacén local se volviera cuadrático, 20 s se seguirían pasando.
+ */
+vi.setConfig({ testTimeout: 20_000, hookTimeout: 20_000 });
+
 beforeEach(async () => {
   originalCwd = process.cwd();
   workDir = await mkdtemp(join(tmpdir(), 'far-auth-'));

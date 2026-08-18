@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createSchema } from '../../scripts/pglite-schema.mjs';
 import { syncCatalog, verifyMirror, SyncError } from '../../scripts/catalog-sync.mjs';
 import { catalogRows } from '../../scripts/catalog-source.mjs';
@@ -23,6 +23,24 @@ type Exec = (sql: string, params?: unknown[]) => Promise<Row[]>;
 
 let db: { query: (sql: string, params?: unknown[]) => Promise<{ rows: Row[] }>; close: () => Promise<void> };
 let exec: Exec;
+/*
+ * Lo que cuesta arrancar PostgreSQL, medido y no supuesto.
+ *
+ * Cada prueba de este fichero levanta una base de datos entera: PGlite compila
+ * PostgreSQL 18 a WebAssembly y aplica las migraciones desde cero, y eso es
+ * justo lo que la hace fiable — ninguna prueba hereda el estado de la anterior.
+ * También es lo que hace que los presupuestos por defecto de Vitest, pensados
+ * para funciones de JavaScript, se queden cortos: 5 s por prueba y 10 s por
+ * hook. En una máquina ocupada el arranque se va por encima y el fallo dice
+ * «timeout», que no señala nada.
+ *
+ * No es un margen para tapar lentitud: 30 s siguen siendo diez veces lo que
+ * tarda una de estas pruebas cuando la máquina está libre, así que una
+ * regresión de verdad en el esquema o en la sincronización seguiría saliendo
+ * roja.
+ */
+vi.setConfig({ testTimeout: 30_000, hookTimeout: 30_000 });
+
 
 beforeEach(async () => {
   // Only the core schema: the tables, constraints and triggers under test. The

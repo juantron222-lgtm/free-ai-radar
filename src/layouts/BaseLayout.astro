@@ -128,8 +128,22 @@ const jsonLd = graph(
       Not behind the consent banner, and that is a decision rather than an
       oversight: this counts page views first-party with no cookie and no
       cross-site identifier, so it is not what the banner exists to gate.
+
+      Sólo en el build, y no por prudencia: en `astro dev` el paquete cambia el
+      origen del guión a `va.vercel-scripts.com`, que es su versión de
+      depuración. Esa petición externa se queda colgada fuera de producción, y
+      mientras cuelga el evento `load` del documento no llega nunca — así que
+      cualquier `page.goto` de la suite, que espera `load` por defecto, agotaba
+      sus treinta segundos en una ruta ya compilada y ya servida. Los fallos
+      cambiaban de prueba y de navegador en cada ejecución porque lo que
+      decidía era el momento, no el código.
+
+      Quitarlo del servidor de desarrollo no tapa nada: en local no mide nada
+      que exista, y el guión que sí se sirve en producción
+      —`/_vercel/insights/script.js`, mismo origen— sigue exactamente igual y
+      se recorre en el Preview.
     */}
-    <Analytics />
+    {import.meta.env.PROD && <Analytics />}
 
     <script src="/sw-register.js" is:inline defer></script>
   </body>
