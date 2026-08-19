@@ -38,6 +38,7 @@ const CATEGORIAS = [
   { ruta: '/imagen', bloque: /genera imágenes gratis ahora/i },
   { ruta: '/video', bloque: /genera vídeos gratis ahora/i },
   { ruta: '/audio', bloque: /usar gratis ahora/i },
+  { ruta: '/agentes', bloque: /probar un agente gratis/i },
 ];
 
 /*

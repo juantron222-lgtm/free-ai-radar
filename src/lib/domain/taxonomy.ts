@@ -426,6 +426,26 @@ export const CAPABILITIES = [
   // Texto y código
   'text-generation',
   'code-generation',
+  /*
+   * Agentes: lo que el agente hace, no lo que la portada dice que es.
+   *
+   * `agents` ya existía y significaba «esto tiene que ver con agentes», que no
+   * decide nada: la palabra está en la portada de casi todo. Estas once
+   * describen comportamientos concretos que una fuente oficial puede
+   * demostrar o no, y son las que dan acceso a /agentes. La vieja se queda
+   * porque tres fichas la llevan, pero no cuenta como prueba de nada.
+   */
+  'tool-use',
+  'web-browsing',
+  'computer-use',
+  'code-execution',
+  'terminal',
+  'repository-editing',
+  'multi-agent',
+  'workflow-automation',
+  'research',
+  'memory',
+  'integrations',
   'agents',
   // Infraestructura
   'api',
@@ -463,6 +483,17 @@ export const CAPABILITY_LABEL: Record<Capability, string> = {
   'audio-editing': 'Edición de audio',
   'text-generation': 'Generación de texto',
   'code-generation': 'Generación de código',
+  'tool-use': 'Usa herramientas',
+  'web-browsing': 'Navega por la web',
+  'computer-use': 'Maneja el ordenador',
+  'code-execution': 'Ejecuta código',
+  terminal: 'Usa la terminal',
+  'repository-editing': 'Edita repositorios',
+  'multi-agent': 'Reparte en subagentes',
+  'workflow-automation': 'Automatiza flujos',
+  research: 'Investigación multietapa',
+  memory: 'Memoria entre sesiones',
+  integrations: 'Se conecta con otras aplicaciones',
   agents: 'Agentes',
   api: 'API',
   'model-hosting': 'Ejecuta modelos alojados',

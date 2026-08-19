@@ -1,164 +1,315 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import ToolExplorer from '@components/discovery/ToolExplorer.astro';
-import { getAllTools } from '@lib/data/catalog';
-import { getNewsByCategory } from '@lib/data/news';
-import { AGENT_KINDS } from '@lib/domain/tool';
+import IntentCard from '@components/catalog/IntentCard.astro';
+import CatalogFilters from '@components/catalog/CatalogFilters.astro';
+import { catalogueOrder, decideFilters } from '@lib/data/category-page';
+import {
+  AGENT_CAPABILITIES,
+  AGENT_TYPE_HINT,
+  AGENT_TYPE_LABEL,
+  CANDIDATE_FILTERS,
+  MIN_BLOQUE,
+  agentTools,
+  agentType,
+  byType,
+  freeNow,
+  local,
+} from '@lib/data/agentes';
 import { faqSchema, itemListSchema } from '@lib/seo/structured-data';
 import { ROUTES } from '@lib/nav';
 
 /**
- * Agents and frameworks that build or run software for you.
+ * Agentes: primero qué clase de cosa es, después si es gratis.
  *
- * The free-tier question is sharper here than anywhere else in the catalogue:
- * an agent that writes code for free but only deploys on a paid plan is not
- * free for the thing you wanted it for. So the counts below lead with the two
- * facts that actually decide it — card required, and commercial use.
+ * En las otras verticales la pregunta era «¿cuál elijo?». Aquí, antes que esa,
+ * hay una que casi nadie contesta: **qué estoy mirando**. Manus recibe un
+ * encargo y lo hace. CrewAI es una biblioteca de Python. n8n es un lienzo donde
+ * montas el tuyo. Las tres se anuncian con la palabra «agente» y no sirven para
+ * lo mismo, así que cada tarjeta lleva su tipo escrito y hay una leyenda que
+ * los explica (debajo del primer bloque, por lo que se cuenta allí).
+ *
+ * Y una regla que deja fuera a mucha portada: entra quien tiene un
+ * comportamiento citado por su fabricante —terminal, editar repositorios,
+ * navegar, repartir en subagentes, conectarse a otras aplicaciones—, no quien
+ * se llama agente.
  */
-const agents = getAllTools().filter((tool) => AGENT_KINDS.includes(tool.kind));
-const noCard = agents.filter((tool) => tool.freePlan.requiresCreditCard === 'no');
-const commercial = agents.filter((tool) => tool.freePlan.commercialUse === 'yes');
-const agentNews = [...getNewsByCategory('agentes'), ...getNewsByCategory('plataforma-agentes')].slice(0, 4);
+
+const tools = agentTools();
+
+const gratis = freeNow(tools);
+const codigo = byType(tools, 'codigo');
+const plataformas = byType(tools, 'plataforma');
+const frameworks = byType(tools, 'framework');
+const enTuEquipo = local(tools);
+const todas = catalogueOrder(tools);
+
+const decisions = decideFilters(tools, CANDIDATE_FILTERS);
+const filters = decisions.filter((d) => d.shown);
+const hidden = decisions.filter((d) => !d.shown);
+
+/** Los tipos que hoy tienen catálogo suficiente para llevar título propio. */
+const bloques = [
+  {
+    id: 'codigo',
+    titulo: 'Agentes de código',
+    lista: codigo,
+    lede: 'Trabajan sobre tu repositorio y tu terminal: leen el proyecto, cambian ficheros, ejecutan órdenes y comprueban el resultado.',
+  },
+  {
+    id: 'plataformas',
+    titulo: 'Construye tus propios agentes',
+    lista: plataformas,
+    lede: 'El producto no es el agente: es el sitio donde lo montas, normalmente sin escribir código.',
+  },
+  {
+    id: 'frameworks',
+    titulo: 'Frameworks para programar',
+    lista: frameworks,
+    lede: 'Bibliotecas e infraestructura. No se abren: se programan, y el coste que verás es el del modelo que les conectes.',
+  },
+].filter((b) => b.lista.length >= MIN_BLOQUE);
+
+/** El reparto real, para poder contarlo sin inventar. */
+const porTipo = (['listo', 'codigo', 'investigacion', 'plataforma', 'framework'] as const).map(
+  (tipo) => ({ tipo, total: tools.filter((t) => agentType(t) === tipo).length })
+);
+
+const sinTarjeta = tools.filter((t) => t.freePlan.requiresCreditCard === 'no');
+const abiertos = tools.filter((t) => t.openSource === 'yes');
 
 const crumbs = [
   { name: 'Inicio', path: ROUTES.home },
   { name: 'Agentes', path: ROUTES.agents },
 ];
 
+/** Cada respuesta es un dato que esta misma página enseña. */
 const faqs = [
   {
-    question: '¿Qué es un agente de IA y en qué se diferencia de un chatbot?',
+    question: '¿Qué diferencia hay entre un agente y un chatbot?',
     answer:
-      'Un chatbot responde; un agente ejecuta. Un agente encadena pasos por su cuenta —leer un fichero, escribir código, lanzar un comando, corregir el error— hasta terminar la tarea. Esa diferencia importa al mirar el plan gratuito: lo que se agota no son mensajes, sino ejecuciones, y una sola tarea puede consumir muchas.',
+      'Un chatbot responde; un agente encadena pasos por su cuenta hasta terminar el encargo. Lo que se agota tampoco es lo mismo: en un chatbot son mensajes, en un agente son ejecuciones, y una sola tarea puede consumir muchas. Por eso aquí una renovación diaria vale más que una cifra mensual grande.',
   },
   {
-    question: '¿Se puede usar un agente de IA gratis para trabajo comercial?',
-    answer:
-      commercial.length > 0
-        ? `${commercial.length} de los ${agents.length} agentes del catálogo permiten uso comercial en su plan gratuito según sus propios términos. En el resto no está permitido o el fabricante no lo aclara, y en ese caso lo marcamos como no verificado en vez de suponerlo.`
-        : 'Ninguno de los agentes del catálogo tiene el uso comercial del plan gratuito confirmado por escrito. Cuando el fabricante no lo aclara lo marcamos como no verificado en vez de suponerlo.',
+    question: '¿Qué agentes de IA puedo probar gratis?',
+    answer: `${gratis.length} de los ${tools.length} verificados funcionan en el navegador con acceso gratuito que se renueva: ${gratis
+      .slice(0, 4)
+      .map((t) => t.name)
+      .join(', ')}. ${sinTarjeta.length} tienen confirmado por escrito que no piden tarjeta.`,
   },
   {
-    question: '¿Hay agentes de IA gratis que no pidan tarjeta?',
+    question: '¿Un modelo con capacidades agénticas es un agente?',
     answer:
-      noCard.length > 0
-        ? `Sí: ${noCard.length} de los ${agents.length} agentes de esta sección tienen confirmado que no piden tarjeta para empezar en su plan gratuito.`
-        : 'De momento no tenemos ninguno confirmado sin tarjeta en esta sección; cuando el fabricante no lo dice con claridad no lo damos por hecho.',
+      'No por sí solo. Que un modelo pueda participar en un sistema agéntico no es un producto que alguien pueda usar, así que en esta sección no aparece ninguna ficha de modelo. Entra lo que tiene un comportamiento concreto documentado por su fabricante: terminal, edición de repositorios, navegación, subagentes o conexión con otras aplicaciones.',
+  },
+  {
+    question: '¿Hay agentes de IA de código abierto?',
+    answer: `${abiertos.length} de los ${tools.length}. Se ejecutan en tu equipo y no tienen cuotas propias: lo que pagas, si pagas, es el modelo que les conectes — y puede ser uno local.`,
   },
 ];
 ---
 
 <BaseLayout
-  title="Agentes de IA gratis: qué hacen y qué límites tienen"
-  description={`Agentes y frameworks que ejecutan tareas por ti. ${agents.length} entradas con límites del plan gratuito verificados: tarjeta, uso comercial y qué se agota.`}
+  title={`Agentes de IA: ${tools.length} verificados, por tipo y por lo que dan gratis`}
+  description={`Agentes listos para usar, agentes de código, plataformas y frameworks. Qué hace cada uno según su fabricante y qué permite su plan gratuito. ${tools.length} entradas verificadas contra la página oficial.`}
   crumbs={crumbs}
-  schemas={[
-    itemListSchema(agents, 'Agentes de IA con capa gratuita'),
-    ...(agents.length ? [faqSchema(faqs)] : []),
-  ]}
+  schemas={[itemListSchema(tools, 'Agentes de IA verificados'), faqSchema(faqs)]}
 >
-  <div class="page hub">
-    <header class="hub-head">
-      <h1 class="hub-h1">Agentes y frameworks</h1>
-      <p class="hub-lede">
-        Herramientas que no se limitan a responder: ejecutan. Escriben el código, lo prueban, lo
-        despliegan. Aquí la pregunta «¿es gratis?» cambia de forma, porque lo que se agota no son
-        mensajes sino ejecuciones, y una sola tarea puede gastar varias.
+  <div class="page vert">
+    <header class="vert-hero">
+      <h1 class="vert-h1">Agentes de IA</h1>
+      <p class="vert-lede">
+        Qué tipo de agente es cada cosa, y qué puedes hacer con él sin pagar.{' '}
+        <span class="vert-lede-method">
+          Entra quien tiene un comportamiento documentado por su fabricante, no quien
+          usa la palabra.
+        </span>
       </p>
-
-      <dl class="hub-stats">
-        <div><dt>Agentes y frameworks</dt><dd class="tnum">{agents.length}</dd></div>
-        <div><dt>Sin tarjeta</dt><dd class="tnum">{noCard.length}</dd></div>
-        <div><dt>Uso comercial</dt><dd class="tnum">{commercial.length}</dd></div>
-      </dl>
+      <nav class="vert-jump" aria-label="Ir a un bloque">
+        <a href="#gratis">Probar gratis</a>
+        <a href="#tipos">Qué tipo es cada uno</a>
+        {bloques.map((b) => <a href={`#${b.id}`}>{b.titulo}</a>)}
+        <a href="#local">En tu equipo</a>
+        <a href="#todas">Todos</a>
+      </nav>
     </header>
 
-    {agents.length === 0 ? (
-      <div class="card hub-empty">
-        <h2>Todavía no hay agentes verificados</h2>
-        <p>
-          Estamos comprobando los límites reales de cada uno antes de listarlo. Un agente cuyo plan
-          gratuito no sabemos medir no ayuda a nadie.
+    <!-- ------------------------------------------------------------------ -->
+    <section class="vert-block" id="gratis" aria-labelledby="gratis-h">
+      <div class="vert-block-head">
+        <h2 class="vert-h2" id="gratis-h">Probar un agente gratis</h2>
+        <p class="vert-block-lede">
+          Funcionan en el navegador y su acceso gratuito se renueva. Mira qué se agota:
+          aquí no se gastan mensajes, se gastan ejecuciones.
         </p>
-        <div class="hub-empty-actions">
-          <a href={ROUTES.tools} class="btn btn-primary btn-sm">Ver todo el catálogo</a>
-          <a href={ROUTES.submit} class="btn btn-ghost btn-sm">Propón un agente</a>
-        </div>
       </div>
-    ) : (
-      <ToolExplorer tools={agents} heading={`${agents.length} agentes y frameworks verificados`} />
-    )}
-
-    <section class="hub-explainer" aria-labelledby="watch-title">
-      <h2 id="watch-title" class="hub-section-title">Qué mirar antes de empezar con uno</h2>
-      <div class="table-scroll">
-        <table class="data-table">
-          <tbody>
-            <tr>
-              <th scope="row">Qué se agota</th>
-              <td>
-                Casi nunca son mensajes. Suelen ser ejecuciones, créditos o minutos de cómputo, y una
-                tarea larga puede consumir el día entero de golpe.
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">Dónde acaba lo gratis</th>
-              <td>
-                Muchos dejan generar gratis y cobran al desplegar, exportar o conectar un dominio.
-                Comprueba el final del flujo, no el principio.
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">Uso comercial</th>
-              <td>
-                Que el código sea tuyo no es automático. Si los términos no lo dicen, aquí aparece
-                como no verificado.
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">Qué ve de tu repositorio</th>
-              <td>
-                Un agente con acceso al proyecto lee más de lo que crees. Mira si el plan gratuito
-                entrena con tu código y si puedes desactivarlo sin pagar.
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="hub-note">
-        Cada ficha responde a estas cuatro con fuente y fecha. Cuando el fabricante no lo aclara
-        ponemos «sin verificar»: es peor dato pero es el dato honesto.
+      <ul class="vert-grid">
+        {gratis.map((tool) => (
+          <li>
+            <IntentCard
+              tool={tool}
+              capabilityOrder={AGENT_CAPABILITIES}
+              typeLabel={AGENT_TYPE_LABEL[agentType(tool)]}
+              typeHint={AGENT_TYPE_HINT[agentType(tool)]}
+            />
+          </li>
+        ))}
+      </ul>
+      <p class="vert-note">
+        Claude Code no está aquí y no es un olvido: su página de precios lo incluye a
+        partir de Pro, 20 $ al mes. El agente en la nube de GitHub Copilot tampoco entra
+        en el plan gratuito, aunque el resto de Copilot sí.
       </p>
     </section>
 
-    {agentNews.length > 0 && (
-      <section class="hub-news" aria-labelledby="news-title">
-        <h2 id="news-title" class="hub-section-title">Novedades de agentes</h2>
-        <ul class="hub-news-list">
-          {agentNews.map((news) => (
+    {/*
+      La leyenda va aquí y no encima, y es una decisión de móvil.
+
+      Explicar los tipos antes de enseñar nada es mejor pedagogía, pero en
+      375 px son cinco definiciones —unos 400 px— entre la entradilla y la
+      primera tarjeta, y la regla de esta casa es que la primera herramienta
+      gratuita se vea en la primera pantalla. Las tarjetas ya llevan su tipo
+      escrito, así que quien se pregunte qué significa «Framework para
+      programar» lo tiene justo debajo, y quien no, no paga el peaje.
+
+      Orden del DOM y orden visual siguen coincidiendo: nada de `order` en
+      CSS, que rompería el recorrido con el teclado.
+    */}
+    <section class="vert-block" id="tipos" aria-labelledby="tipos-h">
+      <div class="vert-block-head">
+        <h2 class="vert-h2" id="tipos-h">Cinco cosas distintas con el mismo nombre</h2>
+        <p class="vert-block-lede">
+          Antes de comparar nada conviene saber qué se está mirando. Cada tarjeta de
+          esta página lleva su tipo escrito.
+        </p>
+      </div>
+      <dl class="ag-tipos">
+        {porTipo.map(({ tipo, total }) => (
+          <div class="ag-tipo">
+            <dt>{AGENT_TYPE_LABEL[tipo]}</dt>
+            <dd>
+              {AGENT_TYPE_HINT[tipo]}
+              <span class="ag-tipo-n tnum">{total}</span>
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    <!-- ------------------------------------------------------------------ -->
+    {bloques.map((bloque) => (
+      <section class="vert-block" id={bloque.id} aria-labelledby={`${bloque.id}-h`}>
+        <div class="vert-block-head">
+          <h2 class="vert-h2" id={`${bloque.id}-h`}>{bloque.titulo}</h2>
+          <p class="vert-block-lede">{bloque.lede}</p>
+        </div>
+        <ul class="vert-grid">
+          {bloque.lista.map((tool) => (
             <li>
-              <time datetime={news.publishedAt} class="tnum">
-                {new Date(`${news.publishedAt}T00:00:00Z`).toLocaleDateString('es-ES', {
-                  day: '2-digit',
-                  month: 'short',
-                  timeZone: 'UTC',
-                })}
-              </time>
-              <a href={ROUTES.newsItem(news.slug)}>{news.title}</a>
+              <IntentCard
+                tool={tool}
+                capabilityOrder={AGENT_CAPABILITIES}
+                typeLabel={AGENT_TYPE_LABEL[agentType(tool)]}
+                typeHint={AGENT_TYPE_HINT[agentType(tool)]}
+              />
             </li>
           ))}
         </ul>
-        <a href={ROUTES.news} class="btn btn-ghost btn-sm">Todas las noticias →</a>
       </section>
-    )}
+    ))}
+
+    <!-- ------------------------------------------------------------------ -->
+    <section class="vert-block" id="local" aria-labelledby="local-h">
+      <div class="vert-block-head">
+        <h2 class="vert-h2" id="local-h">En tu equipo</h2>
+        <p class="vert-block-lede">
+          Se ejecutan en tu máquina y no tienen cuotas propias. La factura, si la hay,
+          es la del modelo que les conectes — y puede ser uno local.
+        </p>
+      </div>
+      <ul class="vert-grid">
+        {enTuEquipo.map((tool) => (
+          <li>
+            <IntentCard
+              tool={tool}
+              headingLevel="h3"
+              capabilityOrder={AGENT_CAPABILITIES}
+              typeLabel={AGENT_TYPE_LABEL[agentType(tool)]}
+              typeHint={AGENT_TYPE_HINT[agentType(tool)]}
+            />
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- ------------------------------------------------------------------ -->
+    <section class="vert-block" id="todas" aria-labelledby="todas-h">
+      <div class="vert-block-head">
+        <h2 class="vert-h2" id="todas-h">Todos los agentes</h2>
+        <p class="vert-block-lede">
+          Los {tools.length} verificados, con filtros que se combinan. El primer grupo
+          filtra por tipo.
+        </p>
+      </div>
+
+      <CatalogFilters
+        tools={todas}
+        shown={filters}
+        hidden={hidden}
+        capabilityOrder={AGENT_CAPABILITIES}
+        noun="agentes"
+        typeOf={(tool) => ({
+          label: AGENT_TYPE_LABEL[agentType(tool)],
+          hint: AGENT_TYPE_HINT[agentType(tool)],
+        })}
+      />
+    </section>
+
+    <p class="vert-tail">
+      ¿Falta alguno, o hay un dato que ya no es cierto?
+      <a href={ROUTES.submit}>Cuéntanoslo</a> — cada ficha lleva la fecha en que se
+      comprobó y el enlace a la página que lo dice.
+    </p>
   </div>
 </BaseLayout>
 
 <style>
-  .hub-note {
-    margin: var(--space-2xs) 0 0;
-    max-width: 60ch;
-    font-size: 0.8125rem;
+  /*
+   * La leyenda de tipos, que es media página de trabajo en una lista.
+   *
+   * No son tarjetas: son definiciones. Si se parecieran a las tarjetas de abajo
+   * competirían con ellas, y lo que hacen es justo lo contrario — explicar cómo
+   * leerlas.
+   */
+  .ag-tipos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: var(--space-xs);
+    margin: 0;
+  }
+
+  .ag-tipo {
+    padding: var(--space-2xs) var(--space-xs);
+    border-inline-start: 2px solid var(--line);
+  }
+
+  .ag-tipo dt {
+    font-weight: 650;
+    font-size: 0.9375rem;
+  }
+
+  .ag-tipo dd {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+    margin: 0.15rem 0 0;
+    color: var(--ink-muted);
+    font-size: 0.875rem;
+  }
+
+  .ag-tipo-n {
+    flex: none;
     color: var(--ink-subtle);
+    font-weight: 650;
   }
 </style>

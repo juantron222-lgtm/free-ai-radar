@@ -25,11 +25,19 @@ interface Props {
   shown: readonly FilterDecision[];
   hidden: readonly FilterDecision[];
   capabilityOrder: readonly Capability[];
+  /**
+   * Qué clase de cosa es cada ficha, cuando la categoría no lo hace obvio.
+   *
+   * La lista completa de una vertical es donde peor se distingue: en /agentes
+   * caen juntas una plataforma sin código y una biblioteca de Python. Se pasa
+   * como función porque el tipo lo decide la vertical, no este componente.
+   */
+  typeOf?: (tool: Tool) => { label: string; hint?: string } | undefined;
   /** Para el `aria-label` del formulario: «Filtrar herramientas de vídeo». */
   noun: string;
 }
 
-const { tools, shown, hidden, capabilityOrder, noun } = Astro.props;
+const { tools, shown, hidden, capabilityOrder, noun, typeOf } = Astro.props;
 
 /** Qué filtros cumple cada herramienta, resuelto en el servidor. */
 const matches: Record<string, string[]> = {};
@@ -64,7 +72,13 @@ for (const tool of tools) {
 <ul class="vert-grid" id="cat-results">
   {tools.map((tool) => (
     <li data-cat-item data-slug={tool.slug}>
-      <IntentCard tool={tool} capabilityLimit={5} capabilityOrder={capabilityOrder} />
+      <IntentCard
+        tool={tool}
+        capabilityLimit={5}
+        capabilityOrder={capabilityOrder}
+        typeLabel={typeOf?.(tool)?.label}
+        typeHint={typeOf?.(tool)?.hint}
+      />
     </li>
   ))}
 </ul>

@@ -111,6 +111,7 @@ async function warm(baseURL: string): Promise<void> {
     '/imagen',
     '/video',
     '/audio',
+    '/agentes',
     '/categorias',
     '/comparar',
     '/noticias',

@@ -37,6 +37,17 @@ interface Props {
    * saber de categorías, que es exactamente lo que no debe saber.
    */
   capabilityOrder: readonly Capability[];
+  /**
+   * Qué clase de cosa es, cuando la categoría no lo hace obvio.
+   *
+   * En imagen o audio sobra: dos fichas del mismo bloque hacen el mismo
+   * trabajo. En agentes no — Manus recibe un encargo y actúa, CrewAI es una
+   * biblioteca con la que programas el tuyo— y confundirlas cuesta una tarde.
+   * Sin esta prop la tarjeta se pinta igual que siempre.
+   */
+  typeLabel?: string;
+  /** El porqué del tipo, en el `title`. Se ignora sin `typeLabel`. */
+  typeHint?: string;
 }
 
 const {
@@ -44,6 +55,8 @@ const {
   headingLevel: Heading = 'h3',
   capabilityLimit = 4,
   capabilityOrder,
+  typeLabel,
+  typeHint,
 } = Astro.props;
 
 const access = freeAccessLabel(tool);
@@ -91,6 +104,12 @@ const licenciaDividida = Boolean(capas.code && capas.weights && capas.code !== c
     </Heading>
     <span class="chip ic-access" data-tone={access.tone}>{access.kind}</span>
   </div>
+
+  {typeLabel && (
+    <p class="ic-type">
+      <span class="ic-type-chip" title={typeHint}>{typeLabel}</span>
+    </p>
+  )}
 
   {soloPersonal && (
     <p class="ic-personal">
@@ -151,6 +170,29 @@ const licenciaDividida = Boolean(capas.code && capas.weights && capas.code !== c
     gap: var(--space-2xs);
     padding: var(--space-s);
     height: 100%;
+  }
+
+  /*
+   * El tipo, en un tono distinto al de la gratuidad.
+   *
+   * Comparte sitio con «Solo uso personal» pero no puede parecer una
+   * advertencia: no lo es. Es la clase de producto, y en esta vertical decide
+   * antes que el precio.
+   */
+  .ic-type {
+    margin: 0;
+  }
+
+  .ic-type-chip {
+    display: inline-block;
+    padding: 0.1rem 0.5rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-full);
+    background: var(--neutral-soft);
+    color: var(--ink-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
   }
 
   .ic-head {
