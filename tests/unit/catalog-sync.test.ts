@@ -53,6 +53,7 @@ beforeEach(async () => {
       'supabase/migrations/0010_capabilities_start_effort.sql',
       'supabase/migrations/0011_start_effort_reason.sql',
       'supabase/migrations/0012_licence_layers.sql',
+      'supabase/migrations/0013_model_access_and_openness.sql',
     ] }));
   exec = async (sql, params = []) => (await db.query(sql, params)).rows;
 });
@@ -77,6 +78,7 @@ function tool(slug: string, overrides: Row = {}): Row {
     description_long: '',
     kind: 'app',
     verification: 'verified',
+    next_review_at: '2026-11-18',
     category_slug: 'imagen',
     secondary_categories: [],
     tags: [],
@@ -91,8 +93,17 @@ function tool(slug: string, overrides: Row = {}): Row {
     capabilities: [],
     start_effort: 'signup',
     start_effort_reason: '',
-    // La columna es `not null`: una clave ausente llega como NULL explícito.
+    /*
+     * Las columnas `jsonb not null` hay que escribirlas aquí a mano.
+     *
+     * `jsonb_populate_recordset` convierte una clave ausente en un NULL
+     * explícito, y un NULL explícito derrota al DEFAULT de la columna. Ya ha
+     * mordido tres veces —`skill_level`, `licences` y `access`—, así que
+     * debajo hay una prueba que compara este molde con las filas reales en vez
+     * de esperar a la cuarta.
+     */
     licences: {},
+    access: {},
     privacy: {},
     official_url: `https://${slug}.example`,
     sources: [],
@@ -197,6 +208,23 @@ describe('2 · segunda sincronización idéntica', () => {
     expect(second.tools).toBe(real.toolRows.length);
     expect(second.retired).toEqual([]);
     expect(second.archived).toBe(0);
+  });
+});
+
+describe('el molde de las pruebas', () => {
+  /*
+   * Un fixture al que le falta una columna no falla donde se escribió: falla
+   * ocho pruebas más abajo con «null value in column X», y hay que leer el
+   * mensaje entero para saber de dónde viene. Comparar el molde con una fila
+   * real lo dice en el sitio y con el nombre de la columna que falta.
+   */
+  it('tiene todas las columnas que tiene una fila real del catálogo', async () => {
+    const { toolRows } = await catalogRows();
+    const reales = new Set(Object.keys(toolRows[0]!));
+    const molde = new Set(Object.keys(tool('molde')));
+
+    const faltan = [...reales].filter((k) => !molde.has(k));
+    expect(faltan, 'columnas que el fixture no escribe').toEqual([]);
   });
 });
 

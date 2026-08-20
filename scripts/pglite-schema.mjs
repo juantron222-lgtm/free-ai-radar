@@ -38,6 +38,7 @@ export const ALL_MIGRATIONS = [
   'supabase/migrations/0010_capabilities_start_effort.sql',
   'supabase/migrations/0011_start_effort_reason.sql',
   'supabase/migrations/0012_licence_layers.sql',
+  'supabase/migrations/0013_model_access_and_openness.sql',
 ];
 
 /**

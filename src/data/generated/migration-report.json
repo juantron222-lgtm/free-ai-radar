@@ -1,12 +1,89 @@
 {
-  "generatedAt": "2026-08-20T00:29:36.171Z",
+  "generatedAt": "2026-08-20T16:15:01.069Z",
   "source": "src/data/tools.json",
   "inputCount": 0,
-  "outputCount": 74,
+  "outputCount": 91,
   "dropped": [],
   "duplicates": [],
-  "issues": [],
+  "issues": [
+    {
+      "tool": "-",
+      "issue": "Categoría fuera de taxonomía: modelos"
+    },
+    {
+      "tool": "-",
+      "issue": "Categoría fuera de taxonomía: modelos"
+    },
+    {
+      "tool": "-",
+      "issue": "Categoría fuera de taxonomía: modelos"
+    },
+    {
+      "tool": "-",
+      "issue": "Categoría fuera de taxonomía: modelos"
+    },
+    {
+      "tool": "-",
+      "issue": "Categoría fuera de taxonomía: modelos"
+    },
+    {
+      "tool": "-",
+      "issue": "Categoría fuera de taxonomía: modelos"
+    },
+    {
+      "tool": "-",
+      "issue": "Categoría fuera de taxonomía: modelos"
+    },
+    {
+      "tool": "-",
+      "issue": "Categoría fuera de taxonomía: modelos"
+    },
+    {
+      "tool": "-",
+      "issue": "Categoría fuera de taxonomía: modelos"
+    },
+    {
+      "tool": "-",
+      "issue": "Categoría fuera de taxonomía: modelos"
+    },
+    {
+      "tool": "-",
+      "issue": "Categoría fuera de taxonomía: modelos"
+    },
+    {
+      "tool": "-",
+      "issue": "Categoría fuera de taxonomía: modelos"
+    },
+    {
+      "tool": "-",
+      "issue": "Categoría fuera de taxonomía: modelos"
+    },
+    {
+      "tool": "-",
+      "issue": "Categoría fuera de taxonomía: modelos"
+    },
+    {
+      "tool": "-",
+      "issue": "Categoría fuera de taxonomía: modelos"
+    },
+    {
+      "tool": "-",
+      "issue": "Categoría fuera de taxonomía: modelos"
+    },
+    {
+      "tool": "-",
+      "issue": "Categoría fuera de taxonomía: modelos"
+    },
+    {
+      "tool": "-",
+      "issue": "Categoría fuera de taxonomía: modelos"
+    },
+    {
+      "tool": "-",
+      "issue": "Categoría fuera de taxonomía: modelos"
+    }
+  ],
   "unknownAlternatives": [],
   "scoreDeltas": [],
-  "nativeCount": 74
+  "nativeCount": 91
 }

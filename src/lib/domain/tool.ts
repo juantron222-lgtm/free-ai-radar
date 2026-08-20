@@ -5,6 +5,7 @@ import {
   IsoDate,
   OptionalHttpUrl,
   Slug,
+  Openness,
   TriState,
 } from './primitives';
 import {
@@ -210,7 +211,37 @@ export const ToolRecord = z.object({
    */
   startEffortReason: z.string().max(160).default(''),
 
-  openSource: TriState.default('unverified'),
+  openSource: Openness.default('unverified'),
+
+  /**
+   * Las formas de acceso de un modelo, que son independientes entre sí.
+   *
+   * Es el campo que impide el error más común de esta vertical, y son cuatro
+   * herencias falsas: que ChatGPT tenga plan gratuito no hace gratis la API de
+   * GPT; que la API de Gemini tenga capa gratuita no significa que la tengan
+   * todos sus modelos —`gemini-3.1-pro-preview` dice «Not available» en la
+   * misma tabla donde Flash dice «Available»—; que los pesos sean abiertos no
+   * hace gratis el endpoint alojado; y que exista una app de chat no dice nada
+   * sobre si el modelo concreto está en su plan gratuito.
+   *
+   * Cinco preguntas, cinco respuestas, cada una con su propia cita.
+   */
+  access: z
+    .object({
+      /** ¿Existe una aplicación de chat donde una persona pueda usarlo? */
+      chat: TriState.default('unverified'),
+      /** ¿Y está incluido en el plan gratuito de esa aplicación? */
+      chatFree: TriState.default('unverified'),
+      /** ¿Se puede consumir por API? */
+      api: TriState.default('unverified'),
+      /** ¿Esa API tiene capa gratuita de verdad, no una promoción de alta? */
+      apiFree: TriState.default('unverified'),
+      /** ¿Se pueden descargar los pesos y ejecutarlo? */
+      weights: TriState.default('unverified'),
+      /** Dónde se usa en el navegador, cuando `chat` es `yes`. */
+      chatWhere: z.string().max(80).optional(),
+    })
+    .default({}),
   /** Resumen legible de una línea, cuando las tres capas coinciden. */
   licence: z.string().optional(),
 

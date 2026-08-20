@@ -19,7 +19,7 @@ import {
   getCategory,
   getFreeModel,
 } from '@lib/domain/taxonomy';
-import { TRI_STATE_LABEL } from '@lib/domain/primitives';
+import { OPENNESS_LABEL, TRI_STATE_LABEL } from '@lib/domain/primitives';
 import { VERIFICATION_LABEL, type ToolRecord } from '@lib/domain/tool';
 import { ROUTES } from '@lib/nav';
 
@@ -53,7 +53,7 @@ const facts = [
   { label: '¿Hay que registrarse?', value: TRI_STATE_LABEL[tool.freePlan.requiresSignup], good: tool.freePlan.requiresSignup === 'no' },
   { label: '¿Marca de agua?', value: TRI_STATE_LABEL[tool.freePlan.hasWatermark], good: tool.freePlan.hasWatermark === 'no' },
   { label: '¿Uso comercial?', value: TRI_STATE_LABEL[tool.freePlan.commercialUse], good: tool.freePlan.commercialUse === 'yes' },
-  { label: '¿Código abierto?', value: TRI_STATE_LABEL[tool.openSource], good: tool.openSource === 'yes' },
+  { label: '¿Código abierto?', value: OPENNESS_LABEL[tool.openSource], good: tool.openSource === 'yes' },
   { label: 'Dónde se ejecuta', value: HOSTING_LABEL[tool.hosting], good: tool.hosting !== 'cloud' },
   ...(tool.freePlan.creditsAmount
     ? [{ label: 'Créditos gratuitos', value: tool.freePlan.creditsAmount, good: false }]

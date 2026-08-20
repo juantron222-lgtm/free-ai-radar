@@ -10,6 +10,31 @@ import { z } from 'zod';
 export const TriState = z.enum(['yes', 'no', 'partial', 'unverified']);
 export type TriState = z.infer<typeof TriState>;
 
+/**
+ * Lo abierto, con un valor más que el resto de los hechos.
+ *
+ * `weights` existe porque «pesos abiertos» y «open source» no son lo mismo y
+ * la diferencia decide cosas. Llama 4 se descarga y se ejecuta, pero su
+ * licencia obliga a pedir permiso a Meta por encima de 700 millones de
+ * usuarios mensuales y a enseñar «Built with Llama»; Kimi K3 pide atribución a
+ * partir de 100 millones. Ninguna de las dos es una licencia OSI, y ponerlas
+ * en la misma casilla que Apache 2.0 sería decir de ellas algo que no es
+ * cierto.
+ *
+ * No se mete en `TriState` porque este valor sólo tiene sentido aquí: nadie
+ * necesita responder `weights` a «¿pide tarjeta?».
+ */
+export const Openness = z.enum(['yes', 'no', 'partial', 'weights', 'unverified']);
+export type Openness = z.infer<typeof Openness>;
+
+export const OPENNESS_LABEL: Record<Openness, string> = {
+  yes: 'Open source',
+  no: 'Cerrado',
+  partial: 'Parcialmente abierto',
+  weights: 'Pesos abiertos',
+  unverified: 'Sin confirmar',
+};
+
 export const TRI_STATE_LABEL: Record<TriState, string> = {
   yes: 'Sí',
   no: 'No',

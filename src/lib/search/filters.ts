@@ -1,5 +1,5 @@
 import type { FreeModel, Hosting, Platform, StartEffort } from '@lib/domain/taxonomy';
-import type { TriState } from '@lib/domain/primitives';
+import type { Openness, TriState } from '@lib/domain/primitives';
 import type { Freshness } from '@lib/domain/scoring';
 
 /**
@@ -18,7 +18,7 @@ export interface FilterableTool {
   platforms: readonly Platform[];
   hosting: Hosting;
   startEffort: StartEffort;
-  openSource: TriState;
+  openSource: Openness;
   scoreTotal: number;
   freshness: Freshness;
   detectedAt: string;

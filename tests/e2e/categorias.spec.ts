@@ -39,6 +39,7 @@ const CATEGORIAS = [
   { ruta: '/video', bloque: /genera vídeos gratis ahora/i },
   { ruta: '/audio', bloque: /usar gratis ahora/i },
   { ruta: '/agentes', bloque: /probar un agente gratis/i },
+  { ruta: '/modelos', bloque: /usar gratis ahora/i },
 ];
 
 /*
@@ -125,6 +126,38 @@ test.describe(`${categoria.ruta} en ${ANCHO}×${ALTO}`, () => {
 
     expect(culpables, 'elementos que sobresalen del viewport').toEqual([]);
     expect(scroll, 'la página no debe poder desplazarse en horizontal').toBeLessThanOrEqual(ancho);
+  });
+
+  /*
+   * Los atajos y los bloques son la misma lista contada dos veces.
+   *
+   * La fila de atajos se arma con las secciones fijas más las de tipo, que
+   * aparecen o no según haya catálogo. Cada vez que una entra o sale hay dos
+   * sitios que actualizar, y esa es exactamente la forma que tiene un índice de
+   * quedarse desfasado: un atajo que no lleva a ninguna parte, o un bloque al
+   * que no se puede saltar. Ninguna de las dos cosas rompe la página, así que
+   * sólo se ve contando.
+   */
+  test('cada atajo lleva a un bloque y cada bloque tiene atajo', async ({ page }) => {
+    const destinos = await page
+      .getByRole('navigation', { name: 'Ir a un bloque' })
+      .evaluate((nav) =>
+        [...nav.querySelectorAll('a')].map((a) => (a.getAttribute('href') ?? '').replace('#', ''))
+      );
+
+    expect(destinos.length, 'la fila de atajos no puede estar vacía').toBeGreaterThan(2);
+
+    const secciones = await page.evaluate(() =>
+      [...document.querySelectorAll('section[id]')]
+        .filter((s) => s.querySelector('h2'))
+        .map((s) => s.id)
+    );
+
+    const rotos = destinos.filter((id) => !secciones.includes(id));
+    expect(rotos, 'atajos que no llevan a ninguna sección').toEqual([]);
+
+    const huerfanas = secciones.filter((id) => !destinos.includes(id));
+    expect(huerfanas, 'secciones a las que no se puede saltar').toEqual([]);
   });
 
   test('los atajos se desbordan dentro de su fila, no de la página', async ({ page }) => {

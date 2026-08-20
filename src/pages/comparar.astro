@@ -2,7 +2,7 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import ScoreBadge from '@components/tools/ScoreBadge.astro';
 import { getAllTools, getTool } from '@lib/data/catalog';
-import { TRI_STATE_LABEL } from '@lib/domain/primitives';
+import { OPENNESS_LABEL, TRI_STATE_LABEL } from '@lib/domain/primitives';
 import {
   CREDIT_RESET_LABEL,
   HOSTING_LABEL,
@@ -89,7 +89,7 @@ const ROWS: Row[] = [
   {
     label: '¿Open source?',
     kind: 'fact',
-    values: (t) => TRI_STATE_LABEL[t.openSource],
+    values: (t) => OPENNESS_LABEL[t.openSource],
     better: (v) => v === 'Sí',
   },
   { label: 'Dónde se ejecuta', kind: 'fact', values: (t) => HOSTING_LABEL[t.hosting] },

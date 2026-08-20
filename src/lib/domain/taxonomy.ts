@@ -126,6 +126,14 @@ export const CATEGORIES: readonly CategoryDef[] = [
     icon: 'marketing',
   },
   {
+    slug: 'modelos',
+    name: 'Modelos de IA',
+    aliases: ['modelos', 'llm', 'modelo-lenguaje'],
+    intro:
+      'Los modelos, separados de las aplicaciones que los usan. Aquí se responde qué puedes usar gratis y por dónde: en un chat, por API o descargando los pesos. Son tres preguntas distintas y ninguna se hereda de las otras.',
+    icon: 'model',
+  },
+  {
     slug: 'modelos-open-source',
     name: 'Modelos open-source',
     aliases: ['Modelos open-source', 'Open source', 'Modelos'],
@@ -427,6 +435,18 @@ export const CAPABILITIES = [
   'text-generation',
   'code-generation',
   /*
+   * Modelos: lo que la documentación demuestra, no lo que la portada promete.
+   *
+   * «Frontier intelligence» no es una capacidad; «thinking mode enabled by
+   * default» sí, porque una página oficial lo dice y otra no. Estas cuatro son
+   * las que hicieron falta para describir modelos sin inventar: razonar con un
+   * modo documentado, entender imágenes, oír y ver vídeo.
+   */
+  'reasoning',
+  'vision',
+  'audio-input',
+  'video-understanding',
+  /*
    * Agentes: lo que el agente hace, no lo que la portada dice que es.
    *
    * `agents` ya existía y significaba «esto tiene que ver con agentes», que no
@@ -482,6 +502,10 @@ export const CAPABILITY_LABEL: Record<Capability, string> = {
   transcription: 'Transcripción',
   'audio-editing': 'Edición de audio',
   'text-generation': 'Generación de texto',
+  reasoning: 'Razonamiento',
+  vision: 'Entiende imágenes',
+  'audio-input': 'Entiende audio',
+  'video-understanding': 'Entiende vídeo',
   'code-generation': 'Generación de código',
   'tool-use': 'Usa herramientas',
   'web-browsing': 'Navega por la web',

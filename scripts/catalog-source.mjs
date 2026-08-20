@@ -78,7 +78,7 @@ const TOOL_COLUMNS = new Set([
   'pros', 'cons', 'best_for', 'not_for', 'alternatives', 'alternative_names',
   'changelog', 'affiliation', 'sponsorship', 'status', 'reviewed_by',
   'detected_at', 'last_verified_at', 'created_at', 'updated_at',
-  'capabilities', 'start_effort', 'start_effort_reason', 'licences',
+  'capabilities', 'start_effort', 'start_effort_reason', 'licences', 'access',
 ]);
 
 /** Campos que sólo viven en el repositorio. Ver el motivo en catalogRows(). */

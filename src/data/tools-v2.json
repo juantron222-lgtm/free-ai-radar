@@ -89,7 +89,8 @@
       "image-editing"
     ],
     "startEffortReason": "Requiere iniciar sesión con Adobe ID antes de la primera generación.",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "skillLevel": "beginner",
@@ -187,7 +188,8 @@
     },
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19"
+    "updatedAt": "2026-08-19",
+    "access": {}
   },
   {
     "skillLevel": "beginner",
@@ -289,7 +291,8 @@
     "licences": {
       "code": "MIT",
       "weights": "CC-BY-NC 4.0"
-    }
+    },
+    "access": {}
   },
   {
     "id": "tool_bolt-new",
@@ -415,7 +418,8 @@
       }
     },
     "startEffortReason": "Requiere cuenta para conservar y desplegar el proyecto que genera.",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "skillLevel": "beginner",
@@ -522,7 +526,8 @@
     "nextReviewAt": "2026-11-16",
     "lastVerifiedAt": "2026-08-18",
     "updatedAt": "2026-08-18",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "id": "tool_chatgpt",
@@ -656,7 +661,8 @@
       }
     },
     "startEffortReason": "Se puede escribir en la caja y obtener respuesta nada más entrar.",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "id": "tool_civitai",
@@ -798,7 +804,8 @@
       "api"
     ],
     "startEffortReason": "Requiere cuenta para descargar modelos y para generar en su nube.",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "id": "tool_claude",
@@ -929,7 +936,8 @@
       }
     },
     "startEffortReason": "Se puede escribir en la caja y obtener respuesta nada más entrar.",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "skillLevel": "beginner",
@@ -1042,21 +1050,228 @@
     "auditNotes": "Ficha de la casa: Free AI Radar se construye con Claude Code. No cambia el criterio — `paid_only` es lo que dice su página de precios, y así se publica.",
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19"
+    "updatedAt": "2026-08-19",
+    "access": {}
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-20",
+    "kind": "model",
+    "categorySlug": "modelos",
+    "licences": {},
+    "name": "Claude Haiku 4.5",
+    "verification": "verified",
+    "officialUrl": "https://platform.claude.com/docs/en/about-claude/models/overview",
+    "hosting": "cloud",
+    "openSource": "no",
+    "platforms": [
+      "api"
+    ],
+    "freeModel": "paid_only",
+    "tagline": "La gama rápida y barata de Anthropic, con contexto de 200k.",
+    "descriptionShort": "La gama pequeña: «The fastest model with near-frontier intelligence». Un dólar por millón de tokens de entrada y cinco de salida, con ventana de 200k y salida máxima de 64k. Acepta texto e imagen.",
+    "verdict": "Es la que separa a Anthropic por contexto y no sólo por precio: 200k frente al millón de las gamas mayores. Si tu trabajo cabe ahí, cuesta la quinta parte.",
+    "freePlan": {
+      "requiresSignup": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-08-20",
+      "summary": "Sin capa gratuita de API. 1 $ por millón de tokens de entrada y 5 $ de salida.",
+      "limits": [
+        "1 $/M de entrada · 5 $/M de salida",
+        "Contexto de 200k tokens · salida máxima de 64k",
+        "Pensamiento extendido disponible"
+      ]
+    },
+    "access": {
+      "chat": "unverified",
+      "chatFree": "unverified",
+      "api": "yes",
+      "apiFree": "no",
+      "weights": "no"
+    },
+    "capabilities": [
+      "text-generation",
+      "vision",
+      "reasoning",
+      "api"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Se usa con una clave de API y facturación activa.",
+    "scores": {
+      "freeReal": 2,
+      "usefulness": 8,
+      "ease": 5,
+      "transparency": 9,
+      "creatorValue": 5
+    },
+    "sources": [
+      {
+        "url": "https://platform.claude.com/docs/en/about-claude/models/overview",
+        "label": "Documentación oficial de modelos",
+        "kind": "docs",
+        "publisher": "claude.com",
+        "checkedAt": "2026-08-20"
+      }
+    ],
+    "evidence": {
+      "capabilities": {
+        "sourceUrl": "https://platform.claude.com/docs/en/about-claude/models/overview",
+        "verifiedAt": "2026-08-20",
+        "quote": "Claude Haiku 4.5 — The fastest model with near-frontier intelligence · Extended thinking: Yes · Context window 200k tokens · Max output 64k tokens · $1 / input MTok  $5 / output MTok"
+      }
+    },
+    "slug": "claude-haiku-4-5",
+    "id": "tool_claude-haiku-4-5",
+    "nextReviewAt": "2026-11-18",
+    "lastVerifiedAt": "2026-08-20",
+    "updatedAt": "2026-08-20"
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-20",
+    "kind": "model",
+    "categorySlug": "modelos",
+    "licences": {},
+    "name": "Claude Opus 5",
+    "verification": "verified",
+    "officialUrl": "https://platform.claude.com/docs/en/about-claude/models/overview",
+    "pricingUrl": "https://platform.claude.com/docs/en/about-claude/pricing",
+    "hosting": "cloud",
+    "openSource": "no",
+    "platforms": [
+      "api",
+      "web"
+    ],
+    "freeModel": "paid_only",
+    "tagline": "Un millón de tokens de contexto y pensamiento adaptativo.",
+    "descriptionShort": "La gama que Anthropic recomienda por defecto: «For complex agentic coding and enterprise work». Ventana de un millón de tokens, 128k de salida máxima y pensamiento adaptativo. Acepta texto e imagen; genera texto.",
+    "verdict": "La documentación la señala como punto de partida para trabajo agéntico de código. Por API se paga desde el primer token; en claude.ai hay plan gratuito, pero su web no documenta qué gama lo sirve.",
+    "freePlan": {
+      "requiresSignup": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-08-20",
+      "summary": "Sin capa gratuita de API. 5 $ por millón de tokens de entrada y 25 $ de salida.",
+      "limits": [
+        "5 $/M de entrada · 25 $/M de salida",
+        "Contexto de 1M de tokens · salida máxima de 128k",
+        "Sin capa gratuita de API documentada"
+      ]
+    },
+    "access": {
+      "chat": "yes",
+      "chatFree": "unverified",
+      "api": "yes",
+      "apiFree": "no",
+      "weights": "no",
+      "chatWhere": "claude.ai"
+    },
+    "capabilities": [
+      "text-generation",
+      "code-generation",
+      "vision",
+      "reasoning",
+      "api"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Por API con clave y facturación; en claude.ai basta una cuenta.",
+    "scores": {
+      "freeReal": 2,
+      "usefulness": 10,
+      "ease": 5,
+      "transparency": 9,
+      "creatorValue": 5
+    },
+    "sources": [
+      {
+        "url": "https://platform.claude.com/docs/en/about-claude/models/overview",
+        "label": "Documentación oficial de modelos",
+        "kind": "docs",
+        "publisher": "claude.com",
+        "checkedAt": "2026-08-20"
+      }
+    ],
+    "evidence": {
+      "capabilities": {
+        "sourceUrl": "https://platform.claude.com/docs/en/about-claude/models/overview",
+        "verifiedAt": "2026-08-20",
+        "quote": "Claude Opus 5 — For complex agentic coding and enterprise work · Adaptive thinking: Yes · Context window 1M tokens · Max output 128k tokens · All current Claude models support text and image input, text output, multilingual capabilities, and vision."
+      },
+      "freePlan": {
+        "sourceUrl": "https://platform.claude.com/docs/en/about-claude/models/overview",
+        "verifiedAt": "2026-08-20",
+        "quote": "$5 / input MTok  $25 / output MTok"
+      }
+    },
+    "slug": "claude-opus-5",
+    "id": "tool_claude-opus-5",
+    "nextReviewAt": "2026-11-18",
+    "lastVerifiedAt": "2026-08-20",
+    "updatedAt": "2026-08-20"
   },
   {
     "id": "tool_claude-sonnet-5",
     "slug": "claude-sonnet-5",
     "name": "Claude Sonnet 5",
-    "tagline": "El modelo que responde en el plan gratuito de Claude desde junio de 2026.",
-    "descriptionShort": "Modelo de Anthropic servido por API y por las aplicaciones de Claude. Es el modelo por defecto de los planes Free y Pro, lo que lo convierte en el modelo de referencia para quien no paga.",
+    "tagline": "La gama equilibrada: mismo contexto que Opus, a menos de la mitad.",
+    "descriptionShort": "La gama que Anthropic describe como «The best combination of speed and intelligence». Dos dólares por millón de tokens de entrada y diez de salida, con la misma ventana de un millón y la misma salida máxima de 128k que Opus 5.",
     "descriptionLong": "Claude Sonnet 5 es el modelo intermedio de Anthropic. Su importancia para este catálogo es concreta: es el modelo por defecto de los planes Free y Pro de Claude, según la propia documentación de Anthropic. Quien usa Claude sin pagar está usando este modelo.\n\nPor API el precio estándar es de 3 dólares por millón de tokens de entrada y 15 por millón de salida. Anthropic aplicó un precio de lanzamiento reducido —2 y 10 dólares— vigente hasta el 31 de agosto de 2026.\n\nEsta ficha describe el modelo, no la aplicación. Los límites de mensajes, la ventana de uso y lo que ocurre al agotarla pertenecen a la ficha de Claude, porque son decisiones de producto que Anthropic puede cambiar sin tocar el modelo.",
     "kind": "model",
-    "verification": "partially_verified",
-    "nextReviewAt": "2026-09-06",
+    "verification": "verified",
+    "nextReviewAt": "2026-11-18",
     "version": "5",
-    "categorySlug": "chat-asistentes",
+    "categorySlug": "modelos",
     "secondaryCategories": [
+      "chat-asistentes",
       "apis"
     ],
     "tags": [],
@@ -1065,20 +1280,20 @@
       "Comparar coste por token antes de elegir modelo para un proyecto",
       "Programación asistida y análisis de documentos"
     ],
-    "freeModel": "freemium",
+    "freeModel": "paid_only",
     "freePlan": {
-      "summary": "Accesible sin pagar a través del plan Free de Claude, del que es el modelo por defecto. Por API se paga por token desde el primer uso.",
-      "limits": [
-        "Los límites de mensajes los fija el plan de la aplicación, no el modelo",
-        "El acceso por API es de pago: 3 $/M tokens de entrada y 15 $/M de salida",
-        "Precio de lanzamiento reducido (2 $ y 10 $/M) vigente hasta el 31 de agosto de 2026"
-      ],
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-07"
+      "verifiedAt": "2026-08-20",
+      "summary": "Sin capa gratuita de API. 2 $ por millón de tokens de entrada y 10 $ de salida.",
+      "limits": [
+        "2 $/M de entrada · 10 $/M de salida",
+        "Contexto de 1M de tokens · salida máxima de 128k",
+        "Sin capa gratuita de API documentada"
+      ]
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -1096,21 +1311,16 @@
       "optOutAvailable": "unverified",
       "companyCountry": "US"
     },
-    "officialUrl": "https://docs.anthropic.com/en/docs/about-claude/models/overview",
+    "officialUrl": "https://platform.claude.com/docs/en/about-claude/models/overview",
     "pricingUrl": "https://www.anthropic.com/pricing",
     "docsUrl": "https://docs.anthropic.com/en/docs/about-claude/models/overview",
     "sources": [
       {
-        "url": "https://docs.anthropic.com/en/docs/about-claude/models/overview",
-        "label": "Modelos de Claude — documentación de Anthropic",
+        "url": "https://platform.claude.com/docs/en/about-claude/models/overview",
+        "label": "Documentación oficial de modelos",
         "kind": "docs",
-        "checkedAt": "2026-08-07"
-      },
-      {
-        "url": "https://www.anthropic.com/pricing",
-        "label": "Precios de Anthropic",
-        "kind": "pricing",
-        "checkedAt": "2026-08-07"
+        "publisher": "claude.com",
+        "checkedAt": "2026-08-20"
       }
     ],
     "scores": {
@@ -1120,7 +1330,7 @@
       "transparency": 7,
       "creatorValue": 7
     },
-    "verdict": "Es el modelo que te toca si usas Claude sin pagar, y eso lo hace relevante lo quieras o no. Es capaz y directo de usar, pero la gratuidad no vive aquí: vive en el plan de la aplicación, que Anthropic puede ajustar cuando quiera. Como modelo de API es de pago desde el primer token.",
+    "verdict": "Comparte contexto y capacidades con Opus 5 y cuesta menos de la mitad. La diferencia que documenta Anthropic es de latencia y de para qué está pensada cada una.",
     "pros": [
       "Es el modelo por defecto del plan gratuito, confirmado por Anthropic",
       "Sin instalación: funciona en el navegador",
@@ -1155,21 +1365,33 @@
     },
     "status": "published",
     "detectedAt": "2026-08-07",
-    "lastVerifiedAt": "2026-08-07",
-    "updatedAt": "2026-08-07",
-    "startEffort": "signup",
+    "lastVerifiedAt": "2026-08-20",
+    "updatedAt": "2026-08-20",
+    "startEffort": "technical",
     "capabilities": [
+      "text-generation",
+      "code-generation",
+      "vision",
+      "reasoning",
       "api"
     ],
     "evidence": {
       "capabilities": {
-        "sourceUrl": "https://docs.anthropic.com/en/docs/about-claude/models/overview",
-        "verifiedAt": "2026-08-12",
-        "quote": "odels & pricing  CLI, SDKs, and libraries Claude API skill Release notes  API reference  English   Consol"
+        "sourceUrl": "https://platform.claude.com/docs/en/about-claude/models/overview",
+        "verifiedAt": "2026-08-20",
+        "quote": "Claude Sonnet 5 — The best combination of speed and intelligence · Adaptive thinking: Yes · Context window 1M tokens · Max output 128k · $2 / input MTok  $10 / output MTok"
       }
     },
-    "startEffortReason": "Se usa a través de un producto o de la API: en ambos casos hay que identificarse antes.",
-    "licences": {}
+    "startEffortReason": "Por API con clave y facturación; en claude.ai basta una cuenta.",
+    "licences": {},
+    "access": {
+      "chat": "yes",
+      "chatFree": "unverified",
+      "api": "yes",
+      "apiFree": "no",
+      "weights": "no",
+      "chatWhere": "claude.ai"
+    }
   },
   {
     "skillLevel": "beginner",
@@ -1269,7 +1491,8 @@
     },
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19"
+    "updatedAt": "2026-08-19",
+    "access": {}
   },
   {
     "id": "tool_clipdrop",
@@ -1370,7 +1593,8 @@
       "api"
     ],
     "startEffortReason": "Cada herramienta se usa desde su página sin pasar por un alta previa.",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "skillLevel": "beginner",
@@ -1488,7 +1712,8 @@
     },
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19"
+    "updatedAt": "2026-08-19",
+    "access": {}
   },
   {
     "id": "tool_comfy-cloud",
@@ -1587,7 +1812,8 @@
       "model-download"
     ],
     "startEffortReason": "Requiere cuenta y un flujo de trabajo antes de producir nada.",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "id": "tool_comfyui",
@@ -1724,7 +1950,8 @@
       }
     },
     "startEffortReason": "Exige instalar el entorno, descargar los modelos y montar el grafo de nodos.",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "skillLevel": "beginner",
@@ -1820,7 +2047,8 @@
     },
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19"
+    "updatedAt": "2026-08-19",
+    "access": {}
   },
   {
     "id": "tool_cursor",
@@ -1955,7 +2183,231 @@
     ],
     "startEffortReason": "Es un editor que se descarga e instala; después basta una cuenta.",
     "licences": {},
-    "auditNotes": "Pasa de `free_real` a `freemium`: hay plan gratuito permanente, pero con las peticiones de agente limitadas y sin cifra publicada. `computer-use` no se marca: controla un navegador, no tu ordenador."
+    "auditNotes": "Pasa de `free_real` a `freemium`: hay plan gratuito permanente, pero con las peticiones de agente limitadas y sin cifra publicada. `computer-use` no se marca: controla un navegador, no tu ordenador.",
+    "access": {}
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-20",
+    "kind": "model",
+    "categorySlug": "modelos",
+    "licences": {
+      "code": "MIT",
+      "weights": "MIT"
+    },
+    "name": "DeepSeek V4 Flash",
+    "verification": "verified",
+    "officialUrl": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731",
+    "pricingUrl": "https://api-docs.deepseek.com/quick_start/pricing/",
+    "repoUrl": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731",
+    "hosting": "local",
+    "openSource": "yes",
+    "licence": "MIT",
+    "platforms": [
+      "linux",
+      "api"
+    ],
+    "freeModel": "open_source",
+    "tagline": "La gama pequeña de DeepSeek: 304.000 millones de parámetros, MIT.",
+    "descriptionShort": "La hermana ligera de V4 Pro, con 304.000 millones de parámetros y el mismo contexto de un millón de tokens. Misma licencia MIT y un precio de API que es la tercera parte.",
+    "verdict": "La opción razonable si el objetivo es la API: mismo contexto que la grande a un tercio de precio, y con la hora valle sale por 0,22 $ el millón de tokens de entrada.",
+    "freePlan": {
+      "requiresSignup": "no",
+      "requiresCreditCard": "no",
+      "hasWatermark": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-08-20",
+      "commercialUse": "yes",
+      "summary": "Repositorio y pesos bajo licencia MIT. Por API, 0,22 $ por millón de tokens de entrada sin caché en hora valle y 0,66 $ de salida.",
+      "limits": [
+        "Pesos y código: MIT",
+        "304.000 millones de parámetros · contexto de 1M",
+        "API en hora valle: 0,22 $/M de entrada · 0,66 $/M de salida"
+      ]
+    },
+    "access": {
+      "chat": "unverified",
+      "chatFree": "unverified",
+      "api": "yes",
+      "apiFree": "no",
+      "weights": "yes"
+    },
+    "capabilities": [
+      "text-generation",
+      "model-download",
+      "api"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Los pesos se descargan; por API basta una clave.",
+    "scores": {
+      "freeReal": 9,
+      "usefulness": 8,
+      "ease": 3,
+      "transparency": 10,
+      "creatorValue": 8
+    },
+    "sources": [
+      {
+        "url": "https://api-docs.deepseek.com/quick_start/pricing/",
+        "label": "Precios oficiales de la API",
+        "kind": "pricing",
+        "publisher": "deepseek.com",
+        "checkedAt": "2026-08-20"
+      }
+    ],
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://api-docs.deepseek.com/quick_start/pricing/",
+        "verifiedAt": "2026-08-20",
+        "quote": "deepseek-v4-flash: 1M context length, max 384K output. Input (cache miss, off-peak) $0.22 · Output (off-peak) $0.66 per 1M tokens."
+      }
+    },
+    "slug": "deepseek-v4-flash",
+    "id": "tool_deepseek-v4-flash",
+    "nextReviewAt": "2026-11-18",
+    "lastVerifiedAt": "2026-08-20",
+    "updatedAt": "2026-08-20"
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-20",
+    "kind": "model",
+    "categorySlug": "modelos",
+    "licences": {
+      "code": "MIT",
+      "weights": "MIT"
+    },
+    "name": "DeepSeek V4 Pro",
+    "verification": "verified",
+    "officialUrl": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813",
+    "pricingUrl": "https://api-docs.deepseek.com/quick_start/pricing/",
+    "repoUrl": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813",
+    "hosting": "local",
+    "openSource": "yes",
+    "licence": "MIT",
+    "platforms": [
+      "linux",
+      "api"
+    ],
+    "freeModel": "open_source",
+    "tagline": "Un billón y pico de parámetros con licencia MIT, pesos incluidos.",
+    "descriptionShort": "El modelo mayor de DeepSeek: 1,7 billones de parámetros y contexto de un millón de tokens, con el repositorio y los pesos bajo licencia MIT. También se puede consumir por API, donde el precio cambia según la hora del día.",
+    "verdict": "De los pocos modelos de frontera cuyos pesos son MIT sin condiciones añadidas: ni umbral de usuarios ni atribución obligatoria. Descargarlo y ejecutarlo es otra historia, porque son 1,7 billones de parámetros.",
+    "freePlan": {
+      "requiresSignup": "no",
+      "requiresCreditCard": "no",
+      "hasWatermark": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-08-20",
+      "commercialUse": "yes",
+      "summary": "Repositorio y pesos bajo licencia MIT, que permite uso comercial sin condiciones añadidas. Por API se paga por token, con precio de hora punta y de hora valle.",
+      "limits": [
+        "Pesos y código: MIT",
+        "1,7 billones de parámetros · contexto de 1M · salida máxima de 384k",
+        "API en hora valle: 0,22 $/M de entrada sin caché · 0,66 $/M de salida",
+        "API en hora punta: 0,44 $/M y 1,32 $/M"
+      ]
+    },
+    "access": {
+      "chat": "unverified",
+      "chatFree": "unverified",
+      "api": "yes",
+      "apiFree": "no",
+      "weights": "yes"
+    },
+    "capabilities": [
+      "text-generation",
+      "reasoning",
+      "model-download",
+      "api"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Descargar 1,7 billones de parámetros exige infraestructura propia.",
+    "hardwareRequirements": "1,7 billones de parámetros: fuera del alcance de un equipo doméstico.",
+    "scores": {
+      "freeReal": 9,
+      "usefulness": 9,
+      "ease": 2,
+      "transparency": 10,
+      "creatorValue": 8
+    },
+    "sources": [
+      {
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813",
+        "label": "Ficha oficial del modelo",
+        "kind": "repo",
+        "publisher": "huggingface.co",
+        "checkedAt": "2026-08-20"
+      },
+      {
+        "url": "https://api-docs.deepseek.com/quick_start/pricing/",
+        "label": "Precios oficiales de la API",
+        "kind": "pricing",
+        "publisher": "deepseek.com",
+        "checkedAt": "2026-08-20"
+      }
+    ],
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813",
+        "verifiedAt": "2026-08-20",
+        "quote": "This repository and the model weights are licensed under the MIT License"
+      },
+      "capabilities": {
+        "sourceUrl": "https://api-docs.deepseek.com/quick_start/pricing/",
+        "verifiedAt": "2026-08-20",
+        "quote": "deepseek-v4-pro: 1M context length, max 384K output. Peak hours 01:00-04:00 and 06:00-10:00 UTC."
+      }
+    },
+    "slug": "deepseek-v4-pro",
+    "id": "tool_deepseek-v4-pro",
+    "nextReviewAt": "2026-11-18",
+    "lastVerifiedAt": "2026-08-20",
+    "updatedAt": "2026-08-20"
   },
   {
     "secondaryCategories": [
@@ -2065,7 +2517,8 @@
     "lastVerifiedAt": "2026-08-18",
     "updatedAt": "2026-08-18",
     "skillLevel": "beginner",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "skillLevel": "beginner",
@@ -2181,7 +2634,8 @@
     "auditNotes": "La documentación afirma «if you can do it in three hours, Devin can most likely do it». Es una promesa de alcance, no un dato comprobable, y no se recoge como capacidad.",
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19"
+    "updatedAt": "2026-08-19",
+    "access": {}
   },
   {
     "skillLevel": "beginner",
@@ -2295,7 +2749,8 @@
     "auditNotes": "El Sandbox se registra como `credits` + `one_off` y no como `freemium`: la página no publica renovación, y sin renovación no hay capa permanente.",
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19"
+    "updatedAt": "2026-08-19",
+    "access": {}
   },
   {
     "id": "tool_elevenlabs",
@@ -2428,7 +2883,8 @@
     ],
     "startEffortReason": "Requiere cuenta; los créditos mensuales van asociados a ella.",
     "auditNotes": "Las capacidades describen la plataforma; el plan gratuito no incluye clonación ni doblaje y así consta en los límites. 10.000 créditos no se traducen a minutos ni a caracteres: la página no publica esa equivalencia.",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "skillLevel": "beginner",
@@ -2532,7 +2988,8 @@
     "licences": {
       "code": "MIT",
       "weights": "CC-BY-NC"
-    }
+    },
+    "access": {}
   },
   {
     "skillLevel": "beginner",
@@ -2629,7 +3086,8 @@
     "nextReviewAt": "2026-11-16",
     "lastVerifiedAt": "2026-08-18",
     "updatedAt": "2026-08-18",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "id": "tool_fooocus",
@@ -2765,7 +3223,223 @@
       }
     },
     "startEffortReason": "Se descarga y se ejecuta con un solo fichero, pero exige GPU y descarga modelos de varios gigas.",
-    "licences": {}
+    "licences": {},
+    "access": {}
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-20",
+    "kind": "model",
+    "categorySlug": "modelos",
+    "licences": {},
+    "name": "Gemini 3 Flash",
+    "verification": "verified",
+    "officialUrl": "https://ai.google.dev/gemini-api/docs/models",
+    "pricingUrl": "https://ai.google.dev/gemini-api/docs/pricing",
+    "hosting": "cloud",
+    "openSource": "no",
+    "platforms": [
+      "api",
+      "web"
+    ],
+    "freeModel": "freemium",
+    "tagline": "La gama con capa gratuita de API. La Pro no la tiene.",
+    "descriptionShort": "La gama rápida de Google, hoy en su versión 3.7: «built for complex coding, agentic workflows, and reliable multi-step execution». Su tabla de precios marca «Free Tier: Available» para todas las versiones de Flash, cosa que no ocurre con Pro.",
+    "verdict": "Es el sitio por el que se entra a Gemini sin pagar, y la diferencia con Pro no es de calidad sino de acceso: una tiene capa gratuita y la otra dice «Not available» en la misma tabla.",
+    "freePlan": {
+      "requiresSignup": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "unknown",
+      "verifiedAt": "2026-08-20",
+      "summary": "La tabla oficial marca «Free Tier: Available» para Gemini 3.7 Flash, 3.6 Flash, 3.5 Flash y las Flash-Lite. La capa gratuita se describe como «Limited access to certain models. Free input & output tokens. Google AI Studio access», sin publicar cifras. En pago: 0,75 $ por millón de entrada y 3,75 $ de salida hasta el 31/12/2026.",
+      "limits": [
+        "Capa gratuita disponible; su cantidad no se publica",
+        "De pago: 0,75 $/M entrada · 3,75 $/M salida (hasta 31/12/2026)",
+        "Desde el 1/1/2027: 1,50 $/M entrada · 7,50 $/M salida"
+      ]
+    },
+    "access": {
+      "chat": "yes",
+      "chatFree": "unverified",
+      "api": "yes",
+      "apiFree": "yes",
+      "weights": "no",
+      "chatWhere": "gemini.google.com"
+    },
+    "capabilities": [
+      "text-generation",
+      "code-generation",
+      "tool-use",
+      "api"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Clave de API desde Google AI Studio; la capa gratuita no exige facturación.",
+    "scores": {
+      "freeReal": 8,
+      "usefulness": 9,
+      "ease": 6,
+      "transparency": 7,
+      "creatorValue": 8
+    },
+    "sources": [
+      {
+        "url": "https://ai.google.dev/gemini-api/docs/models",
+        "label": "Documentación oficial de modelos",
+        "kind": "docs",
+        "publisher": "ai.google.dev",
+        "checkedAt": "2026-08-20"
+      },
+      {
+        "url": "https://ai.google.dev/gemini-api/docs/pricing",
+        "label": "Precios oficiales de la API",
+        "kind": "pricing",
+        "publisher": "ai.google.dev",
+        "checkedAt": "2026-08-20"
+      }
+    ],
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
+        "verifiedAt": "2026-08-20",
+        "quote": "Gemini 3.7 Flash — Free Tier: Available · Paid input $0.75 (through Dec 31, 2026), $1.50 (from Jan 1, 2027) · Paid output $3.75 / $7.50. Free tier: Limited access to certain models. Free input & output tokens. Google AI Studio access."
+      },
+      "capabilities": {
+        "sourceUrl": "https://ai.google.dev/gemini-api/docs/models",
+        "verifiedAt": "2026-08-20",
+        "quote": "Gemini 3.7 Flash: Our latest and most capable Flash model, built for complex coding, agentic workflows, and reliable multi-step execution."
+      }
+    },
+    "auditNotes": "No se recogen modalidades de entrada: la tabla de precios las cobra por versión y no son iguales en toda la gama. La cadencia de la capa gratuita queda `unknown` porque la página no publica ni cantidad ni periodo.",
+    "slug": "gemini-3-flash",
+    "id": "tool_gemini-3-flash",
+    "nextReviewAt": "2026-11-18",
+    "lastVerifiedAt": "2026-08-20",
+    "updatedAt": "2026-08-20"
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-20",
+    "kind": "model",
+    "categorySlug": "modelos",
+    "licences": {},
+    "name": "Gemini 3 Pro",
+    "verification": "verified",
+    "officialUrl": "https://ai.google.dev/gemini-api/docs/models",
+    "pricingUrl": "https://ai.google.dev/gemini-api/docs/pricing",
+    "hosting": "cloud",
+    "openSource": "no",
+    "platforms": [
+      "api",
+      "web"
+    ],
+    "freeModel": "paid_only",
+    "tagline": "La gama grande de Google, y la tabla dice «Free Tier: Not available».",
+    "descriptionShort": "La gama de mayor capacidad de Gemini: «Advanced intelligence, complex problem-solving skills, and powerful agentic and vibe coding capabilities». Su versión actual, 3.1 Pro, es la única fila de la tabla de texto que no tiene capa gratuita.",
+    "verdict": "Está aquí precisamente por el contraste: es el ejemplo de que «la API de Gemini tiene capa gratuita» no se puede heredar de un modelo a otro.",
+    "freePlan": {
+      "requiresSignup": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-08-20",
+      "summary": "Sin capa gratuita: la tabla oficial marca «Free Tier: Not available» para gemini-3.1-pro-preview. De pago, 2 $ por millón de entrada hasta 200k tokens de prompt y 4 $ por encima; 12 $ y 18 $ de salida.",
+      "limits": [
+        "Free Tier: Not available",
+        "2 $/M de entrada (prompts ≤200k) · 4 $/M por encima",
+        "12 $/M de salida (prompts ≤200k) · 18 $/M por encima"
+      ]
+    },
+    "access": {
+      "chat": "yes",
+      "chatFree": "unverified",
+      "api": "yes",
+      "apiFree": "no",
+      "weights": "no",
+      "chatWhere": "gemini.google.com"
+    },
+    "capabilities": [
+      "text-generation",
+      "code-generation",
+      "tool-use",
+      "api"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Clave de API con facturación activa: no entra en la capa gratuita.",
+    "scores": {
+      "freeReal": 1,
+      "usefulness": 10,
+      "ease": 5,
+      "transparency": 8,
+      "creatorValue": 4
+    },
+    "sources": [
+      {
+        "url": "https://ai.google.dev/gemini-api/docs/pricing",
+        "label": "Precios oficiales de la API",
+        "kind": "pricing",
+        "publisher": "ai.google.dev",
+        "checkedAt": "2026-08-20"
+      }
+    ],
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
+        "verifiedAt": "2026-08-20",
+        "quote": "Gemini 3.1 Pro Preview (gemini-3.1-pro-preview) — Free Tier: Not available · Paid input $2.00 (prompts ≤200k tokens), $4.00 (>200k) · Paid output $12.00 / $18.00"
+      }
+    },
+    "slug": "gemini-3-pro",
+    "id": "tool_gemini-3-pro",
+    "nextReviewAt": "2026-11-18",
+    "lastVerifiedAt": "2026-08-20",
+    "updatedAt": "2026-08-20"
   },
   {
     "skillLevel": "beginner",
@@ -2871,21 +3545,23 @@
     "auditNotes": "`memory` no se marca: el repositorio documenta «conversation checkpointing to save and resume complex sessions», que es reanudar una sesión, no recordar entre sesiones distintas.",
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19"
+    "updatedAt": "2026-08-19",
+    "access": {}
   },
   {
     "id": "tool_gemma-4",
     "slug": "gemma-4",
     "name": "Gemma 4",
-    "tagline": "Los modelos de pesos abiertos de Google, con licencia Apache 2.0 desde la versión 4.",
-    "descriptionShort": "Familia de modelos de pesos abiertos de Google, de 2B a 31B parámetros, descargables sin pagar y ejecutables en tu propio equipo. Gemma 4 es la primera generación con licencia Apache 2.0.",
+    "tagline": "Cinco tamaños Apache 2.0, y los dos pequeños oyen.",
+    "descriptionShort": "La familia abierta de Google, con licencia Apache 2.0 en los cinco tamaños: E2B y E4B —2.300 y 4.500 millones de parámetros efectivos—, 12B, 26B A4B y 31B. Todos aceptan texto e imagen; el audio sólo funciona en E2B, E4B y 12B.",
     "descriptionLong": "Gemma 4 es la cuarta generación de los modelos abiertos de Google. La familia incluye variantes E2B y E4B (2B y 4B parámetros efectivos) con 128K de contexto, y variantes 12B multimodal unificada, 26B A4B de mezcla de expertos y 31B densa, con 256K de contexto. Los pesos se descargan sin coste desde Kaggle y Hugging Face.\n\nLo relevante para quien busca algo gratis de verdad: Gemma 4 cambia de licencia. Las generaciones 1 a 3 se distribuían bajo los «Gemma Terms of Use», una licencia propia de Google con una política de usos prohibidos incorporada por referencia. Gemma 4 remite a Apache 2.0. Es una diferencia práctica, no formal: bajo Apache 2.0 el permiso no depende de que Google siga considerando aceptable tu caso de uso.\n\nNo es un producto con plan gratuito, sino un modelo que descargas. Lo que te limita es tu hardware, no una cuota mensual que alguien pueda recortar.",
     "kind": "model",
     "verification": "verified",
-    "nextReviewAt": "2026-11-05",
+    "nextReviewAt": "2026-11-18",
     "version": "4",
-    "categorySlug": "modelos-open-source",
+    "categorySlug": "modelos",
     "secondaryCategories": [
+      "modelos-open-source",
       "herramientas-locales"
     ],
     "tags": [],
@@ -2897,21 +3573,22 @@
     ],
     "freeModel": "open_source",
     "freePlan": {
-      "summary": "Los pesos se descargan sin coste desde Kaggle y Hugging Face. No hay plan, ni cuota, ni facturación: una vez descargado el modelo es tuyo y funciona sin conexión.",
-      "limits": [
-        "Lo limita tu hardware: las variantes de 26B y 31B necesitan bastante VRAM",
-        "Requiere montar el entorno de ejecución (Ollama, llama.cpp o similar)",
-        "Las generaciones Gemma 1 a 3 siguen bajo la licencia propia de Google, no Apache 2.0"
-      ],
       "requiresSignup": "no",
-      "requiresCreditCard": "unverified",
+      "requiresCreditCard": "no",
       "hasWatermark": "unverified",
-      "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-07"
+      "verifiedAt": "2026-08-20",
+      "commercialUse": "yes",
+      "summary": "Los cinco tamaños con licencia Apache 2.0. Contexto de 128k en E2B y E4B, y de 256k en 12B, 26B A4B y 31B. Entrada de texto e imagen en todos; audio sólo en E2B, E4B y 12B. La salida es siempre texto.",
+      "limits": [
+        "Pesos: Apache 2.0 en los cinco tamaños",
+        "E2B (2.300M efectivos) y E4B (4.500M): contexto de 128k",
+        "12B, 26B A4B y 31B: contexto de 256k",
+        "Audio de entrada sólo en E2B, E4B y 12B"
+      ]
     },
     "openSource": "yes",
-    "licence": "Apache 2.0 (Gemma 4). Gemma 1–3 bajo Gemma Terms of Use.",
+    "licence": "Apache-2.0",
     "hosting": "local",
     "platforms": [
       "windows",
@@ -2921,7 +3598,7 @@
       "api"
     ],
     "languages": [],
-    "hardwareRequirements": "Las variantes E2B y E4B funcionan en equipos de consumo. Las de 12B, 26B A4B y 31B piden GPU con VRAM abundante o Apple Silicon con memoria unificada amplia.",
+    "hardwareRequirements": "E2B: 2.300M de parámetros efectivos. 31B pide GPU.",
     "skillLevel": "intermediate",
     "privacy": {
       "trainsOnUserData": "no",
@@ -2929,20 +3606,22 @@
       "dataRetention": "Ninguna: el modelo se ejecuta en tu equipo y no envía nada a Google.",
       "companyCountry": "US"
     },
-    "officialUrl": "https://ai.google.dev/gemma",
+    "officialUrl": "https://ai.google.dev/gemma/docs/core/model_card_4",
     "docsUrl": "https://ai.google.dev/gemma/docs/core",
     "sources": [
       {
-        "url": "https://ai.google.dev/gemma/docs/core",
-        "label": "Documentación oficial de Gemma",
+        "url": "https://ai.google.dev/gemma/docs/core/model_card_4",
+        "label": "Ficha oficial del modelo",
         "kind": "docs",
-        "checkedAt": "2026-08-07"
+        "publisher": "ai.google.dev",
+        "checkedAt": "2026-08-20"
       },
       {
-        "url": "https://ai.google.dev/gemma/terms",
-        "label": "Términos de licencia de Gemma",
-        "kind": "official",
-        "checkedAt": "2026-08-07"
+        "url": "https://ai.google.dev/gemini-api/docs/pricing",
+        "label": "Precios oficiales de la API",
+        "kind": "pricing",
+        "publisher": "ai.google.dev",
+        "checkedAt": "2026-08-20"
       }
     ],
     "scores": {
@@ -2952,7 +3631,7 @@
       "transparency": 9,
       "creatorValue": 8
     },
-    "verdict": "Gratis de verdad, en el sentido más fuerte del término: los pesos son tuyos y no dependen de que Google mantenga un plan. El salto a Apache 2.0 en la versión 4 es la noticia real, porque elimina la cláusula de usos prohibidos que hacía que las generaciones anteriores no fueran verdaderamente abiertas. El precio es que tienes que montarlo tú.",
+    "verdict": "La rareza está en los dos pequeños: caben en un equipo modesto y aceptan audio, cosa que los grandes de la misma familia no hacen. Contexto de 128k en los pequeños y 256k en los demás.",
     "pros": [
       "Los pesos se descargan sin pagar ni registrarse",
       "Gemma 4 usa Apache 2.0: uso comercial sin cláusula de usos permitidos",
@@ -2989,12 +3668,34 @@
     },
     "status": "published",
     "detectedAt": "2026-08-07",
-    "lastVerifiedAt": "2026-08-07",
-    "updatedAt": "2026-08-07",
-    "startEffort": "technical",
-    "capabilities": [],
-    "startEffortReason": "Son pesos que hay que descargar y servir con otra herramienta.",
-    "licences": {}
+    "lastVerifiedAt": "2026-08-20",
+    "updatedAt": "2026-08-20",
+    "startEffort": "install",
+    "capabilities": [
+      "text-generation",
+      "vision",
+      "audio-input",
+      "model-download"
+    ],
+    "startEffortReason": "E2B y E4B arrancan con un runtime local en un equipo normal.",
+    "licences": {
+      "weights": "Apache-2.0"
+    },
+    "access": {
+      "chat": "unverified",
+      "chatFree": "unverified",
+      "api": "yes",
+      "apiFree": "yes",
+      "weights": "yes"
+    },
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://ai.google.dev/gemma/docs/core/model_card_4",
+        "verifiedAt": "2026-08-20",
+        "quote": "Apache 2.0 · E2B (2.3B effective), E4B (4.5B effective), 12B Unified, 26B A4B (MoE), 31B Dense · E2B and E4B: 128K tokens; 12B, 26B A4B, 31B: 256K · Inputs: text and images (all models); audio support on E2B, E4B, and 12B only · Outputs: text generation only"
+      }
+    },
+    "auditNotes": "La capa gratuita de API sale de la tabla de precios de Gemini, donde Gemma 4 aparece con «Free Tier: Available» y «Paid Tier: Not available»."
   },
   {
     "skillLevel": "beginner",
@@ -3106,7 +3807,8 @@
     "auditNotes": "No se marcan `code-execution` ni `memory`. «Powerful execution» no dice que ejecute código, y «SecondBrain» aparece sin definir qué persiste. El precio del plan Plus tampoco se registra: el centro de ayuda publica los créditos, no la cifra en euros.",
     "nextReviewAt": "2026-11-18",
     "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-08-20"
+    "updatedAt": "2026-08-20",
+    "access": {}
   },
   {
     "skillLevel": "beginner",
@@ -3219,7 +3921,119 @@
     "auditNotes": "Las capacidades describen el producto. Que el agente en la nube sea de pago está en los límites del plan gratuito, que es donde decide. Del modo agente del editor no se publica en qué planes está, así que no se afirma nada de eso.",
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19"
+    "updatedAt": "2026-08-19",
+    "access": {}
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-20",
+    "kind": "model",
+    "categorySlug": "modelos",
+    "licences": {
+      "code": "MIT",
+      "weights": "MIT"
+    },
+    "name": "GLM-5.2",
+    "verification": "verified",
+    "officialUrl": "https://huggingface.co/zai-org/GLM-5.2",
+    "repoUrl": "https://huggingface.co/zai-org/GLM-5.2",
+    "hosting": "local",
+    "openSource": "yes",
+    "licence": "MIT",
+    "platforms": [
+      "linux",
+      "api"
+    ],
+    "freeModel": "open_source",
+    "tagline": "MIT, un millón de tokens de contexto y esfuerzo de pensamiento regulable.",
+    "descriptionShort": "753.000 millones de parámetros con licencia MIT y contexto de un millón de tokens. Su ficha lo describe como «Advanced Coding with Flexible Effort», con varios niveles de pensamiento, y reivindica ser «Pure Open»: MIT y sin límites regionales.",
+    "verdict": "El modelo grande más permisivo del catálogo: MIT de verdad, sin umbral de usuarios ni atribución obligatoria, y con el contexto de un millón que hasta hace poco era exclusivo de los cerrados.",
+    "freePlan": {
+      "requiresSignup": "no",
+      "requiresCreditCard": "no",
+      "hasWatermark": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-08-20",
+      "commercialUse": "yes",
+      "summary": "Pesos bajo licencia MIT, sin condiciones añadidas. 753.000 millones de parámetros y contexto de un millón de tokens, con niveles de esfuerzo de pensamiento.",
+      "limits": [
+        "Pesos: MIT",
+        "753.000 millones de parámetros",
+        "Contexto de 1.000.000 de tokens",
+        "Sólo texto"
+      ]
+    },
+    "access": {
+      "chat": "unverified",
+      "chatFree": "unverified",
+      "api": "unverified",
+      "apiFree": "unverified",
+      "weights": "yes"
+    },
+    "capabilities": [
+      "text-generation",
+      "code-generation",
+      "reasoning",
+      "tool-use",
+      "model-download"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Infraestructura propia: 753.000 millones de parámetros piden varias GPU.",
+    "scores": {
+      "freeReal": 10,
+      "usefulness": 9,
+      "ease": 2,
+      "transparency": 10,
+      "creatorValue": 8
+    },
+    "sources": [
+      {
+        "url": "https://huggingface.co/zai-org/GLM-5.2",
+        "label": "Ficha oficial del modelo",
+        "kind": "repo",
+        "publisher": "huggingface.co",
+        "checkedAt": "2026-08-20"
+      }
+    ],
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://huggingface.co/zai-org/GLM-5.2",
+        "verifiedAt": "2026-08-20",
+        "quote": "License: MIT · \"Pure Open\" with MIT licensing and no regional limits, technical access without borders"
+      },
+      "capabilities": {
+        "sourceUrl": "https://huggingface.co/zai-org/GLM-5.2",
+        "verifiedAt": "2026-08-20",
+        "quote": "Solid 1M-token context that stably sustains long-horizon work · Advanced Coding with Flexible Effort · agentic tasks (MCP-Atlas: 76.8, Tool-Decathlon: 48.2)"
+      }
+    },
+    "slug": "glm-5",
+    "id": "tool_glm-5",
+    "nextReviewAt": "2026-11-18",
+    "lastVerifiedAt": "2026-08-20",
+    "updatedAt": "2026-08-20"
   },
   {
     "skillLevel": "beginner",
@@ -3315,7 +4129,8 @@
     },
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19"
+    "updatedAt": "2026-08-19",
+    "access": {}
   },
   {
     "id": "tool_google-gemini",
@@ -3451,7 +4266,119 @@
       }
     },
     "startEffortReason": "Para generar imágenes hay que estar identificado en la app con una cuenta de Google.",
-    "licences": {}
+    "licences": {},
+    "access": {}
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-20",
+    "kind": "model",
+    "categorySlug": "modelos",
+    "licences": {},
+    "name": "GPT-5.6",
+    "verification": "partially_verified",
+    "officialUrl": "https://developers.openai.com/api/docs/models",
+    "pricingUrl": "https://developers.openai.com/api/docs/pricing",
+    "hosting": "cloud",
+    "openSource": "no",
+    "platforms": [
+      "api"
+    ],
+    "freeModel": "paid_only",
+    "tagline": "Tres gamas, ninguna gratis por API.",
+    "descriptionShort": "La generación actual de OpenAI, en tres gamas: Sol («frontier model for complex professional work»), Terra y Luna, la económica. Su documentación de precios no menciona capa gratuita ni tokens de regalo: se paga por token desde el primero.",
+    "verdict": "Se paga desde el primer token. Lo que una persona puede usar sin pagar es ChatGPT, que es otra cosa —una aplicación— y tiene su propia ficha.",
+    "freePlan": {
+      "requiresSignup": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-08-20",
+      "summary": "Sin capa gratuita documentada. Sol: 5 $ por millón de tokens de entrada y 30 $ de salida. Terra: 2 $ y 12 $. Luna: 0,20 $ y 1,20 $.",
+      "limits": [
+        "GPT-5.6 Sol: 5 $/M entrada · 30 $/M salida",
+        "GPT-5.6 Terra: 2 $/M entrada · 12 $/M salida",
+        "GPT-5.6 Luna: 0,20 $/M entrada · 1,20 $/M salida",
+        "La página de precios no documenta capa gratuita"
+      ]
+    },
+    "access": {
+      "chat": "unverified",
+      "chatFree": "unverified",
+      "api": "yes",
+      "apiFree": "no",
+      "weights": "no"
+    },
+    "capabilities": [
+      "text-generation",
+      "api"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Se usa con una clave de API y facturación activa.",
+    "scores": {
+      "freeReal": 1,
+      "usefulness": 9,
+      "ease": 5,
+      "transparency": 6,
+      "creatorValue": 4
+    },
+    "sources": [
+      {
+        "url": "https://developers.openai.com/api/docs/models",
+        "label": "Documentación oficial de modelos",
+        "kind": "docs",
+        "publisher": "openai.com",
+        "checkedAt": "2026-08-20"
+      },
+      {
+        "url": "https://developers.openai.com/api/docs/pricing",
+        "label": "Precios oficiales de la API",
+        "kind": "pricing",
+        "publisher": "openai.com",
+        "checkedAt": "2026-08-20"
+      }
+    ],
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://developers.openai.com/api/docs/pricing",
+        "verifiedAt": "2026-08-20",
+        "quote": "gpt-5.6-sol: $5.00 input / $30.00 output · gpt-5.6-terra: $2.00 / $12.00 · gpt-5.6-luna: $0.20 / $1.20 per 1M tokens. [Sin mención de capa gratuita.]"
+      },
+      "capabilities": {
+        "sourceUrl": "https://developers.openai.com/api/docs/models",
+        "verifiedAt": "2026-08-20",
+        "quote": "GPT-5.6 Sol — Frontier model for complex professional work."
+      }
+    },
+    "auditNotes": "`chat` y `chatFree` se quedan sin afirmar: help.openai.com, openai.com/chatgpt/pricing y el blog devuelven 403 a toda lectura automática, así que no hay forma de comprobar qué modelo sirve el plan gratuito de ChatGPT. Las capacidades se quedan en lo que la tabla de modelos demuestra.",
+    "slug": "gpt-5-6",
+    "id": "tool_gpt-5-6",
+    "nextReviewAt": "2026-11-18",
+    "lastVerifiedAt": "2026-08-20",
+    "updatedAt": "2026-08-20"
   },
   {
     "skillLevel": "beginner",
@@ -3551,6 +4478,105 @@
       }
     },
     "auditNotes": "`multi-agent` se marca porque el propio README separa planificador y agentes de ejecución, no por su asistente opcional sobre LangGraph.",
+    "nextReviewAt": "2026-11-18",
+    "lastVerifiedAt": "2026-08-20",
+    "updatedAt": "2026-08-20",
+    "access": {}
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-20",
+    "kind": "model",
+    "categorySlug": "modelos",
+    "licences": {},
+    "name": "Grok 4.6",
+    "verification": "verified",
+    "officialUrl": "https://docs.x.ai/developers/models",
+    "hosting": "cloud",
+    "openSource": "no",
+    "platforms": [
+      "api"
+    ],
+    "freeModel": "paid_only",
+    "tagline": "Medio millón de tokens de contexto, sin capa gratuita documentada.",
+    "descriptionShort": "La gama actual de xAI. Contexto de 500k tokens y precio por tramos según la longitud del prompt: 2 $ por millón de entrada por debajo de 200k y 4 $ por encima. Su documentación no menciona capa gratuita ni créditos.",
+    "verdict": "La documentación advierte de algo que conviene leer: sin herramientas de búsqueda activadas, «Grok has no knowledge of current events or data beyond what was present in its training data», con corte en febrero de 2026.",
+    "freePlan": {
+      "requiresSignup": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-08-20",
+      "summary": "Sin capa gratuita ni créditos documentados. 2 $ por millón de entrada (prompts <200k) y 4 $ por encima; 6 $ y 12 $ de salida. Contexto de 500k tokens.",
+      "limits": [
+        "2–4 $/M de entrada según longitud del prompt",
+        "6–12 $/M de salida",
+        "Contexto de 500k tokens",
+        "Corte de conocimiento: 1 de febrero de 2026"
+      ]
+    },
+    "access": {
+      "chat": "unverified",
+      "chatFree": "unverified",
+      "api": "yes",
+      "apiFree": "unverified",
+      "weights": "no"
+    },
+    "capabilities": [
+      "text-generation",
+      "api"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Se usa con una clave de API desde su consola.",
+    "scores": {
+      "freeReal": 1,
+      "usefulness": 8,
+      "ease": 5,
+      "transparency": 7,
+      "creatorValue": 4
+    },
+    "sources": [
+      {
+        "url": "https://docs.x.ai/developers/models",
+        "label": "Documentación oficial de modelos",
+        "kind": "docs",
+        "publisher": "x.ai",
+        "checkedAt": "2026-08-20"
+      }
+    ],
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://docs.x.ai/developers/models",
+        "verifiedAt": "2026-08-20",
+        "quote": "grok-4.6 — 500k context · Input $2–4/1M · Output $6–12/1M. [Sin capa gratuita ni créditos en la tabla.]"
+      }
+    },
+    "auditNotes": "El acceso en chat se queda sin afirmar: x.ai/grok devuelve 403 a toda lectura automática, así que no se puede comprobar qué gama sirve el plan gratuito de la aplicación.",
+    "slug": "grok-4",
+    "id": "tool_grok-4",
     "nextReviewAt": "2026-11-18",
     "lastVerifiedAt": "2026-08-20",
     "updatedAt": "2026-08-20"
@@ -3677,7 +4703,8 @@
     "auditNotes": "La tarjeta de SuperGrok anuncia «Image and video generation», lo que sugiere que ninguna de las dos está en el plan gratuito; la tabla comparativa dice lo contrario para imagen. Se toma la tabla, que es donde xAI declara plan por plan. Filas de control usadas: SSO y RBAC, marcadas sólo en Enterprise.",
     "pricingUrl": "https://x.ai/pricing",
     "startEffortReason": "Hay que iniciar sesión con cuenta de X o correo antes de poder generar.",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "secondaryCategories": [],
@@ -3767,7 +4794,8 @@
     "lastVerifiedAt": "2026-08-15",
     "updatedAt": "2026-08-15",
     "skillLevel": "beginner",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "secondaryCategories": [],
@@ -3872,7 +4900,8 @@
     "lastVerifiedAt": "2026-08-15",
     "updatedAt": "2026-08-15",
     "skillLevel": "beginner",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "secondaryCategories": [],
@@ -3978,7 +5007,8 @@
     "lastVerifiedAt": "2026-08-15",
     "updatedAt": "2026-08-15",
     "skillLevel": "beginner",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "id": "tool_hugging-face-spaces",
@@ -4111,7 +5141,8 @@
       }
     },
     "startEffortReason": "Muchos Spaces se abren sin cuenta, pero las colas y los límites empiezan a exigirla.",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "secondaryCategories": [
@@ -4205,7 +5236,8 @@
     "lastVerifiedAt": "2026-08-15",
     "updatedAt": "2026-08-15",
     "skillLevel": "beginner",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "secondaryCategories": [],
@@ -4327,7 +5359,8 @@
     "nextReviewAt": "2026-11-11",
     "lastVerifiedAt": "2026-08-13",
     "updatedAt": "2026-08-13",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "id": "tool_invokeai",
@@ -4427,7 +5460,119 @@
       "api"
     ],
     "startEffortReason": "Exige instalación, descarga de modelos y una GPU con memoria suficiente.",
-    "licences": {}
+    "licences": {},
+    "access": {}
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-20",
+    "kind": "model",
+    "categorySlug": "modelos",
+    "licences": {
+      "weights": "Kimi K3 License"
+    },
+    "name": "Kimi K3",
+    "verification": "verified",
+    "officialUrl": "https://huggingface.co/moonshotai/Kimi-K3",
+    "repoUrl": "https://huggingface.co/moonshotai/Kimi-K3",
+    "hosting": "local",
+    "openSource": "weights",
+    "licence": "Kimi K3 License (permisiva con atribución sobre 100M de usuarios)",
+    "platforms": [
+      "linux"
+    ],
+    "freeModel": "open_source",
+    "tagline": "Multimodal, siempre pensando, y con una atribución en la letra pequeña.",
+    "descriptionShort": "2,8 billones de parámetros con 104.000 millones activos, contexto de un millón de tokens y comprensión de texto, imagen y vídeo en un solo modelo. El pensamiento está siempre activado, con niveles de esfuerzo, y está diseñado para «long-horizon coding» y trabajo agéntico.",
+    "verdict": "Su licencia es casi MIT y por eso la diferencia importa: permite vender y modificar, pero a partir de 100 millones de usuarios mensuales obliga a poner «Kimi K3» a la vista en la interfaz.",
+    "freePlan": {
+      "requiresSignup": "no",
+      "requiresCreditCard": "no",
+      "hasWatermark": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-08-20",
+      "commercialUse": "partial",
+      "summary": "Pesos descargables bajo la Kimi K3 License, que permite usar, copiar, modificar y vender copias, con una condición: por encima de 100 millones de usuarios activos mensuales hay que mostrar «Kimi K3» en la interfaz del producto.",
+      "limits": [
+        "Licencia propia: permisiva con atribución obligatoria sobre 100M de usuarios",
+        "2,8 billones de parámetros · 104.000 millones activos",
+        "Contexto de 1.048.576 tokens",
+        "Entiende texto, imagen y vídeo"
+      ]
+    },
+    "access": {
+      "chat": "unverified",
+      "chatFree": "unverified",
+      "api": "unverified",
+      "apiFree": "unverified",
+      "weights": "yes"
+    },
+    "capabilities": [
+      "text-generation",
+      "code-generation",
+      "reasoning",
+      "vision",
+      "video-understanding",
+      "tool-use",
+      "model-download"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Infraestructura propia: 2,8 billones de parámetros no caben en un equipo.",
+    "scores": {
+      "freeReal": 8,
+      "usefulness": 9,
+      "ease": 2,
+      "transparency": 9,
+      "creatorValue": 7
+    },
+    "sources": [
+      {
+        "url": "https://huggingface.co/moonshotai/Kimi-K3",
+        "label": "Ficha oficial del modelo",
+        "kind": "repo",
+        "publisher": "huggingface.co",
+        "checkedAt": "2026-08-20"
+      }
+    ],
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://huggingface.co/moonshotai/Kimi-K3/blob/main/LICENSE",
+        "verifiedAt": "2026-08-20",
+        "quote": "to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software [...] more than 100 million monthly active users [...] \"Kimi K3\" must be prominently displayed on the user interface of such product or service"
+      },
+      "capabilities": {
+        "sourceUrl": "https://huggingface.co/moonshotai/Kimi-K3",
+        "verifiedAt": "2026-08-20",
+        "quote": "2.8 trillion total; 104 billion actively used per token · 1,048,576 tokens · Text, images, and video understanding within a single model · Kimi K3 always has thinking enabled · long-horizon coding and agentic knowledge work"
+      }
+    },
+    "slug": "kimi-k2",
+    "id": "tool_kimi-k2",
+    "nextReviewAt": "2026-11-18",
+    "lastVerifiedAt": "2026-08-20",
+    "updatedAt": "2026-08-20"
   },
   {
     "secondaryCategories": [],
@@ -4535,7 +5680,8 @@
     "lastVerifiedAt": "2026-08-15",
     "updatedAt": "2026-08-15",
     "skillLevel": "beginner",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "skillLevel": "beginner",
@@ -4634,7 +5780,8 @@
     "licences": {
       "code": "Apache-2.0",
       "weights": "Apache-2.0"
-    }
+    },
+    "access": {}
   },
   {
     "secondaryCategories": [
@@ -4748,7 +5895,8 @@
     "nextReviewAt": "2026-11-11",
     "lastVerifiedAt": "2026-08-13",
     "updatedAt": "2026-08-15",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "skillLevel": "beginner",
@@ -4851,7 +5999,8 @@
     "auditNotes": "Sólo `memory`. La documentación se describe como orquestación y no documenta expresamente ni llamada a herramientas ni sistemas multiagente en su página general; marcarlos sería suponer.",
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19"
+    "updatedAt": "2026-08-19",
+    "access": {}
   },
   {
     "id": "tool_leonardo-ai",
@@ -5010,7 +6159,117 @@
       }
     },
     "startEffortReason": "Hay que crear cuenta y elegir plan —aunque sea el de 0 $— antes de generar.",
-    "licences": {}
+    "licences": {},
+    "access": {}
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-20",
+    "kind": "model",
+    "categorySlug": "modelos",
+    "licences": {
+      "weights": "Llama 4 Community License"
+    },
+    "name": "Llama 4 Scout",
+    "verification": "verified",
+    "officialUrl": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct",
+    "repoUrl": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct",
+    "hosting": "local",
+    "openSource": "weights",
+    "licence": "Llama 4 Community License (no OSI)",
+    "platforms": [
+      "linux"
+    ],
+    "freeModel": "open_source",
+    "tagline": "Diez millones de tokens de contexto, y una licencia que pone condiciones.",
+    "descriptionShort": "El modelo de Meta con 17.000 millones de parámetros activos sobre 109.000 totales, entrada de texto e imagen y una ventana de diez millones de tokens. Su licencia no es OSI: obliga a pedir permiso a Meta por encima de 700 millones de usuarios mensuales y a mostrar «Built with Llama».",
+    "verdict": "La ventana de diez millones de tokens no la tiene nadie más. La condición de los 700 millones de usuarios no afecta a casi nadie, pero la de enseñar «Built with Llama» sí, y por eso esto es «pesos abiertos» y no «open source».",
+    "freePlan": {
+      "requiresSignup": "no",
+      "requiresCreditCard": "no",
+      "hasWatermark": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-08-20",
+      "commercialUse": "partial",
+      "summary": "Pesos descargables bajo la Llama 4 Community License. Permite uso comercial, pero por encima de 700 millones de usuarios activos mensuales hay que solicitar licencia a Meta, y hay que mostrar «Built with Llama» y conservar el aviso de licencia.",
+      "limits": [
+        "Licencia propia: Llama 4 Community License, no OSI",
+        "Por encima de 700M de usuarios mensuales hay que pedir licencia a Meta",
+        "Obligatorio mostrar «Built with Llama» y conservar el aviso",
+        "17.000M de parámetros activos sobre 109.000M · contexto de 10M de tokens"
+      ]
+    },
+    "access": {
+      "chat": "unverified",
+      "chatFree": "unverified",
+      "api": "unverified",
+      "apiFree": "unverified",
+      "weights": "yes"
+    },
+    "capabilities": [
+      "text-generation",
+      "code-generation",
+      "vision",
+      "model-download"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Se descarga tras aceptar la licencia; 109.000M de parámetros piden GPU.",
+    "scores": {
+      "freeReal": 7,
+      "usefulness": 8,
+      "ease": 3,
+      "transparency": 8,
+      "creatorValue": 6
+    },
+    "sources": [
+      {
+        "url": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct",
+        "label": "Ficha oficial del modelo",
+        "kind": "repo",
+        "publisher": "huggingface.co",
+        "checkedAt": "2026-08-20"
+      }
+    ],
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct",
+        "verifiedAt": "2026-08-20",
+        "quote": "700 million monthly active users in the preceding calendar month, you must request a license from Meta, which Meta may grant to you in its sole discretion. [Distributors must] prominently display \"Built with Llama\" on a related website."
+      },
+      "capabilities": {
+        "sourceUrl": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct",
+        "verifiedAt": "2026-08-20",
+        "quote": "Context Length: 10 million tokens · Input: Multilingual text and images · Output: Multilingual text and code · Active 17B / Total 109B"
+      }
+    },
+    "auditNotes": "La ficha del modelo no se actualiza desde mayo de 2025, quince meses antes de esta comprobación. Es el dato que más envejece de esta vertical y por eso está escrito aquí.",
+    "slug": "llama-4",
+    "id": "tool_llama-4",
+    "nextReviewAt": "2026-11-18",
+    "lastVerifiedAt": "2026-08-20",
+    "updatedAt": "2026-08-20"
   },
   {
     "id": "tool_lm-studio",
@@ -5126,7 +6385,8 @@
     "startEffort": "install",
     "capabilities": [],
     "startEffortReason": "Instalador de escritorio con catálogo de modelos integrado: no hay que tocar la línea de órdenes.",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "skillLevel": "beginner",
@@ -5227,7 +6487,8 @@
     },
     "nextReviewAt": "2026-11-18",
     "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-08-20"
+    "updatedAt": "2026-08-20",
+    "access": {}
   },
   {
     "secondaryCategories": [
@@ -5327,7 +6588,8 @@
     "licences": {
       "code": "Apache-2.0",
       "weights": "Apache-2.0"
-    }
+    },
+    "access": {}
   },
   {
     "secondaryCategories": [],
@@ -5425,7 +6687,8 @@
     "lastVerifiedAt": "2026-08-15",
     "updatedAt": "2026-08-15",
     "skillLevel": "beginner",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "skillLevel": "beginner",
@@ -5549,7 +6812,8 @@
     "auditNotes": "`memory` se marca porque la documentación dice «remember context across long tasks», no porque prometa memoria permanente entre sesiones distintas. `computer-use` NO se marca: el ordenador es suyo, no el tuyo.",
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19"
+    "updatedAt": "2026-08-19",
+    "access": {}
   },
   {
     "skillLevel": "beginner",
@@ -5657,7 +6921,8 @@
     },
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19"
+    "updatedAt": "2026-08-19",
+    "access": {}
   },
   {
     "id": "tool_midjourney",
@@ -5813,7 +7078,332 @@
         "quote": "Turn your images into captivating 5 second videos using Midjourney! […] feeding Midjourney an image to serve as the first frame"
       }
     },
-    "licences": {}
+    "licences": {},
+    "access": {}
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-20",
+    "kind": "model",
+    "categorySlug": "modelos",
+    "licences": {
+      "weights": "Apache-2.0"
+    },
+    "name": "Ministral 3",
+    "verification": "verified",
+    "officialUrl": "https://docs.mistral.ai/getting-started/models/models_overview/",
+    "hosting": "local",
+    "openSource": "yes",
+    "licence": "Apache-2.0",
+    "platforms": [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "freeModel": "open_source",
+    "tagline": "Tres tamaños —3B, 8B y 14B—, todos Apache 2.0 y todos con visión.",
+    "descriptionShort": "La familia diminuta de Mistral, en 3.000, 8.000 y 14.000 millones de parámetros. Los tres tamaños están en la tabla de modelos abiertos con licencia Apache 2.0 y los tres aceptan texto e imagen.",
+    "verdict": "Es la puerta de entrada a lo local: el de 3B entra en un portátil sin GPU dedicada, y sigue aceptando imágenes.",
+    "freePlan": {
+      "requiresSignup": "no",
+      "requiresCreditCard": "no",
+      "hasWatermark": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-08-20",
+      "commercialUse": "yes",
+      "summary": "Tres tamaños con pesos Apache 2.0: Ministral 3 3B, 8B y 14B. Los tres aceptan texto e imagen. Sin cuotas ni cuenta.",
+      "limits": [
+        "Pesos: Apache 2.0 en los tres tamaños",
+        "3B, 8B y 14B de parámetros",
+        "Entrada de texto e imagen"
+      ]
+    },
+    "access": {
+      "chat": "unverified",
+      "chatFree": "unverified",
+      "api": "unverified",
+      "apiFree": "unverified",
+      "weights": "yes"
+    },
+    "capabilities": [
+      "text-generation",
+      "vision",
+      "model-download"
+    ],
+    "startEffort": "install",
+    "startEffortReason": "El de 3B arranca con un runtime local sin GPU dedicada.",
+    "hardwareRequirements": "El de 3B cabe en un portátil; el de 14B pide GPU.",
+    "scores": {
+      "freeReal": 10,
+      "usefulness": 7,
+      "ease": 6,
+      "transparency": 9,
+      "creatorValue": 9
+    },
+    "sources": [
+      {
+        "url": "https://docs.mistral.ai/getting-started/models/models_overview/",
+        "label": "Documentación oficial de modelos",
+        "kind": "docs",
+        "publisher": "mistral.ai",
+        "checkedAt": "2026-08-20"
+      }
+    ],
+    "evidence": {
+      "capabilities": {
+        "sourceUrl": "https://docs.mistral.ai/getting-started/models/models_overview/",
+        "verifiedAt": "2026-08-20",
+        "quote": "Ministral 3 14B (Apache 2.0) — Text and vision · Ministral 3 8B (Apache 2.0) — Text and vision · Ministral 3 3B (Apache 2.0) — Text and vision"
+      }
+    },
+    "slug": "ministral",
+    "id": "tool_ministral",
+    "nextReviewAt": "2026-11-18",
+    "lastVerifiedAt": "2026-08-20",
+    "updatedAt": "2026-08-20"
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-20",
+    "kind": "model",
+    "categorySlug": "modelos",
+    "licences": {
+      "weights": "Apache-2.0"
+    },
+    "name": "Mistral Large 3",
+    "verification": "verified",
+    "officialUrl": "https://docs.mistral.ai/getting-started/models/models_overview/",
+    "pricingUrl": "https://mistral.ai/pricing",
+    "hosting": "hybrid",
+    "openSource": "yes",
+    "licence": "Apache-2.0",
+    "platforms": [
+      "linux",
+      "api",
+      "web"
+    ],
+    "freeModel": "open_source",
+    "tagline": "Un modelo grande, multimodal y con pesos Apache 2.0.",
+    "descriptionShort": "La gama grande de Mistral, listada en su documentación entre los modelos abiertos con licencia Apache 2.0 y descrita como multimodal general. Se puede descargar o consumir en su plataforma, que da 10 $ mensuales en créditos de API en el plan gratuito.",
+    "verdict": "Que un modelo de esta talla esté en la columna «Open» con Apache 2.0 sigue siendo poco común. Y el plan gratuito de la plataforma da créditos de verdad, con renovación mensual.",
+    "freePlan": {
+      "requiresSignup": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "yes",
+      "creditsAmount": "10 $/mes en créditos de API",
+      "creditReset": "monthly",
+      "verifiedAt": "2026-08-20",
+      "summary": "Los pesos son Apache 2.0. Además, el plan gratuito de la plataforma incluye 10 $ al mes en créditos de API para probar los modelos en Studio.",
+      "limits": [
+        "Pesos: Apache 2.0",
+        "Plan gratuito de la plataforma: 10 $/mes en créditos de API",
+        "Plan de pago más barato: Pro, 14,99 $/mes"
+      ]
+    },
+    "access": {
+      "chat": "yes",
+      "chatFree": "yes",
+      "api": "yes",
+      "apiFree": "yes",
+      "weights": "yes",
+      "chatWhere": "Vibe"
+    },
+    "capabilities": [
+      "text-generation",
+      "vision",
+      "model-download",
+      "api"
+    ],
+    "startEffort": "signup",
+    "startEffortReason": "En la plataforma basta una cuenta; los pesos son otra historia.",
+    "scores": {
+      "freeReal": 9,
+      "usefulness": 9,
+      "ease": 6,
+      "transparency": 8,
+      "creatorValue": 9
+    },
+    "sources": [
+      {
+        "url": "https://docs.mistral.ai/getting-started/models/models_overview/",
+        "label": "Documentación oficial de modelos",
+        "kind": "docs",
+        "publisher": "mistral.ai",
+        "checkedAt": "2026-08-20"
+      },
+      {
+        "url": "https://mistral.ai/pricing",
+        "label": "Precios oficiales",
+        "kind": "pricing",
+        "publisher": "mistral.ai",
+        "checkedAt": "2026-08-20"
+      }
+    ],
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://mistral.ai/pricing",
+        "verifiedAt": "2026-08-20",
+        "quote": "Free — Test Mistral models in Studio · $10 /mo in API credits"
+      },
+      "capabilities": {
+        "sourceUrl": "https://docs.mistral.ai/getting-started/models/models_overview/",
+        "verifiedAt": "2026-08-20",
+        "quote": "Mistral Large 3 (Apache 2.0) — General multimodal"
+      }
+    },
+    "slug": "mistral-large",
+    "id": "tool_mistral-large",
+    "nextReviewAt": "2026-11-18",
+    "lastVerifiedAt": "2026-08-20",
+    "updatedAt": "2026-08-20"
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-20",
+    "kind": "model",
+    "categorySlug": "modelos",
+    "licences": {
+      "weights": "Apache-2.0"
+    },
+    "name": "Mistral Small 4",
+    "verification": "verified",
+    "officialUrl": "https://docs.mistral.ai/getting-started/models/models_overview/",
+    "hosting": "local",
+    "openSource": "yes",
+    "licence": "Apache-2.0",
+    "platforms": [
+      "linux",
+      "macos",
+      "windows",
+      "api"
+    ],
+    "freeModel": "open_source",
+    "tagline": "Instrucciones, razonamiento y código en un modelo que cabe en tu equipo.",
+    "descriptionShort": "La gama pequeña de Mistral, con licencia Apache 2.0 y descrita en su documentación como híbrido de instrucción, razonamiento y código. Es de los pocos modelos que responden a las tres cosas sin salir de tu máquina.",
+    "verdict": "La respuesta cuando quieres razonamiento y código en local con una licencia sin letra pequeña. La documentación lo dice en una línea: «Hybrid instruct/reasoning/coding».",
+    "freePlan": {
+      "requiresSignup": "no",
+      "requiresCreditCard": "no",
+      "hasWatermark": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-08-20",
+      "commercialUse": "yes",
+      "summary": "Pesos bajo Apache 2.0. Sin cuotas ni cuenta: el coste es el equipo.",
+      "limits": [
+        "Pesos: Apache 2.0",
+        "Híbrido de instrucción, razonamiento y código"
+      ]
+    },
+    "access": {
+      "chat": "unverified",
+      "chatFree": "unverified",
+      "api": "yes",
+      "apiFree": "unverified",
+      "weights": "yes"
+    },
+    "capabilities": [
+      "text-generation",
+      "code-generation",
+      "reasoning",
+      "model-download"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Se descarga y se ejecuta con un runtime local.",
+    "scores": {
+      "freeReal": 10,
+      "usefulness": 8,
+      "ease": 5,
+      "transparency": 9,
+      "creatorValue": 9
+    },
+    "sources": [
+      {
+        "url": "https://docs.mistral.ai/getting-started/models/models_overview/",
+        "label": "Documentación oficial de modelos",
+        "kind": "docs",
+        "publisher": "mistral.ai",
+        "checkedAt": "2026-08-20"
+      }
+    ],
+    "evidence": {
+      "capabilities": {
+        "sourceUrl": "https://docs.mistral.ai/getting-started/models/models_overview/",
+        "verifiedAt": "2026-08-20",
+        "quote": "Mistral Small 4 (Apache 2.0) — Hybrid instruct/reasoning/coding"
+      }
+    },
+    "slug": "mistral-small",
+    "id": "tool_mistral-small",
+    "nextReviewAt": "2026-11-18",
+    "lastVerifiedAt": "2026-08-20",
+    "updatedAt": "2026-08-20"
   },
   {
     "secondaryCategories": [
@@ -5911,7 +7501,8 @@
     "licences": {
       "code": "Apache-2.0",
       "weights": "Apache-2.0"
-    }
+    },
+    "access": {}
   },
   {
     "skillLevel": "beginner",
@@ -6026,7 +7617,8 @@
     "auditNotes": "`openSource: partial` y no `yes`: fair-code permite ver y autoalojar el código pero no es una licencia OSI, y llamarlo open source sin más induciría a error.",
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19"
+    "updatedAt": "2026-08-19",
+    "access": {}
   },
   {
     "id": "tool_ollama",
@@ -6160,7 +7752,8 @@
       }
     },
     "startEffortReason": "Instalador propio y una sola orden para descargar un modelo.",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "skillLevel": "beginner",
@@ -6258,7 +7851,8 @@
     "auditNotes": "`memory` viene de «Sessions: automatic conversation history management», que es historial gestionado, no memoria permanente. Es la lectura más estrecha que sostiene la cita.",
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19"
+    "updatedAt": "2026-08-19",
+    "access": {}
   },
   {
     "skillLevel": "beginner",
@@ -6361,7 +7955,8 @@
     "auditNotes": "`multi-agent` se marca porque orquesta agentes distintos en varios servidores, no porque reparta subtareas dentro de uno. `web-browsing` no se marca: el repositorio no lo documenta.",
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19"
+    "updatedAt": "2026-08-19",
+    "access": {}
   },
   {
     "id": "tool_perplexity-ai",
@@ -6492,7 +8087,120 @@
       }
     },
     "startEffortReason": "El plan gratuito es un plan con historial y cuotas, así que arranca en una cuenta.",
-    "licences": {}
+    "licences": {},
+    "access": {}
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-20",
+    "kind": "model",
+    "categorySlug": "modelos",
+    "licences": {
+      "code": "MIT",
+      "weights": "MIT"
+    },
+    "name": "Phi-4",
+    "verification": "verified",
+    "officialUrl": "https://huggingface.co/microsoft/phi-4",
+    "repoUrl": "https://huggingface.co/microsoft/phi-4",
+    "hosting": "local",
+    "openSource": "yes",
+    "licence": "MIT",
+    "platforms": [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "freeModel": "open_source",
+    "tagline": "Catorce mil millones de parámetros, MIT, pensado para equipos justos.",
+    "descriptionShort": "El modelo pequeño de Microsoft, con licencia MIT y 14.000 millones de parámetros. Su ficha dice para qué está pensado: «memory/compute constrained environments», «latency bound scenarios» y «reasoning and logic». Contexto de 16k y sólo texto.",
+    "verdict": "El contexto de 16k es corto para lo que se lleva hoy, y a cambio cabe donde no caben los demás. Su ficha presume de matemáticas y código, no de conversación.",
+    "freePlan": {
+      "requiresSignup": "no",
+      "requiresCreditCard": "no",
+      "hasWatermark": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-08-20",
+      "commercialUse": "yes",
+      "summary": "Pesos bajo licencia MIT. 14.000 millones de parámetros, contexto de 16k tokens y sólo texto. Sin cuotas ni cuenta.",
+      "limits": [
+        "Pesos: MIT",
+        "14.000 millones de parámetros",
+        "Contexto de 16k tokens",
+        "Sólo texto"
+      ]
+    },
+    "access": {
+      "chat": "unverified",
+      "chatFree": "unverified",
+      "api": "unverified",
+      "apiFree": "unverified",
+      "weights": "yes"
+    },
+    "capabilities": [
+      "text-generation",
+      "code-generation",
+      "reasoning",
+      "model-download"
+    ],
+    "startEffort": "install",
+    "startEffortReason": "Se descarga y se ejecuta con un runtime local; 14B admiten cuantización.",
+    "hardwareRequirements": "Pensado para entornos con poca memoria o poco cómputo.",
+    "scores": {
+      "freeReal": 10,
+      "usefulness": 7,
+      "ease": 6,
+      "transparency": 10,
+      "creatorValue": 8
+    },
+    "sources": [
+      {
+        "url": "https://huggingface.co/microsoft/phi-4",
+        "label": "Ficha oficial del modelo",
+        "kind": "repo",
+        "publisher": "huggingface.co",
+        "checkedAt": "2026-08-20"
+      }
+    ],
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://huggingface.co/microsoft/phi-4",
+        "verifiedAt": "2026-08-20",
+        "quote": "License: MIT"
+      },
+      "capabilities": {
+        "sourceUrl": "https://huggingface.co/microsoft/phi-4",
+        "verifiedAt": "2026-08-20",
+        "quote": "memory/compute constrained environments · latency bound scenarios · reasoning and logic · MATH: 80.4, GPQA: 56.1, HumanEval: 82.6"
+      }
+    },
+    "slug": "phi-4",
+    "id": "tool_phi-4",
+    "nextReviewAt": "2026-11-18",
+    "lastVerifiedAt": "2026-08-20",
+    "updatedAt": "2026-08-20"
   },
   {
     "id": "tool_pika-labs",
@@ -6619,7 +8327,8 @@
     ],
     "startEffortReason": "Requiere cuenta; los créditos mensuales van asociados a ella.",
     "auditNotes": "`hasWatermark: no` es de las pocas veces que este campo puede afirmarse: la página lo dice del plan gratuito con esas palabras. Uso comercial y tarjeta siguen sin constar.",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "id": "tool_pinokio",
@@ -6747,7 +8456,8 @@
       }
     },
     "startEffortReason": "Instalador de escritorio que se encarga de las dependencias de cada aplicación.",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "id": "tool_pixelcut",
@@ -6846,7 +8556,8 @@
       "api"
     ],
     "startEffortReason": "Requiere cuenta para guardar y exportar el resultado.",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "id": "tool_playground-ai",
@@ -6950,7 +8661,230 @@
       "api"
     ],
     "startEffortReason": "Requiere cuenta: los créditos y su renovación van asociados al usuario.",
-    "licences": {}
+    "licences": {},
+    "access": {}
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-20",
+    "kind": "model",
+    "categorySlug": "modelos",
+    "licences": {
+      "code": "Apache-2.0",
+      "weights": "Apache-2.0"
+    },
+    "name": "Qwen3.8 27B",
+    "verification": "verified",
+    "officialUrl": "https://huggingface.co/Qwen/Qwen3.8-27B",
+    "repoUrl": "https://huggingface.co/Qwen/Qwen3.8-27B",
+    "hosting": "local",
+    "openSource": "yes",
+    "licence": "Apache-2.0",
+    "platforms": [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "freeModel": "open_source",
+    "tagline": "Apache 2.0, multimodal y con modo de pensamiento por defecto.",
+    "descriptionShort": "Veintisiete mil millones de parámetros con licencia Apache 2.0. Acepta texto, imágenes y vídeo, tiene modo de pensamiento activado por defecto con esfuerzo regulable, y su contexto nativo de 262.144 tokens se puede extender hasta el millón.",
+    "verdict": "Probablemente el mejor equilibrio del catálogo entre lo que hace y lo que permite: multimodal, con razonamiento documentado y una licencia que no pide permiso a nadie.",
+    "freePlan": {
+      "requiresSignup": "no",
+      "requiresCreditCard": "no",
+      "hasWatermark": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-08-20",
+      "commercialUse": "yes",
+      "summary": "Pesos bajo Apache 2.0, sin condiciones añadidas. 27.000 millones de parámetros, contexto nativo de 262.144 tokens ampliable a un millón, y entrada de texto, imagen y vídeo.",
+      "limits": [
+        "Pesos: Apache 2.0",
+        "27.000 millones de parámetros",
+        "Contexto nativo de 262.144 tokens, extensible a 1.000.000",
+        "Entrada de texto, imagen y vídeo"
+      ]
+    },
+    "access": {
+      "chat": "unverified",
+      "chatFree": "unverified",
+      "api": "unverified",
+      "apiFree": "unverified",
+      "weights": "yes"
+    },
+    "capabilities": [
+      "text-generation",
+      "code-generation",
+      "reasoning",
+      "vision",
+      "video-understanding",
+      "model-download"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Se descarga y se ejecuta con un runtime local; 27B piden GPU.",
+    "hardwareRequirements": "27.000 millones de parámetros: GPU con memoria suficiente o cuantización.",
+    "scores": {
+      "freeReal": 10,
+      "usefulness": 9,
+      "ease": 4,
+      "transparency": 10,
+      "creatorValue": 9
+    },
+    "sources": [
+      {
+        "url": "https://huggingface.co/Qwen/Qwen3.8-27B",
+        "label": "Ficha oficial del modelo",
+        "kind": "repo",
+        "publisher": "huggingface.co",
+        "checkedAt": "2026-08-20"
+      }
+    ],
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://huggingface.co/Qwen/Qwen3.8-27B",
+        "verifiedAt": "2026-08-20",
+        "quote": "License: apache-2.0"
+      },
+      "capabilities": {
+        "sourceUrl": "https://huggingface.co/Qwen/Qwen3.8-27B",
+        "verifiedAt": "2026-08-20",
+        "quote": "262,144 tokens natively, extensible to 1,000,000 · Text, images, videos · thinking mode by default, reasoning_effort (xhigh, medium, low)"
+      }
+    },
+    "slug": "qwen3-27b",
+    "id": "tool_qwen3-27b",
+    "nextReviewAt": "2026-11-18",
+    "lastVerifiedAt": "2026-08-20",
+    "updatedAt": "2026-08-20"
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-20",
+    "kind": "model",
+    "categorySlug": "modelos",
+    "licences": {
+      "weights": "qwen3.8-max"
+    },
+    "name": "Qwen3.8 Max",
+    "verification": "verified",
+    "officialUrl": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B",
+    "repoUrl": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B",
+    "hosting": "local",
+    "openSource": "weights",
+    "licence": "qwen3.8-max (licencia propia, no OSI)",
+    "platforms": [
+      "linux"
+    ],
+    "freeModel": "open_source",
+    "tagline": "La misma familia que el 27B, con otra licencia. Conviene mirarla.",
+    "descriptionShort": "El modelo grande de Qwen: 2,4 billones de parámetros con 95.000 millones activos y pensamiento siempre encendido. Sus pesos se descargan, pero no bajo Apache 2.0 como los del 27B, sino bajo una licencia propia llamada «qwen3.8-max».",
+    "verdict": "Está en el catálogo por lo que enseña: dos modelos de la misma familia, el mismo mes, con licencias distintas. «Qwen es open source» no es una frase que se pueda decir sin mirar cuál.",
+    "freePlan": {
+      "requiresSignup": "no",
+      "requiresCreditCard": "no",
+      "hasWatermark": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-08-20",
+      "commercialUse": "unverified",
+      "summary": "Pesos descargables bajo la licencia propia «qwen3.8-max», no OSI. 2,4 billones de parámetros con 95.000 millones activos por token, sólo texto, y contexto nativo de 262.144 tokens ampliable a 1.010.000.",
+      "limits": [
+        "Pesos: licencia propia «qwen3.8-max», no OSI",
+        "2,4 billones de parámetros · 95.000 millones activos",
+        "Sólo texto: no acepta imagen ni vídeo",
+        "Pensamiento activado siempre, no se puede desactivar"
+      ]
+    },
+    "access": {
+      "chat": "unverified",
+      "chatFree": "unverified",
+      "api": "unverified",
+      "apiFree": "unverified",
+      "weights": "yes"
+    },
+    "capabilities": [
+      "text-generation",
+      "reasoning",
+      "model-download"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Infraestructura propia: 2,4 billones de parámetros no caben en un equipo.",
+    "scores": {
+      "freeReal": 6,
+      "usefulness": 9,
+      "ease": 2,
+      "transparency": 7,
+      "creatorValue": 5
+    },
+    "sources": [
+      {
+        "url": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B",
+        "label": "Ficha oficial del modelo",
+        "kind": "repo",
+        "publisher": "huggingface.co",
+        "checkedAt": "2026-08-20"
+      }
+    ],
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B",
+        "verifiedAt": "2026-08-20",
+        "quote": "License: qwen3.8-max"
+      },
+      "capabilities": {
+        "sourceUrl": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B",
+        "verifiedAt": "2026-08-20",
+        "quote": "2.4 trillion total with 95 billion activated parameters · 262,144 tokens natively, extensible to 1,010,000 · Text-only · thinking enabled by default and cannot be disabled"
+      }
+    },
+    "auditNotes": "El uso comercial se queda sin afirmar: la licencia «qwen3.8-max» no es una plantilla conocida y no se leyó su texto completo en esta comprobación.",
+    "slug": "qwen3-max",
+    "id": "tool_qwen3-max",
+    "nextReviewAt": "2026-11-18",
+    "lastVerifiedAt": "2026-08-20",
+    "updatedAt": "2026-08-20"
   },
   {
     "id": "tool_recraft",
@@ -7049,7 +8983,8 @@
       "api"
     ],
     "startEffortReason": "Requiere cuenta antes de generar.",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "id": "tool_replicate",
@@ -7182,7 +9117,8 @@
       }
     },
     "startEffortReason": "Se usa con token de API desde código; no hay una interfaz donde escribir y generar.",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "skillLevel": "beginner",
@@ -7299,7 +9235,8 @@
     "auditNotes": "La página dice «Free daily Agent credits» sin cifra. Se registra `daily` porque la renovación sí está publicada, y la cantidad se deja sin afirmar.",
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19"
+    "updatedAt": "2026-08-19",
+    "access": {}
   },
   {
     "id": "tool_runwayml",
@@ -7427,7 +9364,8 @@
     },
     "startEffortReason": "Requiere cuenta antes de generar; los créditos van asociados a ella.",
     "auditNotes": "La ficha decía `freemium`. La página dice «one-time»: es `credits` con `one_off`, que es una tercera cosa distinta de freemium y de trial. La marca de agua queda sin confirmar: que «No watermarks» aparezca como característica de Standard sugiere que el gratuito la lleva, pero sugerir no es afirmar.",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "id": "tool_sdnext",
@@ -7516,7 +9454,8 @@
     "startEffort": "technical",
     "capabilities": [],
     "startEffortReason": "Exige entorno de Python, descarga de modelos y configuración manual.",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "id": "tool_stable-diffusion-webui",
@@ -7650,7 +9589,8 @@
       }
     },
     "startEffortReason": "Exige entorno de Python, descarga de modelos y GPU.",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "skillLevel": "beginner",
@@ -7752,7 +9692,8 @@
     "auditNotes": "La licencia MIT es la del código; el README menciona CC BY-SA aparte por el contenido de Wikipedia que usa su conjunto de datos. `requiresSignup` se queda sin afirmar: no comprobé si la vista previa pide cuenta.",
     "nextReviewAt": "2026-11-18",
     "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-08-20"
+    "updatedAt": "2026-08-20",
+    "access": {}
   },
   {
     "id": "tool_suno-ai",
@@ -7876,7 +9817,8 @@
     ],
     "startEffortReason": "Requiere cuenta; los créditos diarios van asociados a ella.",
     "auditNotes": "La equivalencia «10 canciones» se publica en la misma línea que los créditos, así que se recoge tal cual. No se convierte nada que la página no convierta.",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "secondaryCategories": [],
@@ -7982,7 +9924,8 @@
     "lastVerifiedAt": "2026-08-15",
     "updatedAt": "2026-08-15",
     "skillLevel": "beginner",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "id": "tool_v0-by-vercel",
@@ -8117,7 +10060,8 @@
       }
     },
     "startEffortReason": "Requiere cuenta de Vercel para generar y desplegar.",
-    "licences": {}
+    "licences": {},
+    "access": {}
   },
   {
     "secondaryCategories": [
@@ -8223,7 +10167,8 @@
     "licences": {
       "code": "Apache-2.0",
       "weights": "Apache-2.0"
-    }
+    },
+    "access": {}
   },
   {
     "skillLevel": "beginner",
@@ -8322,7 +10267,8 @@
     "licences": {
       "code": "MIT",
       "weights": "MIT"
-    }
+    },
+    "access": {}
   },
   {
     "skillLevel": "beginner",
@@ -8429,6 +10375,7 @@
     },
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19"
+    "updatedAt": "2026-08-19",
+    "access": {}
   }
 ]

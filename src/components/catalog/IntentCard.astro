@@ -82,6 +82,22 @@ const local = tool.hosting !== 'cloud';
 const soloPersonal = tool.freePlan.commercialUse === 'no';
 
 /*
+ * Por dónde se llega a un modelo, que son tres puertas y no una.
+ *
+ * Sólo aparece cuando la ficha responde que sí a alguna, porque en las demás
+ * verticales `access` está vacío y la tarjeta no debe inventarse una fila.
+ * `unverified` no pinta nada: una puerta sin comprobar no es una puerta
+ * cerrada, y enseñarla tachada diría lo contrario.
+ */
+const puertas = [
+  tool.access.chat === 'yes'
+    ? { id: 'chat', label: tool.access.chatWhere ? `En ${tool.access.chatWhere}` : 'En un chat', libre: tool.access.chatFree === 'yes' }
+    : null,
+  tool.access.api === 'yes' ? { id: 'api', label: 'Por API', libre: tool.access.apiFree === 'yes' } : null,
+  tool.access.weights === 'yes' ? { id: 'weights', label: 'Pesos descargables', libre: true } : null,
+].filter((p): p is { id: string; label: string; libre: boolean } => p !== null);
+
+/*
  * La licencia, por capas, cuando no coinciden.
  *
  * Un proyecto puede publicar el código con una licencia permisiva y los pesos
@@ -108,6 +124,14 @@ const licenciaDividida = Boolean(capas.code && capas.weights && capas.code !== c
   {typeLabel && (
     <p class="ic-type">
       <span class="ic-type-chip" title={typeHint}>{typeLabel}</span>
+    </p>
+  )}
+
+  {puertas.length > 0 && (
+    <p class="ic-doors">
+      {puertas.map((puerta) => (
+        <span class="ic-door" data-free={puerta.libre ? 'si' : 'no'}>{puerta.label}</span>
+      ))}
     </p>
   )}
 
@@ -246,6 +270,37 @@ const licenciaDividida = Boolean(capas.code && capas.weights && capas.code !== c
   }
 
   /* Pegada a la etiqueta de gratuidad: es la letra pequeña de esa promesa. */
+  .ic-doors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3xs);
+    margin: 0 0 var(--space-2xs);
+  }
+
+  /*
+   * La puerta gratuita se distingue de la de pago, y sin color como único
+   * portador: la de pago lleva el borde discontinuo, que se ve igual en
+   * escala de grises y con cualquier daltonismo.
+   */
+  .ic-door {
+    padding: 0.05rem 0.45rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+  }
+
+  .ic-door[data-free='si'] {
+    border-color: var(--signal-line);
+    background: var(--signal-soft);
+    color: var(--signal);
+    font-weight: 550;
+  }
+
+  .ic-door[data-free='no'] {
+    border-style: dashed;
+  }
+
   .ic-personal {
     display: flex;
     flex-wrap: wrap;
