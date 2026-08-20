@@ -2976,6 +2976,118 @@
   },
   {
     "skillLevel": "beginner",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-20",
+    "licences": {},
+    "id": "tool_genspark",
+    "slug": "genspark",
+    "name": "Genspark",
+    "kind": "agent",
+    "verification": "verified",
+    "categorySlug": "agentes",
+    "officialUrl": "https://www.genspark.ai/",
+    "pricingUrl": "https://www.genspark.ai/helpcenter/membership-plans",
+    "hosting": "cloud",
+    "openSource": "no",
+    "platforms": [
+      "web"
+    ],
+    "freeModel": "credits",
+    "tagline": "Cien créditos al día para un agente que parte el encargo en pasos.",
+    "descriptionShort": "Super Agent divide una petición en pasos, elige las herramientas y las ejecuta en una caja de arena con navegador y sistema de ficheros propios. El plan gratuito da 100 créditos al día.",
+    "verdict": "De los pocos agentes de propósito general con una cifra gratuita diaria publicada. Lo que documenta su centro de ayuda es el comportamiento entero, no la palabra.",
+    "freePlan": {
+      "summary": "Plan gratuito con 100 créditos al día, concedidos automáticamente. Los créditos no se acumulan. El plan Plus empieza en 10.000 créditos al mes; su precio no se publica en el centro de ayuda.",
+      "limits": [
+        "100 créditos al día",
+        "Los créditos no se acumulan de un periodo al siguiente",
+        "Chat e imágenes sin coste de créditos sólo en los planes de pago"
+      ],
+      "requiresSignup": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditsAmount": "100 créditos/día",
+      "creditReset": "daily",
+      "verifiedAt": "2026-08-20"
+    },
+    "capabilities": [
+      "tool-use",
+      "web-browsing",
+      "integrations"
+    ],
+    "startEffort": "signup",
+    "startEffortReason": "Requiere cuenta; los créditos diarios van asociados a ella.",
+    "scores": {
+      "freeReal": 8,
+      "usefulness": 8,
+      "ease": 8,
+      "transparency": 7,
+      "creatorValue": 7
+    },
+    "sources": [
+      {
+        "url": "https://www.genspark.ai/",
+        "label": "Web oficial",
+        "kind": "official",
+        "publisher": "genspark.ai",
+        "checkedAt": "2026-08-20"
+      },
+      {
+        "url": "https://www.genspark.ai/helpcenter/super-agent",
+        "label": "Centro de ayuda: Super Agent",
+        "kind": "docs",
+        "publisher": "genspark.ai",
+        "checkedAt": "2026-08-20"
+      },
+      {
+        "url": "https://www.genspark.ai/helpcenter/credits-guide",
+        "label": "Centro de ayuda: créditos",
+        "kind": "pricing",
+        "publisher": "genspark.ai",
+        "checkedAt": "2026-08-20"
+      }
+    ],
+    "evidence": {
+      "capabilities": {
+        "sourceUrl": "https://www.genspark.ai/helpcenter/super-agent",
+        "verifiedAt": "2026-08-20",
+        "quote": "Super Agent breaks your request into steps, chooses the right tools, and carries the work through to a finished result. [...] dedicated sandbox environment: real browser, own filesystem, and powerful execution [...] connects to your everyday apps and data so it can act with real context."
+      },
+      "freePlan": {
+        "sourceUrl": "https://www.genspark.ai/helpcenter/credits-guide",
+        "verifiedAt": "2026-08-20",
+        "quote": "100 credits/day, automatically. [...] Credits don’t carry over."
+      }
+    },
+    "auditNotes": "No se marcan `code-execution` ni `memory`. «Powerful execution» no dice que ejecute código, y «SecondBrain» aparece sin definir qué persiste. El precio del plan Plus tampoco se registra: el centro de ayuda publica los créditos, no la cifra en euros.",
+    "nextReviewAt": "2026-11-18",
+    "lastVerifiedAt": "2026-08-20",
+    "updatedAt": "2026-08-20"
+  },
+  {
+    "skillLevel": "beginner",
     "secondaryCategories": [
       "agentes"
     ],
@@ -3192,9 +3304,11 @@
     "descriptionLong": "Gemini (anteriormente Bard) es el asistente IA de Google integrado profundamente con el ecosistema Google. El plan gratuito ofrece acceso al modelo Gemini con razonamiento avanzado, capacidades multimodales, y extensiones que le permiten interactuar con Gmail, Google Drive, Maps, YouTube y más. La integración nativa con servicios Google lo hace único entre los asistentes IA.",
     "kind": "app",
     "verification": "partially_verified",
-    "nextReviewAt": "2026-11-11",
+    "nextReviewAt": "2026-11-18",
     "categorySlug": "escritura",
-    "secondaryCategories": [],
+    "secondaryCategories": [
+      "agentes"
+    ],
     "tags": [],
     "useCases": [
       "Asistente integrado con Gmail, Drive y Calendar",
@@ -3236,32 +3350,18 @@
     "docsUrl": "https://ai.google.dev/gemini-api/docs",
     "sources": [
       {
-        "url": "https://gemini.google.com",
+        "url": "https://gemini.google.com/",
         "label": "Web oficial",
         "kind": "official",
-        "publisher": "gemini.google.com",
-        "checkedAt": "2026-08-13"
+        "publisher": "google.com",
+        "checkedAt": "2026-08-20"
       },
       {
-        "url": "https://gemini.google/subscriptions/",
-        "label": "Planes oficiales de Gemini",
-        "kind": "pricing",
-        "publisher": "gemini.google",
-        "checkedAt": "2026-08-13"
-      },
-      {
-        "url": "https://support.google.com/gemini/answer/14286560",
-        "label": "Generar imágenes (soporte oficial)",
+        "url": "https://support.google.com/gemini/answer/15719111",
+        "label": "Ayuda oficial: usar Deep Research",
         "kind": "docs",
         "publisher": "support.google.com",
-        "checkedAt": "2026-08-13"
-      },
-      {
-        "url": "https://ai.google.dev/gemini-api/docs/pricing",
-        "label": "Precios de la API de Gemini",
-        "kind": "pricing",
-        "publisher": "ai.google.dev",
-        "checkedAt": "2026-08-13"
+        "checkedAt": "2026-08-20"
       }
     ],
     "scores": {
@@ -3302,30 +3402,134 @@
     },
     "status": "published",
     "detectedAt": "2023-12-06",
-    "lastVerifiedAt": "2026-08-13",
-    "updatedAt": "2026-08-13",
-    "auditNotes": "App y API son productos distintos y responden distinto: la app incluye imágenes en el plan gratuito, la API las marca como no disponibles en su capa gratuita. Confundirlas sería publicar lo contrario de lo que dice una de las dos fuentes. La ficha se queda en Escritura: Gemini es un asistente general, no un generador de imagen, aunque la capacidad conste.",
+    "lastVerifiedAt": "2026-08-20",
+    "updatedAt": "2026-08-20",
+    "auditNotes": "Entra en /agentes por `secondaryCategories`, no por su `kind`: es un asistente con un modo de investigación documentado, no un agente de propósito general. La cifra del límite diario no se publica; la cadencia sí.",
     "startEffort": "signup",
     "capabilities": [
       "text-to-image",
       "image-editing",
       "text-generation",
+      "research",
+      "web-browsing",
       "api"
     ],
     "evidence": {
-      "freePlan": {
-        "sourceUrl": "https://gemini.google/subscriptions/",
-        "verifiedAt": "2026-08-13",
-        "quote": "Plan gratuito 0 €/mes — Generación y edición de imágenes. Se pueden aplicar límites de uso."
-      },
       "capabilities": {
-        "sourceUrl": "https://support.google.com/gemini/answer/14286560",
-        "verifiedAt": "2026-08-13",
-        "quote": "To generate images, you must be 13 (or the applicable age in your country) or over […] If you reach your daily quota of Nano Banana 2 images, you can’t redo any additional images with Nano Banana Pro"
+        "sourceUrl": "https://support.google.com/gemini/answer/15719111",
+        "verifiedAt": "2026-08-20",
+        "quote": "You can conduct in-depth and real-time research on almost any subject with Deep Research in Gemini Apps. [Crea un plan de investigación y genera un informe. Los usuarios sin plan de pago pueden generar informes con el modelo Thinking; «Google AI Pro and Google AI Ultra users can generate reports using Pro for even higher quality».]"
+      },
+      "freePlan": {
+        "sourceUrl": "https://support.google.com/gemini/answer/15719111",
+        "verifiedAt": "2026-08-20",
+        "quote": "In Gemini Apps, there are limits for: Daily research requests [...] Google AI Pro and Google AI Ultra users get higher limits for how many research reports they can create."
       }
     },
     "startEffortReason": "Para generar imágenes hay que estar identificado en la app con una cuenta de Google.",
     "licences": {}
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [
+      "investigacion"
+    ],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-20",
+    "licences": {},
+    "id": "tool_gpt-researcher",
+    "slug": "gpt-researcher",
+    "name": "GPT Researcher",
+    "kind": "agent",
+    "verification": "verified",
+    "categorySlug": "agentes",
+    "officialUrl": "https://github.com/assafelovic/gpt-researcher",
+    "repoUrl": "https://github.com/assafelovic/gpt-researcher",
+    "hosting": "local",
+    "openSource": "yes",
+    "licence": "Apache-2.0",
+    "platforms": [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "freeModel": "open_source",
+    "tagline": "Un planificador que reparte preguntas y agentes que las contestan.",
+    "descriptionShort": "Agente de investigación con licencia Apache 2.0 que se instala con pip o Docker. Un planificador genera las preguntas, varios agentes de ejecución recogen la información y un publicador la reúne en un informe con citas de más de veinte fuentes.",
+    "verdict": "La respuesta cuando la investigación tiene que salir de tu equipo o trabajar sobre tus propios documentos. El coste no es la cuota: es el modelo que le pongas detrás.",
+    "freePlan": {
+      "summary": "Código con licencia Apache 2.0. Sin cuotas ni cuenta con el proyecto; hay que aportar un modelo, propio o de pago por uso. Investiga sobre la web y sobre documentos locales en PDF, texto, CSV, Excel, Markdown, PowerPoint y Word.",
+      "limits": [
+        "Sin cuota del propio proyecto: el coste es el modelo que uses",
+        "Se instala con pip o con Docker",
+        "Investiga también sobre documentos locales"
+      ],
+      "requiresSignup": "no",
+      "requiresCreditCard": "no",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-08-20"
+    },
+    "capabilities": [
+      "research",
+      "web-browsing",
+      "multi-agent"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Se instala con pip o Docker y necesita la clave de un modelo.",
+    "scores": {
+      "freeReal": 9,
+      "usefulness": 8,
+      "ease": 4,
+      "transparency": 9,
+      "creatorValue": 8
+    },
+    "sources": [
+      {
+        "url": "https://github.com/assafelovic/gpt-researcher",
+        "label": "Repositorio oficial",
+        "kind": "repo",
+        "publisher": "github.com",
+        "checkedAt": "2026-08-20"
+      }
+    ],
+    "evidence": {
+      "capabilities": {
+        "sourceUrl": "https://github.com/assafelovic/gpt-researcher",
+        "verifiedAt": "2026-08-20",
+        "quote": "The first open deep research agent designed for both web and local research on any given task. [...] The planner generates research questions, while the execution agents gather relevant information [...] The publisher then aggregates all findings into a comprehensive report. Aggregate over 20 sources for objective conclusions."
+      },
+      "freePlan": {
+        "sourceUrl": "https://github.com/assafelovic/gpt-researcher/blob/master/LICENSE",
+        "verifiedAt": "2026-08-20",
+        "quote": "Apache License, Version 2.0, January 2004"
+      }
+    },
+    "auditNotes": "`multi-agent` se marca porque el propio README separa planificador y agentes de ejecución, no por su asistente opcional sobre LangGraph.",
+    "nextReviewAt": "2026-11-18",
+    "lastVerifiedAt": "2026-08-20",
+    "updatedAt": "2026-08-20"
   },
   {
     "id": "tool_grok-imagine",
@@ -4894,6 +5098,107 @@
     "capabilities": [],
     "startEffortReason": "Instalador de escritorio con catálogo de modelos integrado: no hay que tocar la línea de órdenes.",
     "licences": {}
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [
+      "investigacion",
+      "herramientas-locales"
+    ],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-20",
+    "licences": {},
+    "id": "tool_local-deep-researcher",
+    "slug": "local-deep-researcher",
+    "name": "Local Deep Researcher",
+    "kind": "agent",
+    "verification": "verified",
+    "categorySlug": "agentes",
+    "officialUrl": "https://github.com/langchain-ai/local-deep-researcher",
+    "repoUrl": "https://github.com/langchain-ai/local-deep-researcher",
+    "hosting": "local",
+    "openSource": "yes",
+    "licence": "MIT",
+    "platforms": [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "freeModel": "open_source",
+    "tagline": "Busca, resume, ve lo que le falta y vuelve a buscar. Tres vueltas.",
+    "descriptionShort": "Asistente de investigación de LangChain con licencia MIT que funciona con cualquier modelo servido por Ollama o LM Studio. Genera una consulta, busca, resume, detecta lo que falta y vuelve a preguntar; por defecto da tres vueltas y el número es configurable.",
+    "verdict": "El más pequeño de los tres y el único que puede funcionar de principio a fin con un modelo tuyo. Su bucle de reflexión es lo que separa investigar de buscar.",
+    "freePlan": {
+      "summary": "Código con licencia MIT. Funciona con modelos locales servidos por Ollama o LM Studio, así que puede ejecutarse sin cuota de ningún proveedor de modelos. La búsqueda web sí necesita un buscador: DuckDuckGo, SearXNG, Tavily o Perplexity.",
+      "limits": [
+        "Tres vueltas de investigación por defecto (MAX_WEB_RESEARCH_LOOPS)",
+        "Modelo local con Ollama o LM Studio",
+        "La búsqueda web necesita un buscador externo"
+      ],
+      "requiresSignup": "no",
+      "requiresCreditCard": "no",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-08-20"
+    },
+    "capabilities": [
+      "research",
+      "web-browsing"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Exige un servidor de modelos local y configurar un buscador.",
+    "scores": {
+      "freeReal": 10,
+      "usefulness": 7,
+      "ease": 4,
+      "transparency": 9,
+      "creatorValue": 7
+    },
+    "sources": [
+      {
+        "url": "https://github.com/langchain-ai/local-deep-researcher",
+        "label": "Repositorio oficial",
+        "kind": "repo",
+        "publisher": "github.com",
+        "checkedAt": "2026-08-20"
+      }
+    ],
+    "evidence": {
+      "capabilities": {
+        "sourceUrl": "https://github.com/langchain-ai/local-deep-researcher",
+        "verifiedAt": "2026-08-20",
+        "quote": "A fully local web research assistant that uses any LLM hosted by Ollama or LMStudio. [Genera una consulta, busca, resume, refleja sobre el resumen para encontrar lagunas, genera una consulta nueva y repite. El número de vueltas se configura con MAX_WEB_RESEARCH_LOOPS, por defecto 3.]"
+      },
+      "freePlan": {
+        "sourceUrl": "https://github.com/langchain-ai/local-deep-researcher/blob/main/LICENSE",
+        "verifiedAt": "2026-08-20",
+        "quote": "MIT License. Copyright (c) 2025 Lance Martin"
+      }
+    },
+    "nextReviewAt": "2026-11-18",
+    "lastVerifiedAt": "2026-08-20",
+    "updatedAt": "2026-08-20"
   },
   {
     "secondaryCategories": [
@@ -7297,6 +7602,108 @@
     },
     "startEffortReason": "Exige entorno de Python, descarga de modelos y GPU.",
     "licences": {}
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [
+      "investigacion"
+    ],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-20",
+    "licences": {},
+    "id": "tool_storm",
+    "slug": "storm",
+    "name": "STORM",
+    "kind": "agent",
+    "verification": "verified",
+    "categorySlug": "agentes",
+    "officialUrl": "https://github.com/stanford-oval/storm",
+    "repoUrl": "https://github.com/stanford-oval/storm",
+    "hosting": "hybrid",
+    "openSource": "yes",
+    "licence": "MIT",
+    "platforms": [
+      "linux",
+      "macos",
+      "windows",
+      "web"
+    ],
+    "freeModel": "open_source",
+    "tagline": "Escribe un artículo con referencias partiendo de una búsqueda.",
+    "descriptionShort": "Sistema del laboratorio OVAL de Stanford, con licencia MIT, que escribe artículos tipo Wikipedia desde cero a partir de búsquedas en internet. Investiga, reúne referencias y genera un esquema antes de redactar. Tiene una vista previa gratuita alojada.",
+    "verdict": "El único de los tres abiertos que se puede probar sin instalar nada, en la vista previa de Stanford. Sus autores avisan de que lo que sale no es publicable sin edición.",
+    "freePlan": {
+      "summary": "Código con licencia MIT. Se instala con `pip install knowledge-storm` o desde el repositorio. Existe además una vista previa de investigación gratuita en storm.genie.stanford.edu, que su repositorio dice que han probado más de 70.000 personas.",
+      "limits": [
+        "Vista previa gratuita alojada en storm.genie.stanford.edu",
+        "Instalación local con pip; el coste es el modelo que uses",
+        "Sus autores avisan: no produce artículos listos para publicar sin edición"
+      ],
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "no",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-08-20"
+    },
+    "capabilities": [
+      "research",
+      "web-browsing"
+    ],
+    "startEffort": "install",
+    "startEffortReason": "Se instala con pip; la vista previa de Stanford no requiere instalación.",
+    "scores": {
+      "freeReal": 9,
+      "usefulness": 7,
+      "ease": 5,
+      "transparency": 9,
+      "creatorValue": 7
+    },
+    "sources": [
+      {
+        "url": "https://github.com/stanford-oval/storm",
+        "label": "Repositorio oficial",
+        "kind": "repo",
+        "publisher": "github.com",
+        "checkedAt": "2026-08-20"
+      }
+    ],
+    "evidence": {
+      "capabilities": {
+        "sourceUrl": "https://github.com/stanford-oval/storm",
+        "verifiedAt": "2026-08-20",
+        "quote": "STORM is a LLM system that writes Wikipedia-like articles from scratch based on Internet search. [Pre-writing: conduct Internet research, collect references, generate outline. Writing: use the outline and references to generate the full-length article with citations.]"
+      },
+      "freePlan": {
+        "sourceUrl": "https://github.com/stanford-oval/storm/blob/main/LICENSE",
+        "verifiedAt": "2026-08-20",
+        "quote": "MIT License. Copyright (c) 2024 Stanford Open Virtual Assistant Lab"
+      }
+    },
+    "auditNotes": "La licencia MIT es la del código; el README menciona CC BY-SA aparte por el contenido de Wikipedia que usa su conjunto de datos. `requiresSignup` se queda sin afirmar: no comprobé si la vista previa pide cuenta.",
+    "nextReviewAt": "2026-11-18",
+    "lastVerifiedAt": "2026-08-20",
+    "updatedAt": "2026-08-20"
   },
   {
     "id": "tool_suno-ai",

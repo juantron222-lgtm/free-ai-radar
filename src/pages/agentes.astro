@@ -38,6 +38,7 @@ const tools = agentTools();
 
 const gratis = freeNow(tools);
 const codigo = byType(tools, 'codigo');
+const investigacion = byType(tools, 'investigacion');
 const plataformas = byType(tools, 'plataforma');
 const frameworks = byType(tools, 'framework');
 const enTuEquipo = local(tools);
@@ -54,6 +55,12 @@ const bloques = [
     titulo: 'Agentes de código',
     lista: codigo,
     lede: 'Trabajan sobre tu repositorio y tu terminal: leen el proyecto, cambian ficheros, ejecutan órdenes y comprueban el resultado.',
+  },
+  {
+    id: 'investigacion',
+    titulo: 'Investigación y web',
+    lista: investigacion,
+    lede: 'Buscan, leen, ven lo que les falta y vuelven a buscar antes de escribir. Navegar es sólo el primer paso de ese bucle, y es lo que los separa de un buscador.',
   },
   {
     id: 'plataformas',

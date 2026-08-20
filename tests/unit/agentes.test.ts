@@ -263,3 +263,70 @@ describe('lo que la tarjeta puede enseñar', () => {
     }
   });
 });
+
+
+describe('la puerta editorial de la auditoría', () => {
+  /*
+   * Después de la primera ronda, «listos para usar» era 1 y «investigación» 0.
+   * La auditoría de huecos encontró que el cero venía de mi criterio, no del
+   * mercado: los agentes de investigación que sí existen o son de código
+   * abierto —y yo había mirado productos alojados— o son un modo dentro de un
+   * asistente, que el filtro por `kind` dejaba fuera de oficio.
+   *
+   * Estas pruebas fijan las dos mitades de la corrección: la puerta se abre
+   * para un modo documentado, y no se abre para nada más.
+   */
+  const enPagina = new Set(agentTools().map((t) => t.slug));
+
+  it('un modelo no entra ni aunque se le declare', () => {
+    for (const tool of getAllTools()) {
+      if (tool.kind !== 'model') continue;
+      expect(enPagina.has(tool.slug), tool.slug).toBe(false);
+    }
+  });
+
+  it('lo que no es agente, plataforma ni framework entra sólo si lo declara', () => {
+    const propios = new Set(['agent', 'platform', 'framework']);
+    for (const tool of agentTools()) {
+      if (propios.has(tool.kind)) continue;
+      expect(tool.secondaryCategories, `${tool.slug} entra sin declararse`).toContain('agentes');
+    }
+  });
+
+  it('Gemini entra por su modo de investigación, no por ser capaz', () => {
+    const gemini = getAllTools().find((t) => t.slug === 'google-gemini')!;
+    expect(gemini.secondaryCategories).toContain('agentes');
+    expect(gemini.capabilities).toContain('research');
+    expect(agentType(gemini)).toBe('investigacion');
+  });
+
+  it('el bloque de investigación existe y todas sus fichas lo demuestran', () => {
+    /*
+     * La cita se busca en el fichero del repositorio, no en la ficha hidratada:
+     * `evidence` no forma parte del esquema y el objeto que la página pinta no
+     * la lleva. Sobre la ficha hidratada esto aprobaría siempre.
+     */
+    const crudo = JSON.parse(
+      readFileSync(new URL('../../src/data/tools-v2.json', import.meta.url), 'utf8')
+    ) as Array<{ slug: string; evidence?: { capabilities?: { sourceUrl?: string } } }>;
+    const porSlug = new Map(crudo.map((t) => [t.slug, t]));
+
+    const investigacion = byType(agentTools(), 'investigacion');
+    expect(investigacion.length).toBeGreaterThanOrEqual(MIN_BLOQUE);
+    for (const tool of investigacion) {
+      expect(tool.capabilities, tool.slug).toContain('research');
+      expect(
+        porSlug.get(tool.slug)?.evidence?.capabilities?.sourceUrl,
+        `${tool.slug} afirma investigar sin una cita que lo respalde`
+      ).toMatch(/^https:\/\//);
+    }
+  });
+
+  /*
+   * Dos no son un bloque. Se deja escrito para que subirlo sea una decisión y
+   * no un descuido: el día que haya un tercero verificado, esta prueba avisa.
+   */
+  it('«listos para usar» sigue por debajo del mínimo, y se sabe', () => {
+    expect(byType(agentTools(), 'listo').length).toBeLessThan(MIN_BLOQUE);
+  });
+});

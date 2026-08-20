@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-08-19T15:56:39.706Z",
+  "generatedAt": "2026-08-20T00:29:36.171Z",
   "source": "src/data/tools.json",
   "inputCount": 0,
-  "outputCount": 70,
+  "outputCount": 74,
   "dropped": [],
   "duplicates": [],
   "issues": [],
   "unknownAlternatives": [],
   "scoreDeltas": [],
-  "nativeCount": 70
+  "nativeCount": 74
 }

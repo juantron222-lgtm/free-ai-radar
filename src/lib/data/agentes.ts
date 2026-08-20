@@ -51,8 +51,18 @@ export const AGENT_CAPABILITIES: readonly Capability[] = [
   'integrations',
 ];
 
-/** Los tres tipos de entrada que esta página admite. Un modelo no lo es. */
+/** Los tres tipos de entrada que esta página admite por sí solos. */
 const AGENT_KINDS = new Set(['agent', 'platform', 'framework']);
+
+/**
+ * Un modelo no entra nunca, ni declarándolo.
+ *
+ * Que un modelo pueda participar en un sistema agéntico no lo convierte en algo
+ * que alguien pueda usar. Los modos agénticos los tienen los productos, y por
+ * eso este veto no admite excepción editorial: es la única regla de esta página
+ * que no se puede levantar desde el dato.
+ */
+const NUNCA = new Set(['model']);
 
 export const agentCapabilityCount = (tool: Tool): number => countIn(tool, AGENT_CAPABILITIES);
 
@@ -64,9 +74,21 @@ export const agentCapabilityCount = (tool: Tool): number => countIn(tool, AGENT_
  * un comportamiento agéntico citado por una fuente oficial.
  */
 export function agentTools(): Tool[] {
-  return getAllTools().filter(
-    (tool) => AGENT_KINDS.has(tool.kind) && agentCapabilityCount(tool) > 0
-  );
+  return getAllTools().filter((tool) => {
+    if (NUNCA.has(tool.kind)) return false;
+    if (agentCapabilityCount(tool) === 0) return false;
+    /*
+     * Y una puerta editorial para lo que no es agente pero tiene un modo que sí.
+     *
+     * Gemini es un asistente; su Deep Research es un modo con página de ayuda
+     * propia y límite diario que una persona usa hoy. Dejarlo fuera por el
+     * `kind` de su ficha habría sido un sesgo mío, no una regla: la auditoría
+     * de huecos existía justo para encontrar eso. Lo que no puede pasar es que
+     * entre solo, así que la llave es `secondaryCategories` —escrita a mano,
+     * ficha por ficha— y no una capacidad que cualquiera acumula.
+     */
+    return AGENT_KINDS.has(tool.kind) || tool.secondaryCategories.includes('agentes');
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -113,10 +135,11 @@ export function agentType(tool: Tool): AgentType {
    * Investigación exige `research`, no `web-browsing`.
    *
    * Tener navegador no convierte a nadie en agente de investigación: Manus
-   * navega, y lo que hace es cumplir un encargo. `research` describe el trabajo
-   * de varias etapas —buscar, leer, sintetizar— y hoy no lo tiene demostrado
-   * ninguna ficha. Cero es el resultado correcto; rellenarlo con los que
-   * navegan sería el mismo error que llamar agente a todo.
+   * navega, y lo que hace es cumplir un encargo. `research` describe el bucle
+   * entero —planificar, buscar, leer, ver lo que falta, volver— y lo documentan
+   * cuatro fichas, tres de ellas abiertas. La primera ronda dio cero y la
+   * auditoría enseñó por qué: había mirado productos alojados, que son justo
+   * los que no dejan leer su documentación.
    */
   if (has(tool, 'research')) return 'investigacion';
   return 'listo';
