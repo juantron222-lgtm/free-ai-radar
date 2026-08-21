@@ -191,7 +191,14 @@ describe('la verificación de agentes', () => {
     const tool = bySlug.get('github-copilot')!;
     expect(tool.freePlan.requiresCreditCard).toBe('no');
     expect(tool.freePlan.creditReset).toBe('monthly');
-    expect(tool.freePlan.limits.join(' ')).toMatch(/agente en la nube NO/i);
+    /*
+     * Se comprueba el mecanismo, no la frase. La redacción vino de la página
+     * de planes de GitHub y volverá a cambiar cuando ellos la cambien; lo que
+     * no puede cambiar es que el límite diga qué queda fuera.
+     */
+    const limites = tool.freePlan.limits.join(' · ');
+    expect(limites, 'el plan gratuito tiene que nombrar lo que excluye').toMatch(/NO incluye/);
+    expect(limites, 'y el agente es lo que excluye').toMatch(/agente/i);
   });
 
   it('Manus publica una renovación diaria, con su cifra', () => {

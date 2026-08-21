@@ -7,7 +7,7 @@
  * dos rutas con el mismo contenido compiten entre sí y reparten los enlaces
  * entrantes. Las viejas `/categorias/<slug>` siguen redirigiendo con un 301.
  */
-const RUTA_PROPIA = new Set(['imagen', 'video', 'modelos']);
+const RUTA_PROPIA = new Set(['imagen', 'video', 'modelos', 'codigo']);
 
 /**
  * Dos categorías técnicas, una sola página.

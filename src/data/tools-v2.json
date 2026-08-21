@@ -189,7 +189,104 @@
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
     "updatedAt": "2026-08-19",
-    "access": {}
+    "access": {},
+    "productType": "cli"
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-21",
+    "categorySlug": "codigo",
+    "licences": {},
+    "access": {},
+    "name": "Amazon Q Developer",
+    "kind": "app",
+    "productType": "copilot",
+    "verification": "verified",
+    "officialUrl": "https://aws.amazon.com/q/developer/",
+    "pricingUrl": "https://aws.amazon.com/q/developer/pricing/",
+    "hosting": "cloud",
+    "openSource": "no",
+    "platforms": [
+      "web",
+      "api"
+    ],
+    "freeModel": "freemium",
+    "tagline": "Cincuenta peticiones agénticas al mes y mil líneas de transformación.",
+    "descriptionShort": "El asistente de programación de AWS, con sugerencias de código en el editor y peticiones agénticas. Su capa gratuita da cincuenta peticiones agénticas al mes y mil líneas de código de transformación, y permite suprimir las sugerencias que coincidan con código público.",
+    "verdict": "La capa gratuita publica sus dos cifras, que en esta vertical es más de lo que hace casi nadie. Cincuenta peticiones agénticas al mes dan para probarlo, no para vivir de ello.",
+    "freePlan": {
+      "summary": "Capa gratuita con cincuenta peticiones agénticas al mes y mil líneas de código al mes en transformaciones. Incluye la supresión de sugerencias que coincidan con código público. El plan Pro cuesta 19 $ al mes por usuario.",
+      "limits": [
+        "50 peticiones agénticas al mes",
+        "1.000 líneas de código al mes en transformaciones",
+        "Supresión de sugerencias de código público",
+        "Plan de pago: Pro, 19 $/mes por usuario"
+      ],
+      "requiresSignup": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditsAmount": "50 peticiones agénticas/mes",
+      "creditReset": "monthly",
+      "verifiedAt": "2026-08-21"
+    },
+    "capabilities": [
+      "code-generation",
+      "repository-editing",
+      "tool-use"
+    ],
+    "startEffort": "signup",
+    "startEffortReason": "Requiere cuenta de AWS y la extensión en el editor.",
+    "scores": {
+      "freeReal": 6,
+      "usefulness": 7,
+      "ease": 5,
+      "transparency": 8,
+      "creatorValue": 6
+    },
+    "sources": [
+      {
+        "url": "https://aws.amazon.com/q/developer/pricing/",
+        "label": "Precios oficiales",
+        "kind": "pricing",
+        "publisher": "aws.amazon.com",
+        "checkedAt": "2026-08-21"
+      }
+    ],
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://aws.amazon.com/q/developer/pricing/",
+        "verifiedAt": "2026-08-21",
+        "quote": "Free Tier: 50 agentic requests per month · 1,000 lines of code per month · Suppress public code suggestions. Pro: $19 per month per user."
+      }
+    },
+    "slug": "amazon-q-developer",
+    "id": "tool_amazon-q-developer",
+    "nextReviewAt": "2026-11-19",
+    "lastVerifiedAt": "2026-08-21",
+    "updatedAt": "2026-08-21"
   },
   {
     "skillLevel": "beginner",
@@ -298,12 +395,12 @@
     "id": "tool_bolt-new",
     "slug": "bolt-new",
     "name": "Bolt.new",
-    "tagline": "Genera aplicaciones web full-stack completas desde una descripción.StackBlitz-powered, con preview en vivo y deploy en un clic.",
-    "descriptionShort": "Genera aplicaciones web full-stack completas desde una descripción.StackBlitz-powered, con preview en vivo y deploy en un clic.",
+    "tagline": "Trescientos mil tokens al día, un millón al mes.",
+    "descriptionShort": "Construye una aplicación web desde una descripción, en el navegador, y la despliega. Su plan gratuito reparte 300.000 tokens al día con un tope de un millón al mes.",
     "descriptionLong": "Bolt.new de StackBlitz permite crear aplicaciones web completas (frontend + backend) describiendo lo que quieres en lenguaje natural. Genera React, Next.js, Node.js y más, con un entorno de desarrollo completo en el navegador que incluye preview en vivo, terminal, y deploy a producción. Ideal para prototipos rápidos, MVPs, y herramientas internas sin configurar nada localmente.",
     "kind": "agent",
-    "verification": "partially_verified",
-    "nextReviewAt": "2026-10-06",
+    "verification": "verified",
+    "nextReviewAt": "2026-11-19",
     "categorySlug": "codigo",
     "secondaryCategories": [],
     "tags": [
@@ -317,19 +414,19 @@
     ],
     "freeModel": "freemium",
     "freePlan": {
-      "summary": "Plan gratuito con tokens diarios limitados. Suficiente para varios prototipos pequeños al día. Sin tarjeta de crédito.",
+      "summary": "Plan gratuito con un límite de 300.000 tokens al día y un millón de tokens al mes. El plan de pago más barato es Pro, 25 $ al mes con facturación mensual.",
       "limits": [
-        "Tokens diarios limitados en plan gratuito",
-        "No ideal para aplicaciones muy complejas",
-        "No open-source",
-        "Apps complejas pueden consumir tokens rápidamente"
+        "300.000 tokens al día",
+        "1.000.000 de tokens al mes",
+        "Plan de pago más barato: Pro, 25 $/mes"
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
-      "creditReset": "none",
-      "verifiedAt": "2026-07-08"
+      "creditsAmount": "300.000 tokens/día (1M/mes)",
+      "creditReset": "daily",
+      "verifiedAt": "2026-08-21"
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -342,26 +439,15 @@
       "trainsOnUserData": "unverified",
       "optOutAvailable": "unverified"
     },
-    "officialUrl": "https://bolt.new",
+    "officialUrl": "https://bolt.new/",
     "pricingUrl": "https://bolt.new/pricing",
     "sources": [
       {
-        "url": "https://bolt.new",
-        "label": "Web oficial",
-        "kind": "official",
-        "checkedAt": "2026-07-08"
-      },
-      {
         "url": "https://bolt.new/pricing",
-        "label": "Página de precios",
+        "label": "Precios oficiales",
         "kind": "pricing",
-        "checkedAt": "2026-07-08"
-      },
-      {
-        "url": "https://stackblitz.com",
-        "label": "stackblitz.com",
-        "kind": "community",
-        "checkedAt": "2026-07-08"
+        "publisher": "bolt.new",
+        "checkedAt": "2026-08-21"
       }
     ],
     "scores": {
@@ -371,7 +457,7 @@
       "transparency": 5,
       "creatorValue": 7
     },
-    "verdict": "La forma más rápida de ir de idea a app funcionando. Los tokens gratuitos alcanzan para prototipos diarios. Muy recomendable.",
+    "verdict": "Empieza de cero: no abre tu repositorio. Las dos cifras —diaria y mensual— están publicadas, que es más de lo que hacen casi todos sus competidores.",
     "pros": [],
     "cons": [
       "Tokens diarios limitados en plan gratuito",
@@ -404,22 +490,23 @@
     },
     "status": "published",
     "detectedAt": "2024-06-01",
-    "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08",
+    "lastVerifiedAt": "2026-08-21",
+    "updatedAt": "2026-08-21",
     "startEffort": "signup",
     "capabilities": [
-      "agents"
+      "code-generation"
     ],
     "evidence": {
-      "capabilities": {
-        "sourceUrl": "https://bolt.new",
-        "verifiedAt": "2026-08-12",
-        "quote": "ng product builders with the most powerful coding agents Bolt does the heavy lifting for you, so you can focus"
+      "freePlan": {
+        "sourceUrl": "https://bolt.new/pricing",
+        "verifiedAt": "2026-08-21",
+        "quote": "300K tokens daily limit · 1M tokens per month · Pro: $25 per month billed monthly"
       }
     },
-    "startEffortReason": "Requiere cuenta para conservar y desplegar el proyecto que genera.",
+    "startEffortReason": "Se describe lo que quieres en el navegador; no hace falta instalar nada.",
     "licences": {},
-    "access": {}
+    "access": {},
+    "productType": "app-builder"
   },
   {
     "skillLevel": "beginner",
@@ -1051,7 +1138,8 @@
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
     "updatedAt": "2026-08-19",
-    "access": {}
+    "access": {},
+    "productType": "cli"
   },
   {
     "skillLevel": "beginner",
@@ -1492,7 +1580,8 @@
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
     "updatedAt": "2026-08-19",
-    "access": {}
+    "access": {},
+    "productType": "agent"
   },
   {
     "id": "tool_clipdrop",
@@ -1713,7 +1802,8 @@
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
     "updatedAt": "2026-08-19",
-    "access": {}
+    "access": {},
+    "productType": "agent"
   },
   {
     "id": "tool_comfy-cloud",
@@ -2054,12 +2144,12 @@
     "id": "tool_cursor",
     "slug": "cursor",
     "name": "Cursor",
-    "tagline": "Plan gratuito sin tarjeta, con las peticiones de agente limitadas.",
-    "descriptionShort": "Editor de código con un agente que completa tareas por su cuenta: busca en el proyecto y en la web, edita varios ficheros, ejecuta órdenes de terminal y controla un navegador para comprobar el resultado. El plan Hobby es gratuito y no pide tarjeta, con peticiones de agente limitadas.",
+    "tagline": "Editor completo, plan Hobby sin tarjeta y con peticiones limitadas.",
+    "descriptionShort": "Un editor de código con IA integrada, no una extensión: sustituye al editor. Su plan Hobby no pide tarjeta y da acceso a Composer con «peticiones de agente limitadas», sin publicar cuántas.",
     "descriptionLong": "Cursor es un fork de VS Code con capacidades de IA profundamente integradas. El asistente entiende todo tu proyecto, puede editar múltiples archivos, predecir tu siguiente movimiento con Tab completions avanzadas, y mantener conversaciones sobre tu código base. Soporta múltiples modelos (GPT-4, Claude) y ofrece un plan gratuito (Hobby) con límites de uso mensuales generosos.",
     "kind": "agent",
     "verification": "verified",
-    "nextReviewAt": "2026-11-17",
+    "nextReviewAt": "2026-11-19",
     "categorySlug": "codigo",
     "secondaryCategories": [
       "agentes"
@@ -2075,19 +2165,19 @@
     ],
     "freeModel": "freemium",
     "freePlan": {
-      "summary": "Plan Hobby gratuito, sin tarjeta, con peticiones de agente limitadas y acceso a Composer. La cantidad exacta no se publica. El plan de pago más barato es Pro, 20 $/mes, que amplía los límites del agente y añade MCP, hooks y agentes en la nube.",
+      "summary": "Plan Hobby gratuito que no pide tarjeta, con peticiones de agente limitadas y acceso a Composer. La cantidad no se publica. El plan de pago más barato es Individual, 20 $ al mes.",
       "limits": [
+        "Sin tarjeta",
         "Peticiones de agente limitadas: la cantidad no se publica",
         "Acceso a Composer",
-        "No pide tarjeta",
-        "Plan de pago más barato: Pro, 20 $/mes"
+        "Plan de pago más barato: Individual, 20 $/mes"
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "no",
-      "hasWatermark": "no",
+      "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "unknown",
-      "verifiedAt": "2026-08-19"
+      "verifiedAt": "2026-08-21"
     },
     "openSource": "no",
     "hosting": "hybrid",
@@ -2108,17 +2198,10 @@
     "sources": [
       {
         "url": "https://cursor.com/pricing",
-        "label": "Página oficial de precios",
+        "label": "Precios oficiales",
         "kind": "pricing",
         "publisher": "cursor.com",
-        "checkedAt": "2026-08-19"
-      },
-      {
-        "url": "https://cursor.com/docs/agent/overview",
-        "label": "Documentación oficial del agente",
-        "kind": "docs",
-        "publisher": "cursor.com",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-08-21"
       }
     ],
     "scores": {
@@ -2160,18 +2243,13 @@
     },
     "status": "published",
     "detectedAt": "2023-10-01",
-    "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19",
+    "lastVerifiedAt": "2026-08-21",
+    "updatedAt": "2026-08-21",
     "evidence": {
       "freePlan": {
         "sourceUrl": "https://cursor.com/pricing",
-        "verifiedAt": "2026-08-19",
-        "quote": "Hobby — Free: No credit card required · Limited Agent requests · Access to Composer. [Pro: $20/mo.]"
-      },
-      "capabilities": {
-        "sourceUrl": "https://cursor.com/docs/agent/overview",
-        "verifiedAt": "2026-08-19",
-        "quote": "complete complex coding tasks independently, run terminal commands, and edit code · search your codebase and the web to find relevant information, make edits to your files, run terminal commands · There is no limit on the number of tool calls Agent can make during a task."
+        "verifiedAt": "2026-08-21",
+        "quote": "Hobby — No credit card required · Limited Agent requests · Access to Composer. Individual: $20 / mo."
       }
     },
     "startEffort": "install",
@@ -2184,7 +2262,8 @@
     "startEffortReason": "Es un editor que se descarga e instala; después basta una cuenta.",
     "licences": {},
     "auditNotes": "Pasa de `free_real` a `freemium`: hay plan gratuito permanente, pero con las peticiones de agente limitadas y sin cifra publicada. `computer-use` no se marca: controla un navegador, no tu ordenador.",
-    "access": {}
+    "access": {},
+    "productType": "ide"
   },
   {
     "skillLevel": "beginner",
@@ -2635,7 +2714,8 @@
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
     "updatedAt": "2026-08-19",
-    "access": {}
+    "access": {},
+    "productType": "agent"
   },
   {
     "skillLevel": "beginner",
@@ -3546,7 +3626,8 @@
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
     "updatedAt": "2026-08-19",
-    "access": {}
+    "access": {},
+    "productType": "cli"
   },
   {
     "id": "tool_gemma-4",
@@ -3845,7 +3926,7 @@
     "verification": "verified",
     "categorySlug": "codigo",
     "officialUrl": "https://github.com/features/copilot",
-    "pricingUrl": "https://github.com/features/copilot/plans",
+    "pricingUrl": "https://docs.github.com/en/copilot/about-github-copilot/plans-for-github-copilot",
     "docsUrl": "https://docs.github.com/en/copilot",
     "hosting": "cloud",
     "openSource": "no",
@@ -3855,27 +3936,28 @@
       "web"
     ],
     "freeModel": "freemium",
-    "tagline": "Gratis para completar y charlar. Su agente en la nube, no.",
-    "descriptionShort": "Asistente de programación de GitHub con plan gratuito de 2.000 completados y 50 mensajes de chat al mes, sin tarjeta. Su agente en la nube —el que investiga un repositorio, planifica, cambia el código en una rama y abre la pull request— está disponible sólo en los planes de pago.",
-    "verdict": "El caso que mejor explica por qué esta sección separa el chat del agente: lo gratuito completa código, y lo que trabaja solo empieza en 10 $ al mes.",
+    "tagline": "El autocompletado es gratis. El agente, la revisión y el modo agente, no.",
+    "descriptionShort": "El autocompletado de GitHub, con chat en el editor y en la web. Su plan gratuito da 2.000 completados al mes y selección automática de modelo, y su propia página de planes excluye expresamente los agentes, la revisión de código y el modo agente.",
+    "verdict": "Es el ejemplo de por qué no se puede heredar el acceso de la marca al producto: Copilot tiene plan gratuito y el agente de Copilot no está en él.",
     "freePlan": {
-      "summary": "Plan gratuito de 0 $ sin tarjeta con 2.000 completados de código al mes y 50 mensajes de chat (incluido Copilot Edits), acceso a varios modelos y a Copilot CLI. Las cantidades se reinician cada mes. El agente en la nube exige plan de pago; el más barato es Pro, 10 $/usuario/mes, con completados ilimitados.",
+      "summary": "Copilot Free da 2.000 completados en línea al mes, chat en los entornos y en GitHub, y selección automática de modelo. Quedan fuera del plan gratuito los agentes y el agente de programación, la revisión de código, el modo agente y la selección de modelos avanzados. El plan de pago más barato es Pro, 10 $ al mes.",
       "limits": [
-        "2.000 completados de código al mes",
-        "50 mensajes de chat al mes, incluido Copilot Edits",
-        "Se reinicia cada mes",
-        "El agente en la nube NO está en el plan gratuito",
-        "Plan de pago más barato: Pro, 10 $/usuario/mes"
+        "2.000 completados en línea al mes",
+        "Sólo selección automática de modelo",
+        "NO incluye agentes ni agente de programación",
+        "NO incluye revisión de código ni modo agente",
+        "Plan de pago más barato: Pro, 10 $/mes"
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "no",
-      "hasWatermark": "no",
+      "hasWatermark": "unverified",
       "commercialUse": "unverified",
-      "creditsAmount": "2.000 completados + 50 mensajes/mes",
+      "creditsAmount": "2.000 completados/mes",
       "creditReset": "monthly",
-      "verifiedAt": "2026-08-19"
+      "verifiedAt": "2026-08-21"
     },
     "capabilities": [
+      "code-generation",
       "repository-editing",
       "code-execution",
       "terminal",
@@ -3892,37 +3974,26 @@
     },
     "sources": [
       {
-        "url": "https://github.com/features/copilot/plans",
+        "url": "https://docs.github.com/en/copilot/about-github-copilot/plans-for-github-copilot",
         "label": "Planes oficiales",
-        "kind": "pricing",
-        "publisher": "github.com",
-        "checkedAt": "2026-08-19"
-      },
-      {
-        "url": "https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-coding-agent",
-        "label": "Documentación oficial del agente",
         "kind": "docs",
-        "publisher": "docs.github.com",
-        "checkedAt": "2026-08-19"
+        "publisher": "github.com",
+        "checkedAt": "2026-08-21"
       }
     ],
     "evidence": {
       "freePlan": {
-        "sourceUrl": "https://github.com/features/copilot/plans",
-        "verifiedAt": "2026-08-19",
-        "quote": "2,000 completions per month · 50 chat requests (including Copilot Edits) · resets every month · $0 USD, no credit card required. [Pro: $10 USD per user / month.]"
-      },
-      "capabilities": {
-        "sourceUrl": "https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-coding-agent",
-        "verifiedAt": "2026-08-19",
-        "quote": "research a repository, create implementation plans, and make code changes on a branch · its own ephemeral development environment, powered by GitHub Actions, where it can explore your code, make changes, execute automated tests and linters · Copilot cloud agent is available for all paid Copilot plans."
+        "sourceUrl": "https://docs.github.com/en/copilot/about-github-copilot/plans-for-github-copilot",
+        "verifiedAt": "2026-08-21",
+        "quote": "Copilot Free: limited access to a selection of Copilot features [...] 2000 completions per month · Auto model selection only. Not included: Agents / coding agent, Code review, Agent mode, Copilot Chat skills in IDEs. GitHub Copilot Pro: $10 USD per month."
       }
     },
-    "auditNotes": "Las capacidades describen el producto. Que el agente en la nube sea de pago está en los límites del plan gratuito, que es donde decide. Del modo agente del editor no se publica en qué planes está, así que no se afirma nada de eso.",
-    "nextReviewAt": "2026-11-17",
-    "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19",
-    "access": {}
+    "auditNotes": "Las capacidades describen el producto completo; lo que el plan gratuito no incluye está en los límites, que es donde decide.",
+    "nextReviewAt": "2026-11-19",
+    "lastVerifiedAt": "2026-08-21",
+    "updatedAt": "2026-08-21",
+    "access": {},
+    "productType": "copilot"
   },
   {
     "skillLevel": "beginner",
@@ -5487,6 +5558,101 @@
       "isSponsored": false
     },
     "status": "published",
+    "detectedAt": "2026-08-21",
+    "categorySlug": "codigo",
+    "licences": {},
+    "access": {},
+    "name": "JetBrains AI",
+    "kind": "app",
+    "productType": "copilot",
+    "verification": "partially_verified",
+    "officialUrl": "https://www.jetbrains.com/ai-ides/",
+    "pricingUrl": "https://www.jetbrains.com/help/ai-assistant/licensing-and-subscriptions.html",
+    "hosting": "cloud",
+    "openSource": "no",
+    "platforms": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "freeModel": "credits",
+    "tagline": "Tres créditos cada treinta días, y no en todas las ediciones.",
+    "descriptionShort": "La capa de IA integrada en los entornos de JetBrains. Su nivel gratuito, AI Free, incluye tres créditos de IA cada treinta días, y su documentación advierte de dónde no está disponible: ni en Android Studio ni en las ediciones Community de PyCharm e IntelliJ IDEA.",
+    "verdict": "La restricción por edición decide más que la cuota: si usas IntelliJ IDEA Community, AI Free no existe para ti. Conviene comprobarlo antes que la cifra.",
+    "freePlan": {
+      "summary": "AI Free incluye tres créditos de IA cada treinta días. No está disponible en Android Studio ni en las ediciones Community de PyCharm e IntelliJ IDEA. Disponible desde la versión 2025.1 de la mayoría de los entornos.",
+      "limits": [
+        "3 créditos de IA cada 30 días",
+        "No disponible en Android Studio",
+        "No disponible en las ediciones Community de PyCharm e IntelliJ IDEA"
+      ],
+      "requiresSignup": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditsAmount": "3 créditos/30 días",
+      "creditReset": "monthly",
+      "verifiedAt": "2026-08-21"
+    },
+    "capabilities": [
+      "code-generation"
+    ],
+    "startEffort": "install",
+    "startEffortReason": "Va dentro de un entorno de JetBrains ya instalado.",
+    "scores": {
+      "freeReal": 4,
+      "usefulness": 7,
+      "ease": 7,
+      "transparency": 6,
+      "creatorValue": 5
+    },
+    "sources": [
+      {
+        "url": "https://www.jetbrains.com/help/ai-assistant/licensing-and-subscriptions.html",
+        "label": "Documentación oficial de licencias",
+        "kind": "docs",
+        "publisher": "jetbrains.com",
+        "checkedAt": "2026-08-21"
+      }
+    ],
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://www.jetbrains.com/help/ai-assistant/licensing-and-subscriptions.html",
+        "verifiedAt": "2026-08-21",
+        "quote": "3 AI Credits per 30-days. The AI Free license tier is not available in Android Studio [and] in Community Editions of PyCharm and IntelliJ IDEA."
+      }
+    },
+    "auditNotes": "El precio del plan de pago se queda fuera: la misma página muestra dos cifras distintas para AI Pro (10 $ y 20 $) y no hay forma de saber cuál está vigente. Publicar una de las dos sería elegir al azar.",
+    "slug": "jetbrains-ai",
+    "id": "tool_jetbrains-ai",
+    "nextReviewAt": "2026-11-19",
+    "lastVerifiedAt": "2026-08-21",
+    "updatedAt": "2026-08-21"
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
     "detectedAt": "2026-08-20",
     "kind": "model",
     "categorySlug": "modelos",
@@ -6489,6 +6655,106 @@
     "lastVerifiedAt": "2026-08-20",
     "updatedAt": "2026-08-20",
     "access": {}
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-08-21",
+    "categorySlug": "codigo",
+    "licences": {},
+    "access": {},
+    "name": "Lovable",
+    "kind": "app",
+    "productType": "app-builder",
+    "verification": "verified",
+    "officialUrl": "https://lovable.dev/",
+    "pricingUrl": "https://lovable.dev/pricing",
+    "hosting": "cloud",
+    "openSource": "no",
+    "platforms": [
+      "web"
+    ],
+    "freeModel": "credits",
+    "tagline": "Cinco créditos de construcción al día, con tope de treinta al mes.",
+    "descriptionShort": "Construye una aplicación web desde una descripción y la despliega. Su plan gratuito reparte cinco créditos de construcción al día —hasta treinta al mes— más veinte créditos de nube mensuales y cuatro para las funciones de IA que incorpores a lo que crees.",
+    "verdict": "Empieza de cero: no abre tu repositorio, te devuelve uno. Los créditos diarios con tope mensual son una forma poco común de racionar, y conviene leerla antes de planificar una tarde.",
+    "freePlan": {
+      "summary": "Plan gratuito con cinco créditos de construcción al día, hasta un máximo de treinta al mes. Incluye veinte créditos de nube mensuales y cuatro créditos utilizables por las funciones de IA integradas en las aplicaciones que generes.",
+      "limits": [
+        "5 créditos de construcción al día (máximo 30 al mes)",
+        "20 créditos de nube al mes",
+        "4 créditos para las funciones de IA de tus aplicaciones"
+      ],
+      "requiresSignup": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditsAmount": "5 créditos/día (tope de 30/mes)",
+      "creditReset": "daily",
+      "verifiedAt": "2026-08-21"
+    },
+    "capabilities": [
+      "code-generation",
+      "integrations"
+    ],
+    "startEffort": "signup",
+    "startEffortReason": "Se describe lo que quieres en el navegador; no hace falta instalar nada.",
+    "scores": {
+      "freeReal": 6,
+      "usefulness": 8,
+      "ease": 9,
+      "transparency": 8,
+      "creatorValue": 7
+    },
+    "sources": [
+      {
+        "url": "https://lovable.dev/",
+        "label": "Web oficial",
+        "kind": "official",
+        "publisher": "lovable.dev",
+        "checkedAt": "2026-08-21"
+      },
+      {
+        "url": "https://lovable.dev/pricing",
+        "label": "Precios oficiales",
+        "kind": "pricing",
+        "publisher": "lovable.dev",
+        "checkedAt": "2026-08-21"
+      }
+    ],
+    "evidence": {
+      "freePlan": {
+        "sourceUrl": "https://lovable.dev/pricing",
+        "verifiedAt": "2026-08-21",
+        "quote": "daily grant of 5 build credits (up to 30 a month) · monthly grants of 20 Cloud credits · 4 credits usable by AI features built into user apps"
+      }
+    },
+    "slug": "lovable",
+    "id": "tool_lovable",
+    "nextReviewAt": "2026-11-19",
+    "lastVerifiedAt": "2026-08-21",
+    "updatedAt": "2026-08-21"
   },
   {
     "secondaryCategories": [
@@ -7956,7 +8222,8 @@
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
     "updatedAt": "2026-08-19",
-    "access": {}
+    "access": {},
+    "productType": "agent"
   },
   {
     "id": "tool_perplexity-ai",
@@ -9236,7 +9503,8 @@
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
     "updatedAt": "2026-08-19",
-    "access": {}
+    "access": {},
+    "productType": "agent"
   },
   {
     "id": "tool_runwayml",
@@ -9931,12 +10199,12 @@
     "id": "tool_v0-by-vercel",
     "slug": "v0-by-vercel",
     "name": "v0 by Vercel",
-    "tagline": "Genera interfaces de usuario completas con React y Tailwind CSS a partir de descripciones en lenguaje natural.",
-    "descriptionShort": "Genera interfaces de usuario completas con React y Tailwind CSS a partir de descripciones en lenguaje natural. Output listo para producción.",
+    "tagline": "Cinco dólares en créditos al mes y siete mensajes al día.",
+    "descriptionShort": "Genera interfaces y aplicaciones web desde una descripción, con vista previa y despliegue en Vercel. Su plan gratuito incluye cinco dólares mensuales en créditos y un límite de siete mensajes al día.",
     "descriptionLong": "v0 by Vercel es un generador de UI que convierte descripciones de texto en componentes React completos con Tailwind CSS y shadcn/ui. Generas código limpio, responsive y listo para copiar y pegar en tu proyecto Next.js. Ideal para desarrolladores frontend que quieren prototipar rápido o generar componentes complejos sin escribirlos manualmente. El plan gratuito permite varias generaciones al día.",
     "kind": "agent",
-    "verification": "partially_verified",
-    "nextReviewAt": "2026-10-06",
+    "verification": "verified",
+    "nextReviewAt": "2026-11-19",
     "categorySlug": "codigo",
     "secondaryCategories": [],
     "tags": [
@@ -9950,19 +10218,19 @@
     ],
     "freeModel": "freemium",
     "freePlan": {
-      "summary": "Plan gratuito con generaciones diarias limitadas (~5-10). Acceso a generación de UI con React + Tailwind. Sin necesidad de tarjeta.",
+      "summary": "Plan gratuito con cinco dólares en créditos mensuales incluidos y un límite de siete mensajes al día. El plan de pago más barato es Plus, 30 $ al mes por usuario.",
       "limits": [
-        "Generaciones diarias limitadas en plan gratuito",
-        "Enfocado en React/Tailwind (no otros frameworks)",
-        "No open-source",
-        "Requiere registro con cuenta de Vercel/GitHub"
+        "5 $ en créditos incluidos al mes",
+        "7 mensajes al día",
+        "Plan de pago más barato: Plus, 30 $/mes por usuario"
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
-      "creditReset": "none",
-      "verifiedAt": "2026-07-08"
+      "creditsAmount": "5 $/mes en créditos · 7 mensajes/día",
+      "creditReset": "daily",
+      "verifiedAt": "2026-08-21"
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -9975,33 +10243,16 @@
       "trainsOnUserData": "unverified",
       "optOutAvailable": "unverified"
     },
-    "officialUrl": "https://v0.dev",
-    "pricingUrl": "https://v0.dev/pricing",
+    "officialUrl": "https://v0.app/",
+    "pricingUrl": "https://v0.app/pricing",
     "docsUrl": "https://v0.dev/docs",
     "sources": [
       {
-        "url": "https://v0.dev",
-        "label": "Web oficial",
-        "kind": "official",
-        "checkedAt": "2026-07-08"
-      },
-      {
-        "url": "https://v0.dev/pricing",
-        "label": "Página de precios",
+        "url": "https://v0.app/pricing",
+        "label": "Precios oficiales",
         "kind": "pricing",
-        "checkedAt": "2026-07-08"
-      },
-      {
-        "url": "https://v0.dev/docs",
-        "label": "Documentación",
-        "kind": "docs",
-        "checkedAt": "2026-07-08"
-      },
-      {
-        "url": "https://vercel.com",
-        "label": "vercel.com",
-        "kind": "community",
-        "checkedAt": "2026-07-08"
+        "publisher": "v0.app",
+        "checkedAt": "2026-08-21"
       }
     ],
     "scores": {
@@ -10011,7 +10262,7 @@
       "transparency": 5,
       "creatorValue": 7
     },
-    "verdict": "Excelente para desarrolladores frontend React. Las generaciones gratuitas son suficientes para prototipado. El código es de alta calidad.",
+    "verdict": "Los dos límites conviven y el que primero te frena es el diario: siete mensajes se gastan en una tarde de pruebas aunque queden créditos.",
     "pros": [],
     "cons": [
       "Generaciones diarias limitadas en plan gratuito",
@@ -10044,24 +10295,24 @@
     },
     "status": "published",
     "detectedAt": "2023-09-15",
-    "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08",
+    "lastVerifiedAt": "2026-08-21",
+    "updatedAt": "2026-08-21",
     "startEffort": "signup",
     "capabilities": [
       "code-generation",
-      "agents",
       "api"
     ],
     "evidence": {
-      "capabilities": {
-        "sourceUrl": "https://v0.dev",
-        "verifiedAt": "2026-08-12",
-        "quote": "Multi-modal : Combines code generation, web browsing, debugging, and external API interactions · cel Connect GitHub MCP Integrations Pre-installed Agents Slack Ship Deployments Custom domain Sharing Template · Web Plan DB API Deploy LLM Create from your phone Build anywhere with the v"
+      "freePlan": {
+        "sourceUrl": "https://v0.app/pricing",
+        "verifiedAt": "2026-08-21",
+        "quote": "$5 of included monthly credits · 7 message/day limit · Plus: $30/user/month"
       }
     },
-    "startEffortReason": "Requiere cuenta de Vercel para generar y desplegar.",
+    "startEffortReason": "Se describe lo que quieres en el navegador; no hace falta instalar nada.",
     "licences": {},
-    "access": {}
+    "access": {},
+    "productType": "app-builder"
   },
   {
     "secondaryCategories": [

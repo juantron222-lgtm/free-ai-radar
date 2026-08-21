@@ -104,7 +104,19 @@ export function emitSql({ toolRows, categoryRows }) {
     lines.push(`    ${jsonLiteral(payload)}::jsonb) fila))`);
     lines.push(`on conflict (${key}) do update set`);
 
-    const columns = Object.keys(rows[0]).filter((c) => !skip.includes(c));
+    /*
+     * La unión de las claves de todas las filas, no las de la primera.
+     *
+     * `product_type` sólo lo llevan las fichas de /codigo, y la primera del
+     * catálogo por orden alfabético es Adobe Firefly, que no lo tiene. Con
+     * `Object.keys(rows[0])` la columna se caía de la lista de actualización:
+     * la semilla insertaba bien una ficha nueva y, al reaplicarla sobre una que
+     * ya existía, dejaba el valor viejo sin tocar. Un fallo que no rompe nada y
+     * sólo se ve comparando dos espejos.
+     */
+    const columns = [...new Set(rows.flatMap((fila) => Object.keys(fila)))].filter(
+      (c) => !skip.includes(c)
+    );
     lines.push(
       columns.map((c) => `  "${c}" = excluded."${c}"`).join(',\n')
     );

@@ -56,6 +56,7 @@ beforeEach(async () => {
       'supabase/migrations/0011_start_effort_reason.sql',
       'supabase/migrations/0012_licence_layers.sql',
       'supabase/migrations/0013_model_access_and_openness.sql',
+      'supabase/migrations/0014_product_type.sql',
     ] }));
   exec = async (sql, params = []) => (await db.query(sql, params)).rows;
 });
@@ -95,6 +96,38 @@ describe('el fichero versionado', () => {
   });
 });
 
+describe('la lista de columnas que actualiza', () => {
+  /*
+   * Una columna que sólo llevan algunas fichas tiene que estar igualmente en
+   * el `on conflict do update set`.
+   *
+   * `product_type` sólo lo tienen las de /codigo, y la primera ficha del
+   * catálogo por orden alfabético no es una de ellas. Derivar la lista de la
+   * primera fila dejaba la columna fuera: la semilla insertaba bien una ficha
+   * nueva y, al reaplicarla sobre una que ya existía, no actualizaba ese campo.
+   * No rompe nada y no avisa; sólo se ve comparando dos espejos.
+   */
+  it('incluye las columnas que no lleva la primera ficha', async () => {
+    const sql = emitSql(await catalogRows());
+    const actualiza = sql.slice(sql.indexOf('on conflict (id) do update set'));
+
+    const { toolRows } = await catalogRows();
+    const filas = toolRows as Array<Record<string, unknown>>;
+    const primera = new Set(Object.keys(filas[0]!));
+    const todas = new Set<string>(filas.flatMap((fila) => Object.keys(fila)));
+    const soloAlgunas = [...todas].filter(
+      (c) => !primera.has(c) && !['created_at', 'updated_at'].includes(c)
+    );
+
+    expect(soloAlgunas.length, 'el catálogo debe tener alguna columna parcial').toBeGreaterThan(0);
+    for (const columna of soloAlgunas) {
+      expect(actualiza, `"${columna}" no se actualiza al reaplicar la semilla`).toContain(
+        `"${columna}" = excluded."${columna}"`
+      );
+    }
+  });
+});
+
 describe('la semilla SQL de producción', () => {
   it('se aplica sin error sobre un esquema recién migrado', async () => {
     const catalogue = await catalogRows();
@@ -122,6 +155,7 @@ describe('la semilla SQL de producción', () => {
       'supabase/migrations/0011_start_effort_reason.sql',
       'supabase/migrations/0012_licence_layers.sql',
       'supabase/migrations/0013_model_access_and_openness.sql',
+      'supabase/migrations/0014_product_type.sql',
     ],
     });
     const otherExec = async (sql: string, params: unknown[] = []) =>

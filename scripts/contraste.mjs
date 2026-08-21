@@ -44,6 +44,7 @@ const PAGES = [
   '/audio',
   '/agentes',
   '/modelos',
+  '/codigo',
   '/herramientas',
   '/herramientas/krea',
   '/herramientas/comfyui',

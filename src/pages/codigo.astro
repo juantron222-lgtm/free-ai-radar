@@ -1,0 +1,349 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import IntentCard from '@components/catalog/IntentCard.astro';
+import CatalogFilters from '@components/catalog/CatalogFilters.astro';
+import { catalogueOrder, decideFilters } from '@lib/data/category-page';
+import {
+  CANDIDATE_FILTERS,
+  CODE_CAPABILITIES,
+  CODE_TYPE_HINT,
+  CODE_TYPE_LABEL,
+  MIN_BLOQUE,
+  abiertoYLocal,
+  byType,
+  codeTools,
+  codeType,
+  facilesParaEmpezar,
+  freeNow,
+  localControl,
+  type CodeType,
+} from '@lib/data/codigo';
+import { faqSchema, itemListSchema } from '@lib/seo/structured-data';
+import { ROUTES } from '@lib/nav';
+
+/**
+ * Código: cinco productos distintos con las mismas dos palabras.
+ *
+ * La separación que más decide está entre los dos últimos bloques de tipo:
+ * crear una aplicación desde una idea no es trabajar sobre un repositorio que
+ * ya existe. Quien busca una cosa no quiere la otra, y hasta ahora estaban en
+ * la misma lista.
+ */
+
+const tools = codeTools();
+
+const gratis = freeNow(tools);
+const faciles = facilesParaEmpezar(tools);
+const abiertos = abiertoYLocal(tools);
+const { install, technical } = localControl(tools);
+const todas = catalogueOrder(tools);
+
+const decisions = decideFilters(tools, CANDIDATE_FILTERS);
+const filters = decisions.filter((d) => d.shown);
+const hidden = decisions.filter((d) => !d.shown);
+
+/** Los tipos que hoy tienen catálogo suficiente para llevar título propio. */
+const TIPOS: Array<{ id: string; type: CodeType; titulo: string; lede: string }> = [
+  {
+    id: 'agentes',
+    type: 'agent',
+    titulo: 'Agentes que trabajan en tu repositorio',
+    lede: 'Abren tu proyecto, leen los ficheros, cambian lo que haga falta y ejecutan órdenes para comprobar el resultado. Parten de código que ya existe.',
+  },
+  {
+    id: 'terminal',
+    type: 'cli',
+    titulo: 'Terminal',
+    lede: 'Se usan desde la consola, sin editor de por medio. Es la forma más directa de darle una tarea a un agente, y la que menos se interpone.',
+  },
+  {
+    id: 'copilotos',
+    type: 'copilot',
+    titulo: 'Copilotos y autocompletado',
+    lede: 'Viven dentro de tu editor y sugieren mientras escribes. No toman el mando: lo devuelven en cada tecla.',
+  },
+  {
+    id: 'apps',
+    type: 'app-builder',
+    titulo: 'Crea una app desde una idea',
+    lede: 'Parten de una descripción y devuelven algo desplegable. No abren tu repositorio: te dan uno. Es otro encargo, y por eso van aparte.',
+  },
+];
+
+const bloques = TIPOS.map((t) => ({ ...t, lista: byType(tools, t.type) })).filter(
+  (b) => b.lista.length >= MIN_BLOQUE
+);
+
+/** Los tipos que existen en el catálogo, con o sin bloque propio. */
+const leyenda = (['ide', 'copilot', 'agent', 'cli', 'app-builder'] as CodeType[])
+  .map((type) => ({ type, cuantos: byType(tools, type).length }))
+  .filter((t) => t.cuantos > 0);
+
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Código', path: '/codigo' },
+];
+
+const faqs = [
+  {
+    question: '¿Qué herramientas de programación con IA puedo usar gratis?',
+    answer: `${gratis.length} de las ${tools.length} verificadas funcionan hoy con un acceso gratuito que se renueva. Léelas con cuidado: lo que un plan gratuito incluye no siempre es el producto que ibas buscando.`,
+  },
+  {
+    question: '¿El plan gratuito de GitHub Copilot incluye su agente?',
+    answer:
+      'No. Su propia página de planes dice que Copilot Free da 2.000 completados al mes y chat, y excluye expresamente los agentes y el agente de programación, la revisión de código y el modo agente. Que una marca tenga plan gratuito no hace gratis su producto agéntico, y esta es la comprobación que lo demuestra.',
+  },
+  {
+    question: '¿Es lo mismo un constructor de aplicaciones que un agente de código?',
+    answer:
+      'No, y es la distinción que más decide de esta sección. Lovable, Bolt y v0 parten de una descripción y te devuelven una aplicación desplegable. Claude Code, Cline o Codex abren un repositorio que ya existe y lo modifican. Compararlos en la misma lista respondería una pregunta que nadie ha hecho.',
+  },
+  {
+    question: '¿Hay opciones de código abierto que se ejecuten en mi equipo?',
+    answer:
+      abiertos.length > 0
+        ? `Sí: ${abiertos.length} del catálogo tienen licencia OSI y se ejecutan en tu máquina, así que no dependen de la cuota de nadie. El coste es el modelo que les conectes.`
+        : 'Hoy no tenemos ninguna confirmada con licencia OSI y ejecución local.',
+  },
+];
+---
+
+<BaseLayout
+  title={`Programar con IA: ${tools.length} herramientas y qué dan gratis`}
+  description={`Editores, copilotos, agentes, terminales y constructores de aplicaciones, separados por lo que son. ${tools.length} herramientas verificadas contra la documentación oficial de cada fabricante.`}
+  crumbs={crumbs}
+  schemas={[itemListSchema(tools, 'Herramientas de programación con IA'), faqSchema(faqs)]}
+>
+  <div class="page vert">
+    <header class="vert-hero">
+      <h1 class="vert-h1">Programar con IA</h1>
+      <p class="vert-lede">
+        Qué clase de herramienta es cada una, y qué puedes hacer sin pagar.{' '}
+        <span class="vert-lede-method">
+          Un editor, un copiloto, un agente y un constructor de aplicaciones no
+          son lo mismo.
+        </span>
+      </p>
+      <nav class="vert-jump" aria-label="Ir a un bloque">
+        <a href="#gratis">Gratis ahora</a>
+        <a href="#tipos">Qué es cada cosa</a>
+        {bloques.map((b) => <a href={`#${b.id}`}>{b.titulo}</a>)}
+        {faciles.length >= MIN_BLOQUE && <a href="#faciles">Fáciles para empezar</a>}
+        <a href="#local">Local y open source</a>
+        <a href="#todas">Todas</a>
+      </nav>
+    </header>
+
+    <!-- ------------------------------------------------------------------ -->
+    <section class="vert-block" id="gratis" aria-labelledby="gratis-h">
+      <div class="vert-block-head">
+        <h2 class="vert-h2" id="gratis-h">Programa gratis ahora</h2>
+        <p class="vert-block-lede">
+          Acceso gratuito que se renueva. Mira qué incluye: aquí lo gratis no
+          siempre es el producto que ibas buscando.
+        </p>
+      </div>
+      <ul class="vert-grid">
+        {gratis.map((tool) => (
+          <li>
+            <IntentCard
+              tool={tool}
+              capabilityOrder={CODE_CAPABILITIES}
+              typeLabel={codeType(tool) ? CODE_TYPE_LABEL[codeType(tool)!] : undefined}
+              typeHint={codeType(tool) ? CODE_TYPE_HINT[codeType(tool)!] : undefined}
+            />
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- ------------------------------------------------------------------ -->
+    <section class="vert-block" id="tipos" aria-labelledby="tipos-h">
+      <div class="vert-block-head">
+        <h2 class="vert-h2" id="tipos-h">Qué es cada cosa</h2>
+        <p class="vert-block-lede">
+          Todas se anuncian como «programar con IA» y ninguna hace lo mismo que
+          la de al lado. Cada tarjeta lleva su tipo escrito.
+        </p>
+      </div>
+      <dl class="cod-tipos">
+        {leyenda.map((t) => (
+          <div class="cod-tipo">
+            <dt>{CODE_TYPE_LABEL[t.type]}</dt>
+            <dd>
+              {CODE_TYPE_HINT[t.type]}
+              <span class="cod-tipo-n tnum">{t.cuantos}</span>
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    <!-- ------------------------------------------------------------------ -->
+    {bloques.map((bloque) => (
+      <section class="vert-block" id={bloque.id} aria-labelledby={`${bloque.id}-h`}>
+        <div class="vert-block-head">
+          <h2 class="vert-h2" id={`${bloque.id}-h`}>{bloque.titulo}</h2>
+          <p class="vert-block-lede">{bloque.lede}</p>
+        </div>
+        <ul class="vert-grid">
+          {bloque.lista.map((tool) => (
+            <li>
+            <IntentCard
+              tool={tool}
+              capabilityOrder={CODE_CAPABILITIES}
+              typeLabel={codeType(tool) ? CODE_TYPE_LABEL[codeType(tool)!] : undefined}
+              typeHint={codeType(tool) ? CODE_TYPE_HINT[codeType(tool)!] : undefined}
+            />
+          </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+
+    <!-- ------------------------------------------------------------------ -->
+    {faciles.length >= MIN_BLOQUE && (
+      <section class="vert-block" id="faciles" aria-labelledby="faciles-h">
+        <div class="vert-block-head">
+          <h2 class="vert-h2" id="faciles-h">Fáciles para empezar</h2>
+          <p class="vert-block-lede">
+            Funcionan en el navegador o con una cuenta: sin entorno que preparar
+            ni claves que conseguir.
+          </p>
+        </div>
+        <ul class="vert-grid">
+          {faciles.map((tool) => (
+            <li>
+            <IntentCard
+              tool={tool}
+              capabilityOrder={CODE_CAPABILITIES}
+              typeLabel={codeType(tool) ? CODE_TYPE_LABEL[codeType(tool)!] : undefined}
+              typeHint={codeType(tool) ? CODE_TYPE_HINT[codeType(tool)!] : undefined}
+            />
+          </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <!-- ------------------------------------------------------------------ -->
+    <section class="vert-block" id="local" aria-labelledby="local-h">
+      <div class="vert-block-head">
+        <h2 class="vert-h2" id="local-h">Local y open source</h2>
+        <p class="vert-block-lede">
+          Se ejecutan en tu equipo y no dependen de la cuota de nadie. El coste
+          se traslada al modelo que les conectes, que es una factura distinta.
+        </p>
+      </div>
+
+      {install.length > 0 && (
+        <div class="vert-sub">
+          <h3 class="vert-h3">Se instalan y ya</h3>
+          <ul class="vert-grid">
+            {install.map((tool) => (
+              <li>
+              <IntentCard
+                tool={tool}
+                headingLevel="h4"
+                capabilityOrder={CODE_CAPABILITIES}
+                typeLabel={codeType(tool) ? CODE_TYPE_LABEL[codeType(tool)!] : undefined}
+                typeHint={codeType(tool) ? CODE_TYPE_HINT[codeType(tool)!] : undefined}
+              />
+            </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {technical.length > 0 && (
+        <div class="vert-sub">
+          <h3 class="vert-h3">Configuración técnica</h3>
+          <p class="vert-sub-lede">
+            Entorno de Python o Node, y una clave de API del modelo que vayan a
+            usar.
+          </p>
+          <ul class="vert-grid">
+            {technical.map((tool) => (
+              <li>
+              <IntentCard
+                tool={tool}
+                headingLevel="h4"
+                capabilityOrder={CODE_CAPABILITIES}
+                typeLabel={codeType(tool) ? CODE_TYPE_LABEL[codeType(tool)!] : undefined}
+                typeHint={codeType(tool) ? CODE_TYPE_HINT[codeType(tool)!] : undefined}
+              />
+            </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </section>
+
+    <!-- ------------------------------------------------------------------ -->
+    <section class="vert-block" id="todas" aria-labelledby="todas-h">
+      <div class="vert-block-head">
+        <h2 class="vert-h2" id="todas-h">Todas las herramientas</h2>
+        <p class="vert-block-lede">
+          Las {tools.length} verificadas, con filtros que se combinan. El primero
+          es el tipo, porque es lo primero que hay que decidir.
+        </p>
+      </div>
+
+      <CatalogFilters
+        tools={todas}
+        shown={filters}
+        hidden={hidden}
+        capabilityOrder={CODE_CAPABILITIES}
+        noun="herramientas"
+      />
+    </section>
+
+    <p class="vert-tail">
+      ¿Falta alguna, o hay un dato que ya no es cierto?
+      <a href={ROUTES.submit}>Cuéntanoslo</a> — cada ficha lleva la fecha en que se
+      comprobó y el enlace a la página que lo dice.
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  /*
+   * La leyenda, igual que en /agentes: definiciones, no tarjetas.
+   *
+   * Si se parecieran a las tarjetas de abajo competirían con ellas, y lo que
+   * hacen es lo contrario — explicar cómo leerlas.
+   */
+  .cod-tipos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: var(--space-xs);
+    margin: 0;
+  }
+
+  .cod-tipo {
+    padding: var(--space-2xs) var(--space-xs);
+    border-inline-start: 2px solid var(--line);
+  }
+
+  .cod-tipo dt {
+    font-weight: 650;
+    font-size: 0.9375rem;
+  }
+
+  .cod-tipo dd {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+    margin: 0.15rem 0 0;
+    color: var(--ink-muted);
+    font-size: 0.875rem;
+  }
+
+  .cod-tipo-n {
+    flex: none;
+    color: var(--ink-subtle);
+    font-weight: 650;
+  }
+</style>

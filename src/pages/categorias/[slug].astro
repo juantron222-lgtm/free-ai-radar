@@ -19,7 +19,7 @@ export function getStaticPaths() {
    * error que da es «CON_PAGINA_PROPIA is not defined» durante el prerenderizado
    * y no menciona nada de esto.
    */
-  const conPaginaPropia = new Set(['imagen', 'video', 'musica', 'voz', 'modelos']);
+  const conPaginaPropia = new Set(['imagen', 'video', 'musica', 'voz', 'modelos', 'codigo']);
 
   return getPopulatedCategories()
     .filter((category) => !conPaginaPropia.has(category.slug))

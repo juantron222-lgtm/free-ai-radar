@@ -40,6 +40,7 @@ const CATEGORIAS = [
   { ruta: '/audio', bloque: /usar gratis ahora/i },
   { ruta: '/agentes', bloque: /probar un agente gratis/i },
   { ruta: '/modelos', bloque: /usar gratis ahora/i },
+  { ruta: '/codigo', bloque: /programa gratis ahora/i },
 ];
 
 /*

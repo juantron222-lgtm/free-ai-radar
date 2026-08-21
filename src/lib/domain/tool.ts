@@ -211,6 +211,20 @@ export const ToolRecord = z.object({
    */
   startEffortReason: z.string().max(160).default(''),
 
+  /**
+   * Qué clase de producto es, cuando la vertical necesita distinguirlo.
+   *
+   * Opcional a propósito: la mayoría de las fichas no lo necesitan. En /codigo
+   * sí, porque allí un editor, un autocompletado, un agente, una herramienta de
+   * terminal y un constructor de aplicaciones son cinco cosas distintas que se
+   * anuncian con las mismas dos palabras. Y no se puede inferir de las
+   * capacidades: Cursor y Cline editan repositorios y usan la terminal
+   * exactamente igual.
+   */
+  productType: z
+    .enum(['ide', 'copilot', 'agent', 'cli', 'review', 'app-builder', 'platform', 'library'])
+    .optional(),
+
   openSource: Openness.default('unverified'),
 
   /**
