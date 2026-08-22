@@ -58,7 +58,6 @@ function unverifiedCount(tool: (typeof tools)[number]): number {
           <th scope="col">Herramienta</th>
           <th scope="col">Categoría</th>
           <th scope="col">Modelo</th>
-          <th scope="col">Punt.</th>
           <th scope="col">Sin verificar</th>
           <th scope="col">Verificada</th>
           <th scope="col">Estado</th>
@@ -79,7 +78,6 @@ function unverifiedCount(tool: (typeof tools)[number]): number {
               </th>
               <td>{getCategory(tool.categorySlug)?.name}</td>
               <td>{getFreeModel(tool.freeModel).label}</td>
-              <td class="tnum">{tool.scoreTotal}</td>
               <td class="tnum">
                 {unverified > 0 ? <span class="warn-num">{unverified}</span> : '—'}
               </td>

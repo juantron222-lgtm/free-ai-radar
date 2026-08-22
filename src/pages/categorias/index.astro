@@ -8,7 +8,6 @@ const categories = getPopulatedCategories().map((category) => {
   return {
     ...category,
     noCard: tools.filter((t) => t.freePlan.requiresCreditCard === 'no').length,
-    best: tools[0],
   };
 });
 
@@ -43,7 +42,6 @@ const crumbs = [
             <p class="cat-card-intro">{category.intro}</p>
             <p class="cat-card-meta tnum">
               {category.noCard} sin tarjeta
-              {category.best && <> · mejor valorada: {category.best.name} ({category.best.scoreTotal})</>}
             </p>
           </a>
         </li>

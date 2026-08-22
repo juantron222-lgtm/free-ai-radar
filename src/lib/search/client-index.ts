@@ -28,7 +28,6 @@ export function buildClientIndex(
     hosting: tool.hosting,
     startEffort: tool.startEffort,
     openSource: tool.openSource,
-    scoreTotal: tool.scoreTotal,
     freshness: tool.freshness,
     detectedAt: tool.detectedAt,
     lastVerifiedAt: tool.lastVerifiedAt,
@@ -65,6 +64,5 @@ export function docsFromIndex(entries: readonly ClientIndexEntry[]) {
       category: entry.f[4],
       description: entry.f[5],
     },
-    score: entry.scoreTotal,
   }));
 }

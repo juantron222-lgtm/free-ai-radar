@@ -7,7 +7,7 @@
  * dos rutas con el mismo contenido compiten entre sí y reparten los enlaces
  * entrantes. Las viejas `/categorias/<slug>` siguen redirigiendo con un 301.
  */
-const RUTA_PROPIA = new Set(['imagen', 'video', 'modelos', 'codigo']);
+const RUTA_PROPIA = new Set(['imagen', 'video', 'modelos', 'codigo', 'agentes']);
 
 /**
  * Dos categorías técnicas, una sola página.
@@ -17,6 +17,18 @@ const RUTA_PROPIA = new Set(['imagen', 'video', 'modelos', 'codigo']);
  * «audio». Las dos apuntan a /audio.
  */
 const RUTA_UNIFICADA: Record<string, string> = { musica: '/audio', voz: '/audio' };
+
+/*
+ * Y con la ruta cambia el rótulo.
+ *
+ * La miga de Suno decía «Música IA» y aterrizaba en una página cuyo título es
+ * «IA para audio». La ruta estaba bien y el nombre se había quedado en la
+ * categoría técnica, que es la que ya no se enseña.
+ */
+const NOMBRE_UNIFICADO: Record<string, string> = { musica: 'Audio IA', voz: 'Audio IA' };
+
+export const categoryLabel = (slug: string, fallback: string): string =>
+  NOMBRE_UNIFICADO[slug] ?? fallback;
 
 export const ROUTES = {
   home: '/',
@@ -86,13 +98,35 @@ export interface NavItem {
  * "Últimas noticias" replaces the old "Cambios": what the reader wants is what
  * changed in the *tools*, dated and sourced, not this site's own release log.
  */
+/**
+ * Las seis verticales, en orden editorial y no por tamaño.
+ *
+ * Existen como lista propia porque son la forma principal de recorrer el
+ * catálogo y aparecen en tres sitios: la cabecera, el menú móvil y la portada.
+ * Tenerlas en un único array evita que se queden desincronizadas, que es
+ * justo lo que pasaba: cuatro de las seis no estaban en ninguna navegación.
+ */
+export const VERTICALS: readonly NavItem[] = [
+  { label: 'Imagen', href: '/imagen', description: 'Generar y editar imágenes' },
+  { label: 'Vídeo', href: '/video', description: 'Generar vídeo y animar imágenes' },
+  { label: 'Audio', href: '/audio', description: 'Música, voz, clonación y transcripción' },
+  { label: 'Modelos', href: ROUTES.models, description: 'Modelos de lenguaje y multimodales' },
+  { label: 'Agentes', href: ROUTES.agents, description: 'Agentes y plataformas para construirlos' },
+  { label: 'Código', href: '/codigo', description: 'Editores, copilotos, agentes y terminales' },
+];
+
+/*
+ * La cabecera lleva las seis verticales.
+ *
+ * Antes llevaba dos —Modelos y Agentes— y las otras cuatro no estaban ni aquí
+ * ni en el pie: se habían construido seis secciones y sólo se podía llegar a
+ * dos navegando. «Últimas noticias» y «Metodología» bajan al pie, donde ya
+ * estaban, porque el catálogo es lo que la gente viene a recorrer.
+ */
 export const PRIMARY_NAV: readonly NavItem[] = [
   { label: 'Herramientas', href: ROUTES.tools, description: 'El catálogo completo, con filtros' },
-  { label: 'Modelos', href: ROUTES.models, description: 'Modelos de lenguaje y multimodales' },
-  { label: 'Agentes', href: ROUTES.agents, description: 'Agentes y frameworks para construirlos' },
+  ...VERTICALS,
   { label: 'Comparar', href: ROUTES.compare, description: 'Enfrenta hasta cuatro herramientas' },
-  { label: 'Últimas noticias', href: ROUTES.news, description: 'Qué ha cambiado, con fuente y fecha' },
-  { label: 'Metodología', href: ROUTES.methodology, description: 'Cómo puntuamos' },
 ];
 
 export const FOOTER_NAV: ReadonlyArray<{ title: string; items: NavItem[] }> = [
@@ -100,8 +134,7 @@ export const FOOTER_NAV: ReadonlyArray<{ title: string; items: NavItem[] }> = [
     title: 'Descubrir',
     items: [
       { label: 'Todas las herramientas', href: ROUTES.tools },
-      { label: 'Modelos', href: ROUTES.models },
-      { label: 'Agentes', href: ROUTES.agents },
+      ...VERTICALS.map((v) => ({ label: v.label, href: v.href })),
       { label: 'Categorías', href: ROUTES.categories },
       { label: 'Colecciones', href: ROUTES.collections },
       { label: 'Comparador', href: ROUTES.compare },
@@ -112,6 +145,7 @@ export const FOOTER_NAV: ReadonlyArray<{ title: string; items: NavItem[] }> = [
     title: 'Transparencia',
     items: [
       { label: 'Metodología', href: ROUTES.methodology },
+      { label: 'Últimas noticias', href: ROUTES.news },
       { label: 'Política editorial', href: ROUTES.editorialPolicy },
       { label: 'Afiliados', href: ROUTES.affiliates },
       { label: 'Publicidad y patrocinios', href: ROUTES.advertising },

@@ -8,6 +8,7 @@ import {
   parseFilters,
   serializeFilters,
   sortTools,
+  DEFAULT_SORT,
 } from '@lib/search/filters';
 import { makeTool } from '../fixtures/tool';
 
@@ -81,21 +82,25 @@ describe('parseFilters / serializeFilters', () => {
       freeModels: ['free_real' as const],
       noCard: true,
       commercial: true,
-      minScore: 60,
-      sort: 'verified' as const,
+      sort: 'name' as const,
     };
 
     expect(parseFilters(serializeFilters(state))).toEqual(state);
   });
 
   it('ignora un orden desconocido y cae al de por defecto', () => {
-    expect(parseFilters('sort=inventado').sort).toBe('score');
+    expect(parseFilters('sort=inventado').sort).toBe(DEFAULT_SORT);
   });
 
-  it('limita la puntuación mínima al rango válido', () => {
-    expect(parseFilters('min=500').minScore).toBe(100);
-    expect(parseFilters('min=-20').minScore).toBe(0);
-    expect(parseFilters('min=abc').minScore).toBe(0);
+  it('«min» ya no significa nada y no reaparece en la URL', () => {
+    /*
+     * El filtro de puntuación mínima se retiró con la nota sobre 100. Un
+     * enlace viejo con `?min=80` tiene que seguir funcionando: se ignora y no
+     * vuelve a serializarse.
+     */
+    const estado = parseFilters('min=80&nocard=1');
+    expect(estado.noCard).toBe(true);
+    expect(serializeFilters(estado)).not.toContain('min=');
   });
 
   it('recorta una consulta desmesurada', () => {
@@ -137,11 +142,6 @@ describe('applyFilters', () => {
     expect(result.map((t) => t.slug)).toEqual(['local-oss']);
   });
 
-  it('filtra por puntuación mínima', () => {
-    const result = applyFilters(tools, { ...EMPTY_FILTERS, minScore: 80 });
-    expect(result.every((tool) => tool.scoreTotal >= 80)).toBe(true);
-  });
-
   it('filtra por open source verificado', () => {
     const result = applyFilters(tools, { ...EMPTY_FILTERS, openSource: true });
     expect(result.map((t) => t.slug)).toEqual(['local-oss']);
@@ -175,10 +175,10 @@ describe('applyFilters', () => {
 });
 
 describe('sortTools', () => {
-  it('ordena por puntuación descendente', () => {
-    const sorted = sortTools([...tools], 'score');
+  it('el orden por defecto es el de verificación, no una nota', () => {
+    const sorted = sortTools([...tools], DEFAULT_SORT);
     for (let i = 1; i < sorted.length; i++) {
-      expect(sorted[i - 1]!.scoreTotal).toBeGreaterThanOrEqual(sorted[i]!.scoreTotal);
+      expect(sorted[i - 1]!.lastVerifiedAt >= sorted[i]!.lastVerifiedAt).toBe(true);
     }
   });
 
@@ -202,9 +202,8 @@ describe('countActiveFilters', () => {
         q: 'algo',
         categories: ['imagen', 'video'],
         noCard: true,
-        minScore: 50,
       })
-    ).toBe(5);
+    ).toBe(4);
   });
 });
 

@@ -19,7 +19,6 @@ export interface FilterableTool {
   hosting: Hosting;
   startEffort: StartEffort;
   openSource: Openness;
-  scoreTotal: number;
   freshness: Freshness;
   detectedAt: string;
   lastVerifiedAt: string;
@@ -63,14 +62,22 @@ export interface FilterState {
   commercial: boolean;
   openSource: boolean;
   verifiedRecently: boolean;
-  minScore: number;
   sort: SortKey;
 }
 
-export type SortKey = 'score' | 'recent' | 'verified' | 'name';
+export type SortKey = 'recent' | 'verified' | 'name';
 
+/** El orden con el que se ve el catálogo la primera vez. */
+export const DEFAULT_SORT: SortKey = 'verified';
+
+/*
+ * Cuatro formas de ordenar, y ninguna insinúa una nota.
+ *
+ * Aquí estaba «Mejor puntuación» como opción por defecto, junto a un filtro de
+ * puntuación mínima. La nota sobre 100 se había retirado de la vista y seguía
+ * siendo el orden con el que todo el mundo veía el catálogo por primera vez.
+ */
 export const SORT_OPTIONS: ReadonlyArray<{ key: SortKey; label: string }> = [
-  { key: 'score', label: 'Mejor puntuación' },
   { key: 'verified', label: 'Verificadas hace menos' },
   { key: 'recent', label: 'Añadidas hace menos' },
   { key: 'name', label: 'Alfabético' },
@@ -89,8 +96,7 @@ export const EMPTY_FILTERS: FilterState = {
   commercial: false,
   openSource: false,
   verifiedRecently: false,
-  minScore: 0,
-  sort: 'score',
+  sort: DEFAULT_SORT,
 };
 
 const LIST_SEPARATOR = ',';
@@ -108,8 +114,7 @@ function readFlag(params: URLSearchParams, key: string): boolean {
 export function parseFilters(input: URLSearchParams | string): FilterState {
   const params = typeof input === 'string' ? new URLSearchParams(input) : input;
   const sortRaw = params.get('sort');
-  const sort = SORT_OPTIONS.some((o) => o.key === sortRaw) ? (sortRaw as SortKey) : 'score';
-  const minScore = Number.parseInt(params.get('min') ?? '', 10);
+  const sort = SORT_OPTIONS.some((o) => o.key === sortRaw) ? (sortRaw as SortKey) : DEFAULT_SORT;
 
   return {
     q: (params.get('q') ?? '').trim().slice(0, 100),
@@ -124,7 +129,6 @@ export function parseFilters(input: URLSearchParams | string): FilterState {
     commercial: readFlag(params, 'comm'),
     openSource: readFlag(params, 'oss'),
     verifiedRecently: readFlag(params, 'fresh'),
-    minScore: Number.isFinite(minScore) ? Math.min(100, Math.max(0, minScore)) : 0,
     sort,
   };
 }
@@ -144,8 +148,7 @@ export function serializeFilters(state: FilterState): string {
   if (state.commercial) params.set('comm', '1');
   if (state.openSource) params.set('oss', '1');
   if (state.verifiedRecently) params.set('fresh', '1');
-  if (state.minScore > 0) params.set('min', String(state.minScore));
-  if (state.sort !== 'score') params.set('sort', state.sort);
+  if (state.sort !== DEFAULT_SORT) params.set('sort', state.sort);
   return params.toString();
 }
 
@@ -167,7 +170,7 @@ export function countActiveFilters(state: FilterState): number {
     (state.commercial ? 1 : 0) +
     (state.openSource ? 1 : 0) +
     (state.verifiedRecently ? 1 : 0) +
-    (state.minScore > 0 ? 1 : 0)
+    0
   );
 }
 
@@ -205,7 +208,6 @@ export function applyFilters<T extends FilterableTool>(
     if (state.commercial && tool.freePlan.commercialUse !== 'yes') return false;
     if (state.openSource && tool.openSource !== 'yes') return false;
     if (state.verifiedRecently && tool.freshness !== 'fresh') return false;
-    if (state.minScore > 0 && tool.scoreTotal < state.minScore) return false;
 
     return true;
   });
@@ -220,16 +222,12 @@ export function sortTools<T extends FilterableTool>(tools: T[], sort: SortKey): 
       return sorted.sort((a, b) => a.name.localeCompare(b.name, 'es'));
     case 'recent':
       return sorted.sort(
-        (a, b) => b.detectedAt.localeCompare(a.detectedAt) || b.scoreTotal - a.scoreTotal
+        (a, b) => b.detectedAt.localeCompare(a.detectedAt) || a.name.localeCompare(b.name, 'es')
       );
     case 'verified':
-      return sorted.sort(
-        (a, b) => b.lastVerifiedAt.localeCompare(a.lastVerifiedAt) || b.scoreTotal - a.scoreTotal
-      );
-    case 'score':
     default:
       return sorted.sort(
-        (a, b) => b.scoreTotal - a.scoreTotal || a.name.localeCompare(b.name, 'es')
+        (a, b) => b.lastVerifiedAt.localeCompare(a.lastVerifiedAt) || a.name.localeCompare(b.name, 'es')
       );
   }
 }

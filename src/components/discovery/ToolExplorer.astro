@@ -181,8 +181,6 @@ const index = buildClientIndex(tools, (slug) => getCategory(slug)?.name ?? slug)
   const searchInput = document.getElementById('q') as HTMLInputElement;
   const searchClear = document.getElementById('search-clear') as HTMLButtonElement;
   const suggestionsEl = document.getElementById('search-suggestions') as HTMLUListElement;
-  const minRange = document.getElementById('min') as HTMLInputElement;
-  const minOutput = document.getElementById('min-output')!;
   const sortSelect = document.getElementById('sort') as HTMLSelectElement;
   const moreDetails = document.getElementById('filters-more') as HTMLDetailsElement;
 
@@ -198,7 +196,7 @@ const index = buildClientIndex(tools, (slug) => getCategory(slug)?.name ?? slug)
     for (const [key, value] of data.entries()) {
       const v = String(value);
       if (!v) continue;
-      if (key === 'q' || key === 'sort' || key === 'min') {
+      if (key === 'q' || key === 'sort') {
         params.set(key, v);
       } else if (['nocard', 'nosignup', 'nowm', 'comm', 'oss', 'fresh'].includes(key)) {
         params.set(key, '1');
@@ -213,7 +211,6 @@ const index = buildClientIndex(tools, (slug) => getCategory(slug)?.name ?? slug)
   function writeStateToForm(state: FilterState) {
     searchInput.value = state.q;
     sortSelect.value = state.sort;
-    minRange.value = String(state.minScore);
 
     const listValues: Record<string, string[]> = {
       cat: state.categories,
@@ -273,12 +270,6 @@ const index = buildClientIndex(tools, (slug) => getCategory(slug)?.name ?? slug)
       }
     }
 
-    if (state.minScore > 0) {
-      const relaxed = { ...state, minScore: 0 };
-      if (applyFilters(entries, relaxed).length > 0) {
-        return { key: 'min', label: `puntuación mínima ${state.minScore}`, next: relaxed };
-      }
-    }
     return null;
   }
 
@@ -334,7 +325,6 @@ const index = buildClientIndex(tools, (slug) => getCategory(slug)?.name ?? slug)
       }
     }
 
-    minOutput.textContent = state.minScore > 0 ? `${state.minScore} o más` : 'Cualquiera';
 
     const query = serializeFilters(state);
     const url = query ? `${location.pathname}?${query}` : location.pathname;
@@ -471,11 +461,6 @@ const index = buildClientIndex(tools, (slug) => getCategory(slug)?.name ?? slug)
     closeSuggestions();
     rememberSearch(searchInput.value);
     commit(readStateFromForm());
-  });
-
-  minRange.addEventListener('input', () => {
-    const value = Number(minRange.value);
-    minOutput.textContent = value > 0 ? `${value} o más` : 'Cualquiera';
   });
 
   searchInput.addEventListener('input', () => {

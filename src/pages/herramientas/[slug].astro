@@ -21,7 +21,7 @@ import {
 } from '@lib/domain/taxonomy';
 import { OPENNESS_LABEL, TRI_STATE_LABEL } from '@lib/domain/primitives';
 import { VERIFICATION_LABEL, type ToolRecord } from '@lib/domain/tool';
-import { ROUTES } from '@lib/nav';
+import { ROUTES, categoryLabel } from '@lib/nav';
 
 export function getStaticPaths() {
   return getAllTools().map((tool) => ({ params: { slug: tool.slug }, props: { tool } }));
@@ -35,7 +35,7 @@ const alternatives = getAlternativesFor(tool);
 const crumbs = [
   { name: 'Inicio', path: ROUTES.home },
   { name: 'Herramientas', path: ROUTES.tools },
-  { name: category.name, path: ROUTES.category(category.slug) },
+  { name: categoryLabel(category.slug, category.name), path: ROUTES.category(category.slug) },
   { name: tool.name, path: ROUTES.tool(tool.slug) },
 ];
 

@@ -50,7 +50,20 @@ function loadTools(): Tool[] {
       return hydrateTool(record);
     });
 
-  return tools.sort((a, b) => b.scoreTotal - a.scoreTotal || a.name.localeCompare(b.name, 'es'));
+  /*
+   * Orden alfabético, que es el único neutral.
+   *
+   * Aquí estaba `b.scoreTotal - a.scoreTotal`, y de ahí salía todo: las seis
+   * destacadas de la portada, el orden por defecto del explorador y el de
+   * cualquier lista que no reordenara. La nota sobre 100 se había quitado de
+   * la vista hacía semanas y seguía decidiendo qué se ve primero, que es la
+   * parte que de verdad importaba.
+   *
+   * Lo alfabético no insinúa nada. Cada página que quiera un orden con
+   * criterio lo aplica y lo explica: las verticales tienen el suyo, y la
+   * portada ahora enseña lo verificado hace menos.
+   */
+  return tools.sort((a, b) => a.name.localeCompare(b.name, 'es'));
 }
 
 const TOOLS: readonly Tool[] = Object.freeze(loadTools());

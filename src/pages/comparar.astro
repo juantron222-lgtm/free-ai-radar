@@ -1,12 +1,13 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import ScoreBadge from '@components/tools/ScoreBadge.astro';
 import { getAllTools, getTool } from '@lib/data/catalog';
 import { OPENNESS_LABEL, TRI_STATE_LABEL } from '@lib/domain/primitives';
 import {
   CREDIT_RESET_LABEL,
   HOSTING_LABEL,
   START_EFFORT_LABEL,
+  CAPABILITY_LABEL,
+  PRODUCT_TYPE_LABEL,
   getCategory,
   getFreeModel,
 } from '@lib/domain/taxonomy';
@@ -40,7 +41,7 @@ const title = hasComparison
   : 'Comparador de herramientas de IA gratuitas';
 
 const description = hasComparison
-  ? `Comparativa lado a lado de ${tools.map((t) => t.name).join(', ')}: límites del plan gratuito, tarjeta, marca de agua, uso comercial, privacidad y puntuación.`
+  ? `Comparativa lado a lado de ${tools.map((t) => t.name).join(', ')}: límites del plan gratuito, tarjeta, marca de agua, uso comercial, licencia y privacidad.`
   : 'Enfrenta hasta cuatro herramientas de IA y compara sus planes gratuitos condición por condición: tarjeta, marca de agua, uso comercial, licencia y privacidad.';
 
 /**
@@ -59,8 +60,35 @@ interface Row {
 }
 
 const ROWS: Row[] = [
-  { label: 'Puntuación', kind: 'fact', values: (t) => String(t.scoreTotal) },
   { label: 'Modelo de gratuidad', kind: 'fact', values: (t) => getFreeModel(t.freeModel).label },
+  /*
+   * Lo que sustituye a la nota.
+   *
+   * Aquí había una fila «Puntuación» con el número sobre 100, y encima de la
+   * tabla un párrafo que nombraba un ganador. Comparar no es decidir por
+   * alguien: es poner los mismos hechos en las mismas filas. Estas tres son
+   * los hechos que el catálogo reconstruido sabe y la tabla no enseñaba.
+   */
+  {
+    label: 'Qué clase de producto es',
+    kind: 'fact',
+    values: (t) => (t.productType && PRODUCT_TYPE_LABEL[t.productType]) ?? '—',
+  },
+  {
+    label: 'Por dónde se accede',
+    kind: 'list',
+    values: (t) =>
+      [
+        t.access.chat === 'yes' ? (t.access.chatFree === 'yes' ? 'En un chat, gratis' : 'En un chat') : null,
+        t.access.api === 'yes' ? (t.access.apiFree === 'yes' ? 'Por API, con capa gratuita' : 'Por API') : null,
+        t.access.weights === 'yes' ? 'Pesos descargables' : null,
+      ].filter((v): v is string => v !== null),
+  },
+  {
+    label: 'Qué sabe hacer',
+    kind: 'list',
+    values: (t) => t.capabilities.map((c) => CAPABILITY_LABEL[c]),
+  },
   { label: 'Categoría', kind: 'fact', values: (t) => getCategory(t.categorySlug)?.name ?? '—' },
   {
     label: '¿Pide tarjeta?',
@@ -122,9 +150,6 @@ const ROWS: Row[] = [
   },
 ];
 
-const winner = hasComparison
-  ? tools.reduce((best, tool) => (tool.scoreTotal > best.scoreTotal ? tool : best), tools[0]!)
-  : undefined;
 ---
 
 <BaseLayout
@@ -141,7 +166,7 @@ const winner = hasComparison
       </h1>
       <p class="compare-lede">
         {hasComparison
-          ? 'Los mismos datos verificados para todas, en las mismas filas. Sin ganadores prefabricados: la puntuación sale de la fórmula pública.'
+          ? 'Los mismos datos verificados para todas, en las mismas filas. Sin ganadores prefabricados y sin nota: la fila que decide es la que a ti te importe.'
           : 'Elige entre dos y cuatro herramientas y las enfrentamos condición por condición. La URL resultante se puede compartir.'}
       </p>
     </header>
@@ -154,14 +179,6 @@ const winner = hasComparison
 
     {hasComparison ? (
       <>
-        {winner && (
-          <p class="compare-winner">
-            <strong>{winner.name}</strong> obtiene la puntuación más alta ({winner.scoreTotal}/100)
-            de las {tools.length} comparadas. Eso no la hace mejor para ti: mira la fila que más te
-            importe.
-          </p>
-        )}
-
         <div class="table-scroll compare-scroll">
           <table class="data-table compare-table">
             <caption class="sr-only">
@@ -173,7 +190,6 @@ const winner = hasComparison
                 {tools.map((tool) => (
                   <th scope="col">
                     <a href={ROUTES.tool(tool.slug)} class="compare-tool-name">{tool.name}</a>
-                    <ScoreBadge score={tool.scoreTotal} size="sm" />
                   </th>
                 ))}
               </tr>

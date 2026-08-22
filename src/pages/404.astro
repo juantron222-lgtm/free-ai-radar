@@ -3,7 +3,9 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import { getAllTools, getPopulatedCategories } from '@lib/data/catalog';
 import { ROUTES } from '@lib/nav';
 
-const popular = getAllTools().slice(0, 5);
+const popular = [...getAllTools()]
+  .sort((a, b) => b.lastVerifiedAt.localeCompare(a.lastVerifiedAt) || a.name.localeCompare(b.name, 'es'))
+  .slice(0, 5);
 const categories = getPopulatedCategories().slice(0, 6);
 ---
 
@@ -28,12 +30,11 @@ const categories = getPopulatedCategories().slice(0, 6);
 
     <div class="notfound-cols">
       <section aria-labelledby="nf-popular">
-        <h2 id="nf-popular" class="notfound-h2">Las mejor valoradas</h2>
+        <h2 id="nf-popular" class="notfound-h2">Comprobadas hace menos</h2>
         <ul>
           {popular.map((tool) => (
             <li>
               <a href={ROUTES.tool(tool.slug)}>{tool.name}</a>
-              <span class="tnum">{tool.scoreTotal}</span>
             </li>
           ))}
         </ul>

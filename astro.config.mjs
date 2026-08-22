@@ -55,6 +55,7 @@ export default defineConfig({
     '/categorias/video': { status: 301, destination: '/video' },
     // Música y voz se unifican en una sola experiencia. Las dos viejas
     // conservan sus enlaces entrantes apuntando al mismo sitio.
+    '/categorias/agentes': { status: 301, destination: '/agentes' },
     '/categorias/musica': { status: 301, destination: '/audio' },
     '/categorias/voz': { status: 301, destination: '/audio' },
   },

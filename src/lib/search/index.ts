@@ -25,7 +25,6 @@ export interface SearchDoc {
     category: string;
     description: string;
   };
-  score: number;
 }
 
 export interface SearchHit {
@@ -87,7 +86,6 @@ export function buildSearchDocs(
       category: tool.categorySlug,
       haystack: Object.values(fields).join(' '),
       fields,
-      score: tool.scoreTotal,
     };
   });
 }
@@ -190,9 +188,14 @@ export function search(
     const coverage = matchedTerms / terms.length;
     if (coverage < 0.5) continue;
 
-    // Editorial score is a mild tie-breaker only — never enough to outrank
-    // relevance, so a low-scoring tool still surfaces when you search its name.
-    const finalScore = total * coverage + doc.score / 1000;
+    /*
+     * Sólo relevancia.
+     *
+     * Aquí se sumaba `doc.score / 1000`, que metía la nota sobre 100 como
+     * desempate. Pesaba poco y no lo decía nadie: la peor combinación posible,
+     * porque nadie podía notarlo y sin embargo ordenaba.
+     */
+    const finalScore = total * coverage;
 
     if (finalScore < minScore) continue;
     hits.push({ slug: doc.slug, score: finalScore, matchedOn: bestField });

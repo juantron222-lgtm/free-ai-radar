@@ -9,13 +9,57 @@ import {
   getCatalogChanges,
   getPopulatedCategories,
   getRecentlyAdded,
+  getToolsByCategory,
 } from '@lib/data/catalog';
 import { itemListSchema } from '@lib/seo/structured-data';
-import { ROUTES } from '@lib/nav';
+import { ROUTES, VERTICALS } from '@lib/nav';
 
 const stats = getCatalogStats();
-const categories = getPopulatedCategories().slice(0, 8);
-const topTools = getAllTools().slice(0, 6);
+
+/*
+ * La rejilla la encabezan las seis verticales, en orden editorial.
+ *
+ * Antes salían las ocho categorías con más fichas, ordenadas por tamaño, y el
+ * resultado contaba mal la historia: «Modelos open-source» aparecía como
+ * recomendación principal compitiendo con /modelos, `/audio` no salía porque
+ * `musica` y `voz` son pequeñas por separado, y «Agentes IA» llevaba a la
+ * página de categoría en vez de a la vertical.
+ *
+ * El tamaño no es un criterio editorial: las seis secciones son la forma de
+ * recorrer el catálogo, y las categorías técnicas siguen a un clic en
+ * /categorias.
+ */
+const SLUGS_VERTICALES: Record<string, readonly string[]> = {
+  '/imagen': ['imagen'],
+  '/video': ['video'],
+  '/audio': ['musica', 'voz'],
+  '/modelos': ['modelos'],
+  '/agentes': ['agentes'],
+  '/codigo': ['codigo'],
+};
+
+const verticales = VERTICALS.map((v) => {
+  const slugs = SLUGS_VERTICALES[v.href] ?? [];
+  const unicas = new Set(slugs.flatMap((s) => getToolsByCategory(s).map((tool) => tool.slug)));
+  return { name: v.label, href: v.href, count: unicas.size };
+});
+
+/** Las categorías técnicas que quedan, sin repetir lo que ya es vertical. */
+const YA_CUBIERTAS = new Set(Object.values(SLUGS_VERTICALES).flat());
+const categorias = getPopulatedCategories()
+  .filter((c) => !YA_CUBIERTAS.has(c.slug))
+  .slice(0, 4);
+/*
+ * Lo comprobado hace menos, no lo mejor puntuado.
+ *
+ * Aquí ponía `getAllTools().slice(0, 6)`, y como el catálogo venía ordenado
+ * por la nota sobre 100, estas seis eran literalmente el top-6 de una
+ * puntuación que ya no publicamos. El criterio de ahora se puede leer en el
+ * propio titular: son las últimas que hemos vuelto a comprobar.
+ */
+const topTools = [...getAllTools()]
+  .sort((a, b) => b.lastVerifiedAt.localeCompare(a.lastVerifiedAt) || a.name.localeCompare(b.name, 'es'))
+  .slice(0, 6);
 const recent = getRecentlyAdded(4);
 const changes = getCatalogChanges(4);
 
@@ -30,7 +74,7 @@ const description =
 <BaseLayout
   title="Free AI Radar — IA gratis, verificada de verdad"
   description={description}
-  schemas={[itemListSchema(topTools, 'Herramientas de IA gratuitas mejor valoradas')]}
+  schemas={[itemListSchema(topTools, 'Herramientas de IA verificadas hace menos')]}
 >
   <section class="hero">
     <div class="page hero-inner">
@@ -87,8 +131,8 @@ const description =
     <section aria-labelledby="top-title">
       <header class="section-head">
         <div>
-          <p class="eyebrow">Mejor valoradas</p>
-          <h2 id="top-title" class="section-title">Las que compensan de verdad</h2>
+          <p class="eyebrow">Comprobadas hace menos</p>
+          <h2 id="top-title" class="section-title">Lo último que hemos verificado</h2>
         </div>
         <a href={ROUTES.tools} class="btn btn-ghost btn-sm">Ver las {stats.total} →</a>
       </header>
@@ -108,7 +152,17 @@ const description =
         <a href={ROUTES.categories} class="btn btn-ghost btn-sm">Todas las categorías →</a>
       </header>
       <ul class="category-grid">
-        {categories.map((cat) => (
+        {verticales.map((v) => (
+          <li>
+            <a href={v.href} class="card card-interactive category-card">
+              <span class="category-name">{v.name}</span>
+              <span class="category-count tnum">{v.count}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <ul class="category-grid category-grid-rest">
+        {categorias.map((cat) => (
           <li>
             <a href={ROUTES.category(cat.slug)} class="card card-interactive category-card">
               <span class="category-name">{cat.name}</span>
@@ -188,10 +242,10 @@ const description =
           </p>
         </li>
         <li>
-          <h3>La puntuación no se vende</h3>
+          <h3>El veredicto no se vende</h3>
           <p>
-            Un patrocinio puede comprar visibilidad claramente etiquetada. No puede comprar ni un
-            punto de la puntuación editorial, ni cambiar un veredicto.
+            Un patrocinio puede comprar visibilidad claramente etiquetada. No puede comprar un
+            cambio de veredicto, un puesto en una lista ni un dato distinto del comprobado.
             <a href={ROUTES.editorialPolicy}>Política editorial</a>.
           </p>
         </li>
@@ -368,6 +422,12 @@ const description =
     color: var(--ink-muted);
     font-size: 0.9375rem;
     max-width: 50ch;
+  }
+
+  /* La segunda fila son categorías técnicas: van detrás y algo más apagadas. */
+  .category-grid-rest {
+    margin-block-start: var(--space-2xs);
+    opacity: 0.85;
   }
 
   .card-list {

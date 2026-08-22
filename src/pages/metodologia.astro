@@ -1,6 +1,6 @@
 ---
 import ArticleLayout from '@layouts/ArticleLayout.astro';
-import { SCORE_WEIGHTS, SCORE_BAND_LABEL, STALE_AFTER_DAYS } from '@lib/domain/scoring';
+import { STALE_AFTER_DAYS } from '@lib/domain/scoring';
 import { FREE_MODELS } from '@lib/domain/taxonomy';
 import { TRI_STATE_LABEL } from '@lib/domain/primitives';
 import { getCatalogStats } from '@lib/data/catalog';
@@ -9,36 +9,27 @@ import { ROUTES } from '@lib/nav';
 
 const stats = getCatalogStats();
 
-const COMPONENTS: Array<{ key: keyof typeof SCORE_WEIGHTS; name: string; what: string }> = [
-  { key: 'freeReal', name: 'Gratuidad real', what: 'Si el plan gratuito permite hacer trabajo aprovechable, no sólo probar. Un plan generoso pero temporal puntúa bajo.' },
-  { key: 'usefulness', name: 'Utilidad', what: 'Si hace bien aquello que promete, comparado con las alternativas de su categoría.' },
-  { key: 'ease', name: 'Facilidad', what: 'Cuánto cuesta llegar al primer resultado útil: instalación, configuración, curva de aprendizaje.' },
-  { key: 'transparency', name: 'Transparencia', what: 'Si documenta con claridad los límites, la licencia y qué pasa con tus datos, o si hay que deducirlo.' },
-  { key: 'creatorValue', name: 'Valor para creadores', what: 'Si sirve a alguien que produce por su cuenta y necesita poder monetizar el resultado.' },
-];
-
-const PENALTIES = [
-  { label: 'Exige tarjeta para el plan gratuito', points: -12 },
-  { label: 'Marca de agua en el resultado', points: -8 },
-  { label: 'Sin uso comercial en el plan gratuito', points: -10 },
-  { label: 'Uso comercial sólo parcial', points: -4 },
-  { label: 'Créditos que no se renuevan', points: -10 },
-  { label: 'Sólo prueba temporal', points: -12 },
-  { label: 'Sólo demo', points: -18 },
-  { label: 'Sin capa gratuita', points: -30 },
-  { label: 'Código abierto verificado', points: 6 },
-];
+/*
+ * Aquí vivían `COMPONENTS` y `PENALTIES`: los cinco componentes ponderados y
+ * los ajustes de la nota sobre 100. La página explicaba una fórmula que ya no
+ * decide nada — ninguna ficha la enseña y ninguna lista la usa para ordenar—,
+ * así que documentarla era prometer un método que no aplicamos.
+ *
+ * Lo que sí aplicamos es lo que hay debajo, y se puede comprobar ficha a
+ * ficha: cada hecho perecedero lleva su cita y su fecha, y lo que no se puede
+ * demostrar se dice.
+ */
 
 const faqs = [
   {
-    question: '¿Se puede pagar por subir de puntuación?',
+    question: '¿Se puede pagar por salir mejor parado?',
     answer:
-      'No. Un patrocinio compra visibilidad claramente etiquetada como tal, nunca puntos ni un cambio de veredicto. La fórmula es idéntica para todas las herramientas y está publicada aquí.',
+      'No. Un patrocinio compra visibilidad claramente etiquetada como tal, nunca un cambio de veredicto ni un puesto en una lista. No publicamos ninguna nota ni ningún ranking que se pueda comprar: lo que hay en cada ficha son hechos con su fuente.',
   },
   {
     question: '¿Qué significa "sin verificar"?',
     answer:
-      'Que no hemos podido confirmar ese dato en una fuente oficial. Preferimos decirlo a rellenarlo con una suposición. Un dato sin verificar no suma ni resta puntos.',
+      'Que no hemos podido confirmar ese dato en una fuente oficial. Preferimos decirlo a rellenarlo con una suposición, y nunca lo convertimos en un «no»: «sin confirmar» y «no lo permite» son cosas distintas y se escriben distinto.',
   },
   {
     question: '¿Cada cuánto se revisan las fichas?',
@@ -53,72 +44,67 @@ const crumbs = [
 ---
 
 <ArticleLayout
-  title="Cómo puntuamos las herramientas de IA"
-  description="La fórmula completa: cinco componentes ponderados, penalizaciones nombradas y qué hacemos cuando no podemos verificar un dato. Publicada para que puedas discutirla."
-  heading="Cómo puntuamos"
-  lede="La fórmula entera, con sus pesos y sus penalizaciones. Si no puedes reproducir una puntuación con esta página, es que algo está mal y queremos saberlo."
+  title="Cómo verificamos las herramientas de IA"
+  description="Qué comprobamos, contra qué fuente y qué hacemos cuando un dato no se puede demostrar. Sin notas, sin rankings y sin fórmulas: hechos con su cita y su fecha."
+  heading="Cómo verificamos"
+  lede="Qué comprobamos y contra qué. Si encuentras una afirmación en este sitio que no puedas seguir hasta una página oficial, es un error y queremos saberlo."
   crumbs={crumbs}
   updatedAt={stats.lastVerifiedAt}
   schemas={[faqSchema(faqs)]}
 >
   <h2>El principio</h2>
   <p>
-    Casi todos los directorios de IA puntúan por impresión, por popularidad o por quién paga. Nosotros
-    puntuamos <strong>hechos verificables sobre el plan gratuito</strong>. Si un dato no se puede
-    comprobar en la página oficial del fabricante, no entra en la fórmula.
+    Casi todos los directorios de IA ordenan por impresión, por popularidad o por quién paga.
+    Nosotros publicamos <strong>hechos verificables sobre el plan gratuito</strong>, cada uno con
+    el enlace a la página oficial que lo dice y la fecha en que se comprobó. Si un dato no se puede
+    comprobar ahí, no se publica.
   </p>
-
-  <h2>Los cinco componentes</h2>
   <p>
-    Un editor asigna cada componente de 0 a 10. El total es su media ponderada multiplicada por diez,
-    de modo que un 10 en todo da exactamente 100 y un 0 en todo da exactamente 0. No hay constantes
-    sumadas ni ajustes a ojo.
+    <strong>No publicamos ninguna nota.</strong> No hay puntuación sobre 100, no hay ranking y no
+    ordenamos el catálogo por una supuesta calidad. Una nota única obliga a comparar en la misma
+    escala cosas que no se parecen —un modelo de pesos abiertos y una aplicación de suscripción— y
+    esconde justo el dato que decide. Las recomendaciones van por intención y por acceso.
   </p>
 
-  <table>
-    <thead>
-      <tr><th>Componente</th><th>Qué mide</th><th>Peso</th></tr>
-    </thead>
-    <tbody>
-      {COMPONENTS.map((component) => (
-        <tr>
-          <th scope="row">{component.name}</th>
-          <td>{component.what}</td>
-          <td class="tnum">{Math.round(SCORE_WEIGHTS[component.key] * 100)}%</td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-
-  <h2>Penalizaciones y bonificaciones</h2>
+  <h2>Qué comprobamos en cada ficha</h2>
   <p>
-    Sobre esa base se aplican ajustes fijos. Cada uno responde a una pregunta distinta, de modo que
-    un mismo problema nunca se castiga dos veces. Todos aparecen desglosados en la ficha de cada
-    herramienta.
+    Siempre lo mismo, y siempre contra la página del fabricante: qué da el plan gratuito y con qué
+    cantidad publicada, si esa cantidad se renueva y cada cuánto, si pide tarjeta, si deja marca de
+    agua, si permite uso comercial, dónde se ejecuta, qué cuesta empezar y qué sabe hacer.
+  </p>
+  <p>
+    Las capacidades no se marcan por lo que promete una portada: hace falta una frase de la
+    documentación que las demuestre, y esa frase se guarda en la ficha. «Frontier intelligence» no
+    es una capacidad; «thinking mode enabled by default» sí, porque una página oficial lo dice.
   </p>
 
-  <table>
-    <thead><tr><th>Ajuste</th><th>Puntos</th></tr></thead>
-    <tbody>
-      {PENALTIES.map((penalty) => (
-        <tr>
-          <th scope="row">{penalty.label}</th>
-          <td class="tnum">{penalty.points > 0 ? `+${penalty.points}` : penalty.points}</td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-
-  <h2>Qué significa cada tramo</h2>
-  <table>
-    <thead><tr><th>Puntuación</th><th>Lectura</th></tr></thead>
-    <tbody>
-      <tr><th scope="row">80–100</th><td>{SCORE_BAND_LABEL.excellent}. Compensa de verdad en su plan gratuito.</td></tr>
-      <tr><th scope="row">65–79</th><td>{SCORE_BAND_LABEL.good}. Útil con límites que conviene conocer antes.</td></tr>
-      <tr><th scope="row">45–64</th><td>{SCORE_BAND_LABEL.fair}. Sirve para casos concretos; revisa las pegas.</td></tr>
-      <tr><th scope="row">0–44</th><td>{SCORE_BAND_LABEL.poor}. La documentamos para que no pierdas el tiempo.</td></tr>
-    </tbody>
-  </table>
+  <h2>Las distinciones que no mezclamos</h2>
+  <ul>
+    <li>
+      <strong>«Sin confirmar» no es «no».</strong> Si el fabricante no lo aclara, lo decimos. No lo
+      convertimos en un no, ni siquiera cuando el no nos favorecería.
+    </li>
+    <li>
+      <strong>Gratis en la nube no es gratis en tu equipo.</strong> Un plan gratuito lo puede
+      recortar su empresa mañana; unos pesos descargados ya son tuyos. No se cuentan juntos.
+    </li>
+    <li>
+      <strong>Pesos abiertos no es open source.</strong> Hay licencias que dejan descargar y
+      ejecutar pero exigen atribución o permiso por encima de cierto tamaño. Eso se dice.
+    </li>
+    <li>
+      <strong>Créditos de bienvenida no son un plan gratuito.</strong> Si no se renuevan, se marcan
+      como lo que son y no aparecen entre lo que puedes usar hoy.
+    </li>
+    <li>
+      <strong>Que una marca tenga plan gratuito no hace gratis todos sus productos.</strong> Se
+      comprueba producto a producto, y el modo agéntico se comprueba aparte del autocompletado.
+    </li>
+    <li>
+      <strong>No convertimos unidades.</strong> Si una página publica créditos, publicamos créditos.
+      La equivalencia en minutos sólo aparece si la publica el fabricante.
+    </li>
+  </ul>
 
   <h2>Los modelos de gratuidad</h2>
   <p>

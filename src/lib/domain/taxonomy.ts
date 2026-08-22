@@ -474,6 +474,24 @@ export const CAPABILITIES = [
 ] as const;
 export type Capability = (typeof CAPABILITIES)[number];
 
+/**
+ * Cómo se nombra cada clase de producto fuera de su vertical.
+ *
+ * `/codigo` tiene sus propias etiquetas con matiz —«Sugiere mientras
+ * escribes»—; esto es la versión corta, para el comparador y para cualquier
+ * sitio que necesite decir qué es algo sin contexto alrededor.
+ */
+export const PRODUCT_TYPE_LABEL: Record<string, string> = {
+  ide: 'Editor con IA',
+  copilot: 'Copiloto',
+  agent: 'Agente',
+  cli: 'Terminal',
+  review: 'Revisión de código',
+  'app-builder': 'Constructor de aplicaciones',
+  platform: 'Plataforma',
+  library: 'Biblioteca',
+};
+
 export const CAPABILITY_LABEL: Record<Capability, string> = {
   'text-to-image': 'Texto a imagen',
   'image-to-image': 'Imagen a imagen',
