@@ -17,7 +17,7 @@ const next = safeRedirect(Astro.url.searchParams.get('next'), ROUTES.account);
 <AuthLayout
   title="Crear una cuenta gratis"
   heading="Crear cuenta"
-  lede="Gratis y sin tarjeta. Sólo hace falta para guardar cosas y recibir avisos."
+  lede="Gratis y sin tarjeta. Sirve para que lo que guardes no dependa de este navegador."
 >
   <form method="post" action="/api/auth/signup" class="auth-form" data-auth-form novalidate>
     <input type="hidden" name={CSRF_FIELD} value={Astro.locals.csrfToken} />

@@ -158,7 +158,6 @@ export const FOOTER_NAV: ReadonlyArray<{ title: string; items: NavItem[] }> = [
     items: [
       { label: 'Enviar una herramienta', href: ROUTES.submit },
       { label: 'Contacto', href: ROUTES.contact },
-      { label: 'Radar Pro', href: ROUTES.pricing },
       { label: 'Crear cuenta', href: ROUTES.register },
     ],
   },

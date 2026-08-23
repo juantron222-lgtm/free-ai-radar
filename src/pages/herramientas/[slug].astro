@@ -22,6 +22,7 @@ import {
 import { OPENNESS_LABEL, TRI_STATE_LABEL } from '@lib/domain/primitives';
 import { VERIFICATION_LABEL, type ToolRecord } from '@lib/domain/tool';
 import { ROUTES, categoryLabel } from '@lib/nav';
+import { verificacionDe } from '@lib/domain/verification';
 
 export function getStaticPaths() {
   return getAllTools().map((tool) => ({ params: { slug: tool.slug }, props: { tool } }));
@@ -105,6 +106,14 @@ const VERIFICATION_MEANING: Record<ToolRecord['verification'], string> = {
   discontinued:
     'La herramienta ha dejado de estar disponible. Mantenemos la ficha como registro.',
 };
+/*
+ * El estado de la ficha, que es lo que puede decir de sí misma.
+ *
+ * Antes la tabla se titulaba «Condiciones verificadas del plan gratuito» y
+ * tres filas más abajo ponía «Sin confirmar». Ahora el título describe lo que
+ * hay y el estado va arriba, con lo que falta nombrado.
+ */
+const verificacion = verificacionDe(tool);
 ---
 
 <BaseLayout
@@ -128,6 +137,14 @@ const VERIFICATION_MEANING: Record<ToolRecord['verification'], string> = {
       <aside class="tool-verdict card" aria-labelledby="verdict-title">
         <p class="eyebrow" id="verdict-title">Veredicto</p>
         <AccessBadge tool={tool} size="lg" />
+        <p class="tool-vstate" data-state={verificacion.state}>
+          <span class="tool-vstate-label">{verificacion.label}</span>
+          {verificacion.total > 0 && (
+            <span class="tool-vstate-count tnum">
+              {verificacion.confirmados}/{verificacion.total} hechos confirmados
+            </span>
+          )}
+        </p>
         <p class="tool-verdict-text">{tool.verdict || freeModel.meaning}</p>
         <OutboundButton tool={tool} />
         <ToolActions slug={tool.slug} name={tool.name} />
@@ -145,7 +162,7 @@ const VERIFICATION_MEANING: Record<ToolRecord['verification'], string> = {
           <div class="table-scroll">
             <table class="data-table">
               <caption class="sr-only">
-                Condiciones verificadas del plan gratuito de {tool.name}
+                Condiciones del plan gratuito de {tool.name}, con lo confirmado y lo que no
               </caption>
               <tbody>
                 {facts.map((fact) => (
@@ -170,8 +187,20 @@ const VERIFICATION_MEANING: Record<ToolRecord['verification'], string> = {
           )}
 
           <p class="tool-verified-note">
-            Plan gratuito verificado el <time datetime={tool.freePlan.verifiedAt}>{fmtDate(tool.freePlan.verifiedAt)}</time>.
-            Los fabricantes cambian estas condiciones sin avisar:
+            Comprobado el <time datetime={tool.freePlan.verifiedAt}>{fmtDate(tool.freePlan.verifiedAt)}</time>.
+            {verificacion.pendientes.length > 0 && (
+              <>
+                {' '}De lo que resumimos aquí, su fabricante no publica{' '}
+                {verificacion.pendientes.map((p, i) => (
+                  <>
+                    {i > 0 && (i === verificacion.pendientes.length - 1 ? ' ni ' : ', ')}
+                    <strong>{p.label.replace(/^¿|\?$/g, '').toLowerCase()}</strong>
+                  </>
+                ))}
+                . No lo suponemos.
+              </>
+            )}
+            {' '}Los fabricantes cambian estas condiciones sin avisar:
             <a href="#reportar">avísanos si algo ya no es cierto</a>.
           </p>
         </section>
@@ -232,8 +261,21 @@ const VERIFICATION_MEANING: Record<ToolRecord['verification'], string> = {
                   ? tool.bestFor.map((item) => <li>{item}</li>)
                   : (
                     <>
-                      <li>Buscas {category.name.toLowerCase()} sin pagar nada por adelantado.</li>
+                      {/*
+                        Cada línea cuelga de un dato confirmado, y ninguna se
+                        escribe «por defecto».
+
+                        Aquí había una que se pintaba siempre: «Buscas … sin
+                        pagar nada por adelantado». En Midjourney, que es
+                        `paid_only`, la ficha decía «Sin capa gratuita» arriba y
+                        eso abajo. La condición que faltaba es la obvia: que
+                        exista un plan gratuito.
+                      */}
+                      {tool.freeModel !== 'paid_only' && tool.freeModel !== 'unknown' && (
+                        <li>Buscas {category.name.toLowerCase()} sin pagar nada por adelantado.</li>
+                      )}
                       {tool.freePlan.requiresCreditCard === 'no' && <li>No quieres dar la tarjeta sólo para probar.</li>}
+                      {tool.freePlan.commercialUse === 'yes' && <li>Vas a usar el resultado en un trabajo que se cobra.</li>}
                       {tool.hosting !== 'cloud' && <li>Prefieres que tus archivos no salgan de tu equipo.</li>}
                       {tool.startEffort === 'instant' && <li>Quieres probar ahora mismo, sin crear ninguna cuenta.</li>}
                     </>
@@ -247,11 +289,26 @@ const VERIFICATION_MEANING: Record<ToolRecord['verification'], string> = {
                   ? tool.notFor.map((item) => <li>{item}</li>)
                   : (
                     <>
+                      {/*
+                        `unverified` no produce un no.
+
+                        La línea de monetizar se escribía con
+                        `commercialUse !== 'yes'`, que incluye «sin confirmar»:
+                        la ficha decía «no consta» en la tabla y «no encaja si
+                        vas a monetizar» debajo. Ahora sólo la escribe un `no`
+                        o un `partial` explícitos, y lo que no consta se dice
+                        como lo que es.
+                      */}
                       {tool.freePlan.hasWatermark === 'yes' && <li>Necesitas entregar el resultado limpio a un cliente.</li>}
-                      {tool.freePlan.commercialUse !== 'yes' && <li>Vas a monetizar directamente lo que generes.</li>}
+                      {tool.freePlan.commercialUse === 'no' && <li>Vas a monetizar directamente lo que generes: su plan gratuito no lo permite.</li>}
+                      {tool.freePlan.commercialUse === 'partial' && <li>Vas a monetizar sin leer antes las condiciones: las hay, y dependen de tu tamaño.</li>}
+                      {tool.freePlan.commercialUse === 'unverified' && <li>Necesitas certeza sobre el uso comercial: su fabricante no lo publica y no lo suponemos.</li>}
                       {tool.freePlan.requiresCreditCard === 'yes' && <li>No quieres introducir una tarjeta para acceder.</li>}
                       {tool.startEffort === 'technical' && <li>Buscas algo que funcione sin instalar ni configurar nada.</li>}
-                      <li>Necesitas volumen alto de forma continuada: el plan gratuito no da para eso.</li>
+                      {tool.freeModel === 'paid_only' && <li>No quieres pagar: esta no tiene plan gratuito.</li>}
+                      {tool.freeModel !== 'paid_only' && tool.freeModel !== 'open_source' && tool.freeModel !== 'local' && (
+                        <li>Necesitas volumen alto de forma continuada: el plan gratuito no da para eso.</li>
+                      )}
                     </>
                   )}
               </ul>
@@ -383,7 +440,7 @@ const VERIFICATION_MEANING: Record<ToolRecord['verification'], string> = {
             Revisado por <strong>{tool.reviewedBy || 'la redacción de Free AI Radar'}</strong> ·
             última verificación <time datetime={tool.lastVerifiedAt}>{fmtDate(tool.lastVerifiedAt)}</time> ·
             en el radar desde <time datetime={tool.detectedAt}>{fmtDate(tool.detectedAt)}</time>.
-            <a href={ROUTES.methodology}>Cómo puntuamos</a>.
+            <a href={ROUTES.methodology}>Cómo lo comprobamos</a>.
           </p>
         </section>
 
@@ -453,6 +510,41 @@ const VERIFICATION_MEANING: Record<ToolRecord['verification'], string> = {
     display: grid;
     gap: var(--space-2xs);
     align-content: start;
+  }
+
+  /*
+   * El estado de la ficha, con el color como refuerzo y nunca como único
+   * portador: el texto ya dice «Verificada» o «Verificación parcial».
+   */
+  .tool-vstate {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.3rem 0.5rem;
+    margin: var(--space-2xs) 0 0;
+    font-size: 0.8125rem;
+  }
+
+  .tool-vstate-label {
+    padding: 0.1rem 0.5rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-full);
+    font-weight: 650;
+    color: var(--ink-muted);
+  }
+
+  .tool-vstate[data-state='verificada'] .tool-vstate-label {
+    border-color: var(--signal-line);
+    background: var(--signal-soft);
+    color: var(--signal);
+  }
+
+  .tool-vstate[data-state='catalogada'] .tool-vstate-label {
+    border-style: dashed;
+  }
+
+  .tool-vstate-count {
+    color: var(--ink-subtle);
   }
 
   .tool-verdict-text {

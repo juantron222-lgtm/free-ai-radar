@@ -8,7 +8,7 @@ export const SITE = {
   legalName: 'Free AI Radar',
   tagline: 'IA gratis, verificada de verdad',
   description:
-    'Radar independiente de herramientas de IA gratuitas. Verificamos qué es gratis de verdad, con qué límites, si piden tarjeta, si dejan marca de agua y si permiten uso comercial.',
+    'Radar independiente de herramientas de IA. Revisamos contra la página oficial de cada fabricante qué es gratis de verdad, con qué límites, si piden tarjeta y si permiten uso comercial. Lo que no publican, lo decimos.',
   locale: 'es_ES',
   lang: 'es',
   country: 'ES',

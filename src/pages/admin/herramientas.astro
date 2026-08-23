@@ -128,8 +128,9 @@ function unverifiedCount(tool: (typeof tools)[number]): number {
       </li>
     </ol>
     <p class="admin-note">
-      Las puntuaciones nunca se escriben a mano: se derivan de los cinco componentes en cada lectura,
-      así que una ficha no puede mostrar un número que contradiga sus propios datos.
+      El estado de verificación de cada ficha se deriva de sus propios datos en cada lectura,
+      nunca se escribe a mano: si queda un hecho sin confirmar, la ficha no puede presentarse
+      como verificada aunque alguien quisiera.
     </p>
   </section>
 </AdminLayout>

@@ -17,19 +17,15 @@ const atLimit = user.plan === 'free' && activeAlerts.length >= MAX_ALERTS_FREE;
 <AccountLayout
   title="Tus alertas"
   heading="Alertas de cambios"
-  lede="Te avisamos cuando una herramienta que sigues recorta su plan gratuito, empieza a pedir tarjeta o cambia su licencia."
+  lede="Marca las herramientas cuyo plan gratuito te importa. El envío automático de avisos todavía no funciona: por ahora esto es tu lista de vigilancia."
 >
   <div class="alerts">
     <section class="card alerts-summary">
       <p>
-        <strong class="tnum">{activeAlerts.length}</strong> alerta{activeAlerts.length === 1 ? '' : 's'} activa{activeAlerts.length === 1 ? '' : 's'}
-        {user.plan === 'free' && <> de {MAX_ALERTS_FREE} en el plan gratuito</>}.
-        {user.plan === 'free' && (
-          <>
-            {' '}<a href={ROUTES.pricing}>Radar Pro</a> las hace ilimitadas y las envía en el momento
-            en que detectamos el cambio, no en el resumen semanal.
-          </>
-        )}
+        <strong class="tnum">{activeAlerts.length}</strong> herramienta{activeAlerts.length === 1 ? '' : 's'} en tu lista de vigilancia
+        {user.plan === 'free' && <> de {MAX_ALERTS_FREE}</>}.
+        {' '}<strong>Todavía no enviamos avisos automáticos</strong>: cuando funcionen, lo diremos
+        aquí y en <a href={ROUTES.news}>los cambios del radar</a>.
       </p>
       {atLimit && (
         <p class="alerts-limit" role="status">

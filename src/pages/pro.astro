@@ -1,17 +1,22 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { PLANS, formatPrice } from '@lib/billing/plans';
-import { stripe as stripeConfig } from '@lib/config';
-import { CSRF_FIELD } from '@lib/security/csrf';
+import NewsletterForm from '@components/marketing/NewsletterForm.astro';
 import { faqSchema } from '@lib/seo/structured-data';
 import { ROUTES } from '@lib/nav';
 
-export const prerender = false;
-
-const user = Astro.locals.user;
-const free = PLANS.find((p) => p.id === 'free')!;
-const monthly = PLANS.find((p) => p.id === 'pro_monthly')!;
-const yearly = PLANS.find((p) => p.id === 'pro_yearly')!;
+/**
+ * Radar Pro todavía no se puede comprar, así que esta página no lo vende.
+ *
+ * Lo que había aquí era un comparador de tres planes con botón de suscripción,
+ * y encima un aviso que decía «Modo demostración. Stripe no está configurado
+ * en este entorno» y remitía a `docs/deployment-guide.md`. Es decir: la página
+ * enseñaba precios, ofrecía un checkout que no cobra y explicaba al visitante
+ * cómo arreglar nuestro despliegue.
+ *
+ * La arquitectura de facturación se queda donde está —`src/lib/billing`, la
+ * ruta de checkout, el portal— porque servirá cuando esto exista. Lo que se
+ * retira es la venta: no hay precios, no hay botón y no hay flujo simulado.
+ */
 
 const crumbs = [
   { name: 'Inicio', path: ROUTES.home },
@@ -20,127 +25,75 @@ const crumbs = [
 
 const faqs = [
   {
-    question: '¿Qué pierdo si no pago?',
+    question: '¿Se puede contratar Radar Pro ahora mismo?',
     answer:
-      'Nada del contenido. Todas las fichas, la búsqueda, los filtros y el comparador son y seguirán siendo gratuitos. Pro añade inmediatez, volumen y herramientas de seguimiento.',
+      'No. Todavía no existe como producto que se pueda pagar, así que no publicamos precios ni botón de suscripción. Cuando exista, se anunciará en el boletín y en la página de cambios.',
   },
   {
-    question: '¿Puedo cancelar cuando quiera?',
+    question: '¿Qué parte de Free AI Radar es de pago?',
     answer:
-      'Sí, desde el portal de facturación, en dos clics y sin hablar con nadie. Mantienes el acceso hasta el final del periodo que ya has pagado.',
+      'Ninguna. Todas las fichas, la búsqueda, los filtros y el comparador son gratuitos y van a seguir siéndolo. Lo que algún día se cobrará es la inmediatez —enterarse el mismo día de que un plan gratuito ha cambiado—, no el contenido.',
   },
   {
-    question: '¿Pagar cambia lo que veo del catálogo?',
+    question: '¿Pagar cambiaría lo que veo del catálogo?',
     answer:
-      'No. Las fichas, los veredictos y el orden de las listas son los mismos para todo el mundo, y no se venden ni se ajustan por patrocinio. Lo único que desaparece con Pro son los anuncios.',
+      'No. Las fichas, los veredictos y el orden de las listas son los mismos para todo el mundo, y no se venden ni se ajustan por patrocinio.',
   },
 ];
 ---
 
 <BaseLayout
-  title="Radar Pro: entérate el día que cambia un plan gratuito"
-  description="Avisos inmediatos de recortes de planes gratuitos, seguimiento de precios, listas ilimitadas, historial completo y sin anuncios. Desde 5 € al mes."
+  title="Radar Pro: todavía no se puede contratar"
+  description="Radar Pro será el aviso inmediato cuando un plan gratuito cambie. Todavía no existe como producto de pago, así que no publicamos precios ni botón de suscripción."
   crumbs={crumbs}
+  noindex
   schemas={[faqSchema(faqs)]}
 >
   <div class="page pricing">
     <header class="pricing-head">
       <p class="eyebrow">Radar Pro</p>
-      <h1 class="pricing-h1">Entérate el día que cambia, no el mes siguiente</h1>
+      <h1 class="pricing-h1">Todavía no se puede contratar</h1>
       <p class="pricing-lede">
-        El contenido es gratis y va a seguir siéndolo. Pro es para quien trabaja con estas
-        herramientas y necesita saber <em>en el momento</em> que una ha recortado su plan gratuito,
-        ha empezado a pedir tarjeta o ha cambiado su licencia.
+        La idea es sencilla: enterarte <em>el día</em> que una herramienta recorta su plan
+        gratuito, empieza a pedir tarjeta o cambia su licencia. Hoy eso no existe como
+        producto de pago, así que aquí no hay precios ni botón de suscripción.
       </p>
     </header>
 
-    {!stripeConfig.isConfigured && (
-      <p class="pricing-notice" role="note">
-        <strong>Modo demostración.</strong> Stripe no está configurado en este entorno, así que el
-        botón de suscripción abre un flujo simulado y no se cobra nada. Consulta
-        <code>docs/deployment-guide.md</code> para activarlo en modo test.
+    <section class="pricing-honest card" aria-labelledby="honest-title">
+      <h2 id="honest-title">Qué hay hoy y qué no</h2>
+      <ul class="pricing-list">
+        <li>
+          <strong>El contenido es gratis y seguirá siéndolo.</strong> Fichas, búsqueda,
+          filtros y comparador, sin cuenta y sin pagar.
+        </li>
+        <li>
+          <strong>Los avisos automáticos aún no funcionan.</strong> Mientras no existan, no
+          los ofrecemos ni decimos que están activos.
+        </li>
+        <li>
+          <strong>No hay cobro simulado.</strong> Preferimos no tener botón a tener uno que
+          no cobra.
+        </li>
+      </ul>
+    </section>
+
+    <section class="pricing-wait" aria-labelledby="wait-title">
+      <h2 id="wait-title">Si quieres enterarte cuando exista</h2>
+      <p>
+        Lo contaremos en el boletín, junto a los cambios que detectemos en los planes
+        gratuitos. Es el mismo correo, sin lista aparte.
       </p>
-    )}
-
-    {stripeConfig.isConfigured && stripeConfig.isTestMode && (
-      <p class="pricing-notice" role="note">
-        <strong>Stripe en modo test.</strong> Los pagos usan tarjetas de prueba
-        (<code>4242 4242 4242 4242</code>). No se cobra dinero real.
-      </p>
-    )}
-
-    <div class="plans">
-      <article class="card plan">
-        <header>
-          <h2 class="plan-name">{free.name}</h2>
-          <p class="plan-price">{formatPrice(free)}</p>
-          <p class="plan-tagline">{free.tagline}</p>
-        </header>
-        <ul class="plan-features">
-          {free.features.map((feature) => <li>{feature}</li>)}
-        </ul>
-        {free.limits.map((limit) => <p class="plan-limit">{limit}</p>)}
-        <a href={user ? ROUTES.account : ROUTES.register} class="btn btn-secondary plan-cta">
-          {user ? 'Ir a tu cuenta' : 'Crear cuenta gratis'}
-        </a>
-      </article>
-
-      <article class="card plan plan-highlight">
-        <span class="plan-badge">Recomendado</span>
-        <header>
-          <h2 class="plan-name">{monthly.name}</h2>
-          <p class="plan-price">{formatPrice(monthly)}</p>
-          <p class="plan-tagline">{monthly.tagline}</p>
-        </header>
-        <ul class="plan-features">
-          {monthly.features.map((feature) => <li>{feature}</li>)}
-        </ul>
-        {user ? (
-          <form method="post" action="/api/billing/checkout" data-checkout-form>
-            <input type="hidden" name={CSRF_FIELD} value={Astro.locals.csrfToken} />
-            <input type="hidden" name="plan" value="pro_monthly" />
-            <button type="submit" class="btn btn-primary plan-cta">Suscribirme</button>
-          </form>
-        ) : (
-          <a href={`${ROUTES.login}?next=${encodeURIComponent(ROUTES.pricing)}`} class="btn btn-primary plan-cta">
-            Entrar para suscribirme
-          </a>
-        )}
-        <p class="plan-note">Cancelas cuando quieras, en dos clics.</p>
-      </article>
-
-      <article class="card plan">
-        <header>
-          <h2 class="plan-name">{yearly.name}</h2>
-          <p class="plan-price">{formatPrice(yearly)}</p>
-          <p class="plan-tagline">{yearly.tagline}</p>
-        </header>
-        <ul class="plan-features">
-          {yearly.features.map((feature) => <li>{feature}</li>)}
-        </ul>
-        {user ? (
-          <form method="post" action="/api/billing/checkout" data-checkout-form>
-            <input type="hidden" name={CSRF_FIELD} value={Astro.locals.csrfToken} />
-            <input type="hidden" name="plan" value="pro_yearly" />
-            <button type="submit" class="btn btn-secondary plan-cta">Suscribirme al año</button>
-          </form>
-        ) : (
-          <a href={`${ROUTES.login}?next=${encodeURIComponent(ROUTES.pricing)}`} class="btn btn-secondary plan-cta">
-            Entrar para suscribirme
-          </a>
-        )}
-      </article>
-    </div>
-
-    <p class="pricing-result" role="status" data-checkout-result hidden></p>
+      <NewsletterForm />
+    </section>
 
     <section class="pricing-promise" aria-labelledby="promise-title">
       <h2 id="promise-title">Lo que el dinero no compra</h2>
       <p>
-        Ni una suscripción ni un patrocinio cambian una puntuación, un veredicto o el orden de una
-        comparativa. Esa separación es el activo del proyecto: en cuanto se rompe, el sitio deja de
-        valer para nada. Está escrita en la <a href={ROUTES.editorialPolicy}>política editorial</a>
-        y se aplica sin excepciones.
+        Ni una suscripción ni un patrocinio cambian un veredicto o el orden de una
+        comparativa. Esa separación es el activo del proyecto: en cuanto se rompe, el sitio
+        deja de valer para nada. Está escrita en la
+        <a href={ROUTES.editorialPolicy}>política editorial</a> y se aplica sin excepciones.
       </p>
     </section>
 
@@ -167,6 +120,25 @@ const faqs = [
 
   .pricing-head {
     max-width: 46rem;
+  }
+
+  .pricing-honest {
+    padding: var(--space-s);
+    max-width: 46rem;
+  }
+
+  .pricing-list {
+    margin: var(--space-2xs) 0 0;
+    padding-inline-start: 1.1rem;
+    display: grid;
+    gap: var(--space-2xs);
+    line-height: 1.55;
+  }
+
+  .pricing-wait {
+    max-width: 46rem;
+    display: grid;
+    gap: var(--space-2xs);
   }
 
   .pricing-h1 {

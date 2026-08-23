@@ -59,7 +59,7 @@ const crumbs = [
 const faqs = [
   {
     question: '¿Qué herramientas de vídeo puedo usar gratis ahora mismo?',
-    answer: `${gratis.length} de las ${tools.length} verificadas generan vídeo en el navegador con un acceso gratuito que sirve hoy: ${gratis
+    answer: `${gratis.length} de las ${tools.length} revisadas generan vídeo en el navegador con un acceso gratuito que sirve hoy: ${gratis
       .slice(0, 5)
       .map((t) => t.name)
       .join(', ')}. Quedan fuera las que sólo dan créditos de una vez y las que hay que instalar.`,
@@ -77,8 +77,8 @@ const faqs = [
 ---
 
 <BaseLayout
-  title={`IA para vídeo: ${tools.length} herramientas verificadas y qué dan gratis`}
-  description={`Cuáles generan vídeo gratis hoy, cuáles sólo dan créditos que no vuelven y qué pide cada modelo local. ${tools.length} herramientas verificadas contra la página oficial de cada fabricante.`}
+  title={`IA para vídeo: ${tools.length} herramientas revisadas y qué dan gratis`}
+  description={`Cuáles generan vídeo gratis hoy, cuáles sólo dan créditos que no vuelven y qué pide cada modelo local. ${tools.length} revisadas contra la página oficial de cada fabricante.`}
   crumbs={crumbs}
   schemas={[itemListSchema(tools, 'Herramientas de vídeo con IA'), faqSchema(faqs)]}
 >
@@ -212,7 +212,7 @@ const faqs = [
       <div class="vert-block-head">
         <h2 class="vert-h2" id="todas-h">Todas las herramientas de vídeo</h2>
         <p class="vert-block-lede">
-          Las {tools.length} verificadas, con filtros que se combinan. {conCifra} publican
+          Las {tools.length} revisadas, con filtros que se combinan. {conCifra} publican
           cuánto dan y cada cuánto.
         </p>
       </div>

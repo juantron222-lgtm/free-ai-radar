@@ -6,15 +6,26 @@ import NewsletterForm from '@components/marketing/NewsletterForm.astro';
 import {
   getAllTools,
   getCatalogStats,
-  getCatalogChanges,
   getPopulatedCategories,
   getRecentlyAdded,
   getToolsByCategory,
 } from '@lib/data/catalog';
+import { getLatestNews } from '@lib/data/news';
 import { itemListSchema } from '@lib/seo/structured-data';
+import { recuentoVerificacion } from '@lib/domain/verification';
 import { ROUTES, VERTICALS } from '@lib/nav';
 
 const stats = getCatalogStats();
+
+/*
+ * Las cifras que podemos demostrar, y en ese orden.
+ *
+ * La portada decía «Herramientas verificadas: 94». No era cierto de las 94:
+ * nueve no tienen plan gratuito, cinco están sin comprobar contra la fuente y
+ * en setenta y nueve queda algún hecho que su fabricante no publica. Ahora las
+ * cuatro cifras se distinguen y cada una lleva su nombre exacto.
+ */
+const recuento = recuentoVerificacion(getAllTools());
 
 /*
  * La rejilla la encabezan las seis verticales, en orden editorial.
@@ -61,20 +72,34 @@ const topTools = [...getAllTools()]
   .sort((a, b) => b.lastVerifiedAt.localeCompare(a.lastVerifiedAt) || a.name.localeCompare(b.name, 'es'))
   .slice(0, 6);
 const recent = getRecentlyAdded(4);
-const changes = getCatalogChanges(4);
+/*
+ * «Qué ha cambiado últimamente», con noticias de verdad recientes.
+ *
+ * Esto salía de `changelog`, cuya entrada más nueva es del 1 de junio de 2024.
+ * En agosto de 2026 la portada presentaba como «últimamente» algo de hace dos
+ * años, mientras `/noticias` tenía casi doscientas entradas de este verano.
+ *
+ * La ventana es explícita y el bloque desaparece si no hay nada dentro: es
+ * preferible una portada más corta que una sección que envejece sola.
+ */
+const VENTANA_DIAS = 60;
+const limite = Date.now() - VENTANA_DIAS * 24 * 60 * 60 * 1000;
+const changes = getLatestNews(12)
+  .filter((item) => new Date(item.publishedAt).getTime() >= limite)
+  .slice(0, 4);
 
 const noCardPicks = getAllTools()
   .filter((t) => t.freePlan.requiresCreditCard === 'no' && t.freePlan.commercialUse === 'yes')
   .slice(0, 4);
 
 const description =
-  'Verificamos herramientas de IA una por una: qué es gratis de verdad, con qué límites, si piden tarjeta, si dejan marca de agua y si permiten uso comercial. Sin humo publicitario.';
+  `Revisamos herramientas de IA contra la página oficial de su fabricante: qué es gratis de verdad, con qué límites, si piden tarjeta y si permiten uso comercial. ${recuento.total} revisadas, ${recuento.accesoGratuitoConfirmado} con acceso gratuito confirmado. Lo que no publican, lo decimos.`;
 ---
 
 <BaseLayout
   title="Free AI Radar — IA gratis, verificada de verdad"
   description={description}
-  schemas={[itemListSchema(topTools, 'Herramientas de IA verificadas hace menos')]}
+  schemas={[itemListSchema(topTools, 'Herramientas de IA revisadas hace menos')]}
 >
   <section class="hero">
     <div class="page hero-inner">
@@ -119,11 +144,16 @@ const description =
       </ul>
 
       <dl class="hero-stats">
-        <div><dt>Herramientas verificadas</dt><dd class="tnum">{stats.total}</dd></div>
-        <div><dt>Sin tarjeta</dt><dd class="tnum">{stats.noCard}</dd></div>
-        <div><dt>Uso comercial</dt><dd class="tnum">{stats.commercialUse}</dd></div>
-        <div><dt>Open source</dt><dd class="tnum">{stats.openSource}</dd></div>
+        <div><dt>Herramientas revisadas</dt><dd class="tnum">{recuento.total}</dd></div>
+        <div><dt>Con acceso gratuito confirmado</dt><dd class="tnum">{recuento.accesoGratuitoConfirmado}</dd></div>
+        <div><dt>Ficha completa</dt><dd class="tnum">{recuento.verificada}</dd></div>
+        <div><dt>Con algún dato sin publicar</dt><dd class="tnum">{recuento.parcial}</dd></div>
       </dl>
+      <p class="hero-stats-note">
+        «Ficha completa» significa que el fabricante publica todo lo que
+        resumimos. En las demás falta algún dato y lo decimos en la propia
+        ficha, en vez de suponerlo. <a href={ROUTES.methodology}>Cómo lo comprobamos</a>.
+      </p>
     </div>
   </section>
 
@@ -177,20 +207,20 @@ const description =
       <section aria-labelledby="changes-title" class="changes-section">
         <header class="section-head">
           <div>
-            <p class="eyebrow">Registro de cambios</p>
+            <p class="eyebrow">Últimos {VENTANA_DIAS} días</p>
             <h2 id="changes-title" class="section-title">Qué ha cambiado últimamente</h2>
           </div>
           <a href={ROUTES.news} class="btn btn-ghost btn-sm">Historial completo →</a>
         </header>
         <ol class="change-list">
-          {changes.map(({ tool, change }) => (
+          {changes.map((item) => (
             <li class="change-item">
-              <time datetime={change.date} class="change-date tnum">
-                {new Date(`${change.date}T00:00:00Z`).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', timeZone: 'UTC' })}
+              <time datetime={item.publishedAt} class="change-date tnum">
+                {new Date(item.publishedAt).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' })}
               </time>
               <div>
-                <a href={ROUTES.tool(tool.slug)} class="change-tool">{tool.name}</a>
-                <p class="change-summary">{change.summary}</p>
+                <a href={ROUTES.newsItem(item.slug)} class="change-tool">{item.title}</a>
+                <p class="change-summary">{item.summary}</p>
               </div>
             </li>
           ))}
@@ -207,7 +237,7 @@ const description =
         <a href={`${ROUTES.tools}?nocard=1&comm=1`} class="btn btn-ghost btn-sm">Ver todas →</a>
       </header>
       <p class="section-lede">
-        Las dos condiciones que más veces fallan a la vez. Estas cumplen ambas, verificadas.
+        Las dos condiciones que más veces fallan a la vez. En estas, las dos están confirmadas por escrito.
       </p>
       <ul class="grid-cards card-list">
         {noCardPicks.map((tool) => (
@@ -250,10 +280,11 @@ const description =
           </p>
         </li>
         <li>
-          <h3>La fórmula está publicada</h3>
+          <h3>Sin nota y sin ranking</h3>
           <p>
-            Los cinco componentes, sus pesos y cada penalización están documentados y se muestran
-            desglosados en cada ficha. <a href={ROUTES.methodology}>Ver metodología</a>.
+            No publicamos una puntuación única ni ordenamos por calidad: cada ficha dice qué
+            hemos comprobado, contra qué página y qué falta.
+            <a href={ROUTES.methodology}>Cómo lo comprobamos</a>.
           </p>
         </li>
         <li>
@@ -368,6 +399,14 @@ const description =
   .hero-shortcuts a:hover {
     border-color: var(--signal);
     color: var(--signal);
+  }
+
+  .hero-stats-note {
+    margin: var(--space-2xs) 0 0;
+    max-width: 52ch;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--ink-subtle);
   }
 
   .hero-stats {

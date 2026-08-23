@@ -61,6 +61,40 @@ describe('ninguna página publica una nota', () => {
   });
 });
 
+describe('el lenguaje público sobre notas y rankings', () => {
+  /*
+   * No basta con no pintar el número: mientras el sitio siguiera explicando
+   * «los cinco componentes», «la fórmula» o «la puntuación editorial», seguía
+   * describiendo un sistema que ya no aplica. Estas frases sobrevivieron a dos
+   * barridos porque vivían en transparencia, en afiliados y en la portada, no
+   * en las páginas de catálogo.
+   */
+  const PROHIBIDAS = [
+    /puntuación editorial/i,
+    /la fórmula (entera|completa|está publicada)/i,
+    /los cinco componentes/i,
+    /mejor(es)? valorad/i,
+    /mejor puntuación/i,
+    /subir (de |una )?puntuación/i,
+    /un punto de puntuación/i,
+  ];
+
+  it('ninguna página pública explica una nota que no publicamos', () => {
+    const culpables: string[] = [];
+    for (const fichero of VISTA) {
+      const texto = readFileSync(join(ROOT, fichero), 'utf8')
+        .replace(/\{\/\*[\s\S]*?\*\/\}/g, '')
+        .replace(/\/\*[\s\S]*?\*\//g, '')
+        .replace(/^\s*\/\/.*$/gm, '');
+      for (const prohibida of PROHIBIDAS) {
+        const m = texto.match(prohibida);
+        if (m) culpables.push(`${fichero}: «${m[0]}»`);
+      }
+    }
+    expect(culpables, 'lenguaje heredado de la nota sobre 100').toEqual([]);
+  });
+});
+
 describe('el orden del explorador', () => {
   it('no ofrece ordenar por puntuación', () => {
     expect(SORT_OPTIONS.map((o) => o.key)).not.toContain('score');

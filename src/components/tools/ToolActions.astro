@@ -7,11 +7,16 @@ const { slug, name } = Astro.props;
 ---
 
 {/*
-  Save / compare / follow.
+  Guardar y comparar. Ya no hay «Avisarme».
 
-  Rendered for everyone. Signed-out visitors get the action stored locally and
-  a quiet prompt to create an account so it syncs — never a wall in front of
-  the content they came for.
+  El botón de avisos escribía el slug en `localStorage` y cambiaba su etiqueta
+  a «Avisos activos». No existe ningún mecanismo que envíe un aviso —ni ruta,
+  ni cola, ni correo—, así que el estado de éxito era la única parte real de la
+  promesa. Un botón que dice «activo» sin nada detrás es peor que no tenerlo.
+
+  Guardar sí hace lo que dice, y lo dice: se guarda en este navegador, y con
+  cuenta se conserva. La arquitectura de seguimiento sigue en el modelo de
+  datos para cuando los avisos existan.
 */}
 <div class="tool-actions" data-tool-actions data-slug={slug} data-name={name}>
   <button type="button" class="tool-action" data-action="favorite" aria-pressed="false">
@@ -33,19 +38,11 @@ const { slug, name } = Astro.props;
     </svg>
     <span class="compare-label">Comparar</span>
   </button>
-
-  <button type="button" class="tool-action" data-action="follow" aria-pressed="false">
-    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M8 2.5a4 4 0 0 0-4 4v2.2L2.8 11h10.4L12 8.7V6.5a4 4 0 0 0-4-4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
-      <path d="M6.6 13a1.5 1.5 0 0 0 2.8 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-    </svg>
-    <span data-action-label>Avisarme</span>
-  </button>
 </div>
 
 <p class="tool-actions-hint" data-actions-hint hidden>
-  Guardado en este navegador. <a href="/cuenta/crear">Crea una cuenta gratis</a> para conservarlo y
-  recibir avisos cuando cambie su plan.
+  Guardado <strong>en este navegador</strong>. Si borras los datos del navegador se pierde:
+  <a href="/cuenta/crear">crea una cuenta gratis</a> para conservarlo.
 </p>
 
 <style>
@@ -101,12 +98,11 @@ const { slug, name } = Astro.props;
 <script>
   import { postForm } from '@lib/client/http';
 
-  const LOCAL_KEYS = { favorite: 'far-favorites', follow: 'far-follows' } as const;
+  const LOCAL_KEYS = { favorite: 'far-favorites' } as const;
   type ActionKind = keyof typeof LOCAL_KEYS;
 
   const LABELS: Record<ActionKind, { on: string; off: string }> = {
     favorite: { on: 'Guardada', off: 'Guardar' },
-    follow: { on: 'Avisos activos', off: 'Avisarme' },
   };
 
   function readLocal(key: string): string[] {

@@ -1198,7 +1198,7 @@
       "reasoning",
       "api"
     ],
-    "startEffort": "technical",
+    "startEffort": "signup",
     "startEffortReason": "Se usa con una clave de API y facturación activa.",
     "scores": {
       "freeReal": 2,
@@ -1300,7 +1300,7 @@
       "reasoning",
       "api"
     ],
-    "startEffort": "technical",
+    "startEffort": "signup",
     "startEffortReason": "Por API con clave y facturación; en claude.ai basta una cuenta.",
     "scores": {
       "freeReal": 2,
@@ -1445,7 +1445,7 @@
     "detectedAt": "2026-08-07",
     "lastVerifiedAt": "2026-08-20",
     "updatedAt": "2026-08-20",
-    "startEffort": "technical",
+    "startEffort": "signup",
     "capabilities": [
       "text-generation",
       "code-generation",
@@ -3354,7 +3354,7 @@
       "tool-use",
       "api"
     ],
-    "startEffort": "technical",
+    "startEffort": "signup",
     "startEffortReason": "Clave de API desde Google AI Studio; la capa gratuita no exige facturación.",
     "scores": {
       "freeReal": 8,
@@ -3468,7 +3468,7 @@
       "tool-use",
       "api"
     ],
-    "startEffort": "technical",
+    "startEffort": "signup",
     "startEffortReason": "Clave de API con facturación activa: no entra en la capa gratuita.",
     "scores": {
       "freeReal": 1,
@@ -4383,7 +4383,7 @@
       "text-generation",
       "api"
     ],
-    "startEffort": "technical",
+    "startEffort": "signup",
     "startEffortReason": "Se usa con una clave de API y facturación activa.",
     "scores": {
       "freeReal": 1,
@@ -4596,7 +4596,7 @@
       "text-generation",
       "api"
     ],
-    "startEffort": "technical",
+    "startEffort": "signup",
     "startEffortReason": "Se usa con una clave de API desde su consola.",
     "scores": {
       "freeReal": 1,
@@ -9327,7 +9327,7 @@
     "lastVerifiedAt": "2026-08-13",
     "updatedAt": "2026-08-13",
     "auditNotes": "«Trial» y no «credits»: no hay una cantidad de créditos ni una frecuencia de renovación, sino un acceso gratuito que termina. La página de precios no menciona plan gratuito alguno; la que lo menciona es la de facturación.",
-    "startEffort": "technical",
+    "startEffort": "signup",
     "capabilities": [
       "api",
       "model-hosting"
