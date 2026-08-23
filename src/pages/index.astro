@@ -1,19 +1,14 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import ToolCard from '@components/tools/ToolCard.astro';
+import IntentCard from '@components/catalog/IntentCard.astro';
 import CompareTray from '@components/tools/CompareTray.astro';
 import NewsletterForm from '@components/marketing/NewsletterForm.astro';
-import {
-  getAllTools,
-  getCatalogStats,
-  getPopulatedCategories,
-  getRecentlyAdded,
-  getToolsByCategory,
-} from '@lib/data/catalog';
+import { getAllTools, getCatalogStats } from '@lib/data/catalog';
+import { destacadas } from '@lib/data/home';
 import { getLatestNews } from '@lib/data/news';
 import { itemListSchema } from '@lib/seo/structured-data';
 import { recuentoVerificacion } from '@lib/domain/verification';
-import { ROUTES, VERTICALS } from '@lib/nav';
+import { ROUTES } from '@lib/nav';
 
 const stats = getCatalogStats();
 
@@ -22,74 +17,48 @@ const stats = getCatalogStats();
  *
  * La portada decía «Herramientas verificadas: 94». No era cierto de las 94:
  * nueve no tienen plan gratuito, cinco están sin comprobar contra la fuente y
- * en setenta y nueve queda algún hecho que su fabricante no publica. Ahora las
- * cuatro cifras se distinguen y cada una lleva su nombre exacto.
+ * en setenta y nueve queda algún hecho que su fabricante no publica.
  */
 const recuento = recuentoVerificacion(getAllTools());
 
 /*
- * La rejilla la encabezan las seis verticales, en orden editorial.
+ * Seis acciones, no seis etiquetas de taxonomía.
  *
- * Antes salían las ocho categorías con más fichas, ordenadas por tamaño, y el
- * resultado contaba mal la historia: «Modelos open-source» aparecía como
- * recomendación principal compitiendo con /modelos, `/audio` no salía porque
- * `musica` y `voz` son pequeñas por separado, y «Agentes IA» llevaba a la
- * página de categoría en vez de a la vertical.
- *
- * El tamaño no es un criterio editorial: las seis secciones son la forma de
- * recorrer el catálogo, y las categorías técnicas siguen a un clic en
- * /categorias.
+ * «Imagen IA» es cómo lo llamamos por dentro; «Crear imágenes» es lo que
+ * alguien quiere hacer. La rejilla de categorías que había aquí estaba
+ * ordenada por número de fichas, así que enseñaba «Modelos open-source» —una
+ * categoría técnica— antes que Audio.
  */
-const SLUGS_VERTICALES: Record<string, readonly string[]> = {
-  '/imagen': ['imagen'],
-  '/video': ['video'],
-  '/audio': ['musica', 'voz'],
-  '/modelos': ['modelos'],
-  '/agentes': ['agentes'],
-  '/codigo': ['codigo'],
-};
+const INTENCIONES = [
+  { ruta: '/imagen', accion: 'Crear imágenes', pista: 'Generar y editar' },
+  { ruta: '/video', accion: 'Generar vídeo', pista: 'Texto o imagen a vídeo' },
+  { ruta: '/audio', accion: 'Crear música y voz', pista: 'Componer, clonar, transcribir' },
+  { ruta: '/codigo', accion: 'Programar con IA', pista: 'Editores, copilotos, agentes' },
+  { ruta: '/agentes', accion: 'Usar agentes', pista: 'Que hagan la tarea entera' },
+  { ruta: '/modelos', accion: 'Elegir un modelo', pista: 'Chat, API o pesos abiertos' },
+];
 
-const verticales = VERTICALS.map((v) => {
-  const slugs = SLUGS_VERTICALES[v.href] ?? [];
-  const unicas = new Set(slugs.flatMap((s) => getToolsByCategory(s).map((tool) => tool.slug)));
-  return { name: v.label, href: v.href, count: unicas.size };
-});
-
-/** Las categorías técnicas que quedan, sin repetir lo que ya es vertical. */
-const YA_CUBIERTAS = new Set(Object.values(SLUGS_VERTICALES).flat());
-const categorias = getPopulatedCategories()
-  .filter((c) => !YA_CUBIERTAS.has(c.slug))
-  .slice(0, 4);
 /*
- * Lo comprobado hace menos, no lo mejor puntuado.
+ * Una herramienta por vertical, sin repetir.
  *
- * Aquí ponía `getAllTools().slice(0, 6)`, y como el catálogo venía ordenado
- * por la nota sobre 100, estas seis eran literalmente el top-6 de una
- * puntuación que ya no publicamos. El criterio de ahora se puede leer en el
- * propio titular: son las últimas que hemos vuelto a comprobar.
+ * El criterio está en `destacadas()` y se puede discutir mirando: usable hoy
+ * sin pagar ni instalar, acceso comprobado contra la fuente oficial y
+ * capacidades citadas. Lo que decide entre las que cumplen es cuántos huecos
+ * le quedan a su ficha, no una calidad que no medimos.
  */
-const topTools = [...getAllTools()]
-  .sort((a, b) => b.lastVerifiedAt.localeCompare(a.lastVerifiedAt) || a.name.localeCompare(b.name, 'es'))
-  .slice(0, 6);
-const recent = getRecentlyAdded(4);
+const prueba = destacadas(6);
+
 /*
  * «Qué ha cambiado últimamente», con noticias de verdad recientes.
  *
  * Esto salía de `changelog`, cuya entrada más nueva es del 1 de junio de 2024.
  * En agosto de 2026 la portada presentaba como «últimamente» algo de hace dos
  * años, mientras `/noticias` tenía casi doscientas entradas de este verano.
- *
- * La ventana es explícita y el bloque desaparece si no hay nada dentro: es
- * preferible una portada más corta que una sección que envejece sola.
  */
-const VENTANA_DIAS = 60;
+const VENTANA_DIAS = 90;
 const limite = Date.now() - VENTANA_DIAS * 24 * 60 * 60 * 1000;
 const changes = getLatestNews(12)
   .filter((item) => new Date(item.publishedAt).getTime() >= limite)
-  .slice(0, 4);
-
-const noCardPicks = getAllTools()
-  .filter((t) => t.freePlan.requiresCreditCard === 'no' && t.freePlan.commercialUse === 'yes')
   .slice(0, 4);
 
 const description =
@@ -99,7 +68,7 @@ const description =
 <BaseLayout
   title="Free AI Radar — IA gratis, verificada de verdad"
   description={description}
-  schemas={[itemListSchema(topTools, 'Herramientas de IA revisadas hace menos')]}
+  schemas={[itemListSchema(prueba.map((d) => d.tool), 'Herramientas de IA con acceso gratuito confirmado')]}
 >
   <section class="hero">
     <div class="page hero-inner">
@@ -117,9 +86,9 @@ const description =
       </h1>
 
       <p class="hero-lede">
-        Probamos cada herramienta y publicamos lo incómodo: el límite real del plan gratuito, si
-        te van a pedir la tarjeta, si te dejan marca de agua y si puedes usar el resultado para
-        trabajar. Sin puntuaciones compradas.
+        Comprobamos cada herramienta contra la página de su fabricante y publicamos
+        lo incómodo: el límite real del plan gratuito, si piden tarjeta y si puedes
+        usar el resultado para trabajar.
       </p>
 
       <form class="hero-search" action={ROUTES.tools} method="get" role="search">
@@ -135,82 +104,51 @@ const description =
         <button type="submit" class="btn btn-primary">Buscar</button>
       </form>
 
-      <ul class="hero-shortcuts">
-        <li><a href={`${ROUTES.tools}?nocard=1`}>Sin pedir tarjeta</a></li>
-        <li><a href={`${ROUTES.tools}?comm=1`}>Con uso comercial</a></li>
-        <li><a href={`${ROUTES.tools}?oss=1`}>Open source</a></li>
-        <li><a href={`${ROUTES.tools}?host=local`}>Funciona en local</a></li>
-        <li><a href={`${ROUTES.tools}?nowm=1`}>Sin marca de agua</a></li>
+      <ul class="hero-intents">
+        {INTENCIONES.map((i) => (
+          <li>
+            <a href={i.ruta} class="hero-intent">
+              <span class="hero-intent-accion">{i.accion}</span>
+              <span class="hero-intent-pista">{i.pista}</span>
+            </a>
+          </li>
+        ))}
       </ul>
 
-      <dl class="hero-stats">
-        <div><dt>Herramientas revisadas</dt><dd class="tnum">{recuento.total}</dd></div>
-        <div><dt>Con acceso gratuito confirmado</dt><dd class="tnum">{recuento.accesoGratuitoConfirmado}</dd></div>
-        <div><dt>Ficha completa</dt><dd class="tnum">{recuento.verificada}</dd></div>
-        <div><dt>Con algún dato sin publicar</dt><dd class="tnum">{recuento.parcial}</dd></div>
-      </dl>
-      <p class="hero-stats-note">
-        «Ficha completa» significa que el fabricante publica todo lo que
-        resumimos. En las demás falta algún dato y lo decimos en la propia
-        ficha, en vez de suponerlo. <a href={ROUTES.methodology}>Cómo lo comprobamos</a>.
-      </p>
     </div>
   </section>
 
   <div class="page home-sections">
-    <section aria-labelledby="top-title">
+    <!-- B · ¿Qué puedo probar gratis hoy? ------------------------------- -->
+    <section aria-labelledby="prueba-title">
       <header class="section-head">
         <div>
-          <p class="eyebrow">Comprobadas hace menos</p>
-          <h2 id="top-title" class="section-title">Lo último que hemos verificado</h2>
+          <p class="eyebrow">Una por cada cosa que puedes hacer</p>
+          <h2 id="prueba-title" class="section-title">Prueba estas gratis hoy</h2>
         </div>
-        <a href={ROUTES.tools} class="btn btn-ghost btn-sm">Ver las {stats.total} →</a>
+        <a href={ROUTES.tools} class="btn btn-ghost btn-sm">Ver las {recuento.total} →</a>
       </header>
-      <ul class="grid-cards card-list">
-        {topTools.map((tool) => (
-          <li><ToolCard tool={tool} /></li>
+      <p class="section-lede">
+        Funcionan en el navegador, su acceso gratuito se renueva y lo hemos
+        comprobado contra la página oficial. Una por vertical, para que no sean
+        seis versiones de lo mismo.
+      </p>
+      <ul class="home-grid">
+        {prueba.map(({ tool }) => (
+          <li><IntentCard tool={tool} capabilityOrder={tool.capabilities} /></li>
         ))}
       </ul>
     </section>
 
-    <section aria-labelledby="cat-title">
-      <header class="section-head">
-        <div>
-          <p class="eyebrow">Por tipo de trabajo</p>
-          <h2 id="cat-title" class="section-title">Empieza por lo que necesitas hacer</h2>
-        </div>
-        <a href={ROUTES.categories} class="btn btn-ghost btn-sm">Todas las categorías →</a>
-      </header>
-      <ul class="category-grid">
-        {verticales.map((v) => (
-          <li>
-            <a href={v.href} class="card card-interactive category-card">
-              <span class="category-name">{v.name}</span>
-              <span class="category-count tnum">{v.count}</span>
-            </a>
-          </li>
-        ))}
-      </ul>
-      <ul class="category-grid category-grid-rest">
-        {categorias.map((cat) => (
-          <li>
-            <a href={ROUTES.category(cat.slug)} class="card card-interactive category-card">
-              <span class="category-name">{cat.name}</span>
-              <span class="category-count tnum">{cat.count}</span>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </section>
-
+    <!-- C · ¿Qué ha cambiado? ------------------------------------------- -->
     {changes.length > 0 && (
       <section aria-labelledby="changes-title" class="changes-section">
         <header class="section-head">
           <div>
             <p class="eyebrow">Últimos {VENTANA_DIAS} días</p>
-            <h2 id="changes-title" class="section-title">Qué ha cambiado últimamente</h2>
+            <h2 id="changes-title" class="section-title">Qué ha cambiado</h2>
           </div>
-          <a href={ROUTES.news} class="btn btn-ghost btn-sm">Historial completo →</a>
+          <a href={ROUTES.news} class="btn btn-ghost btn-sm">Todas las noticias →</a>
         </header>
         <ol class="change-list">
           {changes.map((item) => (
@@ -228,72 +166,29 @@ const description =
       </section>
     )}
 
-    <section aria-labelledby="nocard-title">
-      <header class="section-head">
-        <div>
-          <p class="eyebrow">Colección</p>
-          <h2 id="nocard-title" class="section-title">Sin tarjeta y con derecho a monetizar</h2>
-        </div>
-        <a href={`${ROUTES.tools}?nocard=1&comm=1`} class="btn btn-ghost btn-sm">Ver todas →</a>
-      </header>
-      <p class="section-lede">
-        Las dos condiciones que más veces fallan a la vez. En estas, las dos están confirmadas por escrito.
-      </p>
-      <ul class="grid-cards card-list">
-        {noCardPicks.map((tool) => (
-          <li><ToolCard tool={tool} variant="compact" /></li>
-        ))}
-      </ul>
-    </section>
-
-    <section aria-labelledby="recent-title">
-      <header class="section-head">
-        <div>
-          <p class="eyebrow">Nuevas en el radar</p>
-          <h2 id="recent-title" class="section-title">Añadidas recientemente</h2>
-        </div>
-      </header>
-      <ul class="grid-cards card-list">
-        {recent.map((tool) => (
-          <li><ToolCard tool={tool} variant="compact" /></li>
-        ))}
-      </ul>
-    </section>
-
+    <!-- D · ¿Por qué fiarte? -------------------------------------------- -->
     <section class="promise" aria-labelledby="promise-title">
-      <h2 id="promise-title" class="section-title">Cómo trabajamos</h2>
+      <h2 id="promise-title" class="section-title">Por qué fiarte de esto</h2>
+      <dl class="hero-stats">
+        <div><dt>Herramientas revisadas</dt><dd class="tnum">{recuento.total}</dd></div>
+        <div><dt>Con acceso gratuito confirmado</dt><dd class="tnum">{recuento.accesoGratuitoConfirmado}</dd></div>
+        <div><dt>Verificación completa</dt><dd class="tnum">{recuento.verificada}</dd></div>
+        <div><dt>Con algún dato sin publicar</dt><dd class="tnum">{recuento.parcial}</dd></div>
+      </dl>
+      <p class="hero-stats-note">
+        «Verificación completa» significa que el fabricante publica todos los
+        hechos que le aplican. En las demás falta alguno concreto —lo nombramos
+        en su ficha— y el resto del análisis está igual de comprobado.
+        {recuento.sinPlanGratuito} no tienen plan gratuito, y su ficha lo dice.
+        <a href={ROUTES.methodology}>Cómo lo comprobamos</a>.
+      </p>
+
       <ul class="promise-list">
-        <li>
-          <h3>Verificamos, no copiamos</h3>
-          <p>
-            Cada dato del plan gratuito sale de la página oficial del fabricante, con enlace y
-            fecha. Si no lo hemos confirmado, lo decimos: verás «sin verificar», nunca un «no»
-            inventado.
-          </p>
-        </li>
-        <li>
-          <h3>El veredicto no se vende</h3>
-          <p>
-            Un patrocinio puede comprar visibilidad claramente etiquetada. No puede comprar un
-            cambio de veredicto, un puesto en una lista ni un dato distinto del comprobado.
-            <a href={ROUTES.editorialPolicy}>Política editorial</a>.
-          </p>
-        </li>
-        <li>
-          <h3>Sin nota y sin ranking</h3>
-          <p>
-            No publicamos una puntuación única ni ordenamos por calidad: cada ficha dice qué
-            hemos comprobado, contra qué página y qué falta.
-            <a href={ROUTES.methodology}>Cómo lo comprobamos</a>.
-          </p>
-        </li>
-        <li>
-          <h3>Puedes corregirnos</h3>
-          <p>
-            Los planes gratuitos cambian sin avisar. Cada ficha tiene un botón para reportar que
-            algo ya no es cierto, y lo revisamos.
-          </p>
-        </li>
+        <li><strong>Fuente oficial.</strong> Cada dato sale de la página del fabricante, enlazada en la ficha.</li>
+        <li><strong>Con fecha.</strong> Cada ficha dice cuándo se comprobó por última vez.</li>
+        <li><strong>«Sin confirmar» no es «no».</strong> Si el fabricante no lo publica, lo decimos así.</li>
+        <li><strong>Sin nota ni ranking.</strong> No hay puntuación sobre 100 ni orden por calidad.</li>
+        <li><strong>Se nos puede corregir.</strong> Si algo ha dejado de ser cierto, <a href={ROUTES.submit}>avísanos</a>.</li>
       </ul>
     </section>
 
@@ -409,6 +304,79 @@ const description =
     color: var(--ink-subtle);
   }
 
+  /*
+   * Las seis intenciones, que son la navegación real de la portada.
+   *
+   * Sustituyen a cinco atajos de filtro genéricos —«Sin pedir tarjeta», «Open
+   * source»— que competían con el buscador justo encima y no llevaban a
+   * ninguna parte concreta. Una acción y su matiz caben en dos líneas y se
+   * pulsan con el pulgar.
+   */
+  .hero-intents {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+    gap: var(--space-2xs);
+    margin: var(--space-s) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .hero-intent {
+    display: block;
+    min-height: 3.25rem;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-m);
+    background: var(--surface);
+    text-decoration: none;
+    transition: border-color 140ms ease, background-color 140ms ease;
+  }
+
+  .hero-intent:hover,
+  .hero-intent:focus-visible {
+    border-color: var(--signal-line);
+    background: var(--signal-soft);
+  }
+
+  .hero-intent-accion {
+    display: block;
+    font-weight: 650;
+    color: var(--ink-strong);
+  }
+
+  .hero-intent-pista {
+    display: block;
+    margin-top: 0.1rem;
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+  }
+
+  .home-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    gap: var(--space-xs);
+    margin: var(--space-s) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .home-grid > li {
+    display: flex;
+  }
+
+  .promise-list {
+    display: grid;
+    gap: var(--space-2xs);
+    margin: var(--space-2xs) 0 0;
+    padding-inline-start: 1.1rem;
+    max-width: 60ch;
+    line-height: 1.55;
+  }
+
+  .promise-more {
+    margin: var(--space-xs) 0 0;
+  }
+
   .hero-stats {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -439,6 +407,40 @@ const description =
     display: grid;
     gap: var(--space-2xl);
     padding-block: var(--space-xl);
+  }
+
+  /*
+   * `min-width: 0`, que es la trampa clásica de CSS Grid.
+   *
+   * Un hijo de grid tiene `min-width: auto`, así que se niega a encoger por
+   * debajo del ancho mínimo de su contenido. Con tarjetas que dentro llevan
+   * líneas largas —«Se conecta con otras aplicaciones»— la sección crecía
+   * hasta 507 px dentro de un viewport de 375 y arrastraba a toda la página
+   * a un desplazamiento lateral.
+   */
+  .home-sections > * {
+    min-width: 0;
+  }
+
+  /*
+   * En móvil el aire entre secciones cuesta pantalla, no claridad.
+   *
+   * Cinco secciones con `--space-2xl` entre cada dos suman más de 250 px de
+   * nada en un viewport de 375. El borde y el titular de cada bloque ya
+   * separan lo suficiente.
+   */
+  @media (max-width: 40rem) {
+    .home-sections {
+      gap: var(--space-xl);
+    }
+
+    .change-summary {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
   }
 
   .section-head {

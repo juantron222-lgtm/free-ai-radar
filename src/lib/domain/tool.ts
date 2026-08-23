@@ -225,6 +225,20 @@ export const ToolRecord = z.object({
     .enum(['ide', 'copilot', 'agent', 'cli', 'review', 'app-builder', 'platform', 'library'])
     .optional(),
 
+  /**
+   * Ruta a un logo servido desde nuestro propio dominio.
+   *
+   * Opcional y con una condición: `/logos/…`, nunca una URL externa. Enlazar
+   * el favicon de un tercero rompería a la primera que cambien su web, llevaría
+   * a nuestros lectores a un dominio ajeno sin decírselo y publicaría una
+   * imagen cuyos derechos no hemos comprobado. Sin logo, la tarjeta dibuja un
+   * monograma, que no es de nadie y por tanto no afirma nada.
+   */
+  logo: z
+    .string()
+    .regex(/^\/logos\/[a-z0-9-]+\.(svg|png|webp)$/, 'El logo debe servirse desde /logos/')
+    .optional(),
+
   openSource: Openness.default('unverified'),
 
   /**

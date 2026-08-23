@@ -1,0 +1,145 @@
+---
+import type { Tool } from '@lib/domain/tool';
+
+interface Props {
+  tool: Tool;
+  size?: 'sm' | 'md';
+}
+
+const { tool, size = 'md' } = Astro.props;
+
+/**
+ * Identidad visual mínima, y sin hotlinkear nada.
+ *
+ * El catálogo no tiene una sola imagen: noventa y cuatro tarjetas de texto
+ * seguidas se leen como un volcado de base de datos, por bien escritas que
+ * estén. Lo que falta antes que capturas o muestras generadas es lo más
+ * barato: poder distinguir una marca de otra de un vistazo.
+ *
+ * Cómo se resuelve, y por qué así:
+ *
+ *   - Si la ficha declara `logo`, se sirve **desde nuestro propio dominio**
+ *     (`/logos/…`). Nunca se enlaza el favicon de un tercero ni un servicio de
+ *     iconos: eso rompería a la primera que alguien cambie su web, filtraría a
+ *     nuestros lectores a un dominio ajeno y publicaría una imagen cuyos
+ *     derechos no hemos comprobado.
+ *
+ *   - Si no la declara —hoy, ninguna— se dibuja un monograma con las iniciales
+ *     y un color derivado del propio slug. No es el logo de nadie, así que no
+ *     miente ni pide permiso a nadie, y sin embargo hace lo que hace falta:
+ *     que dos tarjetas seguidas no se confundan.
+ *
+ * El color sale de una función determinista del slug, no de un aleatorio: la
+ * misma herramienta tiene siempre el mismo tono, en esta página y en la
+ * siguiente, que es lo que convierte el color en algo reconocible.
+ */
+
+/** Un tono estable por herramienta. Doce pasos, suficientes para distinguir. */
+function tono(slug: string): number {
+  let hash = 0;
+  for (let i = 0; i < slug.length; i++) hash = (hash * 31 + slug.charCodeAt(i)) % 360;
+  return Math.round(hash / 30) * 30;
+}
+
+/**
+ * Una o dos letras, las que una persona usaría.
+ *
+ * «Bolt.new» da B, «GitHub Copilot» da GC, «v0 by Vercel» da V0. Se parte por
+ * espacios y se ignoran las palabras de relleno, porque «by» no identifica a
+ * nadie.
+ */
+function iniciales(name: string): string {
+  const RELLENO = new Set(['by', 'de', 'the', 'ai', 'for']);
+  const palabras = name
+    .split(/[\s·|]+/)
+    .map((p) => p.replace(/[^\p{L}\p{N}]/gu, ''))
+    .filter((p) => p.length > 0 && !RELLENO.has(p.toLowerCase()));
+
+  if (palabras.length === 0) return name.slice(0, 2).toUpperCase();
+  if (palabras.length === 1) return palabras[0]!.slice(0, 2).toUpperCase();
+  return (palabras[0]![0]! + palabras[1]![0]!).toUpperCase();
+}
+
+const logo = tool.logo;
+const letras = iniciales(tool.name);
+const h = tono(tool.slug);
+---
+
+{logo ? (
+  <img
+    class={`tool-logo tool-logo-${size}`}
+    src={logo}
+    alt=""
+    width={size === 'sm' ? 28 : 36}
+    height={size === 'sm' ? 28 : 36}
+    loading="lazy"
+    decoding="async"
+  />
+) : (
+  <span
+    class={`tool-logo tool-logo-${size} tool-logo-mono`}
+    style={`--logo-h: ${h}`}
+    aria-hidden="true"
+  >
+    {letras}
+  </span>
+)}
+
+<style>
+  .tool-logo {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-m);
+    border: 1px solid var(--line);
+    background: var(--surface);
+    object-fit: contain;
+  }
+
+  .tool-logo-md {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .tool-logo-sm {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  /*
+   * El monograma.
+   *
+   * Fondo muy claro y letra saturada del mismo tono: distingue sin gritar, y
+   * el contraste no depende del tono porque la luminosidad está fijada. En
+   * oscuro se invierte la relación en vez de bajar la opacidad, que es lo que
+   * dejaría las iniciales por debajo del mínimo legible.
+   */
+  .tool-logo-mono {
+    background: hsl(var(--logo-h) 62% 94%);
+    border-color: hsl(var(--logo-h) 40% 82%);
+    color: hsl(var(--logo-h) 65% 28%);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    user-select: none;
+  }
+
+  .tool-logo-sm.tool-logo-mono {
+    font-size: 0.6875rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) .tool-logo-mono {
+      background: hsl(var(--logo-h) 40% 18%);
+      border-color: hsl(var(--logo-h) 35% 30%);
+      color: hsl(var(--logo-h) 70% 82%);
+    }
+  }
+
+  :root[data-theme='dark'] .tool-logo-mono {
+    background: hsl(var(--logo-h) 40% 18%);
+    border-color: hsl(var(--logo-h) 35% 30%);
+    color: hsl(var(--logo-h) 70% 82%);
+  }
+</style>

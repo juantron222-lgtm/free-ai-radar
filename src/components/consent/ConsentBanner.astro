@@ -22,12 +22,23 @@ import { CONSENT_CATEGORIES, CONSENT_VERSION } from '@lib/consent';
   data-consent-version={CONSENT_VERSION}
   hidden
 >
-  <div class="consent-backdrop" data-consent-backdrop></div>
+  {/*
+    Una barra, no un modal.
 
+    Esto era un diálogo con `aria-modal` y un fondo oscuro a pantalla completa.
+    En 375 px el resultado era que la primera pantalla entera —titular,
+    propuesta de valor, buscador— quedaba tapada y atenuada por una decisión
+    que ni siquiera es obligatoria: las cookies necesarias no se consienten,
+    y las demás están apagadas hasta que alguien las encienda.
+
+    Bloquear la página para pedir permiso de algo que aún no ocurre es cobrar
+    por adelantado en atención. Ahora es una barra inferior: se ve, se puede
+    responder, y no impide leer lo que se ha venido a leer. La lógica de
+    consentimiento no cambia ni una línea; cambia dónde se pregunta.
+  */}
   <div
     class="consent-panel"
-    role="dialog"
-    aria-modal="true"
+    role="region"
     aria-labelledby="consent-title"
     aria-describedby="consent-desc"
   >
@@ -91,10 +102,10 @@ import { CONSENT_CATEGORIES, CONSENT_VERSION } from '@lib/consent';
    */
   .consent-root {
     position: fixed;
-    inset: 0;
+    inset-inline: 0;
+    inset-block-end: 0;
     z-index: 60;
     display: flex;
-    align-items: flex-end;
     justify-content: center;
     padding: 0;
   }
@@ -103,18 +114,12 @@ import { CONSENT_CATEGORIES, CONSENT_VERSION } from '@lib/consent';
     display: none;
   }
 
-  .consent-backdrop {
-    position: absolute;
-    inset: 0;
-    background: var(--overlay);
-  }
-
   .consent-panel {
     position: relative;
     z-index: 1;
     width: 100%;
     max-width: 46rem;
-    max-height: 85dvh;
+    max-height: 60dvh;
     overflow-y: auto;
     overscroll-behavior: contain;
     background: var(--surface);

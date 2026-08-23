@@ -4,6 +4,7 @@ import { CAPABILITY_LABEL, HOSTING_LABEL, START_EFFORT_LABEL } from '@lib/domain
 import type { Capability } from '@lib/domain/taxonomy';
 import { freeAccessLabel } from '@lib/data/category-page';
 import { ROUTES } from '@lib/nav';
+import ToolLogo from '@components/tools/ToolLogo.astro';
 
 /**
  * Una tarjeta que contesta cuatro preguntas y ninguna más.
@@ -115,10 +116,13 @@ const licenciaDividida = Boolean(capas.code && capas.weights && capas.code !== c
   data-name={tool.name.toLowerCase()}
 >
   <div class="ic-head">
-    <Heading class="ic-name">
-      <a href={ROUTES.tool(tool.slug)} class="ic-link">{tool.name}</a>
-    </Heading>
-    <span class="chip ic-access" data-tone={access.tone}>{access.kind}</span>
+    <ToolLogo tool={tool} />
+    <div class="ic-ident">
+      <Heading class="ic-name">
+        <a href={ROUTES.tool(tool.slug)} class="ic-link">{tool.name}</a>
+      </Heading>
+      <span class="chip ic-access" data-tone={access.tone}>{access.kind}</span>
+    </div>
   </div>
 
   {typeLabel && (
@@ -222,15 +226,35 @@ const licenciaDividida = Boolean(capas.code && capas.weights && capas.code !== c
   .ic-head {
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
     gap: var(--space-2xs);
+  }
+
+  /*
+   * El nombre manda, y el acceso se aparta cuando no cabe.
+   *
+   * Antes el nombre y la etiqueta de acceso compartían una fila con
+   * `justify-content: space-between`, y en 375 px «Bolt.new» o «Amazon Q
+   * Developer» se partían letra a letra para dejarle sitio a «Free tier». El
+   * orden de lectura es nombre, qué hace, acceso — nunca al revés—, así que
+   * ahora la etiqueta se envuelve debajo en vez de estrujar el nombre.
+   */
+  .ic-ident {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.25rem var(--space-2xs);
   }
 
   .ic-name {
     margin: 0;
+    flex: 1 1 auto;
+    min-width: 8ch;
     font-size: 1.0625rem;
     font-weight: 650;
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
   }
 
   .ic-link {

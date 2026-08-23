@@ -53,7 +53,15 @@ test.describe('portada', () => {
 test.describe('consentimiento', () => {
   test('aparece antes de cualquier decisión y permite rechazar con un clic', async ({ page }) => {
     await page.goto('/');
-    const dialog = page.getByRole('dialog', { name: /cookies/i });
+    /*
+     * Una región, no un diálogo.
+     *
+     * Dejó de ser modal a propósito: pedía permiso de algo que aún no ocurre y
+     * a cambio tapaba la primera pantalla entera. Lo que sigue exigiéndose es
+     * lo que de verdad importaba —que aparezca antes de cualquier decisión y
+     * que rechazar cueste un clic, igual que aceptar.
+     */
+    const dialog = page.getByRole('region', { name: /cookies/i });
     await expect(dialog).toBeVisible();
 
     // Rechazar debe ser tan accesible como aceptar.
@@ -70,7 +78,7 @@ test.describe('consentimiento', () => {
     await page.goto('/');
     await page.getByRole('button', { name: 'Rechazar todo' }).click();
     await page.reload();
-    await expect(page.getByRole('dialog', { name: /cookies/i })).toBeHidden();
+    await expect(page.getByRole('region', { name: /cookies/i })).toBeHidden();
   });
 });
 

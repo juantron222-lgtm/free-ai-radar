@@ -37,7 +37,16 @@ function fuentes(dir: string, out: string[] = []): string[] {
  * Se declaran donde empiezan la línea o el bloque: `--x: valor`. Se excluye el
  * caso `var(--x, --y)` —la reserva— porque no declara nada.
  */
-const DECLARA = /(^|[;{\s])(--[a-zA-Z0-9-]+)\s*:/g;
+/*
+ * Una propiedad se declara de tres formas, y las tres cuentan.
+ *
+ * En CSS, dentro de un bloque. Desde un guion, con `setProperty`. Y en un
+ * atributo `style` en línea —``style={`--logo-h: ${h}`}``—, que es como el
+ * monograma de la tarjeta recibe su tono. Ahí el nombre no viene precedido de
+ * `;` ni de `{`, sino de una comilla, y por eso la primera versión de esta
+ * prueba lo denunciaba como inventado.
+ */
+const DECLARA = /(^|[;{\s"'`])(--[a-zA-Z0-9-]+)\s*:/g;
 const USA = /var\(\s*(--[a-zA-Z0-9-]+)/g;
 /** Las que un guion escribe en tiempo de ejecución también existen. */
 const ESCRIBE = /setProperty\(\s*['"`](--[a-zA-Z0-9-]+)/g;
