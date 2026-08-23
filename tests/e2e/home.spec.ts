@@ -52,6 +52,19 @@ test.describe('portada', () => {
     expect(top, 'la primera intención debe verse sin desplazar').toBeLessThan(812);
   });
 
+  test('el titular no pega dos palabras', async ({ page }) => {
+    /*
+     * El mismo defecto que ya cazamos en las entradillas de las verticales,
+     * esta vez en el H1: `…gratis de verdad</span>,<br />separada…`. El salto
+     * está oculto por CSS y el compilador de Astro se come el espacio en
+     * blanco del código, así que en móvil se leía «verdad,separada».
+     */
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.goto('/');
+    const titular = (await page.locator('h1').innerText()).replace(/\s+/g, ' ');
+    expect(titular, `«${titular}»`).not.toMatch(/[a-záéíóúñ],[A-Za-zÁÉÍÓÚÑ]/);
+  });
+
   test('ninguna herramienta se repite', async ({ page }) => {
     await page.goto('/');
     const slugs = await page.evaluate(() =>
