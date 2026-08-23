@@ -1,7 +1,9 @@
 ---
+import type { Tool } from '@lib/domain/tool';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import IntentCard from '@components/catalog/IntentCard.astro';
 import CatalogFilters from '@components/catalog/CatalogFilters.astro';
+import ToolMention from '@components/catalog/ToolMention.astro';
 import { getToolsByCategory } from '@lib/data/catalog';
 import { getCategory } from '@lib/domain/taxonomy';
 import {
@@ -14,6 +16,7 @@ import {
   localControl,
   professional,
 } from '@lib/data/imagen';
+import { repartirBloques } from '@lib/data/category-page';
 import { faqSchema, itemListSchema } from '@lib/seo/structured-data';
 import { ROUTES } from '@lib/nav';
 
@@ -40,6 +43,57 @@ const faciles = easyToStart(tools).slice(0, 5);
 const potentes = professional(tools).slice(0, 5);
 const { install, technical } = localControl(tools);
 const todas = catalogueOrder(tools);
+
+/*
+ * Los bloques, en orden editorial y con su motivo.
+ *
+ * Dos cosas cambian aquí. La primera: el primero que reclama una herramienta
+ * se queda su tarjeta completa y los demás la mencionan, porque «gratis
+ * ahora», «fáciles» y «las que más saben» compartían casi el mismo reparto y
+ * la página pintaba 41 tarjetas para 17 fichas.
+ *
+ * La segunda es de honestidad. El bloque se llamaba «Potentes y
+ * profesionales» y su criterio real era `capabilities.length >= 6`: no mide
+ * potencia ni profesionalidad, mide cuántas capacidades hemos documentado. Se
+ * llama como lo que mide.
+ */
+const declarados = [
+  {
+    id: 'gratis',
+    titulo: 'Genera imágenes gratis ahora',
+    lista: gratis,
+    lede: 'Funcionan en el navegador y su acceso gratuito se renueva. Lo que ves debajo es lo que dice la página oficial del fabricante.',
+    motivo: (tool: Tool) =>
+      tool.freePlan.creditsAmount
+        ? `Acceso gratuito que se renueva: ${tool.freePlan.creditsAmount}.`
+        : 'Acceso gratuito que se renueva.',
+  },
+  {
+    id: 'faciles',
+    titulo: 'Fáciles para empezar',
+    lista: faciles,
+    lede: 'Nada que instalar. Primero las que no piden ni cuenta. Que sean de pago no las descalifica: aquí la pregunta es cuánto cuesta empezar, no cuánto cuesta.',
+    motivo: (tool: Tool) =>
+      tool.startEffort === 'instant' ? 'Se abre y se genera, sin cuenta.' : 'Sólo hace falta una cuenta.',
+  },
+  {
+    id: 'capaces',
+    titulo: 'Las que más cosas saben hacer',
+    lista: potentes,
+    lede: 'Seis o más capacidades documentadas por su fabricante, cada una con la frase que la demuestra. No es una nota de calidad: es cuánto sabemos de ellas con certeza.',
+    motivo: (tool: Tool) => `${tool.capabilities.length} capacidades documentadas.`,
+  },
+  {
+    id: 'local',
+    titulo: 'Local y máximo control',
+    lista: [...install, ...technical],
+    lede: 'Se ejecutan en tu equipo: sin cuotas, sin enviar nada a nadie y sin depender de que alguien cambie su plan gratuito. El coste se traslada al hardware.',
+    motivo: (tool: Tool) =>
+      tool.startEffort === 'install' ? 'Se instala y ya; sigue pidiendo GPU.' : 'Entorno propio y descarga de modelos.',
+  },
+].filter((b) => b.lista.length > 0);
+
+const bloques = repartirBloques(declarados);
 
 const decisions = decideFilters(tools, CANDIDATE_FILTERS);
 const filters = decisions.filter((d) => d.shown);
@@ -110,104 +164,43 @@ const faqs = [
         de una clase CSS que cualquiera puede renombrar.
       */}
       <nav class="vert-jump" aria-label="Ir a un bloque">
-        <a href="#gratis">Gratis ahora</a>
-        <a href="#faciles">Fáciles</a>
-        <a href="#potentes">Profesionales</a>
-        <a href="#local">Local</a>
+        {bloques.map((b) => <a href={`#${b.id}`}>{b.titulo}</a>)}
         <a href="#todas">Todas</a>
       </nav>
     </header>
 
     <!-- ------------------------------------------------------------------ -->
-    <section class="vert-block" id="gratis" aria-labelledby="gratis-h">
-      <div class="vert-block-head">
-        <h2 class="vert-h2" id="gratis-h">Genera imágenes gratis ahora</h2>
-        <p class="vert-block-lede">
-          Generan imágenes, funcionan en el navegador y su acceso gratuito se puede
-          usar hoy. Ninguna local: instalar no es empezar.
-        </p>
-      </div>
-      <ul class="vert-grid">
-        {gratis.map((tool) => (
-          <li><IntentCard tool={tool} capabilityOrder={IMAGE_CAPABILITIES} /></li>
-        ))}
-      </ul>
-      <p class="vert-note">
-        Donde no aparece una cantidad es porque el fabricante no la publica. No la
-        estimamos.
-      </p>
-    </section>
+    {bloques.map((bloque) => (
+      <section class="vert-block" id={bloque.id} aria-labelledby={`${bloque.id}-h`}>
+        <div class="vert-block-head">
+          <h2 class="vert-h2" id={`${bloque.id}-h`}>{bloque.titulo}</h2>
+          <p class="vert-block-lede">{bloque.lede}</p>
+        </div>
 
-    <!-- ------------------------------------------------------------------ -->
-    <section class="vert-block" id="faciles" aria-labelledby="faciles-h">
-      <div class="vert-block-head">
-        <h2 class="vert-h2" id="faciles-h">Fáciles para empezar</h2>
-        <p class="vert-block-lede">
-          Nada que instalar. Primero las que no piden ni cuenta. Que sean de pago no
-          las descalifica: aquí la pregunta es cuánto cuesta empezar, no cuánto cuesta.
-        </p>
-      </div>
-      <ul class="vert-grid">
-        {faciles.map((tool) => (
-          <li><IntentCard tool={tool} capabilityOrder={IMAGE_CAPABILITIES} /></li>
-        ))}
-      </ul>
-    </section>
-
-    <!-- ------------------------------------------------------------------ -->
-    <section class="vert-block" id="potentes" aria-labelledby="potentes-h">
-      <div class="vert-block-head">
-        <h2 class="vert-h2" id="potentes-h">Potentes y profesionales</h2>
-        <p class="vert-block-lede">
-          Herramientas de las que podemos describir seis funciones o más con una cita
-          oficial detrás de cada una. No es una nota más alta: es que sabemos
-          exactamente qué hacen.
-        </p>
-      </div>
-      <ul class="vert-grid">
-        {potentes.map((tool) => (
-          <li><IntentCard tool={tool} capabilityOrder={IMAGE_CAPABILITIES} /></li>
-        ))}
-      </ul>
-    </section>
-
-    <!-- ------------------------------------------------------------------ -->
-    <section class="vert-block" id="local" aria-labelledby="local-h">
-      <div class="vert-block-head">
-        <h2 class="vert-h2" id="local-h">Local y máximo control</h2>
-        <p class="vert-block-lede">
-          Se ejecutan en tu equipo: sin cuotas, sin enviar nada a nadie y sin depender
-          de que alguien cambie su plan gratuito. El coste se traslada al hardware.
-        </p>
-      </div>
-
-      {install.length > 0 && (
-        <div class="vert-sub">
-          <h3 class="vert-h3">Se instalan y ya</h3>
-          <p class="vert-sub-lede">Instalador o un solo ejecutable. Sigue haciendo falta una GPU.</p>
+        {bloque.completas.length > 0 && (
           <ul class="vert-grid">
-            {install.map((tool) => (
-              <li><IntentCard tool={tool} headingLevel="h4" capabilityOrder={IMAGE_CAPABILITIES} /></li>
+            {bloque.completas.map((tool) => (
+              <li><IntentCard tool={tool} capabilityOrder={IMAGE_CAPABILITIES} /></li>
             ))}
           </ul>
-        </div>
-      )}
+        )}
 
-      {technical.length > 0 && (
-        <div class="vert-sub">
-          <h3 class="vert-h3">Configuración técnica</h3>
-          <p class="vert-sub-lede">
-            Entorno, descarga de modelos y, en algún caso, un grafo de nodos que montar.
-            No se parecen a abrir una web y generar.
-          </p>
-          <ul class="vert-grid">
-            {technical.map((tool) => (
-              <li><IntentCard tool={tool} headingLevel="h4" capabilityOrder={IMAGE_CAPABILITIES} /></li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </section>
+        {bloque.compactas.length > 0 && (
+          <>
+            <p class="vert-tambien">
+              También responden a esto, con su ficha completa en otro bloque:
+            </p>
+            <ul class="vert-menciones">
+              {bloque.compactas.map((tool) => (
+                <li>
+                  <ToolMention tool={tool} motivo={bloque.motivo(tool)} ancla={bloque.anclas.get(tool.slug)} />
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </section>
+    ))}
 
     <!-- ------------------------------------------------------------------ -->
     <section class="vert-block im-all" id="todas" aria-labelledby="todas-h">

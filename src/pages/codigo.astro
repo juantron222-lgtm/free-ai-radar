@@ -1,8 +1,10 @@
 ---
+import type { Tool } from '@lib/domain/tool';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import IntentCard from '@components/catalog/IntentCard.astro';
+import ToolMention from '@components/catalog/ToolMention.astro';
 import CatalogFilters from '@components/catalog/CatalogFilters.astro';
-import { catalogueOrder, decideFilters } from '@lib/data/category-page';
+import { catalogueOrder, decideFilters, repartirBloques } from '@lib/data/category-page';
 import {
   CANDIDATE_FILTERS,
   CODE_CAPABILITIES,
@@ -70,9 +72,62 @@ const TIPOS: Array<{ id: string; type: CodeType; titulo: string; lede: string }>
   },
 ];
 
-const bloques = TIPOS.map((t) => ({ ...t, lista: byType(tools, t.type) })).filter(
-  (b) => b.lista.length >= MIN_BLOQUE
-);
+/*
+ * Los bloques, en orden editorial y con su motivo.
+ *
+ * El primero que reclama una herramienta se queda su tarjeta; los siguientes
+ * la mencionan. Esta página pintaba 51 tarjetas para quince fichas, y tres de
+ * sus bloques estaban contenidos enteros dentro de otro.
+ */
+const declarados = [
+  {
+    id: 'gratis',
+    titulo: 'Programa gratis ahora',
+    lista: gratis,
+    lede: 'Acceso gratuito que se renueva. Mira qué incluye: aquí lo gratis no siempre es el producto que ibas buscando.',
+    motivo: (tool: Tool) =>
+      tool.freePlan.creditsAmount
+        ? `Acceso gratuito que se renueva: ${tool.freePlan.creditsAmount}.`
+        : 'Acceso gratuito que se renueva.',
+  },
+  ...TIPOS.map((tipo) => ({
+    id: tipo.id,
+    titulo: tipo.titulo,
+    lista: byType(tools, tipo.type),
+    lede: tipo.lede,
+    motivo: () => CODE_TYPE_HINT[tipo.type],
+  })),
+  {
+    id: 'faciles',
+    titulo: 'Fáciles para empezar',
+    lista: faciles,
+    lede: 'Funcionan en el navegador o con una cuenta: sin entorno que preparar ni claves que conseguir.',
+    motivo: (tool: Tool) =>
+      tool.startEffort === 'instant' ? 'Se abre y funciona, sin cuenta.' : 'Sólo hace falta una cuenta.',
+  },
+  {
+    id: 'local',
+    titulo: 'Local y open source',
+    lista: [...install, ...technical],
+    lede: 'Se ejecutan en tu equipo y no dependen de la cuota de nadie. El coste se traslada al modelo que les conectes, que es otra factura.',
+    motivo: (tool: Tool) =>
+      tool.openSource === 'yes'
+        ? `Se ejecuta en tu equipo; licencia ${tool.licence ?? 'OSI'}.`
+        : 'Se ejecuta en tu equipo.',
+  },
+].filter((b) => b.lista.length >= MIN_BLOQUE);
+
+const bloques = repartirBloques(declarados);
+
+/*
+ * El primero va antes del explicador.
+ *
+ * Al convertir «gratis ahora» en un bloque más, el explicador se quedó por
+ * delante y la primera recomendación cayó a más de 900 px en un móvil de 375:
+ * quien llega ve la teoría antes que nada que pueda usar. El reparto de
+ * tarjetas no cambia —manda el orden de `declarados`—, sólo dónde se pinta.
+ */
+const [primero, ...resto] = bloques;
 
 /** Los tipos que existen en el catálogo, con o sin bloque propio. */
 const leyenda = (['ide', 'copilot', 'agent', 'cli', 'app-builder'] as CodeType[])
@@ -126,39 +181,51 @@ const faqs = [
         </span>
       </p>
       <nav class="vert-jump" aria-label="Ir a un bloque">
-        <a href="#gratis">Gratis ahora</a>
         <a href="#tipos">Qué es cada cosa</a>
         {bloques.map((b) => <a href={`#${b.id}`}>{b.titulo}</a>)}
-        {faciles.length >= MIN_BLOQUE && <a href="#faciles">Fáciles para empezar</a>}
-        <a href="#local">Local y open source</a>
         <a href="#todas">Todas</a>
       </nav>
     </header>
 
     <!-- ------------------------------------------------------------------ -->
-    <section class="vert-block" id="gratis" aria-labelledby="gratis-h">
-      <div class="vert-block-head">
-        <h2 class="vert-h2" id="gratis-h">Programa gratis ahora</h2>
-        <p class="vert-block-lede">
-          Acceso gratuito que se renueva. Mira qué incluye: aquí lo gratis no
-          siempre es el producto que ibas buscando.
-        </p>
-      </div>
-      <ul class="vert-grid">
-        {gratis.map((tool) => (
-          <li>
-            <IntentCard
-              tool={tool}
-              capabilityOrder={CODE_CAPABILITIES}
-              typeLabel={codeType(tool) ? CODE_TYPE_LABEL[codeType(tool)!] : undefined}
-              typeHint={codeType(tool) ? CODE_TYPE_HINT[codeType(tool)!] : undefined}
-            />
-          </li>
-        ))}
-      </ul>
-    </section>
-
     <!-- ------------------------------------------------------------------ -->
+    {primero && (
+      <section class="vert-block" id={primero.id} aria-labelledby={`${primero.id}-h`}>
+        <div class="vert-block-head">
+          <h2 class="vert-h2" id={`${primero.id}-h`}>{primero.titulo}</h2>
+          <p class="vert-block-lede">{primero.lede}</p>
+        </div>
+
+        {primero.completas.length > 0 && (
+          <ul class="vert-grid">
+            {primero.completas.map((tool) => (
+              <li><IntentCard
+                  tool={tool}
+                  capabilityOrder={CODE_CAPABILITIES}
+                  typeLabel={codeType(tool) ? CODE_TYPE_LABEL[codeType(tool)!] : undefined}
+                  typeHint={codeType(tool) ? CODE_TYPE_HINT[codeType(tool)!] : undefined}
+                /></li>
+            ))}
+          </ul>
+        )}
+
+        {primero.compactas.length > 0 && (
+          <>
+            <p class="vert-tambien">
+              También responden a esto, con su ficha completa en otro bloque:
+            </p>
+            <ul class="vert-menciones">
+              {primero.compactas.map((tool) => (
+                <li>
+                  <ToolMention tool={tool} motivo={primero.motivo(tool)} ancla={primero.anclas.get(tool.slug)} />
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </section>
+    )}
+
     <section class="vert-block" id="tipos" aria-labelledby="tipos-h">
       <div class="vert-block-head">
         <h2 class="vert-h2" id="tipos-h">Qué es cada cosa</h2>
@@ -181,104 +248,44 @@ const faqs = [
     </section>
 
     <!-- ------------------------------------------------------------------ -->
-    {bloques.map((bloque) => (
+    {resto.map((bloque) => (
       <section class="vert-block" id={bloque.id} aria-labelledby={`${bloque.id}-h`}>
         <div class="vert-block-head">
           <h2 class="vert-h2" id={`${bloque.id}-h`}>{bloque.titulo}</h2>
           <p class="vert-block-lede">{bloque.lede}</p>
         </div>
-        <ul class="vert-grid">
-          {bloque.lista.map((tool) => (
-            <li>
-            <IntentCard
-              tool={tool}
-              capabilityOrder={CODE_CAPABILITIES}
-              typeLabel={codeType(tool) ? CODE_TYPE_LABEL[codeType(tool)!] : undefined}
-              typeHint={codeType(tool) ? CODE_TYPE_HINT[codeType(tool)!] : undefined}
-            />
-          </li>
-          ))}
-        </ul>
+
+        {bloque.completas.length > 0 && (
+          <ul class="vert-grid">
+            {bloque.completas.map((tool) => (
+              <li>
+                <IntentCard
+                  tool={tool}
+                  capabilityOrder={CODE_CAPABILITIES}
+                  typeLabel={codeType(tool) ? CODE_TYPE_LABEL[codeType(tool)!] : undefined}
+                  typeHint={codeType(tool) ? CODE_TYPE_HINT[codeType(tool)!] : undefined}
+                />
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {bloque.compactas.length > 0 && (
+          <>
+            <p class="vert-tambien">
+              También responden a esto, con su ficha completa en otro bloque:
+            </p>
+            <ul class="vert-menciones">
+              {bloque.compactas.map((tool) => (
+                <li>
+                  <ToolMention tool={tool} motivo={bloque.motivo(tool)} ancla={bloque.anclas.get(tool.slug)} />
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
       </section>
     ))}
-
-    <!-- ------------------------------------------------------------------ -->
-    {faciles.length >= MIN_BLOQUE && (
-      <section class="vert-block" id="faciles" aria-labelledby="faciles-h">
-        <div class="vert-block-head">
-          <h2 class="vert-h2" id="faciles-h">Fáciles para empezar</h2>
-          <p class="vert-block-lede">
-            Funcionan en el navegador o con una cuenta: sin entorno que preparar
-            ni claves que conseguir.
-          </p>
-        </div>
-        <ul class="vert-grid">
-          {faciles.map((tool) => (
-            <li>
-            <IntentCard
-              tool={tool}
-              capabilityOrder={CODE_CAPABILITIES}
-              typeLabel={codeType(tool) ? CODE_TYPE_LABEL[codeType(tool)!] : undefined}
-              typeHint={codeType(tool) ? CODE_TYPE_HINT[codeType(tool)!] : undefined}
-            />
-          </li>
-          ))}
-        </ul>
-      </section>
-    )}
-
-    <!-- ------------------------------------------------------------------ -->
-    <section class="vert-block" id="local" aria-labelledby="local-h">
-      <div class="vert-block-head">
-        <h2 class="vert-h2" id="local-h">Local y open source</h2>
-        <p class="vert-block-lede">
-          Se ejecutan en tu equipo y no dependen de la cuota de nadie. El coste
-          se traslada al modelo que les conectes, que es una factura distinta.
-        </p>
-      </div>
-
-      {install.length > 0 && (
-        <div class="vert-sub">
-          <h3 class="vert-h3">Se instalan y ya</h3>
-          <ul class="vert-grid">
-            {install.map((tool) => (
-              <li>
-              <IntentCard
-                tool={tool}
-                headingLevel="h4"
-                capabilityOrder={CODE_CAPABILITIES}
-                typeLabel={codeType(tool) ? CODE_TYPE_LABEL[codeType(tool)!] : undefined}
-                typeHint={codeType(tool) ? CODE_TYPE_HINT[codeType(tool)!] : undefined}
-              />
-            </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {technical.length > 0 && (
-        <div class="vert-sub">
-          <h3 class="vert-h3">Configuración técnica</h3>
-          <p class="vert-sub-lede">
-            Entorno de Python o Node, y una clave de API del modelo que vayan a
-            usar.
-          </p>
-          <ul class="vert-grid">
-            {technical.map((tool) => (
-              <li>
-              <IntentCard
-                tool={tool}
-                headingLevel="h4"
-                capabilityOrder={CODE_CAPABILITIES}
-                typeLabel={codeType(tool) ? CODE_TYPE_LABEL[codeType(tool)!] : undefined}
-                typeHint={codeType(tool) ? CODE_TYPE_HINT[codeType(tool)!] : undefined}
-              />
-            </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </section>
 
     <!-- ------------------------------------------------------------------ -->
     <section class="vert-block" id="todas" aria-labelledby="todas-h">

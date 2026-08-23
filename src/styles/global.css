@@ -1199,6 +1199,37 @@
   gap: 0.2rem;
 }
 
+/*
+ * Las apariciones secundarias de una herramienta dentro de una vertical.
+ *
+ * Una lista, no una rejilla: son menciones, no recomendaciones nuevas, y si se
+ * parecieran a las tarjetas de arriba volverían a competir con ellas — que es
+ * exactamente lo que se estaba arreglando.
+ */
+.vert-tambien {
+  margin: var(--space-s) 0 var(--space-2xs);
+  font-size: 0.875rem;
+  color: var(--ink-subtle);
+}
+
+.vert-menciones {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: var(--space-3xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vert-menciones > li {
+  display: flex;
+  min-width: 0;
+}
+
+.vert-menciones > li > * {
+  flex: 1;
+}
+
 .vert-tail {
   margin: 0;
   font-size: 0.9375rem;

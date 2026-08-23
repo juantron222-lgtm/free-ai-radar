@@ -1,8 +1,10 @@
 ---
+import type { Tool } from '@lib/domain/tool';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import IntentCard from '@components/catalog/IntentCard.astro';
 import CatalogFilters from '@components/catalog/CatalogFilters.astro';
-import { catalogueOrder, decideFilters } from '@lib/data/category-page';
+import { catalogueOrder, decideFilters, repartirBloques } from '@lib/data/category-page';
+import ToolMention from '@components/catalog/ToolMention.astro';
 import {
   CANDIDATE_FILTERS,
   MIN_BLOQUE,
@@ -44,39 +46,91 @@ const decisions = decideFilters(tools, CANDIDATE_FILTERS);
 const filters = decisions.filter((d) => d.shown);
 const hidden = decisions.filter((d) => !d.shown);
 
-/** Las intenciones que hoy tienen catálogo suficiente. */
-const bloques = [
+/*
+ * Los bloques, en orden editorial y con su motivo.
+ *
+ * El orden decide quién se queda la tarjeta completa: el primero que reclama a
+ * un modelo se la lleva, y los siguientes lo mencionan en compacto. Va primero
+ * lo que se puede usar gratis hoy porque es la pregunta con la que llega casi
+ * todo el mundo, y después lo que separa a unos de otros.
+ *
+ * `motivo` es obligatorio y es lo que impide que comprimir se convierta en una
+ * lista de nombres: dice por qué ese modelo responde a esa intención, con su
+ * propio dato.
+ */
+const declarados = [
+  {
+    id: 'gratis',
+    titulo: 'Usar gratis ahora',
+    lista: apiGratis,
+    lede: 'Con capa gratuita de API documentada: la tabla de precios lo dice o no lo dice.',
+    motivo: (tool: Tool) => `Capa gratuita de API${tool.access.weights === 'yes' ? ' y pesos descargables' : ''}.`,
+  },
   {
     id: 'codigo',
     titulo: 'Para programar',
     lista: codigo,
     lede: 'Los que su propio fabricante posiciona para escribir código, con la frase que lo dice en la ficha. No es nuestro juicio ni una media de benchmarks.',
+    motivo: () => 'Su fabricante lo posiciona para escribir código.',
   },
   {
     id: 'razonamiento',
     titulo: 'Razonamiento',
     lista: razonamiento,
     lede: 'Los que documentan un modo de pensamiento —adaptativo, extendido, con niveles de esfuerzo—, no los que se describen como inteligentes.',
+    motivo: () => 'Documenta un modo de pensamiento, no sólo lo insinúa.',
   },
   {
     id: 'multimodal',
     titulo: 'Entienden más que texto',
     lista: multimodal,
     lede: 'Aceptan imágenes de entrada, y algunos también audio o vídeo. Cada modalidad está tomada de la documentación de esa versión, no de la familia.',
+    motivo: (tool: Tool) => {
+      const extra = [
+        tool.capabilities.includes('audio-input') ? 'audio' : null,
+        tool.capabilities.includes('video-understanding') ? 'vídeo' : null,
+      ].filter(Boolean);
+      return extra.length ? `Entiende imágenes y ${extra.join(' y ')}.` : 'Acepta imágenes de entrada.';
+    },
   },
   {
     id: 'pequenos',
     titulo: 'Pequeños, para tu equipo',
     lista: pequenos,
     lede: 'Se instalan y funcionan sin infraestructura. El listón no es el número de parámetros —cada fabricante lo cuenta a su manera— sino lo que cuesta arrancarlos.',
+    motivo: () => 'Se instala y funciona sin infraestructura propia.',
   },
   {
     id: 'api',
     titulo: 'Por API',
     lista: api,
     lede: 'Los que se pueden consumir desde código. Que exista API no dice nada del precio: sólo tres de esta lista tienen capa gratuita documentada.',
+    motivo: (tool: Tool) =>
+      tool.access.apiFree === 'yes' ? 'Por API, con capa gratuita.' : 'Por API, de pago desde el primer token.',
+  },
+  {
+    id: 'pesos',
+    titulo: 'Pesos abiertos',
+    lista: pesos,
+    lede: 'Los que puedes descargar y ejecutar. La licencia manda: no todas son OSI, y la diferencia decide qué puedes hacer con lo que generes.',
+    motivo: (tool: Tool) =>
+      tool.openSource === 'yes'
+        ? `Pesos con licencia ${tool.licences.weights ?? tool.licence ?? 'OSI'}.`
+        : `Pesos descargables con licencia propia: ${tool.licence ?? 'no OSI'}.`,
   },
 ].filter((b) => b.lista.length >= MIN_BLOQUE);
+
+const bloques = repartirBloques(declarados);
+
+/*
+ * El primero va antes del explicador.
+ *
+ * Al convertir «gratis ahora» en un bloque más, el explicador se quedó por
+ * delante y la primera recomendación cayó a 949 px en un móvil de 375: quien
+ * llega ve la teoría antes que nada que pueda usar. El reparto de tarjetas no
+ * cambia —el orden de `declarados` es el que manda—, sólo dónde se pinta.
+ */
+const [primero, ...resto] = bloques;
 
 const conPesosOsi = pesos.filter((t) => t.openSource === 'yes');
 const conLicenciaPropia = pesos.filter((t) => t.openSource === 'weights');
@@ -125,36 +179,44 @@ const faqs = [
         </span>
       </p>
       <nav class="vert-jump" aria-label="Ir a un bloque">
-        <a href="#gratis">Gratis ahora</a>
         <a href="#puertas">Las tres puertas</a>
         {bloques.map((b) => <a href={`#${b.id}`}>{b.titulo}</a>)}
-        <a href="#pesos">Pesos abiertos</a>
         <a href="#todos">Todos</a>
       </nav>
     </header>
 
     <!-- ------------------------------------------------------------------ -->
-    <section class="vert-block" id="gratis" aria-labelledby="gratis-h">
-      <div class="vert-block-head">
-        <h2 class="vert-h2" id="gratis-h">Usar gratis ahora</h2>
-        <p class="vert-block-lede">
-          Con capa gratuita de API documentada: la tabla de precios lo dice o no
-          lo dice.
-        </p>
-      </div>
-      <ul class="vert-grid">
-        {apiGratis.map((tool) => (
-          <li><IntentCard tool={tool} capabilityOrder={MODEL_CAPABILITIES} /></li>
-        ))}
-      </ul>
-      <p class="vert-note">
-        No hay bloque de «gratis en un chat» porque sólo hay {chatGratis.length}{' '}
-        confirmado. Las páginas de precios de OpenAI, xAI y Perplexity devuelven
-        403 a toda lectura automática, así que no podemos comprobar qué modelo
-        sirve su plan gratuito — y suponerlo sería justo lo que este catálogo no
-        hace.
-      </p>
-    </section>
+    {primero && (
+      <section class="vert-block" id={primero.id} aria-labelledby={`${primero.id}-h`}>
+        <div class="vert-block-head">
+          <h2 class="vert-h2" id={`${primero.id}-h`}>{primero.titulo}</h2>
+          <p class="vert-block-lede">{primero.lede}</p>
+        </div>
+
+        {primero.completas.length > 0 && (
+          <ul class="vert-grid">
+            {primero.completas.map((tool) => (
+              <li><IntentCard tool={tool} capabilityOrder={MODEL_CAPABILITIES} /></li>
+            ))}
+          </ul>
+        )}
+
+        {primero.compactas.length > 0 && (
+          <>
+            <p class="vert-tambien">
+              También responden a esto, con su ficha completa en otro bloque:
+            </p>
+            <ul class="vert-menciones">
+              {primero.compactas.map((tool) => (
+                <li>
+                  <ToolMention tool={tool} motivo={primero.motivo(tool)} ancla={primero.anclas.get(tool.slug)} />
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </section>
+    )}
 
     <!-- ------------------------------------------------------------------ -->
     <section class="vert-block" id="puertas" aria-labelledby="puertas-h">
@@ -194,61 +256,41 @@ const faqs = [
     </section>
 
     <!-- ------------------------------------------------------------------ -->
-    {bloques.map((bloque) => (
+    {resto.map((bloque) => (
       <section class="vert-block" id={bloque.id} aria-labelledby={`${bloque.id}-h`}>
         <div class="vert-block-head">
           <h2 class="vert-h2" id={`${bloque.id}-h`}>{bloque.titulo}</h2>
           <p class="vert-block-lede">{bloque.lede}</p>
         </div>
-        <ul class="vert-grid">
-          {bloque.lista.map((tool) => (
-            <li><IntentCard tool={tool} capabilityOrder={MODEL_CAPABILITIES} /></li>
-          ))}
-        </ul>
+
+        {bloque.completas.length > 0 && (
+          <ul class="vert-grid">
+            {bloque.completas.map((tool) => (
+              <li><IntentCard tool={tool} capabilityOrder={MODEL_CAPABILITIES} /></li>
+            ))}
+          </ul>
+        )}
+
+        {bloque.compactas.length > 0 && (
+          <>
+            <p class="vert-tambien">
+              También responden a esto, con su ficha completa en otro bloque:
+            </p>
+            <ul class="vert-menciones">
+              {bloque.compactas.map((tool) => (
+                <li>
+                  <ToolMention
+                    tool={tool}
+                    motivo={bloque.motivo(tool)}
+                    ancla={bloque.anclas.get(tool.slug)}
+                  />
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
       </section>
     ))}
-
-    <!-- ------------------------------------------------------------------ -->
-    <section class="vert-block" id="pesos" aria-labelledby="pesos-h">
-      <div class="vert-block-head">
-        <h2 class="vert-h2" id="pesos-h">Pesos abiertos</h2>
-        <p class="vert-block-lede">
-          Los que puedes descargar y ejecutar. Van separados por licencia, porque
-          «abierto» no significa lo mismo en los dos grupos y la diferencia sólo
-          aparece cuando la lees.
-        </p>
-      </div>
-
-      {conPesosOsi.length > 0 && (
-        <div class="vert-sub">
-          <h3 class="vert-h3">Con licencia OSI</h3>
-          <p class="vert-sub-lede">
-            Apache 2.0 o MIT, sin condiciones añadidas: ni umbral de usuarios ni
-            atribución obligatoria.
-          </p>
-          <ul class="vert-grid">
-            {conPesosOsi.map((tool) => (
-              <li><IntentCard tool={tool} headingLevel="h4" capabilityOrder={MODEL_CAPABILITIES} /></li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {conLicenciaPropia.length > 0 && (
-        <div class="vert-sub">
-          <h3 class="vert-h3">Con licencia propia</h3>
-          <p class="vert-sub-lede">
-            Los pesos se descargan, pero la licencia no es OSI y pone condiciones.
-            Léelas antes de construir encima.
-          </p>
-          <ul class="vert-grid">
-            {conLicenciaPropia.map((tool) => (
-              <li><IntentCard tool={tool} headingLevel="h4" capabilityOrder={MODEL_CAPABILITIES} /></li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </section>
 
     <!-- ------------------------------------------------------------------ -->
     <section class="vert-block" id="todos" aria-labelledby="todos-h">

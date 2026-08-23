@@ -1,8 +1,10 @@
 ---
+import type { Tool } from '@lib/domain/tool';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import IntentCard from '@components/catalog/IntentCard.astro';
 import CatalogFilters from '@components/catalog/CatalogFilters.astro';
-import { catalogueOrder, decideFilters } from '@lib/data/category-page';
+import { catalogueOrder, decideFilters, repartirBloques } from '@lib/data/category-page';
+import ToolMention from '@components/catalog/ToolMention.astro';
 import {
   AGENT_CAPABILITIES,
   AGENT_TYPE_HINT,
@@ -49,32 +51,74 @@ const filters = decisions.filter((d) => d.shown);
 const hidden = decisions.filter((d) => !d.shown);
 
 /** Los tipos que hoy tienen catálogo suficiente para llevar título propio. */
-const bloques = [
+/*
+ * Los bloques, en orden editorial y con su motivo.
+ *
+ * El primero que reclama a un agente se queda su tarjeta completa; los demás
+ * lo mencionan en compacto con el motivo de *su* intención. Antes esta página
+ * pintaba 69 tarjetas para 24 agentes, porque el mismo agente responde a
+ * «gratis ahora», a su tipo y a «en tu equipo».
+ */
+const declarados = [
+  {
+    id: 'gratis',
+    titulo: 'Probar un agente gratis',
+    lista: gratis,
+    lede: 'Funcionan en el navegador y su acceso gratuito se renueva. Mira qué se agota: aquí no se gastan mensajes, se gastan ejecuciones.',
+    motivo: (tool: Tool) =>
+      tool.freePlan.creditsAmount
+        ? `Acceso gratuito que se renueva: ${tool.freePlan.creditsAmount}.`
+        : 'Acceso gratuito que se renueva, sin cifra publicada.',
+  },
   {
     id: 'codigo',
     titulo: 'Agentes de código',
     lista: codigo,
     lede: 'Trabajan sobre tu repositorio y tu terminal: leen el proyecto, cambian ficheros, ejecutan órdenes y comprueban el resultado.',
+    motivo: () => 'Abre tu repositorio y trabaja sobre él.',
   },
   {
     id: 'investigacion',
     titulo: 'Investigación y web',
     lista: investigacion,
     lede: 'Buscan, leen, ven lo que les falta y vuelven a buscar antes de escribir. Navegar es sólo el primer paso de ese bucle, y es lo que los separa de un buscador.',
+    motivo: () => 'Investiga en varias etapas, no sólo navega.',
   },
   {
     id: 'plataformas',
     titulo: 'Construye tus propios agentes',
     lista: plataformas,
     lede: 'El producto no es el agente: es el sitio donde lo montas, normalmente sin escribir código.',
+    motivo: () => 'Sirve para montar el tuyo, no para usarlo hecho.',
   },
   {
     id: 'frameworks',
     titulo: 'Frameworks para programar',
     lista: frameworks,
     lede: 'Bibliotecas e infraestructura. No se abren: se programan, y el coste que verás es el del modelo que les conectes.',
+    motivo: (tool: Tool) => `Biblioteca que se programa${tool.licence ? `; licencia ${tool.licence}` : ''}.`,
+  },
+  {
+    id: 'local',
+    titulo: 'En tu equipo',
+    lista: enTuEquipo,
+    lede: 'Se ejecutan en tu máquina y no dependen de la cuota de nadie. El coste se traslada al modelo que les conectes.',
+    motivo: (tool: Tool) =>
+      tool.openSource === 'yes' ? `Se ejecuta en tu equipo; licencia ${tool.licence ?? 'OSI'}.` : 'Se ejecuta en tu equipo.',
   },
 ].filter((b) => b.lista.length >= MIN_BLOQUE);
+
+const bloques = repartirBloques(declarados);
+
+/*
+ * El primero va antes del explicador.
+ *
+ * Al convertir «gratis ahora» en un bloque más, el explicador se quedó por
+ * delante y la primera recomendación cayó a más de 900 px en un móvil de 375:
+ * quien llega ve la teoría antes que nada que pueda usar. El reparto de
+ * tarjetas no cambia —manda el orden de `declarados`—, sólo dónde se pinta.
+ */
+const [primero, ...resto] = bloques;
 
 /** El reparto real, para poder contarlo sin inventar. */
 const porTipo = (['listo', 'codigo', 'investigacion', 'plataforma', 'framework'] as const).map(
@@ -132,55 +176,50 @@ const faqs = [
         </span>
       </p>
       <nav class="vert-jump" aria-label="Ir a un bloque">
-        <a href="#gratis">Probar gratis</a>
         <a href="#tipos">Qué tipo es cada uno</a>
         {bloques.map((b) => <a href={`#${b.id}`}>{b.titulo}</a>)}
-        <a href="#local">En tu equipo</a>
         <a href="#todas">Todos</a>
       </nav>
     </header>
 
     <!-- ------------------------------------------------------------------ -->
-    <section class="vert-block" id="gratis" aria-labelledby="gratis-h">
-      <div class="vert-block-head">
-        <h2 class="vert-h2" id="gratis-h">Probar un agente gratis</h2>
-        <p class="vert-block-lede">
-          Funcionan en el navegador y su acceso gratuito se renueva. Mira qué se agota:
-          aquí no se gastan mensajes, se gastan ejecuciones.
-        </p>
-      </div>
-      <ul class="vert-grid">
-        {gratis.map((tool) => (
-          <li>
-            <IntentCard
-              tool={tool}
-              capabilityOrder={AGENT_CAPABILITIES}
-              typeLabel={AGENT_TYPE_LABEL[agentType(tool)]}
-              typeHint={AGENT_TYPE_HINT[agentType(tool)]}
-            />
-          </li>
-        ))}
-      </ul>
-      <p class="vert-note">
-        Claude Code no está aquí y no es un olvido: su página de precios lo incluye a
-        partir de Pro, 20 $ al mes. El agente en la nube de GitHub Copilot tampoco entra
-        en el plan gratuito, aunque el resto de Copilot sí.
-      </p>
-    </section>
+    {primero && (
+      <section class="vert-block" id={primero.id} aria-labelledby={`${primero.id}-h`}>
+        <div class="vert-block-head">
+          <h2 class="vert-h2" id={`${primero.id}-h`}>{primero.titulo}</h2>
+          <p class="vert-block-lede">{primero.lede}</p>
+        </div>
 
-    {/*
-      La leyenda va aquí y no encima, y es una decisión de móvil.
+        {primero.completas.length > 0 && (
+          <ul class="vert-grid">
+            {primero.completas.map((tool) => (
+              <li><IntentCard
+                  tool={tool}
+                  capabilityOrder={AGENT_CAPABILITIES}
+                  typeLabel={AGENT_TYPE_LABEL[agentType(tool)]}
+                  typeHint={AGENT_TYPE_HINT[agentType(tool)]}
+                /></li>
+            ))}
+          </ul>
+        )}
 
-      Explicar los tipos antes de enseñar nada es mejor pedagogía, pero en
-      375 px son cinco definiciones —unos 400 px— entre la entradilla y la
-      primera tarjeta, y la regla de esta casa es que la primera herramienta
-      gratuita se vea en la primera pantalla. Las tarjetas ya llevan su tipo
-      escrito, así que quien se pregunte qué significa «Framework para
-      programar» lo tiene justo debajo, y quien no, no paga el peaje.
+        {primero.compactas.length > 0 && (
+          <>
+            <p class="vert-tambien">
+              También responden a esto, con su ficha completa en otro bloque:
+            </p>
+            <ul class="vert-menciones">
+              {primero.compactas.map((tool) => (
+                <li>
+                  <ToolMention tool={tool} motivo={primero.motivo(tool)} ancla={primero.anclas.get(tool.slug)} />
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </section>
+    )}
 
-      Orden del DOM y orden visual siguen coincidiendo: nada de `order` en
-      CSS, que rompería el recorrido con el teclado.
-    */}
     <section class="vert-block" id="tipos" aria-labelledby="tipos-h">
       <div class="vert-block-head">
         <h2 class="vert-h2" id="tipos-h">Cinco cosas distintas con el mismo nombre</h2>
@@ -203,50 +242,44 @@ const faqs = [
     </section>
 
     <!-- ------------------------------------------------------------------ -->
-    {bloques.map((bloque) => (
+    {resto.map((bloque) => (
       <section class="vert-block" id={bloque.id} aria-labelledby={`${bloque.id}-h`}>
         <div class="vert-block-head">
           <h2 class="vert-h2" id={`${bloque.id}-h`}>{bloque.titulo}</h2>
           <p class="vert-block-lede">{bloque.lede}</p>
         </div>
-        <ul class="vert-grid">
-          {bloque.lista.map((tool) => (
-            <li>
-              <IntentCard
-                tool={tool}
-                capabilityOrder={AGENT_CAPABILITIES}
-                typeLabel={AGENT_TYPE_LABEL[agentType(tool)]}
-                typeHint={AGENT_TYPE_HINT[agentType(tool)]}
-              />
-            </li>
-          ))}
-        </ul>
+
+        {bloque.completas.length > 0 && (
+          <ul class="vert-grid">
+            {bloque.completas.map((tool) => (
+              <li>
+                <IntentCard
+                  tool={tool}
+                  capabilityOrder={AGENT_CAPABILITIES}
+                  typeLabel={AGENT_TYPE_LABEL[agentType(tool)]}
+                  typeHint={AGENT_TYPE_HINT[agentType(tool)]}
+                />
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {bloque.compactas.length > 0 && (
+          <>
+            <p class="vert-tambien">
+              También responden a esto, con su ficha completa en otro bloque:
+            </p>
+            <ul class="vert-menciones">
+              {bloque.compactas.map((tool) => (
+                <li>
+                  <ToolMention tool={tool} motivo={bloque.motivo(tool)} ancla={bloque.anclas.get(tool.slug)} />
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
       </section>
     ))}
-
-    <!-- ------------------------------------------------------------------ -->
-    <section class="vert-block" id="local" aria-labelledby="local-h">
-      <div class="vert-block-head">
-        <h2 class="vert-h2" id="local-h">En tu equipo</h2>
-        <p class="vert-block-lede">
-          Se ejecutan en tu máquina y no tienen cuotas propias. La factura, si la hay,
-          es la del modelo que les conectes — y puede ser uno local.
-        </p>
-      </div>
-      <ul class="vert-grid">
-        {enTuEquipo.map((tool) => (
-          <li>
-            <IntentCard
-              tool={tool}
-              headingLevel="h3"
-              capabilityOrder={AGENT_CAPABILITIES}
-              typeLabel={AGENT_TYPE_LABEL[agentType(tool)]}
-              typeHint={AGENT_TYPE_HINT[agentType(tool)]}
-            />
-          </li>
-        ))}
-      </ul>
-    </section>
 
     <!-- ------------------------------------------------------------------ -->
     <section class="vert-block" id="todas" aria-labelledby="todas-h">

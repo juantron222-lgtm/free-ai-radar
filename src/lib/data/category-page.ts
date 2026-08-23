@@ -353,3 +353,82 @@ export function localControl(
     ),
   };
 }
+
+// ---------------------------------------------------------------------------
+// Una tarjeta completa por herramienta y página
+// ---------------------------------------------------------------------------
+
+/** Un bloque tal y como lo declara la página, antes de repartir. */
+export interface BloqueDeclarado {
+  id: string;
+  titulo: string;
+  lede: string;
+  lista: readonly Tool[];
+  /** Por qué esta herramienta responde a esta intención. Se usa al comprimir. */
+  motivo: (tool: Tool) => string;
+}
+
+/** El mismo bloque, ya decidido qué se pinta entero y qué se menciona. */
+export interface BloqueRepartido extends BloqueDeclarado {
+  completas: Tool[];
+  compactas: Tool[];
+  /** Dónde está la tarjeta completa de cada mención, para poder enlazarla. */
+  anclas: Map<string, string>;
+}
+
+/**
+ * Cuántas tarjetas completas caben en un bloque antes de comprimir el resto.
+ *
+ * Cinco es lo que una persona compara de un vistazo. A partir de ahí un bloque
+ * deja de recomendar y empieza a listar, que es justo lo que hace el catálogo
+ * completo del final.
+ */
+export const MAX_COMPLETAS = 5;
+
+/**
+ * Reparte tarjetas completas y menciones a lo largo de la página.
+ *
+ * La regla: **una herramienta tiene como mucho una tarjeta completa por
+ * vertical**, y se la lleva el primer bloque donde encaje. Si vuelve a
+ * pertenecer a otra intención se menciona en compacto, con el motivo de esa
+ * intención y un ancla al sitio donde ya está entera.
+ *
+ * El problema que resuelve estaba medido: /modelos pintaba 78 tarjetas para 19
+ * modelos, porque el mismo modelo responde a «programar», «razonamiento»,
+ * «multimodal», «por API» y «pesos abiertos» a la vez. Los bloques por
+ * intención son buenos —contestan «cuál para qué»—; lo que sobraba era volver
+ * a pintar 280 px de la misma ficha cinco veces.
+ *
+ * El orden de los bloques es una decisión editorial y por eso se respeta tal
+ * cual llega: el primero de la lista es el que se queda las tarjetas.
+ */
+export function repartirBloques(
+  bloques: readonly BloqueDeclarado[],
+  yaConTarjeta: Iterable<string> = []
+): BloqueRepartido[] {
+  const conTarjeta = new Map<string, string>();
+  for (const slug of yaConTarjeta) conTarjeta.set(slug, '');
+
+  return bloques.map((bloque) => {
+    const completas: Tool[] = [];
+    const compactas: Tool[] = [];
+    const anclas = new Map<string, string>();
+
+    for (const tool of bloque.lista) {
+      const donde = conTarjeta.get(tool.slug);
+      if (donde !== undefined) {
+        compactas.push(tool);
+        if (donde) anclas.set(tool.slug, donde);
+        continue;
+      }
+      if (completas.length < MAX_COMPLETAS) {
+        completas.push(tool);
+        conTarjeta.set(tool.slug, bloque.id);
+      } else {
+        compactas.push(tool);
+      }
+    }
+
+    return { ...bloque, completas, compactas, anclas };
+  });
+}

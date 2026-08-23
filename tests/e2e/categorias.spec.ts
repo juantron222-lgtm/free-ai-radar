@@ -161,6 +161,58 @@ test.describe(`${categoria.ruta} en ${ANCHO}×${ALTO}`, () => {
     expect(huerfanas, 'secciones a las que no se puede saltar').toEqual([]);
   });
 
+  test('ninguna herramienta lleva dos tarjetas en los bloques', async ({ page }) => {
+    /*
+     * La regla de la vertical, comprobada donde se ve: una ficha tiene como
+     * mucho una tarjeta completa entre los bloques por intención, más la del
+     * catálogo del final. Antes /modelos pintaba 78 tarjetas para 19 modelos.
+     */
+    const veces = await page.evaluate(() => {
+      const bloques = [...document.querySelectorAll('section.vert-block')].filter(
+        (s) => s.id !== 'todas' && s.id !== 'todos'
+      );
+      const cuenta: Record<string, number> = {};
+      for (const b of bloques) {
+        for (const c of b.querySelectorAll('article.ic')) {
+          const slug = c.getAttribute('data-slug') ?? '';
+          cuenta[slug] = (cuenta[slug] ?? 0) + 1;
+        }
+      }
+      return cuenta;
+    });
+
+    const repetidas = Object.entries(veces).filter(([, n]) => n > 1);
+    expect(repetidas, `con más de una tarjeta: ${repetidas.map(([s]) => s).join(', ')}`).toEqual([]);
+  });
+
+  test('cada mención dice por qué está ahí', async ({ page }) => {
+    const menciones = await page.evaluate(() =>
+      [...document.querySelectorAll('[data-mencion]')].map((m) => ({
+        slug: m.getAttribute('data-slug') ?? '',
+        motivo: (m.querySelector('.tm-motivo')?.textContent ?? '').trim(),
+      }))
+    );
+
+    for (const m of menciones) {
+      expect(m.motivo.length, `«${m.slug}» se menciona sin motivo`).toBeGreaterThan(8);
+    }
+  });
+
+  test('ningún bloque se queda sin nada que enseñar', async ({ page }) => {
+    const vacios = await page.evaluate(() =>
+      [...document.querySelectorAll('section.vert-block')]
+        .filter((s) => s.querySelector('h2'))
+        .filter(
+          (s) =>
+            s.querySelectorAll('article.ic').length === 0 &&
+            s.querySelectorAll('[data-mencion]').length === 0 &&
+            s.querySelectorAll('dl, table, ul.vert-doors, .cod-tipos, form').length === 0
+        )
+        .map((s) => s.id)
+    );
+    expect(vacios, 'bloques con titular y sin contenido').toEqual([]);
+  });
+
   test('los atajos se desbordan dentro de su fila, no de la página', async ({ page }) => {
     const atajos = page.getByRole('navigation', { name: 'Ir a un bloque' });
     await expect(atajos).toBeVisible();

@@ -1,0 +1,143 @@
+---
+import type { Tool } from '@lib/domain/tool';
+import ToolLogo from '@components/tools/ToolLogo.astro';
+import { freeAccessLabel } from '@lib/data/category-page';
+import { ROUTES } from '@lib/nav';
+
+interface Props {
+  tool: Tool;
+  /** Por qué esta herramienta responde a esta intención. Obligatorio. */
+  motivo: string;
+  /** Ancla al bloque donde sí tiene tarjeta completa, si está en esta página. */
+  ancla?: string;
+}
+
+const { tool, motivo, ancla } = Astro.props;
+const access = freeAccessLabel(tool);
+---
+
+{/*
+  La segunda vez que una herramienta aparece en una página.
+
+  El problema medido: /modelos renderizaba 78 tarjetas para 19 modelos, porque
+  el mismo modelo cumple «para programar», «razonamiento», «multimodal», «por
+  API» y «pesos abiertos», y cada bloque volvía a pintar sus 280 px enteros. En
+  móvil eso son 27.000 px de página para diecinueve fichas.
+
+  Lo que no se puede perder al comprimir es el motivo. Una lista de nombres
+  contesta «cuáles», no «por qué esa para esto», y la razón de ser de los
+  bloques por intención es exactamente lo segundo. Por eso `motivo` no tiene
+  valor por defecto: quien añada un bloque tiene que decir qué lo justifica.
+
+  El logo entra desde el primer día para que cuando existan los ficheros reales
+  no haya que volver a tocar este componente.
+*/}
+<article class="tm" data-slug={tool.slug} data-mencion>
+  <ToolLogo tool={tool} size="sm" />
+
+  <div class="tm-cuerpo">
+    <p class="tm-cabeza">
+      <a href={ROUTES.tool(tool.slug)} class="tm-nombre">{tool.name}</a>
+      <span class="tm-acceso" data-tone={access.tone}>{access.kind}</span>
+    </p>
+    <p class="tm-motivo">{motivo}</p>
+  </div>
+
+  {ancla && (
+    <a href={`#${ancla}`} class="tm-ancla" aria-label={`Ver la ficha completa de ${tool.name} más arriba`}>
+      Arriba ↑
+    </a>
+  )}
+</article>
+
+<style>
+  .tm {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2xs);
+    padding: var(--space-2xs) var(--space-xs);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-m);
+    background: var(--surface);
+  }
+
+  .tm-cuerpo {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /*
+   * Mismo orden de lectura que la tarjeta completa: nombre, y el acceso se
+   * envuelve debajo cuando no cabe en vez de estrujarlo.
+   */
+  .tm-cabeza {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.15rem var(--space-2xs);
+    margin: 0;
+  }
+
+  .tm-nombre {
+    flex: 1 1 auto;
+    min-width: 8ch;
+    font-weight: 650;
+    font-size: 0.9375rem;
+    color: var(--ink-strong);
+    text-decoration: none;
+    overflow-wrap: break-word;
+  }
+
+  .tm-nombre:hover,
+  .tm-nombre:focus-visible {
+    text-decoration: underline;
+  }
+
+  .tm-acceso {
+    flex: none;
+    padding: 0.05rem 0.4rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-full);
+    background: var(--neutral-soft);
+    color: var(--ink-muted);
+    font-size: 0.75rem;
+    font-weight: 550;
+    white-space: nowrap;
+  }
+
+  /* El color acompaña; el texto ya dice lo mismo. */
+  .tm-acceso[data-tone='good'] {
+    background: var(--signal-soft);
+    border-color: var(--signal-line);
+    color: var(--signal-strong);
+  }
+
+  .tm-acceso[data-tone='bad'] {
+    background: var(--alert-soft);
+    border-color: var(--alert-line);
+    color: var(--alert);
+  }
+
+  .tm-motivo {
+    margin: 0.1rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    color: var(--ink-muted);
+  }
+
+  .tm-ancla {
+    flex: none;
+    align-self: center;
+    padding: 0.3rem 0.4rem;
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .tm-ancla:hover,
+  .tm-ancla:focus-visible {
+    color: var(--ink-strong);
+    text-decoration: underline;
+  }
+</style>

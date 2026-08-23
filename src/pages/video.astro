@@ -1,6 +1,8 @@
 ---
+import type { Tool } from '@lib/domain/tool';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import IntentCard from '@components/catalog/IntentCard.astro';
+import ToolMention from '@components/catalog/ToolMention.astro';
 import CatalogFilters from '@components/catalog/CatalogFilters.astro';
 import { getToolsByCategory } from '@lib/data/catalog';
 import { getCategory } from '@lib/domain/taxonomy';
@@ -14,6 +16,7 @@ import {
   professional,
   talkingHead,
 } from '@lib/data/video';
+import { repartirBloques } from '@lib/data/category-page';
 import { faqSchema, itemListSchema } from '@lib/seo/structured-data';
 import { ROUTES } from '@lib/nav';
 
@@ -40,6 +43,62 @@ const personas = talkingHead(tools).slice(0, 5);
 const potentes = professional(tools).slice(0, 5);
 const { install, technical } = localControl(tools);
 const todas = catalogueOrder(tools);
+
+/*
+ * Los bloques, en orden editorial y con su motivo.
+ *
+ * Igual que en las demás verticales: el primero que reclama una herramienta se
+ * queda su tarjeta y los siguientes la mencionan. Aquí la página pintaba 44
+ * tarjetas para 16 fichas, y una misma llegaba a salir cinco veces.
+ *
+ * «Profesionales» se llama ahora como lo que mide, que es cuántas capacidades
+ * tiene documentadas, no una calidad que no medimos.
+ */
+const declarados = [
+  {
+    id: 'gratis',
+    titulo: 'Genera vídeos gratis ahora',
+    lista: gratis,
+    lede: 'Funcionan en el navegador y su acceso gratuito se renueva. Ojo a la diferencia entre créditos que vuelven y créditos de bienvenida.',
+    motivo: (tool: Tool) =>
+      tool.freePlan.creditsAmount
+        ? `Acceso gratuito que se renueva: ${tool.freePlan.creditsAmount}.`
+        : 'Acceso gratuito que se renueva.',
+  },
+  {
+    id: 'faciles',
+    titulo: 'Fáciles para empezar',
+    lista: faciles,
+    lede: 'Nada que instalar. Que sean de pago no las descalifica: la pregunta aquí es cuánto cuesta llegar al primer vídeo.',
+    motivo: (tool: Tool) =>
+      tool.startEffort === 'instant' ? 'Se abre y se genera, sin cuenta.' : 'Sólo hace falta una cuenta.',
+  },
+  {
+    id: 'personas',
+    titulo: 'Persona a cámara',
+    lista: personas,
+    lede: 'Avatares que hablan y sincronía labial: el encargo más común y el que menos se parece a «generar un vídeo».',
+    motivo: (tool: Tool) =>
+      tool.capabilities.includes('avatar-video') ? 'Genera un avatar que habla.' : 'Sincroniza labios sobre un vídeo.',
+  },
+  {
+    id: 'capaces',
+    titulo: 'Las que más cosas saben hacer',
+    lista: potentes,
+    lede: 'Con más capacidades documentadas por su fabricante, cada una con su cita. No es una nota de calidad: es cuánto sabemos de ellas con certeza.',
+    motivo: (tool: Tool) => `${tool.capabilities.length} capacidades documentadas.`,
+  },
+  {
+    id: 'local',
+    titulo: 'En tu equipo',
+    lista: [...install, ...technical],
+    lede: 'Modelos que se ejecutan en tu máquina, sin cuotas ni cuenta. El coste se traslada a la GPU.',
+    motivo: (tool: Tool) =>
+      tool.startEffort === 'install' ? 'Se instala y ya; sigue pidiendo GPU.' : 'Entorno propio y descarga de pesos.',
+  },
+].filter((b) => b.lista.length > 0);
+
+const bloques = repartirBloques(declarados);
 
 const decisions = decideFilters(tools, CANDIDATE_FILTERS);
 const filters = decisions.filter((d) => d.shown);
@@ -93,119 +152,43 @@ const faqs = [
         </span>
       </p>
       <nav class="vert-jump" aria-label="Ir a un bloque">
-        <a href="#gratis">Gratis ahora</a>
-        <a href="#faciles">Fáciles</a>
-        <a href="#personas">Persona a cámara</a>
-        <a href="#potentes">Profesionales</a>
-        <a href="#local">En tu equipo</a>
+        {bloques.map((b) => <a href={`#${b.id}`}>{b.titulo}</a>)}
         <a href="#todas">Todas</a>
       </nav>
     </header>
 
     <!-- ------------------------------------------------------------------ -->
-    <section class="vert-block" id="gratis" aria-labelledby="gratis-h">
-      <div class="vert-block-head">
-        <h2 class="vert-h2" id="gratis-h">Genera vídeos gratis ahora</h2>
-        <p class="vert-block-lede">
-          Generan vídeo, funcionan en el navegador y su acceso gratuito se renueva.
-          Fuera lo que hay que instalar y fuera los créditos que se gastan una sola vez.
-        </p>
-      </div>
-      <ul class="vert-grid">
-        {gratis.map((tool) => (
-          <li><IntentCard tool={tool} capabilityOrder={VIDEO_CAPABILITIES} /></li>
-        ))}
-      </ul>
-      <p class="vert-note">
-        Donde no aparece una cantidad es porque el fabricante no la publica. No la
-        estimamos.
-      </p>
-    </section>
+    {bloques.map((bloque) => (
+      <section class="vert-block" id={bloque.id} aria-labelledby={`${bloque.id}-h`}>
+        <div class="vert-block-head">
+          <h2 class="vert-h2" id={`${bloque.id}-h`}>{bloque.titulo}</h2>
+          <p class="vert-block-lede">{bloque.lede}</p>
+        </div>
 
-    <!-- ------------------------------------------------------------------ -->
-    <section class="vert-block" id="faciles" aria-labelledby="faciles-h">
-      <div class="vert-block-head">
-        <h2 class="vert-h2" id="faciles-h">Fáciles para empezar</h2>
-        <p class="vert-block-lede">
-          Nada que instalar. Que sean de pago no las descalifica: aquí la pregunta es
-          cuánto cuesta empezar, no cuánto cuesta.
-        </p>
-      </div>
-      <ul class="vert-grid">
-        {faciles.map((tool) => (
-          <li><IntentCard tool={tool} capabilityOrder={VIDEO_CAPABILITIES} /></li>
-        ))}
-      </ul>
-    </section>
-
-    <!-- ------------------------------------------------------------------ -->
-    <section class="vert-block" id="personas" aria-labelledby="personas-h">
-      <div class="vert-block-head">
-        <h2 class="vert-h2" id="personas-h">Una persona hablando a cámara</h2>
-        <p class="vert-block-lede">
-          Avatares, sincronía labial y doblaje. Es otro encargo: quien necesita a
-          alguien explicando algo no está eligiendo entre generadores de planos.
-        </p>
-      </div>
-      <ul class="vert-grid">
-        {personas.map((tool) => (
-          <li><IntentCard tool={tool} capabilityOrder={VIDEO_CAPABILITIES} /></li>
-        ))}
-      </ul>
-    </section>
-
-    <!-- ------------------------------------------------------------------ -->
-    <section class="vert-block" id="potentes" aria-labelledby="potentes-h">
-      <div class="vert-block-head">
-        <h2 class="vert-h2" id="potentes-h">Potentes y profesionales</h2>
-        <p class="vert-block-lede">
-          Herramientas cuyas capacidades podemos describir con una cita oficial detrás
-          de cada una. No es una nota más alta: es que sabemos qué hacen.
-        </p>
-      </div>
-      <ul class="vert-grid">
-        {potentes.map((tool) => (
-          <li><IntentCard tool={tool} capabilityOrder={VIDEO_CAPABILITIES} /></li>
-        ))}
-      </ul>
-    </section>
-
-    <!-- ------------------------------------------------------------------ -->
-    <section class="vert-block" id="local" aria-labelledby="local-h">
-      <div class="vert-block-head">
-        <h2 class="vert-h2" id="local-h">En tu equipo</h2>
-        <p class="vert-block-lede">
-          Pesos abiertos que se ejecutan en tu máquina: sin cuotas y sin depender de que
-          nadie cambie su plan. El límite aquí no es el precio, es la tarjeta gráfica.
-        </p>
-      </div>
-
-      {install.length > 0 && (
-        <div class="vert-sub">
-          <h3 class="vert-h3">Se instalan y ya</h3>
+        {bloque.completas.length > 0 && (
           <ul class="vert-grid">
-            {install.map((tool) => (
-              <li><IntentCard tool={tool} headingLevel="h4" capabilityOrder={VIDEO_CAPABILITIES} /></li>
+            {bloque.completas.map((tool) => (
+              <li><IntentCard tool={tool} capabilityOrder={VIDEO_CAPABILITIES} /></li>
             ))}
           </ul>
-        </div>
-      )}
+        )}
 
-      {technical.length > 0 && (
-        <div class="vert-sub">
-          <h3 class="vert-h3">Configuración técnica</h3>
-          <p class="vert-sub-lede">
-            Entorno, pesos de varios gigas y una GPU que aguante. La memoria de vídeo
-            que pide cada uno está en su ficha, porque es lo que decide si cabe.
-          </p>
-          <ul class="vert-grid">
-            {technical.map((tool) => (
-              <li><IntentCard tool={tool} headingLevel="h4" capabilityOrder={VIDEO_CAPABILITIES} /></li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </section>
+        {bloque.compactas.length > 0 && (
+          <>
+            <p class="vert-tambien">
+              También responden a esto, con su ficha completa en otro bloque:
+            </p>
+            <ul class="vert-menciones">
+              {bloque.compactas.map((tool) => (
+                <li>
+                  <ToolMention tool={tool} motivo={bloque.motivo(tool)} ancla={bloque.anclas.get(tool.slug)} />
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </section>
+    ))}
 
     <!-- ------------------------------------------------------------------ -->
     <section class="vert-block" id="todas" aria-labelledby="todas-h">
