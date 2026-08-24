@@ -1,16 +1,10 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getAllTools, getTool } from '@lib/data/catalog';
-import { OPENNESS_LABEL, TRI_STATE_LABEL } from '@lib/domain/primitives';
-import {
-  CREDIT_RESET_LABEL,
-  HOSTING_LABEL,
-  START_EFFORT_LABEL,
-  CAPABILITY_LABEL,
-  PRODUCT_TYPE_LABEL,
-  getCategory,
-  getFreeModel,
-} from '@lib/domain/taxonomy';
+import { filasDe } from '@lib/data/comparador';
+import { comparacionesVigentes, urlDe } from '@lib/data/comparaciones';
+import { VERTICALES } from '@lib/data/home';
+import { normalize } from '@lib/search/index';
 import { ROUTES } from '@lib/nav';
 
 export const prerender = false;
@@ -30,6 +24,7 @@ const hasComparison = tools.length >= MIN_INDEXABLE;
 
 const allTools = getAllTools();
 const suggestions = allTools.filter((t) => !requested.includes(t.slug)).slice(0, 12);
+const utiles = comparacionesVigentes();
 
 const crumbs = [
   { name: 'Inicio', path: ROUTES.home },
@@ -51,105 +46,40 @@ const description = hasComparison
  */
 const noindex = !hasComparison;
 
-interface Row {
-  label: string;
-  /** `fact` rows highlight the winner; `text` rows never do. */
-  kind: 'fact' | 'text' | 'list';
-  values: (tool: (typeof tools)[number]) => string | string[];
-  better?: (value: string) => boolean;
-}
+const filas = hasComparison ? filasDe(tools) : [];
 
-const ROWS: Row[] = [
-  { label: 'Modelo de gratuidad', kind: 'fact', values: (t) => getFreeModel(t.freeModel).label },
-  /*
-   * Lo que sustituye a la nota.
-   *
-   * Aquí había una fila «Puntuación» con el número sobre 100, y encima de la
-   * tabla un párrafo que nombraba un ganador. Comparar no es decidir por
-   * alguien: es poner los mismos hechos en las mismas filas. Estas tres son
-   * los hechos que el catálogo reconstruido sabe y la tabla no enseñaba.
-   */
-  {
-    label: 'Qué clase de producto es',
-    kind: 'fact',
-    values: (t) => (t.productType && PRODUCT_TYPE_LABEL[t.productType]) ?? '—',
-  },
-  {
-    label: 'Por dónde se accede',
-    kind: 'list',
-    values: (t) =>
-      [
-        t.access.chat === 'yes' ? (t.access.chatFree === 'yes' ? 'En un chat, gratis' : 'En un chat') : null,
-        t.access.api === 'yes' ? (t.access.apiFree === 'yes' ? 'Por API, con capa gratuita' : 'Por API') : null,
-        t.access.weights === 'yes' ? 'Pesos descargables' : null,
-      ].filter((v): v is string => v !== null),
-  },
-  {
-    label: 'Qué sabe hacer',
-    kind: 'list',
-    values: (t) => t.capabilities.map((c) => CAPABILITY_LABEL[c]),
-  },
-  { label: 'Categoría', kind: 'fact', values: (t) => getCategory(t.categorySlug)?.name ?? '—' },
-  {
-    label: '¿Pide tarjeta?',
-    kind: 'fact',
-    values: (t) => TRI_STATE_LABEL[t.freePlan.requiresCreditCard],
-    better: (v) => v === 'No',
-  },
-  {
-    label: '¿Hay que registrarse?',
-    kind: 'fact',
-    values: (t) => TRI_STATE_LABEL[t.freePlan.requiresSignup],
-    better: (v) => v === 'No',
-  },
-  {
-    label: '¿Marca de agua?',
-    kind: 'fact',
-    values: (t) => TRI_STATE_LABEL[t.freePlan.hasWatermark],
-    better: (v) => v === 'No',
-  },
-  {
-    label: '¿Uso comercial?',
-    kind: 'fact',
-    values: (t) => TRI_STATE_LABEL[t.freePlan.commercialUse],
-    better: (v) => v === 'Sí',
-  },
-  {
-    label: '¿Open source?',
-    kind: 'fact',
-    values: (t) => OPENNESS_LABEL[t.openSource],
-    better: (v) => v === 'Sí',
-  },
-  { label: 'Dónde se ejecuta', kind: 'fact', values: (t) => HOSTING_LABEL[t.hosting] },
-  { label: 'Cuánto cuesta empezar', kind: 'fact', values: (t) => START_EFFORT_LABEL[t.startEffort] },
-  {
-    label: 'Renovación de créditos',
-    kind: 'fact',
-    values: (t) => CREDIT_RESET_LABEL[t.freePlan.creditReset],
-  },
-  {
-    label: '¿Se entrena con tus datos?',
-    kind: 'fact',
-    values: (t) => TRI_STATE_LABEL[t.privacy.trainsOnUserData],
-    better: (v) => v === 'No',
-  },
-  { label: 'Qué te dan gratis', kind: 'text', values: (t) => t.freePlan.summary },
-  { label: 'Límites', kind: 'list', values: (t) => t.freePlan.limits },
-  { label: 'En contra', kind: 'list', values: (t) => t.cons },
-  { label: 'Veredicto', kind: 'text', values: (t) => t.verdict },
-  {
-    label: 'Última verificación',
-    kind: 'fact',
-    values: (t) =>
-      new Date(`${t.lastVerifiedAt}T00:00:00Z`).toLocaleDateString('es-ES', {
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric',
-        timeZone: 'UTC',
-      }),
-  },
+const distintas = filas.filter((f) => !f.iguales);
+
+/*
+ * Un resumen que apunta a filas, no a un ganador.
+ *
+ * «La mejor es X» es exactamente lo que se retiró de esta página: una nota
+ * disfrazada de frase. Lo que sí ayuda es decir dónde mirar, y que cada cosa
+ * que se afirme se pueda comprobar dos centímetros más abajo.
+ */
+const resumen = distintas.slice(0, 3).map((f) => f.row.label);
+
+/** El índice mínimo del selector: nombre para buscar, vertical para filtrar. */
+const VERTICAL_DE = new Map<string, string>();
+for (const v of VERTICALES) for (const s of v.slugs) VERTICAL_DE.set(s, v.id);
+
+const picker = allTools.map((t) => ({
+  slug: t.slug,
+  name: t.name,
+  n: normalize(`${t.name} ${t.alternativeNames.join(' ')}`),
+  v: VERTICAL_DE.get(t.categorySlug) ?? 'otras',
+}));
+
+const FILTROS_VERTICAL = [
+  { id: 'todas', nombre: 'Todas' },
+  { id: 'imagen', nombre: 'Imagen' },
+  { id: 'video', nombre: 'Vídeo' },
+  { id: 'audio', nombre: 'Audio' },
+  { id: 'codigo', nombre: 'Código' },
+  { id: 'agentes', nombre: 'Agentes' },
+  { id: 'modelos', nombre: 'Modelos' },
+  { id: 'otras', nombre: 'Otras' },
 ];
-
 ---
 
 <BaseLayout
@@ -179,8 +109,25 @@ const ROWS: Row[] = [
 
     {hasComparison ? (
       <>
+        <div class="compare-toolbar">
+          <p class="compare-summary">
+            {distintas.length === 0 ? (
+              <>Estas {tools.length} coinciden en las {filas.length} filas que comparamos.</>
+            ) : (
+              <>
+                Se diferencian en <strong>{distintas.length}</strong> de {filas.length} filas.
+                {resumen.length > 0 && <> Las primeras que las separan: {resumen.join(', ')}.</>}
+              </>
+            )}
+          </p>
+          <label class="compare-only-diff">
+            <input type="checkbox" id="solo-diferencias" />
+            <span>Mostrar sólo diferencias</span>
+          </label>
+        </div>
+
         <div class="table-scroll compare-scroll">
-          <table class="data-table compare-table">
+          <table class="data-table compare-table" id="compare-table">
             <caption class="sr-only">
               Comparativa de {tools.map((t) => t.name).join(', ')}
             </caption>
@@ -195,40 +142,47 @@ const ROWS: Row[] = [
               </tr>
             </thead>
             <tbody>
-              {ROWS.map((row) => {
-                const cells = tools.map((tool) => row.values(tool));
-                const hasAny = cells.some((v) => (Array.isArray(v) ? v.length > 0 : v));
-                if (!hasAny) return null;
-                return (
-                  <tr>
-                    <th scope="row">{row.label}</th>
-                    {cells.map((value) => (
-                      <td>
-                        {Array.isArray(value) ? (
-                          value.length ? (
-                            <ul class="compare-list">
-                              {value.slice(0, 4).map((item) => <li>{item}</li>)}
-                            </ul>
-                          ) : (
-                            <span class="compare-empty">—</span>
-                          )
-                        ) : (
-                          <span
-                            class={
-                              row.better && row.better(value) ? 'compare-value is-better' : 'compare-value'
-                            }
-                          >
-                            {value || '—'}
-                          </span>
-                        )}
-                      </td>
-                    ))}
-                  </tr>
-                );
-              })}
+              {filas.map(({ row, celdas, iguales }) => (
+                <tr data-igual={iguales ? 'si' : 'no'}>
+                  <th scope="row">{row.label}</th>
+                  {celdas.map((celda) => (
+                    <td>
+                      {celda.tipo === 'lista' && (
+                        <ul class="compare-list">
+                          {celda.items.slice(0, 4).map((item) => <li>{item}</li>)}
+                        </ul>
+                      )}
+                      {celda.tipo === 'valor' && (
+                        <span
+                          class={
+                            row.better && row.better(celda.texto)
+                              ? 'compare-value is-better'
+                              : 'compare-value'
+                          }
+                        >
+                          {celda.texto}
+                        </span>
+                      )}
+                      {celda.tipo === 'ausente' && (
+                        <span class="compare-absent" title={celda.nota}>
+                          {celda.texto}
+                          {celda.nota && <span class="sr-only"> — {celda.nota}</span>}
+                        </span>
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
+
+        <p class="compare-legend">
+          <strong>Sin analizar</strong> es un hueco nuestro, no una respuesta: significa que
+          todavía no lo hemos escrito, no que no exista. <strong>Sin verificar</strong> es un
+          dato del fabricante que no hemos podido confirmar en una fuente oficial.
+          <strong>No aplica</strong> es una fila que no tiene sentido para esa clase de herramienta.
+        </p>
 
         <div class="compare-actions">
           <a class="btn btn-secondary btn-sm" href={ROUTES.compare}>Empezar de nuevo</a>
@@ -236,29 +190,100 @@ const ROWS: Row[] = [
         </div>
       </>
     ) : (
-      <section class="compare-picker" aria-labelledby="picker-title">
-        <h2 id="picker-title" class="compare-picker-title">Elige al menos dos</h2>
-        <form method="get" class="compare-form">
-          <fieldset>
-            <legend class="sr-only">Herramientas a comparar</legend>
-            <div class="compare-options">
-              {allTools.map((tool) => (
-                <label class="filter-chip">
-                  <input type="checkbox" name="t" value={tool.slug} class="sr-only" data-compare-pick />
-                  <span class="filter-chip-tick" aria-hidden="true">
-                    <svg width="11" height="11" viewBox="0 0 12 12"><path d="M2 6.4 4.6 9 10 3.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <>
+        <section class="compare-useful" aria-labelledby="useful-title">
+          <h2 id="useful-title" class="compare-picker-title">Comparaciones útiles</h2>
+          <p class="hint compare-useful-lede">
+            Diez preguntas que se repiten, ya montadas. Ninguna sale de un ranking: cada una está
+            escrita a mano y dice para qué sirve.
+          </p>
+          <ul class="compare-useful-list">
+            {utiles.map((c) => (
+              <li class="compare-useful-item">
+                <a class="compare-useful-link" href={urlDe(c)}>
+                  <span class="compare-useful-name">{c.titulo}</span>
+                  <span class="compare-useful-tools">
+                    {c.slugs.map((s) => getTool(s)?.name ?? s).join(' · ')}
                   </span>
-                  {tool.name}
-                </label>
-              ))}
+                </a>
+                <p class="compare-useful-why">{c.motivo}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="compare-picker" aria-labelledby="picker-title">
+          <h2 id="picker-title" class="compare-picker-title">O móntala tú</h2>
+          <form method="get" class="compare-form" id="compare-form">
+            {/*
+              La entrada eran noventa y cuatro casillas seguidas.
+
+              Para elegir dos había que leerlas todas, y no había forma de
+              llegar a una por su nombre: sólo recorrer el muro. Se queda el
+              mismo formulario —así sigue funcionando sin JavaScript y la URL
+              resultante sigue siendo la misma— y encima van un buscador y un
+              filtro por vertical que deciden cuáles se ven.
+            */}
+            <div class="compare-find">
+              <label class="compare-find-label" for="compare-q">Busca por nombre</label>
+              <input
+                type="search"
+                id="compare-q"
+                class="compare-find-input"
+                placeholder="Lovable, Whisper, Kling…"
+                autocomplete="off"
+              />
             </div>
-          </fieldset>
-          <button type="submit" class="btn btn-primary" data-compare-submit disabled>
-            Comparar (<span data-compare-picked>0</span>)
-          </button>
-          <p class="hint">Máximo cuatro a la vez: más columnas dejan de ser legibles.</p>
-        </form>
-      </section>
+
+            <fieldset class="compare-verticals">
+              <legend class="compare-find-label">Filtrar por vertical</legend>
+              <div class="compare-vertical-row">
+                {FILTROS_VERTICAL.map((v, i) => (
+                  <label class="filter-chip">
+                    <input
+                      type="radio"
+                      name="compare-vertical"
+                      value={v.id}
+                      class="sr-only"
+                      checked={i === 0}
+                      data-compare-vertical
+                    />
+                    {v.nombre}
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+
+            <div class="compare-chosen" id="compare-chosen" hidden>
+              <p class="compare-find-label">Elegidas (<span data-compare-picked>0</span> de 4)</p>
+              <ul class="compare-chosen-list" id="compare-chosen-list"></ul>
+            </div>
+
+            <fieldset>
+              <legend class="compare-find-label">Herramientas</legend>
+              <div class="compare-options" id="compare-options">
+                {allTools.map((tool) => (
+                  <label class="filter-chip" data-compare-option data-slug={tool.slug}>
+                    <input type="checkbox" name="t" value={tool.slug} class="sr-only" data-compare-pick />
+                    <span class="filter-chip-tick" aria-hidden="true">
+                      <svg width="11" height="11" viewBox="0 0 12 12"><path d="M2 6.4 4.6 9 10 3.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                    {tool.name}
+                  </label>
+                ))}
+              </div>
+              <p class="hint" id="compare-nomatch" hidden>
+                Ninguna herramienta se llama así. Prueba con otro nombre o quita el filtro de vertical.
+              </p>
+            </fieldset>
+
+            <button type="submit" class="btn btn-primary" data-compare-submit disabled>
+              Comparar (<span data-compare-picked>0</span>)
+            </button>
+            <p class="hint">Máximo cuatro a la vez: más columnas dejan de ser legibles.</p>
+          </form>
+        </section>
+      </>
     )}
 
     {hasComparison && suggestions.length > 0 && (
@@ -279,6 +304,8 @@ const ROWS: Row[] = [
       </section>
     )}
   </div>
+
+  <script is:inline type="application/json" id="compare-index" set:html={JSON.stringify(picker)} />
 </BaseLayout>
 
 <style>
@@ -309,18 +336,33 @@ const ROWS: Row[] = [
     font-size: 0.875rem;
   }
 
-  .compare-winner {
-    margin: 0;
-    padding: var(--space-xs) var(--space-s);
-    border-radius: var(--radius-m);
-    background: var(--surface-sunken);
-    border: 1px solid var(--line);
-    font-size: 0.9375rem;
-    color: var(--ink-muted);
+  .compare-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2xs) var(--space-s);
   }
 
-  .compare-winner strong {
+  .compare-summary {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--ink-muted);
+    max-width: 60ch;
+  }
+
+  .compare-summary strong {
     color: var(--ink-strong);
+  }
+
+  .compare-only-diff {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.875rem;
+    color: var(--ink-strong);
+    white-space: nowrap;
+    cursor: pointer;
   }
 
   .compare-table {
@@ -368,8 +410,36 @@ const ROWS: Row[] = [
     gap: 0.15rem;
   }
 
-  .compare-empty {
+  /*
+   * Una ausencia se escribe, pero no compite con un dato.
+   *
+   * En cursiva y en tinta apagada: se lee, se entiende que no es una respuesta,
+   * y sobre todo no se confunde con «no tiene pegas» —que es justo lo que
+   * parecía el guion en la fila «En contra».
+   */
+  .compare-absent {
+    font-style: italic;
+    font-size: 0.8125rem;
     color: var(--ink-subtle);
+  }
+
+  .compare-legend {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: var(--ink-muted);
+    max-width: 72ch;
+  }
+
+  .compare-legend strong {
+    font-style: italic;
+    font-weight: 650;
+    color: var(--ink-strong);
+  }
+
+  /* El interruptor sólo esconde; no reordena ni recalcula nada. */
+  .compare-table.solo-diferencias tbody tr[data-igual='si'] {
+    display: none;
   }
 
   .compare-actions {
@@ -382,6 +452,57 @@ const ROWS: Row[] = [
   .compare-more-title {
     font-size: 1.125rem;
     margin-block-end: var(--space-2xs);
+  }
+
+  .compare-useful-lede {
+    margin-block-end: var(--space-s);
+    max-width: 62ch;
+  }
+
+  .compare-useful-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+    gap: var(--space-xs);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .compare-useful-item {
+    display: grid;
+    gap: 0.3rem;
+    padding: var(--space-xs);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-m);
+    background: var(--surface);
+  }
+
+  .compare-useful-link {
+    text-decoration: none;
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .compare-useful-name {
+    font-weight: 650;
+    color: var(--ink-strong);
+  }
+
+  .compare-useful-link:hover .compare-useful-name,
+  .compare-useful-link:focus-visible .compare-useful-name {
+    text-decoration: underline;
+  }
+
+  .compare-useful-tools {
+    font-size: 0.8125rem;
+    color: var(--ink-subtle);
+  }
+
+  .compare-useful-why {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--ink-muted);
   }
 
   .compare-form {
@@ -398,8 +519,35 @@ const ROWS: Row[] = [
     width: 100%;
   }
 
+  .compare-find {
+    width: 100%;
+    max-width: 26rem;
+  }
+
+  .compare-find-label {
+    display: block;
+    margin: 0 0 0.3rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--ink-muted);
+    padding: 0;
+  }
+
+  .compare-find-input {
+    width: 100%;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-m);
+    background: var(--surface);
+    color: var(--ink-strong);
+    font: inherit;
+    font-size: 0.9375rem;
+  }
+
+  .compare-vertical-row,
   .compare-options,
-  .compare-more-list {
+  .compare-more-list,
+  .compare-chosen-list {
     display: flex;
     flex-wrap: wrap;
     gap: 0.35rem;
@@ -408,28 +556,142 @@ const ROWS: Row[] = [
     padding: 0;
   }
 
+  .compare-chosen {
+    width: 100%;
+  }
+
+  .compare-chosen-remove {
+    background: none;
+    border: 0;
+    padding: 0 0 0 0.35rem;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .compare-options {
+    max-height: 16rem;
+    overflow-y: auto;
+    padding: 0.15rem;
+  }
+
   .compare-more-list a {
     text-decoration: none;
+  }
+
+  @media (max-width: 30rem) {
+    .compare-toolbar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 </style>
 
 <script>
   const MAX = 4;
   const picks = Array.from(document.querySelectorAll<HTMLInputElement>('[data-compare-pick]'));
-  const submit = document.querySelector<HTMLButtonElement>('[data-compare-submit]');
-  const counter = document.querySelector<HTMLElement>('[data-compare-picked]');
+  const submits = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-compare-submit]'));
+  const counters = Array.from(document.querySelectorAll<HTMLElement>('[data-compare-picked]'));
+  const options = Array.from(document.querySelectorAll<HTMLElement>('[data-compare-option]'));
+  const queryInput = document.getElementById('compare-q') as HTMLInputElement | null;
+  const verticalInputs = Array.from(
+    document.querySelectorAll<HTMLInputElement>('[data-compare-vertical]')
+  );
+  const nomatch = document.getElementById('compare-nomatch');
+  const chosenBox = document.getElementById('compare-chosen');
+  const chosenList = document.getElementById('compare-chosen-list');
+  const indexNode = document.getElementById('compare-index');
+
+  interface PickerEntry { slug: string; name: string; n: string; v: string }
+  const entries: PickerEntry[] = indexNode?.textContent ? JSON.parse(indexNode.textContent) : [];
+  const bySlug = new Map(entries.map((e) => [e.slug, e]));
+  const optionBySlug = new Map(options.map((o) => [o.dataset['slug']!, o]));
+
+  /** El mismo saneado que usa el índice del buscador, para que «vídeo» encuentre «video». */
+  function normalizar(input: string): string {
+    return input
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function seleccionadas(): HTMLInputElement[] {
+    return picks.filter((p) => p.checked);
+  }
+
+  function pintarElegidas() {
+    if (!chosenBox || !chosenList) return;
+    const elegidas = seleccionadas();
+    chosenBox.hidden = elegidas.length === 0;
+    chosenList.replaceChildren(
+      ...elegidas.map((input) => {
+        const li = document.createElement('li');
+        li.className = 'filter-chip';
+        li.textContent = bySlug.get(input.value)?.name ?? input.value;
+        const quitar = document.createElement('button');
+        quitar.type = 'button';
+        quitar.className = 'compare-chosen-remove';
+        quitar.textContent = '×';
+        quitar.setAttribute('aria-label', `Quitar ${li.textContent}`);
+        quitar.addEventListener('click', () => {
+          input.checked = false;
+          sync();
+        });
+        li.appendChild(quitar);
+        return li;
+      })
+    );
+  }
+
+  function filtrar() {
+    const q = normalizar(queryInput?.value ?? '');
+    const vertical = verticalInputs.find((v) => v.checked)?.value ?? 'todas';
+    let visibles = 0;
+
+    for (const [slug, option] of optionBySlug) {
+      const entry = bySlug.get(slug);
+      const input = option.querySelector<HTMLInputElement>('[data-compare-pick]');
+      /*
+       * Lo ya elegido no se esconde nunca. Si el filtro lo ocultase, su
+       * casilla marcada se iría con él y el formulario mandaría una
+       * comparación distinta de la que se ve en pantalla.
+       */
+      const elegida = input?.checked ?? false;
+      const encaja =
+        !!entry &&
+        (vertical === 'todas' || entry.v === vertical) &&
+        (!q || entry.n.includes(q));
+      option.hidden = !elegida && !encaja;
+      if (!option.hidden) visibles++;
+    }
+
+    if (nomatch) nomatch.hidden = visibles > 0;
+  }
 
   function sync() {
-    const selected = picks.filter((p) => p.checked);
-    if (counter) counter.textContent = String(selected.length);
-    if (submit) submit.disabled = selected.length < 2;
+    const elegidas = seleccionadas();
+    for (const counter of counters) counter.textContent = String(elegidas.length);
+    for (const submit of submits) submit.disabled = elegidas.length < 2;
     for (const pick of picks) {
-      pick.disabled = !pick.checked && selected.length >= MAX;
+      pick.disabled = !pick.checked && elegidas.length >= MAX;
     }
+    pintarElegidas();
+    filtrar();
   }
 
   for (const pick of picks) pick.addEventListener('change', sync);
-  sync();
+  for (const vertical of verticalInputs) vertical.addEventListener('change', filtrar);
+  queryInput?.addEventListener('input', filtrar);
+  if (picks.length) sync();
+
+  const soloDiferencias = document.getElementById('solo-diferencias') as HTMLInputElement | null;
+  const tabla = document.getElementById('compare-table');
+  soloDiferencias?.addEventListener('change', () => {
+    tabla?.classList.toggle('solo-diferencias', soloDiferencias.checked);
+  });
 
   document.querySelector('[data-copy-link]')?.addEventListener('click', async (event) => {
     const button = event.currentTarget as HTMLButtonElement;

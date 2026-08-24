@@ -27,7 +27,16 @@ export function makeToolRecord(overrides: Partial<ToolRecord> = {}): ToolRecord 
       creditReset: 'none',
       verifiedAt: '2026-07-01',
     },
+    kind: 'app',
     openSource: 'no',
+    access: {
+      chat: 'unverified',
+      chatFree: 'unverified',
+      api: 'unverified',
+      apiFree: 'unverified',
+      weights: 'unverified',
+    },
+    licences: {},
     hosting: 'cloud',
     platforms: ['web'],
     languages: [],
@@ -59,11 +68,12 @@ export function makeToolRecord(overrides: Partial<ToolRecord> = {}): ToolRecord 
     affiliation: { isAffiliate: false },
     sponsorship: { isSponsored: false, placementBoost: 0 },
     status: 'published',
+    verification: 'pending_review',
     detectedAt: '2026-01-01',
     lastVerifiedAt: '2026-07-01',
     updatedAt: '2026-07-01',
     ...overrides,
-  } as ToolRecord;
+  };
 }
 
 export function makeTool(overrides: Partial<ToolRecord> = {}, now = new Date('2026-08-03')): Tool {

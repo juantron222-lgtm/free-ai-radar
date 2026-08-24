@@ -77,7 +77,7 @@ describe('search', () => {
   it('encuentra por caso de uso, no sólo por nombre', () => {
     const hits = search(docs, 'inpainting');
     expect(hits[0]?.slug).toBe('stable-diffusion-webui');
-    expect(hits[0]?.matchedOn).toBe('useCases');
+    expect(hits[0]?.matchedOn).toBe('text');
   });
 
   it('encuentra por categoría', () => {

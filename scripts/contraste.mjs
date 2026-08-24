@@ -51,6 +51,8 @@ const PAGES = [
   '/categorias',
   '/categorias/codigo',
   '/comparar',
+  '/comparar?t=lovable,bolt-new,v0-by-vercel',
+  '/herramientas?q=quitar+fondo',
   '/noticias',
   '/metodologia',
   '/colecciones',

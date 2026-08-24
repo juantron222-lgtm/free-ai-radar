@@ -4,6 +4,8 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { getAllTools, getTool } from '@lib/data/catalog';
 import { verificacionDe } from '@lib/domain/verification';
+import { ToolRecord } from '@lib/domain/tool';
+import { makeToolRecord } from '../fixtures/tool';
 
 /**
  * Ninguna conclusión puede ser más fuerte que el dato que la sostiene.
@@ -188,5 +190,26 @@ describe('lo antiguo no se presenta como reciente', () => {
     const fechas = tools.flatMap((t) => t.changelog.map((c) => c.date)).sort();
     const masReciente = fechas[fechas.length - 1]!;
     expect(masReciente < '2025-01-01', `la más reciente es ${masReciente}`).toBe(true);
+  });
+});
+
+describe('el maniquí de las pruebas no se queda atrás del esquema', () => {
+  it('tiene exactamente los mismos campos que una ficha real', () => {
+    /*
+     * `makeTool` llevaba un `as ToolRecord` que tapaba lo que le faltaba, y lo
+     * que le faltaba era `access`, `licences`, `kind` y `verification` —cuatro
+     * campos que el esquema fue ganando y el maniquí no—. El síntoma no era un
+     * error de tipos sino un `Cannot read properties of undefined` dentro de
+     * una prueba que iba de otra cosa. Sin el cast, esto lo caza el compilador;
+     * con esta prueba, además, se ve cuál falta.
+     */
+    const maniqui = makeToolRecord();
+
+    const faltan = Object.entries(ToolRecord.shape)
+      .filter(([, esquema]) => !esquema.isOptional())
+      .map(([clave]) => clave)
+      .filter((clave) => !(clave in maniqui));
+
+    expect(faltan).toEqual([]);
   });
 });

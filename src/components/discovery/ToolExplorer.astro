@@ -16,6 +16,16 @@ interface Props {
 
 const { tools, lockedCategory, heading } = Astro.props;
 const index = buildClientIndex(tools, (slug) => getCategory(slug)?.name ?? slug);
+
+/** Las seis, con el nombre que usa la navegación. */
+const VERTICALES_VISIBLES = [
+  { ruta: '/imagen', nombre: 'Imagen' },
+  { ruta: '/video', nombre: 'Vídeo' },
+  { ruta: '/audio', nombre: 'Audio' },
+  { ruta: '/codigo', nombre: 'Código' },
+  { ruta: '/agentes', nombre: 'Agentes' },
+  { ruta: '/modelos', nombre: 'Modelos' },
+];
 ---
 
 <div class="explorer" id="explorer">
@@ -26,11 +36,49 @@ const index = buildClientIndex(tools, (slug) => getCategory(slug)?.name ?? slug)
   <div class="explorer-status" role="status" aria-live="polite">
     <p class="explorer-count">
       {heading && <span class="explorer-heading">{heading}</span>}
-      <span id="result-count" class="tnum">{tools.length}</span>
-      <span id="result-noun">{tools.length === 1 ? 'herramienta' : 'herramientas'}</span>
+      {/*
+        Los espacios, escritos.
+
+        Astro se come el salto de línea entre dos expresiones igual que JSX, y
+        la línea salía pegada: «0herramientaspara "traducir a swahili"». Se ve
+        en todas las páginas de listado y en las cuatro capturas de esta fase.
+      */}
+      <span id="result-count" class="tnum">{tools.length}</span>{' '}
+      <span id="result-noun">{tools.length === 1 ? 'herramienta' : 'herramientas'}</span>{' '}
       <span id="result-qualifier"></span>
     </p>
+    {/*
+      Qué ha entendido el buscador.
+
+      Si una consulta se ha leído como una tarea y no como texto, hay que
+      decirlo: cambia qué sale y por qué. Callarlo convierte un filtro en
+      magia, y cuando la magia se equivoca nadie sabe cómo corregirla.
+    */}
+    <p class="explorer-intent" id="result-intent" hidden></p>
   </div>
+
+  {/*
+    El destello de las 94.
+
+    Esta página se prerenderiza con el catálogo entero y el filtrado ocurre
+    después, en el navegador. Con `?q=` en la URL eso significa que durante unos
+    fotogramas se ven las 94 tarjetas y luego saltan a tres: quien llega desde
+    un enlace compartido ve primero una respuesta que no es la suya.
+
+    Arreglarlo del todo pide renderizar en servidor, que es cambiar el
+    despliegue entero. Esto es lo barato y honesto mientras tanto: si la URL
+    trae parámetros, la rejilla nace invisible y el módulo la destapa cuando ya
+    ha filtrado. El `setTimeout` es el seguro: si el módulo no llega nunca,
+    más vale enseñar de más que no enseñar nada.
+  */}
+  <script is:inline>
+    if (location.search) {
+      document.documentElement.classList.add('far-filtrando');
+      setTimeout(function () {
+        document.documentElement.classList.remove('far-filtrando');
+      }, 1500);
+    }
+  </script>
 
   <ul class="grid-cards explorer-grid" id="results">
     {tools.map((tool) => (
@@ -56,6 +104,23 @@ const index = buildClientIndex(tools, (slug) => getCategory(slug)?.name ?? slug)
       <button type="button" class="btn btn-secondary btn-sm" id="empty-reset">Quitar todos los filtros</button>
       <a class="btn btn-ghost btn-sm" href={ROUTES.submit}>Falta una herramienta: avísanos</a>
     </div>
+
+    {/*
+      Cero resultados no es el final del camino.
+
+      El catálogo no cubre todo, y decirlo es lo honesto: preferimos un vacío
+      claro a rellenar la página con lo que se parezca de lejos. Pero un vacío
+      sin salida es un callejón, así que se ofrecen las seis verticales, que
+      es lo que de verdad hay.
+    */}
+    <nav class="empty-verticals" aria-label="Explorar por tipo de trabajo">
+      <p class="empty-verticals-lede">O empieza por lo que quieras hacer:</p>
+      <ul class="empty-verticals-list">
+        {VERTICALES_VISIBLES.map((v) => (
+          <li><a class="empty-vertical" href={v.ruta}>{v.nombre}</a></li>
+        ))}
+      </ul>
+    </nav>
   </div>
 
   <script
@@ -109,6 +174,11 @@ const index = buildClientIndex(tools, (slug) => getCategory(slug)?.name ?? slug)
     padding: 0;
   }
 
+  :global(html.far-filtrando) .explorer-grid,
+  :global(html.far-filtrando) .explorer-status {
+    visibility: hidden;
+  }
+
   .explorer-grid > li {
     display: flex;
   }
@@ -117,9 +187,56 @@ const index = buildClientIndex(tools, (slug) => getCategory(slug)?.name ?? slug)
     width: 100%;
   }
 
+  .explorer-intent {
+    margin: var(--space-3xs) 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--ink-subtle);
+  }
+
   .empty-state {
     padding: var(--space-l) var(--space-s);
     text-align: center;
+  }
+
+  .empty-verticals {
+    margin-block-start: var(--space-m);
+    padding-block-start: var(--space-s);
+    border-block-start: 1px solid var(--line);
+  }
+
+  .empty-verticals-lede {
+    margin: 0 0 var(--space-2xs);
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .empty-verticals-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2xs);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .empty-vertical {
+    display: inline-block;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-full);
+    background: var(--surface);
+    color: var(--ink-strong);
+    font-size: 0.875rem;
+    font-weight: 550;
+    text-decoration: none;
+  }
+
+  .empty-vertical:hover,
+  .empty-vertical:focus-visible {
+    border-color: var(--info-line);
+    background: var(--info-soft);
   }
 
   .empty-title {
@@ -152,7 +269,7 @@ const index = buildClientIndex(tools, (slug) => getCategory(slug)?.name ?? slug)
     type FilterState,
   } from '@lib/search/filters';
   import { docsFromIndex, type ClientIndexEntry } from '@lib/search/client-index';
-  import { search } from '@lib/search/index';
+  import { searchWithIntents } from '@lib/search/index';
 
   const root = document.getElementById('explorer');
   const form = document.getElementById('filter-form') as HTMLFormElement | null;
@@ -181,6 +298,7 @@ const index = buildClientIndex(tools, (slug) => getCategory(slug)?.name ?? slug)
   const searchInput = document.getElementById('q') as HTMLInputElement;
   const searchClear = document.getElementById('search-clear') as HTMLButtonElement;
   const suggestionsEl = document.getElementById('search-suggestions') as HTMLUListElement;
+  const intentEl = document.getElementById('result-intent')!;
   const sortSelect = document.getElementById('sort') as HTMLSelectElement;
   const moreDetails = document.getElementById('filters-more') as HTMLDetailsElement;
 
@@ -276,11 +394,18 @@ const index = buildClientIndex(tools, (slug) => getCategory(slug)?.name ?? slug)
   function render(state: FilterState, options: { pushUrl?: boolean } = {}) {
     let matched = applyFilters(entries, state);
 
+    let intents: string[] = [];
     if (state.q) {
       const allowed = new Set(matched.map((e) => e.slug));
-      const hits = search(docs, state.q, { limit: 300 }).filter((h) => allowed.has(h.slug));
-      matched = hits.map((h) => byId.get(h.slug)!).filter(Boolean);
+      const resultado = searchWithIntents(docs, state.q, { limit: 300 });
+      intents = resultado.intents.map((i) => i.etiqueta);
+      matched = resultado.hits.filter((h) => allowed.has(h.slug)).map((h) => byId.get(h.slug)!).filter(Boolean);
     }
+
+    intentEl.hidden = intents.length === 0;
+    intentEl.textContent = intents.length
+      ? `Entendido como: ${intents.join(' + ')}. Se muestran las que lo cumplen según su ficha verificada.`
+      : '';
 
     const visible = new Set(matched.map((e) => e.slug));
 
@@ -317,7 +442,15 @@ const index = buildClientIndex(tools, (slug) => getCategory(slug)?.name ?? slug)
           commit(blocking.next);
         };
       } else if (state.q) {
-        emptyReasonEl.textContent = `No encontramos nada para “${state.q}”. Prueba con el tipo de trabajo (“quitar fondo”, “subtítulos”) en vez del nombre del producto.`;
+        /*
+         * Dos vacíos distintos y no hay que confundirlos. Si el buscador ha
+         * entendido la tarea y aun así no sale nada, la respuesta es que el
+         * catálogo no la cubre: no es un error de escritura y sugerir otras
+         * palabras sería mandar a alguien a dar vueltas.
+         */
+        emptyReasonEl.textContent = intents.length
+          ? `Hemos entendido “${state.q}” como ${intents.join(' + ')}, y ninguna ficha del catálogo lo cumple con datos verificados. Preferimos decírtelo a enseñarte algo parecido.`
+          : `No encontramos nada para “${state.q}”. Prueba con el tipo de trabajo (“quitar fondo”, “transcribir”, “crear una app”) en vez del nombre del producto.`;
         relaxBtn.hidden = true;
       } else {
         emptyReasonEl.textContent = 'Prueba a relajar alguno de los requisitos.';
@@ -332,6 +465,9 @@ const index = buildClientIndex(tools, (slug) => getCategory(slug)?.name ?? slug)
     else history.replaceState({}, '', url);
 
     syncRobotsMeta(query.length > 0);
+
+    // Ya hay algo real que enseñar: se levanta el velo del primer pintado.
+    document.documentElement.classList.remove('far-filtrando');
   }
 
   /**
@@ -400,11 +536,34 @@ const index = buildClientIndex(tools, (slug) => getCategory(slug)?.name ?? slug)
         });
       }
     } else {
-      for (const hit of search(docs, trimmed, { limit: 6 })) {
+      const { hits, intents } = searchWithIntents(docs, trimmed, { limit: 6 });
+
+      /*
+       * Primero la tarea, si se ha reconocido una.
+       *
+       * Es la sugerencia que más cambia lo que ve alguien: elegirla no le lleva
+       * a una ficha, le lleva a las que hacen eso. Y se enseña con su nombre
+       * escrito —«Quitar el fondo de una imagen»—, nunca con el token del
+       * catálogo, que es `background-removal`.
+       */
+      for (const intent of intents.slice(0, 2)) {
+        const cuantas = hits.length;
+        rows.push({
+          label: intent.etiqueta,
+          sub: cuantas === 1 ? '1 herramienta lo hace' : `${cuantas} herramientas lo hacen`,
+          action: () => {
+            rememberSearch(trimmed);
+            closeSuggestions();
+            commit(readStateFromForm());
+          },
+        });
+      }
+
+      for (const hit of hits.slice(0, intents.length ? 4 : 6)) {
         const entry = byId.get(hit.slug)!;
         rows.push({
           label: entry.name,
-          sub: entry.f[4] || 'Herramienta',
+          sub: entry.vert || 'Herramienta',
           action: () => {
             rememberSearch(trimmed);
             location.href = `/herramientas/${entry.slug}`;
