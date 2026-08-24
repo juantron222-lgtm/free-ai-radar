@@ -203,12 +203,17 @@ test.describe('comparador: la tabla', () => {
     expect(tabla).toContain('Sin analizar');
   });
 
-  test('la leyenda explica las tres formas de no saber', async ({ page }) => {
+  test('la leyenda explica las cuatro formas de no saber', async ({ page }) => {
+    /*
+     * Eran tres hasta que la fase de cobertura de datos partió «sin verificar»
+     * en dos: el hueco que es deuda nuestra y el que es silencio del
+     * fabricante. Son cuatro porque significan cuatro cosas distintas.
+     */
     await page.goto(URL_TRES);
     const leyenda = page.locator('.compare-legend');
-    await expect(leyenda).toContainText('Sin analizar');
-    await expect(leyenda).toContainText('Sin verificar');
-    await expect(leyenda).toContainText('No aplica');
+    for (const motivo of ['Sin comprobar', 'El fabricante no lo', 'publica', 'Sin analizar', 'No aplica']) {
+      await expect(leyenda).toContainText(motivo);
+    }
   });
 
   test('el resumen señala filas, no gana nadie', async ({ page }) => {
@@ -223,6 +228,64 @@ test.describe('comparador: la tabla', () => {
     await expect(page.getByRole('table')).toBeVisible();
     await expect(page.locator('thead th')).toHaveCount(5);
     await expect(page).toHaveURL(/t=klingai,hailuo-ai,luma-dream-machine,pika-labs/);
+  });
+});
+
+test.describe('por qué falta un dato', () => {
+  /*
+   * La distinción que esta fase añadió al modelo, comprobada donde importa:
+   * en la página. «Sin comprobar» es deuda nuestra; «El fabricante no lo
+   * publica» es opacidad suya. Antes las dos se escribían igual, y la ficha
+   * llegaba a acusar al fabricante de callar lo que nadie había mirado.
+   */
+  test('el comparador distingue el hueco nuestro del suyo', async ({ page }) => {
+    await page.goto('/comparar?t=ideogram,krea');
+    const tabla = page.locator('#compare-table');
+    await expect(tabla).toContainText('El fabricante no lo publica');
+    await expect(tabla).toContainText('Sin comprobar');
+  });
+
+  test('y explica qué se buscó cuando el fabricante calla', async ({ page }) => {
+    await page.goto('/comparar?t=ideogram,krea');
+    const callado = page.locator('.compare-absent', { hasText: 'El fabricante no lo publica' }).first();
+    const nota = await callado.getAttribute('title');
+    expect(nota).toContain('Buscábamos');
+  });
+
+  test('la leyenda nombra los dos motivos', async ({ page }) => {
+    await page.goto('/comparar?t=ideogram,krea');
+    const leyenda = page.locator('.compare-legend');
+    await expect(leyenda).toContainText('Sin comprobar');
+    await expect(leyenda).toContainText('El fabricante no lo publica');
+  });
+
+  test('la ficha no acusa al fabricante de lo que no hemos mirado', async ({ page }) => {
+    await page.goto('/herramientas/ideogram');
+    const nota = page.locator('.tool-verified-note');
+    await expect(nota).toContainText('su fabricante no publica');
+    await expect(nota).toContainText('Nos falta comprobar');
+    await expect(nota).toContainText('trabajo nuestro pendiente');
+  });
+
+  test('un filtro con poca cobertura lo dice antes de pulsarlo', async ({ page }) => {
+    /*
+     * «Sin marca de agua» se apoya en un dato confirmado en 2 de las 35 fichas
+     * donde la pregunta tiene sentido. Marcarlo no devuelve «las que no ponen
+     * marca»: devuelve «las dos que hemos comprobado».
+     */
+    await page.goto('/herramientas');
+    const insignia = page.locator('[data-filter-coverage="nowm"]');
+    await expect(insignia).toBeVisible();
+    await expect(insignia).toHaveText(/^\d+\/\d+$/);
+
+    const pastilla = page.locator('.filter-chip', { has: insignia });
+    const aviso = await pastilla.getAttribute('title');
+    expect(aviso).toContain('el resto no aparece');
+  });
+
+  test('y un filtro con cobertura suficiente no se disculpa', async ({ page }) => {
+    await page.goto('/herramientas');
+    await expect(page.locator('[data-filter-coverage="nosignup"]')).toHaveCount(0);
   });
 });
 

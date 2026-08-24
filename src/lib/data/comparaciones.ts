@@ -40,7 +40,7 @@ export const COMPARACIONES: readonly ComparacionUtil[] = [
   {
     id: 'terminal',
     titulo: 'Agentes de terminal',
-    motivo: 'Tres formas de programar sin salir de la consola, y tres modelos de gratuidad muy distintos detrás.',
+    motivo: 'Tres formas de programar sin salir de la consola, con tres modelos de gratuidad detrás: uno abierto, uno con capa gratuita y uno que es de pago.',
     slugs: ['claude-code', 'gemini-cli', 'aider'],
   },
   {
@@ -70,13 +70,18 @@ export const COMPARACIONES: readonly ComparacionUtil[] = [
   {
     id: 'video-navegador',
     titulo: 'Vídeo desde el navegador',
+    /*
+     * Luma Dream Machine salió de aquí: su ficha es `paid_only` y esta
+     * comparación promete planes gratuitos. Cuatro columnas de las que una no
+     * cumple el titular es exactamente lo que este sitio dice no hacer.
+     */
     motivo: 'Los planes gratuitos de vídeo son los más cambiantes del catálogo. Aquí, uno al lado del otro y con su fecha de comprobación.',
-    slugs: ['klingai', 'hailuo-ai', 'luma-dream-machine', 'pika-labs'],
+    slugs: ['klingai', 'hailuo-ai', 'pika-labs', 'higgsfield'],
   },
   {
     id: 'modelos-rapidos',
     titulo: 'Modelos rápidos y baratos',
-    motivo: 'Los pequeños de cada familia. Lo que decide no es el tamaño: es si puedes usarlos gratis y por dónde.',
+    motivo: 'Los pequeños de cada familia. Lo que decide no es el tamaño: es por dónde se llega a cada uno y cuáles se pueden usar sin pagar, que no son todos.',
     slugs: ['gemini-3-flash', 'claude-haiku-4-5', 'ministral', 'deepseek-v4-flash'],
   },
   {

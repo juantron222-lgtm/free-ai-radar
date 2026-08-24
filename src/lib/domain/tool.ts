@@ -87,6 +87,80 @@ export const ToolSource = z.object({
 });
 export type ToolSource = z.infer<typeof ToolSource>;
 
+/**
+ * Los campos cuya evidencia rastreamos uno a uno.
+ *
+ * No son todos: son los que deciden. Alguien elige entre dos herramientas por
+ * si le piden la tarjeta, por si puede usar el resultado para trabajar y por
+ * si le ponen una marca encima. Lo demás es contexto.
+ */
+export const EVIDENCE_FIELDS = [
+  'freePlan.requiresCreditCard',
+  'freePlan.requiresSignup',
+  'freePlan.hasWatermark',
+  'freePlan.commercialUse',
+  'freePlan.creditReset',
+  'freePlan.limits',
+  'privacy.trainsOnUserData',
+  'openSource',
+  'hosting',
+  'startEffort',
+  'capabilities',
+] as const;
+export type EvidenceField = (typeof EVIDENCE_FIELDS)[number];
+
+/**
+ * Qué encontramos al abrir la fuente oficial.
+ *
+ * Las tres son respuestas distintas y hasta ahora las tres se guardaban igual:
+ *
+ *   `stated`        La página lo dice con todas las letras.
+ *   `derived`       No lo dice, pero se sigue sin ambigüedad de algo que sí
+ *                   dice —una licencia MIT permite uso comercial—. Obliga a
+ *                   escribir de qué se deriva: sin eso es una suposición.
+ *   `not_published` Miramos donde había que mirar y el fabricante no lo dice.
+ *
+ * `not_published` es la que faltaba, y es una distinción editorial, no técnica.
+ * «Todavía no lo hemos comprobado» y «lo comprobamos y no lo publican» son dos
+ * cosas muy distintas para quien lee: la primera es deuda nuestra, la segunda
+ * es opacidad suya. El catálogo las guardaba en el mismo `unverified` y la web
+ * las enseñaba con las mismas dos palabras.
+ */
+export const EvidenceOutcome = z.enum(['stated', 'derived', 'not_published']);
+export type EvidenceOutcome = z.infer<typeof EvidenceOutcome>;
+
+export const FieldEvidence = z
+  .object({
+    field: z.enum(EVIDENCE_FIELDS),
+    outcome: EvidenceOutcome,
+    /** La página oficial que se abrió. Nunca un tercero. */
+    sourceUrl: HttpUrl,
+    sourceKind: z.enum(['pricing', 'docs', 'terms', 'privacy', 'repo', 'help', 'licence', 'official']),
+    /** El día en que se abrió, no el día en que se escribió la ficha. */
+    checkedAt: IsoDate,
+    /**
+     * De qué se deduce, cuando no está dicho. Obligatorio en `derived`: es la
+     * diferencia entre una inferencia rastreable y uno de nuestros inventos.
+     */
+    basis: z.string().min(1).optional(),
+    /** Qué se buscó y no estaba, cuando el resultado es `not_published`. */
+    lookedFor: z.string().min(1).optional(),
+    /**
+     * La frase de la página, literal.
+     *
+     * Es lo que permite discutir el dato sin volver a abrir la fuente, y lo
+     * que distingue «lo comprobamos» de «lo comprobamos y esto decía». El
+     * catálogo ya guardaba citas así en noventa y tres fichas, en una forma
+     * que el esquema no conocía y que por tanto no llegaba a la web.
+     */
+    quote: z.string().min(1).optional(),
+  })
+  .refine((e) => e.outcome !== 'derived' || Boolean(e.basis), {
+    message: 'Una evidencia derivada tiene que decir de qué se deriva',
+    path: ['basis'],
+  });
+export type FieldEvidence = z.infer<typeof FieldEvidence>;
+
 export const ToolChange = z.object({
   date: IsoDate,
   /** What kind of change this was — drives alert routing and Pro filters. */
@@ -307,6 +381,16 @@ export const ToolRecord = z.object({
   docsUrl: OptionalHttpUrl,
   repoUrl: OptionalHttpUrl,
   sources: z.array(ToolSource).default([]),
+
+  /**
+   * La evidencia de los hechos que deciden, campo a campo.
+   *
+   * `sources[]` dice qué páginas se abrieron para la ficha entera; esto dice
+   * qué página sostiene *qué dato*, qué día y si lo afirma o se deduce. Sin
+   * ello, «uso comercial: sí» y «uso comercial: sí porque la licencia es MIT»
+   * eran indistinguibles, y la segunda es la única que se puede rebatir.
+   */
+  evidence: z.array(FieldEvidence).default([]),
 
   scores: ScoreComponents,
 

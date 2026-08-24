@@ -125,6 +125,48 @@ describe('cuando no hay respuesta, no se inventa', () => {
     const primero = buscar('Local Deep Researcher')[0];
     expect(primero?.slug).toBe('local-deep-researcher');
   });
+
+  it('el nombre exacto gana a la intención que contiene', () => {
+    /*
+     * La regresión concreta: que la consulta no se convierta en «herramientas
+     * que se ejecutan en tu equipo». Se comprueba de tres maneras, porque el
+     * fallo puede aparecer por cualquiera de ellas.
+     */
+    const consulta = 'Local Deep Researcher';
+    const hits = buscar(consulta);
+    const ficha = porSlug.get('local-deep-researcher')!;
+
+    // 1. Es la primera, y no por poco: le saca distancia a la segunda.
+    expect(hits[0]?.slug).toBe('local-deep-researcher');
+    if (hits.length > 1) expect(hits[0]!.score).toBeGreaterThan(hits[1]!.score);
+
+    // 2. No ha degenerado en el filtro «en local»: eso devuelve decenas.
+    const enLocal = tools.filter((t) => t.hosting !== 'cloud');
+    expect(enLocal.length).toBeGreaterThan(10);
+    expect(hits.length).toBeLessThan(enLocal.length / 2);
+
+    // 3. La coincidencia se atribuye al nombre, no a una tarea.
+    expect(hits[0]?.matchedOn).toBe('name');
+    expect(hits[0]?.intent).toBeUndefined();
+    expect(ficha.name).toBe('Local Deep Researcher');
+  });
+
+  it('vale para cualquier ficha cuyo nombre lleve una palabra de intención', () => {
+    /*
+     * No es un apaño para una ficha: es una propiedad. Toda herramienta cuyo
+     * nombre completo se escriba entero tiene que salir la primera, aunque su
+     * nombre contenga «vídeo», «código», «agente» o «local».
+     */
+    const conPalabraDeIntencion = tools.filter((t) =>
+      detectarIntenciones(t.name).length > 0
+    );
+    expect(conPalabraDeIntencion.length).toBeGreaterThan(3);
+
+    for (const tool of conPalabraDeIntencion) {
+      const primero = buscar(tool.name)[0];
+      expect(primero?.slug, `«${tool.name}» no se encuentra a sí misma`).toBe(tool.slug);
+    }
+  });
 });
 
 describe('el diccionario de intenciones no inventa nada', () => {

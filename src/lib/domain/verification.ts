@@ -1,5 +1,7 @@
 import type { Tool } from './tool';
 import type { Capability } from './taxonomy';
+import type { EvidenceField } from './tool';
+import { motivoDelHueco, type MotivoDeHueco } from './evidencia';
 
 /**
  * En qué estado está de verdad una ficha, y qué puede decir de sí misma.
@@ -61,8 +63,12 @@ const SIN_CONFIRMAR = new Set(['unverified', 'unknown']);
 
 export interface HechoCritico {
   key: string;
+  /** La ruta del campo, para poder buscar su evidencia. */
+  field: EvidenceField;
   label: string;
   confirmado: boolean;
+  /** Cuando no está confirmado: por qué. */
+  motivo?: MotivoDeHueco;
 }
 
 /**
@@ -73,18 +79,23 @@ export interface HechoCritico {
  */
 export function hechosCriticos(tool: Tool): HechoCritico[] {
   const { freePlan } = tool;
+
+  const hecho = (key: string, field: EvidenceField, label: string, valor: string): HechoCritico => ({
+    key,
+    field,
+    label,
+    confirmado: !SIN_CONFIRMAR.has(valor),
+    ...(SIN_CONFIRMAR.has(valor) ? { motivo: motivoDelHueco(tool, field, valor) } : {}),
+  });
+
   const hechos: HechoCritico[] = [
-    { key: 'requiresSignup', label: '¿Hay que registrarse?', confirmado: !SIN_CONFIRMAR.has(freePlan.requiresSignup) },
-    { key: 'requiresCreditCard', label: '¿Pide tarjeta?', confirmado: !SIN_CONFIRMAR.has(freePlan.requiresCreditCard) },
-    { key: 'commercialUse', label: '¿Uso comercial?', confirmado: !SIN_CONFIRMAR.has(freePlan.commercialUse) },
+    hecho('requiresSignup', 'freePlan.requiresSignup', '¿Hay que registrarse?', freePlan.requiresSignup),
+    hecho('requiresCreditCard', 'freePlan.requiresCreditCard', '¿Pide tarjeta?', freePlan.requiresCreditCard),
+    hecho('commercialUse', 'freePlan.commercialUse', '¿Uso comercial?', freePlan.commercialUse),
   ];
 
   if (tool.capabilities.some((c) => (GENERA_MEDIOS as readonly string[]).includes(c))) {
-    hechos.push({
-      key: 'hasWatermark',
-      label: '¿Marca de agua?',
-      confirmado: !SIN_CONFIRMAR.has(freePlan.hasWatermark),
-    });
+    hechos.push(hecho('hasWatermark', 'freePlan.hasWatermark', '¿Marca de agua?', freePlan.hasWatermark));
   }
 
   return hechos;
@@ -99,6 +110,17 @@ export interface Verificacion {
   total: number;
   /** Los que faltan, para poder nombrarlos en vez de insinuarlos. */
   pendientes: HechoCritico[];
+  /**
+   * Los que faltan porque el fabricante no los publica.
+   *
+   * La ficha decía «su fabricante no publica…» de *todos* los pendientes, y la
+   * mayoría estaban pendientes porque nadie los había mirado todavía. Era una
+   * acusación gratuita a la empresa y una coartada para nosotros, en la misma
+   * frase. Ahora se separan y cada grupo se cuenta con sus palabras.
+   */
+  noPublicados: HechoCritico[];
+  /** Los que faltan porque aún no hemos abierto la fuente. */
+  sinComprobar: HechoCritico[];
 }
 
 /**
@@ -133,6 +155,8 @@ export function verificacionDe(tool: Tool): Verificacion {
     confirmados,
     total: hechos.length,
     pendientes,
+    noPublicados: pendientes.filter((p) => p.motivo === 'no_publicado'),
+    sinComprobar: pendientes.filter((p) => p.motivo !== 'no_publicado'),
   };
 }
 

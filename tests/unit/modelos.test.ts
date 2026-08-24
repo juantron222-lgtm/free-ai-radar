@@ -1,5 +1,3 @@
-import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { getAllTools } from '@lib/data/catalog';
 import { decideFilters } from '@lib/data/category-page';
@@ -29,18 +27,12 @@ const modelos = modelTools();
 const bySlug = new Map(getAllTools().map((t) => [t.slug, t]));
 
 /*
- * `evidence` y `auditNotes` no pasan por el esquema: son el registro editorial
- * y viven sólo en el fichero versionado, que es donde se revisan en un diff.
- * Para comprobarlos hay que leer la fuente, no la ficha hidratada.
+ * Antes había que leer `src/data/tools-v2.json` a mano para comprobar las
+ * citas: `evidence` no pasaba por el esquema y la ficha hidratada no la
+ * llevaba, así que una prueba sobre el objeto publicado aprobaba siempre.
+ * Desde la fase de cobertura de datos la evidencia es parte de la ficha, y
+ * esto se comprueba sobre lo que de verdad se publica.
  */
-type Cruda = { slug: string; evidence?: Record<string, { sourceUrl: string; quote: string }> };
-const crudas = new Map<string, Cruda>(
-  (
-    JSON.parse(
-      readFileSync(fileURLToPath(new URL('../../src/data/tools-v2.json', import.meta.url)), 'utf8')
-    ) as Cruda[]
-  ).map((t) => [t.slug, t] as const)
-);
 
 describe('qué entra en /modelos', () => {
   it('sólo modelos, no lo que sirve para ejecutarlos', () => {
@@ -91,7 +83,7 @@ describe('las tres puertas no se heredan', () => {
     );
 
     for (const tool of conAmbas) {
-      expect(crudas.get(tool.slug)?.evidence, `${tool.slug} afirma las dos: hace falta cita`).toBeTruthy();
+      expect(tool.evidence.length, `${tool.slug} afirma las dos: hace falta cita`).toBeGreaterThan(0);
     }
   });
 
@@ -160,9 +152,16 @@ describe('pesos abiertos no es open source', () => {
   });
 
   it('las condiciones de las licencias propias están citadas', () => {
+    /*
+     * Una licencia propia que restringe el uso comercial es una afirmación
+     * fuerte sobre un fabricante: tiene que ir con la frase que la sostiene,
+     * no con un resumen nuestro.
+     */
     for (const slug of ['llama-4', 'kimi-k2']) {
-      expect(crudas.get(slug)?.evidence?.freePlan?.quote, slug).toBeTruthy();
-      expect(bySlug.get(slug)!.freePlan.commercialUse, slug).toBe('partial');
+      const tool = bySlug.get(slug)!;
+      const cita = tool.evidence.find((e) => e.field === 'freePlan.limits')?.quote;
+      expect(cita, `${slug} restringe el uso comercial sin citar la licencia`).toBeTruthy();
+      expect(tool.freePlan.commercialUse, slug).toBe('partial');
     }
   });
 });
@@ -202,8 +201,8 @@ describe('sin ranking de inteligencia', () => {
   it('ninguna capacidad viene de un adjetivo de marketing', () => {
     const marketing = /frontier|state of the art|más inteligente|mejor modelo/i;
     for (const tool of modelos) {
-      for (const [campo, ev] of Object.entries(crudas.get(tool.slug)?.evidence ?? {})) {
-        if (campo !== 'capabilities') continue;
+      for (const ev of tool.evidence) {
+        if (ev.field !== 'capabilities' || !ev.quote) continue;
         expect(ev.quote, `${tool.slug}: la cita no puede ser un eslogan`).not.toMatch(
           /^(the )?(most|best) /i
         );
@@ -265,11 +264,11 @@ describe('la verificación de modelos', () => {
 
   it('lo que sí se leyó se afirma con su cita', () => {
     for (const slug of ['gemini-3-flash', 'gemini-3-pro', 'deepseek-v4-pro', 'qwen3-27b']) {
-      const ev = crudas.get(slug)?.evidence ?? {};
-      expect(Object.keys(ev).length, slug).toBeGreaterThan(0);
-      for (const prueba of Object.values(ev)) {
+      const ev = bySlug.get(slug)!.evidence;
+      expect(ev.length, slug).toBeGreaterThan(0);
+      for (const prueba of ev) {
         expect(prueba.sourceUrl, slug).toMatch(/^https:\/\//);
-        expect(prueba.quote, slug).not.toBe('');
+        expect(prueba.quote ?? prueba.basis ?? prueba.lookedFor, slug).toBeTruthy();
       }
     }
   });

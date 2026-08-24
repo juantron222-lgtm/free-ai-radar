@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import { evidenciaDe } from '@lib/domain/evidencia';
 import { getAllTools } from '@lib/data/catalog';
 import { decideFilters, usableFreeNow } from '@lib/data/category-page';
 import {
@@ -309,21 +310,17 @@ describe('la puerta editorial de la auditoría', () => {
 
   it('el bloque de investigación existe y todas sus fichas lo demuestran', () => {
     /*
-     * La cita se busca en el fichero del repositorio, no en la ficha hidratada:
-     * `evidence` no forma parte del esquema y el objeto que la página pinta no
-     * la lleva. Sobre la ficha hidratada esto aprobaría siempre.
+     * La cita ya se busca en la propia ficha: `evidence` entró en el esquema en
+     * la fase de cobertura de datos, así que lo que pinta la página es lo mismo
+     * que se comprueba aquí. Antes había que leer el JSON del repositorio
+     * porque el objeto hidratado no la llevaba.
      */
-    const crudo = JSON.parse(
-      readFileSync(new URL('../../src/data/tools-v2.json', import.meta.url), 'utf8')
-    ) as Array<{ slug: string; evidence?: { capabilities?: { sourceUrl?: string } } }>;
-    const porSlug = new Map(crudo.map((t) => [t.slug, t]));
-
     const investigacion = byType(agentTools(), 'investigacion');
     expect(investigacion.length).toBeGreaterThanOrEqual(MIN_BLOQUE);
     for (const tool of investigacion) {
       expect(tool.capabilities, tool.slug).toContain('research');
       expect(
-        porSlug.get(tool.slug)?.evidence?.capabilities?.sourceUrl,
+        evidenciaDe(tool, 'capabilities')?.sourceUrl,
         `${tool.slug} afirma investigar sin una cita que lo respalde`
       ).toMatch(/^https:\/\//);
     }

@@ -155,6 +155,27 @@ describe('las comparaciones útiles son editoriales, no calculadas', () => {
     }
   });
 
+  it('si una incluye algo de pago, su motivo lo advierte', () => {
+    /*
+     * «Vídeo desde el navegador» llevaba a Luma Dream Machine, que es
+     * `paid_only`, bajo un titular sobre planes gratuitos: una columna que no
+     * cumple lo que promete la cabecera.
+     *
+     * Comparar de pago con gratis es legítimo —a veces es justo la pregunta—;
+     * lo que no vale es no decirlo. Así que la regla no es «prohibido incluir
+     * algo de pago», es «si lo incluyes, dilo en el motivo».
+     */
+    const loAdvierte = /no son todos|no todas|de pago|sólo de pago|no lo es/i;
+    for (const comparacion of comparacionesVigentes()) {
+      const dePago = comparacion.slugs.filter((s) => getTool(s)!.freeModel === 'paid_only');
+      if (dePago.length === 0) continue;
+      expect(
+        loAdvierte.test(comparacion.motivo),
+        `«${comparacion.titulo}» incluye ${dePago.join(', ')}, que es de pago, y su motivo no lo advierte`
+      ).toBe(true);
+    }
+  });
+
   it('su enlace es el mismo que se puede compartir', () => {
     const primera = COMPARACIONES[0]!;
     expect(urlDe(primera)).toBe(`/comparar?t=${primera.slugs.join(',')}`);

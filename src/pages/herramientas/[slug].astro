@@ -188,16 +188,36 @@ const verificacion = verificacionDe(tool);
 
           <p class="tool-verified-note">
             Comprobado el <time datetime={tool.freePlan.verifiedAt}>{fmtDate(tool.freePlan.verifiedAt)}</time>.
-            {verificacion.pendientes.length > 0 && (
+            {/*
+              Dos huecos, dos frases.
+
+              Aquí ponía «su fabricante no publica…» de todo lo que faltaba, y
+              casi todo faltaba porque nadie lo había mirado. Era una acusación
+              gratuita a la empresa y una coartada para nosotros en la misma
+              línea. Lo que se puede decir de cada grupo es distinto.
+            */}
+            {verificacion.noPublicados.length > 0 && (
               <>
                 {' '}De lo que resumimos aquí, su fabricante no publica{' '}
-                {verificacion.pendientes.map((p, i) => (
+                {verificacion.noPublicados.map((p, i) => (
                   <>
-                    {i > 0 && (i === verificacion.pendientes.length - 1 ? ' ni ' : ', ')}
+                    {i > 0 && (i === verificacion.noPublicados.length - 1 ? ' ni ' : ', ')}
                     <strong>{p.label.replace(/^¿|\?$/g, '').toLowerCase()}</strong>
                   </>
                 ))}
-                . No lo suponemos.
+                : lo hemos buscado en su documentación oficial y no está. No lo suponemos.
+              </>
+            )}
+            {verificacion.sinComprobar.length > 0 && (
+              <>
+                {' '}Nos falta comprobar{' '}
+                {verificacion.sinComprobar.map((p, i) => (
+                  <>
+                    {i > 0 && (i === verificacion.sinComprobar.length - 1 ? ' y ' : ', ')}
+                    <strong>{p.label.replace(/^¿|\?$/g, '').toLowerCase()}</strong>
+                  </>
+                ))}
+                : es trabajo nuestro pendiente, no un silencio suyo.
               </>
             )}
             {' '}Los fabricantes cambian estas condiciones sin avisar:

@@ -8,7 +8,8 @@ import {
   getCategory,
   getFreeModel,
 } from '@lib/domain/taxonomy';
-import type { Tool } from '@lib/domain/tool';
+import type { EvidenceField, Tool } from '@lib/domain/tool';
+import { MOTIVO_EXPLICACION, MOTIVO_LABEL, evidenciaDe, motivoDelHueco } from '@lib/domain/evidencia';
 
 /**
  * Una celda dice lo que sabe, y también cuando no sabe.
@@ -29,6 +30,27 @@ export type Celda =
 
 export const SIN_ANALIZAR = 'Sin analizar';
 export const NO_APLICA = 'No aplica';
+
+/**
+ * Un triestado sin confirmar deja de ser un valor y pasa a ser un hueco.
+ *
+ * «Sin verificar» se pintaba como una respuesta más, en la misma tinta que
+ * «Sí» y «No», y escondía la única pregunta que importa cuando falta un dato:
+ * ¿falta porque no lo hemos mirado, o porque el fabricante no lo dice? Lo
+ * primero es deuda nuestra; lo segundo es información sobre el producto.
+ */
+function triEstado(tool: Tool, field: EvidenceField, valor: string, etiqueta: string): Celda {
+  const motivo = motivoDelHueco(tool, field, valor);
+  if (!motivo) return { tipo: 'valor', texto: etiqueta };
+
+  const ev = evidenciaDe(tool, field);
+  const nota =
+    motivo === 'no_publicado' && ev?.lookedFor
+      ? `${MOTIVO_EXPLICACION[motivo]} Buscábamos: ${ev.lookedFor}`
+      : MOTIVO_EXPLICACION[motivo];
+
+  return { tipo: 'ausente', texto: MOTIVO_LABEL[motivo], nota };
+}
 
 const valor = (texto: string): Celda => ({ tipo: 'valor', texto });
 const lista = (items: string[], vacio: string, nota?: string): Celda =>
@@ -72,22 +94,26 @@ export const ROWS: Row[] = [
   { label: 'Límites', values: (t) => lista([...t.freePlan.limits], SIN_ANALIZAR) },
   {
     label: '¿Pide tarjeta?',
-    values: (t) => valor(TRI_STATE_LABEL[t.freePlan.requiresCreditCard]),
+    values: (t) =>
+      triEstado(t, 'freePlan.requiresCreditCard', t.freePlan.requiresCreditCard, TRI_STATE_LABEL[t.freePlan.requiresCreditCard]),
     better: (v) => v === 'No',
   },
   {
     label: '¿Hay que registrarse?',
-    values: (t) => valor(TRI_STATE_LABEL[t.freePlan.requiresSignup]),
+    values: (t) =>
+      triEstado(t, 'freePlan.requiresSignup', t.freePlan.requiresSignup, TRI_STATE_LABEL[t.freePlan.requiresSignup]),
     better: (v) => v === 'No',
   },
   {
     label: '¿Marca de agua?',
-    values: (t) => valor(TRI_STATE_LABEL[t.freePlan.hasWatermark]),
+    values: (t) =>
+      triEstado(t, 'freePlan.hasWatermark', t.freePlan.hasWatermark, TRI_STATE_LABEL[t.freePlan.hasWatermark]),
     better: (v) => v === 'No',
   },
   {
     label: '¿Uso comercial?',
-    values: (t) => valor(TRI_STATE_LABEL[t.freePlan.commercialUse]),
+    values: (t) =>
+      triEstado(t, 'freePlan.commercialUse', t.freePlan.commercialUse, TRI_STATE_LABEL[t.freePlan.commercialUse]),
     better: (v) => v === 'Sí',
   },
   { label: 'Dónde se ejecuta', values: (t) => valor(HOSTING_LABEL[t.hosting]) },
@@ -125,7 +151,8 @@ export const ROWS: Row[] = [
   },
   {
     label: '¿Se entrena con tus datos?',
-    values: (t) => valor(TRI_STATE_LABEL[t.privacy.trainsOnUserData]),
+    values: (t) =>
+      triEstado(t, 'privacy.trainsOnUserData', t.privacy.trainsOnUserData, TRI_STATE_LABEL[t.privacy.trainsOnUserData]),
     better: (v) => v === 'No',
   },
   { label: 'Categoría', values: (t) => valor(getCategory(t.categorySlug)?.name ?? SIN_ANALIZAR) },

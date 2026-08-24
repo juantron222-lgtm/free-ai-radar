@@ -168,8 +168,26 @@ describe('la verificación de vídeo', () => {
     const tool = bySlug.get('pika-labs')!;
     expect(tool.freePlan.creditReset).toBe('monthly');
     expect(tool.freePlan.creditsAmount).toBe('80 créditos de vídeo/mes');
-    // De las pocas fichas del catálogo que pueden afirmar esto.
-    expect(tool.freePlan.hasWatermark).toBe('no');
+  });
+
+  it('Pika ya no afirma salir sin marca de agua', () => {
+    /*
+     * Aquí se exigía `hasWatermark: 'no'` con un comentario que decía «de las
+     * pocas fichas del catálogo que pueden afirmar esto». No podía: la página
+     * de precios enumera «Download videos with no watermark» entre lo que
+     * traen los planes de pago, y la cita que sostenía el «no» estaba tomada
+     * de la columna equivocada. Una prueba puede fijar un error tan bien como
+     * fija un acierto.
+     *
+     * Tampoco es «sí»: la página no dice que el plan gratuito marque. Es
+     * desconocido, y la evidencia deja constancia de qué se buscó.
+     */
+    const tool = bySlug.get('pika-labs')!;
+    expect(tool.freePlan.hasWatermark).toBe('unverified');
+
+    const ev = tool.evidence.find((e) => e.field === 'freePlan.hasWatermark');
+    expect(ev?.outcome).toBe('not_published');
+    expect(ev?.sourceUrl).toContain('pika.art');
   });
 
   it('Luma no promete un plan gratuito que ya no existe', () => {

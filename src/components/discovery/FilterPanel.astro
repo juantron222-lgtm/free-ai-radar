@@ -1,7 +1,9 @@
 ---
 import { FREE_MODELS, PLATFORM_LABEL, PLATFORMS, START_EFFORT_LABEL, START_EFFORT_MEANING, START_EFFORT, HOSTING_LABEL, HOSTING } from '@lib/domain/taxonomy';
-import { getPopulatedCategories } from '@lib/data/catalog';
+import { getAllTools, getPopulatedCategories } from '@lib/data/catalog';
 import { SORT_OPTIONS } from '@lib/search/filters';
+import { coberturaDe } from '@lib/domain/evidencia';
+import type { Tool } from '@lib/domain/tool';
 
 interface Props {
   /** Locks the category facet on category hub pages. */
@@ -12,13 +14,47 @@ const { lockedCategory } = Astro.props;
 const categories = getPopulatedCategories();
 
 const HARD_REQUIREMENTS = [
-  { key: 'nocard', label: 'Sin tarjeta', hint: 'No pide tarjeta para el plan gratuito' },
-  { key: 'nosignup', label: 'Sin registro', hint: 'Se puede usar sin crear cuenta' },
-  { key: 'nowm', label: 'Sin marca de agua', hint: 'El resultado sale limpio' },
-  { key: 'comm', label: 'Uso comercial', hint: 'Permite monetizar lo que generes' },
+  { key: 'nocard', label: 'Sin tarjeta', hint: 'No pide tarjeta para el plan gratuito', field: 'freePlan.requiresCreditCard' },
+  { key: 'nosignup', label: 'Sin registro', hint: 'Se puede usar sin crear cuenta', field: 'freePlan.requiresSignup' },
+  { key: 'nowm', label: 'Sin marca de agua', hint: 'El resultado sale limpio', field: 'freePlan.hasWatermark' },
+  { key: 'comm', label: 'Uso comercial', hint: 'Permite monetizar lo que generes', field: 'freePlan.commercialUse' },
   { key: 'oss', label: 'Open source', hint: 'Código o pesos abiertos' },
   { key: 'fresh', label: 'Verificada hace poco', hint: 'Revisada en los últimos 4 meses' },
 ] as const;
+
+/**
+ * Un filtro con poca cobertura esconde el catálogo sin decirlo.
+ *
+ * «Sin marca de agua» se apoya en un dato que sólo está confirmado en 2 de las
+ * 35 fichas donde la pregunta tiene sentido. Marcarlo no devuelve «las que no
+ * ponen marca»: devuelve «las dos que hemos comprobado», y las otras treinta y
+ * tres desaparecen por un motivo que nadie ve.
+ *
+ * El criterio, escrito para poder discutirlo: **por debajo del 50 % de fichas
+ * con el dato confirmado, el filtro sigue disponible pero anuncia su
+ * cobertura**. No se retira —quien busca eso lo busca de verdad— y no se
+ * silencia. Un filtro que miente por omisión es peor que uno incómodo.
+ */
+const UMBRAL_COBERTURA = 0.5;
+
+const todas = getAllTools();
+const GENERA_MEDIOS = /text-to-image|text-to-video|image-to-|text-to-music|text-to-speech|avatar-video|video-editing|image-editing/;
+const generaMedios = (t: Tool) => t.capabilities.some((c) => GENERA_MEDIOS.test(c));
+
+const VALOR: Record<string, (t: Tool) => string> = {
+  'freePlan.requiresCreditCard': (t) => t.freePlan.requiresCreditCard,
+  'freePlan.requiresSignup': (t) => t.freePlan.requiresSignup,
+  'freePlan.hasWatermark': (t) => t.freePlan.hasWatermark,
+  'freePlan.commercialUse': (t) => t.freePlan.commercialUse,
+};
+
+function cobertura(field?: string): { pct: number; confirmados: number; total: number } | null {
+  if (!field || !VALOR[field]) return null;
+  const aplica = field === 'freePlan.hasWatermark' ? generaMedios : undefined;
+  const c = coberturaDe(todas, field as never, VALOR[field], aplica);
+  const total = c.confirmados + c.noPublicados + c.pendientes;
+  return { pct: total ? c.confirmados / total : 0, confirmados: c.confirmados, total };
+}
 ---
 
 <form id="filter-form" class="filters" role="search" aria-label="Filtrar herramientas">
@@ -56,15 +92,27 @@ const HARD_REQUIREMENTS = [
   </div>
 
   <div class="filters-quick scroll-x" role="group" aria-label="Requisitos">
-    {HARD_REQUIREMENTS.map((req) => (
-      <label class="filter-chip" title={req.hint}>
-        <input type="checkbox" name={req.key} value="1" class="sr-only" data-filter-flag={req.key} />
-        <span class="filter-chip-tick" aria-hidden="true">
-          <svg width="11" height="11" viewBox="0 0 12 12"><path d="M2 6.4 4.6 9 10 3.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-        {req.label}
-      </label>
-    ))}
+    {HARD_REQUIREMENTS.map((req) => {
+      const cob = cobertura('field' in req ? req.field : undefined);
+      const escasa = cob !== null && cob.pct < UMBRAL_COBERTURA;
+      const aviso = escasa
+        ? `${req.hint}. Dato confirmado en ${cob.confirmados} de ${cob.total} fichas: al marcarlo, el resto no aparece.`
+        : req.hint;
+      return (
+        <label class="filter-chip" title={aviso}>
+          <input type="checkbox" name={req.key} value="1" class="sr-only" data-filter-flag={req.key} />
+          <span class="filter-chip-tick" aria-hidden="true">
+            <svg width="11" height="11" viewBox="0 0 12 12"><path d="M2 6.4 4.6 9 10 3.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          {req.label}
+          {escasa && (
+            <span class="filter-chip-cov" data-filter-coverage={req.key}>
+              {cob.confirmados}/{cob.total}
+            </span>
+          )}
+        </label>
+      );
+    })}
   </div>
 
   <details class="filters-more" id="filters-more">
@@ -250,6 +298,23 @@ const HARD_REQUIREMENTS = [
 
   .suggestions:empty {
     display: none;
+  }
+
+  /*
+   * La cobertura, dicha en la propia pastilla.
+   *
+   * En tinta apagada y pequeña: no compite con la etiqueta, pero está antes de
+   * pulsar, que es cuando sirve. El `title` lo explica con palabras.
+   */
+  .filter-chip-cov {
+    margin-inline-start: 0.35em;
+    padding: 0.05rem 0.35rem;
+    border-radius: var(--radius-full);
+    background: var(--warn-soft);
+    color: var(--warn);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
   }
 
   .filters-quick {

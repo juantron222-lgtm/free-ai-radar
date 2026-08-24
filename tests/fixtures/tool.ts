@@ -50,6 +50,7 @@ export function makeToolRecord(overrides: Partial<ToolRecord> = {}): ToolRecord 
     },
     officialUrl: 'https://ejemplo.com',
     sources: [],
+    evidence: [],
     scores: {
       freeReal: 8,
       usefulness: 8,

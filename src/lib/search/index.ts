@@ -285,7 +285,6 @@ export function searchWithIntents(
     const satisfechas = detecciones
       .map((d) => ({ intencion: d.intencion, restringe: d.restringe, fuerza: fuerza(doc.hechos, d.intencion) }))
       .filter((s) => s.fuerza > 0);
-    const encaje = satisfechas.reduce((suma, s) => suma + s.fuerza, 0);
     const cumplidasExigidas = satisfechas.filter((s) => s.restringe).length;
 
     let total = 0;
@@ -310,17 +309,26 @@ export function searchWithIntents(
     }
 
     /*
-     * Escribir el nombre exacto siempre funciona.
+     * Escribir el nombre exacto no es una vía de escape: es vía preferente.
      *
-     * Es la vía de escape de la restricción por intención: quien busca «Local
-     * Deep Researcher» ha escrito «local», pero está buscando una herramienta
-     * concreta, no filtrando el catálogo por dónde se ejecuta.
+     * «Local Deep Researcher» lleva la palabra «local», que es una intención.
+     * Quien lo escribe entero busca una ficha, no un filtro por dónde se
+     * ejecuta. Antes esto sólo servía para saltarse la restricción, y la ficha
+     * seguía puntuando por intención: acababa primera, sí, pero por el bono de
+     * «Ejecutarlo en tu equipo» —y la interfaz lo anunciaba así, que es
+     * contestar otra pregunta—.
+     *
+     * Cuando cada palabra que no explica una intención está en el nombre o en
+     * un alias, la intención deja de contar del todo. La consulta no era una
+     * tarea; era un nombre.
      */
     const porNombre =
       exigibles.length > 0 &&
       exigibles.every(
         (t) => scoreField(doc.fields.name, t) >= 0.9 || scoreField(doc.fields.alias, t) >= 0.9
       );
+
+    const encaje = porNombre ? 0 : satisfechas.reduce((suma, s) => suma + s.fuerza, 0);
 
     /*
      * Si la consulta pide algo concreto, lo que no lo cumple no sale.

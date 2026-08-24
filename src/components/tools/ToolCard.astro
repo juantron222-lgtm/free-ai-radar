@@ -79,7 +79,25 @@ const href = ROUTES.tool(tool.slug);
     gap: var(--space-2xs);
   }
 
+  /*
+   * El nombre tiene suelo; la insignia, no.
+   *
+   * `min-width: 0` dejaba que esta columna se encogiese hasta desaparecer,
+   * porque la insignia de acceso —que lleva el modelo, el límite y el
+   * esfuerzo— reclama un ancho mínimo grande y no cedía nada. Medido: la
+   * columna del nombre se quedaba en 23 px y «Lovable» salía en cuatro líneas
+   * de dos letras, a 1280 px de ventana.
+   *
+   * El suelo son 8rem, que es lo que ocupa la palabra suelta más larga del
+   * catálogo («AUTOMATIC1111)»). La que cede ahora es la insignia, que ya sabe
+   * envolverse sola.
+   */
   .tool-card-titles {
+    flex: 1 1 auto;
+    min-width: 8rem;
+  }
+
+  .tool-card-head > :last-child {
     min-width: 0;
   }
 
@@ -87,7 +105,20 @@ const href = ROUTES.tool(tool.slug);
     font-size: 1.0625rem;
     font-weight: 650;
     margin: 0;
-    overflow-wrap: anywhere;
+    /*
+     * Partir sólo cuando no queda otra.
+     *
+     * Aquí ponía `anywhere`, que además de permitir el corte hace que la caja
+     * pueda encogerse por debajo de su palabra más larga. Con la insignia de
+     * acceso al lado, la columna del nombre se estrechaba hasta partir
+     * cualquier cosa: «Lov / able», «Bolt. / new», «v0 by Verce / l» —y eso a
+     * 1280 px, no en un móvil—.
+     *
+     * `break-word` conserva la protección que justificaba la regla: una
+     * palabra que de verdad no cabe a 320 px se sigue partiendo antes que
+     * desbordar. Lo que ya no hace es partir por comodidad del reparto.
+     */
+    overflow-wrap: break-word;
   }
 
   .tool-card-link {

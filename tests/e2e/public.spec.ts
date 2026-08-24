@@ -280,6 +280,67 @@ test.describe('comparador', () => {
   });
 });
 
+test.describe('la tarjeta a 320 px', () => {
+  test.use({ viewport: { width: 320, height: 720 } });
+
+  /**
+   * Un nombre no se parte por comodidad del reparto.
+   *
+   * `.tool-card-name` llevaba `overflow-wrap: anywhere` y `.tool-card-titles`
+   * un `min-width: 0`, así que la insignia de acceso —que reclama un ancho
+   * mínimo grande— dejaba la columna del nombre en 23 px: «Lov / able», «Bolt.
+   * / new», «v0 by Verce / l». Y no era cosa de móviles: pasaba a 1280 px.
+   *
+   * La comprobación es geométrica y no depende del catálogo: un nombre no
+   * puede ocupar más líneas que palabras tiene. «AudioCraft (MusicGen)» puede
+   * caer en dos; «Lovable» en una y sólo una.
+   */
+  test('ningún nombre se parte a mitad de palabra', async ({ page }) => {
+    await page.goto('/herramientas');
+    await expect(page.locator('.tool-card-name').first()).toBeVisible();
+
+    const partidos = await page.evaluate(() =>
+      Array.from(document.querySelectorAll('.tool-card-name'))
+        .map((el) => {
+          const alto = el.getBoundingClientRect().height;
+          const linea = parseFloat(getComputedStyle(el).lineHeight);
+          const texto = (el.textContent ?? '').trim();
+          return { texto, lineas: Math.round(alto / linea), palabras: texto.split(/\s+/).length };
+        })
+        .filter((n) => n.lineas > n.palabras)
+        .map((n) => `${n.texto}: ${n.lineas} líneas para ${n.palabras} palabra(s)`)
+    );
+
+    expect(partidos).toEqual([]);
+  });
+
+  test('y ninguna tarjeta desborda su propia caja', async ({ page }) => {
+    /*
+     * La otra mitad del arreglo: `anywhere` estaba ahí para que un nombre
+     * larguísimo no desbordase. `break-word` conserva esa protección, y esto
+     * lo comprueba en el ancho donde importaba.
+     */
+    await page.goto('/herramientas');
+    await expect(page.locator('.tool-card').first()).toBeVisible();
+
+    const desbordes = await page.evaluate(
+      () =>
+        Array.from(document.querySelectorAll('.tool-card')).filter(
+          (el) => el.scrollWidth > el.clientWidth + 1
+        ).length
+    );
+    expect(desbordes).toBe(0);
+
+    const arrastra = await page.evaluate(() => {
+      window.scrollTo(3000, window.scrollY);
+      const movido = window.scrollX > 0;
+      window.scrollTo(0, window.scrollY);
+      return movido;
+    });
+    expect(arrastra).toBe(false);
+  });
+});
+
 test.describe('SEO técnico', () => {
   test('robots.txt apunta al sitemap del dominio correcto', async ({ request }) => {
     const response = await request.get('/robots.txt');
