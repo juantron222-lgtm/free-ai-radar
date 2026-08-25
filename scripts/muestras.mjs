@@ -27,6 +27,7 @@
  */
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync, copyFileSync, statSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { dirname, join, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
@@ -84,11 +85,24 @@ async function anadir(rutaFicha) {
   mkdirSync(ORIGINALES, { recursive: true });
   mkdirSync(WEB, { recursive: true });
 
-  // 1. El original, copiado sin abrirlo siquiera.
+  /*
+   * 1. El original, copiado sin abrirlo siquiera, y su huella.
+   *
+   * `copyFileSync` no recodifica nada: el fichero archivado es byte a byte el
+   * que salió del generador, en su formato —un PNG sigue siendo PNG y un JPEG
+   * sigue siendo JPEG—. El hash se calcula sobre la copia, no sobre el origen,
+   * para que certifique lo que de verdad se guarda.
+   */
   const ext = extname(origen).toLowerCase() || '.png';
   const nombreOriginal = `${ficha.toolSlug}${ext}`;
   copyFileSync(origen, join(ORIGINALES, nombreOriginal));
-  const originalBytes = statSync(join(ORIGINALES, nombreOriginal)).size;
+  const bytesOriginal = readFileSync(join(ORIGINALES, nombreOriginal));
+  const originalBytes = bytesOriginal.length;
+  const originalSha256 = createHash('sha256').update(bytesOriginal).digest('hex');
+
+  if (originalBytes !== statSync(origen).size) {
+    throw new Error('La copia no coincide en tamaño con el original: no se archiva nada dudoso.');
+  }
 
   // 2. Lo que de verdad llegó, medido en el fichero.
   const meta = await sharp(origen).metadata();
@@ -123,6 +137,7 @@ async function anadir(rutaFicha) {
     asset: {
       original: `/muestras/originales/${nombreOriginal}`,
       originalBytes,
+      originalSha256,
       web: `/muestras/web/${nombreWeb}`,
       webBytes: salida.length,
       webDimensiones: { width: metaWeb.width, height: metaWeb.height },
@@ -138,7 +153,7 @@ async function anadir(rutaFicha) {
   writeFileSync(REGISTRO, `${JSON.stringify(sinLaVieja, null, 2)}\n`, 'utf8');
 
   console.log(
-    `✓ ${muestra.toolSlug}: original ${(originalBytes / 1024).toFixed(0)} kB (${meta.width}×${meta.height}) → web ${(salida.length / 1024).toFixed(0)} kB (${metaWeb.width}×${metaWeb.height})`
+    `✓ ${muestra.toolSlug}: original ${(originalBytes / 1024).toFixed(0)} kB ${meta.format} ${meta.width}×${meta.height} · sha256 ${originalSha256.slice(0, 16)}… → web ${(salida.length / 1024).toFixed(0)} kB ${metaWeb.width}×${metaWeb.height}`
   );
 }
 

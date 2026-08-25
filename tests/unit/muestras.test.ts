@@ -44,6 +44,7 @@ const ejemplo = {
   asset: {
     original: '/muestras/originales/ideogram.png',
     originalBytes: 1_800_000,
+    originalSha256: 'a'.repeat(64),
     web: '/muestras/web/ideogram.webp',
     webBytes: 180_000,
     webDimensiones: { width: 1024, height: 1024 },
@@ -177,16 +178,46 @@ describe('el modelo exige lo que hace falta para poder defender una prueba', () 
   });
 });
 
-describe('el estado de hoy: sin muestras, y eso es válido', () => {
-  it('el registro está vacío porque generar exige una cuenta', () => {
+describe('las dos primeras muestras reales', () => {
+  it('están ingeridas y son las dos de imagen', () => {
     /*
-     * Las once herramientas de imagen alojadas exigen crear cuenta, y eso lo
-     * hace una persona. El fichero vacío es el estado correcto mientras tanto,
-     * no un fallo: lo que no puede pasar es que se anuncie una prueba que no
-     * se ha hecho.
+     * Generar exige una cuenta en cada servicio, así que las ejecutó una
+     * persona y aquí sólo se ingirió lo que trajo. Dos, no seis: las otras
+     * cuatro siguen pendientes y ninguna ficha las anuncia.
      */
-    expect(Array.isArray(muestras)).toBe(true);
     expect(existsSync('src/data/muestras.json')).toBe(true);
+    expect(muestras.map((m) => m.toolSlug).sort()).toEqual(['ideogram', 'recraft']);
+  });
+
+  it('cada una conserva la huella de su original', () => {
+    /*
+     * Es lo que convierte «conservamos el original» en algo comprobable: si
+     * alguien discute una muestra, este número dice si el fichero es el que
+     * salió del generador.
+     */
+    for (const muestra of muestras) {
+      expect(muestra.asset.originalSha256, muestra.toolSlug).toMatch(/^[a-f0-9]{64}$/);
+    }
+  });
+
+  it('el original conserva su formato, no se recodifica', () => {
+    /*
+     * Recraft entregó PNG y Ideogram JPEG. Archivar los dos como PNG «para
+     * uniformar» perdería información en uno y la inventaría en el otro.
+     */
+    const porSlug = new Map(muestras.map((m) => [m.toolSlug, m]));
+    expect(porSlug.get('recraft')?.asset.original).toMatch(/\.png$/);
+    expect(porSlug.get('ideogram')?.asset.original).toMatch(/\.jpg$/);
+  });
+
+  it('las dos comparten el mismo prompt literal', () => {
+    /*
+     * El interés editorial está justo ahí: mismo texto, dos lecturas muy
+     * distintas de la escena. Si los prompts divergen, la comparación deja de
+     * decir nada.
+     */
+    const prompts = new Set(muestras.map((m) => m.prompt));
+    expect(prompts.size, 'las muestras del piloto no comparten prompt').toBe(1);
   });
 
   it('ninguna ficha se anuncia como probada sin tener muestra', () => {

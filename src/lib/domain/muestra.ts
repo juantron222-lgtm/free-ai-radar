@@ -57,6 +57,15 @@ export const ActivoDeMuestra = z.object({
   original: z.string().regex(/^\/muestras\/originales\/[a-z0-9-]+\.[a-z0-9]+$/),
   /** Bytes del original, para poder decir cuánto pesa lo que archivamos. */
   originalBytes: z.number().int().positive(),
+  /**
+   * El hash del original, en SHA-256.
+   *
+   * Es lo que convierte «conservamos el original» en algo comprobable por
+   * quien quiera. Si alguien discute una muestra dentro de un año, este número
+   * dice si el fichero que sirve la web es el mismo que salió del generador o
+   * si alguien lo tocó por el camino.
+   */
+  originalSha256: z.string().regex(/^[a-f0-9]{64}$/),
   /** Ruta local de la versión que se sirve. */
   web: z.string().regex(/^\/muestras\/web\/[a-z0-9-]+\.(webp|png|jpg)$/),
   webBytes: z.number().int().positive(),

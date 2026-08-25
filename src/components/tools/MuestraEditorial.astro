@@ -2,6 +2,8 @@
 import type { Tool } from '@lib/domain/tool';
 import { muestrasDe } from '@lib/data/muestras';
 import { AVISO_MUESTRA, AVISO_OBSERVADO, OBSERVACION_LABEL, contradicciones } from '@lib/domain/muestra';
+import { TRI_STATE_LABEL } from '@lib/domain/primitives';
+import { MOTIVO_LABEL, motivoDelHueco } from '@lib/domain/evidencia';
 
 interface Props {
   tool: Tool;
@@ -34,8 +36,14 @@ const fecha = muestra
     })
   : '';
 
-/** Lo que se enseña debajo del resultado, en el orden en que se pregunta. */
-const datos = muestra
+/**
+ * Lo que sólo existe porque hicimos la prueba.
+ *
+ * Ninguno de estos datos está en la documentación del fabricante: son
+ * propiedades de una ejecución concreta. Por eso van juntos y separados de lo
+ * que la web publica.
+ */
+const observado = muestra
   ? [
       { label: 'Modo o modelo', valor: muestra.model },
       { label: 'Proporción', valor: muestra.aspectRatio },
@@ -43,11 +51,37 @@ const datos = muestra
         label: 'Resolución recibida',
         valor: muestra.dimensions ? `${muestra.dimensions.width} × ${muestra.dimensions.height}` : undefined,
       },
-      { label: 'Créditos gastados', valor: muestra.creditsSpent },
-      { label: 'Cuota restante', valor: muestra.creditsLeft },
+      { label: 'Créditos, según la interfaz', valor: muestra.creditsSpent },
+      { label: 'Cuota que mostraba la cuenta', valor: muestra.creditsLeft },
       { label: 'Tiempo aproximado', valor: muestra.durationSeconds ? `${muestra.durationSeconds} s` : undefined },
-      { label: '¿Pidió tarjeta?', valor: OBSERVACION_LABEL[muestra.cardRequiredObserved] },
-      { label: '¿Marca de agua?', valor: OBSERVACION_LABEL[muestra.watermarkObserved] },
+    ]
+  : [];
+
+/**
+ * Las dos preguntas donde una anécdota se disfraza de condición.
+ *
+ * «No apareció marca de agua» y «no nos pidió tarjeta» son exactamente las dos
+ * frases que un lector convierte solo en «no pone marca» y «no pide tarjeta».
+ * Ponerlas en la misma fila que lo que publica el fabricante es lo que impide
+ * ese salto: se ven las dos columnas y se ve que no dicen lo mismo.
+ */
+const comoDocumentado = (valor: string, field: 'freePlan.requiresCreditCard' | 'freePlan.hasWatermark') => {
+  const motivo = motivoDelHueco(tool, field, valor);
+  return motivo ? MOTIVO_LABEL[motivo] : TRI_STATE_LABEL[valor as keyof typeof TRI_STATE_LABEL];
+};
+
+const enfrentados = muestra
+  ? [
+      {
+        label: '¿Pide tarjeta?',
+        documentado: comoDocumentado(tool.freePlan.requiresCreditCard, 'freePlan.requiresCreditCard'),
+        observado: OBSERVACION_LABEL[muestra.cardRequiredObserved],
+      },
+      {
+        label: '¿Marca de agua?',
+        documentado: comoDocumentado(tool.freePlan.hasWatermark, 'freePlan.hasWatermark'),
+        observado: OBSERVACION_LABEL[muestra.watermarkObserved],
+      },
     ]
   : [];
 ---
@@ -100,7 +134,7 @@ const datos = muestra
       </div>
 
       <dl class="muestra-datos">
-        {datos
+        {observado
           .filter((d) => d.valor)
           .map((d) => (
             <div class="muestra-dato">
@@ -111,13 +145,30 @@ const datos = muestra
       </dl>
     </div>
 
-    {/*
-      Lo que una prueba puede decir, y lo que no.
+    <div class="table-scroll">
+      <table class="data-table muestra-tabla">
+        <caption class="sr-only">
+          Lo que publica {tool.name} frente a lo que observamos en nuestra prueba
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Condición</th>
+            <th scope="col">Documentación oficial</th>
+            <th scope="col">En nuestra prueba</th>
+          </tr>
+        </thead>
+        <tbody>
+          {enfrentados.map((f) => (
+            <tr>
+              <th scope="row">{f.label}</th>
+              <td>{f.documentado}</td>
+              <td class="muestra-observado">{f.observado}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
 
-      Va pegado a las dos filas que más se prestan a confundirse —tarjeta y
-      marca de agua— porque es ahí donde una anécdota se lee como una
-      condición.
-    */}
     <p class="muestra-alcance">{AVISO_OBSERVADO}</p>
 
     {choques.length > 0 && (
@@ -248,6 +299,23 @@ const datos = muestra
     font-size: 0.875rem;
     font-weight: 550;
     color: var(--ink-strong);
+  }
+
+  .muestra-tabla {
+    min-width: 32rem;
+  }
+
+  /*
+   * La columna de lo observado, marcada.
+   *
+   * No es decorativa: es la que un lector podría llevarse como si fuera la
+   * condición del plan. El borde la separa de la de al lado, que es la que sí
+   * lo es.
+   */
+  .muestra-observado {
+    border-inline-start: 2px solid var(--info-line);
+    background: var(--info-soft);
+    font-weight: 550;
   }
 
   .muestra-alcance {

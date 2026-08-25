@@ -442,6 +442,75 @@ test.describe('los logos', () => {
   });
 });
 
+test.describe('las muestras editoriales', () => {
+  test('la ficha probada separa lo documentado de lo observado', async ({ page }) => {
+    /*
+     * La línea que esta fase existe para trazar, comprobada donde se lee: las
+     * dos columnas en la misma fila, con encabezados distintos, y la
+     * observación acotada a la prueba.
+     */
+    await page.goto('/herramientas/recraft');
+    const muestra = page.locator('.muestra');
+    await expect(muestra).toBeVisible();
+    await expect(muestra.getByRole('heading', { name: 'Probado por Free AI Radar' })).toBeVisible();
+
+    const tabla = muestra.locator('.muestra-tabla');
+    await expect(tabla.getByRole('columnheader', { name: 'Documentación oficial' })).toBeVisible();
+    await expect(tabla.getByRole('columnheader', { name: 'En nuestra prueba' })).toBeVisible();
+    await expect(tabla.locator('.muestra-observado').first()).toContainText('En nuestra prueba');
+  });
+
+  test('nunca escribe una observación como si fuera la condición del plan', async ({ page }) => {
+    await page.goto('/herramientas/recraft');
+    const observadas = await page.locator('.muestra-observado').allInnerTexts();
+    expect(observadas.length).toBeGreaterThan(0);
+    for (const texto of observadas) {
+      expect(texto).toMatch(/en nuestra prueba|no pudimos|no aplica/i);
+    }
+  });
+
+  test('publica el prompt entero y enlaza el original sin retocar', async ({ page }) => {
+    await page.goto('/herramientas/ideogram');
+    await expect(page.locator('.muestra-cita')).toContainText('luciérnagas');
+
+    const enlace = page.locator('.muestra-enlace');
+    await expect(enlace).toHaveAttribute('href', /^\/muestras\/originales\//);
+  });
+
+  test('la imagen reserva su hueco y no la sirve un tercero', async ({ page }) => {
+    await page.goto('/herramientas/recraft');
+    const img = page.locator('.muestra-imagen');
+    await expect(img).toHaveAttribute('width', /\d+/);
+    await expect(img).toHaveAttribute('height', /\d+/);
+    await expect(img).toHaveAttribute('src', /^\/muestras\/web\//);
+  });
+
+  test('una ficha sin muestra no anuncia ninguna prueba', async ({ page }) => {
+    await page.goto('/herramientas/krea');
+    await expect(page.locator('.muestra')).toHaveCount(0);
+    await expect(page.getByText('Probado por Free AI Radar')).toHaveCount(0);
+  });
+
+  test('en la vertical sólo llevan la marca las dos probadas', async ({ page }) => {
+    /*
+     * Se cuentan herramientas, no marcas: una misma ficha puede aparecer en
+     * varios bloques de intención y lleva su marca en cada aparición, que es lo
+     * correcto. Lo que no puede haber es una marca sobre algo sin muestra.
+     */
+    await page.goto('/imagen');
+    const marcadas = await page.evaluate(() =>
+      [
+        ...new Set(
+          Array.from(document.querySelectorAll('.ic-probada'))
+            .map((e) => e.closest('[data-slug]')?.getAttribute('data-slug'))
+            .filter(Boolean)
+        ),
+      ].sort()
+    );
+    expect(marcadas).toEqual(['ideogram', 'recraft']);
+  });
+});
+
 test.describe('SEO técnico', () => {
   test('robots.txt apunta al sitemap del dominio correcto', async ({ request }) => {
     const response = await request.get('/robots.txt');

@@ -1,1 +1,64 @@
-[]
+[
+  {
+    "id": "ideogram-2026-08-25",
+    "toolSlug": "ideogram",
+    "generatedAt": "2026-08-25T23:56:00+02:00",
+    "accessSurface": "web",
+    "accessUrl": "https://ideogram.ai/",
+    "prompt": "imagen cinematográfica de una playa con una gran luna naranja al anocheces, nubes rojas, espuma en agua azul turquesa, junto a un bosque con luciérnagas un niño jugando con ellas, imagen mágica",
+    "model": "auto",
+    "aspectRatio": "1:1",
+    "dimensions": {
+      "width": 2048,
+      "height": 2048
+    },
+    "creditsLeft": "0 de 12 · el límite semanal se reinicia en 3 días",
+    "cardRequiredObserved": "no_aparecio",
+    "watermarkObserved": "no_aparecio",
+    "durationSeconds": 6,
+    "asset": {
+      "original": "/muestras/originales/ideogram.jpg",
+      "originalBytes": 983129,
+      "originalSha256": "3286738bfe044312d593c6c624230982b1651ba966179ac2a94f2971822ff9d9",
+      "web": "/muestras/web/ideogram.webp",
+      "webBytes": 241686,
+      "webDimensiones": {
+        "width": 1440,
+        "height": 1440
+      },
+      "derivacion": "Reescalado de 2048×2048 a 1440×1440 y recomprimido a WebP calidad 82. Sin recorte, sin corrección de color, sin retoque."
+    },
+    "notes": "La interfaz mostraba literalmente «0 / 12 credits left until your weekly limit resets in 3 days». De ahí sale la cuota observada, no el coste de esta generación en concreto, que no hemos establecido. La ficha documenta 10 créditos lentos a la semana y la interfaz mostró 12: ver la nota de contradicción. La marca de agua se comprobó sobre el archivo descargado a resolución completa. La hora es la de descarga del archivo."
+  },
+  {
+    "id": "recraft-2026-08-26",
+    "toolSlug": "recraft",
+    "generatedAt": "2026-08-26T00:19:12+02:00",
+    "accessSurface": "web",
+    "accessUrl": "https://www.recraft.ai/",
+    "prompt": "imagen cinematográfica de una playa con una gran luna naranja al anocheces, nubes rojas, espuma en agua azul turquesa, junto a un bosque con luciérnagas un niño jugando con ellas, imagen mágica",
+    "model": "auto",
+    "aspectRatio": "1:1",
+    "dimensions": {
+      "width": 1024,
+      "height": 1024
+    },
+    "creditsSpent": "100 créditos reportados durante la prueba",
+    "cardRequiredObserved": "no_aparecio",
+    "watermarkObserved": "no_aparecio",
+    "durationSeconds": 6,
+    "asset": {
+      "original": "/muestras/originales/recraft.png",
+      "originalBytes": 1681686,
+      "originalSha256": "56358f30174ddb671a23590d524d858491e484224ebc4256d6094eb7cbe5095e",
+      "web": "/muestras/web/recraft.webp",
+      "webBytes": 123458,
+      "webDimensiones": {
+        "width": 1024,
+        "height": 1024
+      },
+      "derivacion": "Reescalado de 1024×1024 a 1024×1024 y recomprimido a WebP calidad 82. Sin recorte, sin corrección de color, sin retoque."
+    },
+    "notes": "La marca de agua se comprobó sobre el archivo descargado, no sobre la vista previa: se extrajeron las bandas superior e inferior a resolución completa y no aparece ningún logotipo ni texto superpuesto. La hora es la de descarga del archivo."
+  }
+]
