@@ -3,6 +3,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import AccessBadge from '@components/tools/AccessBadge.astro';
 import FactChips from '@components/tools/FactChips.astro';
 import ToolLogo from '@components/tools/ToolLogo.astro';
+import MuestraEditorial from '@components/tools/MuestraEditorial.astro';
 import FreshnessNotice from '@components/tools/FreshnessNotice.astro';
 import OutboundButton from '@components/tools/OutboundButton.astro';
 import ToolActions from '@components/tools/ToolActions.astro';
@@ -170,6 +171,16 @@ const verificacion = verificacionDe(tool);
 
     <div class="tool-body">
       <div class="tool-main">
+        {/*
+          La prueba propia va antes que lo que promete el fabricante.
+
+          Es lo único de esta página que no sale de leer su documentación, y
+          por eso encabeza: quien llega buscando «¿qué me va a dar esto?» ve
+          primero un resultado real y después las condiciones. Si no hay
+          muestra, el componente no pinta nada y la página queda como estaba.
+        */}
+        <MuestraEditorial tool={tool} />
+
         <section aria-labelledby="free-title" class="tool-section">
           <h2 id="free-title">Qué te dan gratis</h2>
           <p class="tool-free-summary">{tool.freePlan.summary}</p>

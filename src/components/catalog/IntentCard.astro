@@ -5,6 +5,7 @@ import type { Capability } from '@lib/domain/taxonomy';
 import { freeAccessLabel } from '@lib/data/category-page';
 import { ROUTES } from '@lib/nav';
 import ToolLogo from '@components/tools/ToolLogo.astro';
+import { estaProbada } from '@lib/data/muestras';
 
 /**
  * Una tarjeta que contesta cuatro preguntas y ninguna más.
@@ -129,6 +130,19 @@ const licenciaDividida = Boolean(capas.code && capas.weights && capas.code !== c
     <div class="ic-ident">
       <Heading class="ic-name">
         <a href={ROUTES.tool(tool.slug)} class="ic-link">{tool.name}</a>
+        {/*
+          Una marca de tres palabras, sin miniatura.
+          
+          La miniatura en la vertical es lo que de verdad añadiría densidad a
+          una rejilla que ya lleva logo, insignia de acceso, capacidades y
+          cuatro datos. Esto sólo dice que existe una prueba propia y dónde
+          verla; la imagen vive en la ficha, que es donde se puede mirar.
+        */}
+        {estaProbada(tool.slug) && (
+          <span class="ic-probada" title="Hemos generado un resultado con su acceso gratuito. Está en su ficha.">
+            Probada por nosotros
+          </span>
+        )}
       </Heading>
       <span class="chip ic-access" data-tone={access.tone}>{access.kind}</span>
     </div>
@@ -287,6 +301,20 @@ const licenciaDividida = Boolean(capas.code && capas.weights && capas.code !== c
   .ic-access {
     flex: none;
     font-size: 0.75rem;
+    white-space: nowrap;
+  }
+
+  .ic-probada {
+    display: inline-block;
+    margin-inline-start: 0.4rem;
+    padding: 0.05rem 0.45rem;
+    border: 1px solid var(--signal-line);
+    border-radius: var(--radius-full);
+    background: var(--signal-soft);
+    color: var(--signal-strong);
+    font-size: 0.6875rem;
+    font-weight: 650;
+    vertical-align: middle;
     white-space: nowrap;
   }
 

@@ -1,0 +1,284 @@
+---
+import type { Tool } from '@lib/domain/tool';
+import { muestrasDe } from '@lib/data/muestras';
+import { AVISO_MUESTRA, AVISO_OBSERVADO, OBSERVACION_LABEL, contradicciones } from '@lib/domain/muestra';
+
+interface Props {
+  tool: Tool;
+}
+
+const { tool } = Astro.props;
+
+/*
+ * Una muestra por herramienta en este piloto.
+ *
+ * La ficha tiene que romper su densidad textual, no convertirse en una
+ * galería: seis imágenes no dicen seis veces más que una, dicen que ya nadie
+ * lee el texto que hay debajo.
+ */
+const muestra = muestrasDe(tool.slug)[0];
+
+const choques = muestra
+  ? contradicciones(muestra, {
+      hasWatermark: tool.freePlan.hasWatermark,
+      requiresCreditCard: tool.freePlan.requiresCreditCard,
+    })
+  : [];
+
+const fecha = muestra
+  ? new Date(muestra.generatedAt).toLocaleDateString('es-ES', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      timeZone: 'UTC',
+    })
+  : '';
+
+/** Lo que se enseña debajo del resultado, en el orden en que se pregunta. */
+const datos = muestra
+  ? [
+      { label: 'Modo o modelo', valor: muestra.model },
+      { label: 'Proporción', valor: muestra.aspectRatio },
+      {
+        label: 'Resolución recibida',
+        valor: muestra.dimensions ? `${muestra.dimensions.width} × ${muestra.dimensions.height}` : undefined,
+      },
+      { label: 'Créditos gastados', valor: muestra.creditsSpent },
+      { label: 'Cuota restante', valor: muestra.creditsLeft },
+      { label: 'Tiempo aproximado', valor: muestra.durationSeconds ? `${muestra.durationSeconds} s` : undefined },
+      { label: '¿Pidió tarjeta?', valor: OBSERVACION_LABEL[muestra.cardRequiredObserved] },
+      { label: '¿Marca de agua?', valor: OBSERVACION_LABEL[muestra.watermarkObserved] },
+    ]
+  : [];
+---
+
+{/*
+  Probado por Free AI Radar.
+
+  El módulo entero desaparece si no hay muestra: nunca se anuncia una prueba
+  que no se ha hecho. Con el fichero de muestras vacío —que es el estado de
+  hoy— ninguna ficha enseña esta sección.
+*/}
+{muestra && (
+  <section class="muestra" aria-labelledby="muestra-title">
+    <header class="muestra-head">
+      <h2 id="muestra-title" class="muestra-title">Probado por Free AI Radar</h2>
+      <p class="muestra-cuando">
+        Generado con el acceso gratuito el <time datetime={muestra.generatedAt}>{fecha}</time>
+      </p>
+    </header>
+
+    {/*
+      La imagen con su hueco reservado: `width` y `height` en el atributo, así
+      que el sitio está antes de que llegue el archivo y no hay salto.
+    */}
+    <figure class="muestra-figura">
+      <a href={muestra.asset.original} class="muestra-enlace">
+        <img
+          class="muestra-imagen"
+          src={muestra.asset.web}
+          width={muestra.asset.webDimensiones.width}
+          height={muestra.asset.webDimensiones.height}
+          loading="lazy"
+          decoding="async"
+          alt={`Resultado obtenido en ${tool.name} con el prompt de prueba de Free AI Radar`}
+        />
+        <span class="muestra-ampliar">Ver el original sin retocar ↗</span>
+      </a>
+      <figcaption class="muestra-pie">{AVISO_MUESTRA}</figcaption>
+    </figure>
+
+    <div class="muestra-cuerpo">
+      <div class="muestra-prompt">
+        <p class="eyebrow">El prompt, literal</p>
+        <blockquote class="muestra-cita">{muestra.prompt}</blockquote>
+        {muestra.promptDeviation && (
+          <p class="muestra-desviacion">
+            <strong>Desviación:</strong> {muestra.promptDeviation}
+          </p>
+        )}
+      </div>
+
+      <dl class="muestra-datos">
+        {datos
+          .filter((d) => d.valor)
+          .map((d) => (
+            <div class="muestra-dato">
+              <dt>{d.label}</dt>
+              <dd>{d.valor}</dd>
+            </div>
+          ))}
+      </dl>
+    </div>
+
+    {/*
+      Lo que una prueba puede decir, y lo que no.
+
+      Va pegado a las dos filas que más se prestan a confundirse —tarjeta y
+      marca de agua— porque es ahí donde una anécdota se lee como una
+      condición.
+    */}
+    <p class="muestra-alcance">{AVISO_OBSERVADO}</p>
+
+    {choques.length > 0 && (
+      <div class="muestra-choque" role="note">
+        <p class="muestra-choque-titulo">Nuestra prueba no coincide con lo que publica su web</p>
+        <ul>
+          {choques.map((c) => (
+            <li>
+              {c.documentado}; {c.observado.toLowerCase()}.
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    {muestra.notes && <p class="muestra-notas">{muestra.notes}</p>}
+  </section>
+)}
+
+<style>
+  .muestra {
+    display: grid;
+    gap: var(--space-xs);
+    padding-block-start: var(--space-m);
+    border-block-start: 1px solid var(--line);
+  }
+
+  .muestra-title {
+    font-size: 1.25rem;
+    margin: 0;
+  }
+
+  .muestra-cuando {
+    margin: 0.15rem 0 0;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .muestra-figura {
+    margin: 0;
+  }
+
+  .muestra-enlace {
+    display: block;
+    position: relative;
+    border-radius: var(--radius-l);
+    overflow: hidden;
+    border: 1px solid var(--line);
+  }
+
+  /*
+   * La imagen manda en su caja y no la deforma.
+   *
+   * `aspect-ratio` sale de los atributos, así que el hueco se reserva con la
+   * proporción real del resultado y no con una que hayamos elegido nosotros.
+   */
+  .muestra-imagen {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--surface-sunken);
+  }
+
+  .muestra-ampliar {
+    position: absolute;
+    inset-block-end: 0.5rem;
+    inset-inline-end: 0.5rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-full);
+    background: rgb(0 0 0 / 0.72);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 550;
+  }
+
+  .muestra-pie {
+    margin: var(--space-2xs) 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--ink-muted);
+  }
+
+  .muestra-cuerpo {
+    display: grid;
+    gap: var(--space-s);
+  }
+
+  @media (min-width: 48rem) {
+    .muestra-cuerpo {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .muestra-cita {
+    margin: 0.2rem 0 0;
+    padding: var(--space-2xs) var(--space-xs);
+    border-inline-start: 2px solid var(--line-strong);
+    background: var(--surface-sunken);
+    border-radius: 0 var(--radius-m) var(--radius-m) 0;
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+
+  .muestra-desviacion {
+    margin: var(--space-2xs) 0 0;
+    font-size: 0.8125rem;
+    color: var(--warn);
+  }
+
+  .muestra-datos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 10rem), 1fr));
+    gap: var(--space-2xs) var(--space-xs);
+    margin: 0;
+  }
+
+  .muestra-dato dt {
+    margin: 0;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink-muted);
+  }
+
+  .muestra-dato dd {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 550;
+    color: var(--ink-strong);
+  }
+
+  .muestra-alcance {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.55;
+    color: var(--ink-subtle);
+  }
+
+  .muestra-choque {
+    padding: var(--space-2xs) var(--space-xs);
+    border: 1px solid var(--warn-line);
+    border-radius: var(--radius-m);
+    background: var(--warn-soft);
+    color: var(--warn);
+    font-size: 0.875rem;
+  }
+
+  .muestra-choque-titulo {
+    margin: 0 0 0.2rem;
+    font-weight: 650;
+  }
+
+  .muestra-choque ul {
+    margin: 0;
+    padding-inline-start: 1.1em;
+  }
+
+  .muestra-notas {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+</style>
