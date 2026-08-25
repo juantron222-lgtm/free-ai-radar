@@ -1,6 +1,7 @@
 ---
 import type { Tool } from '@lib/domain/tool';
 import { getFreeModel } from '@lib/domain/taxonomy';
+import { matizDeAlcance } from '@lib/domain/evidencia';
 
 interface Props {
   tool: Tool;
@@ -44,8 +45,28 @@ if (watermark === 'no') {
 }
 
 const commercial = tool.freePlan.commercialUse;
+
+/*
+ * Un permiso que sólo vale por una vía no se anuncia como si valiera por
+ * todas.
+ *
+ * DeepSeek publica sus pesos con licencia MIT y además vende una API con sus
+ * propias condiciones: «uso comercial» a secas se lee como una promesa sobre
+ * el producto entero, y sólo lo hemos leído de los pesos. El filtro sigue
+ * dejándola pasar —la respuesta es cierta por esa vía— pero la etiqueta dice
+ * cuál.
+ */
+const matizComercial = matizDeAlcance(tool, 'freePlan.commercialUse');
+
 if (commercial === 'yes') {
-  facts.push({ label: 'Uso comercial', tone: 'signal', title: 'Puedes usar comercialmente lo que generes en el plan gratuito.', icon: 'check' });
+  facts.push({
+    label: matizComercial ? `Uso comercial (${matizComercial})` : 'Uso comercial',
+    tone: 'signal',
+    title: matizComercial
+      ? `Uso comercial confirmado en ${matizComercial}. Las demás vías de acceso de esta herramienta no se han leído.`
+      : 'Puedes usar comercialmente lo que generes en el plan gratuito.',
+    icon: 'check',
+  });
 } else if (commercial === 'no') {
   facts.push({ label: 'Sin uso comercial', tone: 'warn', title: 'El plan gratuito no permite uso comercial.', icon: 'cross' });
 } else if (commercial === 'partial') {

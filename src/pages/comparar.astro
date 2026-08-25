@@ -5,6 +5,7 @@ import { filasDe } from '@lib/data/comparador';
 import { comparacionesVigentes, urlDe } from '@lib/data/comparaciones';
 import { VERTICALES } from '@lib/data/home';
 import { normalize } from '@lib/search/index';
+import registroDeLogos from '@/data/logos.json';
 import { ROUTES } from '@lib/nav';
 
 export const prerender = false;
@@ -62,6 +63,8 @@ const resumen = distintas.slice(0, 3).map((f) => f.row.label);
 /** El índice mínimo del selector: nombre para buscar, vertical para filtrar. */
 const VERTICAL_DE = new Map<string, string>();
 for (const v of VERTICALES) for (const s of v.slugs) VERTICAL_DE.set(s, v.id);
+
+const logos = registroDeLogos as Record<string, { ruta: string }>;
 
 const picker = allTools.map((t) => ({
   slug: t.slug,
@@ -272,6 +275,17 @@ const FILTROS_VERTICAL = [
                     <span class="filter-chip-tick" aria-hidden="true">
                       <svg width="11" height="11" viewBox="0 0 12 12"><path d="M2 6.4 4.6 9 10 3.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </span>
+                    {/*
+                      Un logo pequeño, sólo en el selector.
+
+                      Aquí ayuda a encontrar una marca entre noventa y cuatro
+                      pastillas. En la tabla no entra: allí lo que hay que
+                      comparar son los datos, y un logo por columna competiría
+                      con ellos sin añadir nada que la cabecera no diga ya.
+                    */}
+                    {logos[tool.slug] && (
+                      <img class="compare-option-logo" src={logos[tool.slug]!.ruta} alt="" width="16" height="16" loading="lazy" decoding="async" />
+                    )}
                     {tool.name}
                   </label>
                 ))}
@@ -561,6 +575,14 @@ const FILTROS_VERTICAL = [
     color: var(--ink-strong);
     font: inherit;
     font-size: 0.9375rem;
+  }
+
+  .compare-option-logo {
+    flex: none;
+    width: 1rem;
+    height: 1rem;
+    object-fit: contain;
+    border-radius: 3px;
   }
 
   .compare-vertical-row,

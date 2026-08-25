@@ -3,6 +3,7 @@ import { getAllTools } from '@lib/data/catalog';
 import { FieldEvidence, EVIDENCE_FIELDS } from '@lib/domain/tool';
 import {
   MOTIVO_LABEL,
+  SEMANTICA_FILTRO_ALCANCE,
   UMBRAL_PARCIAL,
   UMBRAL_SUFICIENTE,
   baseDe,
@@ -11,6 +12,7 @@ import {
   coberturaDe,
   cubreTodo,
   evidenciaDe,
+  matizDeAlcance,
   motivoDelHueco,
   politicaDe,
   superficiesDe,
@@ -704,5 +706,42 @@ describe('el sustituto de un filtro testimonial', () => {
 
   it('se dice con palabras en el título de la lista', () => {
     expect(describeFilters({ ...EMPTY_FILTERS, watermarkKnown: true }, (x) => x)).toContain('comprobada');
+  });
+});
+
+describe('un filtro sobre un hecho con alcance dice qué promete', () => {
+  const index = buildClientIndex(tools, (s) => s);
+
+  it('la semántica elegida es «al menos una vía», y está escrita', () => {
+    expect(SEMANTICA_FILTRO_ALCANCE).toMatch(/al menos una vía/i);
+  });
+
+  it('deja pasar un sí que sólo vale por una vía', () => {
+    /*
+     * DeepSeek publica sus pesos con licencia MIT: la respuesta a «¿puedo
+     * usar esto para trabajar?» es sí, por esa vía. Con la semántica estricta
+     * quedaría fuera por una vía que no hemos leído, y esconderíamos una
+     * respuesta cierta.
+     */
+    const resultado = applyFilters(index, { ...EMPTY_FILTERS, commercial: true });
+    expect(resultado.map((e) => e.slug)).toContain('deepseek-v4-flash');
+  });
+
+  it('pero la ficha no lo anuncia como si valiera para todo', () => {
+    const deepseek = tools.find((t) => t.slug === 'deepseek-v4-flash')!;
+    expect(matizDeAlcance(deepseek, 'freePlan.commercialUse')).toBe('los pesos descargables');
+  });
+
+  it('y una afirmación que sí cubre el producto no lleva matiz', () => {
+    const ideogram = tools.find((t) => t.slug === 'ideogram')!;
+    expect(ideogram.freePlan.commercialUse).toBe('yes');
+    expect(matizDeAlcance(ideogram, 'freePlan.commercialUse')).toBeUndefined();
+  });
+
+  it('sigue sin dejar pasar lo desconocido: la semántica no lo relaja', () => {
+    const resultado = applyFilters(index, { ...EMPTY_FILTERS, commercial: true });
+    for (const entry of resultado) {
+      expect(entry.freePlan.commercialUse, entry.slug).toBe('yes');
+    }
   });
 });

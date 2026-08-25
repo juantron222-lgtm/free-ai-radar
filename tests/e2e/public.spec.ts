@@ -341,6 +341,107 @@ test.describe('la tarjeta a 320 px', () => {
   });
 });
 
+test.describe('los logos', () => {
+  test('ninguna imagen de logo se pide a un tercero', async ({ page }) => {
+    /*
+     * El atajo tentador —un servicio de favicons por dominio— le contaría a un
+     * tercero quién mira qué en cada carga. Esto lo comprueba mirando la red,
+     * no el código: si alguien lo reintroduce por cualquier vía, se ve aquí.
+     */
+    const ajenas: string[] = [];
+    page.on('request', (r) => {
+      const url = new URL(r.url());
+      if (r.resourceType() !== 'image') return;
+      if (url.hostname === 'localhost' || url.hostname === '127.0.0.1') return;
+      ajenas.push(r.url());
+    });
+
+    await page.goto('/');
+    await page.goto('/codigo');
+    expect(ajenas).toEqual([]);
+  });
+
+  test('cada logo reserva su hueco antes de cargar', async ({ page }) => {
+    await page.goto('/codigo');
+    const sinCaja = await page.evaluate(() =>
+      Array.from(document.querySelectorAll('img.tool-logo')).filter(
+        (i) => !i.getAttribute('width') || !i.getAttribute('height')
+      ).length
+    );
+    expect(sinCaja).toBe(0);
+  });
+
+  test('y no se deforma: la caja manda, la proporción se conserva', async ({ page }) => {
+    await page.goto('/codigo');
+    const malos = await page.evaluate(() =>
+      Array.from(document.querySelectorAll('img.tool-logo'))
+        .filter((i) => getComputedStyle(i).objectFit !== 'contain')
+        .map((i) => (i as HTMLImageElement).src)
+    );
+    expect(malos).toEqual([]);
+  });
+
+  test('un logo es decorativo: el lector de pantalla no dice el nombre dos veces', async ({ page }) => {
+    await page.goto('/codigo');
+    const conNombre = await page.evaluate(() =>
+      Array.from(document.querySelectorAll('img.tool-logo'))
+        .filter((i) => (i.getAttribute('alt') ?? '') !== '')
+        .map((i) => i.getAttribute('alt'))
+    );
+    expect(conNombre).toEqual([]);
+
+    // Y el monograma tampoco: es `aria-hidden`, sus iniciales no se leen.
+    const monogramasVisibles = await page.evaluate(() =>
+      Array.from(document.querySelectorAll('.tool-logo-mono')).filter(
+        (e) => e.getAttribute('aria-hidden') !== 'true'
+      ).length
+    );
+    expect(monogramasVisibles).toBe(0);
+  });
+
+  test('si el fichero no existe, la tarjeta sigue entera', async ({ page }) => {
+    /*
+     * No se puede borrar un fichero desde aquí, así que se bloquea la petición:
+     * para el navegador es exactamente lo mismo que un activo que ya no está.
+     */
+    await page.route('**/logos/**', (route) => route.abort());
+    await page.goto('/codigo');
+
+    const tarjetas = page.locator('[data-slug]');
+    await expect(tarjetas.first()).toBeVisible();
+    expect(await tarjetas.count()).toBeGreaterThan(3);
+
+    const desbordes = await page.evaluate(() =>
+      Array.from(document.querySelectorAll('.ic-card, .tool-card')).filter(
+        (el) => el.scrollWidth > el.clientWidth + 1
+      ).length
+    );
+    expect(desbordes).toBe(0);
+  });
+
+  test('conviven logos reales y monogramas sin que se note el remiendo', async ({ page }) => {
+    await page.goto('/codigo');
+    const reales = await page.locator('img.tool-logo').count();
+    const monogramas = await page.locator('.tool-logo-mono').count();
+    expect(reales).toBeGreaterThan(0);
+    expect(monogramas).toBeGreaterThan(0);
+
+    /*
+     * La misma caja para los dos dentro del mismo contexto: la mezcla no
+     * cambia el ritmo de la rejilla. Se mira sólo la cabecera de las tarjetas
+     * grandes, porque las menciones usan a propósito una caja menor.
+     */
+    const cajas = await page.evaluate(() =>
+      Array.from(document.querySelectorAll('.ic-head > .tool-logo')).map((e) => {
+        const r = e.getBoundingClientRect();
+        return `${Math.round(r.width)}x${Math.round(r.height)}`;
+      })
+    );
+    expect(cajas.length).toBeGreaterThan(3);
+    expect(new Set(cajas).size, `cajas distintas: ${[...new Set(cajas)].join(', ')}`).toBe(1);
+  });
+});
+
 test.describe('SEO técnico', () => {
   test('robots.txt apunta al sitemap del dominio correcto', async ({ request }) => {
     const response = await request.get('/robots.txt');

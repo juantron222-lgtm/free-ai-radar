@@ -1,6 +1,7 @@
 ---
 import type { Tool } from '@lib/domain/tool';
 import AccessBadge from './AccessBadge.astro';
+import ToolLogo from './ToolLogo.astro';
 import FactChips from './FactChips.astro';
 import CompareToggle from './CompareToggle.astro';
 import { getCategory } from '@lib/domain/taxonomy';
@@ -11,9 +12,11 @@ interface Props {
   /** `compact` drops the description — used in dense rails. */
   variant?: 'default' | 'compact';
   headingLevel?: 'h2' | 'h3';
+  /** Sobre el pliegue: el logo se pide de inmediato, no en diferido. */
+  priority?: boolean;
 }
 
-const { tool, variant = 'default', headingLevel: Heading = 'h3' } = Astro.props;
+const { tool, variant = 'default', headingLevel: Heading = 'h3', priority = false } = Astro.props;
 const category = getCategory(tool.categorySlug);
 const href = ROUTES.tool(tool.slug);
 ---
@@ -24,6 +27,16 @@ const href = ROUTES.tool(tool.slug);
   data-slug={tool.slug}
 >
   <div class="tool-card-head">
+    {/*
+      La marca antes que el nombre.
+
+      Es lo primero que separa una tarjeta de la siguiente cuando se recorre
+      una rejilla de veinte: se reconoce un logo antes de terminar de leer un
+      nombre. Va con `alt=""` porque el nombre está justo al lado y un lector
+      de pantalla no tiene por qué oírlo dos veces.
+    */}
+    <ToolLogo tool={tool} priority={priority} />
+
     <div class="tool-card-titles">
       <Heading class="tool-card-name">
         {/* Stretched link: the whole card is clickable, one tab stop. */}

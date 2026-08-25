@@ -2,6 +2,7 @@ import type { Tool } from '@lib/domain/tool';
 import type { FilterableTool } from './filters';
 import { hechosDe, normalize, type SearchDoc } from './index';
 import { CAPABILITY_LABEL, PRODUCT_TYPE_LABEL } from '@lib/domain/taxonomy';
+import registroDeLogos from '@/data/logos.json';
 import { TOOL_KIND_LABEL } from '@lib/domain/tool';
 
 /**
@@ -32,6 +33,14 @@ export interface ClientIndexEntry extends FilterableTool {
    * «Música IA». El índice es para comparar, no para leer.
    */
   vert: string;
+  /**
+   * La ruta local del logo, si la hay.
+   *
+   * Viaja en el índice para que el autocompletado pueda enseñarlo sin pedir
+   * nada a nadie: son unos veinte bytes por ficha y evitan que la lista de
+   * sugerencias sea la única superficie del sitio sin identidad.
+   */
+  logo?: string;
 }
 
 export function buildClientIndex(
@@ -80,6 +89,9 @@ export function buildClientIndex(
       ),
     ],
     vert: categoryName(tool.categorySlug),
+    ...(((registroDeLogos as Record<string, { ruta: string }>)[tool.slug]?.ruta ?? tool.logo)
+      ? { logo: (registroDeLogos as Record<string, { ruta: string }>)[tool.slug]?.ruta ?? tool.logo! }
+      : {}),
     caps: tool.capabilities,
     pt: tool.productType ?? null,
     cr: tool.freePlan.creditReset ?? null,

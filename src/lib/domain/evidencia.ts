@@ -216,3 +216,36 @@ export function politicaDe(cobertura: CoberturaCampo): PoliticaFiltro {
   if (pct >= UMBRAL_PARCIAL) return 'parcial';
   return 'testimonial';
 }
+
+/**
+ * Qué promete exactamente un filtro sobre un hecho con alcance.
+ *
+ * Había dos semánticas posibles y hasta ahora ninguna estaba escrita:
+ *
+ *   (A) «confirmado en todas las vías aplicables»
+ *   (B) «existe al menos una vía con uso comercial confirmado»
+ *
+ * **Elegimos (B).** El filtro contesta «¿puedo usar esto para trabajar?», y
+ * para DeepSeek la respuesta es sí: sus pesos van con licencia MIT. Con (A)
+ * quedaría fuera por una vía que no hemos leído —su API— y esconderíamos una
+ * respuesta cierta. Lo que estaba mal no era incluirla: era callar por dónde.
+ *
+ * Así que el filtro deja pasar el sí venga por donde venga, y la ficha dice
+ * cuál es esa vía cuando no son todas. La promesa cambia de «uso comercial
+ * permitido» a «uso comercial confirmado en al menos una vía», que es lo que
+ * de verdad sabemos.
+ */
+export const SEMANTICA_FILTRO_ALCANCE =
+  'Existe al menos una vía de acceso con el dato confirmado. Cuando no son todas, la ficha dice cuál.';
+
+/**
+ * El matiz que hay que añadir a una afirmación, si lo necesita.
+ *
+ * Devuelve `undefined` cuando la evidencia cubre el producto entero —que es lo
+ * normal— para que quien lo llame no tenga que preguntarlo dos veces.
+ */
+export function matizDeAlcance(tool: Tool, field: EvidenceField): string | undefined {
+  const ev = evidenciaDe(tool, field);
+  if (!ev || cubreTodo(tool, ev)) return undefined;
+  return EVIDENCE_SCOPE_LABEL[ev.scope];
+}

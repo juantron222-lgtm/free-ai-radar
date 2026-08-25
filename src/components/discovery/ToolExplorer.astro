@@ -524,7 +524,7 @@ const VERTICALES_VISIBLES = [
 
   function renderSuggestions(term: string) {
     const trimmed = term.trim();
-    const rows: Array<{ label: string; sub: string; action: () => void }> = [];
+    const rows: Array<{ label: string; sub: string; logo?: string; action: () => void }> = [];
 
     if (trimmed.length < 2) {
       for (const recent of readRecent()) {
@@ -567,6 +567,7 @@ const VERTICALES_VISIBLES = [
         rows.push({
           label: entry.name,
           sub: entry.vert || 'Herramienta',
+          ...(entry.logo ? { logo: entry.logo } : {}),
           action: () => {
             rememberSearch(trimmed);
             location.href = `/herramientas/${entry.slug}`;
@@ -587,7 +588,15 @@ const VERTICALES_VISIBLES = [
         li.setAttribute('role', 'option');
         li.setAttribute('aria-selected', 'false');
         li.className = 'suggestion';
-        li.innerHTML = `<span class="suggestion-label"></span><span class="suggestion-sub"></span>`;
+        /*
+         * El logo también aquí. La lista de sugerencias era la única
+         * superficie del sitio donde una herramienta seguía siendo una línea
+         * de texto, y es justo donde hay que reconocerla más rápido. Va con
+         * `alt=""` porque el nombre está pegado a la derecha.
+         */
+        li.innerHTML =
+          `${row.logo ? `<img class="suggestion-logo" src="${row.logo}" alt="" width="20" height="20" loading="lazy" decoding="async">` : ''}` +
+          `<span class="suggestion-label"></span><span class="suggestion-sub"></span>`;
         li.querySelector('.suggestion-label')!.textContent = row.label;
         li.querySelector('.suggestion-sub')!.textContent = row.sub;
         li.addEventListener('mousedown', (event) => {
@@ -719,6 +728,14 @@ const VERTICALES_VISIBLES = [
 
   .suggestion[aria-selected='true'] {
     box-shadow: inset 2px 0 0 var(--signal);
+  }
+
+  .suggestion-logo {
+    flex: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    object-fit: contain;
+    border-radius: var(--radius-s);
   }
 
   .suggestion-label {

@@ -2,6 +2,7 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import AccessBadge from '@components/tools/AccessBadge.astro';
 import FactChips from '@components/tools/FactChips.astro';
+import ToolLogo from '@components/tools/ToolLogo.astro';
 import FreshnessNotice from '@components/tools/FreshnessNotice.astro';
 import OutboundButton from '@components/tools/OutboundButton.astro';
 import ToolActions from '@components/tools/ToolActions.astro';
@@ -126,10 +127,24 @@ const verificacion = verificacionDe(tool);
   <article class="page tool-page">
     <header class="tool-header">
       <div class="tool-header-main">
-        <p class="eyebrow">
-          <a href={ROUTES.category(category.slug)}>{category.name}</a>
-        </p>
-        <h1 class="tool-title">{tool.name}</h1>
+        {/*
+          Identidad y contexto en la misma línea.
+
+          El primer viewport de una ficha tiene que contestar seis cosas —qué
+          marca es, cómo se llama, qué es, cómo se accede, cuánto está
+          verificado y por dónde se entra— y hasta ahora las cinco últimas
+          estaban y la primera no. El logo va con el rótulo de vertical y el
+          nombre porque es lo que se reconoce sin leer.
+        */}
+        <div class="tool-ident">
+          <ToolLogo tool={tool} size="lg" priority />
+          <div class="tool-ident-text">
+            <p class="eyebrow">
+              <a href={ROUTES.category(category.slug)}>{category.name}</a>
+            </p>
+            <h1 class="tool-title">{tool.name}</h1>
+          </div>
+        </div>
         <p class="tool-tagline">{tool.tagline}</p>
         <FactChips tool={tool} />
       </div>
@@ -511,6 +526,26 @@ const verificacion = verificacionDe(tool);
 
   .tool-header .eyebrow a:hover {
     color: var(--signal);
+  }
+
+  /*
+   * El logo no le quita sitio al nombre.
+   *
+   * `min-width: 0` en la columna de texto y nada de suelo en el logo: en 320 px
+   * el nombre sigue teniendo su ancho y no vuelve a partirse por palabras.
+   */
+  .tool-ident {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+  }
+
+  .tool-ident-text {
+    min-width: 0;
+  }
+
+  .tool-ident .eyebrow {
+    margin-block-end: 0.1rem;
   }
 
   .tool-title {

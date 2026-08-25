@@ -1,12 +1,21 @@
 ---
 import type { Tool } from '@lib/domain/tool';
+import registro from '@/data/logos.json';
 
 interface Props {
   tool: Tool;
-  size?: 'sm' | 'md';
+  size?: 'sm' | 'md' | 'lg';
+  /**
+   * Para lo que está sobre el pliegue.
+   *
+   * Las seis de la portada y el de la cabecera de una ficha se ven antes de
+   * que nadie desplace nada: pedirlos con `loading="lazy"` los retrasa sin
+   * ganar nada. El resto son decenas y sí deben esperar su turno.
+   */
+  priority?: boolean;
 }
 
-const { tool, size = 'md' } = Astro.props;
+const { tool, size = 'md', priority = false } = Astro.props;
 
 /**
  * Identidad visual mínima, y sin hotlinkear nada.
@@ -60,19 +69,55 @@ function iniciales(name: string): string {
   return (palabras[0]![0]! + palabras[1]![0]!).toUpperCase();
 }
 
-const logo = tool.logo;
+/**
+ * De dónde sale el activo.
+ *
+ * `logos.json` es el registro del canal editorial: lo escribe
+ * `scripts/logos.mjs` al descargar y guarda de dónde vino cada imagen, cuándo
+ * y qué fondo necesita. La ficha no lo repite —`tool.logo` sigue existiendo
+ * para una excepción escrita a mano— y si el registro no tiene entrada, o el
+ * fichero se borra, aquí no hay logo y sale el monograma. Ninguna tarjeta se
+ * rompe por eso.
+ */
+interface EntradaDeLogo {
+  ruta: string;
+  placa?: string;
+}
+
+const entrada = (registro as Record<string, EntradaDeLogo>)[tool.slug];
+const logo = tool.logo ?? entrada?.ruta;
+
+/*
+ * La placa: el fondo sobre el que se apoya la marca, elegido midiéndola.
+ *
+ *   `ninguna`  trae su propio fondo, o su propia versión clara y oscura.
+ *   `clara`    silueta oscura: necesita fondo claro en los dos temas.
+ *   `oscura`   silueta clara: necesita fondo oscuro en los dos temas.
+ *   `tema`     luminosidad intermedia: que mande la superficie de la página.
+ *
+ * Nunca se recolorea el activo ni se le inventa una versión que su dueño no
+ * publica. Lo único que decidimos es sobre qué se apoya.
+ */
+const placa = entrada?.placa ?? 'tema';
+
 const letras = iniciales(tool.name);
 const h = tono(tool.slug);
+
+/** El lado de la caja, en píxeles, para reservar sitio y no provocar saltos. */
+const LADO = { sm: 28, md: 36, lg: 56 } as const;
+const lado = LADO[size];
 ---
 
 {logo ? (
   <img
-    class={`tool-logo tool-logo-${size}`}
+    class={`tool-logo tool-logo-${size} tool-logo-real`}
+    data-placa={placa}
     src={logo}
     alt=""
-    width={size === 'sm' ? 28 : 36}
-    height={size === 'sm' ? 28 : 36}
-    loading="lazy"
+    width={lado}
+    height={lado}
+    loading={priority ? 'eager' : 'lazy'}
+    fetchpriority={priority ? 'high' : 'auto'}
     decoding="async"
   />
 ) : (
@@ -105,6 +150,44 @@ const h = tono(tool.slug);
   .tool-logo-sm {
     width: 1.75rem;
     height: 1.75rem;
+  }
+
+  .tool-logo-lg {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: var(--radius-l);
+  }
+
+  /*
+   * La marca dentro de su caja, sin deformarse.
+   *
+   * `contain` es lo que garantiza que un logo horizontal siga siendo
+   * horizontal y uno cuadrado siga siendo cuadrado: la caja no cambia de
+   * tamaño, y `width`/`height` van en el atributo, así que el hueco está
+   * reservado antes de que la imagen llegue y no hay salto de maquetación.
+   */
+  .tool-logo-real {
+    object-fit: contain;
+    padding: 3px;
+    overflow: hidden;
+  }
+
+  /* Trae su propio fondo: se recorta al radio y no se le pone nada detrás. */
+  .tool-logo-real[data-placa='ninguna'] {
+    padding: 0;
+    background: transparent;
+  }
+
+  /* Silueta oscura: fondo claro en los dos temas, o desaparece en oscuro. */
+  .tool-logo-real[data-placa='clara'] {
+    background: #fbfbf9;
+    border-color: rgb(0 0 0 / 0.12);
+  }
+
+  /* Silueta clara: fondo oscuro en los dos temas, o desaparece en claro. */
+  .tool-logo-real[data-placa='oscura'] {
+    background: #1b1b19;
+    border-color: rgb(255 255 255 / 0.14);
   }
 
   /*

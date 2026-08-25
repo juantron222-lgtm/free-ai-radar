@@ -17,7 +17,12 @@ const HARD_REQUIREMENTS = [
   { key: 'nocard', label: 'Sin tarjeta', hint: 'No pide tarjeta para el plan gratuito', field: 'freePlan.requiresCreditCard' },
   { key: 'nosignup', label: 'Sin registro', hint: 'Se puede usar sin crear cuenta', field: 'freePlan.requiresSignup' },
   { key: 'nowm', label: 'Sin marca de agua', hint: 'El resultado sale limpio', field: 'freePlan.hasWatermark' },
-  { key: 'comm', label: 'Uso comercial', hint: 'Permite monetizar lo que generes', field: 'freePlan.commercialUse' },
+  {
+    key: 'comm',
+    label: 'Uso comercial',
+    hint: 'Uso comercial confirmado en al menos una vía de acceso. Cuando no son todas, la ficha dice cuál',
+    field: 'freePlan.commercialUse',
+  },
   { key: 'oss', label: 'Open source', hint: 'Código o pesos abiertos' },
   { key: 'fresh', label: 'Verificada hace poco', hint: 'Revisada en los últimos 4 meses' },
 ] as const;

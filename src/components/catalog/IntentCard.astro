@@ -49,6 +49,14 @@ interface Props {
   typeLabel?: string;
   /** El porqué del tipo, en el `title`. Se ignora sin `typeLabel`. */
   typeHint?: string;
+  /**
+   * Sobre el pliegue.
+   *
+   * Las seis de la portada se ven sin desplazar nada: pedir sus logos en
+   * diferido las deja unos cuantos fotogramas sin identidad justo donde más
+   * falta hace. Las demás sí esperan su turno.
+   */
+  priority?: boolean;
 }
 
 const {
@@ -58,6 +66,7 @@ const {
   capabilityOrder,
   typeLabel,
   typeHint,
+  priority = false,
 } = Astro.props;
 
 const access = freeAccessLabel(tool);
@@ -116,7 +125,7 @@ const licenciaDividida = Boolean(capas.code && capas.weights && capas.code !== c
   data-name={tool.name.toLowerCase()}
 >
   <div class="ic-head">
-    <ToolLogo tool={tool} />
+    <ToolLogo tool={tool} priority={priority} />
     <div class="ic-ident">
       <Heading class="ic-name">
         <a href={ROUTES.tool(tool.slug)} class="ic-link">{tool.name}</a>
@@ -277,7 +286,7 @@ const licenciaDividida = Boolean(capas.code && capas.weights && capas.code !== c
 
   .ic-access {
     flex: none;
-    font-size: 0.6875rem;
+    font-size: 0.75rem;
     white-space: nowrap;
   }
 
@@ -334,7 +343,7 @@ const licenciaDividida = Boolean(capas.code && capas.weights && capas.code !== c
   }
 
   .ic-personal-chip {
-    font-size: 0.6875rem;
+    font-size: 0.75rem;
   }
 
   .ic-personal-why {
@@ -372,9 +381,17 @@ const licenciaDividida = Boolean(capas.code && capas.weights && capas.code !== c
     border-block-start: 1px solid var(--line-hairline);
   }
 
+  /*
+   * Los rótulos suben de 11 px a 12.
+   *
+   * En /codigo hay noventa de éstos —«CUÁNTO», «DÓNDE», «EMPEZAR»— y a 11 px
+   * en versalitas quedaban en el límite de lo cómodo. Con los logos delante
+   * la tarjeta ya no necesita apretar el texto para diferenciarse: puede
+   * permitirse el píxel.
+   */
   .ic-fact dt {
     margin: 0;
-    font-size: 0.6875rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.04em;
     color: var(--ink-muted);
@@ -404,6 +421,13 @@ const licenciaDividida = Boolean(capas.code && capas.weights && capas.code !== c
     color: var(--ink-muted);
   }
 
+  /*
+   * El pie, donde vive el enlace a la ficha, a 13 px.
+   *
+   * Era la llamada a la acción de cada tarjeta y competía en tamaño con la
+   * fecha de verificación, que es contexto. Sube el bloque y el peso del
+   * enlace hace el resto.
+   */
   .ic-foot {
     display: flex;
     align-items: baseline;
@@ -411,7 +435,7 @@ const licenciaDividida = Boolean(capas.code && capas.weights && capas.code !== c
     gap: var(--space-2xs);
     margin: auto 0 0;
     padding-block-start: var(--space-2xs);
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
   }
 
   .ic-cta {
