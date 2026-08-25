@@ -129,36 +129,90 @@ export type EvidenceField = (typeof EVIDENCE_FIELDS)[number];
 export const EvidenceOutcome = z.enum(['stated', 'derived', 'not_published']);
 export type EvidenceOutcome = z.infer<typeof EvidenceOutcome>;
 
-export const FieldEvidence = z
-  .object({
-    field: z.enum(EVIDENCE_FIELDS),
-    outcome: EvidenceOutcome,
-    /** La página oficial que se abrió. Nunca un tercero. */
-    sourceUrl: HttpUrl,
-    sourceKind: z.enum(['pricing', 'docs', 'terms', 'privacy', 'repo', 'help', 'licence', 'official']),
-    /** El día en que se abrió, no el día en que se escribió la ficha. */
-    checkedAt: IsoDate,
-    /**
-     * De qué se deduce, cuando no está dicho. Obligatorio en `derived`: es la
-     * diferencia entre una inferencia rastreable y uno de nuestros inventos.
-     */
-    basis: z.string().min(1).optional(),
-    /** Qué se buscó y no estaba, cuando el resultado es `not_published`. */
-    lookedFor: z.string().min(1).optional(),
-    /**
-     * La frase de la página, literal.
-     *
-     * Es lo que permite discutir el dato sin volver a abrir la fuente, y lo
-     * que distingue «lo comprobamos» de «lo comprobamos y esto decía». El
-     * catálogo ya guardaba citas así en noventa y tres fichas, en una forma
-     * que el esquema no conocía y que por tanto no llegaba a la web.
-     */
-    quote: z.string().min(1).optional(),
-  })
-  .refine((e) => e.outcome !== 'derived' || Boolean(e.basis), {
-    message: 'Una evidencia derivada tiene que decir de qué se deriva',
-    path: ['basis'],
-  });
+/**
+ * Por qué puerta se entra.
+ *
+ * Un hecho no vale igual en todas. La licencia de unos pesos descargables dice
+ * lo que puedes hacer con los pesos, no lo que dicen las condiciones de la API
+ * del mismo fabricante; la tabla de precios de una API no habla del chat web
+ * que la misma empresa publica en otro dominio. Guardar «uso comercial: sí»
+ * sin decir por dónde convierte un permiso concreto en una promesa general.
+ *
+ * `product` es para lo que de verdad no distingue: una cláusula de condiciones
+ * que se aplica a todo el servicio. Se usa cuando la fuente no separa, no
+ * cuando nos da pereza mirarlo.
+ */
+export const EVIDENCE_SCOPES = ['product', 'web', 'api', 'app', 'local', 'weights', 'cloud'] as const;
+export const EvidenceScope = z.enum(EVIDENCE_SCOPES);
+export type EvidenceScope = z.infer<typeof EvidenceScope>;
+
+export const EVIDENCE_SCOPE_LABEL: Record<EvidenceScope, string> = {
+  product: 'todo el producto',
+  web: 'la web o el chat',
+  api: 'la API',
+  app: 'la aplicación',
+  local: 'ejecutado en tu equipo',
+  weights: 'los pesos descargables',
+  cloud: 'el servicio en la nube',
+};
+
+const EvidenceBase = {
+  field: z.enum(EVIDENCE_FIELDS),
+  /** La página oficial que se abrió. Nunca un tercero. */
+  sourceUrl: HttpUrl,
+  sourceKind: z.enum(['pricing', 'docs', 'terms', 'privacy', 'repo', 'help', 'licence', 'official']),
+  /** El día en que se abrió, no el día en que se escribió la ficha. */
+  checkedAt: IsoDate,
+  /** A qué puerta de acceso se refiere lo que se leyó. */
+  scope: EvidenceScope,
+};
+
+/**
+ * Las tres respuestas, cada una con lo que de verdad necesita.
+ *
+ * Era un objeto con tres campos opcionales y un `refine`, y eso permitía
+ * escribir una evidencia `stated` sin cita —lo que hace un rato pasó: mi
+ * primer parche sustituyó entradas con cita literal por entradas sin nada— y
+ * pedía una cita a un `not_published`, que es un contrasentido: si estamos
+ * demostrando que algo no aparece, no hay frase que citar. Inventarla sería
+ * exactamente lo contrario de lo que la entrada afirma.
+ *
+ *   `stated`        exige `quote`: la frase de la página.
+ *   `derived`       exige `basis`: de qué se sigue, para poder rebatirlo.
+ *   `not_published` exige `lookedFor` y prohíbe `quote`: qué buscamos, dónde
+ *                   —`sourceUrl`— y cuándo —`checkedAt`—. Nada más.
+ */
+export const StatedEvidence = z.object({
+  ...EvidenceBase,
+  outcome: z.literal('stated'),
+  quote: z.string().min(1),
+  basis: z.string().min(1).optional(),
+});
+
+export const DerivedEvidence = z.object({
+  ...EvidenceBase,
+  outcome: z.literal('derived'),
+  basis: z.string().min(1),
+  /** La frase de la que se deriva, si la hay. No sustituye a `basis`. */
+  quote: z.string().min(1).optional(),
+});
+
+export const NotPublishedEvidence = z.object({
+  ...EvidenceBase,
+  outcome: z.literal('not_published'),
+  lookedFor: z.string().min(1),
+  /*
+   * Sin `quote`, y no por omisión: `never` lo rechaza. Una cita en una entrada
+   * que dice «esto no está publicado» sólo puede ser una cita fabricada.
+   */
+  quote: z.never().optional(),
+});
+
+export const FieldEvidence = z.discriminatedUnion('outcome', [
+  StatedEvidence,
+  DerivedEvidence,
+  NotPublishedEvidence,
+]);
 export type FieldEvidence = z.infer<typeof FieldEvidence>;
 
 export const ToolChange = z.object({

@@ -9,7 +9,15 @@ import {
   getFreeModel,
 } from '@lib/domain/taxonomy';
 import type { EvidenceField, Tool } from '@lib/domain/tool';
-import { MOTIVO_EXPLICACION, MOTIVO_LABEL, evidenciaDe, motivoDelHueco } from '@lib/domain/evidencia';
+import {
+  MOTIVO_EXPLICACION,
+  MOTIVO_LABEL,
+  alcanceDe,
+  buscadoEn,
+  cubreTodo,
+  evidenciaDe,
+  motivoDelHueco,
+} from '@lib/domain/evidencia';
 
 /**
  * Una celda dice lo que sabe, y también cuando no sabe.
@@ -24,7 +32,7 @@ import { MOTIVO_EXPLICACION, MOTIVO_LABEL, evidenciaDe, motivoDelHueco } from '@
  * Con `ausente` hay que elegir cuál de las tres es, y se ve escrito.
  */
 export type Celda =
-  | { tipo: 'valor'; texto: string }
+  | { tipo: 'valor'; texto: string; matiz?: string; nota?: string }
   | { tipo: 'lista'; items: string[] }
   | { tipo: 'ausente'; texto: string; nota?: string };
 
@@ -41,13 +49,33 @@ export const NO_APLICA = 'No aplica';
  */
 function triEstado(tool: Tool, field: EvidenceField, valor: string, etiqueta: string): Celda {
   const motivo = motivoDelHueco(tool, field, valor);
-  if (!motivo) return { tipo: 'valor', texto: etiqueta };
+
+  if (!motivo) {
+    /*
+     * Un sí que sólo vale por una puerta lo dice.
+     *
+     * DeepSeek publica sus pesos con licencia MIT y además vende una API con
+     * sus propias condiciones: «uso comercial: sí» es cierto de los pesos y no
+     * se ha leído de la API. Sin el matiz, un permiso concreto se lee como una
+     * promesa general, que es exactamente lo que no queremos hacer.
+     */
+    const respaldo = evidenciaDe(tool, field);
+    if (respaldo && !cubreTodo(tool, respaldo)) {
+      return {
+        tipo: 'valor',
+        texto: etiqueta,
+        matiz: `en ${alcanceDe(respaldo)}`,
+        nota: `Comprobado sólo para ${alcanceDe(respaldo)}. Las demás vías de acceso de esta herramienta no se han leído.`,
+      };
+    }
+    return { tipo: 'valor', texto: etiqueta };
+  }
 
   const ev = evidenciaDe(tool, field);
-  const nota =
-    motivo === 'no_publicado' && ev?.lookedFor
-      ? `${MOTIVO_EXPLICACION[motivo]} Buscábamos: ${ev.lookedFor}`
-      : MOTIVO_EXPLICACION[motivo];
+  const buscado = ev ? buscadoEn(ev) : undefined;
+  const nota = buscado
+    ? `${MOTIVO_EXPLICACION[motivo]} Buscábamos: ${buscado}`
+    : MOTIVO_EXPLICACION[motivo];
 
   return { tipo: 'ausente', texto: MOTIVO_LABEL[motivo], nota };
 }

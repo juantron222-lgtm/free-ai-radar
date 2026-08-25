@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { baseDe, buscadoEn, citaDe } from '@lib/domain/evidencia';
 import { getAllTools } from '@lib/data/catalog';
 import { decideFilters } from '@lib/data/category-page';
 import {
@@ -268,7 +269,7 @@ describe('la verificación de modelos', () => {
       expect(ev.length, slug).toBeGreaterThan(0);
       for (const prueba of ev) {
         expect(prueba.sourceUrl, slug).toMatch(/^https:\/\//);
-        expect(prueba.quote ?? prueba.basis ?? prueba.lookedFor, slug).toBeTruthy();
+        expect(citaDe(prueba) ?? baseDe(prueba) ?? buscadoEn(prueba), slug).toBeTruthy();
       }
     }
   });

@@ -3,12 +3,27 @@ import { getAllTools } from '@lib/data/catalog';
 import { FieldEvidence, EVIDENCE_FIELDS } from '@lib/domain/tool';
 import {
   MOTIVO_LABEL,
+  UMBRAL_PARCIAL,
+  UMBRAL_SUFICIENTE,
+  baseDe,
+  buscadoEn,
+  citaDe,
   coberturaDe,
+  cubreTodo,
   evidenciaDe,
   motivoDelHueco,
+  politicaDe,
+  superficiesDe,
 } from '@lib/domain/evidencia';
 import { hechosCriticos, verificacionDe } from '@lib/domain/verification';
-import { applyFilters, EMPTY_FILTERS } from '@lib/search/filters';
+import {
+  EMPTY_FILTERS,
+  applyFilters,
+  countActiveFilters,
+  describeFilters,
+  parseFilters,
+  serializeFilters,
+} from '@lib/search/filters';
 import { buildClientIndex } from '@lib/search/client-index';
 import { makeTool } from '../fixtures/tool';
 
@@ -63,6 +78,7 @@ describe('un hueco nunca se convierte en un no', () => {
           outcome: 'not_published',
           sourceUrl: 'https://ejemplo.com/pricing',
           sourceKind: 'pricing',
+          scope: 'product',
           checkedAt: '2026-08-24',
           lookedFor: 'Si el plan gratuito estampa una marca',
         },
@@ -98,9 +114,69 @@ describe('una evidencia sostiene lo que afirma', () => {
       outcome: 'derived',
       sourceUrl: 'https://ejemplo.com/licence',
       sourceKind: 'licence',
+      scope: 'weights',
       checkedAt: '2026-08-24',
     });
     expect(sinBase.success).toBe(false);
+  });
+
+  it('una cita sin frase no es una cita', () => {
+    /*
+     * El error que esto impide ya ocurrió: un parche sustituyó entradas que
+     * tenían frase literal por entradas `stated` sin nada, y quedaron
+     * afirmando «lo dice la fuente» sin poder enseñar qué decía.
+     */
+    const sinFrase = FieldEvidence.safeParse({
+      field: 'freePlan.requiresCreditCard',
+      outcome: 'stated',
+      sourceUrl: 'https://ejemplo.com/pricing',
+      sourceKind: 'pricing',
+      scope: 'product',
+      checkedAt: '2026-08-24',
+    });
+    expect(sinFrase.success).toBe(false);
+  });
+
+  it('un silencio no puede traer una cita: no hay nada que citar', () => {
+    /*
+     * Es la mitad que faltaba de la semántica. Una entrada que demuestra que
+     * algo NO aparece publicado y adjunta una frase entrecomillada sólo puede
+     * haberla fabricado, y sería justo lo contrario de lo que afirma.
+     */
+    const conCitaImposible = FieldEvidence.safeParse({
+      field: 'freePlan.hasWatermark',
+      outcome: 'not_published',
+      sourceUrl: 'https://ejemplo.com/pricing',
+      sourceKind: 'pricing',
+      scope: 'product',
+      checkedAt: '2026-08-24',
+      lookedFor: 'Si el plan gratuito marca',
+      quote: 'esto no puede existir',
+    });
+    expect(conCitaImposible.success).toBe(false);
+  });
+
+  it('un silencio sí exige qué se buscó, dónde y cuándo', () => {
+    const completo = FieldEvidence.safeParse({
+      field: 'freePlan.hasWatermark',
+      outcome: 'not_published',
+      sourceUrl: 'https://ejemplo.com/pricing',
+      sourceKind: 'pricing',
+      scope: 'product',
+      checkedAt: '2026-08-24',
+      lookedFor: 'Si el plan gratuito marca',
+    });
+    expect(completo.success).toBe(true);
+
+    const sinQue = FieldEvidence.safeParse({
+      field: 'freePlan.hasWatermark',
+      outcome: 'not_published',
+      sourceUrl: 'https://ejemplo.com/pricing',
+      sourceKind: 'pricing',
+      scope: 'product',
+      checkedAt: '2026-08-24',
+    });
+    expect(sinQue.success).toBe(false);
   });
 
   it('toda evidencia cita una URL y una fecha', () => {
@@ -116,9 +192,19 @@ describe('una evidencia sostiene lo que afirma', () => {
     for (const tool of tools) {
       for (const ev of tool.evidence) {
         expect(
-          ev.quote ?? ev.basis ?? ev.lookedFor,
+          citaDe(ev) ?? baseDe(ev) ?? buscadoEn(ev),
           `${tool.slug} · ${ev.field} no explica nada`
         ).toBeTruthy();
+      }
+    }
+  });
+
+  it('y ninguna finge una cita donde demuestra un silencio', () => {
+    for (const tool of tools) {
+      for (const ev of tool.evidence) {
+        if (ev.outcome !== 'not_published') continue;
+        expect(citaDe(ev), `${tool.slug} · ${ev.field}`).toBeUndefined();
+        expect(buscadoEn(ev), `${tool.slug} · ${ev.field}`).toBeTruthy();
       }
     }
   });
@@ -144,6 +230,114 @@ describe('una evidencia sostiene lo que afirma', () => {
         expect(validos.has(ev.field), `${tool.slug}: ${ev.field}`).toBe(true);
       }
     }
+  });
+});
+
+describe('una evidencia dice por qué puerta se entra', () => {
+  it('toda entrada declara su alcance', () => {
+    for (const tool of tools) {
+      for (const ev of tool.evidence) {
+        expect(ev.scope, `${tool.slug} · ${ev.field}`).toBeTruthy();
+      }
+    }
+  });
+
+  it('la licencia de unos pesos no habla del servicio entero', () => {
+    /*
+     * El riesgo concreto: un modelo con pesos MIT que además vende una API con
+     * sus propias condiciones. La MIT dice qué puedes hacer con los pesos; no
+     * dice nada de la API. Guardarlo sin alcance convertía un permiso concreto
+     * en una promesa general.
+     */
+    const conDosPuertas = makeTool({
+      slug: 'x',
+      name: 'X',
+      hosting: 'hybrid',
+      access: { chat: 'no', chatFree: 'no', api: 'yes', apiFree: 'no', weights: 'yes' },
+      evidence: [
+        {
+          field: 'freePlan.commercialUse',
+          outcome: 'derived',
+          sourceUrl: 'https://huggingface.co/ejemplo/modelo',
+          sourceKind: 'repo',
+          scope: 'weights',
+          checkedAt: '2026-08-24',
+          basis: 'La ficha del modelo declara «License: mit».',
+        },
+      ],
+    });
+
+    const ev = evidenciaDe(conDosPuertas, 'freePlan.commercialUse')!;
+    expect(superficiesDe(conDosPuertas).has('api')).toBe(true);
+    expect(cubreTodo(conDosPuertas, ev), 'los pesos no cubren la API').toBe(false);
+  });
+
+  it('pero sí cubre a lo que sólo se distribuye como pesos', () => {
+    /*
+     * Whisper no tiene otra puerta: no hay servicio que contratar, así que la
+     * licencia de los pesos es la licencia de todo lo que hay.
+     */
+    const whisper = tools.find((t) => t.slug === 'whisper')!;
+    const ev = evidenciaDe(whisper, 'freePlan.commercialUse')!;
+    expect(ev.scope).toBe('weights');
+    expect(cubreTodo(whisper, ev)).toBe(true);
+  });
+
+  it('`product` sólo se usa cuando la fuente de verdad no distingue', () => {
+    /*
+     * No es el valor por defecto: es una afirmación. Las condiciones de
+     * ElevenLabs separan usuario gratuito de usuario de pago pero no separan
+     * web de API, así que ahí `product` es correcto.
+     */
+    const elevenlabs = tools.find((t) => t.slug === 'elevenlabs')!;
+    const ev = evidenciaDe(elevenlabs, 'freePlan.commercialUse')!;
+    expect(ev.scope).toBe('product');
+    expect(ev.outcome).toBe('stated');
+  });
+
+  it('lo que se leyó en la tabla de precios de una API se marca como API', () => {
+    for (const slug of ['gemini-3-flash', 'claude-haiku-4-5']) {
+      const tool = tools.find((t) => t.slug === slug)!;
+      for (const ev of tool.evidence) {
+        if (!/ai\.google\.dev|platform\.claude\.com/.test(ev.sourceUrl)) continue;
+        expect(ev.scope, `${slug} · ${ev.field}`).toBe('api');
+      }
+    }
+  });
+
+  it('las licencias de pesos de la cohorte están marcadas como tales', () => {
+    for (const slug of ['whisper', 'kokoro', 'f5-tts', 'deepseek-v4-flash']) {
+      const tool = tools.find((t) => t.slug === slug)!;
+      const ev = evidenciaDe(tool, 'freePlan.commercialUse')!;
+      expect(ev.scope, slug).toBe('weights');
+    }
+  });
+
+  it('ninguna afirmación pública descansa sólo en una puerta sin decirlo', () => {
+    /*
+     * La regla que cierra el agujero: si un hecho crítico está decidido y la
+     * única evidencia que lo sostiene habla de una puerta más estrecha que el
+     * producto, la ficha tiene que poder decir de qué puerta habla. Aquí se
+     * comprueba que sabemos detectarlo; la interfaz lo escribe.
+     */
+    const campos = ['freePlan.commercialUse', 'privacy.trainsOnUserData'] as const;
+    const parciales: string[] = [];
+
+    for (const tool of tools) {
+      for (const field of campos) {
+        const valor =
+          field === 'freePlan.commercialUse'
+            ? tool.freePlan.commercialUse
+            : tool.privacy.trainsOnUserData;
+        if (valor === 'unverified') continue;
+        const ev = evidenciaDe(tool, field);
+        if (!ev) continue;
+        if (!cubreTodo(tool, ev)) parciales.push(`${tool.slug}·${field}·${ev.scope}`);
+      }
+    }
+
+    // No es cero: es una lista conocida y nombrada, no una sorpresa.
+    for (const p of parciales) expect(p).toMatch(/·(weights|api|web|app|local|cloud)$/);
   });
 });
 
@@ -254,6 +448,7 @@ describe('lo desconocido no entra en un filtro positivo', () => {
           outcome: 'not_published',
           sourceUrl: 'https://ejemplo.com/terms',
           sourceKind: 'terms',
+          scope: 'product',
           checkedAt: '2026-08-24',
           lookedFor: 'Si permite uso comercial',
         },
@@ -328,6 +523,7 @@ describe('la ficha cuenta los dos huecos por separado', () => {
           outcome: 'not_published',
           sourceUrl: 'https://ejemplo.com/terms',
           sourceKind: 'terms',
+          scope: 'product',
           checkedAt: '2026-08-24',
           lookedFor: 'Si permite uso comercial',
         },
@@ -353,6 +549,7 @@ describe('la ficha cuenta los dos huecos por separado', () => {
           outcome: 'not_published',
           sourceUrl: 'https://ejemplo.com/terms',
           sourceKind: 'terms',
+          scope: 'product',
           checkedAt: '2026-08-24',
           lookedFor: 'Si permite uso comercial',
         },
@@ -407,5 +604,105 @@ describe('los hechos volátiles confirmados en esta cohorte llevan fuente', () =
       const alguno = campos.some((f) => evidenciaDe(tool, f));
       expect(alguno, `${slug} cambió de valor sin dejar evidencia`).toBe(true);
     }
+  });
+});
+
+describe('un filtro promete según lo que sabemos', () => {
+  const genera = (t: (typeof tools)[number]) =>
+    t.capabilities.some((c) =>
+      /text-to-image|text-to-video|image-to-|text-to-music|text-to-speech|avatar-video|video-editing|image-editing/.test(
+        c
+      )
+    );
+
+  const tarjeta = coberturaDe(tools, 'freePlan.requiresCreditCard', (t) => t.freePlan.requiresCreditCard);
+  const comercial = coberturaDe(tools, 'freePlan.commercialUse', (t) => t.freePlan.commercialUse);
+  const marca = coberturaDe(tools, 'freePlan.hasWatermark', (t) => t.freePlan.hasWatermark, genera);
+  const registro = coberturaDe(tools, 'freePlan.requiresSignup', (t) => t.freePlan.requiresSignup);
+
+  it('los umbrales están escritos y ordenados', () => {
+    expect(UMBRAL_SUFICIENTE).toBeGreaterThan(UMBRAL_PARCIAL);
+    expect(UMBRAL_SUFICIENTE).toBe(0.6);
+    expect(UMBRAL_PARCIAL).toBe(0.25);
+  });
+
+  it('clasifica los tres campos que pediste revisar', () => {
+    expect(politicaDe(registro), 'registro, 90 %').toBe('suficiente');
+    expect(politicaDe(tarjeta), 'tarjeta, 40 %').toBe('parcial');
+    expect(politicaDe(comercial), 'uso comercial, 27 %').toBe('parcial');
+    expect(politicaDe(marca), 'marca de agua, 3 %').toBe('testimonial');
+  });
+
+  it('un campo del que no sabemos nada es testimonial, no suficiente', () => {
+    expect(politicaDe({ field: 'freePlan.hasWatermark', confirmados: 0, noPublicados: 0, pendientes: 0 })).toBe(
+      'testimonial'
+    );
+    expect(politicaDe({ field: 'freePlan.hasWatermark', confirmados: 0, noPublicados: 30, pendientes: 5 })).toBe(
+      'testimonial'
+    );
+  });
+
+  it('saber que el fabricante calla no cuenta como cobertura', () => {
+    /*
+     * Es la trampa que este umbral podría invitar a hacer: llenar un campo de
+     * `not_published` para que el filtro parezca cubierto. Un silencio
+     * documentado es mejor que un hueco mudo, pero no es una respuesta.
+     */
+    const soloSilencios = { field: 'freePlan.commercialUse' as const, confirmados: 10, noPublicados: 84, pendientes: 0 };
+    expect(politicaDe(soloSilencios)).toBe('testimonial');
+  });
+});
+
+describe('el sustituto de un filtro testimonial', () => {
+  const index = buildClientIndex(tools, (s) => s);
+
+  it('devuelve donde lo hemos comprobado, en cualquiera de los dos sentidos', () => {
+    const resultado = applyFilters(index, { ...EMPTY_FILTERS, watermarkKnown: true });
+    expect(resultado.length).toBeGreaterThan(0);
+    for (const entry of resultado) {
+      expect(entry.freePlan.hasWatermark, entry.slug).not.toBe('unverified');
+    }
+  });
+
+  it('y no deja pasar lo desconocido, ni siquiera el silencio documentado', () => {
+    const callado = makeTool({
+      slug: 'z',
+      name: 'Z',
+      capabilities: ['text-to-image'],
+      freePlan: {
+        summary: 'x',
+        limits: [],
+        requiresSignup: 'no',
+        requiresCreditCard: 'no',
+        hasWatermark: 'unverified',
+        commercialUse: 'yes',
+        creditReset: 'none',
+        verifiedAt: '2026-08-24',
+      },
+      evidence: [
+        {
+          field: 'freePlan.hasWatermark',
+          outcome: 'not_published',
+          sourceUrl: 'https://ejemplo.com/pricing',
+          sourceKind: 'pricing',
+          scope: 'product',
+          checkedAt: '2026-08-24',
+          lookedFor: 'Si el plan gratuito marca',
+        },
+      ],
+    });
+    const indice = buildClientIndex([callado], (s) => s);
+    expect(applyFilters(indice, { ...EMPTY_FILTERS, watermarkKnown: true })).toEqual([]);
+  });
+
+  it('viaja en la URL como cualquier otro filtro', () => {
+    const conFiltro = { ...EMPTY_FILTERS, watermarkKnown: true };
+    expect(serializeFilters(conFiltro)).toContain('wmknown=1');
+    expect(parseFilters(new URLSearchParams('wmknown=1')).watermarkKnown).toBe(true);
+    expect(countActiveFilters(conFiltro)).toBe(1);
+  });
+
+  it('se dice con palabras en el título de la lista', () => {
+    expect(describeFilters({ ...EMPTY_FILTERS, watermarkKnown: true }, (x) => x)).toContain('comprobada');
   });
 });

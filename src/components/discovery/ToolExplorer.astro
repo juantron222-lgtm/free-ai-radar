@@ -316,7 +316,7 @@ const VERTICALES_VISIBLES = [
       if (!v) continue;
       if (key === 'q' || key === 'sort') {
         params.set(key, v);
-      } else if (['nocard', 'nosignup', 'nowm', 'comm', 'oss', 'fresh'].includes(key)) {
+      } else if (['nocard', 'nosignup', 'nowm', 'comm', 'oss', 'fresh', 'wmknown'].includes(key)) {
         params.set(key, '1');
       } else {
         (lists[key] ??= []).push(v);
@@ -346,6 +346,7 @@ const VERTICALES_VISIBLES = [
       nocard: state.noCard,
       nosignup: state.noSignup,
       nowm: state.noWatermark,
+      wmknown: state.watermarkKnown,
       comm: state.commercial,
       oss: state.openSource,
       fresh: state.verifiedRecently,
@@ -361,6 +362,7 @@ const VERTICALES_VISIBLES = [
     nocard: 'sin tarjeta',
     nosignup: 'sin registro',
     nowm: 'sin marca de agua',
+    wmknown: 'con la marca de agua comprobada',
     comm: 'con uso comercial',
     oss: 'open source',
     fresh: 'verificadas hace poco',
@@ -375,6 +377,7 @@ const VERTICALES_VISIBLES = [
       ['nocard', 'noCard'],
       ['nosignup', 'noSignup'],
       ['nowm', 'noWatermark'],
+      ['wmknown', 'watermarkKnown'],
       ['comm', 'commercial'],
       ['oss', 'openSource'],
       ['fresh', 'verifiedRecently'],

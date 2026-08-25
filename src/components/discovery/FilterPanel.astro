@@ -2,7 +2,7 @@
 import { FREE_MODELS, PLATFORM_LABEL, PLATFORMS, START_EFFORT_LABEL, START_EFFORT_MEANING, START_EFFORT, HOSTING_LABEL, HOSTING } from '@lib/domain/taxonomy';
 import { getAllTools, getPopulatedCategories } from '@lib/data/catalog';
 import { SORT_OPTIONS } from '@lib/search/filters';
-import { coberturaDe } from '@lib/domain/evidencia';
+import { coberturaDe, politicaDe } from '@lib/domain/evidencia';
 import type { Tool } from '@lib/domain/tool';
 
 interface Props {
@@ -25,18 +25,17 @@ const HARD_REQUIREMENTS = [
 /**
  * Un filtro con poca cobertura esconde el catálogo sin decirlo.
  *
- * «Sin marca de agua» se apoya en un dato que sólo está confirmado en 2 de las
- * 35 fichas donde la pregunta tiene sentido. Marcarlo no devuelve «las que no
- * ponen marca»: devuelve «las dos que hemos comprobado», y las otras treinta y
- * tres desaparecen por un motivo que nadie ve.
+ * Los umbrales y su porqué están en `politicaDe`. Aquí sólo se aplican:
  *
- * El criterio, escrito para poder discutirlo: **por debajo del 50 % de fichas
- * con el dato confirmado, el filtro sigue disponible pero anuncia su
- * cobertura**. No se retira —quien busca eso lo busca de verdad— y no se
- * silencia. Un filtro que miente por omisión es peor que uno incómodo.
+ *   suficiente   el filtro se comporta como cualquier otro;
+ *   parcial      igual, pero enseña su cobertura antes de que lo pulses;
+ *   testimonial  deja de ofrecerse como filtro negativo y se cambia por
+ *                «ver las que hemos comprobado», que es lo único que sabemos.
+ *
+ * La diferencia importa: con 1 de 35 confirmadas, «sin marca de agua» no
+ * devuelve las que no marcan —devuelve la única que miramos— y las otras
+ * treinta y cuatro desaparecen como si hubieran fallado la condición.
  */
-const UMBRAL_COBERTURA = 0.5;
-
 const todas = getAllTools();
 const GENERA_MEDIOS = /text-to-image|text-to-video|image-to-|text-to-music|text-to-speech|avatar-video|video-editing|image-editing/;
 const generaMedios = (t: Tool) => t.capabilities.some((c) => GENERA_MEDIOS.test(c));
@@ -48,13 +47,31 @@ const VALOR: Record<string, (t: Tool) => string> = {
   'freePlan.commercialUse': (t) => t.freePlan.commercialUse,
 };
 
-function cobertura(field?: string): { pct: number; confirmados: number; total: number } | null {
+interface Cobertura {
+  politica: ReturnType<typeof politicaDe>;
+  confirmados: number;
+  total: number;
+}
+
+function cobertura(field?: string): Cobertura | null {
   if (!field || !VALOR[field]) return null;
   const aplica = field === 'freePlan.hasWatermark' ? generaMedios : undefined;
   const c = coberturaDe(todas, field as never, VALOR[field], aplica);
-  const total = c.confirmados + c.noPublicados + c.pendientes;
-  return { pct: total ? c.confirmados / total : 0, confirmados: c.confirmados, total };
+  return {
+    politica: politicaDe(c),
+    confirmados: c.confirmados,
+    total: c.confirmados + c.noPublicados + c.pendientes,
+  };
 }
+
+/** Lo que se enseña cuando el dato es demasiado escaso para filtrar por él. */
+const SUSTITUTOS: Record<string, { key: string; label: (n: number) => string; hint: string }> = {
+  'freePlan.hasWatermark': {
+    key: 'wmknown',
+    label: (n) => `Marca de agua comprobada (${n})`,
+    hint: 'Enseña las herramientas donde hemos confirmado si el plan gratuito marca o no. No filtra por la respuesta, filtra por si la sabemos.',
+  },
+};
 ---
 
 <form id="filter-form" class="filters" role="search" aria-label="Filtrar herramientas">
@@ -93,11 +110,34 @@ function cobertura(field?: string): { pct: number; confirmados: number; total: n
 
   <div class="filters-quick scroll-x" role="group" aria-label="Requisitos">
     {HARD_REQUIREMENTS.map((req) => {
-      const cob = cobertura('field' in req ? req.field : undefined);
-      const escasa = cob !== null && cob.pct < UMBRAL_COBERTURA;
-      const aviso = escasa
+      const campo = 'field' in req ? req.field : undefined;
+      const cob = cobertura(campo);
+      const politica = cob?.politica ?? 'suficiente';
+      const sustituto = campo ? SUSTITUTOS[campo] : undefined;
+
+      /*
+       * Cobertura testimonial: se cambia la pregunta, no se maquilla la
+       * respuesta. En vez de «sin marca de agua» —que aquí devolvería una
+       * ficha y escondería treinta y cuatro por ignorancia nuestra— se ofrece
+       * ver dónde lo hemos comprobado.
+       */
+      if (politica === 'testimonial' && sustituto && cob) {
+        return (
+          <label class="filter-chip is-testimonial" title={sustituto.hint} data-filter-known={sustituto.key}>
+            <input type="checkbox" name={sustituto.key} value="1" class="sr-only" data-filter-flag={sustituto.key} />
+            <span class="filter-chip-tick" aria-hidden="true">
+              <svg width="11" height="11" viewBox="0 0 12 12"><path d="M2 6.4 4.6 9 10 3.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            {sustituto.label(cob.confirmados)}
+          </label>
+        );
+      }
+
+      const parcial = politica === 'parcial' && cob !== null;
+      const aviso = parcial
         ? `${req.hint}. Dato confirmado en ${cob.confirmados} de ${cob.total} fichas: al marcarlo, el resto no aparece.`
         : req.hint;
+
       return (
         <label class="filter-chip" title={aviso}>
           <input type="checkbox" name={req.key} value="1" class="sr-only" data-filter-flag={req.key} />
@@ -105,7 +145,7 @@ function cobertura(field?: string): { pct: number; confirmados: number; total: n
             <svg width="11" height="11" viewBox="0 0 12 12"><path d="M2 6.4 4.6 9 10 3.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
           {req.label}
-          {escasa && (
+          {parcial && (
             <span class="filter-chip-cov" data-filter-coverage={req.key}>
               {cob.confirmados}/{cob.total}
             </span>

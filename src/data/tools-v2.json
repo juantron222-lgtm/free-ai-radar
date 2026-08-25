@@ -77,7 +77,8 @@
         "sourceUrl": "https://www.adobe.com/products/firefly.html",
         "sourceKind": "official",
         "checkedAt": "2026-08-12",
-        "quote": "Is Adobe Firefly free to use? Yes, Adobe has a free plan that provides users with free daily generations to try Adobe Firefly"
+        "quote": "Is Adobe Firefly free to use? Yes, Adobe has a free plan that provides users with free daily generations to try Adobe Firefly",
+        "scope": "cloud"
       },
       {
         "field": "capabilities",
@@ -85,7 +86,8 @@
         "sourceUrl": "https://www.adobe.com/products/firefly.html",
         "sourceKind": "official",
         "checkedAt": "2026-08-12",
-        "quote": "range of aesthetic styles and capabilities across text-to-image, text-to-video, and image-to-video workflows, · Generate and edit images, video, audio, and designs using top AI models from Adobe,"
+        "quote": "range of aesthetic styles and capabilities across text-to-image, text-to-video, and image-to-video workflows, · Generate and edit images, video, audio, and designs using top AI models from Adobe,",
+        "scope": "cloud"
       }
     ],
     "descriptionLong": "",
@@ -192,7 +194,8 @@
         "sourceUrl": "https://github.com/Aider-AI/aider",
         "sourceKind": "repo",
         "checkedAt": "2026-08-19",
-        "quote": "Aider lets you pair program with LLMs to start a new project or build on your existing codebase · Aider automatically commits changes with sensible commit messages · [ejecuta pruebas y linters y corrige los problemas detectados] · Apache-2.0."
+        "quote": "Aider lets you pair program with LLMs to start a new project or build on your existing codebase · Aider automatically commits changes with sensible commit messages · [ejecuta pruebas y linters y corrige los problemas detectados] · Apache-2.0.",
+        "scope": "local"
       }
     ],
     "nextReviewAt": "2026-11-17",
@@ -291,7 +294,8 @@
         "sourceUrl": "https://aws.amazon.com/q/developer/pricing/",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-21",
-        "quote": "Free Tier: 50 agentic requests per month · 1,000 lines of code per month · Suppress public code suggestions. Pro: $19 per month per user."
+        "quote": "Free Tier: 50 agentic requests per month · 1,000 lines of code per month · Suppress public code suggestions. Pro: $19 per month per user.",
+        "scope": "cloud"
       }
     ],
     "slug": "amazon-q-developer",
@@ -389,7 +393,8 @@
         "sourceUrl": "https://github.com/facebookresearch/audiocraft",
         "sourceKind": "repo",
         "checkedAt": "2026-08-18",
-        "quote": "The code in this repository is released under the MIT license as found in the LICENSE file. The models weights in this repository are released under the CC-BY-NC 4.0 license as found in the LICENSE_weights file."
+        "quote": "The code in this repository is released under the MIT license as found in the LICENSE file. The models weights in this repository are released under the CC-BY-NC 4.0 license as found in the LICENSE_weights file.",
+        "scope": "local"
       },
       {
         "field": "capabilities",
@@ -397,7 +402,8 @@
         "sourceUrl": "https://github.com/facebookresearch/audiocraft",
         "sourceKind": "repo",
         "checkedAt": "2026-08-18",
-        "quote": "MusicGen: A controllable text-to-music generation system · AudioGen: A text-to-sound synthesis model · MAGNeT · JASCO, conditioned on chords, melodies and drum tracks"
+        "quote": "MusicGen: A controllable text-to-music generation system · AudioGen: A text-to-sound synthesis model · MAGNeT · JASCO, conditioned on chords, melodies and drum tracks",
+        "scope": "local"
       }
     ],
     "nextReviewAt": "2026-11-16",
@@ -521,7 +527,8 @@
         "sourceUrl": "https://bolt.new/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-21",
-        "quote": "300K tokens daily limit · 1M tokens per month · Pro: $25 per month billed monthly"
+        "quote": "300K tokens daily limit · 1M tokens per month · Pro: $25 per month billed monthly",
+        "scope": "cloud"
       }
     ],
     "startEffortReason": "Se describe lo que quieres en el navegador; no hace falta instalar nada.",
@@ -625,7 +632,8 @@
         "sourceUrl": "https://cartesia.ai/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-18",
-        "quote": "Free — 20K credits / month · Text to Speech and Speech to Text · approximately 27 minutes of generated audio monthly · 1 agent slot with 8 concurrent calls"
+        "quote": "Free — 20K credits / month · Text to Speech and Speech to Text · approximately 27 minutes of generated audio monthly · 1 agent slot with 8 concurrent calls",
+        "scope": "cloud"
       },
       {
         "field": "capabilities",
@@ -633,7 +641,8 @@
         "sourceUrl": "https://cartesia.ai/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-18",
-        "quote": "Text to Speech (Sonic) · Speech to Text (Ink) · Voice Cloning (instant and professional) · Voice Agents (Line)"
+        "quote": "Text to Speech (Sonic) · Speech to Text (Ink) · Voice Cloning (instant and professional) · Voice Agents (Line)",
+        "scope": "cloud"
       }
     ],
     "auditNotes": "La equivalencia en minutos se recoge porque la publica la propia tabla. Si no la publicara, se habrían dejado los créditos a secas.",
@@ -774,7 +783,8 @@
         "sourceUrl": "https://chat.openai.com",
         "sourceKind": "official",
         "checkedAt": "2026-08-12",
-        "quote": "ose a model Pricing Model selection Text and code Text generation Code generation Structured output Prompting · Pro, Feature: Analytics dashboard, No Compliance API Logs Platform Plan: Free, Feature: Compliance API Logs Pl"
+        "quote": "ose a model Pricing Model selection Text and code Text generation Code generation Structured output Prompting · Pro, Feature: Analytics dashboard, No Compliance API Logs Platform Plan: Free, Feature: Compliance API Logs Pl",
+        "scope": "cloud"
       }
     ],
     "startEffortReason": "Se puede escribir en la caja y obtener respuesta nada más entrar.",
@@ -908,7 +918,8 @@
         "sourceUrl": "https://civitai.com/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-12",
-        "quote": "Buzz on daily rewards"
+        "quote": "Buzz on daily rewards",
+        "scope": "cloud"
       },
       {
         "field": "capabilities",
@@ -916,7 +927,8 @@
         "sourceUrl": "https://civitai.com",
         "sourceKind": "official",
         "checkedAt": "2026-08-12",
-        "quote": "re © Civitai 2026 Terms of Service Privacy Safety API Status Known Issues Education Creators 🛟 Support Home -"
+        "quote": "re © Civitai 2026 Terms of Service Privacy Safety API Status Known Issues Education Creators 🛟 Support Home -",
+        "scope": "cloud"
       }
     ],
     "auditNotes": [
@@ -1058,7 +1070,8 @@
         "sourceUrl": "https://www.anthropic.com/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-12",
-        "quote": "eachers Life sciences Nonprofits Pricing Overview API Resources Insights Blog Customer stories Anthropic news"
+        "quote": "eachers Life sciences Nonprofits Pricing Overview API Resources Insights Blog Customer stories Anthropic news",
+        "scope": "cloud"
       }
     ],
     "startEffortReason": "Se puede escribir en la caja y obtener respuesta nada más entrar.",
@@ -1168,7 +1181,8 @@
         "sourceUrl": "https://claude.com/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-19",
-        "quote": "Pro — $20/month, or $17/month billed annually: Everything in Free, plus: More usage… Includes Claude Code. [El plan Free lista chat en web, iOS, Android y escritorio, y no menciona Claude Code.]"
+        "quote": "Pro — $20/month, or $17/month billed annually: Everything in Free, plus: More usage… Includes Claude Code. [El plan Free lista chat en web, iOS, Android y escritorio, y no menciona Claude Code.]",
+        "scope": "cloud"
       },
       {
         "field": "capabilities",
@@ -1176,7 +1190,8 @@
         "sourceUrl": "https://claude.com/product/claude-code",
         "sourceKind": "official",
         "checkedAt": "2026-08-19",
-        "quote": "Executing across 10s to 100s of parallel subagents · the entire workflow—reading issues, writing code, running tests, and submitting PRs—all from your terminal · powerful, multi-file edits that work."
+        "quote": "Executing across 10s to 100s of parallel subagents · the entire workflow—reading issues, writing code, running tests, and submitting PRs—all from your terminal · powerful, multi-file edits that work.",
+        "scope": "cloud"
       }
     ],
     "auditNotes": "Ficha de la casa: Free AI Radar se construye con Claude Code. No cambia el criterio — `paid_only` es lo que dice su página de precios, y así se publica.",
@@ -1285,13 +1300,15 @@
         "sourceUrl": "https://platform.claude.com/docs/en/about-claude/models/overview",
         "sourceKind": "docs",
         "checkedAt": "2026-08-20",
-        "quote": "Claude Haiku 4.5 — The fastest model with near-frontier intelligence · Extended thinking: Yes · Context window 200k tokens · Max output 64k tokens · $1 / input MTok $5 / output MTok"
+        "quote": "Claude Haiku 4.5 — The fastest model with near-frontier intelligence · Extended thinking: Yes · Context window 200k tokens · Max output 64k tokens · $1 / input MTok $5 / output MTok",
+        "scope": "api"
       },
       {
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://platform.claude.com/docs/en/about-claude/pricing",
         "sourceKind": "pricing",
+        "scope": "api",
         "checkedAt": "2026-08-24",
         "quote": "Claude Haiku 4.5 — $1 / MTok (base input tokens) · $5 / MTok (output tokens)"
       },
@@ -1300,6 +1317,7 @@
         "outcome": "derived",
         "sourceUrl": "https://platform.claude.com/docs/en/about-claude/pricing",
         "sourceKind": "pricing",
+        "scope": "api",
         "checkedAt": "2026-08-24",
         "basis": "Las preguntas frecuentes dicen «New users receive a small amount of free credits to test the API»: es un saldo de bienvenida por cuenta nueva, no una cuota que vuelva. Por eso `none` y no una renovación periódica."
       },
@@ -1308,6 +1326,7 @@
         "outcome": "not_published",
         "sourceUrl": "https://platform.claude.com/docs/en/about-claude/pricing",
         "sourceKind": "pricing",
+        "scope": "api",
         "checkedAt": "2026-08-24",
         "lookedFor": "Si hace falta tarjeta para gastar los créditos de bienvenida. La página describe la facturación («Credit card and invoicing options available») pero no dice si la tarjeta es requisito para empezar."
       }
@@ -1414,7 +1433,8 @@
         "sourceUrl": "https://platform.claude.com/docs/en/about-claude/models/overview",
         "sourceKind": "docs",
         "checkedAt": "2026-08-20",
-        "quote": "Claude Opus 5 — For complex agentic coding and enterprise work · Adaptive thinking: Yes · Context window 1M tokens · Max output 128k tokens · All current Claude models support text and image input, text output, multilingual capabilities, and vision."
+        "quote": "Claude Opus 5 — For complex agentic coding and enterprise work · Adaptive thinking: Yes · Context window 1M tokens · Max output 128k tokens · All current Claude models support text and image input, text output, multilingual capabilities, and vision.",
+        "scope": "api"
       },
       {
         "field": "freePlan.limits",
@@ -1422,7 +1442,8 @@
         "sourceUrl": "https://platform.claude.com/docs/en/about-claude/models/overview",
         "sourceKind": "docs",
         "checkedAt": "2026-08-20",
-        "quote": "$5 / input MTok $25 / output MTok"
+        "quote": "$5 / input MTok $25 / output MTok",
+        "scope": "api"
       }
     ],
     "slug": "claude-opus-5",
@@ -1555,7 +1576,8 @@
         "sourceUrl": "https://platform.claude.com/docs/en/about-claude/models/overview",
         "sourceKind": "docs",
         "checkedAt": "2026-08-20",
-        "quote": "Claude Sonnet 5 — The best combination of speed and intelligence · Adaptive thinking: Yes · Context window 1M tokens · Max output 128k · $2 / input MTok $10 / output MTok"
+        "quote": "Claude Sonnet 5 — The best combination of speed and intelligence · Adaptive thinking: Yes · Context window 1M tokens · Max output 128k · $2 / input MTok $10 / output MTok",
+        "scope": "api"
       }
     ],
     "startEffortReason": "Por API con clave y facturación; en claude.ai basta una cuenta.",
@@ -1665,7 +1687,8 @@
         "sourceUrl": "https://github.com/cline/cline",
         "sourceKind": "repo",
         "checkedAt": "2026-08-19",
-        "quote": "The open source coding agent in your IDE and terminal · executes bash commands and watches output in real time · supports Model Context Protocol servers · every file edit and terminal command requires approval · Apache 2.0 © 2026 Cline Bot Inc."
+        "quote": "The open source coding agent in your IDE and terminal · executes bash commands and watches output in real time · supports Model Context Protocol servers · every file edit and terminal command requires approval · Apache 2.0 © 2026 Cline Bot Inc.",
+        "scope": "local"
       }
     ],
     "nextReviewAt": "2026-11-17",
@@ -1757,13 +1780,15 @@
         "sourceUrl": "https://clipdrop.co/",
         "sourceKind": "official",
         "checkedAt": "2026-08-12",
-        "quote": "l Resizer Resize your images for any social media Text to image Text to image Generate high-resolution realist · picture? To remove a person from a photo, use our inpainting algorithm · Uncrop Uncrop Uncrop your photos to any image format Image upscaler Image upscal"
+        "quote": "l Resizer Resize your images for any social media Text to image Text to image Generate high-resolution realist · picture? To remove a person from a photo, use our inpainting algorithm · Uncrop Uncrop Uncrop your photos to any image format Image upscaler Image upscal",
+        "scope": "cloud"
       },
       {
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://clipdrop.co/pricing",
         "sourceKind": "pricing",
+        "scope": "product",
         "checkedAt": "2026-08-24",
         "quote": "Free 0 — Text to image: unlimited · Uncrop: unlimited · Background Removal: 20/24h · Image Upscaler x2: 20/24h · Cleanup: 20/24h · Relight: 20/24h · Text Remover: 50/24h"
       },
@@ -1772,6 +1797,7 @@
         "outcome": "not_published",
         "sourceUrl": "https://clipdrop.co/pricing",
         "sourceKind": "pricing",
+        "scope": "product",
         "checkedAt": "2026-08-24",
         "lookedFor": "Si hay que dar tarjeta para el plan gratuito. La página de precios enumera los límites de cada herramienta y no lo menciona."
       },
@@ -1780,6 +1806,7 @@
         "outcome": "not_published",
         "sourceUrl": "https://clipdrop.co/pricing",
         "sourceKind": "pricing",
+        "scope": "product",
         "checkedAt": "2026-08-24",
         "lookedFor": "Si el resultado del plan gratuito sale con marca. La página de precios no lo menciona."
       }
@@ -1907,7 +1934,8 @@
         "sourceUrl": "https://learn.chatgpt.com/docs/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-19",
-        "quote": "ChatGPT Work and Codex are included in your ChatGPT Free, Go, Plus, Pro, Business, Edu, or Enterprise plan · Free — $0/month: Explore Codex capabilities on quick coding tasks · Go — $8/month: Use Codex for lightweight coding tasks."
+        "quote": "ChatGPT Work and Codex are included in your ChatGPT Free, Go, Plus, Pro, Business, Edu, or Enterprise plan · Free — $0/month: Explore Codex capabilities on quick coding tasks · Go — $8/month: Use Codex for lightweight coding tasks.",
+        "scope": "cloud"
       },
       {
         "field": "capabilities",
@@ -1915,7 +1943,8 @@
         "sourceUrl": "https://learn.chatgpt.com/docs",
         "sourceKind": "docs",
         "checkedAt": "2026-08-19",
-        "quote": "run in the terminal/CLI, edit files in a repository, run commands and tests · Local environments and Cloud environment · Browser [listado como capacidad]."
+        "quote": "run in the terminal/CLI, edit files in a repository, run commands and tests · Local environments and Cloud environment · Browser [listado como capacidad].",
+        "scope": "cloud"
       }
     ],
     "nextReviewAt": "2026-11-17",
@@ -2004,7 +2033,8 @@
         "sourceUrl": "https://www.comfy.org/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-12",
-        "quote": "Start free. Upgrade when you're ready. 5 free runs on real GPUs — no credit card required."
+        "quote": "Start free. Upgrade when you're ready. 5 free runs on real GPUs — no credit card required.",
+        "scope": "cloud"
       },
       {
         "field": "freePlan.requiresCreditCard",
@@ -2012,7 +2042,8 @@
         "sourceUrl": "https://www.comfy.org/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-12",
-        "quote": "no credit card required"
+        "quote": "no credit card required",
+        "scope": "cloud"
       },
       {
         "field": "capabilities",
@@ -2020,7 +2051,8 @@
         "sourceUrl": "https://www.comfy.org/",
         "sourceKind": "official",
         "checkedAt": "2026-08-12",
-        "quote": "SEE CLOUD FEATURES Comfy API Turn workflows into production endpoints · View Model Features Try Workflows Open Weights Partner Nodes HOW WORKS Connect models, processing steps, a"
+        "quote": "SEE CLOUD FEATURES Comfy API Turn workflows into production endpoints · View Model Features Try Workflows Open Weights Partner Nodes HOW WORKS Connect models, processing steps, a",
+        "scope": "cloud"
       }
     ],
     "descriptionLong": "",
@@ -2167,7 +2199,8 @@
         "sourceUrl": "https://github.com/Comfy-Org/ComfyUI",
         "sourceKind": "repo",
         "checkedAt": "2026-08-12",
-        "quote": "Image generation : Stable Diffusion 1 · advanced examples: “Hires Fix” aka 2 Pass Txt2Img Img2Img Inpainting Lora Hypernetworks Embeddings/Textual Inv · Image editing : Flux Kontext, Flux"
+        "quote": "Image generation : Stable Diffusion 1 · advanced examples: “Hires Fix” aka 2 Pass Txt2Img Img2Img Inpainting Lora Hypernetworks Embeddings/Textual Inv · Image editing : Flux Kontext, Flux",
+        "scope": "local"
       }
     ],
     "startEffortReason": "Exige instalar el entorno, descargar los modelos y montar el grafo de nodos.",
@@ -2266,7 +2299,8 @@
         "sourceUrl": "https://github.com/crewAIInc/crewAI",
         "sourceKind": "repo",
         "checkedAt": "2026-08-19",
-        "quote": "Framework for orchestrating role-playing, autonomous AI agents… empowers agents to work together seamlessly, tackling complex tasks · Crews: role-based teams that handle dynamic task delegation · Flows: precise, event-driven control over complex automations · License: MIT."
+        "quote": "Framework for orchestrating role-playing, autonomous AI agents… empowers agents to work together seamlessly, tackling complex tasks · Crews: role-based teams that handle dynamic task delegation · Flows: precise, event-driven control over complex automations · License: MIT.",
+        "scope": "local"
       }
     ],
     "nextReviewAt": "2026-11-17",
@@ -2386,7 +2420,8 @@
         "sourceUrl": "https://cursor.com/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-21",
-        "quote": "Hobby — No credit card required · Limited Agent requests · Access to Composer. Individual: $20 / mo."
+        "quote": "Hobby — No credit card required · Limited Agent requests · Access to Composer. Individual: $20 / mo.",
+        "scope": "product"
       }
     ],
     "startEffort": "install",
@@ -2513,6 +2548,7 @@
         "outcome": "derived",
         "sourceUrl": "https://huggingface.co/deepseek-ai/DeepSeek-V3.2-Exp",
         "sourceKind": "repo",
+        "scope": "weights",
         "checkedAt": "2026-08-24",
         "basis": "La ficha oficial del modelo declara «License: mit» para los pesos. La MIT permite el uso comercial."
       },
@@ -2521,6 +2557,7 @@
         "outcome": "stated",
         "sourceUrl": "https://api-docs.deepseek.com/quick_start/pricing",
         "sourceKind": "docs",
+        "scope": "api",
         "checkedAt": "2026-08-24",
         "quote": "Off-peak: $0.22/1M input, $0.66/1M output. Peak hours are 01:00 - 04:00 and 06:00 - 10:00 UTC, Monday through Friday."
       }
@@ -2639,7 +2676,8 @@
         "sourceUrl": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813",
         "sourceKind": "repo",
         "checkedAt": "2026-08-20",
-        "quote": "This repository and the model weights are licensed under the MIT License"
+        "quote": "This repository and the model weights are licensed under the MIT License",
+        "scope": "local"
       },
       {
         "field": "capabilities",
@@ -2647,7 +2685,8 @@
         "sourceUrl": "https://api-docs.deepseek.com/quick_start/pricing/",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-20",
-        "quote": "deepseek-v4-pro: 1M context length, max 384K output. Peak hours 01:00-04:00 and 06:00-10:00 UTC."
+        "quote": "deepseek-v4-pro: 1M context length, max 384K output. Peak hours 01:00-04:00 and 06:00-10:00 UTC.",
+        "scope": "api"
       }
     ],
     "slug": "deepseek-v4-pro",
@@ -2755,7 +2794,8 @@
         "sourceUrl": "https://www.descript.com/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-15",
-        "quote": "60 minutes (1 hr) / month transcription · 720p export · unlimited projects · dynamic captions · 100 one-time AI credits"
+        "quote": "60 minutes (1 hr) / month transcription · 720p export · unlimited projects · dynamic captions · 100 one-time AI credits",
+        "scope": "cloud"
       },
       {
         "field": "capabilities",
@@ -2763,7 +2803,8 @@
         "sourceUrl": "https://www.descript.com/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-15",
-        "quote": "text-based editing · dynamic captions · transitions · green screen removal · eye contact correction · automatic multicam · avatar-based video generation"
+        "quote": "text-based editing · dynamic captions · transitions · green screen removal · eye contact correction · automatic multicam · avatar-based video generation",
+        "scope": "cloud"
       }
     ],
     "nextReviewAt": "2026-11-16",
@@ -2879,7 +2920,8 @@
         "sourceUrl": "https://docs.devin.ai/admin/billing/self-serve",
         "sourceKind": "docs",
         "checkedAt": "2026-08-19",
-        "quote": "Free | Individuals trying Devin | Free | 1 — Limited Devin usage, Devin Review, DeepWiki. [Pro: $20/month · Max: $200/month · Teams: $80/month minimum.]"
+        "quote": "Free | Individuals trying Devin | Free | 1 — Limited Devin usage, Devin Review, DeepWiki. [Pro: $20/month · Max: $200/month · Teams: $80/month minimum.]",
+        "scope": "cloud"
       },
       {
         "field": "capabilities",
@@ -2887,7 +2929,8 @@
         "sourceUrl": "https://docs.devin.ai/get-started/devin-intro",
         "sourceKind": "docs",
         "checkedAt": "2026-08-19",
-        "quote": "Devin's terminal, where you can watch commands being executed and view output logs · Devin's embedded code editor equipped with all the IDE tools and shortcuts you're familiar with · Browser: allows Devin to browse documentation, test applications, and handle web-based tasks."
+        "quote": "Devin's terminal, where you can watch commands being executed and view output logs · Devin's embedded code editor equipped with all the IDE tools and shortcuts you're familiar with · Browser: allows Devin to browse documentation, test applications, and handle web-based tasks.",
+        "scope": "cloud"
       }
     ],
     "auditNotes": "La documentación afirma «if you can do it in three hours, Devin can most likely do it». Es una promesa de alcance, no un dato comprobable, y no se recoge como capacidad.",
@@ -3001,7 +3044,8 @@
         "sourceUrl": "https://dify.ai/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-19",
-        "quote": "Sandbox — For trying out Dify’s core features: 200 message credits · 1 Team Workspace · 1 Team Member · 5 Apps · 50 Knowledge Documents. [Professional: $590 per workspace/year.]"
+        "quote": "Sandbox — For trying out Dify’s core features: 200 message credits · 1 Team Workspace · 1 Team Member · 5 Apps · 50 Knowledge Documents. [Professional: $590 per workspace/year.]",
+        "scope": "product"
       },
       {
         "field": "capabilities",
@@ -3009,7 +3053,8 @@
         "sourceUrl": "https://github.com/langgenius/dify",
         "sourceKind": "repo",
         "checkedAt": "2026-08-19",
-        "quote": "Dify is an open-source LLM app development platform… combines AI workflow, RAG pipeline, agent capabilities, model management, observability features · You can define agents based on LLM Function Calling or ReAct, and add pre-built or custom tools · This repository is licensed under the Dify Open Source License, based on Apache 2.0 with additional conditions."
+        "quote": "Dify is an open-source LLM app development platform… combines AI workflow, RAG pipeline, agent capabilities, model management, observability features · You can define agents based on LLM Function Calling or ReAct, and add pre-built or custom tools · This repository is licensed under the Dify Open Source License, based on Apache 2.0 with additional conditions.",
+        "scope": "local"
       }
     ],
     "auditNotes": "El Sandbox se registra como `credits` + `one_off` y no como `freemium`: la página no publica renovación, y sin renovación no hay capa permanente.",
@@ -3143,6 +3188,7 @@
         "outcome": "stated",
         "sourceUrl": "https://elevenlabs.io/terms-of-use",
         "sourceKind": "terms",
+        "scope": "product",
         "checkedAt": "2026-08-24",
         "quote": "if you access or use our Services free of charge (such a user, a 'Free User'), you may only use the Services for non-commercial purposes; if you access or use our Services through a paid subscription plan (such a user, a 'Paid User'), you may use the Services for commercial purposes."
       },
@@ -3151,6 +3197,7 @@
         "outcome": "stated",
         "sourceUrl": "https://elevenlabs.io/pricing",
         "sourceKind": "pricing",
+        "scope": "product",
         "checkedAt": "2026-08-24",
         "quote": "10k credits per month"
       },
@@ -3159,6 +3206,7 @@
         "outcome": "stated",
         "sourceUrl": "https://elevenlabs.io/pricing",
         "sourceKind": "pricing",
+        "scope": "product",
         "checkedAt": "2026-08-24",
         "quote": "Credits reset monthly on the subscription anniversary date. Unused credits do not roll over for the Free tier."
       },
@@ -3167,6 +3215,7 @@
         "outcome": "not_published",
         "sourceUrl": "https://elevenlabs.io/terms-of-use",
         "sourceKind": "terms",
+        "scope": "product",
         "checkedAt": "2026-08-24",
         "lookedFor": "Si el audio del plan gratuito lleva marca o exige atribución. Las condiciones no imponen ninguna atribución, y ni ellas ni la página de precios mencionan marca alguna."
       }
@@ -3276,7 +3325,8 @@
         "sourceUrl": "https://github.com/SWivid/F5-TTS",
         "sourceKind": "repo",
         "checkedAt": "2026-08-18",
-        "quote": "The pre-trained models are licensed under the CC-BY-NC license due to the training data Emilia, which is an in-the-wild dataset."
+        "quote": "The pre-trained models are licensed under the CC-BY-NC license due to the training data Emilia, which is an in-the-wild dataset.",
+        "scope": "local"
       },
       {
         "field": "capabilities",
@@ -3284,13 +3334,15 @@
         "sourceUrl": "https://github.com/SWivid/F5-TTS",
         "sourceKind": "repo",
         "checkedAt": "2026-08-18",
-        "quote": "Basic TTS with Chunk Inference · Multi-Style / Multi-Speaker Generation · Voice Chat"
+        "quote": "Basic TTS with Chunk Inference · Multi-Style / Multi-Speaker Generation · Voice Chat",
+        "scope": "local"
       },
       {
         "field": "freePlan.commercialUse",
         "outcome": "derived",
         "sourceUrl": "https://github.com/SWivid/F5-TTS",
         "sourceKind": "repo",
+        "scope": "weights",
         "checkedAt": "2026-08-24",
         "basis": "El README separa las dos licencias: «The pre-trained models are licensed under the CC-BY-NC license due to the training data Emilia, which is an in-the-wild dataset». El código es MIT, pero los pesos publicados llevan NC, que excluye el uso comercial."
       },
@@ -3299,6 +3351,7 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/SWivid/F5-TTS",
         "sourceKind": "repo",
+        "scope": "weights",
         "checkedAt": "2026-08-24",
         "quote": "The pre-trained models are licensed under the CC-BY-NC license due to the training data Emilia, which is an in-the-wild dataset."
       }
@@ -3399,7 +3452,8 @@
         "sourceUrl": "https://fish.audio/",
         "sourceKind": "official",
         "checkedAt": "2026-08-18",
-        "quote": "Fish Audio's free plan is for personal use only. To monetize content or use voices commercially (YouTube, podcasts, business), upgrade to our paid plans for full commercial rights."
+        "quote": "Fish Audio's free plan is for personal use only. To monetize content or use voices commercially (YouTube, podcasts, business), upgrade to our paid plans for full commercial rights.",
+        "scope": "cloud"
       },
       {
         "field": "capabilities",
@@ -3407,7 +3461,8 @@
         "sourceUrl": "https://fish.audio/",
         "sourceKind": "official",
         "checkedAt": "2026-08-18",
-        "quote": "text-to-speech, voice cloning, speech-to-text · Voice cloning in as little as 15 seconds · 30+ languages"
+        "quote": "text-to-speech, voice cloning, speech-to-text · Voice cloning in as little as 15 seconds · 30+ languages",
+        "scope": "cloud"
       }
     ],
     "auditNotes": "Publica modelos abiertos (Fish Speech), pero `openSource` se queda en `unverified`: no se leyó el identificador de licencia del repositorio en esta comprobación.",
@@ -3550,7 +3605,8 @@
         "sourceUrl": "https://github.com/lllyasviel/Fooocus",
         "sourceKind": "repo",
         "checkedAt": "2026-08-12",
-        "quote": "urney's examples: Midjourney Fooocus High-quality text-to-image without needing much prompt engineering or par · oint swap system of the refiner now also supports img2img and upscale in a seamless way · 5x) / Upscale (2x) Inpaint / Up / Down / Left / Right (Pan) Input Image -&gt; Inpaint"
+        "quote": "urney's examples: Midjourney Fooocus High-quality text-to-image without needing much prompt engineering or par · oint swap system of the refiner now also supports img2img and upscale in a seamless way · 5x) / Upscale (2x) Inpaint / Up / Down / Left / Right (Pan) Input Image -&gt; Inpaint",
+        "scope": "local"
       }
     ],
     "startEffortReason": "Se descarga y se ejecuta con un solo fichero, pero exige GPU y descarga modelos de varios gigas.",
@@ -3661,13 +3717,15 @@
         "sourceUrl": "https://ai.google.dev/gemini-api/docs/models",
         "sourceKind": "docs",
         "checkedAt": "2026-08-20",
-        "quote": "Gemini 3.7 Flash: Our latest and most capable Flash model, built for complex coding, agentic workflows, and reliable multi-step execution."
+        "quote": "Gemini 3.7 Flash: Our latest and most capable Flash model, built for complex coding, agentic workflows, and reliable multi-step execution.",
+        "scope": "api"
       },
       {
         "field": "privacy.trainsOnUserData",
         "outcome": "derived",
         "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
         "sourceKind": "pricing",
+        "scope": "api",
         "checkedAt": "2026-08-24",
         "basis": "La tabla oficial de precios marca «Used to improve our products: Yes» en la columna de la capa gratuita, frente a «No» en la de pago."
       },
@@ -3676,6 +3734,7 @@
         "outcome": "stated",
         "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
         "sourceKind": "pricing",
+        "scope": "api",
         "checkedAt": "2026-08-24",
         "quote": "Free of charge […] $0.75 through December 31, 2026. $1.50 starting January 1, 2027 (input, per 1M tokens)"
       }
@@ -3782,7 +3841,8 @@
         "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-20",
-        "quote": "Gemini 3.1 Pro Preview (gemini-3.1-pro-preview) — Free Tier: Not available · Paid input $2.00 (prompts ≤200k tokens), $4.00 (>200k) · Paid output $12.00 / $18.00"
+        "quote": "Gemini 3.1 Pro Preview (gemini-3.1-pro-preview) — Free Tier: Not available · Paid input $2.00 (prompts ≤200k tokens), $4.00 (>200k) · Paid output $12.00 / $18.00",
+        "scope": "api"
       }
     ],
     "slug": "gemini-3-pro",
@@ -3887,7 +3947,8 @@
         "sourceUrl": "https://github.com/google-gemini/gemini-cli",
         "sourceKind": "repo",
         "checkedAt": "2026-08-19",
-        "quote": "60 requests/min and 1,000 requests/day with personal Google account · Apache License 2.0"
+        "quote": "60 requests/min and 1,000 requests/day with personal Google account · Apache License 2.0",
+        "scope": "local"
       },
       {
         "field": "capabilities",
@@ -3895,7 +3956,8 @@
         "sourceUrl": "https://github.com/google-gemini/gemini-cli",
         "sourceKind": "repo",
         "checkedAt": "2026-08-19",
-        "quote": "Built-in tools for file operations, shell commands, and web interactions · Built-in Google Search grounding · MCP (Model Context Protocol) support for custom integrations."
+        "quote": "Built-in tools for file operations, shell commands, and web interactions · Built-in Google Search grounding · MCP (Model Context Protocol) support for custom integrations.",
+        "scope": "local"
       }
     ],
     "auditNotes": "`memory` no se marca: el repositorio documenta «conversation checkpointing to save and resume complex sessions», que es reanudar una sesión, no recordar entre sesiones distintas.",
@@ -4052,7 +4114,8 @@
         "sourceUrl": "https://ai.google.dev/gemma/docs/core/model_card_4",
         "sourceKind": "docs",
         "checkedAt": "2026-08-20",
-        "quote": "Apache 2.0 · E2B (2.3B effective), E4B (4.5B effective), 12B Unified, 26B A4B (MoE), 31B Dense · E2B and E4B: 128K tokens; 12B, 26B A4B, 31B: 256K · Inputs: text and images (all models); audio support on E2B, E4B, and 12B only · Outputs: text generation only"
+        "quote": "Apache 2.0 · E2B (2.3B effective), E4B (4.5B effective), 12B Unified, 26B A4B (MoE), 31B Dense · E2B and E4B: 128K tokens; 12B, 26B A4B, 31B: 256K · Inputs: text and images (all models); audio support on E2B, E4B, and 12B only · Outputs: text generation only",
+        "scope": "api"
       }
     ],
     "auditNotes": "La capa gratuita de API sale de la tabla de precios de Gemini, donde Gemma 4 aparece con «Free Tier: Available» y «Paid Tier: Not available»."
@@ -4159,7 +4222,8 @@
         "sourceUrl": "https://www.genspark.ai/helpcenter/super-agent",
         "sourceKind": "help",
         "checkedAt": "2026-08-20",
-        "quote": "Super Agent breaks your request into steps, chooses the right tools, and carries the work through to a finished result. [...] dedicated sandbox environment: real browser, own filesystem, and powerful execution [...] connects to your everyday apps and data so it can act with real context."
+        "quote": "Super Agent breaks your request into steps, chooses the right tools, and carries the work through to a finished result. [...] dedicated sandbox environment: real browser, own filesystem, and powerful execution [...] connects to your everyday apps and data so it can act with real context.",
+        "scope": "cloud"
       },
       {
         "field": "freePlan.limits",
@@ -4167,7 +4231,8 @@
         "sourceUrl": "https://www.genspark.ai/helpcenter/credits-guide",
         "sourceKind": "help",
         "checkedAt": "2026-08-20",
-        "quote": "100 credits/day, automatically. [...] Credits don’t carry over."
+        "quote": "100 credits/day, automatically. [...] Credits don’t carry over.",
+        "scope": "cloud"
       }
     ],
     "auditNotes": "No se marcan `code-execution` ni `memory`. «Powerful execution» no dice que ejecute código, y «SecondBrain» aparece sin definir qué persiste. El precio del plan Plus tampoco se registra: el centro de ayuda publica los créditos, no la cifra en euros.",
@@ -4280,6 +4345,7 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/features/copilot/plans",
         "sourceKind": "pricing",
+        "scope": "product",
         "checkedAt": "2026-08-24",
         "quote": "No credit card required. Verified students have access to the GitHub Copilot Student plan."
       },
@@ -4288,6 +4354,7 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/features/copilot/plans",
         "sourceKind": "pricing",
+        "scope": "product",
         "checkedAt": "2026-08-24",
         "quote": "2,000 completions per month […] 2000 completions and 50 chat requests (including Copilot Edits)"
       },
@@ -4296,6 +4363,7 @@
         "outcome": "not_published",
         "sourceUrl": "https://github.com/features/copilot/plans",
         "sourceKind": "pricing",
+        "scope": "product",
         "checkedAt": "2026-08-24",
         "lookedFor": "Si el código sugerido en el plan gratuito puede usarse en trabajo comercial. La página de planes no lo trata."
       }
@@ -4407,7 +4475,8 @@
         "sourceUrl": "https://huggingface.co/zai-org/GLM-5.2",
         "sourceKind": "repo",
         "checkedAt": "2026-08-20",
-        "quote": "License: MIT · \"Pure Open\" with MIT licensing and no regional limits, technical access without borders"
+        "quote": "License: MIT · \"Pure Open\" with MIT licensing and no regional limits, technical access without borders",
+        "scope": "local"
       },
       {
         "field": "capabilities",
@@ -4415,7 +4484,8 @@
         "sourceUrl": "https://huggingface.co/zai-org/GLM-5.2",
         "sourceKind": "repo",
         "checkedAt": "2026-08-20",
-        "quote": "Solid 1M-token context that stably sustains long-horizon work · Advanced Coding with Flexible Effort · agentic tasks (MCP-Atlas: 76.8, Tool-Decathlon: 48.2)"
+        "quote": "Solid 1M-token context that stably sustains long-horizon work · Advanced Coding with Flexible Effort · agentic tasks (MCP-Atlas: 76.8, Tool-Decathlon: 48.2)",
+        "scope": "local"
       }
     ],
     "slug": "glm-5",
@@ -4516,7 +4586,8 @@
         "sourceUrl": "https://github.com/google/adk-python",
         "sourceKind": "repo",
         "checkedAt": "2026-08-19",
-        "quote": "An open-source, code-first Python toolkit for building, evaluating, and deploying sophisticated AI agents with flexibility and control · graph-based execution engine supporting routing, loops, retry logic, and nested workflows · composition of specialized agents into hierarchical architectures · Pre-built tools, custom functions, OpenAPI specs, and MCP tool integration · Apache 2.0."
+        "quote": "An open-source, code-first Python toolkit for building, evaluating, and deploying sophisticated AI agents with flexibility and control · graph-based execution engine supporting routing, loops, retry logic, and nested workflows · composition of specialized agents into hierarchical architectures · Pre-built tools, custom functions, OpenAPI specs, and MCP tool integration · Apache 2.0.",
+        "scope": "local"
       }
     ],
     "nextReviewAt": "2026-11-17",
@@ -4652,7 +4723,8 @@
         "sourceUrl": "https://support.google.com/gemini/answer/15719111",
         "sourceKind": "help",
         "checkedAt": "2026-08-20",
-        "quote": "You can conduct in-depth and real-time research on almost any subject with Deep Research in Gemini Apps. [Crea un plan de investigación y genera un informe. Los usuarios sin plan de pago pueden generar informes con el modelo Thinking; «Google AI Pro and Google AI Ultra users can generate reports using Pro for even higher quality».]"
+        "quote": "You can conduct in-depth and real-time research on almost any subject with Deep Research in Gemini Apps. [Crea un plan de investigación y genera un informe. Los usuarios sin plan de pago pueden generar informes con el modelo Thinking; «Google AI Pro and Google AI Ultra users can generate reports using Pro for even higher quality».]",
+        "scope": "cloud"
       },
       {
         "field": "freePlan.limits",
@@ -4660,7 +4732,8 @@
         "sourceUrl": "https://support.google.com/gemini/answer/15719111",
         "sourceKind": "help",
         "checkedAt": "2026-08-20",
-        "quote": "In Gemini Apps, there are limits for: Daily research requests [...] Google AI Pro and Google AI Ultra users get higher limits for how many research reports they can create."
+        "quote": "In Gemini Apps, there are limits for: Daily research requests [...] Google AI Pro and Google AI Ultra users get higher limits for how many research reports they can create.",
+        "scope": "cloud"
       }
     ],
     "startEffortReason": "Para generar imágenes hay que estar identificado en la app con una cuenta de Google.",
@@ -4766,7 +4839,8 @@
         "sourceUrl": "https://developers.openai.com/api/docs/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-20",
-        "quote": "gpt-5.6-sol: $5.00 input / $30.00 output · gpt-5.6-terra: $2.00 / $12.00 · gpt-5.6-luna: $0.20 / $1.20 per 1M tokens. [Sin mención de capa gratuita.]"
+        "quote": "gpt-5.6-sol: $5.00 input / $30.00 output · gpt-5.6-terra: $2.00 / $12.00 · gpt-5.6-luna: $0.20 / $1.20 per 1M tokens. [Sin mención de capa gratuita.]",
+        "scope": "api"
       },
       {
         "field": "capabilities",
@@ -4774,7 +4848,8 @@
         "sourceUrl": "https://developers.openai.com/api/docs/models",
         "sourceKind": "docs",
         "checkedAt": "2026-08-20",
-        "quote": "GPT-5.6 Sol — Frontier model for complex professional work."
+        "quote": "GPT-5.6 Sol — Frontier model for complex professional work.",
+        "scope": "api"
       }
     ],
     "auditNotes": "`chat` y `chatFree` se quedan sin afirmar: help.openai.com, openai.com/chatgpt/pricing y el blog devuelven 403 a toda lectura automática, así que no hay forma de comprobar qué modelo sirve el plan gratuito de ChatGPT. Las capacidades se quedan en lo que la tabla de modelos demuestra.",
@@ -4876,7 +4951,8 @@
         "sourceUrl": "https://github.com/assafelovic/gpt-researcher",
         "sourceKind": "repo",
         "checkedAt": "2026-08-20",
-        "quote": "The first open deep research agent designed for both web and local research on any given task. [...] The planner generates research questions, while the execution agents gather relevant information [...] The publisher then aggregates all findings into a comprehensive report. Aggregate over 20 sources for objective conclusions."
+        "quote": "The first open deep research agent designed for both web and local research on any given task. [...] The planner generates research questions, while the execution agents gather relevant information [...] The publisher then aggregates all findings into a comprehensive report. Aggregate over 20 sources for objective conclusions.",
+        "scope": "local"
       },
       {
         "field": "freePlan.limits",
@@ -4884,7 +4960,8 @@
         "sourceUrl": "https://github.com/assafelovic/gpt-researcher/blob/master/LICENSE",
         "sourceKind": "repo",
         "checkedAt": "2026-08-20",
-        "quote": "Apache License, Version 2.0, January 2004"
+        "quote": "Apache License, Version 2.0, January 2004",
+        "scope": "local"
       }
     ],
     "auditNotes": "`multi-agent` se marca porque el propio README separa planificador y agentes de ejecución, no por su asistente opcional sobre LangGraph.",
@@ -4984,7 +5061,8 @@
         "sourceUrl": "https://docs.x.ai/developers/models",
         "sourceKind": "docs",
         "checkedAt": "2026-08-20",
-        "quote": "grok-4.6 — 500k context · Input $2–4/1M · Output $6–12/1M. [Sin capa gratuita ni créditos en la tabla.]"
+        "quote": "grok-4.6 — 500k context · Input $2–4/1M · Output $6–12/1M. [Sin capa gratuita ni créditos en la tabla.]",
+        "scope": "product"
       }
     ],
     "auditNotes": "El acceso en chat se queda sin afirmar: x.ai/grok devuelve 403 a toda lectura automática, así que no se puede comprobar qué gama sirve el plan gratuito de la aplicación.",
@@ -5108,7 +5186,8 @@
         "sourceUrl": "https://x.ai/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-13",
-        "quote": "Free $0 /month — Get to know Grok and its capabilities for free within generous limits. [Tabla comparativa: «Image generation (Imagine)» marcada en las siete columnas; «Video generation» sin marcar en la columna Free.]"
+        "quote": "Free $0 /month — Get to know Grok and its capabilities for free within generous limits. [Tabla comparativa: «Image generation (Imagine)» marcada en las siete columnas; «Video generation» sin marcar en la columna Free.]",
+        "scope": "cloud"
       },
       {
         "field": "capabilities",
@@ -5116,7 +5195,8 @@
         "sourceUrl": "https://docs.x.ai/docs/overview",
         "sourceKind": "docs",
         "checkedAt": "2026-08-12",
-        "quote": "Imagine Overview Image Generation Image Editing Multi-Image Editing Video Generation Image-to-Video Reference-to-Video"
+        "quote": "Imagine Overview Image Generation Image Editing Multi-Image Editing Video Generation Image-to-Video Reference-to-Video",
+        "scope": "cloud"
       }
     ],
     "auditNotes": "La tarjeta de SuperGrok anuncia «Image and video generation», lo que sugiere que ninguna de las dos está en el plan gratuito; la tabla comparativa dice lo contrario para imagen. Se toma la tabla, que es donde xAI declara plan por plan. Filas de control usadas: SSO y RBAC, marcadas sólo en Enterprise.",
@@ -5208,7 +5288,8 @@
         "sourceUrl": "https://hailuoai.video/",
         "sourceKind": "official",
         "checkedAt": "2026-08-15",
-        "quote": "MiniMax H3 · Omni Reference · 2K · Create Video · Create Image · From $9.99/mo"
+        "quote": "MiniMax H3 · Omni Reference · 2K · Create Video · Create Image · From $9.99/mo",
+        "scope": "cloud"
       }
     ],
     "auditNotes": "Cola de verificación manual: los términos del plan gratuito exigen crear cuenta para verlos. «Download MiniMax Design and Get 3,000 Free Credits» es una promoción y no se registra como acceso gratuito permanente.",
@@ -5313,7 +5394,8 @@
         "sourceUrl": "https://www.heygen.com/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-15",
-        "quote": "3 videos per month · Videos up to 1 min · Avatar IV access · 500+ stock digital twins"
+        "quote": "3 videos per month · Videos up to 1 min · Avatar IV access · 500+ stock digital twins",
+        "scope": "cloud"
       },
       {
         "field": "capabilities",
@@ -5321,7 +5403,8 @@
         "sourceUrl": "https://www.heygen.com/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-15",
-        "quote": "Full Video Translation, with lip sync"
+        "quote": "Full Video Translation, with lip sync",
+        "scope": "cloud"
       }
     ],
     "nextReviewAt": "2026-11-13",
@@ -5425,7 +5508,8 @@
         "sourceUrl": "https://higgsfield.ai/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-15",
-        "quote": "Compare features — Free · Free · Limited use | Starter €19/month Billed annually"
+        "quote": "Compare features — Free · Free · Limited use | Starter €19/month Billed annually",
+        "scope": "cloud"
       },
       {
         "field": "capabilities",
@@ -5433,7 +5517,8 @@
         "sourceUrl": "https://higgsfield.ai/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-15",
-        "quote": "Kling Omni 3 Image Reference 720p · Grok Video Edit · Higgsfield DoP Standard 720p · Talking-avatar videos"
+        "quote": "Kling Omni 3 Image Reference 720p · Grok Video Edit · Higgsfield DoP Standard 720p · Talking-avatar videos",
+        "scope": "cloud"
       }
     ],
     "auditNotes": "Nota de contexto, no de catálogo: esta misma plataforma se descartó como fuente de Newsroom porque publica listículos de posicionamiento. Eso descalifica su blog como fuente, no al producto como herramienta.",
@@ -5574,7 +5659,8 @@
         "sourceUrl": "https://huggingface.co/spaces",
         "sourceKind": "repo",
         "checkedAt": "2026-08-12",
-        "quote": "rom the Team plan Highest storage, bandwidth, and API rate limits Automated user management with SCIM provisio · & Enterprise Hugging Face PRO Enterprise Support Inference Providers Inference Endpoints Storage Buckets Log I"
+        "quote": "rom the Team plan Highest storage, bandwidth, and API rate limits Automated user management with SCIM provisio · & Enterprise Hugging Face PRO Enterprise Support Inference Providers Inference Endpoints Storage Buckets Log I",
+        "scope": "local"
       }
     ],
     "startEffortReason": "Muchos Spaces se abren sin cuenta, pero las colas y los límites empiezan a exigirla.",
@@ -5668,7 +5754,8 @@
         "sourceUrl": "https://github.com/Tencent-Hunyuan/HunyuanVideo",
         "sourceKind": "repo",
         "checkedAt": "2026-08-15",
-        "quote": "The minimum GPU memory required is 60GB for 720px1280px129f and 45G for 544px960px129f […] recommend using a GPU with 80GB of memory for better generation quality"
+        "quote": "The minimum GPU memory required is 60GB for 720px1280px129f and 45G for 544px960px129f […] recommend using a GPU with 80GB of memory for better generation quality",
+        "scope": "local"
       }
     ],
     "auditNotes": "`openSource` queda en `unverified` aunque el repositorio sea público: la regla de este catálogo exige leer el identificador de licencia, y en esta comprobación no fue posible. Repositorio abierto no es lo mismo que licencia abierta.",
@@ -5792,7 +5879,8 @@
         "sourceUrl": "https://ideogram.ai/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-13",
-        "quote": "Free plan — Slow credits: 10 slow credits/week · Priority credits: Not included · Concurrent generations: 1 · Private generations: Not included · Canvas: 2 canvases · Style reference: Not included · Character reference: Not included · Magic Fill: Not included · Extend: Not included · Upscale: Not included · Background removal: Not included"
+        "quote": "Free plan — Slow credits: 10 slow credits/week · Priority credits: Not included · Concurrent generations: 1 · Private generations: Not included · Canvas: 2 canvases · Style reference: Not included · Character reference: Not included · Magic Fill: Not included · Extend: Not included · Upscale: Not included · Background removal: Not included",
+        "scope": "cloud"
       },
       {
         "field": "capabilities",
@@ -5800,13 +5888,15 @@
         "sourceUrl": "https://ideogram.ai/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-13",
-        "quote": "Editing — Canvas · Remix · Style · Style reference · Character reference · Magic Fill · Extend · Upscale · Background removal"
+        "quote": "Editing — Canvas · Remix · Style · Style reference · Character reference · Magic Fill · Extend · Upscale · Background removal",
+        "scope": "cloud"
       },
       {
         "field": "freePlan.commercialUse",
         "outcome": "stated",
         "sourceUrl": "https://ideogram.ai/legal/tos",
         "sourceKind": "terms",
+        "scope": "product",
         "checkedAt": "2026-08-24",
         "quote": "We do not claim any ownership rights in your User Input or User Output, and we do not restrict your ability to use User Output for your own purposes (including for commercial purposes)."
       },
@@ -5815,6 +5905,7 @@
         "outcome": "not_published",
         "sourceUrl": "https://ideogram.ai/legal/tos",
         "sourceKind": "terms",
+        "scope": "product",
         "checkedAt": "2026-08-24",
         "lookedFor": "Si el plan gratuito estampa una marca. Las condiciones sólo prohíben retirar las marcas que existan («Remove any watermarks included on any User Output»), sin decir si el plan gratuito las pone. Ni la documentación de planes ni las preguntas frecuentes lo mencionan."
       }
@@ -5909,7 +6000,8 @@
         "sourceUrl": "https://api.github.com/repos/invoke-ai/InvokeAI",
         "sourceKind": "repo",
         "checkedAt": "2026-08-12",
-        "quote": "spdx_id: Apache-2.0 · archived: false · pushed_at: 2026-08-09"
+        "quote": "spdx_id: Apache-2.0 · archived: false · pushed_at: 2026-08-09",
+        "scope": "local"
       },
       {
         "field": "capabilities",
@@ -5917,7 +6009,8 @@
         "sourceUrl": "https://github.com/invoke-ai/InvokeAI",
         "sourceKind": "repo",
         "checkedAt": "2026-08-12",
-        "quote": "cial-intelligence generative-art image-generation img2img inpainting latent-diffusion linux macos outpainting · elligence generative-art image-generation img2img inpainting latent-diffusion linux macos outpainting stable-d · n img2img inpainting latent-diffusion linux macos outpainting stable-diffusion txt2img windows Resources Readm"
+        "quote": "cial-intelligence generative-art image-generation img2img inpainting latent-diffusion linux macos outpainting · elligence generative-art image-generation img2img inpainting latent-diffusion linux macos outpainting stable-d · n img2img inpainting latent-diffusion linux macos outpainting stable-diffusion txt2img windows Resources Readm",
+        "scope": "local"
       }
     ],
     "descriptionLong": "",
@@ -6021,7 +6114,8 @@
         "sourceUrl": "https://www.jetbrains.com/help/ai-assistant/licensing-and-subscriptions.html",
         "sourceKind": "help",
         "checkedAt": "2026-08-21",
-        "quote": "3 AI Credits per 30-days. The AI Free license tier is not available in Android Studio [and] in Community Editions of PyCharm and IntelliJ IDEA."
+        "quote": "3 AI Credits per 30-days. The AI Free license tier is not available in Android Studio [and] in Community Editions of PyCharm and IntelliJ IDEA.",
+        "scope": "cloud"
       }
     ],
     "auditNotes": "El precio del plan de pago se queda fuera: la misma página muestra dos cifras distintas para AI Pro (10 $ y 20 $) y no hay forma de saber cuál está vigente. Publicar una de las dos sería elegir al azar.",
@@ -6131,7 +6225,8 @@
         "sourceUrl": "https://huggingface.co/moonshotai/Kimi-K3/blob/main/LICENSE",
         "sourceKind": "repo",
         "checkedAt": "2026-08-20",
-        "quote": "to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software [...] more than 100 million monthly active users [...] \"Kimi K3\" must be prominently displayed on the user interface of such product or service"
+        "quote": "to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software [...] more than 100 million monthly active users [...] \"Kimi K3\" must be prominently displayed on the user interface of such product or service",
+        "scope": "local"
       },
       {
         "field": "capabilities",
@@ -6139,7 +6234,8 @@
         "sourceUrl": "https://huggingface.co/moonshotai/Kimi-K3",
         "sourceKind": "repo",
         "checkedAt": "2026-08-20",
-        "quote": "2.8 trillion total; 104 billion actively used per token · 1,048,576 tokens · Text, images, and video understanding within a single model · Kimi K3 always has thinking enabled · long-horizon coding and agentic knowledge work"
+        "quote": "2.8 trillion total; 104 billion actively used per token · 1,048,576 tokens · Text, images, and video understanding within a single model · Kimi K3 always has thinking enabled · long-horizon coding and agentic knowledge work",
+        "scope": "local"
       }
     ],
     "slug": "kimi-k2",
@@ -6244,7 +6340,8 @@
         "sourceUrl": "https://app.klingai.com/global/membership/membership-plan",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-15",
-        "quote": "Basic $0 Free forever — No monthly Credits · Element Creation Quantity: 30 · Login to receive monthly credits · Generated content is not for commercial use"
+        "quote": "Basic $0 Free forever — No monthly Credits · Element Creation Quantity: 30 · Login to receive monthly credits · Generated content is not for commercial use",
+        "scope": "cloud"
       },
       {
         "field": "capabilities",
@@ -6252,7 +6349,8 @@
         "sourceUrl": "https://app.klingai.com/global/membership/membership-plan",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-15",
-        "quote": "Premium Features — 1080p Video Generation · Video Extension for multiple times, up to a maximum of 3 minutes · Image upscaling · Brand watermark removal"
+        "quote": "Premium Features — 1080p Video Generation · Video Extension for multiple times, up to a maximum of 3 minutes · Image upscaling · Brand watermark removal",
+        "scope": "cloud"
       }
     ],
     "auditNotes": "`hasWatermark` queda sin confirmar a propósito: que «Brand watermark removal» figure entre las características de pago sugiere que el gratuito la lleva, pero la tabla no lo afirma del plan Basic y sugerir no es afirmar. `commercialUse: no` sí es explícito.",
@@ -6354,13 +6452,15 @@
         "sourceUrl": "https://github.com/hexgrad/kokoro",
         "sourceKind": "repo",
         "checkedAt": "2026-08-18",
-        "quote": "Apache-2.0 · 82 million parameters · comparable quality to larger models while being significantly faster and more cost-efficient · 24,000 Hz"
+        "quote": "Apache-2.0 · 82 million parameters · comparable quality to larger models while being significantly faster and more cost-efficient · 24,000 Hz",
+        "scope": "local"
       },
       {
         "field": "freePlan.commercialUse",
         "outcome": "derived",
         "sourceUrl": "https://github.com/hexgrad/kokoro",
         "sourceKind": "repo",
+        "scope": "weights",
         "checkedAt": "2026-08-24",
         "basis": "El README dice: «With Apache-licensed weights, Kokoro can be deployed anywhere from production environments to personal projects». La Apache-2.0 permite el uso comercial."
       },
@@ -6369,6 +6469,7 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/hexgrad/kokoro",
         "sourceKind": "repo",
+        "scope": "weights",
         "checkedAt": "2026-08-24",
         "quote": "With Apache-licensed weights, Kokoro can be deployed anywhere from production environments to personal projects."
       }
@@ -6485,7 +6586,8 @@
         "sourceUrl": "https://www.krea.ai/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-13",
-        "quote": "Free — 100 units /day · 1 Nano Banana 2 generation · <1 Seedance 2.0 videos [Filas con aspa en el plan Free: All image models, All video models, All 3D & lipsync models, Krea Nodes, App Builder, Nodes Agent, Commercial license. Con visto: Limited LoRA training, Limited image upscaling. Image concurrency 1, Video concurrency 0.]"
+        "quote": "Free — 100 units /day · 1 Nano Banana 2 generation · <1 Seedance 2.0 videos [Filas con aspa en el plan Free: All image models, All video models, All 3D & lipsync models, Krea Nodes, App Builder, Nodes Agent, Commercial license. Con visto: Limited LoRA training, Limited image upscaling. Image concurrency 1, Video concurrency 0.]",
+        "scope": "cloud"
       },
       {
         "field": "capabilities",
@@ -6493,7 +6595,8 @@
         "sourceUrl": "https://www.krea.ai/",
         "sourceKind": "official",
         "checkedAt": "2026-08-13",
-        "quote": "Generate — Text to Image · Realtime Image Generation · Text to Video · Motion Transfer · Text to 3D Object · Image to 3D Object. Edit — Upscaling · Background Remover · AI Image Editor · Frame Interpolation · Video Style Transfer · Video Upscaling"
+        "quote": "Generate — Text to Image · Realtime Image Generation · Text to Video · Motion Transfer · Text to 3D Object · Image to 3D Object. Edit — Upscaling · Background Remover · AI Image Editor · Frame Interpolation · Video Style Transfer · Video Upscaling",
+        "scope": "cloud"
       }
     ],
     "auditNotes": "commercialUse es «no» y no «unverified» porque la tabla lo declara explícitamente: «Commercial license» aparece con aspa en la columna Free y con visto en Basic, Pro y Max. Los precios de los planes de pago no están en el DOM de la página, así que el precio mínimo queda sin verificar.",
@@ -6601,7 +6704,8 @@
         "sourceUrl": "https://docs.langchain.com/oss/python/langgraph/overview",
         "sourceKind": "docs",
         "checkedAt": "2026-08-19",
-        "quote": "Create stateful agents with both short-term working memory for ongoing reasoning and long-term memory across sessions · Incorporate human oversight by inspecting and modifying agent state at any point · Build agents that persist through failures and can run for extended periods, resuming from where they left off."
+        "quote": "Create stateful agents with both short-term working memory for ongoing reasoning and long-term memory across sessions · Incorporate human oversight by inspecting and modifying agent state at any point · Build agents that persist through failures and can run for extended periods, resuming from where they left off.",
+        "scope": "local"
       }
     ],
     "auditNotes": "Sólo `memory`. La documentación se describe como orquestación y no documenta expresamente ni llamada a herramientas ni sistemas multiagente en su página general; marcarlos sería suponer.",
@@ -6756,7 +6860,8 @@
         "sourceUrl": "https://leonardo.ai/pricing/",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-13",
-        "quote": "FREE $0 /month […] Fast Tokens 150 / day · Token Bank 150 · Creations access Public · Quality settings Basic · Personal collections 1"
+        "quote": "FREE $0 /month […] Fast Tokens 150 / day · Token Bank 150 · Creations access Public · Quality settings Basic · Personal collections 1",
+        "scope": "cloud"
       },
       {
         "field": "freePlan.commercialUse",
@@ -6764,7 +6869,8 @@
         "sourceUrl": "https://intercom.help/leonardo-ai/en/articles/8044018-commercial-usage",
         "sourceKind": "help",
         "checkedAt": "2026-08-13",
-        "quote": "You can indeed use your images for commercial purposes!"
+        "quote": "You can indeed use your images for commercial purposes!",
+        "scope": "cloud"
       },
       {
         "field": "capabilities",
@@ -6772,7 +6878,8 @@
         "sourceUrl": "https://intercom.help/leonardo-ai/en/articles/8093145-how-to-use-canvas-editor-tool",
         "sourceKind": "help",
         "checkedAt": "2026-08-13",
-        "quote": "Inpainting in Canvas Editor effectively allows you to select specific areas of a base image […] Outpainting allows you to generate a coherent extension of your base image […] Text2Img […] Img2Img […] Sketch2Image"
+        "quote": "Inpainting in Canvas Editor effectively allows you to select specific areas of a base image […] Outpainting allows you to generate a coherent extension of your base image […] Text2Img […] Img2Img […] Sketch2Image",
+        "scope": "cloud"
       }
     ],
     "startEffortReason": "Hay que crear cuenta y elegir plan —aunque sea el de 0 $— antes de generar.",
@@ -6876,7 +6983,8 @@
         "sourceUrl": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct",
         "sourceKind": "repo",
         "checkedAt": "2026-08-20",
-        "quote": "700 million monthly active users in the preceding calendar month, you must request a license from Meta, which Meta may grant to you in its sole discretion. [Distributors must] prominently display \"Built with Llama\" on a related website."
+        "quote": "700 million monthly active users in the preceding calendar month, you must request a license from Meta, which Meta may grant to you in its sole discretion. [Distributors must] prominently display \"Built with Llama\" on a related website.",
+        "scope": "local"
       },
       {
         "field": "capabilities",
@@ -6884,7 +6992,8 @@
         "sourceUrl": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct",
         "sourceKind": "repo",
         "checkedAt": "2026-08-20",
-        "quote": "Context Length: 10 million tokens · Input: Multilingual text and images · Output: Multilingual text and code · Active 17B / Total 109B"
+        "quote": "Context Length: 10 million tokens · Input: Multilingual text and images · Output: Multilingual text and code · Active 17B / Total 109B",
+        "scope": "local"
       }
     ],
     "auditNotes": "La ficha del modelo no se actualiza desde mayo de 2025, quince meses antes de esta comprobación. Es el dato que más envejece de esta vertical y por eso está escrito aquí.",
@@ -7104,7 +7213,8 @@
         "sourceUrl": "https://github.com/langchain-ai/local-deep-researcher",
         "sourceKind": "repo",
         "checkedAt": "2026-08-20",
-        "quote": "A fully local web research assistant that uses any LLM hosted by Ollama or LMStudio. [Genera una consulta, busca, resume, refleja sobre el resumen para encontrar lagunas, genera una consulta nueva y repite. El número de vueltas se configura con MAX_WEB_RESEARCH_LOOPS, por defecto 3.]"
+        "quote": "A fully local web research assistant that uses any LLM hosted by Ollama or LMStudio. [Genera una consulta, busca, resume, refleja sobre el resumen para encontrar lagunas, genera una consulta nueva y repite. El número de vueltas se configura con MAX_WEB_RESEARCH_LOOPS, por defecto 3.]",
+        "scope": "local"
       },
       {
         "field": "freePlan.limits",
@@ -7112,7 +7222,8 @@
         "sourceUrl": "https://github.com/langchain-ai/local-deep-researcher/blob/main/LICENSE",
         "sourceKind": "repo",
         "checkedAt": "2026-08-20",
-        "quote": "MIT License. Copyright (c) 2025 Lance Martin"
+        "quote": "MIT License. Copyright (c) 2025 Lance Martin",
+        "scope": "local"
       }
     ],
     "nextReviewAt": "2026-11-18",
@@ -7228,6 +7339,7 @@
         "outcome": "stated",
         "sourceUrl": "https://docs.lovable.dev/user-guides/messaging-limits",
         "sourceKind": "docs",
+        "scope": "product",
         "checkedAt": "2026-08-24",
         "quote": "Free: 5 per day, up to 30 per month […] Unused usage-specific grants do not roll over."
       },
@@ -7236,6 +7348,7 @@
         "outcome": "stated",
         "sourceUrl": "https://docs.lovable.dev/user-guides/messaging-limits",
         "sourceKind": "docs",
+        "scope": "product",
         "checkedAt": "2026-08-24",
         "quote": "refresh every day at 00:00 UTC"
       },
@@ -7244,6 +7357,7 @@
         "outcome": "derived",
         "sourceUrl": "https://lovable.dev/terms",
         "sourceKind": "terms",
+        "scope": "product",
         "checkedAt": "2026-08-24",
         "basis": "Las condiciones dicen «you own your Customer Data, including the applications, websites, or other projects you build using the Services» y conceden licencia para «create, deploy, operate, and make available» esas aplicaciones, sin reservar el uso comercial a los planes de pago."
       },
@@ -7252,6 +7366,7 @@
         "outcome": "not_published",
         "sourceUrl": "https://docs.lovable.dev/user-guides/messaging-limits",
         "sourceKind": "docs",
+        "scope": "product",
         "checkedAt": "2026-08-24",
         "lookedFor": "Si hay que dar tarjeta para el plan gratuito. La documentación de límites no lo menciona."
       }
@@ -7352,7 +7467,8 @@
         "sourceUrl": "https://github.com/Lightricks/LTX-Video",
         "sourceKind": "repo",
         "checkedAt": "2026-08-15",
-        "quote": "Text-to-video · Image-to-video · Video extension (both forward and backward) · Keyframe-based animation · Multi-keyframe conditioning · Video-to-video transformations"
+        "quote": "Text-to-video · Image-to-video · Video extension (both forward and backward) · Keyframe-based animation · Multi-keyframe conditioning · Video-to-video transformations",
+        "scope": "local"
       }
     ],
     "nextReviewAt": "2026-11-13",
@@ -7452,7 +7568,8 @@
         "sourceUrl": "https://lumalabs.ai/",
         "sourceKind": "official",
         "checkedAt": "2026-08-15",
-        "quote": "Plans & Pricing — Individual plans: Plus $30/month · 10,000 credits · Luma and third-party image and video models · Commercial use. [Ningún plan gratuito en la tabla.]"
+        "quote": "Plans & Pricing — Individual plans: Plus $30/month · 10,000 credits · Luma and third-party image and video models · Commercial use. [Ningún plan gratuito en la tabla.]",
+        "scope": "cloud"
       },
       {
         "field": "capabilities",
@@ -7460,7 +7577,8 @@
         "sourceUrl": "https://lumalabs.ai/",
         "sourceKind": "official",
         "checkedAt": "2026-08-15",
-        "quote": "Luma FAQs — Can I edit existing images or videos? · Can I create videos from images? · Can I add voiceovers and audio? · Does Luma Agents support lip sync?"
+        "quote": "Luma FAQs — Can I edit existing images or videos? · Can I create videos from images? · Can I add voiceovers and audio? · Does Luma Agents support lip sync?",
+        "scope": "cloud"
       }
     ],
     "auditNotes": "La marca «Dream Machine» ya no encabeza el producto; la web habla de Luma Agents. El slug conserva el nombre por el que se la busca.",
@@ -7585,7 +7703,8 @@
         "sourceUrl": "https://help.manus.im/en/articles/11711111-what-is-the-current-membership-pricing-for-manus",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-19",
-        "quote": "Free — $0/month · Access to Chat Mode and Manus 1.6 Lite in Agent Mode · 300 credits provided daily · Supports 1 concurrent task · Supports 2 scheduled tasks. [Y en el artículo de créditos: «The daily credit balance resets to 300 at midnight Coordinated Universal Time (UTC)» y «Daily refresh credits will not be added to your main credit balance».]"
+        "quote": "Free — $0/month · Access to Chat Mode and Manus 1.6 Lite in Agent Mode · 300 credits provided daily · Supports 1 concurrent task · Supports 2 scheduled tasks. [Y en el artículo de créditos: «The daily credit balance resets to 300 at midnight Coordinated Universal Time (UTC)» y «Daily refresh credits will not be added to your main credit balance».]",
+        "scope": "cloud"
       },
       {
         "field": "capabilities",
@@ -7593,7 +7712,8 @@
         "sourceUrl": "https://manus.im/docs",
         "sourceKind": "docs",
         "checkedAt": "2026-08-19",
-        "quote": "It operates in a complete sandbox environment—a virtual computer with internet access, a persistent file system, and the ability to install software and create custom tools · Manus AI can work independently, remember context across long tasks, and deliver production-ready results."
+        "quote": "It operates in a complete sandbox environment—a virtual computer with internet access, a persistent file system, and the ability to install software and create custom tools · Manus AI can work independently, remember context across long tasks, and deliver production-ready results.",
+        "scope": "cloud"
       }
     ],
     "auditNotes": "`memory` se marca porque la documentación dice «remember context across long tasks», no porque prometa memoria permanente entre sesiones distintas. `computer-use` NO se marca: el ordenador es suyo, no el tuyo.",
@@ -7701,7 +7821,8 @@
         "sourceUrl": "https://github.com/microsoft/agent-framework",
         "sourceKind": "repo",
         "checkedAt": "2026-08-19",
-        "quote": "an open, multi-language framework for building production-grade AI agents and multi-agent workflows in .NET and Python · graph-based patterns (sequential, concurrent, handoff, group collaboration) · agent skills and tool integration across multiple LLM providers · MIT license."
+        "quote": "an open, multi-language framework for building production-grade AI agents and multi-agent workflows in .NET and Python · graph-based patterns (sequential, concurrent, handoff, group collaboration) · agent skills and tool integration across multiple LLM providers · MIT license.",
+        "scope": "local"
       },
       {
         "field": "freePlan.limits",
@@ -7709,7 +7830,8 @@
         "sourceUrl": "https://github.com/microsoft/autogen",
         "sourceKind": "repo",
         "checkedAt": "2026-08-19",
-        "quote": "AutoGen is in maintenance mode and will not receive new features. Microsoft Agent Framework (MAF) is the enterprise-ready successor to AutoGen."
+        "quote": "AutoGen is in maintenance mode and will not receive new features. Microsoft Agent Framework (MAF) is the enterprise-ready successor to AutoGen.",
+        "scope": "local"
       }
     ],
     "nextReviewAt": "2026-11-17",
@@ -7861,7 +7983,8 @@
         "sourceUrl": "https://docs.midjourney.com/hc/en-us/articles/27870399340173-Free-Trials",
         "sourceKind": "docs",
         "checkedAt": "2026-08-13",
-        "quote": "A limited trial is available on the niji · journey app, available for iOS and Android devices. No free trial is currently available in Discord or the midjourney.com website."
+        "quote": "A limited trial is available on the niji · journey app, available for iOS and Android devices. No free trial is currently available in Discord or the midjourney.com website.",
+        "scope": "cloud"
       },
       {
         "field": "capabilities",
@@ -7869,7 +7992,8 @@
         "sourceUrl": "https://docs.midjourney.com/hc/en-us/articles/37460773864589-Video",
         "sourceKind": "docs",
         "checkedAt": "2026-08-13",
-        "quote": "Turn your images into captivating 5 second videos using Midjourney! […] feeding Midjourney an image to serve as the first frame"
+        "quote": "Turn your images into captivating 5 second videos using Midjourney! […] feeding Midjourney an image to serve as the first frame",
+        "scope": "cloud"
       }
     ],
     "licences": {},
@@ -7972,7 +8096,8 @@
         "sourceUrl": "https://docs.mistral.ai/getting-started/models/models_overview/",
         "sourceKind": "docs",
         "checkedAt": "2026-08-20",
-        "quote": "Ministral 3 14B (Apache 2.0) — Text and vision · Ministral 3 8B (Apache 2.0) — Text and vision · Ministral 3 3B (Apache 2.0) — Text and vision"
+        "quote": "Ministral 3 14B (Apache 2.0) — Text and vision · Ministral 3 8B (Apache 2.0) — Text and vision · Ministral 3 3B (Apache 2.0) — Text and vision",
+        "scope": "product"
       }
     ],
     "slug": "ministral",
@@ -8088,7 +8213,8 @@
         "sourceUrl": "https://mistral.ai/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-20",
-        "quote": "Free — Test Mistral models in Studio · $10 /mo in API credits"
+        "quote": "Free — Test Mistral models in Studio · $10 /mo in API credits",
+        "scope": "product"
       },
       {
         "field": "capabilities",
@@ -8096,7 +8222,8 @@
         "sourceUrl": "https://docs.mistral.ai/getting-started/models/models_overview/",
         "sourceKind": "docs",
         "checkedAt": "2026-08-20",
-        "quote": "Mistral Large 3 (Apache 2.0) — General multimodal"
+        "quote": "Mistral Large 3 (Apache 2.0) — General multimodal",
+        "scope": "product"
       }
     ],
     "slug": "mistral-large",
@@ -8202,7 +8329,8 @@
         "sourceUrl": "https://docs.mistral.ai/getting-started/models/models_overview/",
         "sourceKind": "docs",
         "checkedAt": "2026-08-20",
-        "quote": "Mistral Small 4 (Apache 2.0) — Hybrid instruct/reasoning/coding"
+        "quote": "Mistral Small 4 (Apache 2.0) — Hybrid instruct/reasoning/coding",
+        "scope": "product"
       }
     ],
     "slug": "mistral-small",
@@ -8300,7 +8428,8 @@
         "sourceUrl": "https://github.com/genmoai/mochi",
         "sourceKind": "repo",
         "checkedAt": "2026-08-15",
-        "quote": "released under a permissive Apache 2.0 license […] requires approximately 60GB VRAM when running on a single GPU […] ComfyUI can optimize to run in under 20GB VRAM"
+        "quote": "released under a permissive Apache 2.0 license […] requires approximately 60GB VRAM when running on a single GPU […] ComfyUI can optimize to run in under 20GB VRAM",
+        "scope": "local"
       }
     ],
     "nextReviewAt": "2026-11-13",
@@ -8418,7 +8547,8 @@
         "sourceUrl": "https://n8n.io/pricing/",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-19",
-        "quote": "A standard, self-hosted version of n8n is available on GitHub · No credit card is required for Starter and Pro trials · A credit card is only required for the Business plan free trial. [Starter: 20 €/mes anual, 2.5K ejecuciones.]"
+        "quote": "A standard, self-hosted version of n8n is available on GitHub · No credit card is required for Starter and Pro trials · A credit card is only required for the Business plan free trial. [Starter: 20 €/mes anual, 2.5K ejecuciones.]",
+        "scope": "product"
       },
       {
         "field": "capabilities",
@@ -8426,7 +8556,8 @@
         "sourceUrl": "https://github.com/n8n-io/n8n",
         "sourceKind": "repo",
         "checkedAt": "2026-08-19",
-        "quote": "Fair-code platform to build and deploy AI agents and workflows · n8n is fair-code distributed under the Sustainable Use License and n8n Enterprise License · AI-Native Automation Platform: Build and operationalize AI workflows and multi-step agents · 1,500+ integrations."
+        "quote": "Fair-code platform to build and deploy AI agents and workflows · n8n is fair-code distributed under the Sustainable Use License and n8n Enterprise License · AI-Native Automation Platform: Build and operationalize AI workflows and multi-step agents · 1,500+ integrations.",
+        "scope": "local"
       }
     ],
     "auditNotes": "`openSource: partial` y no `yes`: fair-code permite ver y autoalojar el código pero no es una licencia OSI, y llamarlo open source sin más induciría a error.",
@@ -8566,7 +8697,8 @@
         "sourceUrl": "https://ollama.com",
         "sourceKind": "official",
         "checkedAt": "2026-08-12",
-        "quote": "nect editors and frameworks through Ollama&apos;s API · Ollama Models Docs Pricing Sign in Download Models Download Docs Pricing Sign in Build with open models, on yo"
+        "quote": "nect editors and frameworks through Ollama&apos;s API · Ollama Models Docs Pricing Sign in Download Models Download Docs Pricing Sign in Build with open models, on yo",
+        "scope": "product"
       }
     ],
     "startEffortReason": "Instalador propio y una sola orden para descargar un modelo.",
@@ -8666,7 +8798,8 @@
         "sourceUrl": "https://github.com/openai/openai-agents-python",
         "sourceKind": "repo",
         "checkedAt": "2026-08-19",
-        "quote": "The OpenAI Agents SDK is a lightweight yet powerful framework for building multi-agent workflows · It is provider-agnostic, supporting the OpenAI Responses and Chat Completions APIs, as well as 100+ other LLMs · Tools: Functions, MCP, and hosted tool integrations · Sandbox agents: preconfigured for container-based long-horizon work · Sessions: automatic conversation history management · MIT license."
+        "quote": "The OpenAI Agents SDK is a lightweight yet powerful framework for building multi-agent workflows · It is provider-agnostic, supporting the OpenAI Responses and Chat Completions APIs, as well as 100+ other LLMs · Tools: Functions, MCP, and hosted tool integrations · Sandbox agents: preconfigured for container-based long-horizon work · Sessions: automatic conversation history management · MIT license.",
+        "scope": "local"
       }
     ],
     "auditNotes": "`memory` viene de «Sessions: automatic conversation history management», que es historial gestionado, no memoria permanente. Es la lectura más estrecha que sostiene la cita.",
@@ -8773,7 +8906,8 @@
         "sourceUrl": "https://github.com/All-Hands-AI/OpenHands",
         "sourceKind": "repo",
         "checkedAt": "2026-08-19",
-        "quote": "The self-hosted developer control center for coding agents and automations · run agents like OpenHands, Claude Code, Codex, or Gemini across local, remote, and cloud backends · Docker containers with sandbox isolation · MIT license."
+        "quote": "The self-hosted developer control center for coding agents and automations · run agents like OpenHands, Claude Code, Codex, or Gemini across local, remote, and cloud backends · Docker containers with sandbox isolation · MIT license.",
+        "scope": "local"
       }
     ],
     "auditNotes": "`multi-agent` se marca porque orquesta agentes distintos en varios servidores, no porque reparta subtareas dentro de uno. `web-browsing` no se marca: el repositorio no lo documenta.",
@@ -8911,7 +9045,8 @@
         "sourceUrl": "https://www.perplexity.ai/help-center/en/articles/11187416-which-perplexity-subscription-plan-is-right-for-you.html",
         "sourceKind": "help",
         "checkedAt": "2026-08-13",
-        "quote": "What do I get with the Free (Standard) plan? Search history access · Practically unlimited basic searches · Very limited amount of Pro Searches · Basic file uploads (limited) · No access to advanced AI models, image generation, or premium support."
+        "quote": "What do I get with the Free (Standard) plan? Search history access · Practically unlimited basic searches · Very limited amount of Pro Searches · Basic file uploads (limited) · No access to advanced AI models, image generation, or premium support.",
+        "scope": "cloud"
       }
     ],
     "startEffortReason": "El plan gratuito es un plan con historial y cuotas, así que arranca en una cuenta.",
@@ -9019,7 +9154,8 @@
         "sourceUrl": "https://huggingface.co/microsoft/phi-4",
         "sourceKind": "repo",
         "checkedAt": "2026-08-20",
-        "quote": "License: MIT"
+        "quote": "License: MIT",
+        "scope": "local"
       },
       {
         "field": "capabilities",
@@ -9027,7 +9163,8 @@
         "sourceUrl": "https://huggingface.co/microsoft/phi-4",
         "sourceKind": "repo",
         "checkedAt": "2026-08-20",
-        "quote": "memory/compute constrained environments · latency bound scenarios · reasoning and logic · MATH: 80.4, GPQA: 56.1, HumanEval: 82.6"
+        "quote": "memory/compute constrained environments · latency bound scenarios · reasoning and logic · MATH: 80.4, GPQA: 56.1, HumanEval: 82.6",
+        "scope": "local"
       }
     ],
     "slug": "phi-4",
@@ -9150,6 +9287,7 @@
         "outcome": "stated",
         "sourceUrl": "https://pika.art/pricing",
         "sourceKind": "pricing",
+        "scope": "product",
         "checkedAt": "2026-08-24",
         "quote": "80 monthly video credits"
       },
@@ -9158,6 +9296,7 @@
         "outcome": "not_published",
         "sourceUrl": "https://pika.art/pricing",
         "sourceKind": "pricing",
+        "scope": "product",
         "checkedAt": "2026-08-24",
         "lookedFor": "Si el vídeo del plan gratuito lleva marca. La página sólo dice que la descarga sin marca («Download videos with no watermark») es de los planes de pago, lo que no afirma que el gratuito la ponga."
       },
@@ -9166,6 +9305,7 @@
         "outcome": "not_published",
         "sourceUrl": "https://pika.art/pricing",
         "sourceKind": "pricing",
+        "scope": "product",
         "checkedAt": "2026-08-24",
         "lookedFor": "Si el plan gratuito permite uso comercial. La página lo enumera entre las características de pago, sin decir qué ocurre en el gratuito."
       }
@@ -9306,7 +9446,8 @@
         "sourceUrl": "https://pinokio.computer",
         "sourceKind": "official",
         "checkedAt": "2026-08-12",
-        "quote": "More Store Type: api api plugin All Platform: All All macOS Windows Linux GPU: All A · c, a Metal-only DeepSeek V4 Flash inference server"
+        "quote": "More Store Type: api api plugin All Platform: All All macOS Windows Linux GPU: All A · c, a Metal-only DeepSeek V4 Flash inference server",
+        "scope": "product"
       }
     ],
     "startEffortReason": "Instalador de escritorio que se encarga de las dependencias de cada aplicación.",
@@ -9393,7 +9534,8 @@
         "sourceUrl": "https://www.pixelcut.ai/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-12",
-        "quote": "Free $0 per month Continue Limited Background Removal Limited Upscale Free export without watermark"
+        "quote": "Free $0 per month Continue Limited Background Removal Limited Upscale Free export without watermark",
+        "scope": "cloud"
       },
       {
         "field": "capabilities",
@@ -9401,7 +9543,8 @@
         "sourceUrl": "https://www.pixelcut.ai/",
         "sourceKind": "official",
         "checkedAt": "2026-08-12",
-        "quote": "kground Remover Change Background Magic Eraser AI Image Generator AI Video Generator Generative Fill Uncrop AI · fers a free version that provides access to basic image editing tools, allowing users to get started with crea · mage Generator AI Video Generator Generative Fill Uncrop AI Ads Bulk Image Editor Products Pixelcut for Claude"
+        "quote": "kground Remover Change Background Magic Eraser AI Image Generator AI Video Generator Generative Fill Uncrop AI · fers a free version that provides access to basic image editing tools, allowing users to get started with crea · mage Generator AI Video Generator Generative Fill Uncrop AI Ads Bulk Image Editor Products Pixelcut for Claude",
+        "scope": "cloud"
       }
     ],
     "descriptionLong": "",
@@ -9501,7 +9644,8 @@
         "sourceUrl": "https://playground.com/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-12",
-        "quote": "Free ACTIVE For exploring and casual creation Limited image generation Create up to 10 images every 3 hours Limited model access 3 monthly generations across Nano Banana, GPT Image 2, and Seedream"
+        "quote": "Free ACTIVE For exploring and casual creation Limited image generation Create up to 10 images every 3 hours Limited model access 3 monthly generations across Nano Banana, GPT Image 2, and Seedream",
+        "scope": "cloud"
       },
       {
         "field": "freePlan.commercialUse",
@@ -9509,7 +9653,8 @@
         "sourceUrl": "https://playground.com/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-12",
-        "quote": "Commercial use World-wide, royalty free license"
+        "quote": "Commercial use World-wide, royalty free license",
+        "scope": "cloud"
       },
       {
         "field": "capabilities",
@@ -9517,7 +9662,8 @@
         "sourceUrl": "https://playground.com/",
         "sourceKind": "official",
         "checkedAt": "2026-08-12",
-        "quote": "ACTIVE For exploring and casual creation Limited image generation Create up to 10 images every 3 hours Limited · ess to the full premium template library Enhanced image editing Upscaling and background removal included Up t · sthetic Background Image Tools Background Removal Upscale AI Resize Logo Generator Mockup Generator File Conve"
+        "quote": "ACTIVE For exploring and casual creation Limited image generation Create up to 10 images every 3 hours Limited · ess to the full premium template library Enhanced image editing Upscaling and background removal included Up t · sthetic Background Image Tools Background Removal Upscale AI Resize Logo Generator Mockup Generator File Conve",
+        "scope": "cloud"
       }
     ],
     "descriptionLong": "",
@@ -9636,7 +9782,8 @@
         "sourceUrl": "https://huggingface.co/Qwen/Qwen3.8-27B",
         "sourceKind": "repo",
         "checkedAt": "2026-08-20",
-        "quote": "License: apache-2.0"
+        "quote": "License: apache-2.0",
+        "scope": "local"
       },
       {
         "field": "capabilities",
@@ -9644,7 +9791,8 @@
         "sourceUrl": "https://huggingface.co/Qwen/Qwen3.8-27B",
         "sourceKind": "repo",
         "checkedAt": "2026-08-20",
-        "quote": "262,144 tokens natively, extensible to 1,000,000 · Text, images, videos · thinking mode by default, reasoning_effort (xhigh, medium, low)"
+        "quote": "262,144 tokens natively, extensible to 1,000,000 · Text, images, videos · thinking mode by default, reasoning_effort (xhigh, medium, low)",
+        "scope": "local"
       }
     ],
     "slug": "qwen3-27b",
@@ -9749,7 +9897,8 @@
         "sourceUrl": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B",
         "sourceKind": "repo",
         "checkedAt": "2026-08-20",
-        "quote": "License: qwen3.8-max"
+        "quote": "License: qwen3.8-max",
+        "scope": "local"
       },
       {
         "field": "capabilities",
@@ -9757,7 +9906,8 @@
         "sourceUrl": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B",
         "sourceKind": "repo",
         "checkedAt": "2026-08-20",
-        "quote": "2.4 trillion total with 95 billion activated parameters · 262,144 tokens natively, extensible to 1,010,000 · Text-only · thinking enabled by default and cannot be disabled"
+        "quote": "2.4 trillion total with 95 billion activated parameters · 262,144 tokens natively, extensible to 1,010,000 · Text-only · thinking enabled by default and cannot be disabled",
+        "scope": "local"
       }
     ],
     "auditNotes": "El uso comercial se queda sin afirmar: la licencia «qwen3.8-max» no es una plantilla conocida y no se leyó su texto completo en esta comprobación.",
@@ -9847,7 +9997,8 @@
         "sourceUrl": "https://www.recraft.ai/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-12",
-        "quote": "Images generated on the Free plan are owned by Recraft. They are publicly visible in the community gallery and are not licensed for commercial use."
+        "quote": "Images generated on the Free plan are owned by Recraft. They are publicly visible in the community gallery and are not licensed for commercial use.",
+        "scope": "cloud"
       },
       {
         "field": "capabilities",
@@ -9855,7 +10006,8 @@
         "sourceUrl": "https://www.recraft.ai/",
         "sourceKind": "official",
         "checkedAt": "2026-08-12",
-        "quote": "')\"> ')\"> Unlike some other image generators like Midjourney, Recraft is highly customizable · erator AI Image Vectorizer AI Vector Generator AI Photo Editor Mockup Generator Image Upscaler Background Remo · d vector generation, editing, background removal, inpainting, outpainting, batch jobs, and asynchronous proces"
+        "quote": "')\"> ')\"> Unlike some other image generators like Midjourney, Recraft is highly customizable · erator AI Image Vectorizer AI Vector Generator AI Photo Editor Mockup Generator Image Upscaler Background Remo · d vector generation, editing, background removal, inpainting, outpainting, batch jobs, and asynchronous proces",
+        "scope": "cloud"
       }
     ],
     "descriptionLong": "",
@@ -10003,7 +10155,8 @@
         "sourceUrl": "https://replicate.com/docs/topics/billing",
         "sourceKind": "docs",
         "checkedAt": "2026-08-13",
-        "quote": "Free limits — You can run select models on Replicate for free, but after a bit you’ll be asked to set up billing. Some features are only available to customers with billing set up."
+        "quote": "Free limits — You can run select models on Replicate for free, but after a bit you’ll be asked to set up billing. Some features are only available to customers with billing set up.",
+        "scope": "cloud"
       }
     ],
     "startEffortReason": "Se usa con token de API desde código; no hay una interfaz donde escribir y generar.",
@@ -10117,7 +10270,8 @@
         "sourceUrl": "https://replit.com/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-19",
-        "quote": "Starter — For exploring what’s possible: Free daily Agent credits · Built-in database for full-stack apps · Create slides, videos, animations · Publish up to 1 project · Publish private or password-protected deployments."
+        "quote": "Starter — For exploring what’s possible: Free daily Agent credits · Built-in database for full-stack apps · Create slides, videos, animations · Publish up to 1 project · Publish private or password-protected deployments.",
+        "scope": "cloud"
       },
       {
         "field": "capabilities",
@@ -10125,7 +10279,8 @@
         "sourceUrl": "https://docs.replit.com/replitai/agent",
         "sourceKind": "docs",
         "checkedAt": "2026-08-19",
-        "quote": "Unlike a chatbot that only answers questions, Agent takes action: it sets up your project, creates applications, checks its work, and fixes problems · Agent writes code, sets up infrastructure, and tests the result · pull data from BigQuery, Linear, Slack, Notion, and more directly from chat."
+        "quote": "Unlike a chatbot that only answers questions, Agent takes action: it sets up your project, creates applications, checks its work, and fixes problems · Agent writes code, sets up infrastructure, and tests the result · pull data from BigQuery, Linear, Slack, Notion, and more directly from chat.",
+        "scope": "cloud"
       }
     ],
     "auditNotes": "La página dice «Free daily Agent credits» sin cifra. Se registra `daily` porque la renovación sí está publicada, y la cantidad se deja sin afirmar.",
@@ -10259,7 +10414,8 @@
         "sourceUrl": "https://runway.com/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-15",
-        "quote": "125 one-time credits to explore Runway’s AI tools"
+        "quote": "125 one-time credits to explore Runway’s AI tools",
+        "scope": "cloud"
       }
     ],
     "startEffortReason": "Requiere cuenta antes de generar; los créditos van asociados a ella.",
@@ -10350,7 +10506,8 @@
         "sourceUrl": "https://api.github.com/repos/vladmandic/sdnext",
         "sourceKind": "repo",
         "checkedAt": "2026-08-12",
-        "quote": "spdx_id: Apache-2.0 · archived: false · pushed_at: 2026-08-12"
+        "quote": "spdx_id: Apache-2.0 · archived: false · pushed_at: 2026-08-12",
+        "scope": "local"
       }
     ],
     "descriptionLong": "",
@@ -10491,7 +10648,8 @@
         "sourceUrl": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
         "sourceKind": "repo",
         "checkedAt": "2026-08-12",
-        "quote": "can be tiled like textures Progress bar and live image generation preview Can use a separate neural network to · ature showcase with images : Original txt2img and img2img modes One click install and run script (but you stil · ou still must install python and git) Outpainting Inpainting Color Sketch Prompt Matrix Stable Diffusion Upsca"
+        "quote": "can be tiled like textures Progress bar and live image generation preview Can use a separate neural network to · ature showcase with images : Original txt2img and img2img modes One click install and run script (but you stil · ou still must install python and git) Outpainting Inpainting Color Sketch Prompt Matrix Stable Diffusion Upsca",
+        "scope": "local"
       }
     ],
     "startEffortReason": "Exige entorno de Python, descarga de modelos y GPU.",
@@ -10590,7 +10748,8 @@
         "sourceUrl": "https://github.com/stanford-oval/storm",
         "sourceKind": "repo",
         "checkedAt": "2026-08-20",
-        "quote": "STORM is a LLM system that writes Wikipedia-like articles from scratch based on Internet search. [Pre-writing: conduct Internet research, collect references, generate outline. Writing: use the outline and references to generate the full-length article with citations.]"
+        "quote": "STORM is a LLM system that writes Wikipedia-like articles from scratch based on Internet search. [Pre-writing: conduct Internet research, collect references, generate outline. Writing: use the outline and references to generate the full-length article with citations.]",
+        "scope": "local"
       },
       {
         "field": "freePlan.limits",
@@ -10598,7 +10757,8 @@
         "sourceUrl": "https://github.com/stanford-oval/storm/blob/main/LICENSE",
         "sourceKind": "repo",
         "checkedAt": "2026-08-20",
-        "quote": "MIT License. Copyright (c) 2024 Stanford Open Virtual Assistant Lab"
+        "quote": "MIT License. Copyright (c) 2024 Stanford Open Virtual Assistant Lab",
+        "scope": "local"
       }
     ],
     "auditNotes": "La licencia MIT es la del código; el README menciona CC BY-SA aparte por el contenido de Wikipedia que usa su conjunto de datos. `requiresSignup` se queda sin afirmar: no comprobé si la vista previa pide cuenta.",
@@ -10723,7 +10883,8 @@
         "sourceUrl": "https://suno.com/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-18",
-        "quote": "50 credits renew daily (10 songs) · No commercial use · No monthly song downloads (starting 9/3/26) · No add-on credit purchases"
+        "quote": "50 credits renew daily (10 songs) · No commercial use · No monthly song downloads (starting 9/3/26) · No add-on credit purchases",
+        "scope": "cloud"
       }
     ],
     "startEffort": "signup",
@@ -10830,7 +10991,8 @@
         "sourceUrl": "https://www.synthesia.io/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-15",
-        "quote": "Includes 1,200 credits/mo · up to 10 minutes of video/month · 9 AI avatars · 25 AI-generated video assets"
+        "quote": "Includes 1,200 credits/mo · up to 10 minutes of video/month · 9 AI avatars · 25 AI-generated video assets",
+        "scope": "cloud"
       },
       {
         "field": "capabilities",
@@ -10838,7 +11000,8 @@
         "sourceUrl": "https://www.synthesia.io/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-15",
-        "quote": "AI Dubbing · Lip Sync — Match mouth movements to the translated audio · 125+ Synthesia AI Avatars"
+        "quote": "AI Dubbing · Lip Sync — Match mouth movements to the translated audio · 125+ Synthesia AI Avatars",
+        "scope": "cloud"
       }
     ],
     "nextReviewAt": "2026-11-13",
@@ -10968,6 +11131,7 @@
         "outcome": "stated",
         "sourceUrl": "https://v0.app/docs/pricing",
         "sourceKind": "docs",
+        "scope": "product",
         "checkedAt": "2026-08-24",
         "quote": "Free plan: $5 monthly credits · Daily Message Limit: 7 messages. Each plan includes a monthly credit allowance."
       },
@@ -10976,6 +11140,7 @@
         "outcome": "stated",
         "sourceUrl": "https://v0.app/docs/pricing",
         "sourceKind": "docs",
+        "scope": "product",
         "checkedAt": "2026-08-24",
         "quote": "Each plan includes a monthly credit allowance."
       },
@@ -10984,6 +11149,7 @@
         "outcome": "not_published",
         "sourceUrl": "https://v0.app/docs/pricing",
         "sourceKind": "docs",
+        "scope": "product",
         "checkedAt": "2026-08-24",
         "lookedFor": "Si lo generado en el plan gratuito puede usarse comercialmente. La documentación de precios no lo trata."
       }
@@ -11084,7 +11250,8 @@
         "sourceUrl": "https://github.com/Wan-Video/Wan2.2",
         "sourceKind": "repo",
         "checkedAt": "2026-08-15",
-        "quote": "The models in this repository are licensed under the Apache 2.0 License. […] TI2V-5B […] consumer-grade graphics cards like the RTX 4090 with at least 24GB VRAM. T2V-A14B & I2V-A14B: at least 80GB VRAM"
+        "quote": "The models in this repository are licensed under the Apache 2.0 License. […] TI2V-5B […] consumer-grade graphics cards like the RTX 4090 with at least 24GB VRAM. T2V-A14B & I2V-A14B: at least 80GB VRAM",
+        "scope": "local"
       },
       {
         "field": "capabilities",
@@ -11092,7 +11259,8 @@
         "sourceUrl": "https://github.com/Wan-Video/Wan2.2",
         "sourceKind": "repo",
         "checkedAt": "2026-08-15",
-        "quote": "Text-to-Video (T2V) · Image-to-Video (I2V) · Speech-to-Video (S2V) · Character Animation and Replacement (Animate)"
+        "quote": "Text-to-Video (T2V) · Image-to-Video (I2V) · Speech-to-Video (S2V) · Character Animation and Replacement (Animate)",
+        "scope": "local"
       }
     ],
     "auditNotes": "«Speech-to-Video» y «Animate» no tienen capacidad equivalente en la taxonomía; quedan descritas en el texto en lugar de forzarse dentro de una etiqueta que significaría otra cosa.",
@@ -11197,13 +11365,15 @@
         "sourceUrl": "https://github.com/openai/whisper",
         "sourceKind": "repo",
         "checkedAt": "2026-08-18",
-        "quote": "Whisper's code and model weights are released under the MIT License."
+        "quote": "Whisper's code and model weights are released under the MIT License.",
+        "scope": "local"
       },
       {
         "field": "freePlan.commercialUse",
         "outcome": "derived",
         "sourceUrl": "https://github.com/openai/whisper",
         "sourceKind": "repo",
+        "scope": "weights",
         "checkedAt": "2026-08-24",
         "basis": "El README declara: «Whisper’s code and model weights are released under the MIT License». La MIT permite el uso comercial sin condiciones más allá de conservar el aviso de copyright."
       },
@@ -11212,6 +11382,7 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/openai/whisper",
         "sourceKind": "repo",
+        "scope": "weights",
         "checkedAt": "2026-08-24",
         "quote": "Whisper’s code and model weights are released under the MIT License."
       },
@@ -11220,6 +11391,7 @@
         "outcome": "derived",
         "sourceUrl": "https://github.com/openai/whisper",
         "sourceKind": "repo",
+        "scope": "local",
         "checkedAt": "2026-08-24",
         "basis": "Se instala con `pip install -U openai-whisper` y se ejecuta en local: el README no describe ninguna cuenta, clave ni pago, porque no hay servicio que cobrar."
       },
@@ -11228,6 +11400,7 @@
         "outcome": "derived",
         "sourceUrl": "https://github.com/openai/whisper",
         "sourceKind": "repo",
+        "scope": "local",
         "checkedAt": "2026-08-24",
         "basis": "Mismo motivo: los pesos se descargan y el modelo corre en tu equipo."
       }
@@ -11339,7 +11512,8 @@
         "sourceUrl": "https://zapier.com/pricing",
         "sourceKind": "pricing",
         "checkedAt": "2026-08-19",
-        "quote": "Free — 100 tasks per month · Basic access to AI products (Agents, Chatbots, MCP) · Two-step Zap workflows · [Agents: Free 400/mo activities]. Professional: $19.99/month billed annually, 750 tasks/month."
+        "quote": "Free — 100 tasks per month · Basic access to AI products (Agents, Chatbots, MCP) · Two-step Zap workflows · [Agents: Free 400/mo activities]. Professional: $19.99/month billed annually, 750 tasks/month.",
+        "scope": "cloud"
       },
       {
         "field": "capabilities",
@@ -11347,7 +11521,8 @@
         "sourceUrl": "https://zapier.com/agents",
         "sourceKind": "official",
         "checkedAt": "2026-08-19",
-        "quote": "do work across 9,000+ apps — on command and while you sleep · connect to your business data and perform tasks · equipped with company knowledge through FAQs, docs, and public links."
+        "quote": "do work across 9,000+ apps — on command and while you sleep · connect to your business data and perform tasks · equipped with company knowledge through FAQs, docs, and public links.",
+        "scope": "cloud"
       }
     ],
     "nextReviewAt": "2026-11-17",

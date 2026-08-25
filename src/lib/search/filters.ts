@@ -62,6 +62,17 @@ export interface FilterState {
   commercial: boolean;
   openSource: boolean;
   verifiedRecently: boolean;
+  /**
+   * «Enséñame sólo aquéllas cuya marca de agua hemos comprobado.»
+   *
+   * No es un filtro negativo y por eso existe. El dato está confirmado en una
+   * de las treinta y cinco fichas donde la pregunta aplica: ofrecer «sin marca
+   * de agua» ahí devuelve una ficha y esconde treinta y cuatro por un motivo
+   * que es nuestro, no suyo. Esto contesta lo único que de verdad sabemos:
+   * dónde hemos mirado. Deja pasar tanto el sí como el no; lo que no deja
+   * pasar es lo desconocido.
+   */
+  watermarkKnown: boolean;
   sort: SortKey;
 }
 
@@ -96,6 +107,7 @@ export const EMPTY_FILTERS: FilterState = {
   commercial: false,
   openSource: false,
   verifiedRecently: false,
+  watermarkKnown: false,
   sort: DEFAULT_SORT,
 };
 
@@ -129,6 +141,7 @@ export function parseFilters(input: URLSearchParams | string): FilterState {
     commercial: readFlag(params, 'comm'),
     openSource: readFlag(params, 'oss'),
     verifiedRecently: readFlag(params, 'fresh'),
+    watermarkKnown: readFlag(params, 'wmknown'),
     sort,
   };
 }
@@ -148,6 +161,7 @@ export function serializeFilters(state: FilterState): string {
   if (state.commercial) params.set('comm', '1');
   if (state.openSource) params.set('oss', '1');
   if (state.verifiedRecently) params.set('fresh', '1');
+  if (state.watermarkKnown) params.set('wmknown', '1');
   if (state.sort !== DEFAULT_SORT) params.set('sort', state.sort);
   return params.toString();
 }
@@ -170,6 +184,7 @@ export function countActiveFilters(state: FilterState): number {
     (state.commercial ? 1 : 0) +
     (state.openSource ? 1 : 0) +
     (state.verifiedRecently ? 1 : 0) +
+    (state.watermarkKnown ? 1 : 0) +
     0
   );
 }
@@ -208,6 +223,12 @@ export function applyFilters<T extends FilterableTool>(
     if (state.commercial && tool.freePlan.commercialUse !== 'yes') return false;
     if (state.openSource && tool.openSource !== 'yes') return false;
     if (state.verifiedRecently && tool.freshness !== 'fresh') return false;
+    /*
+     * Confirmado quiere decir confirmado en cualquiera de los dos sentidos.
+     * Lo desconocido sigue fuera, incluido lo que sabemos que el fabricante no
+     * publica: saber que alguien calla no es saber la respuesta.
+     */
+    if (state.watermarkKnown && tool.freePlan.hasWatermark === 'unverified') return false;
 
     return true;
   });
@@ -248,6 +269,7 @@ export function describeFilters(
   if (state.noSignup) parts.push('sin registro');
   if (state.noWatermark) parts.push('sin marca de agua');
   if (state.commercial) parts.push('con uso comercial');
+  if (state.watermarkKnown) parts.push('con la marca de agua comprobada');
   if (!parts.length) return 'Todas las herramientas';
   return `Herramientas ${parts.join(', ')}`;
 }

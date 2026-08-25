@@ -159,8 +159,10 @@ const FILTROS_VERTICAL = [
                               ? 'compare-value is-better'
                               : 'compare-value'
                           }
+                          title={celda.nota}
                         >
                           {celda.texto}
+                          {celda.matiz && <span class="compare-matiz">{celda.matiz}</span>}
                         </span>
                       )}
                       {celda.tipo === 'ausente' && (
@@ -419,6 +421,21 @@ const FILTROS_VERTICAL = [
    * y sobre todo no se confunde con «no tiene pegas» —que es justo lo que
    * parecía el guion en la fila «En contra».
    */
+  /*
+   * El matiz de alcance, pegado al valor que califica.
+   *
+   * No puede ir en un `title` y nada más: quien mira la tabla en un móvil no
+   * tiene ratón con el que descubrirlo, y lo que califica es justo lo que se
+   * lee como una promesa.
+   */
+  .compare-matiz {
+    display: block;
+    font-weight: 400;
+    font-size: 0.75rem;
+    font-style: italic;
+    color: var(--ink-subtle);
+  }
+
   .compare-absent {
     font-style: italic;
     font-size: 0.8125rem;

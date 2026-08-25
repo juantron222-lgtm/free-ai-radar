@@ -267,14 +267,14 @@ test.describe('por qué falta un dato', () => {
     await expect(nota).toContainText('trabajo nuestro pendiente');
   });
 
-  test('un filtro con poca cobertura lo dice antes de pulsarlo', async ({ page }) => {
+  test('un filtro de cobertura parcial lo dice antes de pulsarlo', async ({ page }) => {
     /*
-     * «Sin marca de agua» se apoya en un dato confirmado en 2 de las 35 fichas
-     * donde la pregunta tiene sentido. Marcarlo no devuelve «las que no ponen
-     * marca»: devuelve «las dos que hemos comprobado».
+     * «Sin tarjeta» se apoya en un dato confirmado en 38 de 94 fichas: sigue
+     * siendo un filtro, pero marcarlo esconde más de la mitad del catálogo por
+     * un motivo que es nuestro. La insignia lo dice antes, no después.
      */
     await page.goto('/herramientas');
-    const insignia = page.locator('[data-filter-coverage="nowm"]');
+    const insignia = page.locator('[data-filter-coverage="nocard"]');
     await expect(insignia).toBeVisible();
     await expect(insignia).toHaveText(/^\d+\/\d+$/);
 
@@ -283,9 +283,57 @@ test.describe('por qué falta un dato', () => {
     expect(aviso).toContain('el resto no aparece');
   });
 
-  test('y un filtro con cobertura suficiente no se disculpa', async ({ page }) => {
+  test('un filtro con cobertura suficiente no se disculpa', async ({ page }) => {
     await page.goto('/herramientas');
     await expect(page.locator('[data-filter-coverage="nosignup"]')).toHaveCount(0);
+  });
+
+  test('uno de cobertura testimonial cambia de pregunta', async ({ page }) => {
+    /*
+     * Con el dato confirmado en 1 de las 35 fichas donde aplica, «sin marca de
+     * agua» devolvería una ficha y escondería treinta y cuatro por ignorancia
+     * nuestra: eso presenta lo que no sabemos como un resultado negativo del
+     * fabricante. En su lugar se ofrece ver dónde lo hemos comprobado.
+     */
+    await page.goto('/herramientas');
+    await expect(page.locator('[data-filter-flag="nowm"]')).toHaveCount(0);
+
+    const sustituto = page.locator('[data-filter-known="wmknown"]');
+    await expect(sustituto).toBeVisible();
+    await expect(sustituto).toContainText(/Marca de agua comprobada \(\d+\)/);
+    expect(await sustituto.getAttribute('title')).toContain('filtra por si la sabemos');
+  });
+
+  test('y ese sustituto enseña lo comprobado, no lo negativo', async ({ page }) => {
+    await page.goto('/herramientas?wmknown=1');
+    const visibles = page.locator('[data-result-item]:not([hidden])');
+    await expect(visibles.first()).toBeVisible();
+
+    const cuantas = await visibles.count();
+    expect(cuantas).toBeGreaterThan(0);
+    expect(cuantas).toBeLessThan(94);
+  });
+});
+
+test.describe('un dato que sólo vale por una puerta lo dice', () => {
+  test('el uso comercial de unos pesos no se lee como permiso del servicio', async ({ page }) => {
+    /*
+     * DeepSeek publica sus pesos con licencia MIT y además vende una API con
+     * sus propias condiciones. «Uso comercial: sí» es cierto de los pesos y no
+     * se ha leído de la API: sin el matiz, un permiso concreto se lee como una
+     * promesa general.
+     */
+    await page.goto('/comparar?t=deepseek-v4-flash,gemma-4');
+    const matiz = page.locator('.compare-matiz', { hasText: 'pesos descargables' }).first();
+    await expect(matiz).toBeVisible();
+
+    const celda = page.locator('.compare-value', { has: matiz });
+    expect(await celda.getAttribute('title')).toContain('Las demás vías de acceso');
+  });
+
+  test('lo leído en la tabla de precios de una API se atribuye a la API', async ({ page }) => {
+    await page.goto('/comparar?t=gemini-3-flash,claude-haiku-4-5');
+    await expect(page.locator('.compare-matiz', { hasText: 'en la API' }).first()).toBeVisible();
   });
 });
 
