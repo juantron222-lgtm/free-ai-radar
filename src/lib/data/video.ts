@@ -5,7 +5,7 @@ import {
   FACT_FILTERS,
   capabilityFilter,
   countIn,
-  has,
+  gratisPuede,
   ranked,
   usableFreeNow,
   localControl as localControlImpl,
@@ -122,7 +122,7 @@ export function easyToStart(tools: readonly Tool[]): Tool[] {
  * pedir.
  */
 export function talkingHead(tools: readonly Tool[]): Tool[] {
-  const eligible = tools.filter((t) => has(t, 'avatar-video') || has(t, 'lip-sync'));
+  const eligible = tools.filter((t) => gratisPuede(t, 'avatar-video') || gratisPuede(t, 'lip-sync'));
   return ranked(eligible, (t) => videoCapabilityCount(t) * 10 + (usableFreeNow(t) ? 5 : 0));
 }
 

@@ -27,6 +27,10 @@ import {
   serializeFilters,
 } from '@lib/search/filters';
 import { buildClientIndex } from '@lib/search/client-index';
+import { hechosDe } from '@lib/search/index';
+import { gratisPuede, has } from '@lib/data/category-page';
+import { freeNow } from '@lib/data/imagen';
+import { ROWS } from '@lib/data/comparador';
 import { makeTool } from '../fixtures/tool';
 
 /**
@@ -105,7 +109,10 @@ describe('una evidencia sostiene lo que afirma', () => {
     for (const tool of tools) {
       for (const ev of tool.evidence) {
         const parsed = FieldEvidence.safeParse(ev);
-        expect(parsed.success, `${tool.slug} · ${ev.field}: ${JSON.stringify(parsed.error?.issues)}`).toBe(true);
+        expect(
+          parsed.success,
+          `${tool.slug} · ${ev.field}: ${JSON.stringify(parsed.error?.issues)}`
+        ).toBe(true);
       }
     }
   });
@@ -362,6 +369,7 @@ describe('un regalo de bienvenida no es una cuota', () => {
         hasWatermark: 'unverified',
         commercialUse: 'unverified',
         creditReset: 'one_off',
+        excludedCapabilities: [],
         verifiedAt: '2026-08-24',
       },
     });
@@ -393,9 +401,10 @@ describe('lo de pago no se disfraza de gratis', () => {
     for (const tool of tools) {
       if (tool.freeModel !== 'paid_only') continue;
       expect(tool.freePlan.creditReset, tool.slug).toBe('none');
-      expect(tool.startEffort, `${tool.slug} dice que se empieza al instante y es de pago`).not.toBe(
-        'instant'
-      );
+      expect(
+        tool.startEffort,
+        `${tool.slug} dice que se empieza al instante y es de pago`
+      ).not.toBe('instant');
     }
   });
 });
@@ -442,6 +451,7 @@ describe('lo desconocido no entra en un filtro positivo', () => {
         hasWatermark: 'unverified',
         commercialUse: 'unverified',
         creditReset: 'none',
+        excludedCapabilities: [],
         verifiedAt: '2026-08-24',
       },
       evidence: [
@@ -487,6 +497,7 @@ describe('la marca de agua sólo cuenta donde tiene sentido', () => {
         hasWatermark: 'unverified',
         commercialUse: 'yes',
         creditReset: 'none',
+        excludedCapabilities: [],
         verifiedAt: '2026-08-24',
       },
     });
@@ -503,13 +514,22 @@ describe('la ficha cuenta los dos huecos por separado', () => {
     hasWatermark: 'unverified' as const,
     commercialUse: 'unverified' as const,
     creditReset: 'none' as const,
+    excludedCapabilities: [],
     verifiedAt: '2026-08-24',
   };
 
   it('sin evidencia, todo lo que falta es trabajo nuestro', () => {
-    const tool = makeTool({ slug: 'i', name: 'I', capabilities: ['text-generation'], freePlan: base });
+    const tool = makeTool({
+      slug: 'i',
+      name: 'I',
+      capabilities: ['text-generation'],
+      freePlan: base,
+    });
     const v = verificacionDe(tool);
-    expect(v.sinComprobar.map((p) => p.key).sort()).toEqual(['commercialUse', 'requiresCreditCard']);
+    expect(v.sinComprobar.map((p) => p.key).sort()).toEqual([
+      'commercialUse',
+      'requiresCreditCard',
+    ]);
     expect(v.noPublicados).toEqual([]);
   });
 
@@ -570,7 +590,12 @@ describe('la fecha de comprobación existe y es real', () => {
   });
 
   it('ninguna evidencia se fecha en el futuro', () => {
-    const hoy = '2026-08-24';
+    /*
+     * La fecha sale del reloj, no de una constante: clavarla obligaba a tocar
+     * la prueba cada vez que se añade evidencia nueva, y una prueba que hay
+     * que editar para que pase deja de comprobar nada.
+     */
+    const hoy = new Date().toISOString().slice(0, 10);
     for (const tool of tools) {
       for (const ev of tool.evidence) {
         expect(ev.checkedAt <= hoy, `${tool.slug} · ${ev.field}: ${ev.checkedAt}`).toBe(true);
@@ -617,7 +642,11 @@ describe('un filtro promete según lo que sabemos', () => {
       )
     );
 
-  const tarjeta = coberturaDe(tools, 'freePlan.requiresCreditCard', (t) => t.freePlan.requiresCreditCard);
+  const tarjeta = coberturaDe(
+    tools,
+    'freePlan.requiresCreditCard',
+    (t) => t.freePlan.requiresCreditCard
+  );
   const comercial = coberturaDe(tools, 'freePlan.commercialUse', (t) => t.freePlan.commercialUse);
   const marca = coberturaDe(tools, 'freePlan.hasWatermark', (t) => t.freePlan.hasWatermark, genera);
   const registro = coberturaDe(tools, 'freePlan.requiresSignup', (t) => t.freePlan.requiresSignup);
@@ -636,12 +665,17 @@ describe('un filtro promete según lo que sabemos', () => {
   });
 
   it('un campo del que no sabemos nada es testimonial, no suficiente', () => {
-    expect(politicaDe({ field: 'freePlan.hasWatermark', confirmados: 0, noPublicados: 0, pendientes: 0 })).toBe(
-      'testimonial'
-    );
-    expect(politicaDe({ field: 'freePlan.hasWatermark', confirmados: 0, noPublicados: 30, pendientes: 5 })).toBe(
-      'testimonial'
-    );
+    expect(
+      politicaDe({ field: 'freePlan.hasWatermark', confirmados: 0, noPublicados: 0, pendientes: 0 })
+    ).toBe('testimonial');
+    expect(
+      politicaDe({
+        field: 'freePlan.hasWatermark',
+        confirmados: 0,
+        noPublicados: 30,
+        pendientes: 5,
+      })
+    ).toBe('testimonial');
   });
 
   it('saber que el fabricante calla no cuenta como cobertura', () => {
@@ -650,7 +684,12 @@ describe('un filtro promete según lo que sabemos', () => {
      * `not_published` para que el filtro parezca cubierto. Un silencio
      * documentado es mejor que un hueco mudo, pero no es una respuesta.
      */
-    const soloSilencios = { field: 'freePlan.commercialUse' as const, confirmados: 10, noPublicados: 84, pendientes: 0 };
+    const soloSilencios = {
+      field: 'freePlan.commercialUse' as const,
+      confirmados: 10,
+      noPublicados: 84,
+      pendientes: 0,
+    };
     expect(politicaDe(soloSilencios)).toBe('testimonial');
   });
 });
@@ -679,6 +718,7 @@ describe('el sustituto de un filtro testimonial', () => {
         hasWatermark: 'unverified',
         commercialUse: 'yes',
         creditReset: 'none',
+        excludedCapabilities: [],
         verifiedAt: '2026-08-24',
       },
       evidence: [
@@ -705,7 +745,9 @@ describe('el sustituto de un filtro testimonial', () => {
   });
 
   it('se dice con palabras en el título de la lista', () => {
-    expect(describeFilters({ ...EMPTY_FILTERS, watermarkKnown: true }, (x) => x)).toContain('comprobada');
+    expect(describeFilters({ ...EMPTY_FILTERS, watermarkKnown: true }, (x) => x)).toContain(
+      'comprobada'
+    );
   });
 });
 
@@ -742,6 +784,102 @@ describe('un filtro sobre un hecho con alcance dice qué promete', () => {
     const resultado = applyFilters(index, { ...EMPTY_FILTERS, commercial: true });
     for (const entry of resultado) {
       expect(entry.freePlan.commercialUse, entry.slug).toBe('yes');
+    }
+  });
+});
+
+describe('lo que el producto hace y lo que te deja hacer gratis', () => {
+  /*
+   * El error que esto impide ocurrió y estuvo publicado.
+   *
+   * Clipdrop sabe generar imágenes, así que su ficha declaraba la capacidad
+   * `text-to-image`, así que aparecía en el bloque titulado «Genera imágenes
+   * gratis ahora». Al intentarlo, su propia interfaz responde que la
+   * generación es exclusiva de Pro. Estábamos anunciando como gratis
+   * justamente lo que no lo es, que es lo único que un sitio como éste no se
+   * puede permitir equivocar.
+   *
+   * La corrección no fue borrar la capacidad —negar que el producto genera
+   * sería la mentira contraria— sino separar las dos preguntas. Estas pruebas
+   * guardan esa separación en los dos sentidos: que la exclusión se respeta
+   * donde se promete gratis, y que no se usa para amputar el catálogo.
+   */
+  it('una capacidad excluida no se ofrece como gratuita', () => {
+    const excluida = makeTool({
+      slug: 'muro',
+      name: 'Muro',
+      capabilities: ['text-to-image'],
+      freePlan: {
+        summary: 'Edición gratis; generar es de pago.',
+        limits: [],
+        requiresSignup: 'no',
+        requiresCreditCard: 'unverified',
+        hasWatermark: 'unverified',
+        commercialUse: 'unverified',
+        creditReset: 'none',
+        excludedCapabilities: ['text-to-image'],
+        verifiedAt: '2026-08-26',
+      },
+    });
+
+    expect(has(excluida, 'text-to-image'), 'el producto sí sabe hacerlo').toBe(true);
+    expect(gratisPuede(excluida, 'text-to-image'), 'pero no gratis').toBe(false);
+  });
+
+  it('y una capacidad sin excluir sigue siendo gratuita', () => {
+    const normal = makeTool({ slug: 'abierta', name: 'Abierta', capabilities: ['text-to-image'] });
+    expect(gratisPuede(normal, 'text-to-image')).toBe(true);
+  });
+
+  it('Clipdrop conserva la capacidad y pierde la promesa', () => {
+    const clipdrop = tools.find((t) => t.slug === 'clipdrop')!;
+    expect(clipdrop.capabilities, 'el producto genera imágenes').toContain('text-to-image');
+    expect(clipdrop.freePlan.excludedCapabilities, 'pero no en el plan gratuito').toContain(
+      'text-to-image'
+    );
+    expect(gratisPuede(clipdrop, 'text-to-image')).toBe(false);
+  });
+
+  it('no aparece en el bloque que promete generar imágenes gratis ahora', () => {
+    /*
+     * La prueba que habría cazado el fallo original. El bloque se llama así en
+     * la página y esa frase es una promesa: quien entra desde ahí espera poder
+     * generar sin pagar.
+     */
+    const bloque = freeNow(tools);
+    expect(bloque.map((t) => t.slug)).not.toContain('clipdrop');
+  });
+
+  it('ni responde a la intención de generar imágenes', () => {
+    const hechos = hechosDe(tools.find((t) => t.slug === 'clipdrop')!);
+    expect(hechos.capabilities).not.toContain('text-to-image');
+  });
+
+  it('pero su ficha sigue diciendo que el producto sabe generar', () => {
+    /*
+     * La otra mitad. Si la corrección hubiera sido borrar la capacidad, el
+     * comparador diría que Clipdrop no genera imágenes, que también es falso.
+     */
+    const fila = ROWS.find((f) => f.label === 'Qué sabe hacer')!;
+    const celda = fila.values(tools.find((t) => t.slug === 'clipdrop')!);
+    expect(celda.tipo).toBe('lista');
+    expect(celda.tipo === 'lista' && celda.items.join(' · ')).toMatch(/Texto a imagen \(sólo de pago\)/);
+  });
+
+  it('toda exclusión es de algo que el producto sí hace, y consta por qué', () => {
+    /*
+     * Una exclusión no es un sitio donde apuntar sospechas. Excluir una
+     * capacidad que la herramienta no tiene no significaría nada, y excluirla
+     * sin fuente sería una afirmación nuestra disfrazada de dato suyo.
+     */
+    for (const tool of tools) {
+      for (const cap of tool.freePlan.excludedCapabilities) {
+        expect(tool.capabilities, `${tool.slug} excluye algo que no hace`).toContain(cap);
+      }
+      if (tool.freePlan.excludedCapabilities.length === 0) continue;
+      const ev = evidenciaDe(tool, 'freePlan.excludedCapabilities');
+      expect(ev, `${tool.slug} excluye sin evidencia`).toBeDefined();
+      expect(citaDe(ev!) ?? baseDe(ev!), `${tool.slug}`).toBeTruthy();
     }
   });
 });

@@ -6,7 +6,7 @@ import {
   FACT_FILTERS,
   capabilityFilter,
   countIn,
-  has,
+  gratisPuede,
   ranked,
   usableFreeNow,
   localControl as localControlImpl,
@@ -98,7 +98,7 @@ export function freeNow(tools: readonly Tool[]): Tool[] {
 /** Un bloque por intención: sólo las que tienen esa capacidad citada. */
 export function withCapability(tools: readonly Tool[], capability: Capability): Tool[] {
   return ranked(
-    tools.filter((t) => has(t, capability)),
+    tools.filter((t) => gratisPuede(t, capability)),
     (t) => audioCapabilityCount(t) * 10 + (usableFreeNow(t) ? 8 : 0)
   );
 }

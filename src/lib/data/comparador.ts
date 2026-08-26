@@ -116,7 +116,22 @@ export const ROWS: Row[] = [
   },
   {
     label: 'Qué sabe hacer',
-    values: (t) => lista(t.capabilities.map((c) => CAPABILITY_LABEL[c] ?? c), SIN_ANALIZAR),
+    /*
+     * Lo que el producto hace, con una marca donde el plan gratuito no llega.
+     *
+     * La fila de al lado ya dice qué te dan gratis, pero nadie lee dos filas
+     * para una respuesta: «Texto a imagen» a secas, en una tabla de
+     * herramientas gratuitas, se lee como «puedes generar imágenes gratis». En
+     * Clipdrop eso es falso, y decirlo aquí cuesta cuatro palabras.
+     */
+    values: (t) =>
+      lista(
+        t.capabilities.map((c) => {
+          const nombre = CAPABILITY_LABEL[c] ?? c;
+          return t.freePlan.excludedCapabilities.includes(c) ? `${nombre} (sólo de pago)` : nombre;
+        }),
+        SIN_ANALIZAR
+      ),
   },
   { label: 'Qué te dan gratis', values: (t) => texto(t.freePlan.summary, SIN_ANALIZAR) },
   { label: 'Límites', values: (t) => lista([...t.freePlan.limits], SIN_ANALIZAR) },

@@ -150,7 +150,21 @@ function productoDe(tool: Tool): string {
 
 export function hechosDe(tool: Tool): HechosIndexables {
   return {
-    capabilities: tool.capabilities,
+    /*
+     * Las capacidades que el plan gratuito **no** incluye no entran aquí.
+     *
+     * Esto es lo que decide si una herramienta responde a «quiero generar
+     * imágenes». Clipdrop sabe generar, pero al intentarlo su interfaz responde
+     * que es de Pro: ofrecerlo como respuesta a esa intención sería mandar a
+     * alguien a un muro de pago desde un buscador de cosas gratis.
+     *
+     * El texto indexado sigue llevando la etiqueta completa —línea de arriba—,
+     * así que quien busque «clipdrop texto a imagen» encuentra su ficha, que es
+     * donde está la explicación.
+     */
+    capabilities: tool.capabilities.filter(
+      (c) => !tool.freePlan.excludedCapabilities.includes(c)
+    ),
     categorySlug: tool.categorySlug,
     secondaryCategories: tool.secondaryCategories,
     productType: tool.productType ?? null,

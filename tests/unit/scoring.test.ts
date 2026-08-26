@@ -26,6 +26,7 @@ const cleanPlan = {
   hasWatermark: 'no',
   commercialUse: 'yes',
   creditReset: 'none',
+  excludedCapabilities: [],
 } as const;
 
 describe('pesos de la puntuación', () => {
@@ -241,6 +242,7 @@ describe('deriveTags', () => {
         hasWatermark: 'unverified',
         commercialUse: 'unverified',
         creditReset: 'none',
+        excludedCapabilities: [],
         verifiedAt: '2026-07-01',
       },
     });

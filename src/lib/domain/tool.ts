@@ -60,6 +60,24 @@ export const FreePlan = z.object({
   commercialUse: TriState.default('unverified'),
   creditsAmount: z.string().optional(),
   creditReset: z.enum(CREDIT_RESET).default('none'),
+  /**
+   * Capacidades que el producto tiene y el plan gratuito **no** incluye.
+   *
+   * Existe por un error concreto y grave: Clipdrop sabe generar imágenes, así
+   * que `capabilities` decía `text-to-image`, así que aparecía en el bloque
+   * «Genera imágenes gratis ahora». Pero al intentarlo, su propia interfaz
+   * responde que la generación es exclusiva de Pro. Estábamos anunciando como
+   * gratis justo lo que no lo es, que es lo único que este sitio no se puede
+   * permitir.
+   *
+   * `capabilities` sigue describiendo el producto —negarlo sería otra mentira,
+   * y la ficha tiene que poder decir «esto lo hace, pero pagando»—. Esta lista
+   * es la que separa las dos preguntas: qué hace, y qué te deja hacer gratis.
+   *
+   * Sólo se rellena con evidencia, igual que cualquier otro hecho. No es para
+   * apuntar sospechas: es para lo que el fabricante declara excluido.
+   */
+  excludedCapabilities: z.array(z.enum(CAPABILITIES)).default([]),
   /** Date the free plan itself was last confirmed against the vendor's page. */
   verifiedAt: IsoDate,
 });
@@ -101,6 +119,7 @@ export const EVIDENCE_FIELDS = [
   'freePlan.commercialUse',
   'freePlan.creditReset',
   'freePlan.limits',
+  'freePlan.excludedCapabilities',
   'privacy.trainsOnUserData',
   'openSource',
   'hosting',

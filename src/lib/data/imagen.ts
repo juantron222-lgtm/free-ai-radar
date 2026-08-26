@@ -5,7 +5,7 @@ import {
   FACT_FILTERS,
   capabilityFilter,
   countIn,
-  has,
+  gratisPuede,
   ranked,
   usableFreeNow,
   localControl as localControlImpl,
@@ -64,7 +64,7 @@ export {
  * lista de las que sí.
  */
 export function freeNow(tools: readonly Tool[]): Tool[] {
-  const eligible = tools.filter((t) => has(t, 'text-to-image') && usableFreeNow(t));
+  const eligible = tools.filter((t) => gratisPuede(t, 'text-to-image') && usableFreeNow(t));
 
   /*
    * Utilidad del acceso gratuito, luego facilidad, luego amplitud.

@@ -92,7 +92,9 @@ export function buildClientIndex(
     ...(((registroDeLogos as Record<string, { ruta: string }>)[tool.slug]?.ruta ?? tool.logo)
       ? { logo: (registroDeLogos as Record<string, { ruta: string }>)[tool.slug]?.ruta ?? tool.logo! }
       : {}),
-    caps: tool.capabilities,
+    // Sólo las que el plan gratuito incluye: es lo que decide qué intención
+    // responde. Ver `hechosDe` en `search/index.ts`.
+    caps: tool.capabilities.filter((c) => !tool.freePlan.excludedCapabilities.includes(c)),
     pt: tool.productType ?? null,
     cr: tool.freePlan.creditReset ?? null,
   }));

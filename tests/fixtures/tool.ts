@@ -25,6 +25,7 @@ export function makeToolRecord(overrides: Partial<ToolRecord> = {}): ToolRecord 
       hasWatermark: 'no',
       commercialUse: 'yes',
       creditReset: 'none',
+      excludedCapabilities: [],
       verifiedAt: '2026-07-01',
     },
     kind: 'app',

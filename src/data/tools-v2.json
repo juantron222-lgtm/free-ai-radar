@@ -1701,7 +1701,7 @@
     "id": "tool_clipdrop",
     "kind": "app",
     "verification": "verified",
-    "nextReviewAt": "2026-11-22",
+    "nextReviewAt": "2026-11-24",
     "categorySlug": "imagen",
     "secondaryCategories": [],
     "tags": [],
@@ -1723,6 +1723,13 @@
         "kind": "pricing",
         "publisher": "clipdrop.co",
         "checkedAt": "2026-08-12"
+      },
+      {
+        "url": "https://clipdrop.co/text-to-image",
+        "label": "Interfaz oficial del producto",
+        "kind": "official",
+        "publisher": "clipdrop.co",
+        "checkedAt": "2026-08-26"
       }
     ],
     "pros": [],
@@ -1740,22 +1747,24 @@
     },
     "status": "published",
     "detectedAt": "2026-08-12",
-    "lastVerifiedAt": "2026-08-24",
+    "lastVerifiedAt": "2026-08-26",
     "updatedAt": "2026-08-12",
     "slug": "clipdrop",
     "name": "Clipdrop",
-    "tagline": "Generación y edición de imagen con cuotas gratuitas que se renuevan cada 24 horas.",
-    "descriptionShort": "Suite de imagen en el navegador: texto a imagen, quitar fondo, reencuadrar, escalar y limpiar. Su plan gratuito asigna cuotas por herramienta que se renuevan cada 24 horas.",
+    "tagline": "Edición de imagen con cuotas gratuitas que se renuevan cada 24 horas. Generar imágenes es de pago.",
+    "descriptionShort": "Suite de imagen en el navegador. Su plan gratuito cubre las herramientas de edición —quitar fondo, escalar, limpiar, reiluminar, quitar texto— con cuotas por herramienta que se renuevan cada 24 horas. La generación de texto a imagen no entra: al intentarlo, la propia interfaz responde que es exclusiva de Pro.",
     "officialUrl": "https://clipdrop.co/",
     "pricingUrl": "https://clipdrop.co/pricing",
     "freeModel": "credits",
     "freePlan": {
-      "summary": "Plan gratuito con cuotas por herramienta que se renuevan cada 24 horas: 20 usos en quitar fondo, escalado, limpieza y reiluminación, y 50 en el borrador de texto.",
+      "summary": "El plan gratuito cubre las herramientas de edición con cuotas diarias —quitar fondo, escalar, limpiar, reiluminar y quitar texto—, pero no la generación de imágenes: al intentarlo, la propia interfaz responde que es exclusiva de Pro.",
       "limits": [
-        "Background Removal 20/24h",
-        "Image Upscaler x2 20/24h",
-        "Cleanup 20/24h",
-        "Text Remover 50/24h"
+        "La generación de imágenes es exclusiva de Pro: no entra en el plan gratuito",
+        "Quitar fondo: 20 cada 24 h",
+        "Escalado x2: 20 cada 24 h",
+        "Limpiar: 20 cada 24 h",
+        "Reiluminar: 20 cada 24 h",
+        "Quitar texto: 50 cada 24 h"
       ],
       "requiresSignup": "unverified",
       "requiresCreditCard": "unverified",
@@ -1763,7 +1772,10 @@
       "commercialUse": "unverified",
       "creditReset": "daily",
       "creditsAmount": "20/24h por herramienta",
-      "verifiedAt": "2026-08-24"
+      "verifiedAt": "2026-08-26",
+      "excludedCapabilities": [
+        "text-to-image"
+      ]
     },
     "scores": {
       "freeReal": 8,
@@ -1772,7 +1784,7 @@
       "transparency": 8,
       "creatorValue": 7
     },
-    "verdict": "Cuotas diarias documentadas por herramienta, que es justo lo que un catálogo de acceso gratuito debe poder decir.",
+    "verdict": "Cuotas diarias documentadas herramienta por herramienta, que es justo lo que un catálogo de acceso gratuito debe poder decir. Con una excepción que conviene saber antes de entrar: generar imágenes no está incluido.",
     "evidence": [
       {
         "field": "capabilities",
@@ -1782,15 +1794,6 @@
         "checkedAt": "2026-08-12",
         "quote": "l Resizer Resize your images for any social media Text to image Text to image Generate high-resolution realist · picture? To remove a person from a photo, use our inpainting algorithm · Uncrop Uncrop Uncrop your photos to any image format Image upscaler Image upscal",
         "scope": "cloud"
-      },
-      {
-        "field": "freePlan.limits",
-        "outcome": "stated",
-        "sourceUrl": "https://clipdrop.co/pricing",
-        "sourceKind": "pricing",
-        "scope": "product",
-        "checkedAt": "2026-08-24",
-        "quote": "Free 0 — Text to image: unlimited · Uncrop: unlimited · Background Removal: 20/24h · Image Upscaler x2: 20/24h · Cleanup: 20/24h · Relight: 20/24h · Text Remover: 50/24h"
       },
       {
         "field": "freePlan.requiresCreditCard",
@@ -1809,6 +1812,24 @@
         "scope": "product",
         "checkedAt": "2026-08-24",
         "lookedFor": "Si el resultado del plan gratuito sale con marca. La página de precios no lo menciona."
+      },
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://clipdrop.co/text-to-image",
+        "sourceKind": "official",
+        "scope": "web",
+        "checkedAt": "2026-08-26",
+        "quote": "Image generation is for Pro — Generate images exclusively for Pro users"
+      },
+      {
+        "field": "freePlan.excludedCapabilities",
+        "outcome": "stated",
+        "sourceUrl": "https://clipdrop.co/text-to-image",
+        "sourceKind": "official",
+        "scope": "web",
+        "checkedAt": "2026-08-26",
+        "quote": "Image generation is for Pro — Generate images exclusively for Pro users"
       }
     ],
     "descriptionLong": "",
@@ -1821,7 +1842,7 @@
       "background-removal",
       "api"
     ],
-    "startEffortReason": "Cada herramienta se usa desde su página sin pasar por un alta previa.",
+    "startEffortReason": "Cada herramienta de edición se usa desde su página sin alta previa. Generar imágenes pide cuenta Pro.",
     "licences": {},
     "access": {}
   },
@@ -6524,18 +6545,19 @@
     ],
     "skillLevel": "intermediate",
     "freeModel": "credits",
-    "tagline": "Cien unidades al día —alrededor de una imagen— y sin licencia comercial.",
+    "tagline": "Cien unidades al día: dan para bastantes imágenes con su modelo rápido o para una sola con los caros. Sin licencia comercial.",
     "descriptionShort": "Estudio de imagen, vídeo y 3D en el navegador que reúne modelos propios y de terceros. Su plan gratuito da 100 unidades de cómputo al día, que su propia tabla equipara a una sola generación con Nano Banana 2, y no incluye la licencia comercial.",
-    "verdict": "Potente y ancha, pero su plan gratuito es una demostración: una imagen al día, sólo con el modelo propio, y sin permiso para usar el resultado en un trabajo. Merece estar en el catálogo por lo que es, no por lo que regala.",
+    "verdict": "Potente y ancha, pero su plan gratuito es una demostración: cien unidades al día, sólo con el modelo propio —que estiran o se agotan según cuál elijas— y sin permiso para usar el resultado en un trabajo. Merece estar en el catálogo por lo que es, no por lo que regala.",
     "freePlan": {
-      "summary": "Plan gratuito con 100 unidades de cómputo al día, que la propia tabla equipara a una generación de Nano Banana 2. Incluye el modelo propio Krea 2, entrenamiento LoRA limitado y escalado limitado hasta 2K. La tabla marca como no incluidos el resto de modelos de imagen, los de vídeo, los de 3D, los nodos y la licencia comercial.",
+      "summary": "Plan gratuito con 100 unidades de cómputo al día. La tabla de precios las equipara a una generación de Nano Banana 2, pero el selector del propio producto tarifa cada modelo por separado —Krea 2 Turbo 2, Medium 9, Large 20—, así que cuánto rinden depende del que elijas. Incluye el modelo propio Krea 2, entrenamiento LoRA limitado y escalado limitado hasta 2K. La tabla marca como no incluidos el resto de modelos de imagen, los de vídeo, los de 3D, los nodos y la licencia comercial.",
       "limits": [
         "100 unidades de cómputo al día (≈1 generación de Nano Banana 2)",
         "Sólo el modelo propio Krea 2: el resto de modelos de imagen no está incluido",
         "Modelos de vídeo y de 3D no incluidos; concurrencia de vídeo: 0",
         "Escalado limitado a 2K",
         "Sin licencia comercial",
-        "Sin Krea Nodes, App Builder ni Nodes Agent"
+        "Sin Krea Nodes, App Builder ni Nodes Agent",
+        "Coste por generación en el selector: Krea 2 Turbo 2, Medium 9, Large 20"
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
@@ -6543,7 +6565,7 @@
       "commercialUse": "no",
       "creditsAmount": "100 unidades/día",
       "creditReset": "daily",
-      "verifiedAt": "2026-08-13"
+      "verifiedAt": "2026-08-26"
     },
     "capabilities": [
       "text-to-image",
@@ -6581,15 +6603,6 @@
     ],
     "evidence": [
       {
-        "field": "freePlan.limits",
-        "outcome": "stated",
-        "sourceUrl": "https://www.krea.ai/pricing",
-        "sourceKind": "pricing",
-        "checkedAt": "2026-08-13",
-        "quote": "Free — 100 units /day · 1 Nano Banana 2 generation · <1 Seedance 2.0 videos [Filas con aspa en el plan Free: All image models, All video models, All 3D & lipsync models, Krea Nodes, App Builder, Nodes Agent, Commercial license. Con visto: Limited LoRA training, Limited image upscaling. Image concurrency 1, Video concurrency 0.]",
-        "scope": "cloud"
-      },
-      {
         "field": "capabilities",
         "outcome": "stated",
         "sourceUrl": "https://www.krea.ai/",
@@ -6597,11 +6610,29 @@
         "checkedAt": "2026-08-13",
         "quote": "Generate — Text to Image · Realtime Image Generation · Text to Video · Motion Transfer · Text to 3D Object · Image to 3D Object. Edit — Upscaling · Background Remover · AI Image Editor · Frame Interpolation · Video Style Transfer · Video Upscaling",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.creditReset",
+        "outcome": "stated",
+        "sourceUrl": "https://www.krea.ai/",
+        "sourceKind": "official",
+        "scope": "web",
+        "checkedAt": "2026-08-26",
+        "quote": "100 per day"
+      },
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://www.krea.ai/",
+        "sourceKind": "official",
+        "scope": "web",
+        "checkedAt": "2026-08-26",
+        "quote": "Krea 2 Turbo 2 · Krea 2 Large 20 · Krea 2 Medium 9 · ChatGPT 2 ~75 · Nano Banana Pro ~100"
       }
     ],
     "auditNotes": "commercialUse es «no» y no «unverified» porque la tabla lo declara explícitamente: «Commercial license» aparece con aspa en la columna Free y con visto en Basic, Pro y Max. Los precios de los planes de pago no están en el DOM de la página, así que el precio mínimo queda sin verificar.",
-    "nextReviewAt": "2026-11-11",
-    "lastVerifiedAt": "2026-08-13",
+    "nextReviewAt": "2026-11-24",
+    "lastVerifiedAt": "2026-08-26",
     "updatedAt": "2026-08-15",
     "licences": {},
     "access": {}
@@ -6723,7 +6754,7 @@
     "descriptionLong": "Leonardo AI es una plataforma cloud especializada en generación de imágenes para creadores de contenido, juegos y diseño. Ofrece modelos propios optimizados, fine-tuning de modelos, generación de texturas y assets para videojuegos, canvas de edición con IA, y una comunidad activa que comparte modelos y recursos. Su plan gratuito es uno de los más generosos del mercado.",
     "kind": "app",
     "verification": "verified",
-    "nextReviewAt": "2026-11-11",
+    "nextReviewAt": "2026-11-24",
     "categorySlug": "imagen",
     "secondaryCategories": [
       "video"
@@ -6754,7 +6785,7 @@
       "commercialUse": "yes",
       "creditsAmount": "150 Fast Tokens/día",
       "creditReset": "daily",
-      "verifiedAt": "2026-08-13"
+      "verifiedAt": "2026-08-26"
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -6798,6 +6829,13 @@
         "kind": "docs",
         "publisher": "intercom.help",
         "checkedAt": "2026-08-13"
+      },
+      {
+        "url": "https://app.leonardo.ai/",
+        "label": "Interfaz oficial del producto",
+        "kind": "official",
+        "publisher": "app.leonardo.ai",
+        "checkedAt": "2026-08-26"
       }
     ],
     "scores": {
@@ -6839,7 +6877,7 @@
     },
     "status": "published",
     "detectedAt": "2023-06-15",
-    "lastVerifiedAt": "2026-08-13",
+    "lastVerifiedAt": "2026-08-26",
     "updatedAt": "2026-08-15",
     "auditNotes": "El uso comercial es yes para todos los planes, pero en el gratuito las creaciones son públicas y remezclables: la diferencia está en los límites, no en el permiso. Marca de agua y tarjeta siguen sin constar en ninguna página oficial.",
     "startEffort": "signup",
@@ -6854,15 +6892,6 @@
       "api"
     ],
     "evidence": [
-      {
-        "field": "freePlan.limits",
-        "outcome": "stated",
-        "sourceUrl": "https://leonardo.ai/pricing/",
-        "sourceKind": "pricing",
-        "checkedAt": "2026-08-13",
-        "quote": "FREE $0 /month […] Fast Tokens 150 / day · Token Bank 150 · Creations access Public · Quality settings Basic · Personal collections 1",
-        "scope": "cloud"
-      },
       {
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -9566,7 +9595,7 @@
     "id": "tool_playground-ai",
     "kind": "app",
     "verification": "verified",
-    "nextReviewAt": "2026-11-12",
+    "nextReviewAt": "2026-11-24",
     "categorySlug": "imagen",
     "secondaryCategories": [],
     "tags": [],
@@ -9588,6 +9617,13 @@
         "kind": "pricing",
         "publisher": "playground.com",
         "checkedAt": "2026-08-12"
+      },
+      {
+        "url": "https://playgroundai.com/design/pricing",
+        "label": "Interfaz oficial del producto",
+        "kind": "official",
+        "publisher": "playgroundai.com",
+        "checkedAt": "2026-08-26"
       }
     ],
     "pros": [],
@@ -9605,7 +9641,7 @@
     },
     "status": "published",
     "detectedAt": "2026-08-12",
-    "lastVerifiedAt": "2026-08-12",
+    "lastVerifiedAt": "2026-08-26",
     "updatedAt": "2026-08-12",
     "slug": "playground-ai",
     "name": "Playground",
@@ -9617,9 +9653,10 @@
     "freePlan": {
       "summary": "Plan gratuito activo con hasta diez imágenes cada tres horas y tres generaciones mensuales en los modelos premium. La licencia comercial se concede también en el plan gratuito.",
       "limits": [
-        "Create up to 10 images every 3 hours",
-        "3 monthly generations across Nano Banana, GPT Image 2, and Seedream",
-        "Slower generation during peak hours"
+        "Hasta 10 imágenes cada 3 horas",
+        "3 generaciones al mes en los modelos Nano Banana, GPT Image 2 y Seedream",
+        "Uso comercial: licencia mundial y libre de derechos",
+        "Generación más lenta en horas punta y espera al agotar el límite"
       ],
       "requiresSignup": "unverified",
       "requiresCreditCard": "unverified",
@@ -9627,7 +9664,7 @@
       "commercialUse": "yes",
       "creditReset": "daily",
       "creditsAmount": "10 imágenes cada 3 horas",
-      "verifiedAt": "2026-08-12"
+      "verifiedAt": "2026-08-26"
     },
     "scores": {
       "freeReal": 8,
@@ -9639,24 +9676,6 @@
     "verdict": "De las pocas que documentan a la vez el límite del plan gratuito y que puedes usar comercialmente lo que genera.",
     "evidence": [
       {
-        "field": "freePlan.limits",
-        "outcome": "stated",
-        "sourceUrl": "https://playground.com/pricing",
-        "sourceKind": "pricing",
-        "checkedAt": "2026-08-12",
-        "quote": "Free ACTIVE For exploring and casual creation Limited image generation Create up to 10 images every 3 hours Limited model access 3 monthly generations across Nano Banana, GPT Image 2, and Seedream",
-        "scope": "cloud"
-      },
-      {
-        "field": "freePlan.commercialUse",
-        "outcome": "stated",
-        "sourceUrl": "https://playground.com/pricing",
-        "sourceKind": "pricing",
-        "checkedAt": "2026-08-12",
-        "quote": "Commercial use World-wide, royalty free license",
-        "scope": "cloud"
-      },
-      {
         "field": "capabilities",
         "outcome": "stated",
         "sourceUrl": "https://playground.com/",
@@ -9664,6 +9683,24 @@
         "checkedAt": "2026-08-12",
         "quote": "ACTIVE For exploring and casual creation Limited image generation Create up to 10 images every 3 hours Limited · ess to the full premium template library Enhanced image editing Upscaling and background removal included Up t · sthetic Background Image Tools Background Removal Upscale AI Resize Logo Generator Mockup Generator File Conve",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://playgroundai.com/design/pricing",
+        "sourceKind": "official",
+        "scope": "product",
+        "checkedAt": "2026-08-26",
+        "quote": "Free — Limited image generation: Create up to 10 images every 3 hours · Limited model access: 3 monthly generations across Nano Banana, GPT Image 2, and Seedream · Commercial use: World-wide, royalty free license · Limitations: Slower generation during peak hours. Waiting period after limits are reached."
+      },
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://playgroundai.com/design/pricing",
+        "sourceKind": "official",
+        "scope": "product",
+        "checkedAt": "2026-08-26",
+        "quote": "Commercial use — World-wide, royalty free license"
       }
     ],
     "descriptionLong": "",

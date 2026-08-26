@@ -22,6 +22,25 @@ export const USABLE_FREE: ReadonlySet<string> = new Set(['free_real', 'freemium'
 export const has = (tool: Tool, capability: Capability): boolean =>
   tool.capabilities.includes(capability);
 
+/**
+ * ¿Y puedes hacerlo **sin pagar**?
+ *
+ * `has` contesta qué hace el producto. Esta contesta la única pregunta que
+ * este sitio existe para contestar, que es otra: qué te deja hacer su plan
+ * gratuito.
+ *
+ * Separarlas no es una sutileza. Clipdrop sabe generar imágenes, así que
+ * `has(clipdrop, 'text-to-image')` es cierto, así que aparecía en el bloque
+ * «Genera imágenes gratis ahora» —y al pulsar, su propia interfaz responde que
+ * la generación es exclusiva de Pro—. La ficha tiene que poder decir «esto lo
+ * hace»; el listado de lo gratis, no.
+ *
+ * Regla: donde el texto prometa gratis, se usa ésta. Donde se describa el
+ * producto —la ficha, el comparador—, se usa `has`.
+ */
+export const gratisPuede = (tool: Tool, capability: Capability): boolean =>
+  has(tool, capability) && !tool.freePlan.excludedCapabilities.includes(capability);
+
 /** Cuántas capacidades del dominio de esta categoría tiene la herramienta. */
 export const countIn = (tool: Tool, domain: readonly Capability[]): number =>
   domain.filter((c) => has(tool, c)).length;
@@ -245,7 +264,7 @@ export function capabilityFilter(
   hint: string,
   capability: Capability
 ): CategoryFilter {
-  return { id, label, hint, matches: (t) => has(t, capability) };
+  return { id, label, hint, matches: (t) => gratisPuede(t, capability) };
 }
 
 /**

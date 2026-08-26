@@ -6,6 +6,7 @@ import {
   FACT_FILTERS,
   capabilityFilter,
   countIn,
+  gratisPuede,
   has,
   ranked,
   type CategoryFilter,
@@ -90,7 +91,7 @@ export const MIN_BLOQUE = 3;
 
 export function withCapability(tools: readonly Tool[], capability: Capability): Tool[] {
   return ranked(
-    tools.filter((t) => has(t, capability)),
+    tools.filter((t) => gratisPuede(t, capability)),
     (t) => modelCapabilityCount(t) * 10 + (t.access.weights === 'yes' ? 6 : 0)
   );
 }
