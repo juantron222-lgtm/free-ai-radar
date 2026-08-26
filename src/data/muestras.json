@@ -28,7 +28,132 @@
       },
       "derivacion": "Reescalado de 2048×2048 a 1440×1440 y recomprimido a WebP calidad 82. Sin recorte, sin corrección de color, sin retoque."
     },
-    "notes": "La interfaz mostraba literalmente «0 / 12 credits left until your weekly limit resets in 3 days». De ahí sale la cuota observada, no el coste de esta generación en concreto, que no hemos establecido. La ficha documenta 10 créditos lentos a la semana y la interfaz mostró 12: ver la nota de contradicción. La marca de agua se comprobó sobre el archivo descargado a resolución completa. La hora es la de descarga del archivo."
+    "notes": "No hemos establecido cuántos créditos costó esta generación en concreto: la interfaz da el saldo, no el precio unitario. La marca de agua se determinó inspeccionando el archivo original completo a resolución nativa: no se observa ninguna marca visible, ni en el cuerpo de la imagen ni en sus bordes. Es una observación sobre este archivo, no una afirmación sobre el plan. La hora es la de descarga del archivo.",
+    "auxiliar": [
+      {
+        "tipo": "captura_interfaz",
+        "ruta": "/muestras/auxiliar/ideogram-creditos.webp",
+        "bytes": 5576,
+        "sha256": "3c1cc256cf69f820454c3190e1f223a52951c0270bd1d279b36a65a38705934d",
+        "dimensiones": {
+          "width": 565,
+          "height": 98
+        },
+        "capturadaEl": "2026-08-26T00:28:40+02:00",
+        "textoVisible": "0 / 12 credits left until your weekly limit resets in 3 days",
+        "respalda": "Durante nuestra prueba la interfaz de Ideogram mostraba un saldo de 0 sobre 12 créditos y anunciaba un reinicio semanal en 3 días. Es una lectura de la cuenta en ese momento, no la cuota oficial del plan: la documentación del fabricante indica 10 créditos lentos a la semana y no la hemos podido re-verificar."
+      }
+    ]
+  },
+  {
+    "id": "krea-2026-08-26",
+    "toolSlug": "krea",
+    "generatedAt": "2026-08-26T17:55:12+02:00",
+    "accessSurface": "web",
+    "accessUrl": "https://www.krea.ai/",
+    "prompt": "imagen cinematográfica de una playa con una gran luna naranja al anocheces, nubes rojas, espuma en agua azul turquesa, junto a un bosque con luciérnagas un niño jugando con ellas, imagen mágica",
+    "model": "Auto · el producto resolvió a Krea 2 Turbo",
+    "dimensions": {
+      "width": 1024,
+      "height": 1024
+    },
+    "creditsSpent": {
+      "origen": "inferido",
+      "texto": "2 créditos",
+      "base": "El selector de modelos tarifa Krea 2 Turbo en 2 créditos y la generación llegó etiquetada como «Krea 2 Turbo». El producto no mostró el cargo de esta ejecución en ningún sitio: la cifra es nuestra, no suya."
+    },
+    "creditsLeft": "92 de 100 diarios",
+    "cardRequiredObserved": "no_aparecio",
+    "watermarkObserved": "no_aparecio",
+    "asset": {
+      "original": "/muestras/originales/krea.png",
+      "originalBytes": 1188109,
+      "originalSha256": "ea888daf69052909fe3dd9d5c54528b3038842ce519ba1b03b1b3e08f6c6d113",
+      "web": "/muestras/web/krea.webp",
+      "webBytes": 64172,
+      "webDimensiones": {
+        "width": 1024,
+        "height": 1024
+      },
+      "derivacion": "Reescalado de 1024×1024 a 1024×1024 y recomprimido a WebP calidad 82. Sin recorte, sin corrección de color, sin retoque."
+    },
+    "auxiliar": [
+      {
+        "tipo": "captura_interfaz",
+        "ruta": "/muestras/auxiliar/krea-creditos.webp",
+        "bytes": 2750,
+        "sha256": "fa4ae74d018c35c4885f044d512dcaff3eccad0fa9692910588ec2b8f8ba2f13",
+        "dimensiones": {
+          "width": 246,
+          "height": 196
+        },
+        "capturadaEl": "2026-08-26T17:56:32+02:00",
+        "textoVisible": "Default Workspace · Free — 92 Credits remaining · 100 per day",
+        "respalda": "Durante nuestra prueba el espacio de trabajo figuraba en plan Free y el contador marcaba 92 créditos restantes de 100 al día. Es la lectura de esa cuenta en ese momento, no la cuota oficial del producto.",
+        "recorte": "Recorte de 246×196 sobre una pantalla de 1708×922, desde (250, 462). Queda el panel de la cuenta con el plan y el contador. Se dejan fuera el navegador y la barra lateral, donde figuraba el correo de quien hizo la prueba."
+      },
+      {
+        "tipo": "captura_interfaz",
+        "ruta": "/muestras/auxiliar/krea-modelos.webp",
+        "bytes": 7926,
+        "sha256": "0629944da8dfa590973e706d280eb32db0c89b7b78be7a05e62e58da5488daa7",
+        "dimensiones": {
+          "width": 290,
+          "height": 730
+        },
+        "capturadaEl": "2026-08-26T17:55:46+02:00",
+        "textoVisible": "Auto — Chooses the best model for your prompt & plan automatically. Krea 2 Turbo 2. Krea 2 Large 20. Krea 2 Medium 9. ChatGPT 2 ~75. Nano Banana Pro ~100.",
+        "respalda": "Así tarifaba el producto sus modelos el día de la prueba. Es de aquí, y sólo de aquí, de donde sale el coste que atribuimos a esta generación: la interfaz nunca mostró el cargo concreto. No consta en ninguna URL pública; sólo se ve con la sesión iniciada.",
+        "recorte": "Recorte de 290×730 sobre una pantalla de 1844×903, desde (233, 56). Queda el selector de modelos con sus tarifas. Se dejan fuera el navegador y la barra lateral, donde figuraba el correo de quien hizo la prueba."
+      }
+    ],
+    "notes": "El selector estaba en «Auto» y el producto eligió Krea 2 Turbo, que es su modelo más barato: el modo lo decidió él, no nosotros. Que este archivo es una de las generaciones de esa sesión está comprobado, no supuesto: coincide píxel a píxel con la primera miniatura de la galería en la captura de la cuenta. El compositor mostraba la proporción 2:3 seleccionada para la siguiente generación, pero el archivo recibido es cuadrado, así que aquí se publica lo que mide el fichero y no lo que decía el selector. La marca de agua se determinó inspeccionando el archivo original completo a resolución nativa: no se observa ninguna marca visible. Es una observación sobre este archivo, no una afirmación sobre el plan."
+  },
+  {
+    "id": "leonardo-ai-2026-08-26",
+    "toolSlug": "leonardo-ai",
+    "generatedAt": "2026-08-26T17:58:51+02:00",
+    "accessSurface": "web",
+    "accessUrl": "https://app.leonardo.ai/",
+    "prompt": "imagen cinematográfica de una playa con una gran luna naranja al anocheces, nubes rojas, espuma en agua azul turquesa, junto a un bosque con luciérnagas un niño jugando con ellas, imagen mágica",
+    "model": "Lucid Origin",
+    "aspectRatio": "1:1",
+    "dimensions": {
+      "width": 1024,
+      "height": 1024
+    },
+    "creditsLeft": "134 de 150 Fast Tokens",
+    "cardRequiredObserved": "no_aparecio",
+    "watermarkObserved": "no_aparecio",
+    "asset": {
+      "original": "/muestras/originales/leonardo-ai.jpg",
+      "originalBytes": 253863,
+      "originalSha256": "e5cdf0035f2be81457627a96c96b8fcf9cd121d63eb99a8ea0a1d9fc1cb1f035",
+      "web": "/muestras/web/leonardo-ai.webp",
+      "webBytes": 79904,
+      "webDimensiones": {
+        "width": 1024,
+        "height": 1024
+      },
+      "derivacion": "Reescalado de 1024×1024 a 1024×1024 y recomprimido a WebP calidad 82. Sin recorte, sin corrección de color, sin retoque."
+    },
+    "auxiliar": [
+      {
+        "tipo": "captura_interfaz",
+        "ruta": "/muestras/auxiliar/leonardo-ai-plan.webp",
+        "bytes": 25680,
+        "sha256": "2b04249a8509500568fd605679ad66aa1dd75c7f1fe306700b228424173cf8e7",
+        "dimensiones": {
+          "width": 930,
+          "height": 366
+        },
+        "capturadaEl": "2026-08-26T17:59:31+02:00",
+        "textoVisible": "My Plan — Free. Fast Tokens 134 / 150. You are currently on a free plan. Upgrade for additional tokens, private generations, and much more!",
+        "respalda": "Durante nuestra prueba la cuenta figuraba en plan Free y el contador marcaba 134 de 150 Fast Tokens. Es el saldo que enseñaba la cuenta en esa sesión: ni el coste de esta muestra ni la cuota oficial del plan.",
+        "recorte": "Recorte de 930×366 sobre una pantalla de 1911×899, desde (320, 14). Queda la cabecera con el contador, el desplegable del plan y el aviso de plan gratuito. Se deja fuera el resto del espacio de trabajo."
+      }
+    ],
+    "notes": "El archivo lo entrega Leonardo con el modelo en el nombre —«lucid-origin», seguido del prompt—, y se descargó a las 17:58 de esa sesión. Un minuto y medio después capturamos la cuenta, y ahí hay una discrepancia que conviene decir en voz alta: la generación que enseñaba la galería no es ésta, sino otra distinta del mismo prompt. Por eso no le atribuimos a este archivo ni el estilo ni la calidad que llevaba aquella tarjeta —Dynamic y Fast—, ni coste alguno: el saldo de 134 sobre 150 Fast Tokens es el que mostraba la cuenta en esa sesión y nada más. La marca de agua se determinó inspeccionando el archivo original completo a resolución nativa: no se observa ninguna marca visible. Es una observación sobre este archivo, no una afirmación sobre el plan."
   },
   {
     "id": "recraft-2026-08-26",
@@ -43,7 +168,10 @@
       "width": 1024,
       "height": 1024
     },
-    "creditsSpent": "100 créditos reportados durante la prueba",
+    "creditsSpent": {
+      "origen": "mostrado",
+      "texto": "100 créditos reportados durante la prueba"
+    },
     "cardRequiredObserved": "no_aparecio",
     "watermarkObserved": "no_aparecio",
     "durationSeconds": 6,
@@ -59,6 +187,7 @@
       },
       "derivacion": "Reescalado de 1024×1024 a 1024×1024 y recomprimido a WebP calidad 82. Sin recorte, sin corrección de color, sin retoque."
     },
-    "notes": "La marca de agua se comprobó sobre el archivo descargado, no sobre la vista previa: se extrajeron las bandas superior e inferior a resolución completa y no aparece ningún logotipo ni texto superpuesto. La hora es la de descarga del archivo."
+    "notes": "La marca de agua se determinó inspeccionando el archivo original completo a resolución nativa: no se observa ninguna marca visible, ni en el cuerpo de la imagen ni en sus bordes. Es una observación sobre este archivo, no una afirmación sobre el plan. La hora es la de descarga del archivo.",
+    "auxiliar": []
   }
 ]

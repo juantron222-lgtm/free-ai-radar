@@ -1,0 +1,139 @@
+---
+import type { Tool } from '@lib/domain/tool';
+import { capturasDe } from '@lib/data/capturas';
+import { estaProbada } from '@lib/data/muestras';
+
+interface Props {
+  tool: Tool;
+}
+
+const { tool } = Astro.props;
+
+/*
+ * Lo que sólo enseña la pantalla.
+ *
+ * Este módulo existe por un caso concreto: Clipdrop responde al intento de
+ * generar con un aviso de que la generación es exclusiva de Pro. No hay
+ * muestra —justamente porque no dejó generar— y sin embargo esa pantalla es la
+ * mejor prueba de la condición, porque el HTML de la página no la contiene.
+ *
+ * Cuando sí hay muestra, las capturas de esa ejecución van dentro del módulo
+ * de la prueba, donde están sus condiciones. Aquí sólo quedan las que no
+ * cuelgan de ninguna generación.
+ */
+const capturas = capturasDe(tool.slug);
+const hayMuestra = estaProbada(tool.slug);
+
+const cuando = (iso: string) =>
+  new Date(iso).toLocaleDateString('es-ES', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+---
+
+{capturas.length > 0 && (
+  <section class="capturas" aria-labelledby="capturas-title">
+    <h2 id="capturas-title" class="capturas-title">Lo que vimos en su interfaz</h2>
+    <p class="capturas-intro">
+      {hayMuestra
+        ? `Pantallas de ${tool.name} tomadas mientras lo probábamos. No son su documentación: son lo que mostraba el producto ese día, con nuestra cuenta.`
+        : `No hay una muestra generada con ${tool.name}, así que esto es lo que tenemos: las pantallas que nos encontramos al usarlo. No son su documentación, son lo que mostraba el producto ese día, con nuestra cuenta.`}
+    </p>
+
+    {capturas.map((c) => (
+      <figure class="captura">
+        <img
+          class="captura-imagen"
+          src={c.ruta}
+          width={c.dimensiones.width}
+          height={c.dimensiones.height}
+          loading="lazy"
+          decoding="async"
+          alt={`Captura de la interfaz de ${tool.name}: ${c.textoVisible}`}
+        />
+        <figcaption class="captura-pie">
+          {/*
+            La frase literal primero y su alcance después, igual que en las
+            capturas de una muestra. Sin la segunda línea, un aviso de una
+            pantalla se leería como la condición permanente del producto.
+          */}
+          <span class="captura-texto">«{c.textoVisible}»</span>
+          <span class="captura-alcance">{c.respalda}</span>
+          {c.recorte && <span class="captura-recorte">{c.recorte}</span>}
+          <span class="captura-donde">
+            Tomada el {cuando(c.capturadaEl)} en{' '}
+            <a href={c.url} rel="nofollow noopener" target="_blank">
+              {new URL(c.url).host}
+              {new URL(c.url).pathname}
+            </a>
+          </span>
+        </figcaption>
+      </figure>
+    ))}
+  </section>
+)}
+
+<style>
+  .capturas {
+    display: grid;
+    gap: var(--space-2xs);
+    padding-block-start: var(--space-m);
+    border-block-start: 1px solid var(--line);
+  }
+
+  .capturas-title {
+    font-size: 1.25rem;
+    margin: 0;
+  }
+
+  .capturas-intro {
+    margin: 0 0 var(--space-2xs);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--ink-muted);
+  }
+
+  .captura {
+    margin: 0;
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  /*
+   * A su tamaño, sin estirar. Es un recorte de interfaz: agrandarlo hasta el
+   * ancho de la columna lo dejaría borroso y le daría un peso visual que no
+   * tiene.
+   */
+  .captura-imagen {
+    display: block;
+    max-width: min(100%, 34rem);
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-m);
+  }
+
+  .captura-pie {
+    display: grid;
+    gap: 0.2rem;
+    font-size: 0.8125rem;
+    line-height: 1.55;
+  }
+
+  .captura-texto {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink-strong);
+  }
+
+  .captura-alcance {
+    color: var(--ink-muted);
+  }
+
+  .captura-recorte,
+  .captura-donde {
+    color: var(--ink-muted);
+    font-size: 0.75rem;
+  }
+</style>

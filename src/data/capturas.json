@@ -1,0 +1,36 @@
+[
+  {
+    "id": "clipdrop-generacion-pro",
+    "toolSlug": "clipdrop",
+    "url": "https://clipdrop.co/text-to-image",
+    "tipo": "captura_interfaz",
+    "ruta": "/muestras/auxiliar/clipdrop-generacion-pro.webp",
+    "bytes": 111898,
+    "sha256": "a077ba35050557020af7098d426faf4dcb41b8cf71671c41fd4df9266dab90b9",
+    "dimensiones": {
+      "width": 512,
+      "height": 700
+    },
+    "capturadaEl": "2026-08-26T17:54:13+02:00",
+    "textoVisible": "Image generation is for Pro — Generate images exclusively for Pro users — Upgrade to PRO",
+    "respalda": "Con el prompt ya escrito en el formulario, el producto respondió con este aviso en vez de generar. Sostiene que ese día su propia interfaz declaraba la generación de imágenes exclusiva de Pro, y es la razón por la que Clipdrop no tiene muestra: no llegamos a generar nada. El HTML de la página no contiene este aviso, así que la pantalla es la única prueba que queda de él.",
+    "recorte": "Recorte de 512×700 sobre una pantalla de 1164×896, desde (565, 158). Queda el aviso completo, sin tocar. Se deja fuera el navegador, cuya barra de marcadores no es parte de la prueba. La dirección era clipdrop.co/text-to-image."
+  },
+  {
+    "id": "playground-ai-plan-free",
+    "toolSlug": "playground-ai",
+    "url": "https://playgroundai.com/design/pricing",
+    "tipo": "captura_interfaz",
+    "ruta": "/muestras/auxiliar/playground-ai-plan-free.webp",
+    "bytes": 19202,
+    "sha256": "335a71010c0956a45eabe0778ca692505b30d904640954a5ec8f029e8ae5221d",
+    "dimensiones": {
+      "width": 360,
+      "height": 400
+    },
+    "capturadaEl": "2026-08-26T18:04:26+02:00",
+    "textoVisible": "Free ACTIVE — For exploring and casual creation. Limited image generation: Create up to 10 images every 3 hours. Limited model access: 3 monthly generations across Nano Banana, GPT Image 2, and Seedream. Commercial use: World-wide, royalty free license. Limitations: Slower generation during peak hours. Waiting period after limits are reached.",
+    "respalda": "La página de precios del fabricante, vista con nuestra cuenta dentro: el distintivo ACTIVE confirma que el nivel que leemos es el que teníamos. Sostiene lo que Playground publicaba ese día sobre su plan gratuito.",
+    "recorte": "Recorte de 360×400 sobre una pantalla de 1697×970, desde (477, 336). Queda la columna del plan gratuito entera. Se dejan fuera el navegador y el pie de la barra lateral, donde figuraba el nombre de quien hizo la prueba."
+  }
+]

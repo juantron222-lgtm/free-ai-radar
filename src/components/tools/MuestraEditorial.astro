@@ -1,7 +1,13 @@
 ---
 import type { Tool } from '@lib/domain/tool';
 import { muestrasDe } from '@lib/data/muestras';
-import { AVISO_MUESTRA, AVISO_OBSERVADO, OBSERVACION_LABEL, contradicciones } from '@lib/domain/muestra';
+import {
+  AVISO_MUESTRA,
+  AVISO_OBSERVADO,
+  OBSERVACION_LABEL,
+  ORIGEN_COSTE_LABEL,
+  contradicciones,
+} from '@lib/domain/muestra';
 import { TRI_STATE_LABEL } from '@lib/domain/primitives';
 import { MOTIVO_LABEL, motivoDelHueco } from '@lib/domain/evidencia';
 
@@ -51,7 +57,24 @@ const observado = muestra
         label: 'Resolución recibida',
         valor: muestra.dimensions ? `${muestra.dimensions.width} × ${muestra.dimensions.height}` : undefined,
       },
-      { label: 'Créditos, según la interfaz', valor: muestra.creditsSpent },
+      {
+        /*
+         * El coste, con su procedencia pegada.
+         *
+         * Krea no enseña el cargo de una generación: publica una tarifa por
+         * modelo y deja que restes. La resta la hicimos nosotros y puede estar
+         * mal, así que la cifra no puede aparecer con el mismo aspecto que una
+         * que el producto mostró. El matiz no es una nota al pie: es la mitad
+         * del dato.
+         */
+        label: 'Créditos gastados',
+        valor: muestra.creditsSpent?.texto,
+        matiz: muestra.creditsSpent
+          ? muestra.creditsSpent.origen === 'inferido'
+            ? `${ORIGEN_COSTE_LABEL.inferido}. ${muestra.creditsSpent.base}`
+            : ORIGEN_COSTE_LABEL.mostrado
+          : undefined,
+      },
       { label: 'Cuota que mostraba la cuenta', valor: muestra.creditsLeft },
       { label: 'Tiempo aproximado', valor: muestra.durationSeconds ? `${muestra.durationSeconds} s` : undefined },
     ]
@@ -139,7 +162,10 @@ const enfrentados = muestra
           .map((d) => (
             <div class="muestra-dato">
               <dt>{d.label}</dt>
-              <dd>{d.valor}</dd>
+              <dd>
+                {d.valor}
+                {d.matiz && <span class="muestra-matiz">{d.matiz}</span>}
+              </dd>
             </div>
           ))}
       </dl>
@@ -169,6 +195,42 @@ const enfrentados = muestra
       </table>
     </div>
 
+    {muestra.auxiliar.length > 0 && (
+      <div class="muestra-auxiliar">
+        <p class="eyebrow">Lo que mostraba la interfaz durante la prueba</p>
+        {muestra.auxiliar.map((a) => (
+          <figure class="muestra-aux-figura">
+            <img
+              class="muestra-aux-imagen"
+              src={a.ruta}
+              width={a.dimensiones.width}
+              height={a.dimensiones.height}
+              loading="lazy"
+              decoding="async"
+              alt={`Captura de la interfaz de ${tool.name}: ${a.textoVisible}`}
+            />
+            <figcaption class="muestra-aux-pie">
+              {/*
+                La frase literal primero y su alcance después. Una captura de un
+                contador es la lectura de un instante, no la cuota del plan: sin
+                esa segunda línea, doce créditos se leerían como la condición
+                oficial del producto.
+              */}
+              <span class="muestra-aux-texto">«{a.textoVisible}»</span>
+              <span class="muestra-aux-alcance">{a.respalda}</span>
+              {/*
+                Y qué se recortó. Una captura de navegador arrastra el correo de
+                la cuenta y la barra de marcadores, que no son la prueba y no
+                deberían publicarse; pero recortar también sirve para quitar lo
+                que estorba, así que se declara qué queda y qué se fue.
+              */}
+              {a.recorte && <span class="muestra-aux-recorte">{a.recorte}</span>}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    )}
+
     <p class="muestra-alcance">{AVISO_OBSERVADO}</p>
 
     {choques.length > 0 && (
@@ -194,6 +256,15 @@ const enfrentados = muestra
     gap: var(--space-xs);
     padding-block-start: var(--space-m);
     border-block-start: 1px solid var(--line);
+  }
+
+  .muestra-matiz {
+    display: block;
+    margin-block-start: 0.2rem;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    line-height: 1.45;
+    color: var(--ink-muted);
   }
 
   .muestra-title {
@@ -316,6 +387,54 @@ const enfrentados = muestra
     border-inline-start: 2px solid var(--info-line);
     background: var(--info-soft);
     font-weight: 550;
+  }
+
+  .muestra-auxiliar {
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .muestra-aux-figura {
+    margin: 0;
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  /*
+   * La captura, a su tamaño y sin estirar.
+   *
+   * Es un recorte pequeño de interfaz: agrandarlo hasta el ancho de la columna
+   * lo dejaría borroso y le daría una importancia visual que no tiene. Se
+   * enseña como lo que es, un apunte.
+   */
+  .muestra-aux-imagen {
+    display: block;
+    max-width: min(100%, 34rem);
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-m);
+  }
+
+  .muestra-aux-pie {
+    display: grid;
+    gap: 0.2rem;
+    font-size: 0.8125rem;
+    line-height: 1.55;
+  }
+
+  .muestra-aux-texto {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink-strong);
+  }
+
+  .muestra-aux-alcance {
+    color: var(--ink-muted);
+  }
+
+  .muestra-aux-recorte {
+    color: var(--ink-muted);
+    font-size: 0.75rem;
   }
 
   .muestra-alcance {

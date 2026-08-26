@@ -4,6 +4,7 @@ import AccessBadge from '@components/tools/AccessBadge.astro';
 import FactChips from '@components/tools/FactChips.astro';
 import ToolLogo from '@components/tools/ToolLogo.astro';
 import MuestraEditorial from '@components/tools/MuestraEditorial.astro';
+import CapturasDeInterfaz from '@components/tools/CapturasDeInterfaz.astro';
 import FreshnessNotice from '@components/tools/FreshnessNotice.astro';
 import OutboundButton from '@components/tools/OutboundButton.astro';
 import ToolActions from '@components/tools/ToolActions.astro';
@@ -180,6 +181,15 @@ const verificacion = verificacionDe(tool);
           muestra, el componente no pinta nada y la página queda como estaba.
         */}
         <MuestraEditorial tool={tool} />
+
+        {/*
+          Y lo que vimos sin llegar a generar.
+
+          Cuando un producto responde al intento con «esto es de pago» no hay
+          muestra que enseñar, pero sí una pantalla que vale más que su
+          documentación: en Clipdrop ese aviso no está en el HTML de la página.
+        */}
+        <CapturasDeInterfaz tool={tool} />
 
         <section aria-labelledby="free-title" class="tool-section">
           <h2 id="free-title">Qué te dan gratis</h2>

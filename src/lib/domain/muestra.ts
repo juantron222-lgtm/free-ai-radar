@@ -37,6 +37,39 @@ export const OBSERVACION_LABEL: Record<Observacion, string> = {
   no_se_pudo_ver: 'No pudimos comprobarlo',
 };
 
+/**
+ * Lo que costó la generación, y **cómo lo sabemos**.
+ *
+ * Un producto puede enseñar el cargo de esta ejecución («−2 créditos») o
+ * limitarse a publicar una tarifa por modelo y dejar que el lector reste. Las
+ * dos cosas se escriben parecido y valen muy distinto: la primera es una
+ * lectura, la segunda es una cuenta que hemos hecho nosotros y que puede
+ * estar mal —otra tarifa, un descuento, una promoción, un cargo que no se ve—.
+ *
+ * Por eso el origen no es un matiz redactado: es parte de la estructura, y una
+ * cifra inferida no puede archivarse sin decir de qué se dedujo.
+ */
+export const CosteObservado = z.discriminatedUnion('origen', [
+  z.object({
+    origen: z.literal('mostrado'),
+    /** La cifra tal como la enseñaba la interfaz. */
+    texto: z.string().min(1),
+  }),
+  z.object({
+    origen: z.literal('inferido'),
+    texto: z.string().min(1),
+    /** De qué se dedujo. Sin esto, una cuenta nuestra pasaría por un dato suyo. */
+    base: z.string().min(1),
+  }),
+]);
+export type CosteObservado = z.infer<typeof CosteObservado>;
+
+/** Cómo se presenta la procedencia de una cifra de coste. */
+export const ORIGEN_COSTE_LABEL: Record<CosteObservado['origen'], string> = {
+  mostrado: 'Lo mostraba la interfaz',
+  inferido: 'Deducido por nosotros',
+};
+
 /** Lo que se recibió, tal cual, sin redondear ni convertir. */
 export const Dimensiones = z.object({
   width: z.number().int().positive(),
@@ -82,6 +115,67 @@ export const ActivoDeMuestra = z.object({
 });
 export type ActivoDeMuestra = z.infer<typeof ActivoDeMuestra>;
 
+/**
+ * Lo que enseñaba la pantalla, fotografiado.
+ *
+ * Una muestra prueba qué salió del generador. Esto prueba otra cosa: qué decía
+ * la interfaz mientras generábamos —el contador de créditos, el aviso de
+ * cuota, el botón que pedía tarjeta—. Son datos que no dejan rastro en el
+ * archivo resultante y que se pierden en cuanto se cierra la pestaña.
+ *
+ * Y son, sobre todo, **una lectura de un instante**. Que un contador dijera
+ * «0 / 12 esta semana» no convierte doce en la cuota oficial del producto:
+ * puede ser otro nivel de plan, una promoción o un cambio de ayer. Por eso
+ * `textoVisible` guarda la frase literal y `respalda` dice qué sostiene, sin
+ * ampliarlo ni un milímetro.
+ */
+export const EvidenciaAuxiliar = z.object({
+  tipo: z.literal('captura_interfaz'),
+  ruta: z.string().regex(/^\/muestras\/auxiliar\/[a-z0-9-]+\.(png|jpg|webp)$/),
+  bytes: z.number().int().positive(),
+  sha256: z.string().regex(/^[a-f0-9]{64}$/),
+  dimensiones: Dimensiones,
+  capturadaEl: z.string().regex(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2})?([+-]\d{2}:\d{2}|Z)$/),
+  /** La frase que se lee en la captura, transcrita sin interpretar. */
+  textoVisible: z.string().min(1),
+  /** Qué sostiene exactamente. Nunca «el plan es así»: siempre «mostraba». */
+  respalda: z.string().min(1),
+  /**
+   * Qué se recortó de la pantalla y por qué.
+   *
+   * Una captura de navegador arrastra cosas que no son la prueba y que no
+   * deberían publicarse: la barra de marcadores, el correo de la cuenta, el
+   * nombre de quien hizo la prueba. Recortar es legítimo; hacerlo en silencio
+   * no, porque un recorte también puede quitar lo que incomoda. Si el archivo
+   * archivado no es la pantalla entera, aquí se dice qué queda y qué se fue.
+   */
+  recorte: z.string().min(1).optional(),
+});
+export type EvidenciaAuxiliar = z.infer<typeof EvidenciaAuxiliar>;
+
+/**
+ * Una captura que no acompaña a ninguna muestra.
+ *
+ * Hay cosas que sólo enseña la interfaz y que no tienen generación detrás. El
+ * caso que obligó a esto: Clipdrop responde al intento de generar con un aviso
+ * de que la generación es exclusiva de Pro. No hay muestra —justamente porque
+ * no se puede generar— y sin embargo esa pantalla es la mejor prueba que
+ * existe de la condición, porque el HTML de la página no la contiene.
+ *
+ * Vale lo mismo para lo que un producto sólo enseña con la sesión iniciada: la
+ * tarifa por modelo de Krea no está en ninguna URL pública.
+ *
+ * Sigue sin ser documentación contractual. Es lo que vimos en pantalla ese
+ * día, con esa cuenta, y `respalda` marca hasta dónde llega.
+ */
+export const CapturaDeInterfaz = EvidenciaAuxiliar.extend({
+  id: z.string().min(1),
+  toolSlug: z.string().min(1),
+  /** Dónde se tomó, para poder volver a mirarlo. */
+  url: z.string().url(),
+});
+export type CapturaDeInterfaz = z.infer<typeof CapturaDeInterfaz>;
+
 export const EditorialSample = z.object({
   id: z.string().min(1),
   toolSlug: z.string().min(1),
@@ -115,7 +209,7 @@ export const EditorialSample = z.object({
   /** Lo que devolvió el servicio, medido en el fichero, no lo que prometía. */
   dimensions: Dimensiones.optional(),
 
-  creditsSpent: z.string().min(1).optional(),
+  creditsSpent: CosteObservado.optional(),
   creditsLeft: z.string().min(1).optional(),
 
   cardRequiredObserved: Observacion,
@@ -125,6 +219,14 @@ export const EditorialSample = z.object({
   durationSeconds: z.number().positive().optional(),
 
   asset: ActivoDeMuestra,
+
+  /**
+   * Capturas de la interfaz tomadas durante la prueba.
+   *
+   * Van con la muestra porque describen la misma ejecución, y separadas del
+   * activo porque no son el resultado: son el contexto en el que se obtuvo.
+   */
+  auxiliar: z.array(EvidenciaAuxiliar).default([]),
 
   notes: z.string().min(1).optional(),
 });
