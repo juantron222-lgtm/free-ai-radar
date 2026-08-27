@@ -1,4 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
+import { readFileSync } from 'node:fs';
 import { isThirdPartyNoise, seedConsent, trackThirdPartyFailures } from './helpers';
 
 /**
@@ -442,6 +443,39 @@ test.describe('los logos', () => {
   });
 });
 
+/**
+ * Qué hay probado ahora mismo, leído del registro y no recordado.
+ *
+ * Las muestras las genera una persona y entran de una en una, así que una
+ * lista escrita a mano en un test caduca el día siguiente a escribirla. Estas
+ * dos funciones leen los mismos ficheros que lee el sitio.
+ */
+const registroDeMuestras = (): { toolSlug: string }[] =>
+  JSON.parse(readFileSync('src/data/muestras.json', 'utf8'));
+
+const catalogoDeImagen = (): { slug: string; categorySlug: string; secondaryCategories: string[] }[] =>
+  JSON.parse(readFileSync('src/data/generated/tools.json', 'utf8')).filter(
+    (t: { categorySlug: string; secondaryCategories: string[] }) =>
+      t.categorySlug === 'imagen' || t.secondaryCategories?.includes('imagen')
+  );
+
+/** Los slugs de imagen con muestra, ordenados como los devuelve la página. */
+const probadasDeImagen = (): string[] => {
+  const enImagen = new Set(catalogoDeImagen().map((t) => t.slug));
+  return [...new Set(registroDeMuestras().map((m) => m.toolSlug))].filter((s) => enImagen.has(s)).sort();
+};
+
+/** Una ficha de imagen que no tiene muestra, para comprobar que el módulo no aparece. */
+const deImagenSinMuestra = (): string => {
+  const probadas = new Set(registroDeMuestras().map((m) => m.toolSlug));
+  const candidata = catalogoDeImagen()
+    .map((t) => t.slug)
+    .sort()
+    .find((slug) => !probadas.has(slug));
+  if (!candidata) throw new Error('No queda ninguna ficha de imagen sin muestra que comprobar.');
+  return candidata;
+};
+
 test.describe('las muestras editoriales', () => {
   test('la ficha probada separa lo documentado de lo observado', async ({ page }) => {
     /*
@@ -486,12 +520,21 @@ test.describe('las muestras editoriales', () => {
   });
 
   test('una ficha sin muestra no anuncia ninguna prueba', async ({ page }) => {
-    await page.goto('/herramientas/krea');
+    /*
+     * La herramienta de ejemplo sale del registro, no de una constante.
+     *
+     * Este test estuvo clavado en Krea y dejó de comprobar nada el día que Krea
+     * tuvo muestra: se puso rojo por tener razón, y arreglarlo a mano habría
+     * sido cuestión de cambiar un slug por otro hasta la próxima. Ahora busca
+     * él una ficha de imagen sin muestra.
+     */
+    const sinMuestra = deImagenSinMuestra();
+    await page.goto(`/herramientas/${sinMuestra}`);
     await expect(page.locator('.muestra')).toHaveCount(0);
     await expect(page.getByText('Probado por Free AI Radar')).toHaveCount(0);
   });
 
-  test('en la vertical sólo llevan la marca las dos probadas', async ({ page }) => {
+  test('en la vertical sólo llevan la marca las probadas', async ({ page }) => {
     /*
      * Se cuentan herramientas, no marcas: una misma ficha puede aparecer en
      * varios bloques de intención y lleva su marca en cada aparición, que es lo
@@ -507,7 +550,7 @@ test.describe('las muestras editoriales', () => {
         ),
       ].sort()
     );
-    expect(marcadas).toEqual(['ideogram', 'recraft']);
+    expect(marcadas).toEqual(probadasDeImagen());
   });
 });
 
