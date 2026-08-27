@@ -372,11 +372,34 @@ export const HOSTING_LABEL: Record<Hosting, string> = {
  * and is a different, false claim. The audit found four tools with documented
  * credits and every one of them stored as `none`.
  */
-export const CREDIT_RESET = ['none', 'daily', 'weekly', 'monthly', 'one_off', 'unknown'] as const;
+/**
+ * `intraday` existe porque «diaria» estaba mintiendo por defecto.
+ *
+ * Playground publica «Create up to 10 images every 3 hours». Sin un valor para
+ * eso, la ficha tenía dos salidas y las dos falsas: decir «Diaria», que
+ * infravalora el plan gratuito ocho veces, o decir `unknown`, que acusa al
+ * fabricante de no publicar algo que publica. Se eligió la primera y quedó
+ * escrito «Renovación: Diaria» al lado de «10 imágenes cada 3 horas».
+ *
+ * No se afina más —no hay `every_3_hours`— porque la cadencia exacta ya viaja
+ * en `creditsAmount`, que es texto libre y la publica literal. Este campo sólo
+ * responde a «¿cada cuánto, más o menos?», y para eso «varias veces al día» es
+ * una clase honesta.
+ */
+export const CREDIT_RESET = [
+  'none',
+  'intraday',
+  'daily',
+  'weekly',
+  'monthly',
+  'one_off',
+  'unknown',
+] as const;
 export type CreditReset = (typeof CREDIT_RESET)[number];
 
 export const CREDIT_RESET_LABEL: Record<CreditReset, string> = {
   none: 'Sin créditos',
+  intraday: 'Varias veces al día',
   daily: 'Diaria',
   weekly: 'Semanal',
   monthly: 'Mensual',

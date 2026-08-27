@@ -167,7 +167,12 @@ export function byType(tools: readonly Tool[], type: AgentType): Tool[] {
 export function freeNow(tools: readonly Tool[]): Tool[] {
   const eligible = tools.filter((t) => usableFreeNow(t) && agentCapabilityCount(t) > 0);
 
-  const RENEWAL: Record<string, number> = { daily: 55, weekly: 48, monthly: 44 };
+  /*
+   * `intraday` pesa más que `daily` porque rinde más: una cuota que vuelve
+   * cada pocas horas se puede usar para trabajar una tarde entera y una
+   * diaria no.
+   */
+  const RENEWAL: Record<string, number> = { intraday: 58, daily: 55, weekly: 48, monthly: 44 };
 
   return ranked(eligible, (t) => {
     const { creditReset, creditsAmount } = t.freePlan;

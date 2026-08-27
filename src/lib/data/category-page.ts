@@ -82,6 +82,7 @@ export interface FreeAccessLabel {
 
 /** «Créditos diarios», no «Créditos diaria»: el adjetivo concuerda con créditos. */
 const RENEWAL_ADJECTIVE: Record<string, string> = {
+  intraday: 'varias veces al día',
   daily: 'diarios',
   weekly: 'semanales',
   monthly: 'mensuales',
@@ -205,7 +206,7 @@ export const ACCESS_FILTERS: readonly CategoryFilter[] = [
     id: 'renovables',
     label: 'Créditos renovables',
     hint: 'El fabricante publica cada cuánto vuelven los créditos.',
-    matches: (t) => ['daily', 'weekly', 'monthly'].includes(t.freePlan.creditReset),
+    matches: (t) => ['intraday', 'daily', 'weekly', 'monthly'].includes(t.freePlan.creditReset),
   },
   { id: 'online', label: 'Online', hint: 'Funciona en el navegador.', matches: (t) => t.hosting === 'cloud' },
   {

@@ -74,7 +74,12 @@ export function freeNow(tools: readonly Tool[]): Tool[] {
    * probar. La segunda, si el fabricante publica cuánto da, porque sólo
    * entonces se puede saber de antemano si alcanza.
    */
-  const RENEWAL: Record<string, number> = { daily: 55, weekly: 48, monthly: 44 };
+  /*
+   * `intraday` pesa más que `daily` porque rinde más: una cuota que vuelve
+   * cada pocas horas se puede usar para trabajar una tarde entera y una
+   * diaria no.
+   */
+  const RENEWAL: Record<string, number> = { intraday: 58, daily: 55, weekly: 48, monthly: 44 };
 
   return ranked(eligible, (t) => {
     const { creditReset, creditsAmount } = t.freePlan;

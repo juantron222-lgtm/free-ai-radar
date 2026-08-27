@@ -9661,7 +9661,7 @@
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "yes",
-      "creditReset": "daily",
+      "creditReset": "intraday",
       "creditsAmount": "10 imágenes cada 3 horas",
       "verifiedAt": "2026-08-26"
     },
@@ -9700,6 +9700,15 @@
         "scope": "product",
         "checkedAt": "2026-08-26",
         "quote": "Commercial use — World-wide, royalty free license"
+      },
+      {
+        "field": "freePlan.creditReset",
+        "outcome": "stated",
+        "sourceUrl": "https://playgroundai.com/design/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-08-26",
+        "quote": "Limited image generation — Create up to 10 images every 3 hours"
       }
     ],
     "descriptionLong": "",

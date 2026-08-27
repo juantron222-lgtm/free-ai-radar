@@ -28,7 +28,8 @@ import {
 } from '@lib/search/filters';
 import { buildClientIndex } from '@lib/search/client-index';
 import { hechosDe } from '@lib/search/index';
-import { gratisPuede, has } from '@lib/data/category-page';
+import { CREDIT_RESET, CREDIT_RESET_LABEL } from '@lib/domain/taxonomy';
+import { ACCESS_FILTERS, freeAccessLabel, gratisPuede, has } from '@lib/data/category-page';
 import { freeNow } from '@lib/data/imagen';
 import { ROWS } from '@lib/data/comparador';
 import { makeTool } from '../fixtures/tool';
@@ -924,5 +925,55 @@ describe('ninguna evidencia se queda escondida detrás de otra', () => {
     // Y el lector la ve sin abrir la evidencia: está en los límites.
     expect(clipdrop.freePlan.limits.join(' ')).toMatch(/unlimited/);
     expect(clipdrop.freePlan.summary).toMatch(/exclusiva de Pro/);
+  });
+});
+
+describe('una cadencia publicada no puede leerse como una cadencia oculta', () => {
+  /*
+   * Playground publica «Create up to 10 images every 3 hours» y la ficha decía
+   * «Renovación: Diaria», impreso al lado de «10 imágenes cada 3 horas». El
+   * enum no tenía valor para eso y las dos salidas disponibles eran falsas:
+   * «Diaria» infravalora el plan ocho veces, y `unknown` acusa al fabricante de
+   * no publicar lo que publica en su tabla.
+   *
+   * Lo que esto vigila no es el valor de una ficha, sino que añadir una cadencia
+   * no se caiga en silencio: los mapas que la traducen son `Record<string, …>`,
+   * y una clave que falte no da error de compilación, sólo un plan gratuito
+   * peor de lo que es.
+   */
+  it('toda cadencia del enum tiene nombre público', () => {
+    for (const cadencia of CREDIT_RESET) {
+      expect(CREDIT_RESET_LABEL[cadencia], cadencia).toBeTruthy();
+    }
+  });
+
+  it('toda cadencia que vuelve cuenta como renovable y se sabe nombrar', () => {
+    const renovable = ACCESS_FILTERS.find((f) => f.id === 'renovables')!;
+    for (const cadencia of ['intraday', 'daily', 'weekly', 'monthly'] as const) {
+      const tool = makeTool({
+        slug: `c-${cadencia}`,
+        name: cadencia,
+        freeModel: 'credits',
+        freePlan: {
+          summary: 'x',
+          limits: [],
+          requiresSignup: 'no',
+          requiresCreditCard: 'unverified',
+          hasWatermark: 'unverified',
+          commercialUse: 'unverified',
+          creditReset: cadencia,
+          excludedCapabilities: [],
+          verifiedAt: '2026-08-26',
+        },
+      });
+      expect(renovable.matches(tool), cadencia).toBe(true);
+      expect(freeAccessLabel(tool).kind, cadencia).not.toBe('Créditos');
+    }
+  });
+
+  it('Playground publica cada tres horas y la ficha ya no dice diaria', () => {
+    const pg = tools.find((t) => t.slug === 'playground-ai')!;
+    expect(pg.freePlan.creditReset).toBe('intraday');
+    expect(citaDe(evidenciaDe(pg, 'freePlan.creditReset')!)).toMatch(/every 3 hours/);
   });
 });
