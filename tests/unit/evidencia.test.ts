@@ -883,3 +883,46 @@ describe('lo que el producto hace y lo que te deja hacer gratis', () => {
     }
   });
 });
+
+describe('ninguna evidencia se queda escondida detrás de otra', () => {
+  /*
+   * `evidenciaDe` devuelve la primera entrada de un campo. Dos entradas en el
+   * mismo campo significan una publicada y otra invisible: la segunda fuente
+   * existiría en el fichero, no en la página, y nadie se enteraría.
+   *
+   * Esto no es hipotético. Un parche mío sustituyó la cita de la página de
+   * precios de tres fichas por una lectura de la interfaz, y una de las
+   * borradas era la que demuestra que Clipdrop anuncia generación ilimitada.
+   * Un campo, una fuente, y si hay dos que decir, dos campos.
+   */
+  it('cada campo del catálogo tiene como mucho una entrada', () => {
+    for (const tool of tools) {
+      const vistos = new Map<string, number>();
+      for (const ev of tool.evidence) vistos.set(ev.field, (vistos.get(ev.field) ?? 0) + 1);
+      for (const [field, n] of vistos) {
+        expect(n, `${tool.slug} · ${field} tiene ${n} entradas y sólo se publica la primera`).toBe(1);
+      }
+    }
+  });
+
+  it('la contradicción de Clipdrop conserva sus dos citas, cada una en su campo', () => {
+    /*
+     * Su página de precios dice «Text to image: unlimited» y su producto
+     * responde que es de Pro. Las dos frases son suyas y las dos hacen falta:
+     * con una sola, la ficha parecería un error nuestro en vez de la
+     * contradicción que es.
+     */
+    const clipdrop = tools.find((t) => t.slug === 'clipdrop')!;
+    const publicado = evidenciaDe(clipdrop, 'freePlan.limits');
+    const enProducto = evidenciaDe(clipdrop, 'freePlan.excludedCapabilities');
+
+    expect(citaDe(publicado!)).toMatch(/Text to image: unlimited/);
+    expect(publicado!.sourceUrl).toBe('https://clipdrop.co/pricing');
+    expect(citaDe(enProducto!)).toMatch(/exclusively for Pro users/);
+    expect(enProducto!.sourceUrl).toBe('https://clipdrop.co/text-to-image');
+
+    // Y el lector la ve sin abrir la evidencia: está en los límites.
+    expect(clipdrop.freePlan.limits.join(' ')).toMatch(/unlimited/);
+    expect(clipdrop.freePlan.summary).toMatch(/exclusiva de Pro/);
+  });
+});

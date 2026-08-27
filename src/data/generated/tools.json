@@ -1747,9 +1747,9 @@
     "pricingUrl": "https://clipdrop.co/pricing",
     "freeModel": "credits",
     "freePlan": {
-      "summary": "El plan gratuito cubre las herramientas de edición con cuotas diarias —quitar fondo, escalar, limpiar, reiluminar y quitar texto—, pero no la generación de imágenes: al intentarlo, la propia interfaz responde que es exclusiva de Pro.",
+      "summary": "El plan gratuito cubre las herramientas de edición con cuotas diarias —quitar fondo, escalar, limpiar, reiluminar y quitar texto—. Con la generación de imágenes hay un problema: su página de precios la anuncia como ilimitada en el plan gratuito y el producto responde que es exclusiva de Pro. Publicamos las dos cosas porque las dos son suyas, pero la que decide lo que puedes hacer es la segunda.",
       "limits": [
-        "La generación de imágenes es exclusiva de Pro: no entra en el plan gratuito",
+        "Su página de precios anuncia «Text to image: unlimited» en el plan gratuito, pero el producto no deja generar: responde que es exclusivo de Pro",
         "Quitar fondo: 20 cada 24 h",
         "Escalado x2: 20 cada 24 h",
         "Limpiar: 20 cada 24 h",
@@ -1774,7 +1774,7 @@
       "transparency": 8,
       "creatorValue": 7
     },
-    "verdict": "Cuotas diarias documentadas herramienta por herramienta, que es justo lo que un catálogo de acceso gratuito debe poder decir. Con una excepción que conviene saber antes de entrar: generar imágenes no está incluido.",
+    "verdict": "Cuotas diarias documentadas herramienta por herramienta, que es justo lo que un catálogo de acceso gratuito debe poder decir. Con una contradicción que conviene saber antes de entrar: su web promete generación de imágenes ilimitada y su producto no la da.",
     "evidence": [
       {
         "field": "capabilities",
@@ -1804,7 +1804,7 @@
         "lookedFor": "Si el resultado del plan gratuito sale con marca. La página de precios no lo menciona."
       },
       {
-        "field": "freePlan.limits",
+        "field": "freePlan.excludedCapabilities",
         "outcome": "stated",
         "sourceUrl": "https://clipdrop.co/text-to-image",
         "sourceKind": "official",
@@ -1813,13 +1813,13 @@
         "quote": "Image generation is for Pro — Generate images exclusively for Pro users"
       },
       {
-        "field": "freePlan.excludedCapabilities",
+        "field": "freePlan.limits",
         "outcome": "stated",
-        "sourceUrl": "https://clipdrop.co/text-to-image",
-        "sourceKind": "official",
-        "scope": "web",
-        "checkedAt": "2026-08-26",
-        "quote": "Image generation is for Pro — Generate images exclusively for Pro users"
+        "sourceUrl": "https://clipdrop.co/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-08-24",
+        "quote": "Free 0 — Text to image: unlimited · Uncrop: unlimited · Background Removal: 20/24h · Image Upscaler x2: 20/24h · Cleanup: 20/24h · Relight: 20/24h · Text Remover: 50/24h"
       }
     ],
     "descriptionLong": "",
@@ -6523,15 +6523,14 @@
     "descriptionShort": "Estudio de imagen, vídeo y 3D en el navegador que reúne modelos propios y de terceros. Su plan gratuito da 100 unidades de cómputo al día, que su propia tabla equipara a una sola generación con Nano Banana 2, y no incluye la licencia comercial.",
     "verdict": "Potente y ancha, pero su plan gratuito es una demostración: cien unidades al día, sólo con el modelo propio —que estiran o se agotan según cuál elijas— y sin permiso para usar el resultado en un trabajo. Merece estar en el catálogo por lo que es, no por lo que regala.",
     "freePlan": {
-      "summary": "Plan gratuito con 100 unidades de cómputo al día. La tabla de precios las equipara a una generación de Nano Banana 2, pero el selector del propio producto tarifa cada modelo por separado —Krea 2 Turbo 2, Medium 9, Large 20—, así que cuánto rinden depende del que elijas. Incluye el modelo propio Krea 2, entrenamiento LoRA limitado y escalado limitado hasta 2K. La tabla marca como no incluidos el resto de modelos de imagen, los de vídeo, los de 3D, los nodos y la licencia comercial.",
+      "summary": "Plan gratuito con 100 unidades de cómputo al día. La tabla de precios las equipara a una generación de Nano Banana 2, pero al usarlo el selector del producto tarifaba cada modelo por separado —Krea 2 Turbo 2, Medium 9, Large 20—, así que cuánto rinden depende del que elijas. Incluye el modelo propio Krea 2, entrenamiento LoRA limitado y escalado limitado hasta 2K. La tabla marca como no incluidos el resto de modelos de imagen, los de vídeo, los de 3D, los nodos y la licencia comercial.",
       "limits": [
         "100 unidades de cómputo al día (≈1 generación de Nano Banana 2)",
         "Sólo el modelo propio Krea 2: el resto de modelos de imagen no está incluido",
         "Modelos de vídeo y de 3D no incluidos; concurrencia de vídeo: 0",
         "Escalado limitado a 2K",
         "Sin licencia comercial",
-        "Sin Krea Nodes, App Builder ni Nodes Agent",
-        "Coste por generación en el selector: Krea 2 Turbo 2, Medium 9, Large 20"
+        "Sin Krea Nodes, App Builder ni Nodes Agent"
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
@@ -6586,22 +6585,13 @@
         "scope": "cloud"
       },
       {
-        "field": "freePlan.creditReset",
-        "outcome": "stated",
-        "sourceUrl": "https://www.krea.ai/",
-        "sourceKind": "official",
-        "scope": "web",
-        "checkedAt": "2026-08-26",
-        "quote": "100 per day"
-      },
-      {
         "field": "freePlan.limits",
         "outcome": "stated",
-        "sourceUrl": "https://www.krea.ai/",
-        "sourceKind": "official",
-        "scope": "web",
-        "checkedAt": "2026-08-26",
-        "quote": "Krea 2 Turbo 2 · Krea 2 Large 20 · Krea 2 Medium 9 · ChatGPT 2 ~75 · Nano Banana Pro ~100"
+        "sourceUrl": "https://www.krea.ai/pricing",
+        "sourceKind": "pricing",
+        "scope": "cloud",
+        "checkedAt": "2026-08-13",
+        "quote": "Free — 100 units /day · 1 Nano Banana 2 generation · <1 Seedance 2.0 videos [Filas con aspa en el plan Free: All image models, All video models, All 3D & lipsync models, Krea Nodes, App Builder, Nodes Agent, Commercial license. Con visto: Limited LoRA training, Limited image upscaling. Image concurrency 1, Video concurrency 0.]"
       }
     ],
     "auditNotes": "commercialUse es «no» y no «unverified» porque la tabla lo declara explícitamente: «Commercial license» aparece con aspa en la columna Free y con visto en Basic, Pro y Max. Los precios de los planes de pago no están en el DOM de la página, así que el precio mínimo queda sin verificar.",
@@ -6883,6 +6873,15 @@
         "checkedAt": "2026-08-13",
         "quote": "Inpainting in Canvas Editor effectively allows you to select specific areas of a base image […] Outpainting allows you to generate a coherent extension of your base image […] Text2Img […] Img2Img […] Sketch2Image",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://leonardo.ai/pricing/",
+        "sourceKind": "pricing",
+        "scope": "cloud",
+        "checkedAt": "2026-08-13",
+        "quote": "FREE $0 /month […] Fast Tokens 150 / day · Token Bank 150 · Creations access Public · Quality settings Basic · Personal collections 1"
       }
     ],
     "startEffortReason": "Hay que crear cuenta y elegir plan —aunque sea el de 0 $— antes de generar.",
