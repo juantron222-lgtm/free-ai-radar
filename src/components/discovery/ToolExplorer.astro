@@ -68,17 +68,15 @@ const VERTICALES_VISIBLES = [
     Arreglarlo del todo pide renderizar en servidor, que es cambiar el
     despliegue entero. Esto es lo barato y honesto mientras tanto: si la URL
     trae parámetros, la rejilla nace invisible y el módulo la destapa cuando ya
-    ha filtrado. El `setTimeout` es el seguro: si el módulo no llega nunca,
-    más vale enseñar de más que no enseñar nada.
+    ha filtrado.
+
+    Va en un fichero aparte y no en línea aquí: la CSP de producción es
+    `script-src 'self'` sin `unsafe-inline` ni nonce, así que un script en línea
+    no se ejecuta. Escrito en línea estuvo bloqueado en producción sin que
+    ninguna prueba lo viera, porque en local no hay cabecera CSP. Sin `defer`
+    y justo encima de la rejilla, que es donde tiene que correr.
   */}
-  <script is:inline>
-    if (location.search) {
-      document.documentElement.classList.add('far-filtrando');
-      setTimeout(function () {
-        document.documentElement.classList.remove('far-filtrando');
-      }, 1500);
-    }
-  </script>
+  <script is:inline src="/anti-destello.js"></script>
 
   <ul class="grid-cards explorer-grid" id="results">
     {tools.map((tool) => (
