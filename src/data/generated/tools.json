@@ -654,8 +654,8 @@
     "slug": "chatgpt",
     "name": "ChatGPT",
     "tagline": "Plan gratuito con cuenta obligatoria y límites de mensajes que el fabricante no publica.",
-    "descriptionShort": "El asistente de OpenAI en el navegador y en móvil. Su plan gratuito incluye conversación, visión, generación de imágenes, navegación web y análisis de archivos, con cuenta obligatoria. Qué modelo concreto sirve en cada momento lo decide OpenAI y cambia sin aviso.",
-    "descriptionLong": "ChatGPT es el asistente de OpenAI. El plan gratuito da conversación con capacidades de texto y visión, generación de imágenes, navegación web, análisis de archivos y GPTs, además de la conversación por voz en la aplicación móvil. Hace falta crear una cuenta. El modelo asignado al plan gratuito lo decide OpenAI y ha cambiado varias veces, así que esta ficha no lo fija: lo que se puede sostener es qué deja hacer el plan, no con qué versión lo hace hoy.",
+    "descriptionShort": "El asistente de OpenAI en el navegador y en móvil. Su plan gratuito incluye conversación, visión, generación de imágenes, navegación web y análisis de archivos, con cuenta obligatoria. El 30 de agosto de 2026 servía GPT-5.6 Luna por defecto, y OpenAI cambia esa asignación sin aviso.",
+    "descriptionLong": "ChatGPT es el asistente de OpenAI. El plan gratuito da conversación con capacidades de texto y visión, generación de imágenes, navegación web, análisis de archivos y GPTs, además de la conversación por voz en la aplicación móvil. Hace falta crear una cuenta. El 30 de agosto de 2026, el modelo asignado por defecto era GPT-5.6 Luna, sin acceso a GPT-5.6 Sol. Esa asignación la decide OpenAI y ha cambiado varias veces, así que la fecha forma parte del dato.",
     "kind": "app",
     "verification": "partially_verified",
     "nextReviewAt": "2026-10-06",
@@ -672,11 +672,13 @@
     ],
     "freeModel": "free_real",
     "freePlan": {
-      "summary": "Plan gratuito con conversación, visión, generación de imágenes, navegación web y análisis de archivos. Exige crear cuenta. Los límites de mensajes existen y el fabricante no publica la cifra.",
+      "summary": "Plan gratuito con conversación, visión, generación de imágenes, navegación web y análisis de archivos. Exige crear cuenta. El 30 de agosto de 2026 el modelo por defecto era GPT-5.6 Luna, sin acceso a Sol. Los límites de mensajes existen y el fabricante no publica la cifra; la generación de imágenes y las demás herramientas tienen su propio límite, tampoco publicado.",
       "limits": [
         "Hay que crear cuenta",
+        "Modelo por defecto el 30 de agosto de 2026: GPT-5.6 Luna. Sin acceso a GPT-5.6 Sol",
+        "Generación de imágenes: incluida, con un límite propio que no se publica",
         "Límite de mensajes: existe, y el fabricante no publica cuánto",
-        "El modelo asignado al plan gratuito lo decide OpenAI y cambia",
+        "La asignación de modelo la decide OpenAI y cambia sin aviso",
         "No es código abierto ni se ejecuta en local"
       ],
       "requiresSignup": "yes",
@@ -737,7 +739,8 @@
     "pros": [],
     "cons": [
       "El límite de mensajes no está publicado: no se sabe de antemano si alcanza",
-      "El modelo del plan gratuito cambia sin aviso",
+      "La generación de imágenes tiene su propio límite, tampoco publicado",
+      "Sin acceso al modelo grande de la familia, GPT-5.6 Sol",
       "No es código abierto ni se ejecuta en local"
     ],
     "bestFor": [],
@@ -763,7 +766,7 @@
     },
     "status": "published",
     "detectedAt": "2022-11-30",
-    "lastVerifiedAt": "2026-08-29",
+    "lastVerifiedAt": "2026-08-30",
     "updatedAt": "2026-07-08",
     "startEffort": "instant",
     "capabilities": [
@@ -772,22 +775,22 @@
     ],
     "evidence": [
       {
-        "field": "capabilities",
+        "field": "freePlan.limits",
         "outcome": "stated",
-        "sourceUrl": "https://chat.openai.com",
-        "sourceKind": "official",
-        "checkedAt": "2026-08-12",
-        "quote": "ose a model Pricing Model selection Text and code Text generation Code generation Structured output Prompting · Pro, Feature: Analytics dashboard, No Compliance API Logs Platform Plan: Free, Feature: Compliance API Logs Pl",
-        "scope": "cloud"
+        "sourceUrl": "https://help.openai.com/en/articles/20001354-gpt-56-in-chatgpt",
+        "sourceKind": "docs",
+        "scope": "product",
+        "checkedAt": "2026-08-30",
+        "quote": "Free and Go users do not have access to GPT-5.6 Sol, and their default model is GPT-5.6 Luna, which also powers Think."
       },
       {
-        "field": "freePlan.limits",
-        "outcome": "not_published",
-        "sourceUrl": "https://openai.com/chatgpt/pricing/",
-        "sourceKind": "pricing",
+        "field": "capabilities",
+        "outcome": "stated",
+        "sourceUrl": "https://help.openai.com/en/articles/9275245-chatgpt-free-tier-faq",
+        "sourceKind": "docs",
         "scope": "product",
-        "checkedAt": "2026-08-29",
-        "lookedFor": "Cuántos mensajes permite el plan gratuito y con qué modelo. La página describe el plan como gratuito con acceso limitado y no publica ni la cifra de mensajes ni el modelo asignado."
+        "checkedAt": "2026-08-30",
+        "quote": "File uploads, image generation, voice, data analysis, and other tools have separate usage limits on the Free tier."
       }
     ],
     "startEffortReason": "Se puede escribir en la caja y obtener respuesta nada más entrar.",
@@ -941,8 +944,8 @@
     "slug": "claude",
     "name": "Claude",
     "tagline": "Asistente IA de Anthropic con razonamiento avanzado, ventana de contexto masiva y capacidad de análisis de documentos extensos.",
-    "descriptionShort": "Asistente IA de Anthropic con razonamiento avanzado, ventana de contexto masiva y capacidad de análisis de documentos extensos.",
-    "descriptionLong": "Claude, de Anthropic, destaca en razonamiento, escritura larga y análisis de documentos extensos. El plan gratuito permite conversar, subir archivos y analizar imágenes, con cuenta obligatoria. Los límites de uso existen y varían según el plan; Anthropic los remite a un artículo de soporte que tampoco publica la cifra.",
+    "descriptionShort": "Asistente de Anthropic con razonamiento avanzado, contexto amplio y análisis de documentos extensos. Su plan gratuito servía Claude Sonnet 5 el 30 de agosto de 2026 —el mismo modelo que Pro— y cuenta el uso por sesiones de cinco horas.",
+    "descriptionLong": "Claude, de Anthropic, destaca en razonamiento, escritura larga y análisis de documentos extensos. El plan gratuito permite conversar, subir archivos y analizar imágenes, con cuenta obligatoria. El 30 de agosto de 2026 servía Claude Sonnet 5 por defecto, el mismo modelo que el plan Pro. El uso se cuenta por sesiones que se reinician cada cinco horas, y cuántos mensajes caben en cada una no se publica: depende de lo larga que sea la conversación.",
     "kind": "app",
     "verification": "partially_verified",
     "nextReviewAt": "2026-10-06",
@@ -957,10 +960,12 @@
     ],
     "freeModel": "free_real",
     "freePlan": {
-      "summary": "Plan gratuito con conversación, subida de archivos y análisis de imágenes. Exige crear cuenta. Anthropic dice que se aplican límites de uso y que varían según el plan, pero no publica la cifra.",
+      "summary": "Plan gratuito con conversación, subida de archivos y análisis de imágenes. El 30 de agosto de 2026, el modelo por defecto era Claude Sonnet 5, el mismo que el plan Pro. Exige crear cuenta. El uso se cuenta por sesiones que se reinician cada cinco horas; cuántos mensajes caben en una sesión no se publica y depende de la longitud de la conversación.",
       "limits": [
         "Hay que crear cuenta",
-        "Límite de mensajes: se aplica y varía por plan; el fabricante no publica cuánto",
+        "Modelo por defecto el 30 de agosto de 2026: Claude Sonnet 5, el mismo que en Pro",
+        "El uso se cuenta por sesiones que se reinician cada cinco horas",
+        "Cuántos mensajes entran en una sesión: no se publica, y varía con la longitud del texto",
         "No es código abierto ni se ejecuta en local"
       ],
       "requiresSignup": "yes",
@@ -1020,7 +1025,8 @@
     "verdict": "Para escribir y analizar textos largos es de lo mejor que se puede usar sin pagar. Lo que no se sabe de antemano es cuánto: el límite del plan gratuito no está publicado.",
     "pros": [],
     "cons": [
-      "El límite de mensajes no está publicado: no se sabe de antemano si alcanza",
+      "Cuántos mensajes entran en una sesión no se publica: no se sabe de antemano si alcanza",
+      "Las conversaciones largas agotan la sesión más rápido",
       "No es código abierto ni se ejecuta en local"
     ],
     "bestFor": [],
@@ -1046,7 +1052,7 @@
     },
     "status": "published",
     "detectedAt": "2023-07-01",
-    "lastVerifiedAt": "2026-08-29",
+    "lastVerifiedAt": "2026-08-30",
     "updatedAt": "2026-07-08",
     "startEffort": "instant",
     "capabilities": [
@@ -1056,20 +1062,20 @@
       {
         "field": "capabilities",
         "outcome": "stated",
-        "sourceUrl": "https://www.anthropic.com/pricing",
-        "sourceKind": "pricing",
-        "checkedAt": "2026-08-12",
-        "quote": "eachers Life sciences Nonprofits Pricing Overview API Resources Insights Blog Customer stories Anthropic news",
-        "scope": "cloud"
+        "sourceUrl": "https://www.anthropic.com/news/claude-sonnet-5",
+        "sourceKind": "official",
+        "scope": "product",
+        "checkedAt": "2026-08-30",
+        "quote": "it is the default model for Free and Pro plans, and is available to Max, Team, and Enterprise users"
       },
       {
         "field": "freePlan.limits",
-        "outcome": "not_published",
-        "sourceUrl": "https://claude.com/pricing",
-        "sourceKind": "pricing",
+        "outcome": "derived",
+        "sourceUrl": "https://support.claude.com/en/articles/11647753-how-do-usage-and-length-limits-work",
+        "sourceKind": "docs",
         "scope": "product",
-        "checkedAt": "2026-08-29",
-        "lookedFor": "Cuánto uso permite el plan gratuito. La página de precios sólo dice que se aplican límites y enlaza a un artículo de soporte que tampoco da la cifra ni la ventana de tiempo."
+        "checkedAt": "2026-08-30",
+        "basis": "Anthropic documenta que el uso de Claude se cuenta por sesiones que se reinician cada cinco horas y que cada plan tiene una asignación distinta, sin publicar la cifra de ninguno. El artículo describe el mecanismo y detalla los planes de pago; no aísla el gratuito. Deducimos que el gratuito usa la misma ventana con una asignación menor. Lo que sí consta sin deducir es que la cantidad de mensajes no se publica y depende de la longitud de la conversación."
       }
     ],
     "startEffortReason": "Se puede escribir en la caja y obtener respuesta nada más entrar.",

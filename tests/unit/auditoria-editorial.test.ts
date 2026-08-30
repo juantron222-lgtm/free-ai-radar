@@ -311,3 +311,75 @@ describe('el texto heredado se marca como lo que es', () => {
     }
   });
 });
+
+describe('un dato volátil se publica con su fecha dentro', () => {
+  /*
+   * Qué modelo sirve un plan gratuito dura lo que dura. La primera pasada los
+   * dejó fuera por prudencia y quedó corta: se puede sostener, con cita y con
+   * fecha. Lo que no se puede es escribirlo como si fuera permanente, que es el
+   * error del que veníamos —«GPT-4o mini» estuvo publicado meses después de
+   * dejar de ser cierto—.
+   *
+   * La fecha va en la frase, no sólo en la evidencia. Una línea que dice «el 30
+   * de agosto de 2026 servía X» envejece diciendo la verdad; una que dice «sirve
+   * X» empieza a mentir el día que lo cambien, y nadie se entera.
+   */
+  const conModelo = ['chatgpt', 'claude'];
+
+  it('el modelo por defecto se nombra con la fecha en la que se comprobó', () => {
+    for (const slug of conModelo) {
+      const tool = tools.find((t) => t.slug === slug)!;
+      const linea = tool.freePlan.limits.find((l) => /modelo por defecto/i.test(l));
+      expect(linea, `${slug} no dice qué modelo sirve`).toBeDefined();
+      expect(linea, `${slug}: el modelo se afirma sin fecha`).toMatch(/\d{1,2} de \w+ de \d{4}/);
+    }
+  });
+
+  it('y la ficha avisa de que esa asignación cambia', () => {
+    for (const slug of conModelo) {
+      const tool = tools.find((t) => t.slug === slug)!;
+      const texto = `${tool.descriptionShort} ${tool.descriptionLong} ${tool.freePlan.limits.join(' ')}`;
+      expect(texto, `${slug} presenta el modelo como permanente`).toMatch(
+        /cambia sin aviso|ha cambiado|decide (OpenAI|Anthropic)|el mismo que/i
+      );
+    }
+  });
+
+  it('la ventana de cinco horas de Claude es deducción declarada, no cita', () => {
+    /*
+     * Anthropic documenta el mecanismo y su artículo detalla los planes de pago;
+     * ninguna página que se pueda abrir lo afirma del gratuito. Que sea el mismo
+     * mecanismo es razonable, y razonable no es citable. Si mañana alguien
+     * discute el dato, con una cita falsa la discusión se pierde y con una
+     * deducción declarada se discute el razonamiento, que es donde debe estar.
+     */
+    const claude = tools.find((t) => t.slug === 'claude')!;
+    const ev = evidenciaDe(claude, 'freePlan.limits')!;
+    expect(ev.outcome, 'no puede archivarse como cita del fabricante').toBe('derived');
+    expect(baseDe(ev), 'la base no dice qué parte es nuestra').toMatch(/deducimos|no aísla/i);
+    expect(claude.freePlan.limits.join(' ')).toMatch(/cinco horas/);
+  });
+
+  it('y lo de Sonnet 5 sí es cita, porque la fuente nombra el plan gratuito', () => {
+    const claude = tools.find((t) => t.slug === 'claude')!;
+    const ev = evidenciaDe(claude, 'capabilities')!;
+    expect(ev.outcome).toBe('stated');
+    expect(citaDe(ev)).toMatch(/default model for Free and Pro plans/i);
+  });
+
+  it('ninguna de las dos vuelve a afirmar lo que su campo deja sin confirmar', () => {
+    /*
+     * El fallo original de estas dos fichas: prosa que prometía «sin tarjeta»
+     * con el campo en «sin confirmar».
+     */
+    for (const slug of conModelo) {
+      const tool = tools.find((t) => t.slug === slug)!;
+      const texto = `${tool.freePlan.summary} ${tool.freePlan.limits.join(' ')} ${tool.cons?.join(' ') ?? ''}`;
+      if (tool.freePlan.requiresCreditCard !== 'no') {
+        expect(texto, `${slug} promete no pedir tarjeta sin tenerlo confirmado`).not.toMatch(
+          /sin tarjeta|no pide tarjeta|sin necesidad de tarjeta/i
+        );
+      }
+    }
+  });
+});
