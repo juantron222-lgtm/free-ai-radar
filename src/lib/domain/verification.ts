@@ -169,6 +169,17 @@ export interface RecuentoVerificacion {
   accesoGratuitoConfirmado: number;
   /** Sin plan gratuito: están para decir que no lo tienen. */
   sinPlanGratuito: number;
+  /**
+   * Ni lo uno ni lo otro: no sabemos todavía qué dan gratis.
+   *
+   * Existe porque sin él las cifras públicas no cerraban. La home publicaba 79
+   * con acceso confirmado y 9 sin plan gratuito sobre un total de 94, y los
+   * seis que faltaban no se nombraban en ninguna parte: cuatro sin revisar, una
+   * con el modelo de gratuidad sin determinar y una que sólo ofrece prueba. Un
+   * bloque titulado «por qué fiarte» que no suma es el peor sitio para dejar un
+   * hueco.
+   */
+  accesoSinConfirmar: number;
 }
 
 const GRATIS_UTILIZABLE = new Set(['free_real', 'freemium', 'credits', 'open_source', 'local']);
@@ -181,6 +192,7 @@ export function recuentoVerificacion(tools: readonly Tool[]): RecuentoVerificaci
     catalogada: 0,
     accesoGratuitoConfirmado: 0,
     sinPlanGratuito: 0,
+    accesoSinConfirmar: 0,
   };
 
   for (const tool of tools) {
@@ -189,8 +201,38 @@ export function recuentoVerificacion(tools: readonly Tool[]): RecuentoVerificaci
     if (tool.freeModel === 'paid_only') recuento.sinPlanGratuito += 1;
     else if (GRATIS_UTILIZABLE.has(tool.freeModel) && tool.verification !== 'pending_review') {
       recuento.accesoGratuitoConfirmado += 1;
-    }
+    } else recuento.accesoSinConfirmar += 1;
   }
 
   return recuento;
+}
+
+/**
+ * Qué firma el revisor, derivado del mismo estado que el distintivo.
+ *
+ * La ficha tenía un segundo mapa de textos indexado por `tool.verification`,
+ * el campo almacenado, mientras el distintivo de arriba salía de
+ * `verificacionDe()`. Las dos cosas se llamaban «verificada» y no significaban
+ * lo mismo: 63 de las 94 fichas firmaban «confirmado uno a uno» dos pantallas
+ * debajo de su propio «0/4 hechos confirmados». Adobe Firefly y Clipdrop, las
+ * dos a la vez, en la misma página.
+ *
+ * Es el daño más caro que podía hacerse este sitio, porque lo que lo separa de
+ * una lista de afiliación es exactamente poder decir «esto no lo sé». Firmar
+ * como comprobado lo que acabas de declarar sin comprobar lo convierte en la
+ * misma cosa con mejor prosa.
+ *
+ * Un estado, una fuente. `verificacionDe()` ya exige las dos condiciones —que
+ * alguien abriera la web oficial y que no quede ningún hecho aplicable sin
+ * confirmar—, así que esto se limita a contarlo con palabras.
+ */
+export function selloDe(v: Verificacion): string {
+  if (v.state === 'catalogada') return v.meaning;
+  if (v.state === 'verificada') {
+    return 'Hemos abierto la web del fabricante y confirmado uno a uno los hechos que le aplican.';
+  }
+
+  const faltan = v.pendientes.map((p) => p.label.replace(/^¿|\?$/g, '').toLowerCase());
+  const lista = faltan.length === 1 ? faltan[0] : `${faltan.slice(0, -1).join(', ')} y ${faltan.at(-1)}`;
+  return `Hemos abierto la web del fabricante, pero ${v.pendientes.length} de los ${v.total} hechos que resumimos siguen sin confirmar: ${lista}. Arriba está dicho cuáles no publica él y cuáles nos falta mirar a nosotros.`;
 }

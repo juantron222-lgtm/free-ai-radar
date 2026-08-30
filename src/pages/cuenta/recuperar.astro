@@ -13,7 +13,7 @@ export const prerender = false;
 >
   <form method="post" action="/api/auth/reset-request" class="auth-form" data-auth-form novalidate>
     <input type="hidden" name={CSRF_FIELD} value={Astro.locals.csrfToken} />
-    <div class="reset-hp" aria-hidden="true">
+    <div class="reset-hp" aria-hidden="true" inert>
       <label for="website">No rellenes este campo</label>
       <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
     </div>

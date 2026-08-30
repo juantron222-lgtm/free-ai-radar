@@ -1,7 +1,7 @@
 ---
 import { FREE_MODELS, PLATFORM_LABEL, PLATFORMS, START_EFFORT_LABEL, START_EFFORT_MEANING, START_EFFORT, HOSTING_LABEL, HOSTING } from '@lib/domain/taxonomy';
 import { getAllTools, getPopulatedCategories } from '@lib/data/catalog';
-import { SORT_OPTIONS } from '@lib/search/filters';
+import { EMPTY_FILTERS, SORT_OPTIONS, applyFilters, parseFilters } from '@lib/search/filters';
 import { coberturaDe, politicaDe } from '@lib/domain/evidencia';
 import type { Tool } from '@lib/domain/tool';
 
@@ -69,11 +69,26 @@ function cobertura(field?: string): Cobertura | null {
   };
 }
 
+/**
+ * Cuántas devuelve de verdad cada casilla.
+ *
+ * El chip publicaba «Uso comercial 25/94» y al pulsarlo aparecían quince. Las
+ * dos cifras eran ciertas y medían cosas distintas —25 es en cuántas fichas
+ * tenemos el dato, 15 cuántas lo permiten— pero iban pegadas a la etiqueta, con
+ * el mismo aspecto, en el sitio donde alguien lee «cuántas voy a ver». La
+ * pregunta que el sitio dice responder mejor que nadie es justamente ésa.
+ *
+ * La etiqueta de un control dice lo que el control hace. La cobertura es otra
+ * cosa y va en otro sitio.
+ */
+const cuantasDevuelve = (clave: string): number =>
+  applyFilters(todas, { ...EMPTY_FILTERS, ...parseFilters(new URLSearchParams(`${clave}=1`)) }).length;
+
 /** Lo que se enseña cuando el dato es demasiado escaso para filtrar por él. */
 const SUSTITUTOS: Record<string, { key: string; label: (n: number) => string; hint: string }> = {
   'freePlan.hasWatermark': {
     key: 'wmknown',
-    label: (n) => `Marca de agua comprobada (${n})`,
+    label: (n) => `Marca de agua comprobada ${n}`,
     hint: 'Enseña las herramientas donde hemos confirmado si el plan gratuito marca o no. No filtra por la respuesta, filtra por si la sabemos.',
   },
 };
@@ -127,38 +142,82 @@ const SUSTITUTOS: Record<string, { key: string; label: (n: number) => string; hi
        * ver dónde lo hemos comprobado.
        */
       if (politica === 'testimonial' && sustituto && cob) {
+        /*
+         * También aquí el número es lo que devuelve.
+         *
+         * Ponía «Marca de agua comprobada (1)» y al marcarla salían quince: el
+         * uno era la cobertura contando sólo las que generan archivos, entre
+         * paréntesis, con una cuarta convención de etiqueta distinta de sus
+         * vecinas. Un número entre paréntesis al lado de un control se lee como
+         * el resultado, se llame como se llame por dentro.
+         */
         return (
           <label class="filter-chip is-testimonial" title={sustituto.hint} data-filter-known={sustituto.key}>
             <input type="checkbox" name={sustituto.key} value="1" class="sr-only" data-filter-flag={sustituto.key} />
             <span class="filter-chip-tick" aria-hidden="true">
               <svg width="11" height="11" viewBox="0 0 12 12"><path d="M2 6.4 4.6 9 10 3.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </span>
-            {sustituto.label(cob.confirmados)}
+            {sustituto.label(cuantasDevuelve(sustituto.key))}
           </label>
         );
       }
 
-      const parcial = politica === 'parcial' && cob !== null;
-      const aviso = parcial
-        ? `${req.hint}. Dato confirmado en ${cob.confirmados} de ${cob.total} fichas: al marcarlo, el resto no aparece.`
-        : req.hint;
+      /*
+       * Una casilla que devuelve el catálogo entero no es un filtro.
+       *
+       * «Verificada hace poco» enseñaba las 94: el umbral son cuatro meses y la
+       * comprobación más antigua tiene 51 días, así que la marca vale igual
+       * para una ficha de anteayer y para una de julio. Quien la pulsaba no
+       * veía cambiar nada y no podía saber por qué. Se retira sola mientras no
+       * separe nada, y vuelve sola el día que lo haga.
+       */
+      const devuelve = cuantasDevuelve(req.key);
+      if (devuelve === todas.length || devuelve === 0) return null;
 
       return (
-        <label class="filter-chip" title={aviso}>
+        <label class="filter-chip" title={req.hint}>
           <input type="checkbox" name={req.key} value="1" class="sr-only" data-filter-flag={req.key} />
           <span class="filter-chip-tick" aria-hidden="true">
             <svg width="11" height="11" viewBox="0 0 12 12"><path d="M2 6.4 4.6 9 10 3.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
           {req.label}
-          {parcial && (
-            <span class="filter-chip-cov" data-filter-coverage={req.key}>
-              {cob.confirmados}/{cob.total}
-            </span>
-          )}
+          <span class="filter-chip-n" data-filter-count={req.key}>{devuelve}</span>
         </label>
       );
     })}
   </div>
+
+  {/*
+    La cobertura, dicha con palabras y fuera del control.
+    
+    Vivía en un `title`, que en táctil no existe: en el teléfono la barra era un
+    conjunto de etiquetas ambiguas sin forma de resolverlas. Aquí abajo se lee
+    siempre, y separa las dos ideas en una frase en vez de en dos números con el
+    mismo aspecto.
+  */}
+  {(() => {
+    const parciales = HARD_REQUIREMENTS.filter((req) => {
+      const campo = 'field' in req ? req.field : undefined;
+      const cob = cobertura(campo);
+      return cob !== null && cob.politica === 'parcial';
+    });
+    if (parciales.length === 0) return null;
+    return (
+      <p class="filters-cobertura">
+        El número de cada casilla es lo que verás al marcarla. De{' '}
+        {parciales.map((req, i) => {
+          const cob = cobertura('field' in req ? req.field : undefined)!;
+          return (
+            <>
+              {i > 0 && (i === parciales.length - 1 ? ' y de ' : ', de ')}
+              <strong>{req.label.toLowerCase()}</strong> tenemos el dato confirmado en {cob.confirmados} de {cob.total} fichas
+            </>
+          );
+        })}
+        : las demás no aparecen al marcarla, y no porque incumplan.
+      </p>
+    );
+  })()}
 
   <details class="filters-more" id="filters-more">
     <summary>
@@ -351,15 +410,32 @@ const SUSTITUTOS: Record<string, { key: string; label: (n: number) => string; hi
    * En tinta apagada y pequeña: no compite con la etiqueta, pero está antes de
    * pulsar, que es cuando sirve. El `title` lo explica con palabras.
    */
-  .filter-chip-cov {
+  /*
+   * Lo que devuelve la casilla, no cuánto sabemos.
+   *
+   * Aquí había una píldora ámbar con «25/94» que era cobertura de verificación
+   * y se leía como resultados. El color de aviso reforzaba el equívoco: parecía
+   * una advertencia sobre el resultado cuando hablaba de otra cosa. Ahora el
+   * número es el recuento y va en tono neutro; la cobertura baja a una frase.
+   */
+  .filter-chip-n {
     margin-inline-start: 0.35em;
-    padding: 0.05rem 0.35rem;
-    border-radius: var(--radius-full);
-    background: var(--warn-soft);
-    color: var(--warn);
     font-size: 0.6875rem;
     font-weight: 600;
     font-variant-numeric: tabular-nums;
+    color: var(--ink-subtle);
+  }
+
+  .filter-chip input:checked ~ .filter-chip-n {
+    color: inherit;
+  }
+
+  .filters-cobertura {
+    margin: var(--space-2xs) 0 0;
+    max-width: 64ch;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: var(--ink-subtle);
   }
 
   .filters-quick {

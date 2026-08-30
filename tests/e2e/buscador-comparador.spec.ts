@@ -271,21 +271,48 @@ test.describe('por qué falta un dato', () => {
     /*
      * «Sin tarjeta» se apoya en un dato confirmado en 38 de 94 fichas: sigue
      * siendo un filtro, pero marcarlo esconde más de la mitad del catálogo por
-     * un motivo que es nuestro. La insignia lo dice antes, no después.
+     * un motivo que es nuestro. Hay que decirlo antes, no después.
+     *
+     * El aviso vivía en el `title` de la pastilla y ahí no servía: en táctil no
+     * existe, y el teléfono es el dispositivo principal. Ahora se lee siempre,
+     * debajo de la barra. El número de la pastilla dejó de ser la cobertura
+     * —«38/94»— porque en ese sitio se lee como el resultado, y el resultado
+     * eran 37.
      */
     await page.goto('/herramientas');
-    const insignia = page.locator('[data-filter-coverage="nocard"]');
-    await expect(insignia).toBeVisible();
-    await expect(insignia).toHaveText(/^\d+\/\d+$/);
 
-    const pastilla = page.locator('.filter-chip', { has: insignia });
-    const aviso = await pastilla.getAttribute('title');
-    expect(aviso).toContain('el resto no aparece');
+    const nota = page.locator('.filters-cobertura');
+    await expect(nota).toBeVisible();
+    await expect(nota).toContainText('sin tarjeta');
+    await expect(nota).toContainText('tenemos el dato confirmado en');
+    await expect(nota).toContainText('no porque incumplan');
+
+    const cuenta = page.locator('[data-filter-count="nocard"]');
+    await expect(cuenta).toHaveText(/^\d+$/);
+  });
+
+  test('el número de una casilla es lo que devuelve al marcarla', async ({ page }) => {
+    /*
+     * La comprobación que la auditoría hizo a mano: leer la cifra del control y
+     * contar lo que aparece. Prometía 25 y entregaba 15.
+     */
+    await page.goto('/herramientas');
+    const promete = Number(await page.locator('[data-filter-count="comm"]').innerText());
+    expect(promete).toBeGreaterThan(0);
+
+    await page.goto('/herramientas?comm=1');
+    await expect(page.locator('[data-result-item]:not([hidden])').first()).toBeVisible();
+    expect(await page.locator('[data-result-item]:not([hidden])').count()).toBe(promete);
   });
 
   test('un filtro con cobertura suficiente no se disculpa', async ({ page }) => {
+    /*
+     * «Sin registro» tiene el dato en casi todo el catálogo: no necesita aviso
+     * y no debe aparecer en la nota de cobertura, o la nota deja de significar
+     * nada por repetirse en todas.
+     */
     await page.goto('/herramientas');
-    await expect(page.locator('[data-filter-coverage="nosignup"]')).toHaveCount(0);
+    await expect(page.locator('.filters-cobertura')).not.toContainText('sin registro');
   });
 
   test('uno de cobertura testimonial cambia de pregunta', async ({ page }) => {
@@ -300,7 +327,12 @@ test.describe('por qué falta un dato', () => {
 
     const sustituto = page.locator('[data-filter-known="wmknown"]');
     await expect(sustituto).toBeVisible();
-    await expect(sustituto).toContainText(/Marca de agua comprobada \(\d+\)/);
+    /*
+     * Sin paréntesis: «(1)» era la cobertura contando sólo las que generan
+     * archivos, y al marcarla salían quince. Un número entre paréntesis al lado
+     * de un control se lee como el resultado, se llame como se llame por dentro.
+     */
+    await expect(sustituto).toContainText(/Marca de agua comprobada \d+/);
     expect(await sustituto.getAttribute('title')).toContain('filtra por si la sabemos');
   });
 

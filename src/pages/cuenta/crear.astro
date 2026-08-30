@@ -22,7 +22,7 @@ const next = safeRedirect(Astro.url.searchParams.get('next'), ROUTES.account);
   <form method="post" action="/api/auth/signup" class="auth-form" data-auth-form novalidate>
     <input type="hidden" name={CSRF_FIELD} value={Astro.locals.csrfToken} />
     <input type="hidden" name="next" value={next} />
-    <div class="signup-hp" aria-hidden="true">
+    <div class="signup-hp" aria-hidden="true" inert>
       <label for="website">No rellenes este campo</label>
       <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
     </div>

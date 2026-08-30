@@ -73,8 +73,8 @@ describe('«sin confirmar» no produce conclusiones', () => {
 });
 
 describe('lo que no es gratis no se anuncia como gratis', () => {
-  it('«sin pagar nada» exige que exista plan gratuito', () => {
-    expect(ficha).toMatch(/freeModel !== 'paid_only'[\s\S]{0,120}sin pagar nada/);
+  it('«no pagar por adelantado» exige que exista plan gratuito', () => {
+    expect(ficha).toMatch(/freeModel !== 'paid_only'[\s\S]{0,160}pagar por adelantado/);
   });
 
   it('hay fichas de pago en el catálogo, así que la regla no es teórica', () => {

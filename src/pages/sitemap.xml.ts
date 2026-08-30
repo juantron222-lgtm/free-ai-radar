@@ -10,6 +10,13 @@ import { ROUTES } from '@lib/nav';
  * Only canonical, indexable URLs go in. Filtered listing permutations, the
  * account area, the admin panel and the empty comparator are excluded — a
  * sitemap that lists `noindex` pages is a contradictory signal.
+ *
+ * Ese párrafo llevaba tiempo prometiendo lo que el fichero no cumplía: el
+ * comparador vacío y `/pro` estaban listados, y las dos páginas se sirven con
+ * `noindex, nofollow`. Pedirle a un buscador que rastree una URL y decirle en
+ * la propia URL que no la indexe no es un matiz: son dos instrucciones opuestas
+ * sobre la misma página. Vuelven el día que dejen de ser `noindex`, y la prueba
+ * de abajo lo comprueba sola.
  */
 
 interface Entry {
@@ -53,7 +60,6 @@ export const GET: APIRoute = () => {
     { path: ROUTES.models, lastmod: newestVerification, changefreq: 'weekly', priority: 0.8 },
     { path: ROUTES.agents, lastmod: newestVerification, changefreq: 'weekly', priority: 0.8 },
     { path: ROUTES.collections, changefreq: 'weekly', priority: 0.7 },
-    { path: ROUTES.compare, changefreq: 'monthly', priority: 0.6 },
     { path: ROUTES.guides, changefreq: 'weekly', priority: 0.6 },
     { path: ROUTES.methodology, changefreq: 'monthly', priority: 0.7 },
     { path: ROUTES.editorialPolicy, changefreq: 'monthly', priority: 0.5 },
@@ -63,7 +69,6 @@ export const GET: APIRoute = () => {
     { path: ROUTES.about, changefreq: 'monthly', priority: 0.5 },
     { path: ROUTES.contact, changefreq: 'yearly', priority: 0.4 },
     { path: ROUTES.submit, changefreq: 'monthly', priority: 0.5 },
-    { path: ROUTES.pricing, changefreq: 'monthly', priority: 0.6 },
     { path: ROUTES.privacy, changefreq: 'yearly', priority: 0.3 },
     { path: ROUTES.cookies, changefreq: 'yearly', priority: 0.3 },
     { path: ROUTES.terms, changefreq: 'yearly', priority: 0.3 },

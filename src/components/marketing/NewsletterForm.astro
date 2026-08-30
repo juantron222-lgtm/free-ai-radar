@@ -34,8 +34,18 @@ const formId = `newsletter-${Math.random().toString(36).slice(2, 8)}`;
     data-newsletter-form
   >
     <input type="hidden" name="source" value={source} />
-    {/* Honeypot: bots fill it, humans never see it. */}
-    <div class="newsletter-hp" aria-hidden="true">
+    {/*
+      Trampa para bots, invisible para todos los demás.
+
+      `inert` no es decorativo: `aria-hidden` sobre un contenedor con un campo
+      enfocable es una contradicción que los validadores marcan y que los
+      lectores de pantalla resuelven de formas distintas, así que había un campo
+      de texto etiquetado «No rellenes este campo» que algunos usuarios sí
+      encontraban. `inert` lo saca del árbol accesible y del foco de verdad, y
+      lo deja dentro del formulario: se sigue enviando, así que el bot que
+      rellena todos los campos sigue delatándose.
+    */}
+    <div class="newsletter-hp" aria-hidden="true" inert>
       <label for={`${formId}-website`}>No rellenes este campo</label>
       <input type="text" id={`${formId}-website`} name="website" tabindex="-1" autocomplete="off" />
     </div>

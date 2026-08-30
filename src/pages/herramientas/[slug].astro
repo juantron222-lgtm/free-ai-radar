@@ -23,9 +23,8 @@ import {
   getFreeModel,
 } from '@lib/domain/taxonomy';
 import { OPENNESS_LABEL, TRI_STATE_LABEL } from '@lib/domain/primitives';
-import { VERIFICATION_LABEL, type ToolRecord } from '@lib/domain/tool';
 import { ROUTES, categoryLabel } from '@lib/nav';
-import { verificacionDe } from '@lib/domain/verification';
+import { selloDe, verificacionDe } from '@lib/domain/verification';
 
 export function getStaticPaths() {
   return getAllTools().map((tool) => ({ params: { slug: tool.slug }, props: { tool } }));
@@ -89,26 +88,6 @@ const facts = [
 
 const description = `${tool.tagline} Analizamos su plan gratuito: ${tool.freePlan.summary}`;
 
-/**
- * What each verification state means in practice.
- *
- * Written from the reader's side, not ours: "pendiente de revisión" tells them
- * nothing on its own, but "los datos vienen del catálogo anterior y todavía no
- * los hemos abierto uno a uno" tells them exactly how much to trust the table
- * further up.
- */
-const VERIFICATION_MEANING: Record<ToolRecord['verification'], string> = {
-  verified:
-    'Hemos abierto la web del fabricante y confirmado uno a uno los datos del plan gratuito que ves arriba.',
-  partially_verified:
-    'Los datos duros del plan gratuito están confirmados; el resto de la ficha procede del catálogo anterior y aún no se ha vuelto a comprobar.',
-  pending_review:
-    'Esta ficha viene del catálogo anterior y todavía no la hemos comprobado contra la web del fabricante. Trátala como orientativa.',
-  outdated:
-    'Sabemos que algo de esta ficha ha dejado de ser cierto y aún no la hemos rehecho. No decidas nada con ella sin comprobarlo.',
-  discontinued:
-    'La herramienta ha dejado de estar disponible. Mantenemos la ficha como registro.',
-};
 /*
  * El estado de la ficha, que es lo que puede decir de sí misma.
  *
@@ -271,6 +250,27 @@ const verificacion = verificacionDe(tool);
           empezar— lo dice ahora AccessBadge, con los hechos verificados.
         */}
 
+        {/*
+          Los hechos están comprobados; el texto de alrededor, no siempre.
+
+          `verification` dejó de gobernar el sello del revisor —ahí gobierna el
+          estado derivado— pero sigue diciendo algo que ningún otro campo dice:
+          si la parte narrativa de la ficha viene del catálogo anterior. Son
+          dieciséis, y lo reconocían en el sello.
+
+          Al unificar el sello borré esa confesión sin darme cuenta: quedó una
+          ficha coherente en sus cuatro hechos y muda sobre los tres párrafos de
+          abajo. Vuelve aquí, que es donde afecta, y sin competir con el estado:
+          no dice «esta ficha no está verificada», dice qué parte no lo está.
+        */}
+        {tool.verification !== 'verified' && (tool.descriptionLong || tool.cons.length > 0) && (
+          <p class="tool-heredado" role="note">
+            <strong>Lo que sigue procede del catálogo anterior</strong> y aún no lo hemos vuelto a
+            comprobar contra la web del fabricante. Las condiciones del plan gratuito de arriba sí:
+            son las que llevan fecha y fuente.
+          </p>
+        )}
+
         {tool.descriptionLong && (
           <section aria-labelledby="about-title" class="tool-section prose">
             <h2 id="about-title">Qué es y para qué sirve</h2>
@@ -327,13 +327,39 @@ const verificacion = verificacionDe(tool);
                         eso abajo. La condición que faltaba es la obvia: que
                         exista un plan gratuito.
                       */}
+                      {/*
+                        La categoría, tal como se escribe.
+
+                        Esto era `category.name.toLowerCase()` y publicaba
+                        «Buscas imagen ia sin pagar nada por adelantado» en 34
+                        fichas: minusculizar una etiqueta se lleva por delante
+                        las siglas, y una frase con «imagen ia» dentro delata
+                        que no la escribió nadie. La categoría se nombra como
+                        está escrita y la frase se construye alrededor.
+                      */}
                       {tool.freeModel !== 'paid_only' && tool.freeModel !== 'unknown' && (
-                        <li>Buscas {category.name.toLowerCase()} sin pagar nada por adelantado.</li>
+                        <li>Quieres trabajar con {category.name} y no quieres pagar por adelantado.</li>
                       )}
                       {tool.freePlan.requiresCreditCard === 'no' && <li>No quieres dar la tarjeta sólo para probar.</li>}
                       {tool.freePlan.commercialUse === 'yes' && <li>Vas a usar el resultado en un trabajo que se cobra.</li>}
                       {tool.hosting !== 'cloud' && <li>Prefieres que tus archivos no salgan de tu equipo.</li>}
-                      {tool.startEffort === 'instant' && <li>Quieres probar ahora mismo, sin crear ninguna cuenta.</li>}
+                      {/*
+                        «Sin crear ninguna cuenta» exige las dos cosas.
+
+                        Colgaba sólo de `startEffort === 'instant'`, y ChatGPT y
+                        Claude son las dos `instant` con `requiresSignup: yes`:
+                        la ficha ofrecía probar sin cuenta en la misma página en
+                        la que sus límites dicen que hay que crearla. Son las dos
+                        fichas más visitadas del sitio.
+
+                        Y se exige `=== 'no'`, no `!== 'yes'`. La prueba de
+                        coherencia cazó mi primer intento: con `!==` bastaba un
+                        «sin confirmar» para prometer que no hace falta cuenta,
+                        que es convertir un hueco en una conclusión favorable.
+                      */}
+                      {tool.startEffort === 'instant' && tool.freePlan.requiresSignup === 'no' && (
+                        <li>Quieres probar ahora mismo, sin crear ninguna cuenta.</li>
+                      )}
                     </>
                   )}
               </ul>
@@ -480,10 +506,10 @@ const verificacion = verificacionDe(tool);
             it is the most useful thing on the page for someone deciding how
             much weight to put on the numbers above.
           */}
-          <p class={`tool-verification tool-verification-${tool.verification}`}>
-            <strong>{VERIFICATION_LABEL[tool.verification]}.</strong>
+          <p class={`tool-verification tool-verification-${verificacion.state}`}>
+            <strong>{verificacion.label}.</strong>
             {' '}
-            {VERIFICATION_MEANING[tool.verification]}
+            {selloDe(verificacion)}
             {tool.nextReviewAt && (
               <>
                 {' '}Próxima revisión prevista:{' '}
@@ -799,6 +825,27 @@ const verificacion = verificacionDe(tool);
     border-block: 1px solid var(--line);
   }
 
+  /*
+   * El aviso de texto heredado.
+   *
+   * Discreto a propósito: no es una alarma sobre la ficha, es una acotación
+   * sobre tres párrafos. Con el tono de aviso completo competiría visualmente
+   * con el estado de verificación de arriba, que es el que manda.
+   */
+  .tool-heredado {
+    margin: var(--space-m) 0 0;
+    padding: var(--space-2xs) var(--space-xs);
+    border-inline-start: 2px solid var(--line);
+    font-size: 0.8125rem;
+    line-height: 1.55;
+    color: var(--ink-muted);
+  }
+
+  .tool-heredado strong {
+    color: var(--ink-strong);
+    font-weight: 600;
+  }
+
   .tool-verification {
     font-size: 0.875rem !important;
     color: var(--ink) !important;
@@ -813,23 +860,21 @@ const verificacion = verificacionDe(tool);
     color: var(--ink-strong);
   }
 
-  .tool-verification-verified {
+  .tool-verification-verificada {
     border-color: var(--signal-line) !important;
     background: var(--signal-soft);
   }
 
-  .tool-verification-verified strong {
+  .tool-verification-verificada strong {
     color: var(--signal);
   }
 
-  .tool-verification-pending_review,
-  .tool-verification-outdated {
+  .tool-verification-catalogada {
     border-color: var(--warn-line) !important;
     background: var(--warn-soft);
   }
 
-  .tool-verification-pending_review strong,
-  .tool-verification-outdated strong {
+  .tool-verification-catalogada strong {
     color: var(--warn);
   }
 

@@ -169,18 +169,41 @@ const description =
     <!-- D · ¿Por qué fiarte? -------------------------------------------- -->
     <section class="promise" aria-labelledby="promise-title">
       <h2 id="promise-title" class="section-title">Por qué fiarte de esto</h2>
+      {/*
+        Cuatro cifras que no se podían sumar.
+
+        Aquí había «94 revisadas · 79 con acceso gratuito · 11 verificación
+        completa · 78 con algún dato sin publicar», y un lector que hiciera la
+        comprobación más elemental que existe —sumar— obtenía 89 sobre 94. No
+        fallaban los datos: faltaba un cubo, las 5 catalogadas, y las dos ideas
+        distintas iban en el mismo renglón con el mismo aspecto.
+
+        Ahora la lista es una partición del catálogo y cierra. El acceso
+        gratuito, que responde a otra pregunta, se cuenta aparte y también
+        cierra.
+      */}
       <dl class="hero-stats">
-        <div><dt>Herramientas revisadas</dt><dd class="tnum">{recuento.total}</dd></div>
-        <div><dt>Con acceso gratuito confirmado</dt><dd class="tnum">{recuento.accesoGratuitoConfirmado}</dd></div>
-        <div><dt>Verificación completa</dt><dd class="tnum">{recuento.verificada}</dd></div>
-        <div><dt>Con algún dato sin publicar</dt><dd class="tnum">{recuento.parcial}</dd></div>
+        <div><dt>Verificadas</dt><dd class="tnum">{recuento.verificada}</dd></div>
+        <div><dt>Verificación parcial</dt><dd class="tnum">{recuento.parcial}</dd></div>
+        <div><dt>Catalogadas</dt><dd class="tnum">{recuento.catalogada}</dd></div>
       </dl>
+      <p class="hero-stats-suma">
+        {recuento.verificada} + {recuento.parcial} + {recuento.catalogada} ={' '}
+        <strong>{recuento.total} herramientas revisadas</strong>
+      </p>
       <p class="hero-stats-note">
-        «Verificación completa» significa que el fabricante publica todos los
-        hechos que le aplican. En las demás falta alguno concreto —lo nombramos
-        en su ficha— y el resto del análisis está igual de comprobado.
-        {recuento.sinPlanGratuito} no tienen plan gratuito, y su ficha lo dice.
-        <a href={ROUTES.methodology}>Cómo lo comprobamos</a>.
+        <strong>Verificada</strong> significa que hemos abierto la web del fabricante y
+        que todos los hechos que le aplican están confirmados. En las de
+        <strong> verificación parcial</strong> falta alguno concreto, y su ficha dice cuál y
+        si el hueco es suyo o nuestro. Las <strong>catalogadas</strong> están en la lista
+        pero aún no las hemos comprobado contra la fuente oficial, y lo dicen.
+      </p>
+      <p class="hero-stats-note">
+        Por separado, y respondiendo a otra pregunta:
+        <strong> {recuento.accesoGratuitoConfirmado}</strong> tienen acceso gratuito confirmado y
+        utilizable hoy, <strong>{recuento.sinPlanGratuito}</strong> no tienen plan gratuito —están
+        para decir que no lo tienen— y de <strong>{recuento.accesoSinConfirmar}</strong> todavía no
+        sabemos qué dan. <a href={ROUTES.methodology}>Cómo lo comprobamos</a>.
       </p>
 
       <ul class="promise-list">
@@ -294,6 +317,25 @@ const description =
   .hero-shortcuts a:hover {
     border-color: var(--signal);
     color: var(--signal);
+  }
+
+  /*
+   * La suma, escrita.
+   *
+   * Un bloque que se titula «por qué fiarte» y publica cifras invita a
+   * sumarlas. Antes no cerraban y el lector que lo comprobaba se llevaba la
+   * impresión contraria a la que el bloque busca. Enseñar la operación cuesta
+   * una línea y convierte la comprobación en parte del argumento.
+   */
+  .hero-stats-suma {
+    margin: var(--space-2xs) 0 0;
+    font-size: 0.875rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-muted);
+  }
+
+  .hero-stats-suma strong {
+    color: var(--ink-strong);
   }
 
   .hero-stats-note {

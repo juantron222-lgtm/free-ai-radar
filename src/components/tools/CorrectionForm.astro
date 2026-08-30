@@ -28,7 +28,7 @@ const FIELDS = [
 
   <form class="correction-form" method="post" action="/api/corrections" data-correction-form>
     <input type="hidden" name="toolSlug" value={toolSlug} />
-    <div class="correction-hp" aria-hidden="true">
+    <div class="correction-hp" aria-hidden="true" inert>
       <label for="correction-website">No rellenes este campo</label>
       <input type="text" id="correction-website" name="website" tabindex="-1" autocomplete="off" />
     </div>
