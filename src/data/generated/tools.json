@@ -945,7 +945,7 @@
     "name": "Claude",
     "tagline": "Asistente IA de Anthropic con razonamiento avanzado, ventana de contexto masiva y capacidad de análisis de documentos extensos.",
     "descriptionShort": "Asistente de Anthropic con razonamiento avanzado, contexto amplio y análisis de documentos extensos. Su plan gratuito servía Claude Sonnet 5 el 30 de agosto de 2026 —el mismo modelo que Pro— y cuenta el uso por sesiones de cinco horas.",
-    "descriptionLong": "Claude, de Anthropic, destaca en razonamiento, escritura larga y análisis de documentos extensos. El plan gratuito permite conversar, subir archivos y analizar imágenes, con cuenta obligatoria. El 30 de agosto de 2026 servía Claude Sonnet 5 por defecto, el mismo modelo que el plan Pro. El uso se cuenta por sesiones que se reinician cada cinco horas, y cuántos mensajes caben en cada una no se publica: depende de lo larga que sea la conversación.",
+    "descriptionLong": "Claude, de Anthropic, destaca en razonamiento, escritura larga y análisis de documentos extensos. El plan gratuito permite conversar, subir archivos y analizar imágenes, con cuenta obligatoria. El 30 de agosto de 2026 servía Claude Sonnet 5 por defecto, el mismo modelo que el plan Pro. El uso se cuenta por sesiones que se reinician cada cinco horas, y cuántos mensajes caben en cada una no es una cifra fija: la propia documentación dice que varía según la demanda.",
     "kind": "app",
     "verification": "partially_verified",
     "nextReviewAt": "2026-10-06",
@@ -960,12 +960,12 @@
     ],
     "freeModel": "free_real",
     "freePlan": {
-      "summary": "Plan gratuito con conversación, subida de archivos y análisis de imágenes. El 30 de agosto de 2026, el modelo por defecto era Claude Sonnet 5, el mismo que el plan Pro. Exige crear cuenta. El uso se cuenta por sesiones que se reinician cada cinco horas; cuántos mensajes caben en una sesión no se publica y depende de la longitud de la conversación.",
+      "summary": "Plan gratuito con conversación, subida de archivos y análisis de imágenes. El 30 de agosto de 2026, el modelo por defecto era Claude Sonnet 5, el mismo que el plan Pro. Exige crear cuenta. El uso se cuenta por sesiones que se reinician cada cinco horas, y Anthropic dice que el número de mensajes varía según la demanda: no hay una cifra fija que se pueda publicar.",
       "limits": [
         "Hay que crear cuenta",
         "Modelo por defecto el 30 de agosto de 2026: Claude Sonnet 5, el mismo que en Pro",
-        "El uso se cuenta por sesiones que se reinician cada cinco horas",
-        "Cuántos mensajes entran en una sesión: no se publica, y varía con la longitud del texto",
+        "Límite por sesión, que se reinicia cada cinco horas",
+        "No hay cifra fija de mensajes: Anthropic dice que varía según la demanda",
         "No es código abierto ni se ejecuta en local"
       ],
       "requiresSignup": "yes",
@@ -1025,7 +1025,7 @@
     "verdict": "Para escribir y analizar textos largos es de lo mejor que se puede usar sin pagar. Lo que no se sabe de antemano es cuánto: el límite del plan gratuito no está publicado.",
     "pros": [],
     "cons": [
-      "Cuántos mensajes entran en una sesión no se publica: no se sabe de antemano si alcanza",
+      "No hay cifra fija de mensajes: varía según la demanda, así que no se sabe de antemano si alcanza",
       "Las conversaciones largas agotan la sesión más rápido",
       "No es código abierto ni se ejecuta en local"
     ],
@@ -1070,12 +1070,12 @@
       },
       {
         "field": "freePlan.limits",
-        "outcome": "derived",
-        "sourceUrl": "https://support.claude.com/en/articles/11647753-how-do-usage-and-length-limits-work",
+        "outcome": "stated",
+        "sourceUrl": "https://support.claude.com/en/articles/8114491-getting-started-with-claude",
         "sourceKind": "docs",
         "scope": "product",
         "checkedAt": "2026-08-30",
-        "basis": "Anthropic documenta que el uso de Claude se cuenta por sesiones que se reinician cada cinco horas y que cada plan tiene una asignación distinta, sin publicar la cifra de ninguno. El artículo describe el mecanismo y detalla los planes de pago; no aísla el gratuito. Deducimos que el gratuito usa la misma ventana con una asignación menor. Lo que sí consta sin deducir es que la cantidad de mensajes no se publica y depende de la longitud de la conversación."
+        "quote": "While using the free Claude plan, there is a session-based usage limit that will reset every five hours. […] the number of messages you can send will vary based on demand, and we may impose other types of usage limits to ensure fair access to all users."
       }
     ],
     "startEffortReason": "Se puede escribir en la caja y obtener respuesta nada más entrar.",

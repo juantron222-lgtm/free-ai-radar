@@ -345,19 +345,34 @@ describe('un dato volátil se publica con su fecha dentro', () => {
     }
   });
 
-  it('la ventana de cinco horas de Claude es deducción declarada, no cita', () => {
+  it('la ventana de cinco horas de Claude es cita, y de una fuente que nombra Free', () => {
     /*
-     * Anthropic documenta el mecanismo y su artículo detalla los planes de pago;
-     * ninguna página que se pueda abrir lo afirma del gratuito. Que sea el mismo
-     * mecanismo es razonable, y razonable no es citable. Si mañana alguien
-     * discute el dato, con una cita falsa la discusión se pierde y con una
-     * deducción declarada se discute el razonamiento, que es donde debe estar.
+     * Esto estuvo mal archivado y merece quedar escrito.
+     *
+     * Recorrí la página de precios, el artículo de buenas prácticas de límites,
+     * «How do usage and length limits work?» y el anuncio de Sonnet 5, no lo
+     * encontré del plan gratuito en ninguno, y lo archivé como deducción. La
+     * prudencia era razonable y la conclusión falsa: está publicado, en «Get
+     * started with Claude», y dice literalmente «While using the free Claude
+     * plan». Buscar en cuatro sitios y no encontrarlo no es lo mismo que no
+     * estar, y rebajar de más también es equivocarse.
+     *
+     * La prueba exige ahora las dos cosas: que sea cita y que la cita nombre el
+     * plan gratuito. Lo segundo es lo que impide volver a apoyar un dato del
+     * plan gratuito en una página que sólo habla de los de pago.
      */
     const claude = tools.find((t) => t.slug === 'claude')!;
     const ev = evidenciaDe(claude, 'freePlan.limits')!;
-    expect(ev.outcome, 'no puede archivarse como cita del fabricante').toBe('derived');
-    expect(baseDe(ev), 'la base no dice qué parte es nuestra').toMatch(/deducimos|no aísla/i);
-    expect(claude.freePlan.limits.join(' ')).toMatch(/cinco horas/);
+
+    expect(ev.outcome, 'está publicado: no hay nada que deducir').toBe('stated');
+    const cita = citaDe(ev)!;
+    expect(cita, 'la cita no nombra el plan gratuito').toMatch(/free Claude plan|free plan/i);
+    expect(cita, 'la cita no sostiene la ventana de cinco horas').toMatch(/reset every five hours/i);
+    expect(cita, 'la cita no sostiene que no haya cifra fija').toMatch(/vary based on demand/i);
+    expect(ev.sourceUrl).toMatch(/support\.claude\.com/);
+
+    expect(claude.freePlan.limits.join(' '), 'la ficha no lo cuenta').toMatch(/cinco horas/);
+    expect(claude.freePlan.limits.join(' ')).toMatch(/no hay cifra fija|varía según la demanda/i);
   });
 
   it('y lo de Sonnet 5 sí es cita, porque la fuente nombra el plan gratuito', () => {
