@@ -653,9 +653,9 @@
     "id": "tool_chatgpt",
     "slug": "chatgpt",
     "name": "ChatGPT",
-    "tagline": "El asistente IA más popular del mundo.",
-    "descriptionShort": "El asistente IA más popular del mundo. Acceso gratuito a GPT-4o mini con capacidades multimodales, búsqueda web, y generación de imágenes.",
-    "descriptionLong": "ChatGPT de OpenAI es el asistente de IA más utilizado globalmente. El plan gratuito ofrece acceso a GPT-4o mini (o modelo equivalente en 2026) con capacidades de texto, visión, generación de imágenes (DALL-E), navegación web, análisis de datos, y GPTs personalizados. La app móvil permite conversación por voz. Los límites del plan gratuito se han vuelto más generosos con el tiempo.",
+    "tagline": "Plan gratuito con cuenta obligatoria y límites de mensajes que el fabricante no publica.",
+    "descriptionShort": "El asistente de OpenAI en el navegador y en móvil. Su plan gratuito incluye conversación, visión, generación de imágenes, navegación web y análisis de archivos, con cuenta obligatoria. Qué modelo concreto sirve en cada momento lo decide OpenAI y cambia sin aviso.",
+    "descriptionLong": "ChatGPT es el asistente de OpenAI. El plan gratuito da conversación con capacidades de texto y visión, generación de imágenes, navegación web, análisis de archivos y GPTs, además de la conversación por voz en la aplicación móvil. Hace falta crear una cuenta. El modelo asignado al plan gratuito lo decide OpenAI y ha cambiado varias veces, así que esta ficha no lo fija: lo que se puede sostener es qué deja hacer el plan, no con qué versión lo hace hoy.",
     "kind": "app",
     "verification": "partially_verified",
     "nextReviewAt": "2026-10-06",
@@ -666,18 +666,18 @@
     ],
     "useCases": [
       "Asistente de escritura y brainstorming",
-      "Programación y debugging",
-      "Generación de imágenes con DALL-E",
+      "Programación y depuración",
+      "Generación de imágenes",
       "Análisis de datos y documentos"
     ],
     "freeModel": "free_real",
     "freePlan": {
-      "summary": "Plan gratuito con acceso a GPT-4o mini (o equivalente), DALL-E básico, búsqueda web, y análisis de datos. Límites de uso diario. Sin tarjeta.",
+      "summary": "Plan gratuito con conversación, visión, generación de imágenes, navegación web y análisis de archivos. Exige crear cuenta. Los límites de mensajes existen y el fabricante no publica la cifra.",
       "limits": [
-        "Límite de mensajes en plan gratuito (más restrictivo que Plus)",
-        "No open-source ni ejecutable localmente",
-        "Requiere registro con email",
-        "Modelo gratuito limitado vs GPT-4o completo"
+        "Hay que crear cuenta",
+        "Límite de mensajes: existe, y el fabricante no publica cuánto",
+        "El modelo asignado al plan gratuito lo decide OpenAI y cambia",
+        "No es código abierto ni se ejecuta en local"
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
@@ -733,13 +733,12 @@
       "transparency": 6,
       "creatorValue": 7
     },
-    "verdict": "El asistente IA más versátil con un plan gratuito sólido. Imprescindible en cualquier toolkit de IA gratuito.",
+    "verdict": "El plan gratuito da para trabajar a diario, y su límite real —cuántos mensajes— es justo lo que OpenAI no publica. Eso es lo que hay que saber antes de apoyarse en él.",
     "pros": [],
     "cons": [
-      "Límite de mensajes en plan gratuito (más restrictivo que Plus)",
-      "No open-source ni ejecutable localmente",
-      "Requiere registro con email",
-      "Modelo gratuito limitado vs GPT-4o completo"
+      "El límite de mensajes no está publicado: no se sabe de antemano si alcanza",
+      "El modelo del plan gratuito cambia sin aviso",
+      "No es código abierto ni se ejecuta en local"
     ],
     "bestFor": [],
     "notFor": [],
@@ -764,7 +763,7 @@
     },
     "status": "published",
     "detectedAt": "2022-11-30",
-    "lastVerifiedAt": "2026-07-08",
+    "lastVerifiedAt": "2026-08-29",
     "updatedAt": "2026-07-08",
     "startEffort": "instant",
     "capabilities": [
@@ -780,6 +779,15 @@
         "checkedAt": "2026-08-12",
         "quote": "ose a model Pricing Model selection Text and code Text generation Code generation Structured output Prompting · Pro, Feature: Analytics dashboard, No Compliance API Logs Platform Plan: Free, Feature: Compliance API Logs Pl",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.limits",
+        "outcome": "not_published",
+        "sourceUrl": "https://openai.com/chatgpt/pricing/",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-08-29",
+        "lookedFor": "Cuántos mensajes permite el plan gratuito y con qué modelo. La página describe el plan como gratuito con acceso limitado y no publica ni la cifra de mensajes ni el modelo asignado."
       }
     ],
     "startEffortReason": "Se puede escribir en la caja y obtener respuesta nada más entrar.",
@@ -855,12 +863,6 @@
         "url": "https://github.com/civitai",
         "label": "Repositorio",
         "kind": "repo",
-        "checkedAt": "2026-07-08"
-      },
-      {
-        "url": "https://www.reddit.com/r/civitai/",
-        "label": "reddit.com",
-        "kind": "community",
         "checkedAt": "2026-07-08"
       }
     ],
@@ -940,7 +942,7 @@
     "name": "Claude",
     "tagline": "Asistente IA de Anthropic con razonamiento avanzado, ventana de contexto masiva y capacidad de análisis de documentos extensos.",
     "descriptionShort": "Asistente IA de Anthropic con razonamiento avanzado, ventana de contexto masiva y capacidad de análisis de documentos extensos.",
-    "descriptionLong": "Claude, desarrollado por Anthropic, destaca por su capacidad de razonamiento matizado, escritura de alta calidad, y una ventana de contexto excepcionalmente grande que permite analizar libros enteros o bases de código completas. El plan gratuito ofrece acceso al modelo Claude 3.5 Sonnet (u versión equivalente en 2026) con límites de uso diarios generosos. Incluye subida de archivos, análisis de imágenes, y proyectos organizados.",
+    "descriptionLong": "Claude, de Anthropic, destaca en razonamiento, escritura larga y análisis de documentos extensos. El plan gratuito permite conversar, subir archivos y analizar imágenes, con cuenta obligatoria. Los límites de uso existen y varían según el plan; Anthropic los remite a un artículo de soporte que tampoco publica la cifra.",
     "kind": "app",
     "verification": "partially_verified",
     "nextReviewAt": "2026-10-06",
@@ -955,12 +957,11 @@
     ],
     "freeModel": "free_real",
     "freePlan": {
-      "summary": "Plan gratuito con acceso a Claude (modelo principal) con límites de uso diario. Sin necesidad de tarjeta de crédito. Suficiente para uso moderado.",
+      "summary": "Plan gratuito con conversación, subida de archivos y análisis de imágenes. Exige crear cuenta. Anthropic dice que se aplican límites de uso y que varían según el plan, pero no publica la cifra.",
       "limits": [
-        "Límite de mensajes diario en plan gratuito",
-        "No open-source ni ejecutable localmente",
-        "Requiere registro con email/teléfono",
-        "Menos funciones multimodales que ChatGPT"
+        "Hay que crear cuenta",
+        "Límite de mensajes: se aplica y varía por plan; el fabricante no publica cuánto",
+        "No es código abierto ni se ejecuta en local"
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
@@ -1016,13 +1017,11 @@
       "transparency": 7,
       "creatorValue": 7
     },
-    "verdict": "Excelente para escritura y análisis profundo. El plan gratuito es genuinamente útil para uso diario moderado. Muy recomendable.",
+    "verdict": "Para escribir y analizar textos largos es de lo mejor que se puede usar sin pagar. Lo que no se sabe de antemano es cuánto: el límite del plan gratuito no está publicado.",
     "pros": [],
     "cons": [
-      "Límite de mensajes diario en plan gratuito",
-      "No open-source ni ejecutable localmente",
-      "Requiere registro con email/teléfono",
-      "Menos funciones multimodales que ChatGPT"
+      "El límite de mensajes no está publicado: no se sabe de antemano si alcanza",
+      "No es código abierto ni se ejecuta en local"
     ],
     "bestFor": [],
     "notFor": [],
@@ -1047,7 +1046,7 @@
     },
     "status": "published",
     "detectedAt": "2023-07-01",
-    "lastVerifiedAt": "2026-07-08",
+    "lastVerifiedAt": "2026-08-29",
     "updatedAt": "2026-07-08",
     "startEffort": "instant",
     "capabilities": [
@@ -1062,6 +1061,15 @@
         "checkedAt": "2026-08-12",
         "quote": "eachers Life sciences Nonprofits Pricing Overview API Resources Insights Blog Customer stories Anthropic news",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.limits",
+        "outcome": "not_published",
+        "sourceUrl": "https://claude.com/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-08-29",
+        "lookedFor": "Cuánto uso permite el plan gratuito. La página de precios sólo dice que se aplican límites y enlaza a un artículo de soporte que tampoco da la cifra ni la ventana de tiempo."
       }
     ],
     "startEffortReason": "Se puede escribir en la caja y obtener respuesta nada más entrar.",
@@ -2141,12 +2149,6 @@
         "label": "Documentación",
         "kind": "docs",
         "checkedAt": "2026-07-08"
-      },
-      {
-        "url": "https://www.reddit.com/r/comfyui/",
-        "label": "reddit.com",
-        "kind": "community",
-        "checkedAt": "2026-07-08"
       }
     ],
     "scores": {
@@ -2391,10 +2393,9 @@
     "verdict": "La forma más cómoda de probar un agente de código sin instalar nada raro ni dar una tarjeta. Cuántas peticiones entran en el plan gratuito, no lo publica.",
     "pros": [],
     "cons": [
-      "Plan gratuito limitado a 2000 completions/mes",
-      "No open-source (fork propietario de VS Code)",
-      "Requests premium limitados en plan gratuito",
-      "El modelo gratuito es menos potente que los premium"
+      "La cantidad de peticiones del plan Hobby no se publica",
+      "No es código abierto: es un fork propietario de VS Code",
+      "Los modelos de frontera quedan para los planes de pago"
     ],
     "bestFor": [],
     "notFor": [],
@@ -2416,7 +2417,7 @@
     },
     "status": "published",
     "detectedAt": "2023-10-01",
-    "lastVerifiedAt": "2026-08-21",
+    "lastVerifiedAt": "2026-08-29",
     "updatedAt": "2026-08-21",
     "evidence": [
       {
@@ -2486,7 +2487,7 @@
       "api"
     ],
     "freeModel": "open_source",
-    "tagline": "La gama pequeña de DeepSeek: 304.000 millones de parámetros, MIT.",
+    "tagline": "La gama pequeña de DeepSeek: 284.000 millones de parámetros con 13.000 activos, MIT.",
     "descriptionShort": "La hermana ligera de V4 Pro, con 304.000 millones de parámetros y el mismo contexto de un millón de tokens. Misma licencia MIT y un precio de API que es la tercera parte.",
     "verdict": "La opción razonable si el objetivo es la API: mismo contexto que la grande a un tercio de precio, y con la hora valle sale por 0,22 $ el millón de tokens de entrada.",
     "freePlan": {
@@ -2499,8 +2500,9 @@
       "summary": "Repositorio y pesos bajo licencia MIT. Por API, 0,22 $ por millón de tokens de entrada sin caché en hora valle y 0,66 $ de salida.",
       "limits": [
         "Pesos y código: MIT",
-        "304.000 millones de parámetros · contexto de 1M",
-        "API en hora valle: 0,22 $/M de entrada · 0,66 $/M de salida"
+        "284.000 millones de parámetros · 13.000 millones activos por token · contexto de 1M",
+        "API en hora valle: 0,22 $/M de entrada · 0,66 $/M de salida",
+        "API en hora punta: 0,44 $/M de entrada · 1,32 $/M de salida"
       ]
     },
     "access": {
@@ -2533,11 +2535,11 @@
         "checkedAt": "2026-08-20"
       },
       {
-        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.2-Exp",
-        "label": "Repositorio oficial",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash",
+        "label": "Ficha oficial del modelo",
         "kind": "repo",
         "publisher": "huggingface.co",
-        "checkedAt": "2026-08-24"
+        "checkedAt": "2026-08-29"
       },
       {
         "url": "https://api-docs.deepseek.com/quick_start/pricing",
@@ -2565,12 +2567,21 @@
         "scope": "api",
         "checkedAt": "2026-08-24",
         "quote": "Off-peak: $0.22/1M input, $0.66/1M output. Peak hours are 01:00 - 04:00 and 06:00 - 10:00 UTC, Monday through Friday."
+      },
+      {
+        "field": "capabilities",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash",
+        "sourceKind": "repo",
+        "scope": "weights",
+        "checkedAt": "2026-08-29",
+        "quote": "284B parameters · 13B activated · one million tokens context"
       }
     ],
     "slug": "deepseek-v4-flash",
     "id": "tool_deepseek-v4-flash",
     "nextReviewAt": "2026-11-22",
-    "lastVerifiedAt": "2026-08-24",
+    "lastVerifiedAt": "2026-08-29",
     "updatedAt": "2026-08-20"
   },
   {
@@ -2627,12 +2638,12 @@
       "creditReset": "none",
       "verifiedAt": "2026-08-20",
       "commercialUse": "yes",
-      "summary": "Repositorio y pesos bajo licencia MIT, que permite uso comercial sin condiciones añadidas. Por API se paga por token, con precio de hora punta y de hora valle.",
+      "summary": "Repositorio y pesos bajo licencia MIT, que permite uso comercial sin condiciones añadidas. Por API se paga por token, con precio de hora punta —1,32 $ de entrada y 3,96 $ de salida por millón— y de hora valle.",
       "limits": [
         "Pesos y código: MIT",
         "1,7 billones de parámetros · contexto de 1M · salida máxima de 384k",
         "API en hora valle: 0,22 $/M de entrada sin caché · 0,66 $/M de salida",
-        "API en hora punta: 0,44 $/M y 1,32 $/M"
+        "API en hora punta: 1,32 $/M de entrada sin caché · 3,96 $/M de salida"
       ]
     },
     "access": {
@@ -2687,17 +2698,17 @@
       {
         "field": "capabilities",
         "outcome": "stated",
-        "sourceUrl": "https://api-docs.deepseek.com/quick_start/pricing/",
-        "sourceKind": "pricing",
-        "checkedAt": "2026-08-20",
-        "quote": "deepseek-v4-pro: 1M context length, max 384K output. Peak hours 01:00-04:00 and 06:00-10:00 UTC.",
-        "scope": "api"
+        "sourceUrl": "https://api-docs.deepseek.com/quick_start/pricing",
+        "sourceKind": "docs",
+        "scope": "api",
+        "checkedAt": "2026-08-29",
+        "quote": "deepseek-v4-pro: 1M context length, max 384K output. Peak hours: $1.32/1M input (cache miss), $3.96/1M output"
       }
     ],
     "slug": "deepseek-v4-pro",
     "id": "tool_deepseek-v4-pro",
     "nextReviewAt": "2026-11-18",
-    "lastVerifiedAt": "2026-08-20",
+    "lastVerifiedAt": "2026-08-29",
     "updatedAt": "2026-08-20"
   },
   {
@@ -3093,9 +3104,9 @@
     ],
     "freeModel": "credits",
     "freePlan": {
-      "summary": "Plan gratuito con 10.000 créditos al mes que se reinician al empezar cada ciclo de facturación. Incluye texto a voz, transcripción, efectos de sonido, diseño de voz, música y tres proyectos de Studio. La clonación de voz y el doblaje no están incluidos, y la licencia comercial empieza en el plan Starter, 6 $/mes con 30.000 créditos.",
+      "summary": "Plan gratuito con 10.000 créditos al mes que se reinician al empezar cada ciclo de facturación y que se comparten entre todos sus productos: los mismos créditos sirven para texto a voz, transcripción, efectos de sonido, diseño de voz o música. Incluye tres proyectos de Studio. La clonación de voz y el doblaje no están incluidos, y la licencia comercial empieza en Starter.",
       "limits": [
-        "10.000 créditos al mes",
+        "10.000 créditos al mes, compartidos entre todos sus productos",
         "Licencia comercial NO incluida: empieza en Starter",
         "Clonación de voz y doblaje: no incluidos en el plan gratuito",
         "3 proyectos en Studio",
@@ -3156,10 +3167,10 @@
     "verdict": "La referencia en voz sintética, y su plan gratuito sirve para probarlo todo salvo lo que probablemente vas buscando: clonar una voz y poder usar el resultado en un trabajo.",
     "pros": [],
     "cons": [
-      "Plan gratuito muy limitado (10K caracteres/mes)",
-      "Clonación de voz solo en planes de pago",
-      "No open-source ni ejecutable localmente",
-      "Voces premium bloqueadas en plan gratuito"
+      "Plan gratuito de 10.000 créditos al mes, compartidos entre todos sus productos",
+      "Clonación de voz sólo en planes de pago",
+      "No es código abierto ni se ejecuta en local",
+      "Voces premium bloqueadas en el plan gratuito"
     ],
     "bestFor": [],
     "notFor": [],
@@ -3181,18 +3192,9 @@
     },
     "status": "published",
     "detectedAt": "2023-03-01",
-    "lastVerifiedAt": "2026-08-24",
+    "lastVerifiedAt": "2026-08-29",
     "updatedAt": "2026-08-18",
     "evidence": [
-      {
-        "field": "freePlan.commercialUse",
-        "outcome": "stated",
-        "sourceUrl": "https://elevenlabs.io/terms-of-use",
-        "sourceKind": "terms",
-        "scope": "product",
-        "checkedAt": "2026-08-24",
-        "quote": "if you access or use our Services free of charge (such a user, a 'Free User'), you may only use the Services for non-commercial purposes; if you access or use our Services through a paid subscription plan (such a user, a 'Paid User'), you may use the Services for commercial purposes."
-      },
       {
         "field": "freePlan.limits",
         "outcome": "stated",
@@ -3219,6 +3221,15 @@
         "scope": "product",
         "checkedAt": "2026-08-24",
         "lookedFor": "Si el audio del plan gratuito lleva marca o exige atribución. Las condiciones no imponen ninguna atribución, y ni ellas ni la página de precios mencionan marca alguna."
+      },
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://elevenlabs.io/terms-of-use",
+        "sourceKind": "terms",
+        "scope": "product",
+        "checkedAt": "2026-08-24",
+        "quote": "if you access or use our Services free of charge (such a user, a 'Free User'), you may only use the Services for non-commercial purposes; if you access or use our Services through a paid subscription plan (such a user, a 'Paid User'), you may use the Services for commercial purposes."
       }
     ],
     "startEffort": "signup",
@@ -3537,12 +3548,6 @@
         "url": "https://github.com/lllyasviel/Fooocus/blob/main/readme.md",
         "label": "Documentación",
         "kind": "docs",
-        "checkedAt": "2026-07-08"
-      },
-      {
-        "url": "https://www.reddit.com/r/StableDiffusion/",
-        "label": "reddit.com",
-        "kind": "community",
         "checkedAt": "2026-07-08"
       }
     ],
@@ -4285,17 +4290,17 @@
       "web"
     ],
     "freeModel": "freemium",
-    "tagline": "El autocompletado es gratis. El agente, la revisión y el modo agente, no.",
-    "descriptionShort": "El autocompletado de GitHub, con chat en el editor y en la web. Su plan gratuito da 2.000 completados al mes y selección automática de modelo, y su propia página de planes excluye expresamente los agentes, la revisión de código y el modo agente.",
+    "tagline": "El autocompletado es gratis. Los agentes y el modo agente, no.",
+    "descriptionShort": "El autocompletado de GitHub, con chat en el editor y en la web. Su plan gratuito da 2.000 completados al mes y selección automática de modelo, y su página de planes excluye expresamente los agentes y el modo agente.",
     "verdict": "Es el ejemplo de por qué no se puede heredar el acceso de la marca al producto: Copilot tiene plan gratuito y el agente de Copilot no está en él.",
     "freePlan": {
-      "summary": "Copilot Free da 2.000 completados en línea al mes, chat en los entornos y en GitHub, y selección automática de modelo. Quedan fuera del plan gratuito los agentes y el agente de programación, la revisión de código, el modo agente y la selección de modelos avanzados. El plan de pago más barato es Pro, 10 $ al mes.",
+      "summary": "Copilot Free da 2.000 completados en línea al mes, chat en los entornos y en GitHub, y selección automática de modelo. Para el chat, la documentación habla de una asignación de créditos de IA sin publicar la cantidad. Quedan fuera los agentes, el agente de programación, el modo agente y la selección de modelos avanzados.",
       "limits": [
         "2.000 completados en línea al mes",
-        "50 solicitudes de chat al mes (incluye Copilot Edits)",
+        "Chat: la documentación habla de una asignación de créditos de IA, sin publicar cuántos",
         "Sólo selección automática de modelo",
         "NO incluye agentes ni agente de programación",
-        "NO incluye revisión de código ni modo agente",
+        "NO incluye modo agente",
         "Plan de pago más barato: Pro, 10 $/mes"
       ],
       "requiresSignup": "yes",
@@ -4349,15 +4354,6 @@
         "quote": "No credit card required. Verified students have access to the GitHub Copilot Student plan."
       },
       {
-        "field": "freePlan.limits",
-        "outcome": "stated",
-        "sourceUrl": "https://github.com/features/copilot/plans",
-        "sourceKind": "pricing",
-        "scope": "product",
-        "checkedAt": "2026-08-24",
-        "quote": "2,000 completions per month […] 2000 completions and 50 chat requests (including Copilot Edits)"
-      },
-      {
         "field": "freePlan.commercialUse",
         "outcome": "not_published",
         "sourceUrl": "https://github.com/features/copilot/plans",
@@ -4365,11 +4361,20 @@
         "scope": "product",
         "checkedAt": "2026-08-24",
         "lookedFor": "Si el código sugerido en el plan gratuito puede usarse en trabajo comercial. La página de planes no lo trata."
+      },
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://docs.github.com/en/copilot/about-github-copilot/plans-for-github-copilot",
+        "sourceKind": "docs",
+        "scope": "product",
+        "checkedAt": "2026-08-29",
+        "quote": "Limited to 2000 completions per month on Copilot Free · An allowance of GitHub AI Credits"
       }
     ],
     "auditNotes": "Las capacidades describen el producto completo; lo que el plan gratuito no incluye está en los límites, que es donde decide.",
     "nextReviewAt": "2026-11-22",
-    "lastVerifiedAt": "2026-08-24",
+    "lastVerifiedAt": "2026-08-29",
     "updatedAt": "2026-08-21",
     "access": {},
     "productType": "copilot"
@@ -4785,11 +4790,12 @@
       "commercialUse": "unverified",
       "creditReset": "none",
       "verifiedAt": "2026-08-20",
-      "summary": "Sin capa gratuita documentada. Sol: 5 $ por millón de tokens de entrada y 30 $ de salida. Terra: 2 $ y 12 $. Luna: 0,20 $ y 1,20 $.",
+      "summary": "Sin capa gratuita documentada. Precios estándar por millón de tokens, con contexto corto y largo tarifados aparte. Sol: 4 $ de entrada y 20 $ de salida en contexto corto; 8 $ y 30 $ en largo. Terra: 2 $ y 12 $ en corto; 4 $ y 18 $ en largo. Luna: 0,20 $ y 1,20 $ en corto; 0,40 $ y 1,80 $ en largo.",
       "limits": [
-        "GPT-5.6 Sol: 5 $/M entrada · 30 $/M salida",
-        "GPT-5.6 Terra: 2 $/M entrada · 12 $/M salida",
-        "GPT-5.6 Luna: 0,20 $/M entrada · 1,20 $/M salida",
+        "GPT-5.6 Sol: 4 $/M entrada · 20 $/M salida (contexto corto) · 8 $ y 30 $ (largo)",
+        "GPT-5.6 Terra: 2 $/M entrada · 12 $/M salida (contexto corto) · 4 $ y 18 $ (largo)",
+        "GPT-5.6 Luna: 0,20 $/M entrada · 1,20 $/M salida (contexto corto) · 0,40 $ y 1,80 $ (largo)",
+        "Las tarifas por lotes y flex son la mitad; el modo rápido, el doble",
         "La página de precios no documenta capa gratuita"
       ]
     },
@@ -4831,15 +4837,6 @@
     ],
     "evidence": [
       {
-        "field": "freePlan.limits",
-        "outcome": "stated",
-        "sourceUrl": "https://developers.openai.com/api/docs/pricing",
-        "sourceKind": "pricing",
-        "checkedAt": "2026-08-20",
-        "quote": "gpt-5.6-sol: $5.00 input / $30.00 output · gpt-5.6-terra: $2.00 / $12.00 · gpt-5.6-luna: $0.20 / $1.20 per 1M tokens. [Sin mención de capa gratuita.]",
-        "scope": "api"
-      },
-      {
         "field": "capabilities",
         "outcome": "stated",
         "sourceUrl": "https://developers.openai.com/api/docs/models",
@@ -4847,13 +4844,22 @@
         "checkedAt": "2026-08-20",
         "quote": "GPT-5.6 Sol — Frontier model for complex professional work.",
         "scope": "api"
+      },
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://developers.openai.com/api/docs/pricing",
+        "sourceKind": "pricing",
+        "scope": "api",
+        "checkedAt": "2026-08-29",
+        "quote": "Sol: short context input $4.00 / output $20.00; long context input $8.00 / output $30.00 · Terra: $2.00 / $12.00; $4.00 / $18.00 · Luna: $0.20 / $1.20; $0.40 / $1.80"
       }
     ],
     "auditNotes": "`chat` y `chatFree` se quedan sin afirmar: help.openai.com, openai.com/chatgpt/pricing y el blog devuelven 403 a toda lectura automática, así que no hay forma de comprobar qué modelo sirve el plan gratuito de ChatGPT. Las capacidades se quedan en lo que la tabla de modelos demuestra.",
     "slug": "gpt-5-6",
     "id": "tool_gpt-5-6",
     "nextReviewAt": "2026-11-18",
-    "lastVerifiedAt": "2026-08-20",
+    "lastVerifiedAt": "2026-08-29",
     "updatedAt": "2026-08-20"
   },
   {
@@ -5092,7 +5098,7 @@
         "Generación de imágenes: incluida en el plan Free",
         "Generación de vídeo: no incluida en el plan Free",
         "Límites del plan gratuito no publicados («generous limits»)",
-        "Plan de pago con precio publicado más barato: SuperGrok, 30 $/mes"
+        "Entre Free y SuperGrok hay un plan intermedio, SuperGrok Lite, cuyo precio no aparece con claridad"
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
@@ -5174,7 +5180,7 @@
     },
     "status": "published",
     "detectedAt": "2026-08-12",
-    "lastVerifiedAt": "2026-08-13",
+    "lastVerifiedAt": "2026-08-29",
     "updatedAt": "2026-08-13",
     "evidence": [
       {
@@ -5800,15 +5806,15 @@
     ],
     "skillLevel": "beginner",
     "freeModel": "credits",
-    "tagline": "Diez créditos lentos por semana, y casi todas las herramientas de edición fuera.",
-    "descriptionShort": "Generador de imagen conocido por escribir texto legible dentro de la imagen. Su plan gratuito da 10 créditos lentos a la semana y deja fuera la referencia de estilo, la de personaje, el relleno, la ampliación de encuadre, el escalado y el recorte de fondo, que son de pago.",
+    "tagline": "Créditos lentos semanales para cuentas elegibles, y casi toda la edición fuera.",
+    "descriptionShort": "Generador de imagen conocido por escribir texto legible dentro de la imagen. Su plan gratuito da créditos lentos semanales para cuentas elegibles —la tabla no dice cuántos— y deja fuera la referencia de estilo, la de personaje, el relleno, la ampliación y el escalado.",
     "verdict": "La cantidad y la frecuencia están publicadas, que ya es más de lo que ofrece casi nadie. Lo que hay que mirar es la otra tabla: en el plan gratuito quedan fuera seis de las funciones de edición, y las imágenes se publican en la comunidad por defecto.",
     "freePlan": {
-      "summary": "Plan gratuito con 10 créditos lentos a la semana, una generación simultánea y dos lienzos. La referencia de estilo, la de personaje, Magic Fill, Extend, el escalado y el recorte de fondo constan como no incluidos. Por defecto todas las imágenes se publican en la comunidad. El plan de pago más barato es Plus, 20 $/mes.",
+      "summary": "Plan gratuito de 0 $ con créditos lentos semanales para cuentas elegibles: la tabla no publica la cantidad. Una generación en ejecución o en cola, y dos lienzos. La referencia de estilo, la de personaje, Magic Fill, Extend, el escalado y el recorte de fondo constan como no incluidos. Por defecto todas las imágenes se publican en la comunidad.",
       "limits": [
-        "10 créditos lentos a la semana",
+        "Créditos lentos semanales para cuentas elegibles: la cantidad no se publica",
         "Sin créditos prioritarios",
-        "1 generación simultánea",
+        "1 generación en ejecución o en cola",
         "2 lienzos",
         "Sin referencia de estilo ni de personaje",
         "Sin Magic Fill, Extend, escalado ni recorte de fondo",
@@ -5819,7 +5825,6 @@
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "yes",
-      "creditsAmount": "10 créditos lentos/semana",
       "creditReset": "weekly",
       "verifiedAt": "2026-08-24"
     },
@@ -5869,15 +5874,6 @@
     ],
     "evidence": [
       {
-        "field": "freePlan.limits",
-        "outcome": "stated",
-        "sourceUrl": "https://ideogram.ai/pricing",
-        "sourceKind": "pricing",
-        "checkedAt": "2026-08-13",
-        "quote": "Free plan — Slow credits: 10 slow credits/week · Priority credits: Not included · Concurrent generations: 1 · Private generations: Not included · Canvas: 2 canvases · Style reference: Not included · Character reference: Not included · Magic Fill: Not included · Extend: Not included · Upscale: Not included · Background removal: Not included",
-        "scope": "cloud"
-      },
-      {
         "field": "capabilities",
         "outcome": "stated",
         "sourceUrl": "https://ideogram.ai/pricing",
@@ -5903,11 +5899,20 @@
         "scope": "product",
         "checkedAt": "2026-08-24",
         "lookedFor": "Si el plan gratuito estampa una marca. Las condiciones sólo prohíben retirar las marcas que existan («Remove any watermarks included on any User Output»), sin decir si el plan gratuito las pone. Ni la documentación de planes ni las preguntas frecuentes lo mencionan."
+      },
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://ideogram.ai/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-08-29",
+        "quote": "Free — Slow credits: Weekly for eligible accounts · Priority credits: Not included"
       }
     ],
     "auditNotes": "Las capacidades describen la herramienta completa; en el plan gratuito seis de ellas constan como no incluidas y así figura en los límites. Marca de agua y tarjeta no aparecen en ninguna página oficial.",
     "nextReviewAt": "2026-11-22",
-    "lastVerifiedAt": "2026-08-24",
+    "lastVerifiedAt": "2026-08-29",
     "updatedAt": "2026-08-13",
     "licences": {},
     "access": {}
@@ -6161,7 +6166,7 @@
       "linux"
     ],
     "freeModel": "open_source",
-    "tagline": "Multimodal, siempre pensando, y con una atribución en la letra pequeña.",
+    "tagline": "Multimodal, siempre pensando, y con dos condiciones comerciales en la letra pequeña.",
     "descriptionShort": "2,8 billones de parámetros con 104.000 millones activos, contexto de un millón de tokens y comprensión de texto, imagen y vídeo en un solo modelo. El pensamiento está siempre activado, con niveles de esfuerzo, y está diseñado para «long-horizon coding» y trabajo agéntico.",
     "verdict": "Su licencia es casi MIT y por eso la diferencia importa: permite vender y modificar, pero a partir de 100 millones de usuarios mensuales obliga a poner «Kimi K3» a la vista en la interfaz.",
     "freePlan": {
@@ -6171,9 +6176,10 @@
       "creditReset": "none",
       "verifiedAt": "2026-08-20",
       "commercialUse": "partial",
-      "summary": "Pesos descargables bajo la Kimi K3 License, que permite usar, copiar, modificar y vender copias, con una condición: por encima de 100 millones de usuarios activos mensuales hay que mostrar «Kimi K3» en la interfaz del producto.",
+      "summary": "Pesos descargables bajo la Kimi K3 License, que permite usar, copiar, modificar y vender copias con dos condiciones comerciales. La primera: por encima de 100 millones de usuarios activos mensuales o de 20 millones de dólares de ingresos mensuales hay que mostrar «Kimi K3» de forma destacada en la interfaz. La segunda: quien opere un negocio de modelo como servicio con más de 20 millones de dólares de ingresos agregados en doce meses consecutivos tiene que firmar un acuerdo aparte con Moonshot AI antes de usarlo con fines comerciales.",
       "limits": [
-        "Licencia propia: permisiva con atribución obligatoria sobre 100M de usuarios",
+        "Atribución obligatoria sobre 100M de usuarios mensuales o 20M $ de ingresos mensuales",
+        "Acuerdo aparte con Moonshot AI para negocios MaaS con más de 20M $ en 12 meses",
         "2,8 billones de parámetros · 104.000 millones activos",
         "Contexto de 1.048.576 tokens",
         "Entiende texto, imagen y vídeo"
@@ -6231,12 +6237,21 @@
         "checkedAt": "2026-08-20",
         "quote": "2.8 trillion total; 104 billion actively used per token · 1,048,576 tokens · Text, images, and video understanding within a single model · Kimi K3 always has thinking enabled · long-horizon coding and agentic knowledge work",
         "scope": "local"
+      },
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/moonshotai/Kimi-K3/blob/main/LICENSE",
+        "sourceKind": "repo",
+        "scope": "weights",
+        "checkedAt": "2026-08-29",
+        "quote": "more than 100 million monthly active users, or more than 20 million US dollars […] in monthly revenue, 'Kimi K3' must be prominently displayed on the user interface […] operates a Model as a Service business, and the aggregate revenue […] exceeds 20 million US dollars […] over any consecutive 12 months, the Licensee must enter into a separate agreement with Moonshot AI"
       }
     ],
     "slug": "kimi-k2",
     "id": "tool_kimi-k2",
     "nextReviewAt": "2026-11-18",
-    "lastVerifiedAt": "2026-08-20",
+    "lastVerifiedAt": "2026-08-29",
     "updatedAt": "2026-08-20"
   },
   {
@@ -7066,12 +7081,6 @@
         "url": "https://lmstudio.ai/docs",
         "label": "Documentación",
         "kind": "docs",
-        "checkedAt": "2026-07-08"
-      },
-      {
-        "url": "https://www.reddit.com/r/LocalLLaMA/",
-        "label": "reddit.com",
-        "kind": "community",
         "checkedAt": "2026-07-08"
       }
     ],
@@ -8635,12 +8644,6 @@
         "label": "Repositorio",
         "kind": "repo",
         "checkedAt": "2026-07-08"
-      },
-      {
-        "url": "https://www.reddit.com/r/LocalLLaMA/",
-        "label": "reddit.com",
-        "kind": "community",
-        "checkedAt": "2026-07-08"
       }
     ],
     "scores": {
@@ -9171,8 +9174,8 @@
     "id": "tool_pika-labs",
     "slug": "pika-labs",
     "name": "Pika Labs",
-    "tagline": "80 créditos de vídeo al mes y descarga sin marca de agua.",
-    "descriptionShort": "Generador de vídeo con efectos propios —Pikaffects, Pikascenes, Pikaswaps— y descarga sin marca de agua incluso en el plan gratuito. Los 80 créditos mensuales se renuevan, y el modelo del plan gratuito genera a 480p.",
+    "tagline": "80 créditos de vídeo al mes, a 480p, con marca de agua y sin uso comercial.",
+    "descriptionShort": "Generador de vídeo con efectos propios —Pikaffects, Pikascenes, Pikaswaps—. El plan gratuito da 80 créditos al mes que se renuevan y genera a 480p. Quitar la marca de agua y usar el resultado comercialmente son características de pago.",
     "descriptionLong": "Pika Labs permite generar vídeos cortos (3-10 segundos) a partir de descripciones de texto o imágenes de referencia. Su interfaz es extremadamente simple y los resultados son rápidos. La versión 2.0 mejoró significativamente la calidad y coherencia de los vídeos. Popular para crear contenido viral en redes sociales.",
     "kind": "app",
     "verification": "verified",
@@ -9190,16 +9193,17 @@
     ],
     "freeModel": "credits",
     "freePlan": {
-      "summary": "Plan gratuito con 80 créditos de vídeo al mes. La descarga es sin marca de agua. Acceso a Pika 2.5 sólo a 480p y a los efectos propios en modo imagen a vídeo. El plan de pago más barato es Standard, 8 $/mes en anual, con 700 créditos.",
+      "summary": "Plan gratuito con 80 créditos de vídeo al mes y acceso a Pika 2.5 sólo a 480p. La descarga sin marca de agua y el uso comercial figuran entre las características de los planes de pago, así que no entran en el gratuito. El más barato es Standard, 8 $/mes en anual, con 700 créditos.",
       "limits": [
         "80 créditos de vídeo al mes",
-        "La descarga sin marca de agua figura entre las características de pago",
-        "Pika 2.5 sólo a 480p"
+        "Pika 2.5 sólo a 480p",
+        "La descarga sin marca de agua es de pago: la salida gratuita la lleva",
+        "El uso comercial es de pago"
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
-      "hasWatermark": "unverified",
-      "commercialUse": "unverified",
+      "hasWatermark": "yes",
+      "commercialUse": "no",
       "creditsAmount": "80 créditos de vídeo/mes",
       "creditReset": "monthly",
       "verifiedAt": "2026-08-24"
@@ -9240,7 +9244,7 @@
       "transparency": 5,
       "creatorValue": 7
     },
-    "verdict": "Uno de los pocos planes gratuitos de vídeo que publica cantidad, frecuencia y política de marca de agua. La contrapartida está en la resolución: 480p.",
+    "verdict": "Publica la cantidad y la frecuencia, que ya es más de lo que hacen casi todos en vídeo. Lo que hay que leer antes de empezar está en la otra columna: a 480p, con marca y sin uso comercial.",
     "pros": [],
     "cons": [
       "Vídeos muy cortos (3-10 segundos)",
@@ -9270,7 +9274,7 @@
     },
     "status": "published",
     "detectedAt": "2024-03-10",
-    "lastVerifiedAt": "2026-08-24",
+    "lastVerifiedAt": "2026-08-29",
     "updatedAt": "2026-08-15",
     "evidence": [
       {
@@ -9284,21 +9288,21 @@
       },
       {
         "field": "freePlan.hasWatermark",
-        "outcome": "not_published",
+        "outcome": "derived",
         "sourceUrl": "https://pika.art/pricing",
         "sourceKind": "pricing",
         "scope": "product",
-        "checkedAt": "2026-08-24",
-        "lookedFor": "Si el vídeo del plan gratuito lleva marca. La página sólo dice que la descarga sin marca («Download videos with no watermark») es de los planes de pago, lo que no afirma que el gratuito la ponga."
+        "checkedAt": "2026-08-29",
+        "basis": "La tabla de planes lista «Download videos with no watermark» únicamente bajo los planes de pago. Si quitar la marca es lo que se compra, la salida del plan gratuito la lleva. La página no lo dice con esas palabras: es una deducción nuestra sobre su tabla."
       },
       {
         "field": "freePlan.commercialUse",
-        "outcome": "not_published",
+        "outcome": "derived",
         "sourceUrl": "https://pika.art/pricing",
         "sourceKind": "pricing",
         "scope": "product",
-        "checkedAt": "2026-08-24",
-        "lookedFor": "Si el plan gratuito permite uso comercial. La página lo enumera entre las características de pago, sin decir qué ocurre en el gratuito."
+        "checkedAt": "2026-08-29",
+        "basis": "El uso comercial aparece entre las características de los planes de pago y no en la columna del plan gratuito. Deducimos que no está incluido. La página no publica una prohibición expresa."
       }
     ],
     "startEffort": "signup",
@@ -9855,10 +9859,12 @@
       "hasWatermark": "unverified",
       "creditReset": "none",
       "verifiedAt": "2026-08-20",
-      "commercialUse": "unverified",
-      "summary": "Pesos descargables bajo la licencia propia «qwen3.8-max», no OSI. 2,4 billones de parámetros con 95.000 millones activos por token, sólo texto, y contexto nativo de 262.144 tokens ampliable a 1.010.000.",
+      "commercialUse": "partial",
+      "summary": "Pesos descargables bajo la licencia propia «qwen3.8-max», no OSI. Permite uso comercial con dos condiciones: mostrar el nombre del modelo de forma destacada en la interfaz por encima de 100 millones de usuarios activos mensuales o de 20 millones de dólares de ingresos mensuales, y obtener una licencia aparte quien opere un negocio de modelo como servicio o asistente de trabajo con más de 50 millones de dólares de ingresos agregados en doce meses. 2,4 billones de parámetros con 95.000 millones activos por token, sólo texto, y contexto nativo de 262.144 tokens ampliable a 1.010.000.",
       "limits": [
         "Pesos: licencia propia «qwen3.8-max», no OSI",
+        "Uso comercial permitido con condiciones: atribución sobre 100M de usuarios o 20M $ mensuales",
+        "Licencia aparte para negocios MaaS o de asistente con más de 50M $ en 12 meses",
         "2,4 billones de parámetros · 95.000 millones activos",
         "Sólo texto: no acepta imagen ni vídeo",
         "Pensamiento activado siempre, no se puede desactivar"
@@ -9912,13 +9918,22 @@
         "checkedAt": "2026-08-20",
         "quote": "2.4 trillion total with 95 billion activated parameters · 262,144 tokens natively, extensible to 1,010,000 · Text-only · thinking enabled by default and cannot be disabled",
         "scope": "local"
+      },
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B/blob/main/LICENSE",
+        "sourceKind": "repo",
+        "scope": "weights",
+        "checkedAt": "2026-08-29",
+        "quote": "respective model name must be prominently displayed on the user interface […] Model as a Service or AI Work Assistant business generates over $50M aggregate revenue in any 12-month period shall obtain a separate license from Qwen before Using the Software"
       }
     ],
     "auditNotes": "El uso comercial se queda sin afirmar: la licencia «qwen3.8-max» no es una plantilla conocida y no se leyó su texto completo en esta comprobación.",
     "slug": "qwen3-max",
     "id": "tool_qwen3-max",
     "nextReviewAt": "2026-11-18",
-    "lastVerifiedAt": "2026-08-20",
+    "lastVerifiedAt": "2026-08-29",
     "updatedAt": "2026-08-20"
   },
   {
@@ -10323,7 +10338,7 @@
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
-      "hasWatermark": "unverified",
+      "hasWatermark": "yes",
       "commercialUse": "unverified",
       "creditsAmount": "125 créditos (una vez)",
       "creditReset": "one_off",
@@ -10396,7 +10411,7 @@
     },
     "status": "published",
     "detectedAt": "2023-06-01",
-    "lastVerifiedAt": "2026-08-15",
+    "lastVerifiedAt": "2026-08-29",
     "updatedAt": "2026-08-15",
     "startEffort": "signup",
     "capabilities": [
@@ -10414,6 +10429,15 @@
         "checkedAt": "2026-08-15",
         "quote": "125 one-time credits to explore Runway’s AI tools",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "derived",
+        "sourceUrl": "https://runway.com/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-08-29",
+        "basis": "«No watermarks» aparece por primera vez entre las características del plan Standard. Si no llevar marca es lo que se compra al subir de plan, la salida del gratuito la lleva. La página no lo afirma con esas palabras: lo deducimos de su tabla."
       }
     ],
     "startEffortReason": "Requiere cuenta antes de generar; los créditos van asociados a ella.",
@@ -10580,12 +10604,6 @@
         "url": "https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki",
         "label": "Documentación",
         "kind": "docs",
-        "checkedAt": "2026-07-08"
-      },
-      {
-        "url": "https://www.reddit.com/r/StableDiffusion/",
-        "label": "reddit.com",
-        "kind": "community",
         "checkedAt": "2026-07-08"
       }
     ],

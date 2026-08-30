@@ -41,7 +41,7 @@
         },
         "capturadaEl": "2026-08-26T00:28:40+02:00",
         "textoVisible": "0 / 12 credits left until your weekly limit resets in 3 days",
-        "respalda": "Durante nuestra prueba la interfaz de Ideogram mostraba un saldo de 0 sobre 12 créditos y anunciaba un reinicio semanal en 3 días. Es una lectura de la cuenta en ese momento, no la cuota oficial del plan: la documentación del fabricante indica 10 créditos lentos a la semana y no la hemos podido re-verificar."
+        "respalda": "Durante nuestra prueba la interfaz de Ideogram mostraba un saldo de 0 sobre 12 créditos y anunciaba un reinicio semanal en 3 días. Es una lectura de la cuenta en ese momento, no la cuota oficial del plan: la tabla de precios del fabricante dice «créditos lentos semanales para cuentas elegibles» y no publica ninguna cifra, así que doce es lo que vimos y no lo que promete."
       }
     ]
   },

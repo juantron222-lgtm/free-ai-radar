@@ -322,12 +322,20 @@ describe('la captura de interfaz es evidencia auxiliar, no una condición', () =
 
   it('no ha tocado el dato documental del catálogo', () => {
     /*
-     * La interfaz mostró 12 créditos semanales; la ficha documenta 10. La
-     * captura registra lo primero y no reescribe lo segundo: decidir cuál gana
-     * es trabajo editorial con fuente oficial, no consecuencia de una prueba.
+     * La interfaz mostró 12 créditos semanales y la ficha documentaba 10. La
+     * captura registró lo primero sin reescribir lo segundo, que era el punto.
+     *
+     * Después ocurrió lo tercero: Ideogram dejó de publicar la cifra —su tabla
+     * dice ahora «Weekly for eligible accounts»— y el 10 se retiró por eso, no
+     * por nuestra captura. Lo que esta prueba vigila sigue siendo lo mismo: que
+     * el 12 que vimos no haya ascendido a cantidad publicada. La ficha no
+     * publica ninguna, que es la verdad.
      */
     const ficha = tools.find((t) => t.slug === 'ideogram')!;
-    expect(ficha.freePlan.creditsAmount).toContain('10');
+    expect(ficha.freePlan.creditsAmount, 'la ficha no debe publicar una cantidad').toBeUndefined();
+    expect(JSON.stringify(ficha.freePlan.limits), 'el 12 observado no puede colarse como cuota').not.toMatch(
+      /12 créditos/
+    );
   });
 });
 

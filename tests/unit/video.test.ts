@@ -170,24 +170,32 @@ describe('la verificación de vídeo', () => {
     expect(tool.freePlan.creditsAmount).toBe('80 créditos de vídeo/mes');
   });
 
-  it('Pika ya no afirma salir sin marca de agua', () => {
+  it('Pika dice que su plan gratuito marca, y de dónde lo deduce', () => {
     /*
-     * Aquí se exigía `hasWatermark: 'no'` con un comentario que decía «de las
-     * pocas fichas del catálogo que pueden afirmar esto». No podía: la página
-     * de precios enumera «Download videos with no watermark» entre lo que
-     * traen los planes de pago, y la cita que sostenía el «no» estaba tomada
-     * de la columna equivocada. Una prueba puede fijar un error tan bien como
-     * fija un acierto.
+     * Esta prueba ha cambiado dos veces y las dos por la misma razón.
      *
-     * Tampoco es «sí»: la página no dice que el plan gratuito marque. Es
-     * desconocido, y la evidencia deja constancia de qué se buscó.
+     * Primero exigía `hasWatermark: 'no'` con un comentario que decía «de las
+     * pocas fichas del catálogo que pueden afirmar esto». No podía: la página
+     * enumera «Download videos with no watermark» entre lo que traen los planes
+     * de pago, y la cita que sostenía el «no» venía de la columna equivocada.
+     * Se corrigió a `unverified`, que era honesto pero corto.
+     *
+     * Ahora es «sí», y la diferencia está en cómo. La página sigue sin decir
+     * «el plan gratuito pone marca»: dice que quitarla se compra. De ahí a que
+     * la salida gratuita la lleve hay un paso, y ese paso lo damos nosotros. Por
+     * eso la evidencia es `derived` y no `stated`, y por eso la prueba exige que
+     * la base esté escrita: un lector tiene derecho a discutir el razonamiento,
+     * y no puede si no lo ve.
      */
     const tool = bySlug.get('pika-labs')!;
-    expect(tool.freePlan.hasWatermark).toBe('unverified');
+    expect(tool.freePlan.hasWatermark).toBe('yes');
 
     const ev = tool.evidence.find((e) => e.field === 'freePlan.hasWatermark');
-    expect(ev?.outcome).toBe('not_published');
-    expect(ev?.sourceUrl).toContain('pika.art');
+    expect(ev?.outcome, 'una deducción nuestra no puede archivarse como cita suya').toBe('derived');
+    expect(ev && 'basis' in ev && ev.basis).toMatch(/no watermark/i);
+    expect(ev && 'basis' in ev && ev.basis, 'la base no dice que es deducción nuestra').toMatch(
+      /deduc|no lo dice/i
+    );
   });
 
   it('Luma no promete un plan gratuito que ya no existe', () => {
