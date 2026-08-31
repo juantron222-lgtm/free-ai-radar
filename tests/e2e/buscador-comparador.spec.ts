@@ -135,15 +135,37 @@ test.describe('comparador: entrada', () => {
      * Una a una y comprobando. Cuatro clics seguidos sobre etiquetas cuyo
      * control real es `sr-only` se adelantan al `change` que los cuenta, y en
      * WebKit el cuarto llegaba antes de que el tercero se registrase.
+     *
+     * Y a veces WebKit se traga el clic entero. Ocurre sólo con los seis
+     * motores corriendo a la vez —con este fichero solo pasa 32 de 32, y con
+     * mobile-safari solo, 191 de 191—: la máquina se satura, el clic se
+     * despacha, Playwright no da error porque despacharlo salió bien, y la
+     * casilla se queda sin marcar. Es de la misma familia que el problema de
+     * arriba y no dice nada del producto: los otros cinco motores lo pasan
+     * siempre, y éste también en cuanto deja de competir por la CPU.
+     *
+     * Se reintenta el clic, no se relaja la comprobación. Si el tope de cuatro
+     * se rompiera de verdad, reintentar no salvaría nada y la prueba caería
+     * igual, que es exactamente lo que tiene que hacer.
      */
+    const marcar = async (slug: string) => {
+      const casilla = page.locator(`[data-compare-pick][value="${slug}"]`);
+      for (let intento = 0; intento < 3; intento++) {
+        await page.locator(`[data-compare-option][data-slug="${slug}"]`).click();
+        try {
+          await expect(casilla).toBeChecked({ timeout: 2000 });
+          return;
+        } catch {
+          if (intento === 2) throw new Error(`«${slug}» no se marcó tras tres clics`);
+        }
+      }
+    };
+
     const slugs = await page
       .locator('[data-compare-option]')
       .evaluateAll((els) => els.slice(0, 4).map((el) => (el as HTMLElement).dataset['slug']!));
 
-    for (const slug of slugs) {
-      await page.locator(`[data-compare-option][data-slug="${slug}"]`).click();
-      await expect(page.locator(`[data-compare-pick][value="${slug}"]`)).toBeChecked();
-    }
+    for (const slug of slugs) await marcar(slug);
 
     await expect(page.locator('#compare-chosen')).toBeVisible();
     await expect(page.locator('[data-compare-pick]').nth(5)).toBeDisabled();
