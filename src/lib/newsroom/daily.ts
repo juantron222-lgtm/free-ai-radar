@@ -8,6 +8,8 @@ import { fetchSource } from '../../../scripts/source-adapters.mjs';
 import { runRadar } from '../../../scripts/radar/inbox.mjs';
 import type { InboxCandidateShape } from '../../../scripts/radar/inbox.d.mts';
 import { runTriage } from '../../../scripts/triage/triage.mjs';
+import { verifyCandidate } from '../../../scripts/verify/autoverify.mjs';
+import { draftFromVerification } from '../../../scripts/draft/autodraft.mjs';
 
 /**
  * La pasada diaria.
@@ -81,40 +83,27 @@ async function existingCandidates(supabase: SupabaseClient): Promise<InboxCandid
 }
 
 /**
- * La comprobación que un cron sí puede hacer.
+ * Descarga una página para poder leerla.
  *
- * Que la página responda y que su dominio sea el del fabricante. No es
- * verificación editorial y no pretende serlo: es lo que permite decir «esta
- * fuente existe y es de quien dice ser» sin afirmar nada sobre su contenido.
+ * Se separa de la verificación a propósito: así el verificador es puro y las
+ * pruebas pueden ejercitar un 403, un muro de login o un esqueleto de
+ * JavaScript sin salir a la red.
  */
-async function probeSource(url: string, publisher: string) {
-  const host = publisher.split('/')[0] ?? '';
+async function fetchPage(url: string): Promise<{ ok: boolean; status: number; body: string }> {
+  const response = await fetch(url, {
+    redirect: 'follow',
+    headers: {
+      'user-agent': 'FreeAIRadar-Newsroom/1.0 (+https://www.freeairadar.com)',
+      accept: 'text/html,application/xhtml+xml',
+    },
+    signal: AbortSignal.timeout(15_000),
+  });
 
-  try {
-    const parsed = new URL(url);
-    const belongs = parsed.hostname === host || parsed.hostname.endsWith(`.${host}`);
-
-    if (!belongs) {
-      return { reachable: false, reason: `la url no pertenece a ${publisher}` };
-    }
-
-    const response = await fetch(url, {
-      redirect: 'follow',
-      headers: { 'user-agent': 'FreeAIRadar-Newsroom/1.0 (+https://www.freeairadar.com)' },
-      signal: AbortSignal.timeout(10_000),
-    });
-
-    if (!response.ok) {
-      return { reachable: false, reason: `la fuente respondió ${response.status}` };
-    }
-
-    return { reachable: true, reason: '' };
-  } catch (error) {
-    return {
-      reachable: false,
-      reason: error instanceof Error ? error.message : 'no se ha podido leer',
-    };
-  }
+  return {
+    ok: response.ok,
+    status: response.status,
+    body: response.ok ? await response.text() : '',
+  };
 }
 
 export interface DailyOptions {
@@ -252,57 +241,102 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
     .filter((r) => !verificados.has(r.id))
     .slice(0, options.probeLimit ?? 12);
 
-  /*
-   * `verified` es siempre cero por diseño y por eso es `const`: esta pasada no
-   * puede verificar nada, sólo localizar la fuente y comprobar que responde.
-   * Lo deja escrito en el informe para que el número no parezca un olvido.
-   */
-  const verified = 0;
+  let verified = 0;
   let blocked = 0;
+  let drafted = 0;
 
   for (const record of pendientes) {
-    const url = record.canonicalUrl;
-    const probe = await probeSource(`https://${url}`, record.publisher);
+    const candidato = {
+      id: record.id,
+      title: record.title,
+      url: `https://${record.canonicalUrl}`,
+      canonicalUrl: record.canonicalUrl,
+      publisher: record.publisher,
+      vertical: record.vertical,
+    };
 
     /*
-     * Alcanzable no es verificado. Que la página exista permite decir que la
-     * fuente es localizable y del fabricante; los hechos siguen sin leerse, así
-     * que el veredicto es `insufficient` con el motivo escrito. Lo desbloquea
-     * una lectura humana, no otra pasada del cron.
+     * Aquí se lee la página de verdad y se extraen hechos con su cita literal.
+     * `verifyCandidate` decide `verified` sólo si la fuente sostiene lo mínimo
+     * para redactar sin rellenar huecos: una fecha que la página declara y una
+     * frase que diga qué se puede hacer. Todo lo demás sale `insufficient` con
+     * el motivo, que es un resultado correcto y no un fallo.
      */
-    const decision = 'insufficient';
-    const notes = probe.reachable
-      ? 'Fuente localizada, accesible y del dominio del fabricante. Faltan los hechos: nadie ha leído todavía la página.'
-      : `No se ha podido leer la fuente primaria: ${probe.reason}`;
+    let veredicto;
+    try {
+      veredicto = await verifyCandidate(candidato, { fetchPage, checkedAt: observedAt });
+    } catch (error) {
+      errors.push(`verificación ${record.id}: ${error instanceof Error ? error.message : String(error)}`);
+      continue;
+    }
 
-    const { error } = await supabase.from('newsroom_verification').upsert(
+    const { error: errVerif } = await supabase.from('newsroom_verification').upsert(
       {
-        candidate_id: record.id,
-        decision,
-        primary_sources: [
-          {
-            url: `https://${url}`,
-            label: record.title,
-            reachable: probe.reachable,
-            unreachableReason: probe.reachable ? null : probe.reason,
-          },
-        ],
-        verified_facts: [],
-        unconfirmed: [
-          'Fecha de publicación tal como aparece en la página.',
-          'Disponibilidad real: anuncio, preview o general.',
-          'Precio y plan gratuito, si la página los menciona.',
-        ],
-        affects_free_plan: 'unverified',
-        verification_notes: notes,
-        checked_at: observedAt,
+        candidate_id: veredicto.candidateId,
+        decision: veredicto.decision,
+        primary_sources: veredicto.primarySources,
+        verified_facts: veredicto.verifiedFacts,
+        unconfirmed: veredicto.unconfirmed,
+        event_type: veredicto.eventType,
+        availability: veredicto.availability,
+        affects_free_plan: veredicto.affectsFreePlan,
+        verification_notes: veredicto.verificationNotes,
+        checked_at: veredicto.checkedAt,
         updated_at: new Date().toISOString(),
       },
       { onConflict: 'candidate_id' }
     );
 
-    if (error) errors.push(`verificación ${record.id}: ${error.message}`);
-    else blocked += 1;
+    if (errVerif) {
+      errors.push(`verificación ${record.id}: ${errVerif.message}`);
+      continue;
+    }
+
+    if (veredicto.decision !== 'verified') {
+      blocked += 1;
+      continue;
+    }
+
+    verified += 1;
+
+    /*
+     * El borrador se compone de citas y pasa por `checkDraft`, la misma puerta
+     * que un texto escrito a mano. Si no la pasa, se queda la verificación y no
+     * el borrador: preferimos una historia con evidencia y sin redactar a un
+     * texto del que haya que desconfiar frase a frase.
+     */
+    const salida = draftFromVerification(veredicto, candidato);
+    if (!salida?.draft) {
+      if (salida?.blocked?.length) {
+        errors.push(`borrador ${record.id} bloqueado: ${salida.blocked.join('; ')}`);
+      }
+      continue;
+    }
+
+    const d = salida.draft;
+    const { error: errDraft } = await supabase.from('newsroom_drafts').upsert(
+      {
+        slug: d.slug,
+        candidate_id: d.candidateId,
+        news_id: d.id,
+        title: d.title,
+        summary: d.summary,
+        impact: d.impact,
+        category: d.category,
+        event_type: d.eventType,
+        availability: d.availability,
+        affects_free_plan: d.affectsFreePlan,
+        related_tools: d.relatedTools,
+        official_url: d.officialUrl,
+        sources: d.sources,
+        fact_trace: d.factTrace,
+        status: 'draft',
+      },
+      { onConflict: 'slug' }
+    );
+
+    if (errDraft) errors.push(`borrador ${record.id}: ${errDraft.message}`);
+    else drafted += 1;
   }
 
   const pending = promoted.length - verificados.size - pendientes.length;
@@ -317,7 +351,7 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
     pending: Math.max(0, pending),
     errors,
     status: errors.length === 0 ? 'ok' : errors.length >= sources.length ? 'failed' : 'partial',
-    notes: `${sources.length} fuentes vigiladas, ${errors.length} con incidencias`,
+    notes: `${sources.length} fuentes vigiladas, ${errors.length} con incidencias, ${drafted} borradores redactados`,
   };
 
   await recordRun(report, options.trigger);

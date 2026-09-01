@@ -120,7 +120,7 @@ describe('el hook de despliegue', () => {
 
   it('lanza el build cuando está configurado', async () => {
     env.NEWSROOM_DEPLOY_HOOK = 'https://api.vercel.com/v1/integrations/deploy/abc';
-    const fetchMock = vi.fn(async () => new Response('{}', { status: 201 }));
+    const fetchMock = vi.fn(async (_url: string, _init?: RequestInit) => new Response('{}', { status: 201 }));
     vi.stubGlobal('fetch', fetchMock);
 
     const { requestRebuild } = await trigger();
@@ -128,7 +128,7 @@ describe('el hook de despliegue', () => {
 
     expect(resultado.ok).toBe(true);
     expect(fetchMock).toHaveBeenCalledOnce();
-    expect(fetchMock.mock.calls[0]![1]).toMatchObject({ method: 'POST' });
+    expect(fetchMock.mock.calls[0]?.[1]).toMatchObject({ method: 'POST' });
   });
 
   it('un hook caído no deshace la aprobación: informa y sigue', async () => {
