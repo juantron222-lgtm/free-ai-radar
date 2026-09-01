@@ -50,7 +50,9 @@
     "data:catalog-sql": "node scripts/emit-catalog-sql.mjs",
     "a11y:contraste": "node scripts/contraste.mjs",
     "news:coverage": "node scripts/news-coverage.mjs",
-    "prebuild": "node scripts/newsroom-sync.mjs"
+    "prebuild": "node scripts/newsroom-sync.mjs",
+    "newsroom:e2e": "node scripts/newsroom-e2e.mjs",
+    "newsroom:e2e:seed": "node scripts/newsroom-e2e.mjs --seed"
   },
   "dependencies": {
     "@astrojs/vercel": "^11.0.4",
