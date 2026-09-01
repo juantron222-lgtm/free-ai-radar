@@ -188,6 +188,47 @@ const GRATUIDAD =
 const LICENCIA =
   /\b(open[- ]weights?|open[- ]source|Apache[- ]?2(?:\.0)?|MIT licen[cs]e|available on Hugging Face|weights are|download the (weights|model))\b/i;
 
+/**
+ * Clasifica cualquier texto en evidencia con su procedencia.
+ *
+ * Se usa igual sobre el cuerpo de un artículo que sobre la descripción de una
+ * entrada de feed, y esa simetría es la que hace cumplible la regla de que un
+ * feed sólo puede autorizar lo que contiene: al feed se le aplican exactamente
+ * los mismos patrones, sobre exactamente su propio texto, y lo que salga lleva
+ * escrito de dónde viene.
+ */
+export function classifyText(texto, { sourceUrl, via }) {
+  const frases = sentences(texto);
+  const evidencia = [];
+
+  for (const marcador of DISPONIBILIDAD) {
+    const frase = frases.find((f) => marcador.test.test(f));
+    if (frase) {
+      evidencia.push({
+        factType: 'availability',
+        value: marcador.availability,
+        eventType: marcador.eventType,
+        quote: frase,
+        sourceUrl,
+        via,
+      });
+      break;
+    }
+  }
+
+  for (const quote of frases.filter((f) => PRECIO.test(f)).slice(0, 2)) {
+    evidencia.push({ factType: 'pricing', value: null, quote, sourceUrl, via });
+  }
+  for (const quote of frases.filter((f) => GRATUIDAD.test(f)).slice(0, 2)) {
+    evidencia.push({ factType: 'free-access', value: 'yes', quote, sourceUrl, via });
+  }
+  for (const quote of frases.filter((f) => LICENCIA.test(f)).slice(0, 2)) {
+    evidencia.push({ factType: 'licence', value: null, quote, sourceUrl, via });
+  }
+
+  return evidencia;
+}
+
 function citar(frases, patron) {
   return frases.filter((f) => patron.test(f)).slice(0, 3);
 }

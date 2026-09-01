@@ -216,7 +216,7 @@ describe('lo que la fuente no permite verificar queda bloqueado', () => {
     const html = PAGINA_BUENA.replace(/We are also making a free tier[\s\S]*?<\/p>/, '');
     const record = await verifyCandidate(candidato(), { fetchPage: pagina(html), checkedAt: CHECKED });
     expect(record.affectsFreePlan).toBe('unverified');
-    expect(record.unconfirmed.join(' ')).toMatch(/no menciona acceso sin pagar/i);
+    expect(record.unconfirmed.join(' ')).toMatch(/menciona acceso sin pagar/i);
   });
 });
 

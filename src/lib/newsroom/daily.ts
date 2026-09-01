@@ -89,6 +89,34 @@ async function existingCandidates(supabase: SupabaseClient): Promise<InboxCandid
  * pruebas pueden ejercitar un 403, un muro de login o un esqueleto de
  * JavaScript sin salir a la red.
  */
+/**
+ * Descarga un feed oficial, con memoria dentro de la misma pasada.
+ *
+ * Varias historias del mismo fabricante comparten feed, y pedirlo una vez por
+ * candidato sería castigar a la fuente por nuestra forma de recorrer la lista.
+ */
+const feedCache = new Map<string, string>();
+
+async function fetchFeed(url: string): Promise<string> {
+  const guardado = feedCache.get(url);
+  if (guardado !== undefined) return guardado;
+
+  const response = await fetch(url, {
+    redirect: 'follow',
+    headers: {
+      'user-agent': 'FreeAIRadar-Newsroom/1.0 (+https://www.freeairadar.com)',
+      accept: 'application/rss+xml, application/atom+xml, application/xml, text/xml',
+    },
+    signal: AbortSignal.timeout(15_000),
+  });
+
+  if (!response.ok) throw new Error(`el feed respondió ${response.status}`);
+
+  const cuerpo = await response.text();
+  feedCache.set(url, cuerpo);
+  return cuerpo;
+}
+
 async function fetchPage(url: string): Promise<{ ok: boolean; status: number; body: string }> {
   const response = await fetch(url, {
     redirect: 'follow',
@@ -264,7 +292,7 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
      */
     let veredicto;
     try {
-      veredicto = await verifyCandidate(candidato, { fetchPage, checkedAt: observedAt });
+      veredicto = await verifyCandidate(candidato, { fetchPage, fetchFeed, checkedAt: observedAt });
     } catch (error) {
       errors.push(`verificación ${record.id}: ${error instanceof Error ? error.message : String(error)}`);
       continue;

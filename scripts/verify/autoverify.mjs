@@ -1,5 +1,5 @@
-import { extractFacts, looksLikeIndex, looksUnreadable } from './extract.mjs';
 import { canonicalizeUrl } from '../radar/inbox.mjs';
+import { gatherEvidence } from './adapters.mjs';
 
 /**
  * Verificación y redacción automáticas, con una regla que no se negocia:
@@ -44,7 +44,7 @@ function perteneceAlFabricante(url, publisher) {
  * `fetchPage` se inyecta para que las pruebas puedan ejercitar 403, muros de
  * login y páginas vacías sin salir a la red.
  */
-export async function verifyCandidate(candidate, { fetchPage, checkedAt }) {
+export async function verifyCandidate(candidate, { fetchPage, fetchFeed = null, checkedAt }) {
   const url = candidate.url ?? `https://${candidate.canonicalUrl}`;
   const publisher = candidate.publisher;
 
@@ -71,142 +71,111 @@ export async function verifyCandidate(candidate, { fetchPage, checkedAt }) {
     };
   }
 
-  const esIndice = looksLikeIndex(url);
-  if (esIndice) {
-    /*
-     * Se rechaza antes de descargar. Un índice se lee bien y contiene frases de
-     * varias historias a la vez, así que cualquier cita que saliera de aquí
-     * quedaría atribuida a la noticia equivocada.
-     */
+  /*
+   * La evidencia se reúne de las vías que el fabricante permita: su feed
+   * oficial, el HTML del artículo, o las dos. Cada pieza sale con su `sourceUrl`
+   * y su `via`, así que después se puede saber si una afirmación la sostiene el
+   * artículo o sólo el feed.
+   */
+  const { evidence, notes, htmlBlocked, strategy } = await gatherEvidence(candidate, {
+    fetchPage,
+    fetchFeed,
+  });
+
+  const fuentes = [];
+  const vistas = new Set();
+  for (const item of evidence) {
+    if (vistas.has(item.sourceUrl)) continue;
+    vistas.add(item.sourceUrl);
+    fuentes.push({
+      url: item.sourceUrl,
+      label: item.via === 'feed' ? `Feed oficial de ${publisher}` : candidate.title,
+      reachable: true,
+      unreachableReason: null,
+    });
+  }
+
+  if (htmlBlocked && !vistas.has(url)) {
+    fuentes.push({ url, label: candidate.title, reachable: false, unreachableReason: htmlBlocked });
+  }
+
+  if (evidence.length === 0) {
     return {
       ...base,
       decision: 'insufficient',
-      primarySources: [
-        { url, label: candidate.title, reachable: false, unreachableReason: esIndice },
-      ],
-      unconfirmed: ['Todo: hace falta la url del anuncio, no la del índice.'],
-      verificationNotes: `No se verifica contra un índice: ${esIndice}.`,
+      primarySources: fuentes.length
+        ? fuentes
+        : [{ url, label: candidate.title, reachable: false, unreachableReason: htmlBlocked ?? 'sin evidencia' }],
+      unconfirmed: ['Todo: ninguna vía oficial ha aportado evidencia.'],
+      verificationNotes: `Sin evidencia. ${notes.join('; ')}.`,
     };
   }
 
-  let respuesta;
-  try {
-    respuesta = await fetchPage(url);
-  } catch (error) {
-    const motivo = error instanceof Error ? error.message : String(error);
-    return {
-      ...base,
-      decision: 'insufficient',
-      primarySources: [{ url, label: candidate.title, reachable: false, unreachableReason: motivo }],
-      unconfirmed: ['Todo: no se ha podido leer la fuente primaria.'],
-      verificationNotes: `No se ha podido leer la fuente: ${motivo}.`,
-    };
-  }
-
-  if (!respuesta.ok) {
-    /*
-     * Un 403 es información, no un fallo del sistema: dice que el fabricante no
-     * nos deja leer. Se registra tal cual para que en la mesa se vea que hay
-     * algo ahí y por qué está bloqueado, en lugar de desaparecer.
-     */
-    return {
-      ...base,
-      decision: 'insufficient',
-      primarySources: [
-        { url, label: candidate.title, reachable: false, unreachableReason: `respondió ${respuesta.status}` },
-      ],
-      unconfirmed: ['Todo: la fuente primaria no se ha podido leer.'],
-      verificationNotes:
-        respuesta.status === 403
-          ? 'La fuente devuelve 403 a un lector automático. Necesita una lectura humana.'
-          : `La fuente respondió ${respuesta.status}.`,
-    };
-  }
-
-  const ilegible = looksUnreadable(respuesta.body);
-  if (ilegible) {
-    return {
-      ...base,
-      decision: 'insufficient',
-      primarySources: [{ url, label: candidate.title, reachable: false, unreachableReason: ilegible }],
-      unconfirmed: ['Todo: la página respondió, pero su contenido no se ha podido leer.'],
-      verificationNotes: `${ilegible}. Responde 200, así que hace falta abrirla a mano.`,
-    };
-  }
-
-  const hechos = extractFacts(respuesta.body, url);
-  const fuente = { url, label: hechos.title || candidate.title, reachable: true, unreachableReason: null };
+  const de = (tipo) => evidence.filter((e) => e.factType === tipo);
+  const fecha = de('date')[0] ?? null;
+  const disponibilidad = de('availability')[0] ?? null;
+  const precios = de('pricing');
+  const gratis = de('free-access');
+  const licencias = de('licence');
 
   const verifiedFacts = [];
   const unconfirmed = [];
 
-  if (hechos.publishedAt) {
-    verifiedFacts.push({
-      fact: `La página declara su fecha de publicación: ${hechos.publishedAt.value}.`,
-      quote: hechos.publishedAt.quote,
-      sourceUrl: url,
-    });
-  } else {
-    unconfirmed.push('Fecha de publicación: la página no la declara en un formato legible.');
-  }
-
-  if (hechos.availability) {
-    verifiedFacts.push({
-      fact: `La página describe la disponibilidad como "${hechos.availability.availability}".`,
-      quote: hechos.availability.quote,
-      sourceUrl: url,
-    });
-  } else {
-    unconfirmed.push('Disponibilidad: la página no dice si se puede usar ya, ni con qué límites.');
-  }
-
-  for (const quote of hechos.pricing) {
-    verifiedFacts.push({ fact: 'La página menciona un precio.', quote, sourceUrl: url });
-  }
-  if (hechos.pricing.length === 0) unconfirmed.push('Precio: la página no lo menciona.');
-
-  for (const quote of hechos.freePlan) {
-    verifiedFacts.push({ fact: 'La página menciona acceso gratuito.', quote, sourceUrl: url });
-  }
-
-  for (const quote of hechos.licence) {
-    verifiedFacts.push({ fact: 'La página menciona pesos o licencia.', quote, sourceUrl: url });
-  }
-
   /*
-   * `affectsFreePlan` sólo pasa a 'yes' si hay una frase que lo dice. No existe
-   * la rama que lo pone a 'no': una página que no habla de gratuidad no ha
-   * negado nada, y convertir ese silencio en un 'no' es exactamente lo que la
-   * regla 4 prohíbe.
+   * Cada hecho conserva las cuatro cosas que exige la regla: de dónde salió, de
+   * qué clase es, qué dice literalmente, y —cuando aplica— a qué fecha
+   * corresponde. `via` viaja dentro del texto del hecho para que en la mesa se
+   * lea sin abrir nada.
    */
-  const affectsFreePlan = hechos.freePlan.length > 0 ? 'yes' : 'unverified';
+  const anotar = (item, texto) =>
+    verifiedFacts.push({
+      fact: `${texto} [${item.factType}, vía ${item.via}]`,
+      quote: item.quote,
+      sourceUrl: item.sourceUrl,
+    });
+
+  if (fecha) anotar(fecha, `La fuente declara la fecha de publicación: ${fecha.value}.`);
+  else unconfirmed.push('Fecha de publicación: ninguna vía oficial la declara.');
+
+  if (disponibilidad) {
+    anotar(disponibilidad, `La fuente describe la disponibilidad como "${disponibilidad.value}".`);
+  } else {
+    unconfirmed.push('Disponibilidad: ninguna vía oficial dice si se puede usar ya.');
+  }
+
+  for (const item of precios) anotar(item, 'La fuente menciona un precio.');
+  if (precios.length === 0) unconfirmed.push('Precio: no aparece en ninguna vía oficial.');
+
+  for (const item of gratis) anotar(item, 'La fuente menciona acceso gratuito.');
+  for (const item of licencias) anotar(item, 'La fuente menciona pesos o licencia.');
+
+  const affectsFreePlan = gratis.length > 0 ? 'yes' : 'unverified';
   if (affectsFreePlan === 'unverified') {
-    unconfirmed.push('Plan gratuito: la página no menciona acceso sin pagar.');
+    unconfirmed.push('Plan gratuito: ninguna vía oficial menciona acceso sin pagar.');
   }
 
-  /*
-   * Lo mínimo para poder redactar sin inventar: una fecha que la página declara
-   * y una frase que diga qué se puede hacer con esto. Sin las dos, cualquier
-   * borrador tendría que rellenar el hueco, así que no se redacta.
-   */
-  const suficiente = Boolean(hechos.publishedAt && hechos.availability);
+  if (htmlBlocked) {
+    unconfirmed.push(
+      `Cuerpo del artículo: no se ha podido leer (${htmlBlocked}). Lo verificado sale del feed oficial.`
+    );
+  }
+
+  const suficiente = Boolean(fecha && disponibilidad);
 
   return {
     candidateId: candidate.id,
-    title: hechos.title || candidate.title,
+    title: de('title')[0]?.value ?? candidate.title,
     decision: suficiente ? 'verified' : 'insufficient',
-    primarySources: [fuente],
+    primarySources: fuentes,
     verifiedFacts,
     unconfirmed,
-    eventType: hechos.availability?.eventType ?? null,
-    availability: hechos.availability?.availability ?? null,
+    eventType: disponibilidad?.eventType ?? null,
+    availability: disponibilidad?.value ?? null,
     affectsFreePlan,
     checkedAt,
     canonicalUrl: canonicalizeUrl(url),
     verificationNotes: suficiente
-      ? `Leída la fuente oficial: ${verifiedFacts.length} hechos con cita literal.`
-      : `Leída, pero no sostiene lo mínimo para redactar: falta ${
-          !hechos.publishedAt ? 'la fecha' : 'una frase sobre disponibilidad'
-        }.`,
+      ? `${verifiedFacts.length} hechos con cita literal. ${notes.join('; ')}. Estrategia: ${strategy.prefer} (${strategy.note}).`
+      : `No sostiene lo mínimo para redactar: falta ${!fecha ? 'la fecha' : 'una frase sobre disponibilidad'}. ${notes.join('; ')}.`,
   };
 }
