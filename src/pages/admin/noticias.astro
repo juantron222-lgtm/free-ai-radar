@@ -118,7 +118,7 @@ const fmt = (iso: string | null) =>
                     <p class="story-meta">
                       <strong>{story.publisher}</strong> · {fmt(story.publishedAt)}
                       {story.triage && (
-                        <> · triaje <span class="tnum">{story.triage.score}</span>/100 ({story.triage.decision})</>
+                        <> · triaje <span class="tnum">{story.triage.score}</span> pts ({story.triage.decision})</>
                       )}
                       {story.radar && <> · radar: {story.radar.status}</>}
                     </p>
