@@ -1,12 +1,16 @@
-import { readFileSync, writeFileSync } from 'node:fs';
-import { resolve } from 'node:path';
 import rawInbox from '@/data/news/inbox.json';
 import rawTriage from '@/data/news/triage.json';
 import rawVerification from '@/data/news/verification.json';
 import rawDrafts from '@/data/news/drafts.json';
-import rawNews from '@/data/news/news.json';
 import {
-  DecisionLog,
+  appendDecision as storeAppendDecision,
+  publishItem,
+  readApproved,
+  readDecisions as storeReadDecisions,
+  readSeed,
+} from './newsroom-store';
+import { requestRebuild } from '@lib/newsroom/trigger';
+import {
   buildDesk,
   canApprove,
   deskSection,
@@ -19,7 +23,7 @@ import {
   type DeskStory,
   type NewsroomAction,
 } from '@lib/domain/newsroom';
-import { NewsItem } from '@lib/domain/news';
+import { type NewsItem } from '@lib/domain/news';
 import type { DraftShape } from '../../../scripts/draft/drafts.d.mts';
 import type { VerificationRecordShape } from '../../../scripts/verify/verification.d.mts';
 
@@ -37,24 +41,24 @@ import type { VerificationRecordShape } from '../../../scripts/verify/verificati
  * could write to production would be a way to skip that review.
  */
 
-const NEWS_PATH = resolve(process.cwd(), 'src/data/news/news.json');
-const DECISIONS_PATH = resolve(process.cwd(), 'src/data/news/decisions.json');
 
-function readDecisions(): DecisionRecord[] {
-  try {
-    return DecisionLog.parse(JSON.parse(readFileSync(DECISIONS_PATH, 'utf-8')));
-  } catch {
-    /* No log yet, or an unreadable one: an empty desk history, never a crash. */
-    return [];
-  }
+async function readDecisions(): Promise<DecisionRecord[]> {
+  return storeReadDecisions();
 }
 
-function readPublished(): NewsItem[] {
-  try {
-    return NewsItem.array().parse(JSON.parse(readFileSync(NEWS_PATH, 'utf-8')));
-  } catch {
-    return NewsItem.array().parse(rawNews);
-  }
+/**
+ * Lo publicado, venga de donde venga.
+ *
+ * La semilla versionada más lo que se haya aprobado desde la mesa. Las dos
+ * fuentes se leen igual porque para el escritorio son lo mismo: una noticia que
+ * un lector puede encontrar hoy.
+ */
+async function readPublished(): Promise<NewsItem[]> {
+  const seed = readSeed();
+  const approved = await readApproved();
+  const bySlug = new Map(seed.map((item) => [item.slug, item]));
+  for (const item of approved) if (!bySlug.has(item.slug)) bySlug.set(item.slug, item);
+  return [...bySlug.values()];
 }
 
 export interface Desk {
@@ -66,14 +70,14 @@ export interface Desk {
   counts: Record<DeskSection, number>;
 }
 
-export function getDesk(): Desk {
+export async function getDesk(): Promise<Desk> {
   const stories = buildDesk({
     inbox: rawInbox as Array<Record<string, unknown>>,
     triage: rawTriage as Array<Record<string, unknown>>,
     verification: rawVerification as VerificationRecordShape[],
     drafts: rawDrafts as DraftShape[],
-    publishedSlugs: readPublished().map((item) => item.slug),
-    decisions: readDecisions(),
+    publishedSlugs: (await readPublished()).map((item) => item.slug),
+    decisions: await readDecisions(),
   });
 
   return {
@@ -91,8 +95,8 @@ export function getDesk(): Desk {
   };
 }
 
-export function getStory(key: string): DeskStory | undefined {
-  return getDesk().stories.find((story) => story.key === key);
+export async function getStory(key: string): Promise<DeskStory | undefined> {
+  return (await getDesk()).stories.find((story) => story.key === key);
 }
 
 export interface DecisionOutcome {
@@ -103,9 +107,8 @@ export interface DecisionOutcome {
   slug?: string;
 }
 
-function appendDecision(entry: DecisionRecord): void {
-  const log = [...readDecisions(), entry];
-  writeFileSync(DECISIONS_PATH, `${JSON.stringify(DecisionLog.parse(log), null, 2)}\n`, 'utf-8');
+async function appendDecision(entry: DecisionRecord): Promise<void> {
+  await storeAppendDecision(entry);
 }
 
 /**
@@ -120,15 +123,15 @@ function appendDecision(entry: DecisionRecord): void {
  * story keeps its place in the desk with the reason attached, which is what
  * makes "why did we not run this?" an answerable question in six months.
  */
-export function decide(input: {
+export async function decide(input: {
   key: string;
   action: NewsroomAction;
   actor: string;
   note?: string;
-}): DecisionOutcome {
+}): Promise<DecisionOutcome> {
   const { key, action, actor } = input;
   const note = input.note?.trim() ?? '';
-  const story = getStory(key);
+  const story = await getStory(key);
 
   if (!story) {
     return { ok: false, message: `No hay ninguna historia con la clave "${key}".` };
@@ -143,7 +146,7 @@ export function decide(input: {
   };
 
   if (action !== 'approve') {
-    appendDecision(entry);
+    await appendDecision(entry);
     return {
       ok: true,
       message: action === 'reject' ? 'Descartada, con su motivo en el historial.' : 'En revisión.',
@@ -154,17 +157,13 @@ export function decide(input: {
 
   const allowed = canApprove(story);
   if (!allowed.ok) {
-    return {
-      ok: false,
-      message: 'No se puede aprobar esta historia.',
-      reasons: allowed.reasons,
-    };
+    return { ok: false, message: 'No se puede aprobar esta historia.', reasons: allowed.reasons };
   }
 
   /*
-   * `canApprove` has already established these are present; the checks are
-   * repeated because this is the write path and a type assertion here would be
-   * the one place a null could reach the published file.
+   * `canApprove` ya ha comprobado que existen; se repite porque esta es la
+   * ruta de escritura y una aserción de tipo aquí sería el único sitio por el
+   * que un null podría llegar a lo publicado.
    */
   if (!story.draft || !story.verification) {
     return { ok: false, message: 'Faltan el borrador o la verificación.' };
@@ -189,21 +188,16 @@ export function decide(input: {
     };
   }
 
-  const existing = readPublished();
-  const { items, added } = mergePublished(existing, item);
-
-  if (!added) {
-    /* Approving twice is not an error, it is a no-op that says so. */
-    appendDecision(entry);
-    return {
-      ok: true,
-      message: 'Ya estaba publicada: no se ha duplicado.',
-      published: true,
-      slug: item.slug,
-    };
-  }
-
+  /*
+   * Se valida el conjunto resultante antes de escribir nada. `canApprove`
+   * pregunta si esta historia puede pasar; esto pregunta si el dataset sigue
+   * siendo válido con ella dentro. Son preguntas distintas: un elemento puede
+   * ser publicable por separado y chocar con algo que ya está.
+   */
+  const existing = await readPublished();
+  const { items } = mergePublished(existing, item);
   const valid = validatesAfterMerge(items);
+
   if (!valid.ok) {
     return {
       ok: false,
@@ -212,13 +206,33 @@ export function decide(input: {
     };
   }
 
-  writeFileSync(NEWS_PATH, `${JSON.stringify(items, null, 2)}\n`, 'utf-8');
-  appendDecision(entry);
+  const { added, backend: donde } = await publishItem(item, actor);
+  await appendDecision(entry);
+
+  if (!added) {
+    /* Aprobar dos veces no es un error: es una operación que no hace nada. */
+    return {
+      ok: true,
+      message: 'Ya estaba publicada: no se ha duplicado.',
+      published: true,
+      slug: item.slug,
+    };
+  }
+
+  /*
+   * La noticia ya está guardada. El despliegue sólo decide cuándo se ve, así
+   * que un hook que falla retrasa su aparición pero no deshace la aprobación —
+   * y por eso se informa del fallo en lugar de lanzarlo.
+   */
+  const rebuild = await requestRebuild();
 
   return {
     ok: true,
-    message:
-      'Publicada en news.json. Ejecuta `npm run data:news:validate` y revisa el diff antes de commitear.',
+    message: rebuild.ok
+      ? 'Publicada. El sitio se está reconstruyendo; aparecerá en /noticias en unos minutos.'
+      : donde === 'files'
+        ? 'Publicada en news.json. Ejecuta `npm run data:news:validate` y revisa el diff antes de commitear.'
+        : `Publicada y guardada, pero no se ha lanzado el despliegue: ${rebuild.detail}`,
     published: true,
     slug: item.slug,
   };

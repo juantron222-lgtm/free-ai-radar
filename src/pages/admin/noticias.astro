@@ -17,7 +17,7 @@ export const prerender = false;
  * is exposed as an endpoint.
  */
 
-const desk = getDesk();
+const desk = await getDesk();
 const csrfToken = Astro.locals.csrfToken;
 
 const SECTIONS = [

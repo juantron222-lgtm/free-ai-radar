@@ -54,7 +54,7 @@ export const POST: APIRoute = async (context) => {
 
   if (!parsed.success) return validationResponse(parsed.error);
 
-  const outcome = decide({
+  const outcome = await decide({
     key: parsed.data.key,
     action: parsed.data.action,
     actor: user.email ?? user.id,

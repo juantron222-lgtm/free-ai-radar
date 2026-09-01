@@ -256,3 +256,78 @@ describe('la deduplicación es una restricción, no una comprobación', () => {
     expect(error).toMatch(/foreign key|violates/i);
   });
 });
+
+describe('aprobar dos veces publica una vez', () => {
+  const publica = (slug: string, titulo: string) => `
+    insert into public.newsroom_published (slug, news_id, item, approved_by)
+    values ('${slug}', 'news-${slug}', '{"slug":"${slug}","title":"${titulo}"}'::jsonb, 'admin@ejemplo.test')
+    on conflict (slug) do nothing
+  `;
+
+  it('la segunda aprobación no crea una segunda fila', async () => {
+    await db.exec(publica('idempotente', 'Titular original'));
+    await db.exec(publica('idempotente', 'Titular original'));
+
+    const filas = (
+      await db.query("select count(*)::int as n from public.newsroom_published where slug='idempotente'")
+    ).rows;
+    expect(Number(filas[0]!.n)).toBe(1);
+  });
+
+  it('y no reescribe lo que un lector ya ha visto', async () => {
+    /*
+     * `do nothing` y no `do update`: quien aprobó primero fijó el texto. Si la
+     * segunda aprobación pisara la primera, una noticia podría cambiar bajo los
+     * pies de quien ya la había leído y compartido.
+     */
+    await db.exec(publica('idempotente', 'Titular reescrito'));
+
+    const filas = (
+      await db.query("select item->>'title' as t from public.newsroom_published where slug='idempotente'")
+    ).rows;
+    expect(filas[0]!.t).toBe('Titular original');
+  });
+
+  it('dos noticias distintas no colisionan por el id', async () => {
+    await db.exec(publica('otra-distinta', 'Otro titular'));
+    const filas = (await db.query('select count(*)::int as n from public.newsroom_published')).rows;
+    expect(Number(filas[0]!.n)).toBeGreaterThanOrEqual(2);
+  });
+
+  it('el mismo news_id con otro slug se rechaza', async () => {
+    const error = await niega(() =>
+      db.exec(`
+        insert into public.newsroom_published (slug, news_id, item, approved_by)
+        values ('slug-nuevo', 'news-idempotente', '{}'::jsonb, 'admin@ejemplo.test')
+      `)
+    );
+    expect(error).toMatch(/duplicate key|unique/i);
+  });
+});
+
+describe('una ejecución deja su informe', () => {
+  it('guarda los contadores y los errores de la pasada', async () => {
+    await db.exec(`
+      insert into public.newsroom_runs
+        (status, found, ingested, duplicates, triaged, blocked, errors, notes)
+      values ('partial', 140, 3, 137, 140, 2,
+              '["Krea: la fuente respondió 503"]'::jsonb, '22 fuentes vigiladas')
+    `);
+
+    const filas = (
+      await db.query(`select status, found, ingested, duplicates, jsonb_array_length(errors) as e
+                      from public.newsroom_runs where status='partial'`)
+    ).rows;
+
+    expect(filas[0]!.status).toBe('partial');
+    expect(Number(filas[0]!.found)).toBe(140);
+    expect(Number(filas[0]!.e)).toBe(1);
+  });
+
+  it('un estado inventado no entra en el informe', async () => {
+    const error = await niega(() =>
+      db.exec("insert into public.newsroom_runs (status) values ('casi-bien')")
+    );
+    expect(error).toMatch(/check constraint|violates/i);
+  });
+});

@@ -151,6 +151,23 @@ export default defineConfig({
         access: 'secret',
         optional: true,
       }),
+
+      /*
+       * Newsroom. Ambas opcionales: sin ellas el pipeline sigue funcionando en
+       * local contra ficheros, que es como se desarrolla y como corren los
+       * tests. Lo que no hacen es degradarse en silencio en producción — el
+       * disparador rechaza toda petición si CRON_SECRET no está puesto.
+       */
+      CRON_SECRET: envField.string({
+        context: 'server',
+        access: 'secret',
+        optional: true,
+      }),
+      NEWSROOM_DEPLOY_HOOK: envField.string({
+        context: 'server',
+        access: 'secret',
+        optional: true,
+      }),
     },
     validateSecrets: false,
   },
