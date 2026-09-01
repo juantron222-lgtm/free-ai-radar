@@ -1,4 +1,12 @@
-import rawNews from '@/data/news/news.json';
+/*
+ * El dataset viene del fichero generado, no de la semilla.
+ *
+ * `scripts/newsroom-sync.mjs` lo produce en `prebuild` fundiendo
+ * `src/data/news/news.json` con lo que una persona haya aprobado en la mesa.
+ * Importar aquí la semilla directamente dejaría fuera todo lo aprobado desde
+ * producción, que es justo lo que esta fase existe para arreglar.
+ */
+import rawNews from '@/data/generated/news.json';
 import {
   NewsItem,
   findDuplicateStories,

@@ -1,5 +1,4 @@
 import { beforeAll, describe, expect, it } from 'vitest';
-// @ts-expect-error -- helper .mjs sin tipos, igual que el resto de scripts
 import { createSchema } from '../../scripts/pglite-schema.mjs';
 
 /**

@@ -49,7 +49,8 @@
     "rc": "node scripts/release-candidate.mjs",
     "data:catalog-sql": "node scripts/emit-catalog-sql.mjs",
     "a11y:contraste": "node scripts/contraste.mjs",
-    "news:coverage": "node scripts/news-coverage.mjs"
+    "news:coverage": "node scripts/news-coverage.mjs",
+    "prebuild": "node scripts/newsroom-sync.mjs"
   },
   "dependencies": {
     "@astrojs/vercel": "^11.0.4",

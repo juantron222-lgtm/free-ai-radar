@@ -1,0 +1,339 @@
+[
+  {
+    "id": "news-2026-08-04-ollama-0326",
+    "slug": "ollama-0-32-6-retira-temporalmente-la-generacion-de-imagenes",
+    "title": "Ollama retira temporalmente la generación de imágenes en la 0.32.6",
+    "summary": "La versión 0.32.6 de Ollama, publicada el 4 de agosto de 2026, retira la generación de imágenes experimental. Sus propias notas de versión indican que la retirada es temporal y recomiendan seguir en la 0.32.5 si necesitas esa función. La misma release optimiza Qwen3.5 en GPU de Apple y ajusta el formato de streaming compatible con OpenAI.",
+    "impact": "Si actualizas y tu flujo local dependía de generar imágenes con Ollama, dejarás de poder hacerlo. El propio fabricante señala la salida: quedarse en la 0.32.5. No es un recorte de plan gratuito —Ollama es gratuito y de código abierto— sino una función que desaparece de la última versión.",
+    "category": "imagen",
+    "eventType": "retirada",
+    "availability": "deprecated",
+    "publishedAt": "2026-08-04",
+    "checkedAt": "2026-08-11",
+    "sources": [
+      {
+        "url": "https://github.com/ollama/ollama/releases/tag/v0.32.6",
+        "label": "Notas de versión de Ollama v0.32.6",
+        "kind": "release-notes",
+        "publisher": "github.com/ollama",
+        "checkedAt": "2026-08-11"
+      }
+    ],
+    "officialUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.6",
+    "relatedTools": [
+      "ollama"
+    ],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "author": "Redacción de Free AI Radar",
+    "unconfirmed": []
+  },
+  {
+    "id": "news-2026-07-27-anthropic-open-weights",
+    "slug": "anthropic-publica-su-posicion-sobre-modelos-de-pesos-abiertos",
+    "title": "Anthropic publica su posición sobre los modelos de pesos abiertos",
+    "summary": "Anthropic ha publicado un documento con su postura respecto a los modelos de pesos abiertos, dentro de su sección de noticias oficial.",
+    "impact": "Interesa a quien decide entre depender de una API cerrada o de pesos que puede descargar y ejecutar. La postura de un laboratorio grande sobre pesos abiertos condiciona qué modelos estarán disponibles para uso local en los próximos años.",
+    "category": "local-open-source",
+    "eventType": "anuncio",
+    "availability": "unknown",
+    "publishedAt": "2026-07-27",
+    "checkedAt": "2026-08-11",
+    "sources": [
+      {
+        "url": "https://www.anthropic.com/news/position-open-weights-models",
+        "label": "Our position on open-weights models",
+        "kind": "official",
+        "publisher": "anthropic.com",
+        "checkedAt": "2026-08-11"
+      }
+    ],
+    "officialUrl": "https://www.anthropic.com/news/position-open-weights-models",
+    "relatedTools": [
+      "claude"
+    ],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "author": "Redacción de Free AI Radar",
+    "unconfirmed": []
+  },
+  {
+    "id": "news-2026-07-24-claude-opus-5",
+    "slug": "anthropic-lanza-claude-opus-5",
+    "title": "Anthropic lanza Claude Opus 5 al mismo precio que Opus 4.8",
+    "summary": "Claude Opus 5 se publica el 24 de julio de 2026 con un precio de 5 dólares por millón de tokens de entrada y 25 por millón de salida, los mismos que Opus 4.8. Está disponible en la API de Claude, y en los planes Max y Pro. El modo rápido cuesta el doble del precio base.",
+    "impact": "El plan gratuito no aparece mencionado en el anuncio, así que Opus 5 no es una opción para quien no paga. Su interés para el lector de este sitio es indirecto: cuando el modelo tope baja de precio, los modelos que sí llegan a la capa gratuita suelen mejorar poco después.",
+    "category": "modelo-lenguaje",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-07-24",
+    "checkedAt": "2026-08-11",
+    "sources": [
+      {
+        "url": "https://www.anthropic.com/news/claude-opus-5",
+        "label": "Introducing Claude Opus 5",
+        "kind": "official",
+        "publisher": "anthropic.com",
+        "checkedAt": "2026-08-11"
+      }
+    ],
+    "officialUrl": "https://www.anthropic.com/news/claude-opus-5",
+    "relatedTools": [
+      "claude"
+    ],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "author": "Redacción de Free AI Radar",
+    "seoTitle": "Claude Opus 5: precio, disponibilidad y plan gratuito",
+    "seoDescription": "Anthropic lanza Claude Opus 5 a 5 $/M entrada y 25 $/M salida, en API, Max y Pro. Qué significa para quien usa Claude gratis.",
+    "unconfirmed": []
+  },
+  {
+    "id": "news-2026-07-14-claude-for-teachers",
+    "slug": "anthropic-presenta-claude-for-teachers",
+    "title": "Anthropic presenta Claude for Teachers",
+    "summary": "Anthropic anunció el 14 de julio de 2026 Claude for Teachers, un producto dirigido a personal docente. Según el anuncio oficial, el profesorado de primaria y secundaria de Estados Unidos que verifique su condición obtiene acceso «entirely free», y quien se dé de alta antes del 30 de junio de 2027 dispone de un año completo de acceso.",
+    "impact": "Es acceso gratuito a capacidades de pago, pero sólo si eres docente verificado de un centro estadounidense de K-12. Fuera de ese grupo no cambia nada. La oferta para centros y distritos, según la propia página, todavía no está disponible.",
+    "category": "plan-gratuito",
+    "eventType": "lanzamiento",
+    "availability": "limited",
+    "publishedAt": "2026-07-14",
+    "checkedAt": "2026-08-11",
+    "sources": [
+      {
+        "url": "https://www.anthropic.com/news/claude-for-teachers",
+        "label": "Introducing Claude for Teachers",
+        "kind": "official",
+        "publisher": "anthropic.com",
+        "checkedAt": "2026-08-11"
+      }
+    ],
+    "officialUrl": "https://www.anthropic.com/news/claude-for-teachers",
+    "relatedTools": [
+      "claude"
+    ],
+    "affectsFreePlan": "yes",
+    "verification": "verified",
+    "status": "published",
+    "author": "Redacción de Free AI Radar",
+    "unconfirmed": []
+  },
+  {
+    "id": "news-2026-07-11-ollama-agente",
+    "slug": "ollama-0-32-0-activa-su-agente-interactivo-por-defecto",
+    "title": "Ollama activa por defecto su experiencia de agente interactivo",
+    "summary": "La versión 0.32.0 de Ollama, del 11 de julio de 2026, lanza por defecto una nueva experiencia de agente interactivo: según sus notas de versión, ejecutar `ollama` arranca ahora un agente que ayuda a programar y a delegar trabajo.",
+    "impact": "Ollama deja de ser sólo un ejecutor de modelos en local y pasa a ofrecer un agente de serie. Para quien quiere agentes sin pagar API ni enviar datos fuera de su equipo, es la vía gratuita más directa: el coste se traslada a tu hardware.",
+    "category": "agentes",
+    "eventType": "actualizacion",
+    "availability": "available",
+    "publishedAt": "2026-07-11",
+    "checkedAt": "2026-08-11",
+    "sources": [
+      {
+        "url": "https://github.com/ollama/ollama/releases/tag/v0.32.0",
+        "label": "Notas de versión de Ollama v0.32.0",
+        "kind": "release-notes",
+        "publisher": "github.com/ollama",
+        "checkedAt": "2026-08-11"
+      }
+    ],
+    "officialUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.0",
+    "relatedTools": [
+      "ollama"
+    ],
+    "affectsFreePlan": "yes",
+    "verification": "verified",
+    "status": "published",
+    "author": "Redacción de Free AI Radar",
+    "seoTitle": "Ollama estrena agente interactivo por defecto (v0.32.0)",
+    "seoDescription": "Ollama 0.32.0 activa un agente interactivo de serie. Agentes en local, gratis y sin enviar datos fuera de tu equipo.",
+    "unconfirmed": []
+  },
+  {
+    "id": "news-2026-07-08-robostral-navigate",
+    "slug": "mistral-presenta-robostral-navigate",
+    "title": "Mistral presenta Robostral Navigate, su primer modelo de navegación embebida",
+    "summary": "Mistral presentó Robostral Navigate, un modelo de 8.000 millones de parámetros para navegación robótica que se apoya en una única cámara RGB para desplazarse de forma autónoma por entornos complejos. La fecha, 8 de julio de 2026, figura en el índice de noticias de Mistral; la página de detalle no la muestra.",
+    "impact": "La página no dice si el modelo se puede descargar, bajo qué licencia, ni por qué vía se accede a él: enlaza un informe técnico e invita a hablar con su equipo comercial, y nada más. Mientras Mistral no lo concrete no hay manera de saber si esto llega a quien no paga, así que lo tratamos como lo que demuestra ser: un anuncio, no algo que puedas probar hoy.",
+    "category": "modelo-multimodal",
+    "eventType": "anuncio",
+    "availability": "unknown",
+    "publishedAt": "2026-07-08",
+    "checkedAt": "2026-08-11",
+    "sources": [
+      {
+        "url": "https://mistral.ai/news/robostral-navigate/",
+        "label": "Introducing Robostral Navigate",
+        "kind": "official",
+        "publisher": "mistral.ai",
+        "checkedAt": "2026-08-11"
+      },
+      {
+        "url": "https://mistral.ai/news",
+        "label": "Índice de noticias de Mistral, donde consta la fecha del anuncio",
+        "kind": "official",
+        "publisher": "mistral.ai",
+        "checkedAt": "2026-08-11"
+      }
+    ],
+    "officialUrl": "https://mistral.ai/news/robostral-navigate/",
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "author": "Redacción de Free AI Radar",
+    "unconfirmed": []
+  },
+  {
+    "id": "news-2026-07-02-leanstral",
+    "slug": "mistral-publica-leanstral-1-5",
+    "title": "Mistral publica Leanstral 1.5 como modelo de código abierto",
+    "summary": "El 2 de julio de 2026 Mistral anunció Leanstral 1.5, un modelo de verificación formal para pruebas en Lean 4, publicado bajo licencia Apache-2.0. Sus pesos están en Hugging Face y el modelo está además disponible como punto final de API gratuito con el identificador `leanstral-1-5`.",
+    "impact": "Otro modelo que se puede descargar y ejecutar sin cuota mensual, y que además ofrece una API gratuita. La gratuidad de un modelo con pesos abiertos bajo Apache-2.0 no depende de que una empresa mantenga su plan gratuito.",
+    "category": "local-open-source",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-07-02",
+    "checkedAt": "2026-08-11",
+    "sources": [
+      {
+        "url": "https://mistral.ai/news/leanstral-1-5/",
+        "label": "Leanstral 1.5: Proof Abundance for All",
+        "kind": "official",
+        "publisher": "mistral.ai",
+        "checkedAt": "2026-08-11"
+      }
+    ],
+    "officialUrl": "https://mistral.ai/news/leanstral-1-5/",
+    "relatedTools": [],
+    "affectsFreePlan": "yes",
+    "verification": "verified",
+    "status": "published",
+    "author": "Redacción de Free AI Radar",
+    "unconfirmed": []
+  },
+  {
+    "id": "news-2026-06-30-claude-sonnet-5",
+    "slug": "claude-sonnet-5-pasa-a-ser-el-modelo-por-defecto-del-plan-gratuito",
+    "title": "Claude Sonnet 5 pasa a ser el modelo por defecto del plan gratuito",
+    "summary": "Anthropic publicó Claude Sonnet 5 el 30 de junio de 2026. Según el anuncio oficial, «is the default model for Free and Pro plans, and is available to Max, Team, and Enterprise users». El precio de API es introductorio hasta el 31 de agosto de 2026: 2 dólares por millón de tokens de entrada y 10 por millón de salida, frente a los 3 y 15 estándar.",
+    "impact": "Es de los cambios que más importan aquí: quien usa Claude sin pagar pasa a tener Sonnet 5 por defecto, sin hacer nada. Y si usas la API, el precio sube automáticamente el 1 de septiembre de 2026 a 3 y 15 dólares — conviene tenerlo en cuenta antes de esa fecha.",
+    "category": "modelo-lenguaje",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-06-30",
+    "checkedAt": "2026-08-11",
+    "sources": [
+      {
+        "url": "https://www.anthropic.com/news/claude-sonnet-5",
+        "label": "Introducing Claude Sonnet 5",
+        "kind": "official",
+        "publisher": "anthropic.com",
+        "checkedAt": "2026-08-11"
+      }
+    ],
+    "officialUrl": "https://www.anthropic.com/news/claude-sonnet-5",
+    "relatedTools": [
+      "claude",
+      "claude-sonnet-5"
+    ],
+    "affectsFreePlan": "yes",
+    "verification": "verified",
+    "status": "published",
+    "author": "Redacción de Free AI Radar",
+    "seoTitle": "Claude Sonnet 5, ya por defecto en el plan gratuito",
+    "seoDescription": "Sonnet 5 es el modelo por defecto de los planes Free y Pro de Claude. Precio de API introductorio hasta el 31 de agosto de 2026.",
+    "unconfirmed": []
+  },
+  {
+    "id": "news-2026-06-30-ollama-gemma-4",
+    "slug": "ollama-acelera-gemma-4-en-apple-silicon",
+    "title": "Ollama acelera Gemma 4 casi un 90 % en Apple Silicon",
+    "summary": "La versión 0.31.1 de Ollama, del 30 de junio de 2026, indica que Gemma 4 es «significantly faster» en Apple Silicon gracias a la predicción multi-token (MTP), y cifra la mejora en «nearly 90% faster on average across a coding-agent benchmark». La propia release señala que la ganancia se aplica sola, sin configuración.",
+    "impact": "Si ejecutas modelos en un Mac, actualizar Ollama puede ser la mejora de rendimiento más barata disponible: no cuesta nada y no requiere hardware nuevo. La cifra del 90 % es la media de una prueba de agente de programación, no una mejora garantizada en cualquier uso.",
+    "category": "local-open-source",
+    "eventType": "actualizacion",
+    "availability": "available",
+    "publishedAt": "2026-06-30",
+    "checkedAt": "2026-08-11",
+    "sources": [
+      {
+        "url": "https://github.com/ollama/ollama/releases/tag/v0.31.1",
+        "label": "Notas de versión de Ollama v0.31.1",
+        "kind": "release-notes",
+        "publisher": "github.com/ollama",
+        "checkedAt": "2026-08-11"
+      }
+    ],
+    "officialUrl": "https://github.com/ollama/ollama/releases/tag/v0.31.1",
+    "relatedTools": [
+      "ollama",
+      "gemma-4"
+    ],
+    "affectsFreePlan": "yes",
+    "verification": "verified",
+    "status": "published",
+    "author": "Redacción de Free AI Radar",
+    "unconfirmed": []
+  },
+  {
+    "id": "news-2026-06-23-mistral-ocr-4",
+    "slug": "mistral-lanza-ocr-4",
+    "title": "Mistral lanza OCR 4, su modelo de inteligencia documental",
+    "summary": "El 23 de junio de 2026 Mistral anunció OCR 4, un modelo de inteligencia documental con cajas delimitadoras, clasificación de bloques, puntuaciones de confianza y soporte para 170 idiomas. Se ofrece como servicio de API y a través de Document AI en Mistral Studio, Amazon SageMaker y Microsoft Foundry. El autoalojamiento queda reservado a clientes empresariales que lo soliciten.",
+    "impact": "Si buscabas OCR gratuito, no es esto: la propia página fija el precio en 4 dólares por cada 1.000 páginas, con un 50 % de descuento usando la API por lotes, y 5 dólares por cada 1.000 en Document AI. No menciona ninguna capa gratuita. Tampoco ofrece pesos descargables, así que procesar los documentos en tu propio equipo sólo está al alcance de las empresas que pidan el autoalojamiento.",
+    "category": "modelo-multimodal",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-06-23",
+    "checkedAt": "2026-08-11",
+    "sources": [
+      {
+        "url": "https://mistral.ai/news/ocr-4/",
+        "label": "Introducing Mistral OCR 4",
+        "kind": "official",
+        "publisher": "mistral.ai",
+        "checkedAt": "2026-08-11"
+      }
+    ],
+    "officialUrl": "https://mistral.ai/news/ocr-4/",
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "author": "Redacción de Free AI Radar",
+    "unconfirmed": []
+  },
+  {
+    "id": "news-2026-05-22-mistral-medium-35",
+    "slug": "mistral-medium-3-5-y-agentes-remotos-en-vibe",
+    "title": "Mistral estrena agentes remotos en Vibe con Mistral Medium 3.5",
+    "summary": "El 22 de mayo de 2026 Mistral anunció agentes remotos en su producto Vibe, impulsados por Mistral Medium 3.5. Según la página oficial, el modelo se publica con pesos abiertos en Hugging Face bajo una licencia MIT modificada, mientras que los agentes remotos y el modo Work de Le Chat quedan disponibles en los planes Pro, Team y Enterprise.",
+    "impact": "Los agentes remotos de Vibe no entran en ningún plan gratuito: la propia página los limita a Pro, Team y Enterprise. Lo que sí queda al alcance de cualquiera son los pesos de Medium 3.5, que se pueden descargar y ejecutar en local si tienes hardware para ello.",
+    "category": "plataforma-agentes",
+    "eventType": "lanzamiento",
+    "availability": "limited",
+    "publishedAt": "2026-05-22",
+    "checkedAt": "2026-08-11",
+    "sources": [
+      {
+        "url": "https://mistral.ai/news/vibe-remote-agents-mistral-medium-3-5/",
+        "label": "Remote agents in Vibe. Powered by Mistral Medium 3.5.",
+        "kind": "official",
+        "publisher": "mistral.ai",
+        "checkedAt": "2026-08-11"
+      }
+    ],
+    "officialUrl": "https://mistral.ai/news/vibe-remote-agents-mistral-medium-3-5/",
+    "relatedTools": [],
+    "affectsFreePlan": "no",
+    "verification": "verified",
+    "status": "published",
+    "author": "Redacción de Free AI Radar",
+    "unconfirmed": []
+  }
+]
