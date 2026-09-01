@@ -87,6 +87,44 @@ export function scrub(message) {
 // Environment
 // ---------------------------------------------------------------------------
 
+/**
+ * Claves definidas más de una vez en un mismo fichero de entorno.
+ *
+ * Existe porque costó una sesión entera. `.env.local` tenía
+ * `SUPABASE_DATABASE_URL` tres veces: la del proyecto viejo, la del nuevo, y un
+ * marcador `...` que nadie llegó a sustituir. Gana la última, así que el
+ * guardián informaba de una cadena de tres caracteres mientras la buena estaba
+ * cinco líneas más arriba, intacta y sin usar.
+ *
+ * Una variable repetida no es un error de sintaxis y ningún parser se queja:
+ * simplemente una de las dos deja de existir, en silencio. Eso la convierte en
+ * la clase de fallo que sólo se diagnostica mirando el fichero línea a línea,
+ * que es justo el trabajo que un guardián debería ahorrar.
+ */
+export function duplicateKeys(root = ROOT) {
+  const repetidas = [];
+
+  for (const name of ['.env', '.env.local']) {
+    const path = join(root, name);
+    if (!existsSync(path)) continue;
+
+    const vistas = new Map();
+    const lineas = readFileSync(path, 'utf8').split(/\r?\n/);
+
+    for (const [indice, linea] of lineas.entries()) {
+      const match = linea.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)$/);
+      if (!match) continue;
+      vistas.set(match[1], [...(vistas.get(match[1]) ?? []), indice + 1]);
+    }
+
+    for (const [clave, numeros] of vistas) {
+      if (numeros.length > 1) repetidas.push({ file: name, key: clave, lines: numeros });
+    }
+  }
+
+  return repetidas;
+}
+
 /** Reads .env files without a dependency. Values are never logged. */
 export function loadEnv(root = ROOT) {
   const merged = { ...process.env };
@@ -431,6 +469,20 @@ async function main() {
   console.log('\nGuardián de staging');
   console.log('───────────────────────────────────────────────');
   for (const fact of result.facts) console.log(`  ${fact}`);
+
+  /*
+   * Los duplicados van antes que cualquier otro aviso y con su número de línea.
+   * Cuando una clave está repetida, todo lo que el guardián diga después se
+   * refiere al último valor, y sin esta línea no hay manera de saber que ese no
+   * es el que se escribió.
+   */
+  const repetidas = duplicateKeys();
+  if (repetidas.length) {
+    console.log('\n⚠ Variables definidas más de una vez (gana la última):');
+    for (const { file, key, lines } of repetidas) {
+      console.log(`  · ${file}: ${key} en las líneas ${lines.join(', ')}`);
+    }
+  }
 
   if (result.warnings.length) {
     console.log('\nAvisos:');
