@@ -168,22 +168,63 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
   const sources = loadSources();
   const rows: Record<string, unknown>[] = [];
 
-  for (const source of sources) {
-    try {
-      const result = await fetchSource(source, { timeoutMs: 10_000 });
-      for (const item of result.items ?? []) {
-        rows.push({
-          sourceId: source.id,
-          title: item.title,
-          url: item.url,
-          publishedAt: item.publishedAt ?? null,
-        });
+  /*
+   * En tandas y con holgura, no en serie y con prisa.
+   *
+   * La primera pasada real contra staging falló en las 22 fuentes con
+   * «aborted» y «fetch failed». No era un bloqueo de red: un solo feed de
+   * OpenAI tarda 4 segundos desde aquí y el de Google 8,5, y el tope era de 10.
+   * Casi todas las fuentes lo rozaban, y en serie la pasada entera se iba a
+   * 345 segundos para no traer nada.
+   *
+   * Veinte segundos por fuente cubre lo que estos feeds tardan de verdad;
+   * cuatro a la vez mantiene el total dentro de lo que un cron puede durar,
+   * sin abrir tantas conexiones a la vez como para provocar el fallo que se
+   * intenta evitar.
+   */
+  const CONCURRENCIA = 4;
+  const cola = [...sources];
+
+  async function trabajador() {
+    for (let source = cola.shift(); source; source = cola.shift()) {
+      try {
+        /*
+         * `fetchSource` devuelve un array de entradas, no un objeto con `items`
+         * y `reachable`. Este bucle esperaba lo segundo, así que `result.items`
+         * era siempre `undefined` y `result.reachable` también: cero filas
+         * ingeridas y las 22 fuentes marcadas «no accesible» aunque hubieran
+         * respondido 200. La pasada diaria no podía descubrir nada, y el
+         * informe culpaba a la red de un desajuste de forma.
+         *
+         * El contrato bueno es el array, que es lo que ya usa `news-radar.mjs`.
+         * Alcanzable es simplemente que la llamada no haya lanzado.
+         */
+        const items = await fetchSource(source, { timeoutMs: 20_000 });
+
+        for (const item of items) {
+          rows.push({
+            sourceId: source.id,
+            title: item.title,
+            url: item.url,
+            publishedAt: item.publishedAt ?? null,
+          });
+        }
+
+        /*
+         * Cero entradas de una fuente que respondió no es un error de red, pero
+         * tampoco es normal: así se ve un índice rediseñado desde aquí. Se anota
+         * como incidencia para que no se confunda con una semana tranquila.
+         */
+        if (items.length === 0) {
+          errors.push(`${source.name}: responde, pero no devuelve ninguna entrada`);
+        }
+      } catch (error) {
+        errors.push(`${source.name}: ${error instanceof Error ? error.message : String(error)}`);
       }
-      if (!result.reachable) errors.push(`${source.name}: ${result.reason ?? 'no accesible'}`);
-    } catch (error) {
-      errors.push(`${source.name}: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
+
+  await Promise.all(Array.from({ length: CONCURRENCIA }, trabajador));
 
   const observedAt = new Date().toISOString().slice(0, 10);
   const existing = await existingCandidates(supabase);

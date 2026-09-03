@@ -36,9 +36,17 @@ const DEFAULT_UA = 'FreeAIRadar/2.0 (+https://www.freeairadar.com)';
 /** Health is about the source, not about one run. */
 export const HEALTH = /** @type {const} */ (['healthy', 'degraded', 'broken']);
 
-async function get(url, { userAgent, accept }) {
+/**
+ * `timeoutMs` se respeta, que no era el caso.
+ *
+ * `fetchSource` aceptaba la opción y nunca la pasaba: el tope real era siempre
+ * la constante del módulo. Subirlo desde el llamador no hacía absolutamente
+ * nada, y una opción que se acepta y se ignora es peor que no ofrecerla —
+ * costó una pasada entera creyendo que el problema era la red.
+ */
+async function get(url, { userAgent, accept, timeoutMs } = {}) {
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
+  const timer = setTimeout(() => controller.abort(), timeoutMs ?? TIMEOUT_MS);
   try {
     const response = await fetch(url, {
       signal: controller.signal,
@@ -211,6 +219,7 @@ export async function fetchSource(source, options = {}) {
   const xml = await fetchPage(source.feed_url, {
     userAgent: source.user_agent,
     accept: 'application/rss+xml, application/atom+xml, application/xml, text/xml, */*',
+    timeoutMs: options.timeoutMs,
   });
   return parseFeed(xml);
 }

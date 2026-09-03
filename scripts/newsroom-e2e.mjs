@@ -100,9 +100,17 @@ async function comprobarEsquema(sql) {
 async function comprobarRls(sql) {
   console.log('\nRLS');
 
+  /*
+   * `relkind = 'r'` no es un detalle: sin él, `pg_class` devuelve también los
+   * índices y las secuencias cuyo nombre empieza por `newsroom`, que nunca
+   * tienen RLS y jamás van a tenerla. La comprobación fallaba señalando
+   * `newsroom_candidates_pkey` como una tabla desprotegida.
+   */
   const rls = await sql`
     select relname, relrowsecurity from pg_class
-    where relnamespace = 'public'::regnamespace and relname like 'newsroom%'
+    where relnamespace = 'public'::regnamespace
+      and relkind = 'r'
+      and relname like 'newsroom%'
     order by relname`;
   const sinRls = rls.filter((r) => !r.relrowsecurity).map((r) => r.relname);
   anota('RLS activo en las siete', sinRls.length === 0, sinRls.length ? `sin RLS: ${sinRls}` : 'las siete');
@@ -335,9 +343,15 @@ async function main() {
   console.log('\nDestino');
   console.log('  proyecto declarado:', env.SUPABASE_STAGING_REF ?? '(sin declarar)');
 
-  if (!veredicto.ok) {
+  /*
+   * `evaluateEnvironment` devuelve `{ facts, warnings, problems }` y no un `ok`.
+   * Comprobar un campo que no existe daba siempre `undefined`, es decir, siempre
+   * «bloqueado», y con una lista de motivos vacía — un guardián que dice que no
+   * sin poder decir por qué. El veredicto es que no haya problemas.
+   */
+  if (veredicto.problems.length > 0) {
     console.error('\n✗ DETENIDO por el guardián de staging:');
-    for (const motivo of veredicto.reasons ?? veredicto.problems ?? []) console.error('  ·', scrub(String(motivo)));
+    for (const motivo of veredicto.problems) console.error('  ·', scrub(String(motivo)));
     console.error('\nNo se ejecuta nada contra una base que no es el staging declarado.');
     process.exit(1);
   }
