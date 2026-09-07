@@ -329,3 +329,70 @@ export function deskSection(stories: readonly DeskStory[], section: DeskSection)
 }
 
 export const PublishedDate = IsoDate;
+
+/**
+ * La puerta para publicar sin que una persona lo haya mirado.
+ *
+ * Todo lo que pide `canApprove` y cuatro condiciones más. La diferencia no es
+ * caprichosa: hasta ahora la aprobación humana era la segunda barrera, y quien
+ * aprobaba veía el texto antes de que existiera para un lector. Al quitar esa
+ * barrera, la automática deja de ser un filtro y pasa a ser la única cosa entre
+ * una extracción equivocada y la portada. Así que se estrecha, no se ensancha.
+ *
+ * Las cuatro:
+ *
+ *  1. La fuente tiene que haberse leído de verdad. Una verificación que sólo se
+ *     apoya en un feed puede acreditar un titular y una fecha, y eso no da para
+ *     publicar sin que nadie lo lea.
+ *  2. Nada con `unconfirmed` sin resolver. Un humano puede publicar una noticia
+ *     diciendo qué le falta; un automatismo que hiciera lo mismo estaría
+ *     decidiendo solo qué huecos son tolerables.
+ *  3. Fecha reciente. Una historia de hace tres meses que aparece hoy en el
+ *     radar casi siempre significa que la hemos encontrado tarde, no que sea
+ *     novedad, y publicarla sola descoloca la portada.
+ *  4. Alcance de fabricante. Una integración de terceros es publicable, pero es
+ *     también donde más fácil resulta exagerar el alcance, así que esa la mira
+ *     una persona.
+ */
+export function canAutoPublish(
+  story: DeskStory,
+  { today, maxAgeDays = 21 }: { today: string; maxAgeDays?: number }
+): { ok: boolean; reasons: string[] } {
+  const base = canApprove(story);
+  const reasons = [...base.reasons];
+
+  const verification = story.verification as (VerificationRecordShape & { scope?: string }) | null;
+
+  if (verification) {
+    const leida = verification.primarySources.some((s) => s.reachable);
+    if (!leida) {
+      reasons.push('ninguna fuente primaria se ha podido leer: no se publica sin lectura');
+    }
+
+    const soloFeed = verification.verifiedFacts.every((f) => /vía feed\]/.test(f.fact));
+    if (soloFeed && verification.verifiedFacts.length > 0) {
+      reasons.push('toda la evidencia viene del feed: el artículo no se ha leído');
+    }
+
+    if (verification.unconfirmed.length > 0) {
+      reasons.push(
+        `quedan ${verification.unconfirmed.length} puntos sin confirmar: los publica una persona, no el automatismo`
+      );
+    }
+
+    if (verification.scope === 'integration') {
+      reasons.push('es una integración de terceros: el alcance lo revisa una persona');
+    }
+  }
+
+  if (story.publishedAt) {
+    const dias = Math.floor(
+      (Date.parse(`${today}T00:00:00Z`) - Date.parse(`${story.publishedAt}T00:00:00Z`)) / 86_400_000
+    );
+    if (dias > maxAgeDays) {
+      reasons.push(`la fuente la publicó hace ${dias} días: demasiado vieja para entrar sola`);
+    }
+  }
+
+  return { ok: reasons.length === 0, reasons };
+}

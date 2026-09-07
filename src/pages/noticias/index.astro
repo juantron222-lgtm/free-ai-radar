@@ -7,6 +7,7 @@ import {
   getNewsStats,
   getPopulatedNewsCategories,
   getFreePlanNews,
+  getPortada,
 } from '@lib/data/news';
 import { getCatalogChanges } from '@lib/data/catalog';
 import { itemListSchema } from '@lib/seo/structured-data';
@@ -14,12 +15,22 @@ import { absoluteUrl } from '@lib/seo/site';
 import { ROUTES } from '@lib/nav';
 
 const news = getAllNews();
+
+/*
+ * La portada se acota; el archivo sigue accesible justo debajo.
+ *
+ * Una sección de novedades no parece abandonada por no tener noticias nuevas,
+ * sino por acumular viejas. Lo que sale de arriba conserva su URL, su sitio en
+ * el sitemap y cualquier enlace guardado: cambia dónde se encuentra, no si se
+ * encuentra.
+ */
+const { destacadas, archivo } = getPortada();
 const stats = getNewsStats();
 const categories = getPopulatedNewsCategories();
 const freePlanNews = getFreePlanNews();
 const catalogChanges = getCatalogChanges(8);
 
-const [lead, ...rest] = news;
+const [lead, ...rest] = destacadas;
 
 const crumbs = [
   { name: 'Inicio', path: ROUTES.home },
@@ -127,6 +138,27 @@ void itemListSchema;
           </p>
         </section>
 
+        {archivo.length > 0 && (
+          <section class="news-archive" aria-labelledby="archive-title">
+            <h2 id="archive-title" class="news-section-title">Archivo</h2>
+            <p class="news-section-lede">
+              Siguen siendo ciertas y siguen accesibles; ya no son actualidad. {archivo.length} en total.
+            </p>
+            <ul class="archive-list">
+              {archivo.map((item) => (
+                <li>
+                  <a href={ROUTES.newsItem(item.slug)}>{item.title}</a>
+                  <time datetime={item.publishedAt} class="archive-date tnum">
+                    {new Date(`${item.publishedAt}T00:00:00Z`).toLocaleDateString('es-ES', {
+                      day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC',
+                    })}
+                  </time>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
         {catalogChanges.length > 0 && (
           <section class="news-catalog" aria-labelledby="catalog-title">
             <h2 id="catalog-title" class="news-section-title">Cambios detectados en el catálogo</h2>
@@ -181,6 +213,46 @@ void itemListSchema;
 </BaseLayout>
 
 <style>
+  .news-archive {
+    margin-block-start: var(--space-l);
+    padding-block-start: var(--space-s);
+    border-block-start: 1px solid var(--line-hairline);
+  }
+
+  .archive-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .archive-list li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-xs);
+    padding-block: 0.35rem;
+    border-block-end: 1px solid var(--line-hairline);
+    font-size: 0.875rem;
+  }
+
+  .archive-list a {
+    color: var(--ink-muted);
+    text-decoration: none;
+  }
+
+  .archive-list a:hover {
+    color: var(--ink-strong);
+    text-decoration: underline;
+  }
+
+  .archive-date {
+    color: var(--ink-subtle);
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
+
   .news-page {
     padding-block: var(--space-m) var(--space-xl);
     display: grid;

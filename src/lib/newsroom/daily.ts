@@ -4,6 +4,11 @@ import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { supabase as supabaseConfig } from '@lib/config';
 import { logger } from '@lib/observability/logger';
 import { recordRun, type RunReport } from '@lib/data/newsroom-store';
+import { getDesk, decide } from '@lib/data/newsroom';
+import { canAutoPublish } from '@lib/domain/newsroom';
+import { encontrarSupersesiones, repartirPortada } from '@lib/domain/lifecycle';
+import { hydrateNews } from '@lib/domain/news';
+import { readApproved, readSeed } from '@lib/data/newsroom-store';
 import { fetchSource } from '../../../scripts/source-adapters.mjs';
 import { runRadar } from '../../../scripts/radar/inbox.mjs';
 import type { InboxCandidateShape } from '../../../scripts/radar/inbox.d.mts';
@@ -96,6 +101,17 @@ async function existingCandidates(supabase: SupabaseClient): Promise<InboxCandid
  * candidato sería castigar a la fuente por nuestra forma de recorrer la lista.
  */
 const feedCache = new Map<string, string>();
+
+/**
+ * Cuántas puede publicar sola una pasada.
+ *
+ * Un techo, no una cuota. Existe para que un fallo del extractor no se convierta
+ * en veinte noticias malas en una mañana, no para asegurar volumen.
+ */
+const MAX_AUTOPUBLICADAS = 4;
+
+/** Quién firma lo que se publica sin intervención. Se distingue en el historial. */
+const AUTOR_AUTOMATICO = 'Newsroom automático';
 
 async function fetchFeed(url: string): Promise<string> {
   const guardado = feedCache.get(url);
@@ -410,6 +426,83 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
 
   const pending = promoted.length - verificados.size - pendientes.length;
 
+  /*
+   * Publicación automática.
+   *
+   * Es el único punto de todo el sistema donde algo llega a un lector sin que
+   * una persona lo haya visto, así que la puerta es `canAutoPublish`, que pide
+   * todo lo que exige una aprobación humana y cuatro cosas más. Lo que no la
+   * pasa no se pierde: se queda en la mesa, con su motivo, esperando a alguien.
+   *
+   * El tope diario no es una cuota que haya que llenar, es un techo. Si un día
+   * no hay nada publicable, no se publica nada — que es exactamente lo que debe
+   * pasar y lo que distingue una sección viva de una que rellena.
+   */
+  const publicadas: string[] = [];
+  const noPublicadas: Array<{ slug: string; motivos: string[] }> = [];
+
+  try {
+    const desk = await getDesk();
+    for (const historia of desk.ready.slice(0, MAX_AUTOPUBLICADAS)) {
+      const veredicto = canAutoPublish(historia, { today: observedAt });
+
+      if (!veredicto.ok) {
+        noPublicadas.push({ slug: historia.key, motivos: veredicto.reasons });
+        continue;
+      }
+
+      const resultado = await decide({
+        key: historia.key,
+        action: 'approve',
+        actor: AUTOR_AUTOMATICO,
+        note: 'Publicada por la pasada diaria tras superar la puerta automática.',
+      });
+
+      if (resultado.ok && resultado.published) publicadas.push(historia.key);
+      else noPublicadas.push({ slug: historia.key, motivos: [resultado.message] });
+    }
+  } catch (error) {
+    errors.push(`autopublicación: ${error instanceof Error ? error.message : String(error)}`);
+  }
+
+  for (const { slug, motivos } of noPublicadas) {
+    logger.info('newsroom.autopublish_blocked', { slug, reasons: motivos.slice(0, 3) });
+  }
+
+  /*
+   * Higiene de portada.
+   *
+   * No cambia ningún dato: la partición se deriva de la fecha cada vez que se
+   * construye el sitio. Lo que se hace aquí es dejarlo escrito, porque «qué
+   * archivó y por qué» tiene que poder responderse sin reconstruir el sitio
+   * para averiguarlo.
+   */
+  const archivadas: Array<{ slug: string; motivo: string }> = [];
+  const superadas: Array<{ anterior: string; nueva: string; motivo: string }> = [];
+
+  try {
+    const publicadasHoy = [...readSeed(), ...(await readApproved())];
+    const vistas = new Set<string>();
+    const unicas = publicadasHoy.filter((n) => !vistas.has(n.slug) && vistas.add(n.slug));
+    const hidratadas = unicas.map((n) => hydrateNews(n));
+
+    const portada = repartirPortada(hidratadas);
+    archivadas.push(...portada.motivos);
+    superadas.push(...encontrarSupersesiones(hidratadas));
+
+    logger.info('newsroom.portada', {
+      destacadas: portada.destacadas.length,
+      archivo: portada.archivo.length,
+      superadas: superadas.length,
+    });
+  } catch (error) {
+    errors.push(`portada: ${error instanceof Error ? error.message : String(error)}`);
+  }
+
+  for (const s of superadas) {
+    logger.info('newsroom.superseded', { anterior: s.anterior, nueva: s.nueva, motivo: s.motivo });
+  }
+
   const report: RunReport = {
     found: rows.length,
     ingested,
@@ -420,7 +513,15 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
     pending: Math.max(0, pending),
     errors,
     status: errors.length === 0 ? 'ok' : errors.length >= sources.length ? 'failed' : 'partial',
-    notes: `${sources.length} fuentes vigiladas, ${errors.length} con incidencias, ${drafted} borradores redactados`,
+    published: publicadas.length,
+    heldForReview: noPublicadas.length,
+    archived: archivadas.length,
+    superseded: superadas.length,
+    notes:
+      `${sources.length} fuentes vigiladas, ${errors.length} con incidencias, ` +
+      `${drafted} borradores redactados, ${publicadas.length} publicadas, ` +
+      `${noPublicadas.length} a la espera de revisión, ${archivadas.length} fuera de portada, ` +
+      `${superadas.length} superadas por una noticia posterior`,
   };
 
   await recordRun(report, options.trigger);
@@ -428,6 +529,8 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
   logger.info('newsroom.daily', {
     found: report.found,
     ingested: report.ingested,
+    published: report.published,
+    heldForReview: report.heldForReview,
     status: report.status,
   });
 

@@ -183,6 +183,14 @@ export interface RunReport {
   verified: number;
   blocked: number;
   pending: number;
+  /** Publicadas por la propia pasada, sin intervención. */
+  published?: number;
+  /** Verificadas y redactadas, pero que la puerta automática dejó para una persona. */
+  heldForReview?: number;
+  /** Salidas de portada por edad o por sitio. Siguen publicadas y accesibles. */
+  archived?: number;
+  /** Historias que una noticia posterior ha dejado desactualizadas. */
+  superseded?: number;
   errors: string[];
   status: 'ok' | 'partial' | 'failed';
   notes?: string;

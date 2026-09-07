@@ -15,6 +15,7 @@ import {
   type HydratedNewsItem,
 } from '@lib/domain/news';
 import { getTool } from './catalog';
+import { encontrarSupersesiones, repartirPortada } from '@lib/domain/lifecycle';
 
 /**
  * The newsroom.
@@ -132,4 +133,26 @@ export function getPopulatedNewsCategories(): Array<{ category: string; label: s
       count,
     }))
     .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label, 'es'));
+}
+
+/**
+ * La portada y el archivo.
+ *
+ * `getAllNews()` sigue devolviendo todo lo publicado, porque las fichas, el
+ * sitemap y los enlaces internos necesitan la lista entera: una noticia que sale
+ * de portada conserva su URL, su sitio en el sitemap y cualquier enlace que
+ * alguien haya guardado. Lo que cambia es dónde se la encuentra.
+ *
+ * Esta partición es derivada de la fecha, no un estado guardado. Nada puede
+ * perder una página por haber envejecido, que es el riesgo real de archivar
+ * cambiando `status`.
+ */
+export function getPortada(now: Date = new Date()) {
+  const items = NEWS.map((item) => hydrateNews(item, now));
+  return repartirPortada(items);
+}
+
+/** Lo que ha quedado desactualizado por una noticia posterior del mismo producto. */
+export function getSupersesiones(now: Date = new Date()) {
+  return encontrarSupersesiones(NEWS.map((item) => hydrateNews(item, now)));
 }
