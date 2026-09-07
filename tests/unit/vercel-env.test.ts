@@ -77,7 +77,7 @@ describe('el proyecto se deduce del propio hook', () => {
 
 describe('el alcance de lo que se sube', () => {
   it('son exactamente las claves que Newsroom necesita', () => {
-    expect(CLAVES).toContain('SUPABASE_DATABASE_URL');
+    expect(CLAVES).toContain('SUPABASE_SERVICE_ROLE_KEY');
     expect(CLAVES).toContain('CRON_SECRET');
     expect(CLAVES).toContain('NEWSROOM_DEPLOY_HOOK');
   });
@@ -92,5 +92,26 @@ describe('el alcance de lo que se sube', () => {
   it('la rama destino es la de Newsroom y no main', () => {
     expect(RAMA).toBe('newsroom-produccion');
     expect(RAMA).not.toBe('main');
+  });
+});
+
+describe('la cadena de Postgres no es requisito de despliegue', () => {
+  /*
+   * Newsroom habla con Supabase por REST: cron, store y `prebuild` usan
+   * PUBLIC_SUPABASE_URL más la service role. Subir `SUPABASE_DATABASE_URL` a
+   * Vercel haría que el build dependiera de algo que no usa, y dejaría una
+   * credencial de acceso total a la base en un entorno donde nada la necesita.
+   */
+  it('no se sube como variable de entorno', async () => {
+    const { CLAVES: claves, HERRAMIENTA_ADMINISTRATIVA } = await import(
+      '../../scripts/vercel-newsroom-env.mjs'
+    );
+    expect(claves).not.toContain('SUPABASE_DATABASE_URL');
+    expect(HERRAMIENTA_ADMINISTRATIVA).toContain('SUPABASE_DATABASE_URL');
+  });
+
+  it('lo que sí se sube basta para hablar con Supabase por REST', () => {
+    expect(CLAVES).toContain('PUBLIC_SUPABASE_URL');
+    expect(CLAVES).toContain('SUPABASE_SERVICE_ROLE_KEY');
   });
 });

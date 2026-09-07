@@ -54,7 +54,9 @@
     "newsroom:e2e": "node scripts/newsroom-e2e.mjs",
     "newsroom:e2e:seed": "node scripts/newsroom-e2e.mjs --seed",
     "vercel:newsroom:env": "node scripts/vercel-newsroom-env.mjs",
-    "vercel:newsroom:env:apply": "node scripts/vercel-newsroom-env.mjs --apply"
+    "vercel:newsroom:env:apply": "node scripts/vercel-newsroom-env.mjs --apply",
+    "vercel:newsroom:prod": "node scripts/vercel-newsroom-prod.mjs",
+    "vercel:newsroom:prod:apply": "node scripts/vercel-newsroom-prod.mjs --apply"
   },
   "dependencies": {
     "@astrojs/vercel": "^11.0.4",

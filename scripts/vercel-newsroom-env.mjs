@@ -45,12 +45,25 @@ const CLAVES = [
   'PUBLIC_SUPABASE_URL',
   'PUBLIC_SUPABASE_ANON_KEY',
   'SUPABASE_SERVICE_ROLE_KEY',
-  'SUPABASE_DATABASE_URL',
   'SUPABASE_STAGING_REF',
   'SUPABASE_ENV',
   'CRON_SECRET',
   'NEWSROOM_DEPLOY_HOOK',
 ];
+
+/**
+ * `SUPABASE_DATABASE_URL` no está en la lista, y es deliberado.
+ *
+ * Newsroom habla con Supabase por REST: el cron, el store y el `prebuild` usan
+ * `PUBLIC_SUPABASE_URL` más la service role, nunca una conexión a Postgres. La
+ * cadena directa es una herramienta administrativa —migraciones, la batería
+ * E2E, el guardián de staging— y pedirla como variable de despliegue tendría
+ * dos costes: haría que un build dependiera de algo que no necesita, y pondría
+ * una credencial de acceso total a la base en un entorno donde nada la usa.
+ *
+ * Vive en `.env.local`, en la máquina de quien migra. No en Vercel.
+ */
+const HERRAMIENTA_ADMINISTRATIVA = ['SUPABASE_DATABASE_URL'];
 
 /* --------------------------------------------------------------- entorno -- */
 
@@ -128,7 +141,7 @@ export function motivoDeConflicto(variable, { claves = CLAVES, rama = RAMA } = {
   return razonar(variable, claves, rama);
 }
 
-export { CLAVES, RAMA, REF_MUERTA, REF_VIVA, proyectoDesdeHook };
+export { CLAVES, HERRAMIENTA_ADMINISTRATIVA, RAMA, REF_MUERTA, REF_VIVA, proyectoDesdeHook };
 
 function razonar(variable, CLAVES, RAMA) {
   const enRama = (variable.gitBranch ?? null) === RAMA;
