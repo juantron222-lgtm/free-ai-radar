@@ -354,6 +354,18 @@ export const PublishedDate = IsoDate;
  *     también donde más fácil resulta exagerar el alcance, así que esa la mira
  *     una persona.
  */
+/**
+ * Ausencias que la fuente declara al callar, y que el borrador ya recoge.
+ *
+ * Que una página de lanzamiento no hable de precio es lo normal y es publicable
+ * diciéndolo. Lo contrario —tratarlo como un hueco— dejaría fuera casi todo lo
+ * que un fabricante publica.
+ */
+const AUSENCIAS_DECLARADAS = [
+  /^Precio: no aparece/i,
+  /^Plan gratuito: ninguna vía oficial menciona/i,
+];
+
 export function canAutoPublish(
   story: DeskStory,
   { today, maxAgeDays = 21 }: { today: string; maxAgeDays?: number }
@@ -374,9 +386,27 @@ export function canAutoPublish(
       reasons.push('toda la evidencia viene del feed: el artículo no se ha leído');
     }
 
-    if (verification.unconfirmed.length > 0) {
+    /*
+     * Una ausencia declarada no es un hueco en nuestra lectura.
+     *
+     * El verificador anota siempre «la página no menciona precio» y «no menciona
+     * acceso gratuito» cuando la fuente calla, y el borrador lo dice tal cual —
+     * que es exactamente la política editorial, no un defecto. Bloquear ante
+     * cualquier `unconfirmed` convertía esta puerta en una que no podía abrirse
+     * nunca: todo lo verificado llevaba esas dos líneas.
+     *
+     * Lo que sí bloquea es lo que habla de *nuestra* lectura: un cuerpo que no
+     * se pudo abrir, un alcance que no cuadra. Eso no es la fuente callando,
+     * es que no sabemos lo suficiente.
+     */
+    const sustantivos = verification.unconfirmed.filter(
+      (punto) => !AUSENCIAS_DECLARADAS.some((patron) => patron.test(punto))
+    );
+
+    if (sustantivos.length > 0) {
       reasons.push(
-        `quedan ${verification.unconfirmed.length} puntos sin confirmar: los publica una persona, no el automatismo`
+        `quedan ${sustantivos.length} puntos sin confirmar que no son ausencias declaradas: ` +
+          `los publica una persona, no el automatismo (${sustantivos[0]!.slice(0, 70)}…)`
       );
     }
 

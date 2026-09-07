@@ -225,10 +225,49 @@ describe('publicar sin que nadie lo mire pide más, no menos', () => {
     expect(r.reasons.join(' ')).toMatch(/artículo no se ha leído/);
   });
 
-  it('se niega si quedan puntos sin confirmar', () => {
-    const r = canAutoPublish(historia({ verification: { unconfirmed: ['la licencia'] } }) as never, opciones);
+  it('se niega si quedan puntos sustantivos sin confirmar', () => {
+    const r = canAutoPublish(
+      historia({ verification: { unconfirmed: ['Cuerpo del artículo: no se ha podido leer (403).'] } }) as never,
+      opciones
+    );
     expect(r.ok).toBe(false);
     expect(r.reasons.join(' ')).toMatch(/sin confirmar/);
+  });
+
+  it('una ausencia que la fuente declara no bloquea', () => {
+    /*
+     * El verificador anota siempre que la página no menciona precio ni acceso
+     * gratuito cuando calla, y el borrador lo dice tal cual. Tratar eso como un
+     * hueco dejaba la puerta cerrada para todo: no había una sola verificación
+     * sin esas dos líneas.
+     */
+    const r = canAutoPublish(
+      historia({
+        verification: {
+          unconfirmed: [
+            'Precio: no aparece en ninguna vía oficial.',
+            'Plan gratuito: ninguna vía oficial menciona acceso sin pagar.',
+          ],
+        },
+      }) as never,
+      opciones
+    );
+    expect(r.ok, r.reasons.join('; ')).toBe(true);
+  });
+
+  it('una ausencia declarada junto a un hueco real sigue bloqueando', () => {
+    const r = canAutoPublish(
+      historia({
+        verification: {
+          unconfirmed: [
+            'Precio: no aparece en ninguna vía oficial.',
+            'Cuerpo del artículo: no se ha podido leer (403).',
+          ],
+        },
+      }) as never,
+      opciones
+    );
+    expect(r.ok).toBe(false);
   });
 
   it('se niega ante una integración de terceros', () => {
