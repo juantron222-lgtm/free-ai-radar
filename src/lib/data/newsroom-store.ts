@@ -242,3 +242,152 @@ export async function lastRun(): Promise<Record<string, unknown> | null> {
 
   return (data as Record<string, unknown>) ?? null;
 }
+
+/* ------------------------------------------------------------- pipeline -- */
+
+/**
+ * Las cuatro etapas que alimentan la mesa de edición.
+ *
+ * Estaban importadas como JSON estático, y ahí se rompía el circuito sin hacer
+ * ruido: el cron escribía en Supabase y `/admin/noticias` seguía enseñando los
+ * ficheros del repositorio. Todo funcionaba —la pasada diaria, el triaje, los
+ * borradores— y nada de ello llegaba a la persona que tenía que aprobarlo.
+ *
+ * Con Supabase configurado se lee de Supabase. Sin él se leen los ficheros, que
+ * es lo que permite ejecutar la mesa en un portátil sin credenciales y lo que
+ * hace que la suite no necesite una base de datos.
+ */
+export interface PipelineSnapshot {
+  inbox: Array<Record<string, unknown>>;
+  triage: Array<Record<string, unknown>>;
+  verification: Array<Record<string, unknown>>;
+  drafts: Array<Record<string, unknown>>;
+  from: 'supabase' | 'files';
+}
+
+function fileJson(relative: string): Array<Record<string, unknown>> {
+  try {
+    return JSON.parse(readFileSync(resolve(process.cwd(), relative), 'utf-8'));
+  } catch {
+    return [];
+  }
+}
+
+/** Las filas de Supabase vuelven a la forma que el dominio ya sabe leer. */
+function toDraft(row: Record<string, unknown>): Record<string, unknown> {
+  return {
+    candidateId: row.candidate_id,
+    id: row.news_id,
+    slug: row.slug,
+    title: row.title,
+    summary: row.summary,
+    impact: row.impact,
+    category: row.category,
+    eventType: row.event_type,
+    availability: row.availability,
+    affectsFreePlan: row.affects_free_plan,
+    relatedTools: row.related_tools ?? [],
+    officialUrl: row.official_url,
+    sources: row.sources ?? [],
+    factTrace: row.fact_trace ?? {},
+    status: row.status ?? 'draft',
+  };
+}
+
+function toVerification(row: Record<string, unknown>): Record<string, unknown> {
+  return {
+    candidateId: row.candidate_id,
+    decision: row.decision,
+    primarySources: row.primary_sources ?? [],
+    verifiedFacts: row.verified_facts ?? [],
+    unconfirmed: row.unconfirmed ?? [],
+    eventType: row.event_type,
+    availability: row.availability,
+    affectsFreePlan: row.affects_free_plan,
+    verificationNotes: row.verification_notes ?? '',
+    checkedAt: row.checked_at,
+  };
+}
+
+function toTriage(row: Record<string, unknown>): Record<string, unknown> {
+  return {
+    id: row.candidate_id,
+    triageDecision: row.decision,
+    triageScore: row.score,
+    triageReasons: row.reasons ?? [],
+    vertical: row.vertical,
+    eventClass: row.event_class,
+    product: row.product,
+    radarStatus: row.radar_status,
+    radarReason: row.radar_reason,
+    overturnedRadar: row.overturned_radar ?? false,
+    triagedAt: row.triaged_at,
+    title: row.title,
+    publisher: row.publisher,
+    publishedAt: row.published_at,
+    canonicalUrl: row.canonical_url,
+  };
+}
+
+export async function readPipeline(): Promise<PipelineSnapshot> {
+  const supabase = db();
+
+  if (!supabase) {
+    return {
+      inbox: fileJson('src/data/news/inbox.json'),
+      triage: fileJson('src/data/news/triage.json'),
+      verification: fileJson('src/data/news/verification.json'),
+      drafts: fileJson('src/data/news/drafts.json'),
+      from: 'files',
+    };
+  }
+
+  /*
+   * El triaje se lee unido a su candidato porque la mesa necesita el titular,
+   * el fabricante y la fecha, y esos viven en `newsroom_candidates`. Sin la
+   * unión, cada historia aparecería sin nada con lo que reconocerla.
+   */
+  const [inbox, triage, verification, drafts] = await Promise.all([
+    supabase.from('newsroom_candidates').select('*'),
+    supabase
+      .from('newsroom_triage')
+      .select('*, newsroom_candidates(title, publisher, published_at, canonical_url)'),
+    supabase.from('newsroom_verification').select('*'),
+    supabase.from('newsroom_drafts').select('*'),
+  ]);
+
+  for (const [nombre, resultado] of [
+    ['candidatos', inbox],
+    ['triaje', triage],
+    ['verificación', verification],
+    ['borradores', drafts],
+  ] as const) {
+    if (resultado.error) {
+      logger.error('newsroom.pipeline_read_failed', { stage: nombre, error: resultado.error.message });
+      throw new Error(`No se ha podido leer ${nombre}: ${resultado.error.message}`);
+    }
+  }
+
+  return {
+    inbox: (inbox.data ?? []).map((row) => ({
+      id: row.id,
+      title: row.title,
+      url: row.url,
+      canonicalUrl: row.canonical_url,
+      publisher: row.publisher,
+      observedAt: row.observed_at,
+      publishedAt: row.published_at,
+      discoveredVia: row.discovered_via,
+      vertical: row.vertical,
+      status: row.status,
+      reason: row.reason,
+    })),
+    triage: (triage.data ?? []).map((row) => {
+      const c = (row as Record<string, unknown>).newsroom_candidates as Record<string, unknown> | null;
+      return toTriage({ ...row, ...(c ?? {}) });
+    }),
+    verification: (verification.data ?? []).map(toVerification),
+    drafts: (drafts.data ?? []).map(toDraft),
+    from: 'supabase',
+  };
+}

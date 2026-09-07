@@ -26,11 +26,18 @@ const enPreview = (extra: Record<string, unknown> = {}) => ({
 });
 
 describe('qué se considera conflictivo', () => {
-  it('señala lo que apunta al proyecto de Supabase eliminado', () => {
-    const motivo = motivoDeConflicto(
-      enPreview({ value: `https://${REF_MUERTA}.supabase.co` })
-    );
-    expect(motivo).toMatch(/eliminado/);
+  it('no decide por el valor, porque Vercel no lo devuelve', () => {
+    /*
+     * Las variables son `type: sensitive` y su contenido no llega ni con
+     * `decrypt=true`. Hubo aquí una comprobación de «apunta al proyecto
+     * eliminado» que leía un campo siempre vacío y por tanto siempre pasaba.
+     * La política que sí funciona a ciegas es sustituir toda clave de Newsroom,
+     * y eso es lo que se afirma: el motivo no depende del valor.
+     */
+    const conValor = motivoDeConflicto(enPreview({ value: `https://${REF_MUERTA}.supabase.co` }));
+    const sinValor = motivoDeConflicto(enPreview({ value: undefined }));
+    expect(conValor).toBe(sinValor);
+    expect(sinValor).toMatch(/se sustituye/);
   });
 
   it('señala una variable de Newsroom sin rama, porque aplicaría a todas', () => {

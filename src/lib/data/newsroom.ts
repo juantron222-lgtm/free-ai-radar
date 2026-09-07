@@ -1,12 +1,9 @@
-import rawInbox from '@/data/news/inbox.json';
-import rawTriage from '@/data/news/triage.json';
-import rawVerification from '@/data/news/verification.json';
-import rawDrafts from '@/data/news/drafts.json';
 import {
   appendDecision as storeAppendDecision,
   publishItem,
   readApproved,
   readDecisions as storeReadDecisions,
+  readPipeline,
   readSeed,
 } from './newsroom-store';
 import { requestRebuild } from '@lib/newsroom/trigger';
@@ -71,11 +68,19 @@ export interface Desk {
 }
 
 export async function getDesk(): Promise<Desk> {
+  /*
+   * Las cuatro etapas se leen de donde viva el pipeline. Estaban importadas
+   * como JSON estático, y eso rompía el circuito en silencio: el cron escribía
+   * en Supabase y la mesa seguía enseñando los ficheros del repositorio, así
+   * que lo descubierto cada noche no llegaba nunca a quien tenía que aprobarlo.
+   */
+  const pipeline = await readPipeline();
+
   const stories = buildDesk({
-    inbox: rawInbox as Array<Record<string, unknown>>,
-    triage: rawTriage as Array<Record<string, unknown>>,
-    verification: rawVerification as VerificationRecordShape[],
-    drafts: rawDrafts as DraftShape[],
+    inbox: pipeline.inbox,
+    triage: pipeline.triage,
+    verification: pipeline.verification as unknown as VerificationRecordShape[],
+    drafts: pipeline.drafts as unknown as DraftShape[],
     publishedSlugs: (await readPublished()).map((item) => item.slug),
     decisions: await readDecisions(),
   });

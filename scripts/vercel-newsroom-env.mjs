@@ -124,18 +124,29 @@ async function api(ruta, opciones = {}) {
  * nuestras sin rama —y sin rama se aplica a todas las vistas previas, no sólo
  * a la de Newsroom—.
  */
-export function motivoDeConflicto(variable, { claves = CLAVES, rama = RAMA, refMuerta = REF_MUERTA } = {}) {
-  return razonar(variable, claves, rama, refMuerta);
+export function motivoDeConflicto(variable, { claves = CLAVES, rama = RAMA } = {}) {
+  return razonar(variable, claves, rama);
 }
 
 export { CLAVES, RAMA, REF_MUERTA, REF_VIVA, proyectoDesdeHook };
 
-function razonar(variable, CLAVES, RAMA, REF_MUERTA) {
+function razonar(variable, CLAVES, RAMA) {
   const enRama = (variable.gitBranch ?? null) === RAMA;
 
-  if (variable.value && String(variable.value).includes(REF_MUERTA)) {
-    return `apunta al proyecto de Supabase eliminado (${REF_MUERTA})`;
-  }
+  /*
+   * No se puede decidir por el valor, y conviene decirlo en voz alta.
+   *
+   * Estas variables son `type: sensitive`, y Vercel no devuelve su contenido ni
+   * con `decrypt=true`. Aquí hubo una comprobación de «apunta al proyecto de
+   * Supabase eliminado» que jamás podía dispararse: leía un campo que siempre
+   * llega vacío y por tanto siempre daba verde. Un guardia que no puede fallar
+   * tampoco puede proteger.
+   *
+   * La política que sí funciona sin leer valores es la que sigue: toda clave de
+   * Newsroom se sustituye, mire a donde mire. Así la pregunta de a qué proyecto
+   * apuntaba deja de importar — después apunta al que dice `.env.local`, que es
+   * el que está probado contra el staging real.
+   */
   if (CLAVES.includes(variable.key) && !enRama) {
     return variable.gitBranch
       ? `es de Newsroom pero está acotada a la rama "${variable.gitBranch}"`
