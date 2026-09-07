@@ -52,7 +52,9 @@
     "news:coverage": "node scripts/news-coverage.mjs",
     "prebuild": "node scripts/newsroom-sync.mjs",
     "newsroom:e2e": "node scripts/newsroom-e2e.mjs",
-    "newsroom:e2e:seed": "node scripts/newsroom-e2e.mjs --seed"
+    "newsroom:e2e:seed": "node scripts/newsroom-e2e.mjs --seed",
+    "vercel:newsroom:env": "node scripts/vercel-newsroom-env.mjs",
+    "vercel:newsroom:env:apply": "node scripts/vercel-newsroom-env.mjs --apply"
   },
   "dependencies": {
     "@astrojs/vercel": "^11.0.4",
