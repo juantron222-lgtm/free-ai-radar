@@ -265,3 +265,102 @@ describe('recolección resiliente', () => {
     expect(htmlBlocked).toContain('500');
   });
 });
+
+describe('una plataforma no acredita el lanzamiento de un producto ajeno', () => {
+  /*
+   * Encontrado auditando borradores reales. ComfyUI publicó «FLUX 3 is now
+   * available via Partner Nodes» y salió un lanzamiento global de FLUX 3 con
+   * `availability: available`. FLUX es de Black Forest Labs: lo que ComfyUI
+   * acredita es que FLUX funciona en ComfyUI.
+   *
+   * `isVendorSource` daba verde —comfy.org publicando en comfy.org— porque
+   * comprueba que la página pertenezca a quien la firma, no que quien la firma
+   * fabrique lo que anuncia. Hacían falta las dos preguntas.
+   */
+  it('reconoce una integración cuando el fabricante no es quien publica', async () => {
+    const { detectScope } = await import('../../scripts/verify/ownership.mjs');
+    const flux = detectScope('FLUX 3 is now available via Partner Nodes', 'blog.comfy.org');
+    expect(flux.scope).toBe('integration');
+    expect(flux.vendor).toBe('Black Forest Labs');
+    expect(flux.platform).toBe('comfy.org');
+  });
+
+  it('no recorta a quien sí fabrica lo que anuncia', async () => {
+    const { detectScope } = await import('../../scripts/verify/ownership.mjs');
+    expect(detectScope('Introducing Claude Opus 5', 'anthropic.com').scope).toBe('first-party');
+    /* Subdominio: blogs.nvidia.com sigue siendo NVIDIA. */
+    expect(detectScope('Nemotron 3.5 Lightning', 'blogs.nvidia.com').scope).toBe('first-party');
+  });
+
+  it('degrada la disponibilidad y el evento de una integración', async () => {
+    const { narrowToScope } = await import('../../scripts/verify/ownership.mjs');
+    const r = narrowToScope({ scope: 'integration', availability: 'available', eventType: 'lanzamiento' });
+    expect(r.availability).toBe('limited');
+    expect(r.eventType).toBe('actualizacion');
+    expect(r.narrowed).toBe(true);
+  });
+
+  it('un tercero nunca puede declarar disponibilidad general', async () => {
+    const { narrowToScope } = await import('../../scripts/verify/ownership.mjs');
+    expect(
+      narrowToScope({ scope: 'integration', availability: 'available', eventType: 'disponibilidad-general' })
+        .eventType
+    ).toBe('actualizacion');
+  });
+
+  it('deja constancia de por qué se recortó', async () => {
+    const html = `<html><head><meta property="article:published_time" content="2026-08-05T19:31:49Z"/>
+      <meta property="og:title" content="FLUX 3 is now available via Partner Nodes"/></head>
+      <body><article><p>${'FLUX 3 is now available via Partner Nodes for everyone building here. '.repeat(8)}</p></article></body></html>`;
+
+    const record = await verifyCandidate(
+      {
+        id: 'inbox-cafecafecafe',
+        title: 'FLUX 3 is now available via Partner Nodes',
+        url: 'https://blog.comfy.org/p/flux-3',
+        canonicalUrl: 'blog.comfy.org/p/flux-3',
+        publisher: 'blog.comfy.org',
+        vertical: 'imagen',
+      },
+      { fetchPage: async () => ({ ok: true, status: 200, body: html }), checkedAt: '2026-09-07' }
+    );
+
+    expect(record.availability).toBe('limited');
+    expect(record.eventType).toBe('actualizacion');
+    expect(record.unconfirmed.join(' ')).toMatch(/no fabrica FLUX 3/i);
+    expect(record.unconfirmed.join(' ')).toMatch(/Black Forest Labs/);
+  });
+});
+
+describe('lo que se cita tiene que ser del artículo', () => {
+  it('el rendimiento no es un precio', async () => {
+    /*
+     * «Qwen3.8-27B reaches 131 tokens per second on a single GeForce RTX 5090»
+     * se citó como precio porque el patrón admitía «per second» sin moneda
+     * delante. Un borrador llegó a decir «sobre el precio» y enseñar velocidad.
+     */
+    const { extractFacts } = await import('../../scripts/verify/extract.mjs');
+    const html = `<html><body><article><p>${'Qwen3.8-27B reaches 131 tokens per second on a single GeForce RTX 5090 with MTP. '.repeat(6)}</p></article></body></html>`;
+    expect(extractFacts(html, 'https://blogs.nvidia.com/a/b').pricing).toEqual([]);
+  });
+
+  it('un precio de verdad sigue citándose', async () => {
+    const { extractFacts } = await import('../../scripts/verify/extract.mjs');
+    const html = `<html><body><article><p>${'Aurora 2 is priced at $3 per million input tokens for everyone. '.repeat(6)}</p></article></body></html>`;
+    expect(extractFacts(html, 'https://openai.com/a/b').pricing[0]).toContain('$3');
+  });
+
+  it('descarta el menú y el título de la plantilla', async () => {
+    const { sentences } = await import('../../scripts/verify/extract.mjs');
+    expect(
+      sentences('NVIDIA and Local AI Community Fuel Open Source Models | NVIDIA Blog Skip to content .')
+    ).toEqual([]);
+  });
+
+  it('recorta la firma pegada al titular en vez de perder la frase', async () => {
+    const { sentences } = await import('../../scripts/verify/extract.mjs');
+    expect(sentences('FLUX 3 is now available via Partner Nodes - by Rob .')).toEqual([
+      'FLUX 3 is now available via Partner Nodes',
+    ]);
+  });
+});

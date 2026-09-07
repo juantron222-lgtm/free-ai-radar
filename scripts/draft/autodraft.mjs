@@ -79,10 +79,23 @@ export function draftFromVerification(record, candidate, { author = 'Newsroom au
    * hacer. La única frase con contenido factual es la cita, y va entrecomillada
    * para que quien revisa vea dónde acaba lo nuestro.
    */
-  const partesResumen = [
-    `${fabricante} publicó esto el ${publishedAt}, según la fecha que declara su propia página.`,
-    `Sobre la disponibilidad, el anuncio dice: «${recortar(dispCita)}».`,
-  ];
+  /*
+   * Cuando la fuente es una plataforma hablando del producto de otro, la
+   * primera frase lo dice. No es un matiz: sin ella el lector entiende que el
+   * producto se ha lanzado, cuando lo único demostrado es que funciona en un
+   * sitio concreto.
+   */
+  const partesResumen =
+    record.scope === 'integration'
+      ? [
+          `${record.scopePlatform} anunció el ${publishedAt} que ${record.scopeProduct} ya se puede usar en su plataforma.`,
+          `${record.scopeProduct} es de ${record.scopeVendor}, así que esta página acredita la integración, no el lanzamiento del producto.`,
+          `Lo que dice el anuncio: «${recortar(dispCita)}».`,
+        ]
+      : [
+          `${fabricante} publicó esto el ${publishedAt}, según la fecha que declara su propia página.`,
+          `Sobre la disponibilidad, el anuncio dice: «${recortar(dispCita)}».`,
+        ];
 
   if (precioCitas.length > 0) {
     partesResumen.push(`Sobre el precio: «${recortar(precioCitas[0], 160)}».`);
@@ -124,7 +137,13 @@ export function draftFromVerification(record, candidate, { author = 'Newsroom au
     title: titulo.slice(0, 160),
     summary,
     impact,
-    category: CATEGORIA_POR_VERTICAL[candidate.vertical] ?? 'modelo-lenguaje',
+    /*
+     * La vertical de una familia de producto conocida gana a la que dedujo el
+     * radar del titular. Seedance es un modelo de vídeo y acababa en
+     * «programación» porque el titular sólo hablaba de nodos y versiones: el
+     * clasificador no puede saber por el texto lo que el producto es.
+     */
+    category: record.scopeVertical ?? CATEGORIA_POR_VERTICAL[candidate.vertical] ?? 'modelo-lenguaje',
     eventType: record.eventType,
     availability: record.availability,
     affectsFreePlan: record.affectsFreePlan,

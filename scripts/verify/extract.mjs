@@ -53,11 +53,44 @@ export function toText(html) {
     .trim();
 }
 
+/**
+ * Mobiliario de página: lo que rodea al artículo y nunca lo dice.
+ *
+ * Se cuela porque son frases gramaticales dentro del cuerpo. Auditando
+ * borradores reales apareció esto citado como si fuera un hecho sobre pesos y
+ * licencia: «NVIDIA and Local AI Community Fuel Open Source Models and
+ * Intelligent Agents | NVIDIA Blog Skip to content». Es el título de la página
+ * pegado al menú, y casó con el patrón de licencia por llevar «Open Source».
+ */
+const MOBILIARIO = new RegExp(
+  [
+    'skip to (?:content|main)',
+    'toggle navigation',
+    'subscribe now',
+    'all rights reserved',
+    /* «Titulo de la pagina | NVIDIA Blog»: el separador delata la plantilla. */
+    '\\|\\s*[\\w\\s]{2,30}\\bblog\\b',
+  ].join('|'),
+  'i'
+);
+
+/**
+ * Firma pegada al titular.
+ *
+ * Los blogs con plantilla de boletín cierran el encabezado con «- by Rob», y
+ * al aplanar el HTML queda dentro de la frase: «FLUX 3 is now available via
+ * Partner Nodes - by Rob .». La frase es buena, la firma sobra, así que se
+ * recorta en vez de descartar la cita entera.
+ */
+const FIRMA = /\s*[-–—]\s*by\s+[\w.'-]+(?:\s+[\w.'-]+)?\s*\.?\s*$/i;
+
 /** Oraciones, con el ruido de maquetación descartado. */
 export function sentences(text) {
   return String(text ?? '')
     .split(/(?<=[.!?])\s+/)
     .map((s) => s.replace(/\s+/g, ' ').trim())
+    .map((s) => s.replace(FIRMA, ''))
+    .filter((s) => !MOBILIARIO.test(s))
     .filter((s) => s.length >= 25 && s.length <= 400)
     .filter((s) => /[a-záéíóúñ]/i.test(s))
     /*
@@ -172,8 +205,20 @@ const DISPONIBILIDAD = [
   },
 ];
 
+/**
+ * Precio, y sólo precio.
+ *
+ * Tenía una rama `per (million|second|image|…)` sin moneda delante, y con ella
+ * citó como precio esto: «Qwen3.8-27B reaches 131 tokens per second on a single
+ * GeForce RTX 5090». Eso es rendimiento. Un borrador acabó diciendo «sobre el
+ * precio» y enseñando una cifra de velocidad.
+ *
+ * Ahora hace falta una cantidad de dinero — símbolo, moneda o un verbo de
+ * precio explícito. «$3 per million input tokens» sigue entrando por el `$3`;
+ * «131 tokens per second» ya no entra por ningún sitio.
+ */
 const PRECIO =
-  /(\$\s?\d[\d,.]*|\d[\d,.]*\s?(?:USD|EUR|dollars|euros)\b|per (?:million|1,?000|1K|second|image|page|month|seat)\b)/i;
+  /(\$\s?\d[\d,.]*|\d[\d,.]*\s?(?:USD|EUR|dollars|euros|cents)\b|\b(?:priced at|pricing starts|costs? \$?\d|free of charge)\b)/i;
 
 /**
  * Gratuidad. Sólo se citan frases que la afirman explícitamente.

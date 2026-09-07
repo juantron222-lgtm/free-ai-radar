@@ -1,5 +1,6 @@
 import { canonicalizeUrl } from '../radar/inbox.mjs';
 import { gatherEvidence } from './adapters.mjs';
+import { detectScope, narrowToScope } from './ownership.mjs';
 
 /**
  * Verificación y redacción automáticas, con una regla que no se negocia:
@@ -162,15 +163,46 @@ export async function verifyCandidate(candidate, { fetchPage, fetchFeed = null, 
 
   const suficiente = Boolean(fecha && disponibilidad);
 
+  /*
+   * El alcance recorta lo que esta fuente puede acreditar.
+   *
+   * Cuando quien publica no fabrica lo que anuncia —ComfyUI hablando de FLUX,
+   * que es de Black Forest Labs— la página acredita que el producto se puede
+   * usar en esa plataforma, y nada más. Se degrada a `limited` y a
+   * `actualizacion`, y queda escrito en `unconfirmed` que el lanzamiento en sí
+   * no está verificado aquí. Sin esto, un blog de plataforma se convertía en
+   * fuente del lanzamiento global de un modelo ajeno.
+   */
+  const titular = de('title')[0]?.value ?? candidate.title;
+  const alcance = detectScope(titular, publisher);
+  const recorte = narrowToScope({
+    scope: alcance.scope,
+    availability: disponibilidad?.value ?? null,
+    eventType: disponibilidad?.eventType ?? null,
+  });
+
+  if (alcance.scope === 'integration') {
+    unconfirmed.push(
+      `Alcance: ${alcance.platform} no fabrica ${alcance.product}, que es de ${alcance.vendor}. ` +
+        `Esta página acredita disponibilidad en ${alcance.platform}, no el lanzamiento del producto. ` +
+        `Para eso haría falta la página del propio ${alcance.vendor}.`
+    );
+  }
+
   return {
     candidateId: candidate.id,
-    title: de('title')[0]?.value ?? candidate.title,
+    title: titular,
     decision: suficiente ? 'verified' : 'insufficient',
     primarySources: fuentes,
     verifiedFacts,
     unconfirmed,
-    eventType: disponibilidad?.eventType ?? null,
-    availability: disponibilidad?.value ?? null,
+    scope: alcance.scope,
+    scopeProduct: alcance.product,
+    scopeVendor: alcance.vendor,
+    scopePlatform: alcance.platform,
+    scopeVertical: alcance.vertical,
+    eventType: recorte.eventType,
+    availability: recorte.availability,
     affectsFreePlan,
     checkedAt,
     canonicalUrl: canonicalizeUrl(url),
