@@ -16,6 +16,20 @@ export default defineConfig({
   adapter: vercel({
     imageService: false,
     webAnalytics: { enabled: false },
+    /*
+     * La pasada diaria de Newsroom visita 37 fuentes y no cabe en el reloj por
+     * defecto.
+     *
+     * Con 22 fuentes tardaba 12 segundos y nadie tuvo que pensar en esto; con
+     * 37 tarda cerca de 50, porque el coste es la red y crece con el número de
+     * fabricantes vigilados. 60 es el techo del plan Hobby, y declararlo es
+     * mejor que heredar un valor por defecto que puede cambiar debajo: un cron
+     * que se corta a mitad no falla ruidosamente, deja de traer noticias.
+     *
+     * Sólo afecta al tope; una función que termina en 200 ms sigue costando lo
+     * que tarda.
+     */
+    maxDuration: 60,
   }),
   trailingSlash: 'never',
   build: {

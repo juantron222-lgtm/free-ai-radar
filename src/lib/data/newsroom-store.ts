@@ -209,6 +209,14 @@ export interface RunReport {
    * inadvertido durante meses.
    */
   idleSources?: Array<{ id: string; nombre: string; ultimaVez: string | null; motivo: string }>;
+  /**
+   * Fuentes que la pasada no llegó a mirar por agotar su presupuesto de reloj.
+   *
+   * Se separa de `errors` a propósito: no es una incidencia del fabricante,
+   * es una decisión nuestra de parar a tiempo. Confundirlas haría que una
+   * noche lenta pareciera una noche con medio sector caído.
+   */
+  unvisitedSources?: string[];
   /** Salidas de portada por edad o por sitio. Siguen publicadas y accesibles. */
   archived?: number;
   /** Historias que una noticia posterior ha dejado desactualizadas. */
@@ -235,9 +243,15 @@ export function resumirPasada(datos: {
   superseded: number;
   /** Fuentes que llevan semanas sin aportar nada. */
   idle?: number;
+  /** Fuentes que no se llegaron a mirar por falta de tiempo. */
+  unvisited?: number;
 }): string {
+  const vigiladas = datos.unvisited
+    ? `${datos.sources - datos.unvisited} de ${datos.sources} fuentes miradas (${datos.unvisited} sin tiempo)`
+    : `${datos.sources} fuentes vigiladas`;
+
   const base =
-    `${datos.sources} fuentes vigiladas, ${datos.errors} con incidencias, ` +
+    `${vigiladas}, ${datos.errors} con incidencias, ` +
     `${datos.idle ? `${datos.idle} calladas semanas, ` : ''}` +
     `${datos.drafted} borradores redactados, ${datos.published} publicadas, ` +
     `${datos.held.length} a la espera de revisión, ${datos.archived} fuera de portada, ` +

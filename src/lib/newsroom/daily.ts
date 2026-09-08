@@ -194,18 +194,42 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
    * «aborted» y «fetch failed». No era un bloqueo de red: un solo feed de
    * OpenAI tarda 4 segundos desde aquí y el de Google 8,5, y el tope era de 10.
    * Casi todas las fuentes lo rozaban, y en serie la pasada entera se iba a
-   * 345 segundos para no traer nada.
+   * 345 segundos para no traer nada. Veinte segundos por fuente cubre lo que
+   * estos feeds tardan de verdad.
    *
-   * Veinte segundos por fuente cubre lo que estos feeds tardan de verdad;
-   * cuatro a la vez mantiene el total dentro de lo que un cron puede durar,
-   * sin abrir tantas conexiones a la vez como para provocar el fallo que se
-   * intenta evitar.
+   * Eran cuatro a la vez mientras hubo 22 fuentes. Con 37 eso deja la pasada
+   * cerca de los 50 segundos contra un techo de 60, que es margen suficiente
+   * para que una noche con dos fabricantes lentos la corte por la mitad. Ocho
+   * no abre tantas conexiones como para provocar el fallo que esto evita —el
+   * original fue el tope de 10 segundos, no la concurrencia—.
    */
-  const CONCURRENCIA = 4;
+  const CONCURRENCIA = 8;
   const cola = [...sources];
+
+  /*
+   * Presupuesto de reloj para la fase de descubrimiento.
+   *
+   * El modo de fallo que esto evita es el peor de los posibles: la ingesta
+   * ocurre *después* de recorrer todas las fuentes, así que una función que se
+   * corta a los 60 segundos mientras descarga no pierde una fuente lenta —
+   * pierde la pasada entera, incluidas las treinta que ya habían respondido.
+   *
+   * Con 37 fuentes, ocho a la vez y un tope de 20 segundos por fuente, el peor
+   * caso teórico se va por encima del techo. Así que a los 35 segundos los
+   * trabajadores dejan de coger fuentes nuevas y la pasada sigue con lo que
+   * tenga. Se anota cuáles se quedaron sin visitar: mañana les toca primero, y
+   * mientras tanto no se confunde «no la miramos» con «no publicó nada».
+   */
+  const PRESUPUESTO_MS = 35_000;
+  const limite = Date.now() + PRESUPUESTO_MS;
+  const sinVisitar: string[] = [];
 
   async function trabajador() {
     for (let source = cola.shift(); source; source = cola.shift()) {
+      if (Date.now() > limite) {
+        sinVisitar.push(source.name);
+        continue;
+      }
       try {
         /*
          * `fetchSource` devuelve un array de entradas, no un objeto con `items`
@@ -244,6 +268,17 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
   }
 
   await Promise.all(Array.from({ length: CONCURRENCIA }, trabajador));
+
+  if (sinVisitar.length > 0) {
+    /*
+     * No es un error de la fuente y no debe contarse como tal: el estado de la
+     * pasada mide incidencias de fabricantes, y esto es una decisión nuestra.
+     */
+    logger.warn('newsroom.presupuesto_agotado', {
+      sinVisitar: sinVisitar.length,
+      fuentes: sinVisitar.slice(0, 8),
+    });
+  }
 
   const observedAt = new Date().toISOString().slice(0, 10);
   const existing = await existingCandidates(supabase);
@@ -538,6 +573,7 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
     archived: archivadas.length,
     superseded: superadas.length,
     idleSources: inactivas,
+    unvisitedSources: sinVisitar,
     notes: resumirPasada({
       sources: sources.length,
       errors: errors.length,
@@ -547,6 +583,7 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
       archived: archivadas.length,
       superseded: superadas.length,
       idle: inactivas.length,
+      unvisited: sinVisitar.length,
     }),
   };
 
