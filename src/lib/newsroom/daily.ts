@@ -19,22 +19,24 @@ import { draftFromVerification } from '../../../scripts/draft/autodraft.mjs';
 /**
  * La pasada diaria.
  *
- * Descubre, deduplica, tría e intenta verificar. **No redacta y no publica.**
+ * Descubre, deduplica, tría, verifica, redacta y —cuando la evidencia da para
+ * ello— publica sin que nadie mire. Ese último paso es el que hay que explicar.
  *
- * Esa frontera es el punto entero del sistema y conviene decir por qué está
- * donde está. Verificar, tal y como lo define este proyecto, es leer la página
- * del fabricante y extraer de ella afirmaciones citables: una fecha que aparece
- * en la propia página, un precio copiado literal, una frase que demuestre que
- * algo está disponible. Un cron puede comprobar que esa página existe, que
- * responde y que pertenece al dominio del fabricante. No puede leerla.
+ * Verificar, tal y como lo define este proyecto, es leer la página del
+ * fabricante y extraer de ella afirmaciones citables: una fecha que aparece en
+ * la propia página, un precio copiado literal, una frase que demuestre que algo
+ * está disponible. Nada se redacta que no salga de una de esas citas, y el
+ * borrador pasa por `checkDraft`, la misma puerta que un texto escrito a mano.
  *
- * Así que lo que hace aquí la etapa de verificación es lo mecánico —
- * accesibilidad y titularidad — y marca `insufficient` todo lo demás, con el
- * motivo. Fabricar prosa con `factTrace` automáticamente sería justo lo que la
- * restricción prohíbe: bajar el estándar de evidencia para tener más noticias.
+ * Publicar solo pide todavía más: `canAutoPublish` exige lo mismo que una
+ * aprobación humana y además que el artículo se haya leído de verdad —no sólo
+ * su feed—, que no queden huecos sustantivos sin confirmar, que la página no
+ * sea la integración de un tercero y que la historia sea reciente. Lo que no
+ * pasa esa puerta no se pierde: se queda en la mesa con su motivo.
  *
- * El resultado de una noche es una mesa con candidatos triados, con su fuente
- * localizada y comprobada, y con lo que falta dicho en voz alta.
+ * El día que nada supere ese listón, la pasada publica cero. Es el resultado
+ * correcto, no un fallo: bajar el estándar para tener más noticias es
+ * exactamente lo que la sección no puede hacer.
  */
 
 let client: SupabaseClient | null = null;

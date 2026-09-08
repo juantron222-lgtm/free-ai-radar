@@ -27,9 +27,10 @@ function informe(cuerpo: Record<string, unknown>, status: number): Response {
  * que decide algo vive en `@lib/newsroom/daily`, que es puro salvo por la red y
  * la base de datos, y se prueba por separado.
  *
- * No publica. Termina dejando borradores en la mesa, que es donde una persona
- * decide. Un cron que pudiera publicar sería exactamente el sistema que este
- * proyecto no quiere: uno donde nadie ha leído la fuente.
+ * Sí publica, y por eso el secreto importa. Lo que llega a un lector sin que
+ * nadie lo mire tiene que haber pasado `canAutoPublish`, que vive en el dominio
+ * y no aquí: esta ruta no puede relajar esa puerta ni saltársela, sólo abrir la
+ * pasada que la consulta.
  */
 
 export const GET: APIRoute = async (context) => {

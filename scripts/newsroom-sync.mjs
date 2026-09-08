@@ -24,14 +24,24 @@
  * peor fallo posible, porque nadie lo notaría hasta que un lector no encontrase
  * algo que sí se aprobó.
  *
+ * Antes de bajar nada comprueba que el esquema es el que dice `0015`. La
+ * migración se aplica a mano en el editor SQL de Supabase, y ahí caben todos
+ * los fallos callados: pegarla cortada, pegarla vieja, que una sentencia falle
+ * y las siguientes no lleguen. Ninguno da error visible en el momento; dan una
+ * columna de menos que la pasada diaria descubre semanas después. Comprobarlo
+ * aquí es lo que convierte ese fallo en un build rojo, y un build rojo no
+ * despliega: el sitio sigue sirviendo la versión anterior mientras se arregla.
+ *
  *   node scripts/newsroom-sync.mjs            funde y escribe
  *   node scripts/newsroom-sync.mjs --dry-run  informa sin escribir
  *   node scripts/newsroom-sync.mjs --seed     fuerza sólo la semilla
+ *   node scripts/newsroom-sync.mjs --no-schema  omite la comprobación de esquema
  */
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { verificarEsquema, imprimirInforme } from './newsroom-schema.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SEED = resolve(ROOT, 'src/data/news/news.json');
@@ -40,6 +50,7 @@ const OUT = resolve(ROOT, 'src/data/generated/news.json');
 const args = new Set(process.argv.slice(2));
 const dryRun = args.has('--dry-run');
 const seedOnly = args.has('--seed');
+const sinEsquema = args.has('--no-schema');
 
 const url = process.env.PUBLIC_SUPABASE_URL ?? '';
 const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY ?? '';
@@ -94,6 +105,40 @@ async function fetchApproved() {
   return rows.map((row) => row.item);
 }
 
+/**
+ * El esquema tiene que ser el que dice la migración, o no se construye.
+ *
+ * Un fallo de red al pedir el spec no es lo mismo que un esquema distinto, pero
+ * aquí se tratan igual y a propósito: los dos significan que no se ha podido
+ * comprobar contra qué se va a escribir esta noche, y construir a ciegas es
+ * exactamente lo que este paso existe para impedir.
+ */
+async function comprobarEsquema() {
+  let informe;
+
+  try {
+    informe = await verificarEsquema({
+      url,
+      key: serviceKey,
+      anonKey: process.env.PUBLIC_SUPABASE_ANON_KEY ?? '',
+    });
+  } catch (error) {
+    console.error('\n✗ No se ha podido comprobar el esquema de Newsroom.');
+    console.error(`  ${error.message}\n`);
+    process.exit(1);
+  }
+
+  /* El host identifica el proyecto sin enseñar ninguna clave. */
+  imprimirInforme(informe, new URL(url).host);
+
+  if (!informe.ok) {
+    console.error('\n  El esquema vivo no es el de supabase/migrations/0015_newsroom.sql.');
+    console.error('  El build se detiene: aplica una migración aditiva que cierre esas');
+    console.error('  diferencias antes de desplegar.\n');
+    process.exit(1);
+  }
+}
+
 async function main() {
   const seed = read(SEED);
   let approved = [];
@@ -108,6 +153,8 @@ async function main() {
      */
     origen = 'sólo semilla (Supabase no configurado)';
   } else {
+    if (!sinEsquema) await comprobarEsquema();
+
     try {
       approved = await fetchApproved();
       origen = `semilla + ${approved.length} aprobadas de Supabase`;
