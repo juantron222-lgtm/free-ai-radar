@@ -15,6 +15,7 @@ import type { InboxCandidateShape } from '../../../scripts/radar/inbox.d.mts';
 import { runTriage } from '../../../scripts/triage/triage.mjs';
 import { verifyCandidate } from '../../../scripts/verify/autoverify.mjs';
 import { draftFromVerification } from '../../../scripts/draft/autodraft.mjs';
+import { fuentesInactivas } from '../../../scripts/newsroom-cobertura.mjs';
 
 /**
  * La pasada diaria.
@@ -505,6 +506,22 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
     logger.info('newsroom.superseded', { anterior: s.anterior, nueva: s.nueva, motivo: s.motivo });
   }
 
+  /*
+   * Qué fuentes llevan semanas sin aportar nada.
+   *
+   * Una fuente se rompe en silencio: el fabricante cambia la ruta del feed, o
+   * rediseña el índice y el patrón de enlace deja de casar. Nada falla —la
+   * pasada termina en verde— y simplemente deja de llegar material de ahí.
+   * Sin esta comprobación eso se descubre meses después, si se descubre.
+   *
+   * No apaga nada por su cuenta: sustituir una fuente es una decisión
+   * editorial. Lo que hace es dejar de ser invisible.
+   */
+  const inactivas = fuentesInactivas(inbox, sources, { hoy: new Date(observedAt) });
+  for (const f of inactivas) {
+    logger.warn('newsroom.source_idle', { id: f.id, nombre: f.nombre, motivo: f.motivo });
+  }
+
   const report: RunReport = {
     found: rows.length,
     ingested,
@@ -520,6 +537,7 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
     heldReasons: noPublicadas.map(({ slug, motivos }) => ({ slug, reasons: motivos })),
     archived: archivadas.length,
     superseded: superadas.length,
+    idleSources: inactivas,
     notes: resumirPasada({
       sources: sources.length,
       errors: errors.length,
@@ -528,6 +546,7 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
       held: noPublicadas.map(({ slug, motivos }) => ({ slug, reasons: motivos })),
       archived: archivadas.length,
       superseded: superadas.length,
+      idle: inactivas.length,
     }),
   };
 

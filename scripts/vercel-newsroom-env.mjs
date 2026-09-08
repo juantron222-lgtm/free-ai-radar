@@ -147,6 +147,19 @@ function razonar(variable, CLAVES, RAMA) {
   const enRama = (variable.gitBranch ?? null) === RAMA;
 
   /*
+   * Una herramienta administrativa no es una variable de despliegue.
+   *
+   * `SUPABASE_DATABASE_URL` estuvo en Preview pese a que nada la usa: Newsroom
+   * habla con Supabase por REST. Sobraba en el sentido peor —una credencial de
+   * acceso total a la base, en un entorno que no la necesita— y sobrevivió a
+   * una limpieza porque el script sabía no crearla pero no sabía retirarla.
+   * Aquí se marca para borrar y, al no estar en `CLAVES`, no se vuelve a crear.
+   */
+  if (HERRAMIENTA_ADMINISTRATIVA.includes(variable.key)) {
+    return 'es una herramienta administrativa: no debe ser variable de despliegue';
+  }
+
+  /*
    * No se puede decidir por el valor, y conviene decirlo en voz alta.
    *
    * Estas variables son `type: sensitive`, y Vercel no devuelve su contenido ni

@@ -200,6 +200,15 @@ export interface RunReport {
    * esto. Viaja en la respuesta del disparo y, resumido, en `notes`.
    */
   heldReasons?: Array<{ slug: string; reasons: string[] }>;
+  /**
+   * Fuentes que llevan semanas sin aportar un candidato.
+   *
+   * Una fuente no se rompe con un error: el fabricante cambia la ruta del feed
+   * o rediseña el índice, la pasada sigue terminando en verde y sencillamente
+   * deja de llegar material de ahí. Esto es lo que impide que eso pase
+   * inadvertido durante meses.
+   */
+  idleSources?: Array<{ id: string; nombre: string; ultimaVez: string | null; motivo: string }>;
   /** Salidas de portada por edad o por sitio. Siguen publicadas y accesibles. */
   archived?: number;
   /** Historias que una noticia posterior ha dejado desactualizadas. */
@@ -224,9 +233,12 @@ export function resumirPasada(datos: {
   held: Array<{ slug: string; reasons: string[] }>;
   archived: number;
   superseded: number;
+  /** Fuentes que llevan semanas sin aportar nada. */
+  idle?: number;
 }): string {
   const base =
     `${datos.sources} fuentes vigiladas, ${datos.errors} con incidencias, ` +
+    `${datos.idle ? `${datos.idle} calladas semanas, ` : ''}` +
     `${datos.drafted} borradores redactados, ${datos.published} publicadas, ` +
     `${datos.held.length} a la espera de revisión, ${datos.archived} fuera de portada, ` +
     `${datos.superseded} superadas por una noticia posterior`;

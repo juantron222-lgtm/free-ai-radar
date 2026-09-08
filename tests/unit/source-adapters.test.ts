@@ -149,9 +149,38 @@ describe('el adaptador entero, sin red', () => {
     );
 
     expect(items).toEqual([
-      { title: 'Primero', url: 'https://bfl.ai/blog/uno', publishedAt: '2026-03-01' },
-      { title: 'Segundo', url: 'https://bfl.ai/blog/dos', publishedAt: '2026-03-02' },
+      { title: 'Primero', url: 'https://bfl.ai/blog/uno', publishedAt: '2026-03-01', dateVia: 'meta' },
+      { title: 'Segundo', url: 'https://bfl.ai/blog/dos', publishedAt: '2026-03-02', dateVia: 'meta' },
     ]);
+  });
+
+  it('lee la fecha que el fabricante imprime cuando no publica ninguna', async () => {
+    /*
+     * El caso Anthropic, que costaba un fabricante entero: ni
+     * `article:published_time`, ni `datePublished`, ni `<time datetime>`. Sólo
+     * la fecha escrita junto al titular. Sin leerla, `publishedAt` salía nulo y
+     * la ventana de descubrimiento descartaba el artículo sin mirarlo.
+     */
+    const hoy = new Date().toISOString().slice(0, 10);
+    const anio = hoy.slice(0, 4);
+
+    const items = await fetchSource(
+      { ...BFL, max_items: 5 },
+      {
+        fetchPage: async (url: string) =>
+          url.endsWith('/blog')
+            ? '<a href="/blog/uno">a</a>'
+            : `<meta property="og:title" content="Introducing algo"><body>News Product Introducing algo Mar 3, ${anio} el resto del articulo</body>`,
+      }
+    );
+
+    expect(items[0]).toMatchObject({ publishedAt: `${anio}-03-03`, dateVia: 'visible' });
+  });
+
+  it('sin fecha en ninguna parte sigue siendo null, no una inventada', () => {
+    expect(extractArticleMeta('<meta property="og:title" content="Algo">', 'https://x.test/a')).toMatchObject(
+      { publishedAt: null, dateVia: null }
+    );
   });
 
   it('un artículo caído no tumba la fuente entera', async () => {

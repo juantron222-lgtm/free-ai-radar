@@ -18,6 +18,8 @@
 
 /* ------------------------------------------------------------------ texto -- */
 
+import { fechaVisible } from '../dateline.mjs';
+
 const BLOQUES_IGNORADOS =
   /<(script|style|noscript|svg|nav|header|footer|form|aside)\b[^>]*>[\s\S]*?<\/\1>/gi;
 
@@ -146,6 +148,22 @@ export function extractDate(html) {
   for (const c of candidatos) {
     const dia = isoDay(c.valor);
     if (dia) return { value: dia, quote: `${c.via}: ${c.valor}`, via: c.via };
+  }
+
+  /*
+   * Y si no hay ninguna, la que el fabricante imprime junto al titular.
+   *
+   * Va la última a propósito: una etiqueta declarada es más fiable que un texto
+   * leído. Pero cuando no existe ninguna —Anthropic, Groq, Recraft, LlamaIndex,
+   * Cursor: ninguno publica fecha legible por máquina— la alternativa no es una
+   * fecha peor, es `insufficient` para siempre.
+   *
+   * Y como evidencia es de la buena: la cita es la fecha tal y como la lee una
+   * persona en la página, no el contenido de un atributo que no ve nadie.
+   */
+  const visible = fechaVisible(toText(html));
+  if (visible) {
+    return { value: visible.value, quote: visible.quote, via: 'fecha visible en la página' };
   }
 
   return null;

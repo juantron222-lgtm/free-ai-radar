@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /**
  * Reads a source and returns candidate items, whatever shape the source is in.
  *
@@ -29,6 +28,8 @@
  * to list its own articles is a source this adapter reports as producing
  * nothing rather than one it quietly guesses at.
  */
+
+import { fechaVisible } from './dateline.mjs';
 
 const TIMEOUT_MS = 12_000;
 const DEFAULT_UA = 'FreeAIRadar/2.0 (+https://www.freeairadar.com)';
@@ -64,6 +65,20 @@ async function get(url, { userAgent, accept, timeoutMs } = {}) {
 }
 
 // --------------------------------------------------------------------- RSS --
+
+/**
+ * El texto que una persona ve, para buscar en él una fecha impresa.
+ *
+ * `stripTags` no basta: deja dentro el contenido de `<script>`, donde suele
+ * haber JSON con fechas que no son la del artículo y que además aparecen antes.
+ */
+const textoVisible = (html) =>
+  String(html ?? '')
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 
 const stripTags = (value) =>
   String(value ?? '')
@@ -171,10 +186,30 @@ export function extractArticleMeta(html, url) {
     if (ld) published = ld[1];
   }
 
+  /*
+   * Y si no publica ninguna, la que imprime junto al titular.
+   *
+   * Anthropic, Groq, Recraft, LlamaIndex y Cursor no ponen fecha en ningún
+   * sitio legible por máquina. Sin esto, `publishedAt` salía nulo, la ventana
+   * de descubrimiento los descartaba enteros y ninguno de los cinco llegaba a
+   * existir para el radar — Anthropic incluido, que publica los modelos sobre
+   * los que más escribe este sitio.
+   */
+  let viaVisible = false;
+  if (!isoDay(published)) {
+    const visible = fechaVisible(textoVisible(html));
+    if (visible) {
+      published = visible.value;
+      viaVisible = true;
+    }
+  }
+
   return {
     title: meta(html, 'og:title', 'twitter:title') || stripTags(pick(html, 'title')),
     url: canonical ? new URL(canonical, url).href : url,
     publishedAt: isoDay(published),
+    /* De dónde salió la fecha, para poder auditar la que se leyó de la página. */
+    dateVia: isoDay(published) ? (viaVisible ? 'visible' : 'meta') : null,
   };
 }
 

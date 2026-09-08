@@ -114,4 +114,15 @@ describe('la cadena de Postgres no es requisito de despliegue', () => {
     expect(CLAVES).toContain('PUBLIC_SUPABASE_URL');
     expect(CLAVES).toContain('SUPABASE_SERVICE_ROLE_KEY');
   });
+
+  it('y si ya está en Preview, se retira', () => {
+    /*
+     * Saber no crearla no basta: estuvo meses en Preview porque el script
+     * la excluía de `CLAVES` y nadie la marcaba para borrar. Al no estar en
+     * `CLAVES`, marcarla como conflictiva la retira sin recrearla.
+     */
+    const motivo = motivoDeConflicto(enPreview({ key: 'SUPABASE_DATABASE_URL' }));
+    expect(motivo).toMatch(/herramienta administrativa/);
+    expect(CLAVES).not.toContain('SUPABASE_DATABASE_URL');
+  });
 });
