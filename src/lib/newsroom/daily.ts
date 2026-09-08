@@ -13,6 +13,11 @@ import { fetchSource } from '../../../scripts/source-adapters.mjs';
 import { runRadar } from '../../../scripts/radar/inbox.mjs';
 import type { InboxCandidateShape } from '../../../scripts/radar/inbox.d.mts';
 import { runTriage } from '../../../scripts/triage/triage.mjs';
+import {
+  PRESUPUESTO_POR_PASADA,
+  banda,
+  seleccionarParaInvestigar,
+} from '../../../scripts/triage/recall.mjs';
 import { verifyCandidate } from '../../../scripts/verify/autoverify.mjs';
 import { draftFromVerification } from '../../../scripts/draft/autodraft.mjs';
 import { fuentesInactivas } from '../../../scripts/newsroom-cobertura.mjs';
@@ -184,6 +189,30 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
     };
   }
 
+  /*
+   * Alias con el tipo ya estrechado.
+   *
+   * El `return` de arriba deja `supabase` sin nulos aquí, pero ese
+   * estrechamiento no cruza a una función anidada: TypeScript no puede
+   * demostrar cuándo se la llamará. Capturarlo en una constante sí.
+   */
+  const bd = supabase;
+
+  /*
+   * Un solo reloj para toda la pasada.
+   *
+   * Había dos presupuestos independientes —35 segundos para descubrir y 30 para
+   * leer— y sumaban 65 contra un techo de 60. Cada uno era razonable por su
+   * cuenta y juntos garantizaban que un día cargado matara la función. Ahora
+   * las dos fases se reparten el mismo plazo y ninguna puede comerse el que le
+   * queda a la siguiente.
+   *
+   * Los 15 segundos de margen hasta `maxDuration` son para lo que viene
+   * después: autopublicación, higiene de portada y el registro de la pasada.
+   * Esa parte no se recorta, porque es donde se escribe lo que se ha hecho.
+   */
+  const FIN_PASADA = Date.now() + 45_000;
+
   const sources = loadSources();
   const rows: Record<string, unknown>[] = [];
 
@@ -220,8 +249,8 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
    * tenga. Se anota cuáles se quedaron sin visitar: mañana les toca primero, y
    * mientras tanto no se confunde «no la miramos» con «no publicó nada».
    */
-  const PRESUPUESTO_MS = 35_000;
-  const limite = Date.now() + PRESUPUESTO_MS;
+  const PRESUPUESTO_MS = 30_000;
+  const limite = Math.min(Date.now() + PRESUPUESTO_MS, FIN_PASADA);
   const sinVisitar: string[] = [];
 
   async function trabajador() {
@@ -350,25 +379,63 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
     if (error) errors.push(`triaje: ${error.message}`);
   }
 
-  /* Verificación mecánica de los promovidos que aún no tienen veredicto. */
-  const promoted = triageRecords.filter(
-    (r) => r.triageDecision === 'promote'
-  );
+  /*
+   * Qué se lee esta noche.
+   *
+   * Antes eran los doce primeros de `promote`, es decir, sólo lo que pasaba de
+   * 80. Ese corte hacía dos trabajos a la vez —decidir qué se investiga y, de
+   * hecho, decidir qué podía llegar a publicarse— y una auditoría de 38
+   * candidatas leyendo su fuente primaria demostró que no predecía nada: la
+   * banda 70-74 verificaba mejor (55 %) que la de 80+ (40 %).
+   *
+   * Ahora el corte lo pone el presupuesto: primero todo lo promocionado, luego
+   * lo mejor de la banda de recall. Publicar sigue exigiendo exactamente lo
+   * mismo que antes; de los 16 borradores de aquella auditoría, `canAutoPublish`
+   * dejó pasar uno.
+   */
+  const promoted = triageRecords.filter((r) => r.triageDecision === 'promote');
 
   const { data: yaVerificados } = await supabase
     .from('newsroom_verification')
     .select('candidate_id');
   const verificados = new Set((yaVerificados ?? []).map((r) => r.candidate_id as string));
 
-  const pendientes = promoted
-    .filter((r) => !verificados.has(r.id))
-    .slice(0, options.probeLimit ?? 12);
+  const { seleccionadas: pendientes, recall, sinSitio } = seleccionarParaInvestigar(triageRecords, {
+    hoy: observedAt,
+    yaVerificados: verificados,
+    presupuesto: options.probeLimit ?? PRESUPUESTO_POR_PASADA,
+  });
 
   let verified = 0;
   let blocked = 0;
   let drafted = 0;
 
-  for (const record of pendientes) {
+  /** Qué salió de cada banda, que es lo único que dirá si esto fue buena idea. */
+  const porBanda: Record<string, { leidas: number; verificadas: number; borradores: number }> = {};
+  const anotar = (score: number, campo: 'leidas' | 'verificadas' | 'borradores') => {
+    const b = banda(score);
+    porBanda[b] ??= { leidas: 0, verificadas: 0, borradores: 0 };
+    porBanda[b][campo] += 1;
+  };
+
+  /*
+   * Presupuesto de reloj para la lectura.
+   *
+   * Verificar cuesta una mediana de 4,3 segundos y un p90 de 15 —el tope de la
+   * descarga—, así que el número de historias no es el límite real: lo es el
+   * reloj. Se para a tiempo y se deja constancia de cuántas quedaron sin leer,
+   * en vez de arriesgar que la función muera con la mitad del trabajo escrita.
+   *
+   * Lo que quede del plazo común tras descubrir es lo que hay para leer: si las
+   * fuentes han ido lentas, se lee menos, y eso es preferible a no terminar.
+   */
+  const arrancaLectura = Date.now();
+  const limiteLectura = FIN_PASADA;
+  let sinLeer = 0;
+
+  async function investigar(record: (typeof pendientes)[number]) {
+    anotar(record.triageScore, 'leidas');
+
     const candidato = {
       id: record.id,
       title: record.title,
@@ -390,10 +457,10 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
       veredicto = await verifyCandidate(candidato, { fetchPage, fetchFeed, checkedAt: observedAt });
     } catch (error) {
       errors.push(`verificación ${record.id}: ${error instanceof Error ? error.message : String(error)}`);
-      continue;
+      return;
     }
 
-    const { error: errVerif } = await supabase.from('newsroom_verification').upsert(
+    const { error: errVerif } = await bd.from('newsroom_verification').upsert(
       {
         candidate_id: veredicto.candidateId,
         decision: veredicto.decision,
@@ -412,15 +479,17 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
 
     if (errVerif) {
       errors.push(`verificación ${record.id}: ${errVerif.message}`);
-      continue;
+      return;
     }
 
     if (veredicto.decision !== 'verified') {
+      /* Rechazada después de leerla. Es un resultado, no un fallo. */
       blocked += 1;
-      continue;
+      return;
     }
 
     verified += 1;
+    anotar(record.triageScore, 'verificadas');
 
     /*
      * El borrador se compone de citas y pasa por `checkDraft`, la misma puerta
@@ -433,11 +502,11 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
       if (salida?.blocked?.length) {
         errors.push(`borrador ${record.id} bloqueado: ${salida.blocked.join('; ')}`);
       }
-      continue;
+      return;
     }
 
     const d = salida.draft;
-    const { error: errDraft } = await supabase.from('newsroom_drafts').upsert(
+    const { error: errDraft } = await bd.from('newsroom_drafts').upsert(
       {
         slug: d.slug,
         candidate_id: d.candidateId,
@@ -458,11 +527,56 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
       { onConflict: 'slug' }
     );
 
-    if (errDraft) errors.push(`borrador ${record.id}: ${errDraft.message}`);
-    else drafted += 1;
+    if (errDraft) {
+      errors.push(`borrador ${record.id}: ${errDraft.message}`);
+    } else {
+      drafted += 1;
+      anotar(record.triageScore, 'borradores');
+    }
   }
 
-  const pending = promoted.length - verificados.size - pendientes.length;
+  /*
+   * Se lee en paralelo, pero nunca dos peticiones a la vez al mismo fabricante.
+   *
+   * La cola se agrupa por dominio y cada trabajador se lleva un dominio entero,
+   * así que la concurrencia sucede *entre* fabricantes y jamás dentro de uno.
+   * Es la diferencia entre leer a alguien y castigarlo, y con el reparto que
+   * hace `intercalarPorFabricante` los grupos son pequeños.
+   */
+  const porFabricante = new Map<string, Array<(typeof pendientes)[number]>>();
+  for (const record of pendientes) {
+    const clave = String(record.publisher ?? '');
+    porFabricante.set(clave, [...(porFabricante.get(clave) ?? []), record]);
+  }
+
+  const grupos = [...porFabricante.values()];
+
+  await Promise.all(
+    Array.from({ length: 6 }, async () => {
+      for (let grupo = grupos.shift(); grupo; grupo = grupos.shift()) {
+        for (const record of grupo) {
+          if (Date.now() > limiteLectura) {
+            sinLeer += 1;
+            continue;
+          }
+          await investigar(record);
+        }
+      }
+    })
+  );
+
+  const pending = sinSitio + sinLeer;
+
+  const msLectura = Date.now() - arrancaLectura;
+
+  const investigado = {
+    total: pendientes.length - sinLeer,
+    promote: promoted.filter((r) => !verificados.has(r.id)).length,
+    recall: recall.length,
+    /* Elegidas y no leídas por agotarse el reloj de la fase de lectura. */
+    unread: sinLeer,
+    byBand: porBanda,
+  };
 
   /*
    * Publicación automática.
@@ -574,6 +688,8 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
     superseded: superadas.length,
     idleSources: inactivas,
     unvisitedSources: sinVisitar,
+    investigated: investigado,
+    readMs: msLectura,
     notes: resumirPasada({
       sources: sources.length,
       errors: errors.length,
@@ -584,6 +700,7 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
       superseded: superadas.length,
       idle: inactivas.length,
       unvisited: sinVisitar.length,
+      investigated: investigado,
     }),
   };
 

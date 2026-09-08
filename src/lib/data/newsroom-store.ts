@@ -217,6 +217,24 @@ export interface RunReport {
    * noche lenta pareciera una noche con medio sector caído.
    */
   unvisitedSources?: string[];
+  /**
+   * Qué se leyó esta noche y de qué banda salía.
+   *
+   * Es la medida que dice si abrir la lectura por debajo de 80 valió la pena.
+   * `promote` y `recall` separan lo que el triaje ya promocionaba de lo que
+   * entró por presupuesto; `byBand` dice cuántas de cada banda llegaron a
+   * verificarse y a redactarse. Sin esto, la política sería una corazonada
+   * permanente.
+   */
+  investigated?: {
+    total: number;
+    promote: number;
+    recall: number;
+    unread: number;
+    byBand: Record<string, { leidas: number; verificadas: number; borradores: number }>;
+  };
+  /** Cuánto costó la fase de lectura, que es la cara de la pasada. */
+  readMs?: number;
   /** Salidas de portada por edad o por sitio. Siguen publicadas y accesibles. */
   archived?: number;
   /** Historias que una noticia posterior ha dejado desactualizadas. */
@@ -245,6 +263,13 @@ export function resumirPasada(datos: {
   idle?: number;
   /** Fuentes que no se llegaron a mirar por falta de tiempo. */
   unvisited?: number;
+  /** Cuántas historias se leyeron, y de qué banda de triaje salían. */
+  investigated?: {
+    total: number;
+    promote: number;
+    recall: number;
+    byBand: Record<string, { leidas: number; verificadas: number; borradores: number }>;
+  };
 }): string {
   const vigiladas = datos.unvisited
     ? `${datos.sources - datos.unvisited} de ${datos.sources} fuentes miradas (${datos.unvisited} sin tiempo)`
@@ -257,7 +282,22 @@ export function resumirPasada(datos: {
     `${datos.held.length} a la espera de revisión, ${datos.archived} fuera de portada, ` +
     `${datos.superseded} superadas por una noticia posterior`;
 
-  if (datos.held.length === 0) return base;
+  /*
+   * De dónde salió lo que se leyó.
+   *
+   * Es la única forma de responder, dentro de unas semanas, si abrir la lectura
+   * por debajo de 80 aportó algo. Va en `notes` porque es texto libre y la
+   * tabla no se amplía por esto.
+   */
+  const lectura = datos.investigated
+    ? `. Leídas ${datos.investigated.total} (${datos.investigated.promote} promote + ` +
+      `${datos.investigated.recall} recall)` +
+      Object.entries(datos.investigated.byBand)
+        .map(([b, v]) => ` · ${b}: ${v.leidas}→${v.verificadas} verif→${v.borradores} borr`)
+        .join('')
+    : '';
+
+  if (datos.held.length === 0) return base + lectura;
 
   /*
    * Sólo el primer motivo de cada historia: es el que la bloquea, y la lista
@@ -268,7 +308,7 @@ export function resumirPasada(datos: {
     .map(({ slug, reasons }) => `${slug} (${reasons[0] ?? 'sin motivo'})`)
     .join('; ');
 
-  return `${base}. Retenidas: ${retenidas}`;
+  return `${base}${lectura}. Retenidas: ${retenidas}`;
 }
 
 /**
