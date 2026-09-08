@@ -8,6 +8,11 @@
 Newsroom queda operativo en Preview contra el staging de Supabase
 `zzgvpyhygzfwtyecguyi`. Production no se ha tocado en ningún momento.
 
+> **Este documento se cerró antes de la promoción.** Newsroom está en
+> Production desde el 8 de septiembre de 2026: la sección 7 lo recoge. Las
+> secciones 1 a 5 siguen describiendo el sistema; la 6 es el registro del
+> punto de decisión y ya no es trabajo pendiente.
+
 ---
 
 ## 1. Arquitectura efectiva
@@ -262,3 +267,95 @@ editorial, `factTrace`, acotación de alcance por fabricante, mesa de edición,
 seguridad del cron y del hook: todo está probado contra un Supabase real y
 cubierto por 1232 pruebas. Promover es una tarea de configuración y decisión,
 no de construcción.
+
+---
+
+## 7. Promoción a Production — 8 de septiembre de 2026
+
+```
+main                 : a0b07aa  (fusión --no-ff de newsroom-produccion @ 651a5f6)
+main anterior        : 928022e
+supabase production  : fafntsrszmllgvkrxzdw
+cron                 : /api/cron/newsroom, 0 6 * * * (uno solo: Hobby)
+```
+
+### Cómo se verificó el esquema sin credenciales de producción
+
+No hay forma de alcanzar `fafntsrszmllgvkrxzdw` desde una máquina de
+desarrollo, y es deliberado: no existe cadena de conexión, ni token de gestión,
+ni la CLI; sólo la referencia, que está ahí para que el guardián se niegue a
+tocar ese proyecto. El único sitio donde vive la service role de producción es
+dentro de un despliegue.
+
+Así que la comprobación se mudó al único lugar que puede hacerla:
+`scripts/newsroom-schema.mjs` corre en el `prebuild`, compara el esquema vivo
+con `0015_newsroom.sql` y rompe el build si difieren. Un build roto no
+despliega, así que el peor caso es que el sitio siga sirviendo la versión
+anterior.
+
+Resultado, idéntico en los tres builds de producción —incluido el lanzado por
+el Deploy Hook, que es el que dispara Newsroom—:
+
+```
+proyecto : fafntsrszmllgvkrxzdw.supabase.co
+tablas   : 7/7
+columnas : 77 comprobadas
+unicidad : restricción presente (23502)
+anon     : sin acceso a ninguna
+✓ coincide con la migración.
+```
+
+Sin diferencias, así que no hizo falta ninguna migración aditiva.
+
+### Primera pasada real en Production
+
+```
+found 2602 · ingested 219 · triaged 219 · verified 2 · drafted 2
+published 0 · heldForReview 2 · archived 9 · superseded 2
+errors: Freepik Blog HTTP 403
+```
+
+Cero errores de base de datos escribiendo en las siete tablas, que es la
+confirmación más fuerte de que el esquema es el correcto: no se dedujo, se
+ejerció.
+
+**Publicó cero, y por el motivo correcto.** Las dos candidatas eran anuncios de
+*partner nodes* de ComfyUI: `comfy.org` no fabrica Seedance ni FLUX 3, así que
+la acotación de alcance las degradó a integración, y además tenían 31 y 34 días.
+La puerta hizo exactamente lo que se le pidió y no se tocó.
+
+Una segunda pasada inmediata ingirió 0 y duplicó 0: la deduplicación por
+`canonical_url` y los upsert son idempotentes contra datos reales.
+
+### Estado de la portada
+
+2 destacadas, 9 en «Archivo», 11 enlaces vivos y las 11 URLs en `sitemap.xml`.
+Envejecer saca de portada; no borra ni desindexa.
+
+### Rollback de Production
+
+El de la sección 4 sigue valiendo para el pipeline y la migración. Para el
+código:
+
+```bash
+git revert -m 1 a0b07aa && git push origin main
+```
+
+Devuelve el árbol a `928022e` sin tocar ningún dato. Alternativa más rápida sin
+reescribir git: promover en Vercel el despliegue
+`dpl_4UD9sB2UA4gpnVATZdBoYUa3Dcr3`, que es el último de `main @ 928022e`.
+
+### Lo que sigue pendiente
+
+1. **Cobertura editorial.** Lo advertido en la sección 6.5 se confirmó en la
+   primera pasada real: 2602 titulares encontrados y 2 verificados. El cuello no
+   es el descubrimiento, es que OpenAI devuelve 403 y Google renderiza con
+   JavaScript. Habrá más días sin publicar que con publicación mientras las
+   fuentes legibles sean las que son. La respuesta correcta es ampliar fuentes
+   que publiquen HTML legible, nunca bajar la puerta.
+
+2. **Quién aprueba.** La mesa exige rol `admin` real y hay 2 historias
+   esperando decisión humana. Sigue sin decidirse quién.
+
+3. **`AUTOCRAW_DB_URL_STAGING`** sigue apuntando al proyecto eliminado
+   `lhujloyflkllryshpkjl`. Deuda externa a Newsroom, sin cambios.
