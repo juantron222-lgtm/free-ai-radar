@@ -273,3 +273,51 @@ describe('formas equivocadas de SUPABASE_STAGING_REF', () => {
     expect(result.warnings.join(' ')).not.toContain('AAAA');
   });
 });
+
+describe('variables repetidas en el mismo fichero', () => {
+  /*
+   * La regresión que motiva esto: `.env.local` llegó a tener
+   * `SUPABASE_DATABASE_URL` tres veces —proyecto viejo, proyecto nuevo, y un
+   * marcador `...` sin sustituir— y ganaba la última. El guardián informaba de
+   * una cadena de tres caracteres mientras la buena estaba cinco líneas más
+   * arriba. Ningún parser se queja de una clave repetida: una de las dos
+   * simplemente deja de existir.
+   */
+  const fichero = [
+    'SUPABASE_ENV=staging',
+    'SUPABASE_DATABASE_URL=postgresql://postgres.aaaaaaaaaaaaaaaaaaaa:x@aws-1-eu-west-1.pooler.supabase.com:5432/postgres',
+    'PUBLIC_SUPABASE_URL=https://aaaaaaaaaaaaaaaaaaaa.supabase.co',
+    '',
+    '# pegado después, sin borrar lo anterior',
+    'SUPABASE_DATABASE_URL=...',
+    'CRON_SECRET=abc',
+  ].join('\n');
+
+  async function conFichero(contenido: string) {
+    const { mkdtempSync, writeFileSync } = await import('node:fs');
+    const { tmpdir } = await import('node:os');
+    const { join } = await import('node:path');
+    const dir = mkdtempSync(join(tmpdir(), 'guardia-'));
+    writeFileSync(join(dir, '.env.local'), contenido, 'utf8');
+    const { duplicateKeys } = await import('../../scripts/staging-guard.mjs');
+    return duplicateKeys(dir);
+  }
+
+  it('encuentra la clave repetida y dice en qué líneas', async () => {
+    const repetidas = await conFichero(fichero);
+    const db = repetidas.find((r: { key: string }) => r.key === 'SUPABASE_DATABASE_URL');
+    expect(db).toBeDefined();
+    expect(db!.lines).toEqual([2, 6]);
+    expect(db!.file).toBe('.env.local');
+  });
+
+  it('no inventa duplicados donde no los hay', async () => {
+    const limpio = ['SUPABASE_ENV=staging', 'CRON_SECRET=abc'].join('\n');
+    expect(await conFichero(limpio)).toEqual([]);
+  });
+
+  it('ignora comentarios y líneas en blanco', async () => {
+    const conRuido = ['# SUPABASE_ENV=staging', '', 'SUPABASE_ENV=staging'].join('\n');
+    expect(await conFichero(conRuido)).toEqual([]);
+  });
+});

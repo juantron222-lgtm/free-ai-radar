@@ -22,7 +22,7 @@
  */
 
 import { execFileSync } from 'node:child_process';
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { connect } from './db-connect.mjs';
@@ -32,22 +32,21 @@ import { syncCatalog, verifyMirror } from './catalog-sync.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
-const MIGRATIONS = [
-  'supabase/migrations/0001_core_schema.sql',
-  'supabase/migrations/0002_rls_policies.sql',
-  'supabase/migrations/0003_autocraw_affiliate.sql',
-  'supabase/migrations/0004_rls_hardening.sql',
-  'supabase/migrations/0005_postgrest_grants.sql',
-  'supabase/migrations/0006_auth_user_trigger.sql',
-  'supabase/migrations/0007_amazon_cache_instant.sql',
-  'supabase/migrations/0008_amazon_creators_state.sql',
-  'supabase/migrations/0009_free_model_unknown.sql',
-  'supabase/migrations/0010_capabilities_start_effort.sql',
-  'supabase/migrations/0011_start_effort_reason.sql',
-  'supabase/migrations/0012_licence_layers.sql',
-  'supabase/migrations/0013_model_access_and_openness.sql',
-  'supabase/migrations/0014_product_type.sql',
-];
+/**
+ * Las migraciones, leídas del directorio y no escritas a mano.
+ *
+ * La lista era literal y se quedó en la 0014. `0015_newsroom.sql` existía en el
+ * repositorio, el runner decía «instalación coherente» y las siete tablas de
+ * Newsroom no estaban: se omitió sin una sola línea de aviso. Es el mismo fallo
+ * que una clave repetida en un `.env` — nada se rompe, algo simplemente deja de
+ * ocurrir.
+ *
+ * El orden lo da el prefijo numérico, que es lo que ya define la secuencia.
+ */
+const MIGRATIONS = readdirSync(join(ROOT, 'supabase/migrations'))
+  .filter((archivo) => archivo.endsWith('.sql'))
+  .sort()
+  .map((archivo) => `supabase/migrations/${archivo}`);
 
 const SUITE = 'supabase/tests/rls_adversarial.sql';
 

@@ -1,5 +1,5 @@
 ---
-import type { HydratedNewsItem } from '@lib/domain/news';
+import type { AvailabilityTone, HydratedNewsItem } from '@lib/domain/news';
 import { getTool } from '@lib/data/catalog';
 import { ROUTES } from '@lib/nav';
 
@@ -12,6 +12,21 @@ interface Props {
 const { item, headingLevel: Heading = 'h3', featured = false } = Astro.props;
 
 const related = item.relatedTools.map(getTool).filter((t) => t !== undefined);
+
+/**
+ * Only availability is coloured. The event type is a plain label: it says what
+ * happened, which is a fact, not a warning. Availability is the one a reader
+ * acts on — whether they can go and use this today — so it gets the colour, and
+ * `deprecated` lands on the alert chip so a withdrawal can never be skimmed as
+ * a launch.
+ */
+const AVAILABILITY_CHIP: Record<AvailabilityTone, string> = {
+  ok: 'chip-signal',
+  caution: 'chip-warn',
+  ended: 'chip-alert',
+  future: 'chip-info',
+  pending: '',
+};
 
 const fmt = (iso: string) =>
   new Date(`${iso}T00:00:00Z`).toLocaleDateString('es-ES', {
@@ -45,6 +60,14 @@ const fmt = (iso: string) =>
   </Heading>
 
   <p class="news-card-summary">{item.summary}</p>
+
+  <p class="news-card-state">
+    <span class="news-event">{item.eventTypeLabel}</span>
+    <span class="news-state-sep" aria-hidden="true">·</span>
+    <span class={`chip news-avail ${AVAILABILITY_CHIP[item.availabilityTone]}`}>
+      {item.availabilityShort}
+    </span>
+  </p>
 
   <div class="news-card-foot">
     <time datetime={item.publishedAt} class="news-card-date tnum">{fmt(item.publishedAt)}</time>
@@ -117,6 +140,35 @@ const fmt = (iso: string) =>
     line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+
+  /*
+    Sits between the summary and the footer, at footer weight rather than
+    headline weight. The brief asked for these states to be legible without
+    dominating: they are the answer to "can I use this?", which matters after
+    the reader has decided the headline is for them, not before.
+  */
+  .news-card-state {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+  }
+
+  .news-event {
+    font-weight: 550;
+  }
+
+  .news-state-sep {
+    color: var(--line);
+  }
+
+  .news-avail {
+    font-size: 0.6875rem;
+    padding: 0.1rem 0.45rem;
   }
 
   .news-card-foot {

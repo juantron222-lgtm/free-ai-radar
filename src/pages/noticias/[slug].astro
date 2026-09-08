@@ -5,7 +5,7 @@ import ToolCard from '@components/tools/ToolCard.astro';
 import { getAllNews } from '@lib/data/news';
 import { getTool } from '@lib/data/catalog';
 import { articleSchema } from '@lib/seo/structured-data';
-import { NEWS_CATEGORY_LABEL } from '@lib/domain/news';
+import { NEWS_CATEGORY_LABEL, type AvailabilityTone } from '@lib/domain/news';
 import { ROUTES } from '@lib/nav';
 
 export function getStaticPaths() {
@@ -42,6 +42,15 @@ const FREE_PLAN_LABEL = {
   no: 'No afecta al plan gratuito',
   unverified: 'Sin confirmar si afecta al plan gratuito',
 } as const;
+
+/** Same mapping as the card, so a story reads identically in both places. */
+const AVAILABILITY_CHIP: Record<AvailabilityTone, string> = {
+  ok: 'chip-signal',
+  caution: 'chip-warn',
+  ended: 'chip-alert',
+  future: 'chip-info',
+  pending: '',
+};
 ---
 
 <BaseLayout
@@ -64,6 +73,10 @@ const FREE_PLAN_LABEL = {
     <header class="detail-head">
       <p class="detail-meta">
         <span class="chip detail-cat">{NEWS_CATEGORY_LABEL[item.category]}</span>
+        <span class="detail-event">{item.eventTypeLabel}</span>
+        <span class={`chip ${AVAILABILITY_CHIP[item.availabilityTone]}`}>
+          {item.availabilityLabel}
+        </span>
         <time datetime={item.publishedAt} class="tnum">{fmt(item.publishedAt)}</time>
       </p>
 
@@ -189,6 +202,16 @@ const FREE_PLAN_LABEL = {
     background: var(--info-soft);
     border-color: var(--info-line);
     color: var(--info);
+  }
+
+  /*
+    Plain text, not a chip, and deliberately placed between the two chips: it
+    keeps the category and the availability from reading as one run of colour,
+    and it keeps the meta line from turning into a row of badges.
+  */
+  .detail-event {
+    font-weight: 600;
+    color: var(--ink-muted);
   }
 
   .detail-title {

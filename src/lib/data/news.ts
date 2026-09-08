@@ -1,6 +1,21 @@
-import rawNews from '@/data/news/news.json';
-import { NewsItem, hydrateNews, isPublishable, type HydratedNewsItem } from '@lib/domain/news';
+/*
+ * El dataset viene del fichero generado, no de la semilla.
+ *
+ * `scripts/newsroom-sync.mjs` lo produce en `prebuild` fundiendo
+ * `src/data/news/news.json` con lo que una persona haya aprobado en la mesa.
+ * Importar aquí la semilla directamente dejaría fuera todo lo aprobado desde
+ * producción, que es justo lo que esta fase existe para arreglar.
+ */
+import rawNews from '@/data/generated/news.json';
+import {
+  NewsItem,
+  findDuplicateStories,
+  hydrateNews,
+  isPublishable,
+  type HydratedNewsItem,
+} from '@lib/domain/news';
 import { getTool } from './catalog';
+import { encontrarSupersesiones, repartirPortada } from '@lib/domain/lifecycle';
 
 /**
  * The newsroom.
@@ -38,6 +53,18 @@ function load(): HydratedNewsItem[] {
         );
       }
     }
+  }
+
+  /*
+   * Duplication is a property of the set, not of an item, so it cannot live in
+   * `isPublishable`. It is checked here, where the whole published set is in
+   * hand, and it fails the build for the same reason everything else here does:
+   * publishing the same event twice is a correctness problem, not a tidiness one.
+   */
+  const duplicates = findDuplicateStories(published);
+  if (duplicates.length) {
+    const detail = duplicates.map((d) => `  · "${d.a}" y "${d.b}": ${d.reason}`).join('\n');
+    throw new NewsError(`Hay noticias duplicadas entre las publicadas.\n${detail}`);
   }
 
   return published
@@ -106,4 +133,26 @@ export function getPopulatedNewsCategories(): Array<{ category: string; label: s
       count,
     }))
     .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label, 'es'));
+}
+
+/**
+ * La portada y el archivo.
+ *
+ * `getAllNews()` sigue devolviendo todo lo publicado, porque las fichas, el
+ * sitemap y los enlaces internos necesitan la lista entera: una noticia que sale
+ * de portada conserva su URL, su sitio en el sitemap y cualquier enlace que
+ * alguien haya guardado. Lo que cambia es dónde se la encuentra.
+ *
+ * Esta partición es derivada de la fecha, no un estado guardado. Nada puede
+ * perder una página por haber envejecido, que es el riesgo real de archivar
+ * cambiando `status`.
+ */
+export function getPortada(now: Date = new Date()) {
+  const items = NEWS.map((item) => hydrateNews(item, now));
+  return repartirPortada(items);
+}
+
+/** Lo que ha quedado desactualizado por una noticia posterior del mismo producto. */
+export function getSupersesiones(now: Date = new Date()) {
+  return encontrarSupersesiones(NEWS.map((item) => hydrateNews(item, now)));
 }

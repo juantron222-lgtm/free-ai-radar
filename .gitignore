@@ -12,6 +12,12 @@ node_modules/
 !.env.example
 .data/
 
+# Borrador local de credenciales. Es un cuaderno para pegar claves mientras se
+# consiguen, antes de que tengan sitio definitivo en .env.local o en Vercel.
+# El patrón cubre cualquier fichero *.local.txt para que un segundo cuaderno
+# nazca ya ignorado en lugar de depender de que alguien se acuerde.
+*.local.txt
+
 # test artifacts
 coverage/
 playwright-report/
