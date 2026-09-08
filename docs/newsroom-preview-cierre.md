@@ -347,15 +347,95 @@ reescribir git: promover en Vercel el despliegue
 
 ### Lo que sigue pendiente
 
-1. **Cobertura editorial.** Lo advertido en la sección 6.5 se confirmó en la
-   primera pasada real: 2602 titulares encontrados y 2 verificados. El cuello no
-   es el descubrimiento, es que OpenAI devuelve 403 y Google renderiza con
-   JavaScript. Habrá más días sin publicar que con publicación mientras las
-   fuentes legibles sean las que son. La respuesta correcta es ampliar fuentes
-   que publiquen HTML legible, nunca bajar la puerta.
+1. **Cobertura editorial.** ~~El cuello es que OpenAI devuelve 403 y Google
+   renderiza con JavaScript.~~ **Esto era falso y se midió el 8 de septiembre.**
+   Veinte de veintidós fuentes servían HTML de artículo perfectamente legible;
+   sólo OpenAI y Freepik responden 403. Ver la sección 8.
 
 2. **Quién aprueba.** La mesa exige rol `admin` real y hay 2 historias
    esperando decisión humana. Sigue sin decidirse quién.
 
 3. **`AUTOCRAW_DB_URL_STAGING`** sigue apuntando al proyecto eliminado
    `lhujloyflkllryshpkjl`. Deuda externa a Newsroom, sin cambios.
+
+---
+
+## 8. Cobertura — 8 de septiembre de 2026
+
+### Lo que se creía y lo que se midió
+
+Durante todo el trabajo anterior se dio por hecho que la sección publicaba poco
+porque los fabricantes bloquean la lectura. Se midió, y no era eso.
+
+De veintidós fuentes activas, **veinte servían HTML de artículo legible**. Sólo
+OpenAI y Freepik responden 403. Lo que dejaba a Anthropic —uno de los tres
+fabricantes sobre los que más escribe este sitio— aportando exactamente cero era
+otra cosa: no publica fecha legible por máquina en ninguna parte. Ni
+`article:published_time`, ni `datePublished`, ni `<time datetime>`. Sus diez
+artículos llegaban con fecha nula, la ventana de 45 días los descartaba sin
+mirarlos y nadie lo notó porque la pasada terminaba en verde. Groq, Recraft,
+LlamaIndex y Cursor fallaban igual.
+
+Los cinco sí imprimen la fecha junto al titular. `scripts/dateline.mjs` la lee,
+en la capa de descubrimiento y en la de verificación. Anthropic pasa de 0 a 9
+artículos utilizables.
+
+### El embudo, y dónde se estrecha de verdad
+
+```
+                    antes        después
+titulares brutos     2617          3196
+pasan el radar        229           342
+promote                 5             5
+hold                   66           105
+reject                158           232
+```
+
+**Quince fuentes nuevas no movieron la publicación ni una unidad.** El límite es
+el umbral de `promote` del triaje, fijado en 80. La distribución de puntuación
+lo dice sin ambigüedad: 5 historias en la banda 80-100 y **33 en la 70-79**.
+
+Eso es lógica editorial cerrada y no se ha tocado. Queda medido para que la
+decisión sobre ese umbral se tome con la distribución delante y no a ojo.
+
+### Fuentes
+
+Treinta y nueve declaradas, treinta y siete activas. Las quince nuevas se
+sondearon una a una antes de escribirlas: Anthropic Claude Platform release
+notes —feed real, donde `anthropic.com/news` no tiene ninguno—, blog.google AI
+y Gemini, Ollama, Together, Midjourney, OpenRouter, EleutherAI, Meta Engineering
+—sustituye al feed de `ai.meta.com` que lleva meses en 404— y Cohere, Runway,
+Groq, Recraft, LlamaIndex y Cursor por HTML.
+
+Se sondeó y se dejó fuera el blog de desarrolladores de NVIDIA: cien entradas
+diarias de CUDA entierran la sección en lugar de llenarla.
+
+### Cómo se mide a partir de ahora
+
+```bash
+npm run newsroom:cobertura             # embudo en vivo por fabricante, sin base de datos
+npm run newsroom:cobertura:historial   # lo que la base recuerda + fuentes inactivas
+```
+
+La detección de fuentes calladas corre además dentro de la pasada diaria y viaja
+en el informe. No apaga nada: sustituir una fuente es una decisión editorial.
+Hoy señala dos, y las dos de verdad: Freepik (403 permanente) y Udio (sin
+publicar desde noviembre de 2025).
+
+Las fuentes llevan `since` para que ampliar quince de golpe no produzca quince
+falsos positivos. Un aviso que salta cuando no toca deja de leerse.
+
+### Reloj
+
+La pasada pasó de 12 a 44 segundos en local al añadir las fuentes. En Production
+son **12,2 segundos** para las 37, ninguna sin visitar. Aun así se declaró
+`maxDuration: 60` y un presupuesto de 35 segundos para la fase de
+descubrimiento: la ingesta ocurre al final, así que una función cortada a mitad
+de descarga no perdía una fuente lenta, perdía la pasada entera.
+
+### Higiene
+
+`SUPABASE_DATABASE_URL` retirada de Vercel Preview. Era la credencial de acceso
+total al Postgres de staging en un entorno que no la usa; sobrevivió a una
+limpieza anterior porque el configurador sabía no crearla pero no sabía
+retirarla. Ahora la retira.
