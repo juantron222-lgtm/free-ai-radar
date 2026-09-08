@@ -439,3 +439,71 @@ de descarga no perdía una fuente lenta, perdía la pasada entera.
 total al Postgres de staging en un entorno que no la usa; sobrevivió a una
 limpieza anterior porque el configurador sabía no crearla pero no sabía
 retirarla. Ahora la retira.
+
+---
+
+## 9. Recalibración del triaje — 8 de septiembre de 2026
+
+### La auditoría que invirtió la premisa
+
+Se leyó la fuente primaria de 38 candidatas para medir qué estaba seleccionando
+de verdad el corte de 80:
+
+| banda | leídas | verificadas | borrador válido | pasan `canAutoPublish` |
+| --- | --- | --- | --- | --- |
+| 80+ | 5 | 2 | 2 (40 %) | 0 |
+| 75-79 | 11 | 3 | 2 (18 %) | 0 |
+| **70-74** | 22 | 12 | **12 (55 %)** | **1** |
+
+La banda que el corte descartaba entera era la mejor de las tres, y la única
+historia autopublicable del conjunto salía de un 70 —Runway, *GWM Worlds 2*—,
+que con la regla anterior no se habría leído nunca.
+
+El motivo es estructural: la puntuación premia titulares de fabricantes
+grandes, y los grandes son los que peor se dejan leer. Un 100 de OpenAI devuelve
+403 y sólo queda su feed; los posts de comunidad de Hugging Face puntúan alto
+sin sostener una frase citable. Un 70 de Runway se lee entero.
+
+### La política
+
+`scripts/triage/recall.mjs`. Primero **todo** lo promocionado, sin recortar
+nunca; después lo mejor de la banda de recall por frescura, impacto y novedad
+hasta agotar el reloj.
+
+- **Frescura con escalón a los 21 días**, no pendiente: es la ventana en la que
+  `canAutoPublish` todavía puede decir que sí.
+- **Tope de 3 por fabricante** en la banda de recall. Together publicó seis
+  comparativas «X vs Y en DeepSWE» el mismo día: las seis verificaban, las seis
+  redactaban, ninguna publicaba —modelos ajenos, alcance degradado— y sin tope
+  se habrían llevado un cuarto del presupuesto.
+- La lectura va en paralelo **entre** fabricantes y nunca dos peticiones a la
+  vez dentro de uno.
+
+### Medido en Production
+
+| pasada | total | lectura | leídas | verificadas | rechazadas tras leer | **publicadas** | en cola |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | 18,7 s | 1,5 s | **23** | 10 | 13 | **0** | 11 |
+| 2 | 11,0 s | 0,9 s | 9 | 5 | 4 | **0** | 2 |
+| 3 | 12,0 s | 0,2 s | 2 | 0 | 2 | **0** | 0 |
+
+Por banda en la primera pasada: 70-74 → 14 leídas, 7 verificadas; 75-79 → 9
+leídas, 3 verificadas. La cola se drena sola porque no se relee lo que ya tiene
+veredicto.
+
+Ese `0` repetido es el criterio de éxito, no un fallo. `canAutoPublish`,
+`checkDraft`, `factTrace` y el alcance por fabricante están intactos.
+
+### El reloj
+
+Había dos presupuestos independientes —30 s para descubrir, 30 s para leer—
+que sumaban más que el techo de 60. Ahora comparten un plazo único de 45 s, con
+15 de margen para autopublicación, portada y registro. En Production la pasada
+completa tarda 12-19 s, así que el plazo no llega a rozarse.
+
+### Lo que queda en la mesa
+
+Cuatro borradores esperando decisión humana. Los dos de ComfyUI, por alcance de
+terceros y edad. Los **dos de Suno pasan todo menos la edad** —26 y 29 días—:
+son el atasco de la primera barrida con la red ancha, no un defecto de la
+puerta. A partir de ahora el cron las encontrará dentro de la ventana.
