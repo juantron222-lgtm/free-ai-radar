@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { supabase as supabaseConfig } from '@lib/config';
 import { logger } from '@lib/observability/logger';
-import { recordRun, type RunReport } from '@lib/data/newsroom-store';
+import { recordRun, resumirPasada, type RunReport } from '@lib/data/newsroom-store';
 import { getDesk, decide } from '@lib/data/newsroom';
 import { canAutoPublish } from '@lib/domain/newsroom';
 import { encontrarSupersesiones, repartirPortada } from '@lib/domain/lifecycle';
@@ -517,13 +517,18 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
     status: errors.length === 0 ? 'ok' : errors.length >= sources.length ? 'failed' : 'partial',
     published: publicadas.length,
     heldForReview: noPublicadas.length,
+    heldReasons: noPublicadas.map(({ slug, motivos }) => ({ slug, reasons: motivos })),
     archived: archivadas.length,
     superseded: superadas.length,
-    notes:
-      `${sources.length} fuentes vigiladas, ${errors.length} con incidencias, ` +
-      `${drafted} borradores redactados, ${publicadas.length} publicadas, ` +
-      `${noPublicadas.length} a la espera de revisión, ${archivadas.length} fuera de portada, ` +
-      `${superadas.length} superadas por una noticia posterior`,
+    notes: resumirPasada({
+      sources: sources.length,
+      errors: errors.length,
+      drafted,
+      published: publicadas.length,
+      held: noPublicadas.map(({ slug, motivos }) => ({ slug, reasons: motivos })),
+      archived: archivadas.length,
+      superseded: superadas.length,
+    }),
   };
 
   await recordRun(report, options.trigger);

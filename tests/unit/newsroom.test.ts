@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { resumirPasada } from '@lib/data/newsroom-store';
 import rawInbox from '@/data/news/inbox.json';
 import rawTriage from '@/data/news/triage.json';
 import rawVerification from '@/data/news/verification.json';
@@ -314,5 +315,52 @@ describe('news.json stays the only published source', () => {
     for (const item of published.filter((i) => i.status === 'published')) {
       expect(isPublishable(item).ok, item.slug).toBe(true);
     }
+  });
+});
+
+describe('el resumen que alguien lee por la mañana', () => {
+  const base = {
+    sources: 22,
+    errors: 1,
+    drafted: 2,
+    published: 0,
+    held: [] as Array<{ slug: string; reasons: string[] }>,
+    archived: 9,
+    superseded: 2,
+  };
+
+  it('un día sin publicar dice por qué, no sólo cuántas', () => {
+    /*
+     * Cero es a menudo la respuesta correcta: el listón no se baja para tener
+     * volumen. Pero cero por falta de evidencia y cero por un extractor roto se
+     * parecen demasiado desde fuera si el informe sólo trae un recuento.
+     */
+    const resumen = resumirPasada({
+      ...base,
+      held: [{ slug: 'una-noticia', reasons: ['no se ha leído el artículo', 'y algo más'] }],
+    });
+
+    expect(resumen).toContain('0 publicadas');
+    expect(resumen).toContain('Retenidas: una-noticia (no se ha leído el artículo)');
+  });
+
+  it('sólo el primer motivo de cada una, que es el que la bloquea', () => {
+    const resumen = resumirPasada({
+      ...base,
+      held: [{ slug: 'x', reasons: ['primero', 'segundo', 'tercero'] }],
+    });
+    expect(resumen).toContain('primero');
+    expect(resumen).not.toContain('segundo');
+  });
+
+  it('una historia sin motivo no rompe la frase', () => {
+    const resumen = resumirPasada({ ...base, held: [{ slug: 'x', reasons: [] }] });
+    expect(resumen).toContain('x (sin motivo)');
+  });
+
+  it('sin retenidas no cuelga una coletilla vacía', () => {
+    const resumen = resumirPasada(base);
+    expect(resumen).not.toContain('Retenidas');
+    expect(resumen.endsWith('superadas por una noticia posterior')).toBe(true);
   });
 });

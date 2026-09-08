@@ -187,6 +187,19 @@ export interface RunReport {
   published?: number;
   /** Verificadas y redactadas, pero que la puerta automática dejó para una persona. */
   heldForReview?: number;
+  /**
+   * Por qué se quedó cada una.
+   *
+   * La pregunta que hay que poder contestar cualquier mañana es «¿por qué hoy
+   * cero?», y un recuento no la contesta. Cero es a menudo la respuesta
+   * correcta —el listón no se baja para tener volumen—, pero cero por un
+   * extractor roto y cero por falta de evidencia se parecen demasiado desde
+   * fuera como para distinguirlos sin esto.
+   *
+   * No va a `newsroom_runs`: la tabla tiene sus columnas y no se amplía por
+   * esto. Viaja en la respuesta del disparo y, resumido, en `notes`.
+   */
+  heldReasons?: Array<{ slug: string; reasons: string[] }>;
   /** Salidas de portada por edad o por sitio. Siguen publicadas y accesibles. */
   archived?: number;
   /** Historias que una noticia posterior ha dejado desactualizadas. */
@@ -194,6 +207,42 @@ export interface RunReport {
   errors: string[];
   status: 'ok' | 'partial' | 'failed';
   notes?: string;
+}
+
+/**
+ * La frase que resume una pasada, que es lo que alguien lee por la mañana.
+ *
+ * Se separa del código que la produce porque es la única superficie por la que
+ * se sabe qué hizo el sistema anoche, y una plantilla sin pruebas que resume un
+ * proceso autónomo es justo donde se pierde el dato que importaba.
+ */
+export function resumirPasada(datos: {
+  sources: number;
+  errors: number;
+  drafted: number;
+  published: number;
+  held: Array<{ slug: string; reasons: string[] }>;
+  archived: number;
+  superseded: number;
+}): string {
+  const base =
+    `${datos.sources} fuentes vigiladas, ${datos.errors} con incidencias, ` +
+    `${datos.drafted} borradores redactados, ${datos.published} publicadas, ` +
+    `${datos.held.length} a la espera de revisión, ${datos.archived} fuera de portada, ` +
+    `${datos.superseded} superadas por una noticia posterior`;
+
+  if (datos.held.length === 0) return base;
+
+  /*
+   * Sólo el primer motivo de cada historia: es el que la bloquea, y la lista
+   * completa viaja en la respuesta del disparo. `notes` es una columna de
+   * texto, no un registro estructurado, y llenarla entera la vuelve ilegible.
+   */
+  const retenidas = datos.held
+    .map(({ slug, reasons }) => `${slug} (${reasons[0] ?? 'sin motivo'})`)
+    .join('; ');
+
+  return `${base}. Retenidas: ${retenidas}`;
 }
 
 /**

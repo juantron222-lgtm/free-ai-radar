@@ -65,5 +65,13 @@ export const GET: APIRoute = async (context) => {
   }
 };
 
-/** El mismo trabajo, para dispararlo a mano con el mismo secreto. */
+/**
+ * El mismo trabajo por POST, que en producción sólo sirve desde el propio sitio.
+ *
+ * Astro tiene `security.checkOrigin` y rechaza los POST entre sitios con un 403
+ * antes de que esta función exista, así que un disparo manual desde fuera se
+ * hace con GET —que es también lo que usa Vercel Cron—. Se conserva porque el
+ * secreto es el mismo y la ruta es la misma; lo que no hace es lo que su
+ * comentario anterior prometía.
+ */
 export const POST: APIRoute = GET;
