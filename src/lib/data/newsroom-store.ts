@@ -365,6 +365,41 @@ export async function recordRun(
   return (data?.id as string) ?? null;
 }
 
+export interface StoredRun {
+  started_at: string;
+  trigger: string;
+  status: string;
+  notes: string;
+}
+
+/**
+ * Las pasadas de los últimos días, para poder informar sobre ellas.
+ *
+ * Existe porque la historia de producción no se puede leer desde ninguna otra
+ * parte: no hay credencial de esa base en ninguna máquina de desarrollo, ni la
+ * tendría un agente en la nube con un clon limpio del repositorio. Lo único que
+ * puede consultarla es el propio despliegue, que sí lleva la service role.
+ *
+ * Sólo lee. Nada de lo que cuelga de aquí escribe una fila.
+ */
+export async function readRuns({ sinceDays = 7 }: { sinceDays?: number } = {}): Promise<StoredRun[]> {
+  const supabase = db();
+  if (!supabase) return [];
+
+  const desde = new Date(Date.now() - sinceDays * 86_400_000).toISOString();
+
+  const { data, error } = await supabase
+    .from('newsroom_runs')
+    .select('started_at, trigger, status, notes')
+    .gte('started_at', desde)
+    .order('started_at', { ascending: true })
+    .limit(500);
+
+  if (error) throw new Error(`No se han podido leer las pasadas: ${error.message}`);
+
+  return (data ?? []) as StoredRun[];
+}
+
 export async function lastRun(): Promise<Record<string, unknown> | null> {
   const supabase = db();
   if (!supabase) return null;
