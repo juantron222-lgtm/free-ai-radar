@@ -67,3 +67,34 @@ export declare function embudoDesdeHistorial(datos: {
   publicadas: ReadonlyArray<Record<string, unknown>>;
   fuentes: ReadonlyArray<FuenteConfigurada>;
 }): FilaEmbudo[];
+
+/** Lo que una pasada registró por banda dentro de `notes`. */
+export interface RepartoBanda {
+  leidas: number;
+  verificadas: number;
+  borradores: number;
+  publicadas: number;
+}
+
+export interface PasadaRegistrada {
+  dia: string;
+  trigger?: string;
+  status?: string;
+  /** Segundos que costó la fase de lectura, o `null` si esa pasada no lo anotó. */
+  lectura: number | null;
+  bandas: Record<string, RepartoBanda>;
+}
+
+/**
+ * Recupera el reparto por banda del texto de `notes`.
+ *
+ * Vive aquí y no junto a `resumirPasada`, que es quien lo escribe, para que
+ * haya una sola implementación; una prueba de ida y vuelta ata las dos.
+ */
+export declare function leerBandas(notes: string | null | undefined): Record<string, RepartoBanda>;
+
+export declare function leerTiempoLectura(notes: string | null | undefined): number | null;
+
+export declare function serieDeBandas(
+  runs: ReadonlyArray<{ started_at?: string; trigger?: string; status?: string; notes?: string | null }>
+): { total: Record<string, RepartoBanda>; pasadas: PasadaRegistrada[] };

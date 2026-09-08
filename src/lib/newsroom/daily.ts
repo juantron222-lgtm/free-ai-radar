@@ -411,10 +411,13 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
   let drafted = 0;
 
   /** Qué salió de cada banda, que es lo único que dirá si esto fue buena idea. */
-  const porBanda: Record<string, { leidas: number; verificadas: number; borradores: number }> = {};
-  const anotar = (score: number, campo: 'leidas' | 'verificadas' | 'borradores') => {
+  const porBanda: Record<
+    string,
+    { leidas: number; verificadas: number; borradores: number; publicadas: number }
+  > = {};
+  const anotar = (score: number, campo: 'leidas' | 'verificadas' | 'borradores' | 'publicadas') => {
     const b = banda(score);
-    porBanda[b] ??= { leidas: 0, verificadas: 0, borradores: 0 };
+    porBanda[b] ??= { leidas: 0, verificadas: 0, borradores: 0, publicadas: 0 };
     porBanda[b][campo] += 1;
   };
 
@@ -592,9 +595,17 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
    */
   const publicadas: string[] = [];
   const noPublicadas: Array<{ slug: string; motivos: string[] }> = [];
+  let caducadas: Array<{ slug: string; reasons: string[] }> = [];
 
   try {
     const desk = await getDesk();
+
+    /*
+     * `desk.ready` ya no trae lo que no puede pasar la puerta jamás, así que
+     * las cuatro plazas de esta pasada no se gastan releyendo lo mismo.
+     */
+    caducadas = desk.expired.map(({ story, motivos }) => ({ slug: story.key, reasons: motivos }));
+
     for (const historia of desk.ready.slice(0, MAX_AUTOPUBLICADAS)) {
       const veredicto = canAutoPublish(historia, { today: observedAt });
 
@@ -610,7 +621,14 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
         note: 'Publicada por la pasada diaria tras superar la puerta automática.',
       });
 
-      if (resultado.ok && resultado.published) publicadas.push(historia.key);
+      if (resultado.ok && resultado.published) {
+        publicadas.push(historia.key);
+        /*
+         * Se atribuye a la banda que la puntuó, no a la pasada que la publicó:
+         * lo que se quiere saber es de qué banda sale lo que llega al lector.
+         */
+        anotar(historia.triage?.score ?? 0, 'publicadas');
+      }
       else noPublicadas.push({ slug: historia.key, motivos: [resultado.message] });
     }
   } catch (error) {
@@ -688,6 +706,7 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
     superseded: superadas.length,
     idleSources: inactivas,
     unvisitedSources: sinVisitar,
+    expired: caducadas,
     investigated: investigado,
     readMs: msLectura,
     notes: resumirPasada({
@@ -701,6 +720,7 @@ export async function runDailyNewsroom(options: DailyOptions): Promise<RunReport
       idle: inactivas.length,
       unvisited: sinVisitar.length,
       investigated: investigado,
+      readMs: msLectura,
     }),
   };
 

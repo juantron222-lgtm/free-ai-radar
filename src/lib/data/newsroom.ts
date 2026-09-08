@@ -7,6 +7,7 @@ import {
   readSeed,
 } from './newsroom-store';
 import { requestRebuild } from '@lib/newsroom/trigger';
+import { repartirMesa } from '@lib/domain/caducidad';
 import {
   buildDesk,
   canApprove,
@@ -60,7 +61,22 @@ async function readPublished(): Promise<NewsItem[]> {
 
 export interface Desk {
   stories: DeskStory[];
+  /**
+   * Lo que de verdad espera una decisión.
+   *
+   * Ya no incluye lo que la puerta automática no podrá aceptar nunca —edad
+   * fuera de ventana, integración de terceros—: eso vive en `expired`. Una cola
+   * en la que la mayoría de las entradas no son decisiones deja de leerse, y
+   * entonces tampoco se leen las que sí lo eran.
+   */
   ready: DeskStory[];
+  /**
+   * Redactadas, correctas y fuera del alcance del automatismo para siempre.
+   *
+   * Siguen enteras y siguen siendo aprobables a mano: caducar no es borrar. Lo
+   * que cambia es que dejan de presentarse como algo pendiente.
+   */
+  expired: Array<{ story: DeskStory; motivos: string[] }>;
   verification: DeskStory[];
   hold: DeskStory[];
   discarded: DeskStory[];
@@ -85,9 +101,13 @@ export async function getDesk(): Promise<Desk> {
     decisions: await readDecisions(),
   });
 
+  const hoy = new Date().toISOString().slice(0, 10);
+  const { ambiguas, caducadas } = repartirMesa(deskSection(stories, 'ready'), { today: hoy });
+
   return {
     stories,
-    ready: deskSection(stories, 'ready'),
+    ready: ambiguas,
+    expired: caducadas,
     verification: deskSection(stories, 'verification'),
     hold: deskSection(stories, 'hold'),
     discarded: deskSection(stories, 'discarded'),

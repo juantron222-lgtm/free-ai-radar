@@ -28,6 +28,24 @@ const SECTIONS = [
     stories: desk.ready,
   },
   {
+    /*
+     * Fuera de la cola de decisiones, pero no borradas.
+     *
+     * Son borradores correctos que el automatismo no aceptará nunca: la fecha
+     * quedó fuera de la ventana de 21 días, o la página acredita una
+     * integración y no un lanzamiento. Ninguno de los dos motivos cambia en un
+     * reintento, así que pedir la misma decisión cada mañana sólo consigue que
+     * la lista de arriba deje de leerse. Siguen aquí y siguen siendo
+     * aprobables: caducar no es descartar.
+     */
+    id: 'expired',
+    title: 'Ya no las puede publicar el automatismo',
+    lede:
+      'Verificadas y redactadas, pero fuera del alcance de la publicación automática por edad o por ' +
+      'alcance de terceros. No esperan decisión; si aun así quieres publicar alguna, puedes.',
+    stories: desk.expired.map(({ story }) => story),
+  },
+  {
     id: 'verification',
     title: 'Verificación pendiente',
     lede: 'La fuente no se ha podido leer, o no demuestra lo suficiente para redactar sin inventar.',

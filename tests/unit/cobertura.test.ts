@@ -3,7 +3,11 @@ import {
   DIAS_SIN_APORTAR,
   embudoDesdeHistorial,
   fuentesInactivas,
+  leerBandas,
+  leerTiempoLectura,
+  serieDeBandas,
 } from '../../scripts/newsroom-cobertura.mjs';
+import { resumirPasada } from '@lib/data/newsroom-store';
 
 /**
  * La medida de cobertura por fabricante.
@@ -187,5 +191,78 @@ describe('el embudo por fabricante', () => {
       fuentes,
     });
     expect(filas[0]).toMatchObject({ id: 's-999', nombre: 's-999', candidatos: 1 });
+  });
+});
+
+describe('la serie por banda sobrevive en el texto', () => {
+  /*
+   * `newsroom_runs` no tiene columna para el reparto por banda, y añadir una
+   * obligaría a otra migración a mano contra un Supabase que no se alcanza
+   * desde aquí. Así que viaja dentro de `notes`. Estas pruebas son lo único
+   * que impide que quien escribe el texto y quien lo lee se separen sin ruido:
+   * si `resumirPasada` cambia el formato, esto se pone rojo.
+   */
+  const base = {
+    sources: 37,
+    errors: 1,
+    drafted: 9,
+    published: 1,
+    held: [] as Array<{ slug: string; reasons: string[] }>,
+    archived: 9,
+    superseded: 2,
+    readMs: 1500,
+  };
+
+  const conBandas = {
+    ...base,
+    investigated: {
+      total: 23,
+      promote: 0,
+      recall: 23,
+      byBand: {
+        '80+': { leidas: 5, verificadas: 2, borradores: 2, publicadas: 0 },
+        '75-79': { leidas: 9, verificadas: 3, borradores: 2, publicadas: 0 },
+        '70-74': { leidas: 14, verificadas: 7, borradores: 7, publicadas: 1 },
+      },
+    },
+  };
+
+  it('lo que escribe la pasada es exactamente lo que se lee de vuelta', () => {
+    expect(leerBandas(resumirPasada(conBandas))).toEqual(conBandas.investigated.byBand);
+  });
+
+  it('recupera también el tiempo de lectura', () => {
+    expect(leerTiempoLectura(resumirPasada(conBandas))).toBe(1.5);
+  });
+
+  it('una pasada sin bandas no inventa ninguna', () => {
+    /* Las pasadas anteriores a esta política no registran reparto. */
+    expect(leerBandas(resumirPasada(base))).toEqual({});
+    expect(leerBandas(null)).toEqual({});
+    expect(leerTiempoLectura('cualquier cosa')).toBeNull();
+  });
+
+  it('acumula varias pasadas y conserva el detalle de cada una', () => {
+    const runs = [
+      { started_at: '2026-09-08T06:00:00Z', trigger: 'cron', status: 'ok', notes: resumirPasada(conBandas) },
+      { started_at: '2026-09-09T06:00:00Z', trigger: 'cron', status: 'ok', notes: resumirPasada(conBandas) },
+    ];
+    const { total, pasadas } = serieDeBandas(runs);
+
+    expect(total['70-74']).toEqual({ leidas: 28, verificadas: 14, borradores: 14, publicadas: 2 });
+    expect(pasadas).toHaveLength(2);
+    expect(pasadas[0]).toMatchObject({ dia: '2026-09-08', lectura: 1.5 });
+  });
+
+  it('salta las pasadas viejas en vez de contarlas como ceros', () => {
+    /*
+     * Contar una pasada sin registro como «0 leídas» hundiría la media de la
+     * semana con días que sencillamente no medían esto.
+     */
+    const runs = [
+      { started_at: '2026-09-01T06:00:00Z', notes: 'una pasada de antes de esta política' },
+      { started_at: '2026-09-08T06:00:00Z', notes: resumirPasada(conBandas) },
+    ];
+    expect(serieDeBandas(runs).pasadas).toHaveLength(1);
   });
 });

@@ -20,6 +20,7 @@
  *   node scripts/newsroom-cobertura.mjs            embudo en vivo, sin base de datos
  *   node scripts/newsroom-cobertura.mjs --historial  lo que la base recuerda
  *   node scripts/newsroom-cobertura.mjs --dias 30    ventana de inactividad
+ *   node scripts/newsroom-cobertura.mjs --pasadas    la serie por banda de los últimos días
  */
 
 import { readFileSync } from 'node:fs';
@@ -308,6 +309,78 @@ async function historial({ dias }) {
   if (!inactivas.length) console.log('  ninguna');
 }
 
+/**
+ * La comparación entre bandas a lo largo de varios días.
+ *
+ * Es la pregunta que justifica toda la política de recall: ¿de qué banda sale
+ * lo que acaba llegando a un lector? Un solo día no la contesta —la auditoría
+ * que motivó esto miró 38 historias, que es poco— y por eso esto acumula.
+ */
+async function pasadas({ dias }) {
+  const url = process.env.PUBLIC_SUPABASE_URL ?? '';
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY ?? '';
+  if (!url || !key) {
+    console.error('\nFaltan PUBLIC_SUPABASE_URL y SUPABASE_SERVICE_ROLE_KEY para leer las pasadas.\n');
+    process.exit(1);
+  }
+
+  const desde = new Date(Date.now() - dias * 86_400_000).toISOString();
+  const runs = await pedir(
+    url,
+    key,
+    `newsroom_runs?select=started_at,trigger,status,notes&started_at=gte.${desde}&order=started_at.asc&limit=500`
+  );
+
+  const { total, pasadas: filas } = serieDeBandas(runs);
+
+  console.log(`\nPasadas de los últimos ${dias} días en ${new URL(url).host}`);
+  console.log('──────────────────────────────────────────────────────────────────────');
+
+  if (filas.length === 0) {
+    console.log('  Ninguna pasada ha registrado reparto por banda todavía.');
+    console.log('  El formato se escribe desde la política de recall: hacen falta pasadas nuevas.');
+    return;
+  }
+
+  console.log('día         disparo  estado   lectura  bandas (leídas/verif/borr/publ)');
+  for (const f of filas) {
+    const detalle = Object.entries(f.bandas)
+      .map(([b, v]) => `${b} ${v.leidas}/${v.verificadas}/${v.borradores}/${v.publicadas}`)
+      .join('  ');
+    console.log(
+      ' ',
+      f.dia.padEnd(11),
+      String(f.trigger ?? '').padEnd(8),
+      String(f.status ?? '').padEnd(8),
+      `${f.lectura ?? '?'}s`.padStart(7),
+      ' ',
+      detalle
+    );
+  }
+
+  console.log('\nAcumulado por banda');
+  console.log('banda    leídas  verificadas  borradores  publicadas   verif/leída  publ/leída');
+  const orden = ['80+', '75-79', '70-74'];
+  for (const b of orden) {
+    const v = total[b];
+    if (!v) continue;
+    const pct = (n) => (v.leidas ? `${((n / v.leidas) * 100).toFixed(0)} %` : '—');
+    console.log(
+      b.padEnd(8),
+      String(v.leidas).padStart(6),
+      String(v.verificadas).padStart(12),
+      String(v.borradores).padStart(11),
+      String(v.publicadas).padStart(11),
+      pct(v.verificadas).padStart(13),
+      pct(v.publicadas).padStart(12)
+    );
+  }
+
+  const leidasTotal = Object.values(total).reduce((n, v) => n + v.leidas, 0);
+  const publTotal = Object.values(total).reduce((n, v) => n + v.publicadas, 0);
+  console.log(`\n${filas.length} pasadas · ${leidasTotal} historias leídas · ${publTotal} publicadas`);
+}
+
 /* -------------------------------------------------------------------- cli -- */
 
 /*
@@ -326,10 +399,79 @@ if (invocadoDirectamente) {
   const dias = Number(args[args.indexOf('--dias') + 1]) || DIAS_SIN_APORTAR;
 
   (async () => {
-    if (args.includes('--historial')) await historial({ dias });
+    if (args.includes('--pasadas')) await pasadas({ dias });
+    else if (args.includes('--historial')) await historial({ dias });
     else imprimirVivo(await embudoEnVivo({ dias }));
   })().catch((error) => {
     console.error('\n✗', error instanceof Error ? error.message : String(error));
     process.exit(1);
   });
+}
+
+/* ------------------------------------------------------ serie por bandas -- */
+
+/**
+ * Qué banda produjo qué, leído de vuelta desde `notes`.
+ *
+ * La serie de una semana tiene que poder reconstruirse, y `newsroom_runs` no
+ * tiene columna para esto. Añadir una obligaría a otra migración a mano contra
+ * el Supabase de producción —que no se alcanza desde aquí—, así que el reparto
+ * viaja dentro del texto en un formato que una persona lee de corrido y una
+ * expresión regular recupera entero.
+ *
+ * Vive aquí y no junto a `resumirPasada`, que es quien lo escribe, para que
+ * haya una sola implementación: una prueba de ida y vuelta ata las dos.
+ */
+export function leerBandas(notes) {
+  const salida = {};
+  const rx = /bandas (\d{2}\+|\d{2}-\d{2}) (\d+)\/(\d+)\/(\d+)\/(\d+)/g;
+
+  let m;
+  while ((m = rx.exec(String(notes ?? ''))) !== null) {
+    salida[m[1]] = {
+      leidas: Number(m[2]),
+      verificadas: Number(m[3]),
+      borradores: Number(m[4]),
+      publicadas: Number(m[5]),
+    };
+  }
+  return salida;
+}
+
+/** Cuánto duró la lectura de esa pasada, en segundos. */
+export function leerTiempoLectura(notes) {
+  const m = String(notes ?? '').match(/lectura ([\d.]+)s/);
+  return m ? Number(m[1]) : null;
+}
+
+/**
+ * Suma la serie de varias pasadas.
+ *
+ * Devuelve el acumulado por banda más la lista de pasadas, porque las dos
+ * cosas contestan preguntas distintas: el acumulado dice qué banda rinde, y la
+ * lista dice si eso fue estable o vino de un solo día bueno.
+ */
+export function serieDeBandas(runs) {
+  const total = {};
+  const pasadas = [];
+
+  for (const run of runs ?? []) {
+    const bandas = leerBandas(run.notes);
+    if (Object.keys(bandas).length === 0) continue;
+
+    for (const [b, v] of Object.entries(bandas)) {
+      total[b] ??= { leidas: 0, verificadas: 0, borradores: 0, publicadas: 0 };
+      for (const campo of Object.keys(v)) total[b][campo] += v[campo];
+    }
+
+    pasadas.push({
+      dia: String(run.started_at ?? '').slice(0, 10),
+      trigger: run.trigger,
+      status: run.status,
+      lectura: leerTiempoLectura(run.notes),
+      bandas,
+    });
+  }
+
+  return { total, pasadas };
 }

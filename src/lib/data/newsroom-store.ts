@@ -233,6 +233,16 @@ export interface RunReport {
     unread: number;
     byBand: Record<string, { leidas: number; verificadas: number; borradores: number }>;
   };
+  /**
+   * Redactadas y correctas que la puerta automática no aceptará nunca.
+   *
+   * Edad fuera de ventana o integración de terceros: los dos motivos son
+   * propiedades que no cambian en un reintento. Se sacan de la cola de
+   * decisiones y se cuentan aparte, porque una cola donde casi nada es una
+   * decisión deja de leerse — y entonces tampoco se leen las que sí lo eran.
+   * Siguen enteras en la base y siguen siendo aprobables a mano.
+   */
+  expired?: Array<{ slug: string; reasons: string[] }>;
   /** Cuánto costó la fase de lectura, que es la cara de la pasada. */
   readMs?: number;
   /** Salidas de portada por edad o por sitio. Siguen publicadas y accesibles. */
@@ -268,8 +278,10 @@ export function resumirPasada(datos: {
     total: number;
     promote: number;
     recall: number;
-    byBand: Record<string, { leidas: number; verificadas: number; borradores: number }>;
+    byBand: Record<string, { leidas: number; verificadas: number; borradores: number; publicadas: number }>;
   };
+  /** Cuánto costó la fase de lectura. */
+  readMs?: number;
 }): string {
   const vigiladas = datos.unvisited
     ? `${datos.sources - datos.unvisited} de ${datos.sources} fuentes miradas (${datos.unvisited} sin tiempo)`
@@ -293,8 +305,9 @@ export function resumirPasada(datos: {
     ? `. Leídas ${datos.investigated.total} (${datos.investigated.promote} promote + ` +
       `${datos.investigated.recall} recall)` +
       Object.entries(datos.investigated.byBand)
-        .map(([b, v]) => ` · ${b}: ${v.leidas}→${v.verificadas} verif→${v.borradores} borr`)
-        .join('')
+        .map(([b, v]) => ` · bandas ${b} ${v.leidas}/${v.verificadas}/${v.borradores}/${v.publicadas}`)
+        .join('') +
+      ` [leídas/verif/borr/publ] · lectura ${((datos.readMs ?? 0) / 1000).toFixed(1)}s`
     : '';
 
   if (datos.held.length === 0) return base + lectura;
