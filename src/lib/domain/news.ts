@@ -353,6 +353,20 @@ export const NewsItem = z.object({
 
   /** What is still unconfirmed, shown to the reader on `partial` items. */
   unconfirmed: z.array(z.string()).default([]),
+
+  /**
+   * Retirada de portada sin dejar de estar publicada.
+   *
+   * Hacía falta un tercer estado. `archived` no sirve: la capa de datos filtra
+   * por `status === 'published'`, así que archivar una noticia le quita también
+   * su página, y lo que se quiere es lo contrario — que deje de ocupar portada
+   * y conserve su URL, su historial y su sitio en el sitemap.
+   *
+   * Es explícito y por omisión `true`: la partición de portada sigue siendo
+   * derivada de la fecha, y esto no la sustituye. Sólo permite sacar a mano
+   * algo concreto, que es una decisión editorial y debe verse como tal.
+   */
+  frontPage: z.boolean().default(true),
 });
 export type NewsItem = z.infer<typeof NewsItem>;
 

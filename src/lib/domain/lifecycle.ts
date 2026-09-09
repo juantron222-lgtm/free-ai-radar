@@ -74,7 +74,17 @@ export function repartirPortada(
   const viejas: HydratedNewsItem[] = [];
 
   for (const item of items) {
-    if (item.ageDays > diasFresca) {
+    /*
+     * Una retirada a mano pesa más que la edad.
+     *
+     * Va antes que el corte por fecha para que una noticia reciente que alguien
+     * ha decidido sacar de portada no vuelva a colarse por ser reciente. Cae en
+     * `archivo`, no en la nada: sigue enlazada desde /noticias y en el sitemap.
+     */
+    if (item.frontPage === false) {
+      viejas.push(item);
+      motivos.push({ slug: item.slug, motivo: 'retirada de portada por decisión editorial' });
+    } else if (item.ageDays > diasFresca) {
       viejas.push(item);
       motivos.push({ slug: item.slug, motivo: `${item.ageDays} días: pasa de ${diasFresca}` });
     } else {

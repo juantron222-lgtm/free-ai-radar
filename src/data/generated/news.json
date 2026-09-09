@@ -1,5 +1,38 @@
 [
   {
+    "id": "news-2026-09-03-runway-com-runway-research-introducing-gwm-worlds-2",
+    "slug": "runway-com-runway-research-introducing-gwm-worlds-2",
+    "title": "Runway Research | Introducing GWM Worlds 2",
+    "author": "Redacción de Free AI Radar",
+    "impact": "La página no menciona ninguna capa gratuita, ni para confirmarla ni para descartarla, así que no podemos decir qué cambia para quien no paga. El anuncio no menciona pesos descargables ni licencia. Verificado leyendo la página del fabricante; queda pendiente la revisión editorial.",
+    "status": "published",
+    "sources": [
+      {
+        "url": "https://runway.com/research/introducing-gwm-worlds-2",
+        "kind": "official",
+        "label": "Runway Research | Introducing GWM Worlds 2",
+        "checkedAt": "2026-09-08",
+        "publisher": "runway.com"
+      }
+    ],
+    "summary": "runway.com publicó esto el 2026-09-03, según la fecha que declara su propia página. Sobre la disponibilidad, el anuncio dice: «GWM Worlds 2 is a research preview, and real-time generation still trades fidelity for speed.».",
+    "category": "video",
+    "checkedAt": "2026-09-08",
+    "eventType": "preview-beta",
+    "freeAccess": {
+      "model": "unknown",
+      "creditReset": "unknown"
+    },
+    "officialUrl": "https://runway.com/research/introducing-gwm-worlds-2",
+    "publishedAt": "2026-09-03",
+    "unconfirmed": [],
+    "availability": "preview",
+    "relatedTools": [],
+    "verification": "verified",
+    "affectsFreePlan": "unverified",
+    "frontPage": false
+  },
+  {
     "id": "news-2026-08-04-ollama-0326",
     "slug": "ollama-0-32-6-retira-temporalmente-la-generacion-de-imagenes",
     "title": "Ollama retira temporalmente la generación de imágenes en la 0.32.6",

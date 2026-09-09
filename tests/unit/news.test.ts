@@ -79,6 +79,8 @@ function makeItem(overrides: Partial<NewsItem> = {}): NewsItem {
     status: 'published',
     author: 'Redacción de Free AI Radar',
     unconfirmed: [],
+    /* Con `default()` en el esquema, el tipo de salida lo exige aunque la entrada no. */
+    frontPage: true,
     ...overrides,
   };
 }
