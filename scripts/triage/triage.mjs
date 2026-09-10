@@ -124,7 +124,14 @@ const CORPORATE_VAPOR = /\b(our (?:company|mission|values|approach|position|data
 
 const RESEARCH_MARKER = /\b(towards?|a study of|we investigate|paper|benchmark\w*|evaluation\w*|epidemiology|dataset for research)\b/i;
 
-const FUNDING_MARKER = /\b(funding|raises|series [a-e]\b|investment round|valuation|acquir\w+)\b/i;
+/*
+ * `FUNDING_MARKER` vivía aquí y se ha retirado con su único uso.
+ *
+ * Servía para descartar toda operación corporativa. Lo que ahora reconoce esas
+ * historias son `OPERACION_ADQUISICION`, `OPERACION_RONDA` y `OPERACION_ACUERDO`,
+ * que además distinguen entre ellas: una compra no pesa lo mismo que un
+ * acuerdo. Dejar la constante muerta habría invitado a volver a usarla.
+ */
 const ALLIANCE_MARKER = /\b(partners? with|partnership|in collaboration with|collaborat\w+ with|joint venture)\b/i;
 const GAMING_MARKER = /\b(geforce|rtx\s*\d|dlss|game ready|gaming|new games|omniverse|workstation)\b/i;
 const PROGRAM_MARKER = /\b(bug bounty|hackathon|grants?|fellowship|competition|contest|challenge)\b/i;
@@ -270,6 +277,152 @@ function signal(axis, points, max, reason) {
  * The reasons are the product here. A score of 71 tells nobody anything; "no
  * dice si se puede usar hoy" tells the next reader what to go and check.
  */
+/* ---------------------------------------------------- eventos de empresa -- */
+
+/**
+ * Una operación corporativa no se mide con la vara de un producto.
+ *
+ * Aquí había un descarte duro —«financiación o adquisición: no cambia nada
+ * utilizable»— que era correcto para un catálogo de herramientas gratuitas y
+ * exactamente falso para una sección de actualidad. Con él, la compra de
+ * Hugging Face por NVIDIA puntuaba 1 sobre 100.
+ *
+ * Pero quitarlo no bastaba: la misma noticia se quedaba en 36, porque más de la
+ * mitad de la escala mide si el lector puede usar algo hoy —disponibilidad,
+ * artefacto descargable, gratuidad—. Un cambio de propiedad no tiene nada de
+ * eso y sigue siendo de lo más importante que ocurre en el sector.
+ *
+ * Así que estas historias se puntúan por otra vara, en un camino separado que
+ * no toca ninguno de los ejes existentes. Lo que decide aquí es quién está
+ * implicado, qué clase de operación es, de cuánto dinero se habla y cuándo
+ * ocurrió — que es exactamente lo que decide un editor.
+ */
+const OPERACION_ADQUISICION = /\b(acquir\w+|acquisition|merge[rs]?\b|merges with|to buy|buyout|takeover)\b/i;
+const OPERACION_RONDA = /\b(raises|funding round|series [a-e]\b|investment round|valuation|led the round|closes? a \$?\d)\b/i;
+const OPERACION_ACUERDO = /\b(strategic (partnership|agreement|alliance)|joint venture|multi-?year (deal|agreement)|signs? a deal)\b/i;
+
+/**
+ * Quién mueve la aguja del sector.
+ *
+ * Es la señal más fiable que da un titular, y por eso pesa más que la cifra:
+ * muchos anuncios importantes no llevan importe en el titular —«NVIDIA to
+ * Acquire Hugging Face» no lo lleva— y en cambio siempre dicen quién.
+ */
+const ACTOR_MAYOR =
+  /\b(nvidia|openai|anthropic|google|deepmind|meta\b|microsoft|amazon|apple|xai\b|mistral|hugging ?face|deepseek|cohere|stability ?ai|databricks|scale ?ai|perplexity|figure ai|tesla|intel|amd\b|arm\b|tsmc|softbank|samsung|alibaba|tencent|baidu|bytedance|ibm\b)\b/i;
+
+/** Que la operación tenga algo que ver con esto y no con otra industria. */
+const RELEVANCIA_IA =
+  /\b(ai\b|a\.i\.|artificial intelligence|machine learning|\bllm\b|model|models|gpu|chips?|inference|compute|datacent\w+|robot\w*|agent\w*|open[- ]weights?)\b/i;
+
+/** Una operación corporativa que además es del sector. */
+export function esEventoCorporativoIA(title) {
+  const t = String(title ?? '');
+  const esOperacion =
+    OPERACION_ADQUISICION.test(t) || OPERACION_RONDA.test(t) || OPERACION_ACUERDO.test(t);
+  if (!esOperacion) return false;
+  return RELEVANCIA_IA.test(t) || ACTOR_MAYOR.test(t);
+}
+
+/** Cuántos actores mayores aparecen, hasta dos: más de dos no dice más. */
+function actoresMayores(title) {
+  const encontrados = new Set();
+  for (const m of String(title ?? '').matchAll(new RegExp(ACTOR_MAYOR.source, 'gi'))) {
+    encontrados.add(m[0].toLowerCase().trim());
+  }
+  return encontrados.size;
+}
+
+/**
+ * El importe que declara el titular, en millones.
+ *
+ * Devuelve `null` cuando no hay ninguno, que es lo normal y no es un defecto:
+ * media docena de las operaciones más importantes del año se anunciaron sin
+ * cifra en el titular.
+ */
+function importeEnMillones(title) {
+  const m = String(title ?? '').match(
+    /(?:\$|€|£|usd\s*|eur\s*)?\s*(\d+(?:[.,]\d+)?)\s*(billion|bn\b|b\b|mil millones|millones|million|mm?\b)/i
+  );
+  if (!m) return null;
+
+  const cifra = Number(String(m[1]).replace(',', '.'));
+  if (!Number.isFinite(cifra)) return null;
+
+  return /billion|bn|mil millones|^b$/i.test(m[2].trim()) ? cifra * 1000 : cifra;
+}
+
+function diasDesde(publishedAt, hoy) {
+  if (!publishedAt) return Number.POSITIVE_INFINITY;
+  const dias = (Date.parse(`${hoy}T00:00:00Z`) - Date.parse(`${publishedAt}T00:00:00Z`)) / 86_400_000;
+  return Number.isFinite(dias) ? dias : Number.POSITIVE_INFINITY;
+}
+
+/**
+ * La escala de una operación corporativa. Cinco ejes, cien puntos.
+ *
+ * Se mantiene el mismo techo que la escala de producto para que `THRESHOLDS`
+ * signifique lo mismo en los dos caminos: un 80 sigue siendo un 80.
+ */
+export function scoreCorporativo(story, { hoy = new Date().toISOString().slice(0, 10) } = {}) {
+  const title = story.title ?? '';
+  const signals = [];
+
+  const actores = actoresMayores(title);
+  if (actores >= 2) {
+    signals.push(signal('actores', 35, 35, 'implica a dos actores mayores del sector'));
+  } else if (actores === 1) {
+    signals.push(signal('actores', 22, 35, 'implica a un actor mayor del sector'));
+  } else {
+    signals.push(signal('actores', 5, 35, 'no aparece ningún actor mayor del sector'));
+  }
+
+  /*
+   * Un cambio de propiedad pesa más que una ronda, y una ronda más que un
+   * acuerdo: el primero decide quién manda, el segundo qué se podrá construir y
+   * el tercero sólo con quién.
+   */
+  if (OPERACION_ADQUISICION.test(title)) {
+    signals.push(signal('operacion', 20, 20, 'adquisición o fusión: cambia la propiedad'));
+  } else if (OPERACION_RONDA.test(title)) {
+    signals.push(signal('operacion', 16, 20, 'ronda de financiación'));
+  } else {
+    signals.push(signal('operacion', 10, 20, 'acuerdo estratégico'));
+  }
+
+  const millones = importeEnMillones(title);
+  if (millones === null) {
+    signals.push(signal('magnitud', 6, 20, 'el titular no declara importe'));
+  } else if (millones >= 1000) {
+    signals.push(signal('magnitud', 20, 20, `importe de ${Math.round(millones)} millones o más`));
+  } else if (millones >= 100) {
+    signals.push(signal('magnitud', 13, 20, `importe de ${Math.round(millones)} millones`));
+  } else {
+    signals.push(signal('magnitud', 8, 20, `importe menor: ${Math.round(millones)} millones`));
+  }
+
+  const dias = diasDesde(story.publishedAt, hoy);
+  if (dias <= 2) signals.push(signal('actualidad', 15, 15, 'de las últimas 48 horas'));
+  else if (dias <= 7) signals.push(signal('actualidad', 11, 15, 'de la última semana'));
+  else if (dias <= 21) signals.push(signal('actualidad', 6, 15, 'de las últimas tres semanas'));
+  else signals.push(signal('actualidad', 2, 15, 'operación antigua'));
+
+  const path = String(story.canonicalUrl ?? '').split('/').slice(1).filter(Boolean);
+  if (path.length >= 2) signals.push(signal('fuente', 10, 10, 'entrada específica del blog oficial'));
+  else if (path.length === 1) signals.push(signal('fuente', 6, 10, 'página oficial poco específica'));
+  else signals.push(signal('fuente', 3, 10, 'índice genérico: no identifica el anuncio'));
+
+  const score = signals.reduce((n, s) => n + s.points, 0);
+
+  return {
+    score: Math.max(0, Math.min(100, score)),
+    signals,
+    eventClass: 'corporativo',
+    vertical: detectVertical(title),
+    product: detectProduct(title),
+  };
+}
+
 export function scoreStory(story) {
   const title = story.title ?? '';
   const eventClass = detectEventClass(title);
@@ -442,7 +595,26 @@ export function scoreStory(story) {
 export function hardReject(title) {
   const text = String(title ?? '');
   if (readsAsCustomerStory(text)) return 'caso de cliente: la historia trata de quién lo usa, no de qué cambia';
-  if (FUNDING_MARKER.test(text)) return 'financiación o adquisición: no cambia nada utilizable';
+
+  /*
+   * El descarte de financiación y adquisiciones se ha estrechado, no borrado.
+   *
+   * Decía «no cambia nada utilizable» y rechazaba toda operación corporativa.
+   * Era el criterio correcto mientras esto catalogaba herramientas gratuitas y
+   * es exactamente el contrario del que necesita una sección de actualidad:
+   * quién compra a quién es de lo más importante que ocurre en el sector. Las
+   * operaciones de IA van ahora por `scoreCorporativo`.
+   *
+   * Lo que sigue rechazándose es la operación que no tiene nada que ver con
+   * esto. Borrar la regla del todo dejaba a «Acme Logistics acquires Beta
+   * Freight» puntuando 65 por la escala de producto, que es peor que el
+   * problema que se venía a arreglar.
+   */
+  const operacion =
+    OPERACION_ADQUISICION.test(text) || OPERACION_RONDA.test(text) || OPERACION_ACUERDO.test(text);
+  if (operacion && !esEventoCorporativoIA(text)) {
+    return 'operación corporativa ajena al sector: ni actores ni objeto de IA';
+  }
   /*
    * A launch verb does not redeem an alliance: "HP launches a strategic
    * partnership with OpenAI" is still a partnership. What would redeem it is a
@@ -524,11 +696,31 @@ export function runTriage({ inbox, triagedAt }) {
   });
 
   for (const row of ordered) {
-    const { score, signals, eventClass, vertical, product } = scoreStory(row);
+    /*
+     * Dos varas, y el titular decide cuál.
+     *
+     * Una operación corporativa del sector no se mide por si el lector puede
+     * descargar algo hoy, así que va por su propia escala. Todo lo demás sigue
+     * exactamente por donde iba: este reparto no cambia ni un punto de las
+     * decisiones editoriales ya acordadas.
+     */
+    const corporativa = esEventoCorporativoIA(row.title);
+    const { score, signals, eventClass, vertical, product } = corporativa
+      ? scoreCorporativo(row, { hoy: triagedAt })
+      : scoreStory(row);
+
     const reasons = [...signals];
     let finalScore = score;
 
-    const refusal = hardReject(row.title);
+    /*
+     * Los descartes duros son de la escala de producto y no se aplican aquí.
+     *
+     * «Alianza corporativa sin producto» descartaba precisamente los acuerdos
+     * estratégicos, que es una de las cosas que esta sección tiene que cubrir.
+     * Una operación irrelevante no necesita descarte: la propia escala
+     * corporativa la deja abajo, porque sin actores mayores ni importe no suma.
+     */
+    const refusal = corporativa ? null : hardReject(row.title);
     if (refusal) {
       reasons.push(signal('descarte', -finalScore, 0, refusal));
       finalScore = 0;
@@ -566,7 +758,16 @@ export function runTriage({ inbox, triagedAt }) {
     const points = (axis) => reasons.find((r) => r.axis === axis)?.points ?? 0;
     const outOf = (axis) => reasons.find((r) => r.axis === axis)?.max ?? 1;
 
-    const freeAccess = points('acceso-gratuito') / outOf('acceso-gratuito');
+    /*
+     * Este cruce es de la escala de producto, y se dice en voz alta.
+     *
+     * Sobre una historia corporativa sale cero por sí solo, porque ninguno de
+     * los ejes que multiplica existe ahí. Pero salir bien por coincidencia no
+     * es salir bien: bastaría cambiar el valor por defecto de `outOf` para que
+     * las operaciones empezaran a recibir puntos de gratuidad sin que nadie lo
+     * pretendiera. La condición lo deja escrito.
+     */
+    const freeAccess = corporativa ? 0 : points('acceso-gratuito') / outOf('acceso-gratuito');
     const significance =
       (points('impacto') / outOf('impacto')) * 0.3 +
       (points('importancia') / outOf('importancia')) * 0.3 +

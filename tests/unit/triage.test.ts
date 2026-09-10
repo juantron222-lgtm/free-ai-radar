@@ -205,10 +205,20 @@ describe('what gets refused outright', () => {
     expect(hardReject('We believe in a frontier company for America')).toBeTruthy();
   });
 
-  it('refuses funding and alliances that ship nothing', () => {
-    expect(hardReject('Anthropic raises Series F at a $600B valuation')).toBeTruthy();
-    expect(hardReject('HP Inc. launches Frontier strategic partnership with OpenAI')).toBe(
-      'alianza corporativa sin producto'
+  it('ya no refusa una operación del sector, y sí una ajena a él', () => {
+    /*
+     * Esta prueba afirmaba lo contrario, y afirmaba bien mientras la sección
+     * catalogaba herramientas gratuitas: entonces una ronda no cambiaba nada
+     * que un lector pudiera usar. Como sección de actualidad, quién compra a
+     * quién es de lo más importante que ocurre, así que el descarte se estrechó
+     * en lugar de borrarse.
+     */
+    expect(hardReject('Anthropic raises Series F at a $600B valuation')).toBeNull();
+    expect(hardReject('NVIDIA to Acquire Hugging Face')).toBeNull();
+
+    /* Lo que sigue fuera: la operación que no tiene nada que ver con esto. */
+    expect(hardReject('Acme Logistics acquires Beta Freight for $4M')).toBe(
+      'operación corporativa ajena al sector: ni actores ni objeto de IA'
     );
   });
 
@@ -427,5 +437,84 @@ describe('the shape of the run over the real inbox', () => {
 
   it('rejects the clear majority, because the clear majority is not news', () => {
     expect((stats.byDecision.reject ?? 0) / stats.total).toBeGreaterThan(0.6);
+  });
+});
+
+describe('una operación corporativa se mide por otra vara', () => {
+  /*
+   * El caso que motivó esto: «NVIDIA to Acquire Hugging Face» puntuaba 1 sobre
+   * 100 y se rechazaba. La causa no era una regla suelta sino la escala entera
+   * — más de la mitad de sus puntos miden si el lector puede descargar algo
+   * hoy, y un cambio de propiedad no tiene nada de eso.
+   *
+   * Lo que se prueba aquí es la frontera en los dos sentidos: que una operación
+   * importante del sector pueda llegar arriba, y que llamarse «adquisición» no
+   * baste para adelantar a nadie.
+   */
+  const CORPORATIVA: Partial<InboxCandidateShape> = {
+    publishedAt: '2026-08-10',
+    canonicalUrl: 'blogs.nvidia.com/blog/algo',
+    publisher: 'blogs.nvidia.com',
+  };
+
+  const enEscalaCorporativa = (r: { triageReasons: Array<{ axis: string }> }) =>
+    r.triageReasons.some((s) => s.axis === 'actores');
+
+  it('una adquisición mayor del sector llega a promote', () => {
+    const record = judge('NVIDIA to Acquire Hugging Face', CORPORATIVA);
+    expect(enEscalaCorporativa(record)).toBe(true);
+    expect(record.triageScore).toBeGreaterThanOrEqual(THRESHOLDS.promote);
+    expect(record.triageDecision).toBe('promote');
+  });
+
+  it('una gran ronda de financiación también', () => {
+    const record = judge('Mistral raises €3B to make sovereign, open-weight AI the frontier', CORPORATIVA);
+    expect(record.triageDecision).toBe('promote');
+    expect(record.triageReasons.find((r) => r.axis === 'magnitud')?.points).toBe(20);
+  });
+
+  it('llamarse adquisición no da prioridad por sí solo', () => {
+    /*
+     * Sin actores mayores y con un importe pequeño, la misma clase de operación
+     * se queda donde debe: se mira, no se adelanta.
+     */
+    const record = judge('TinyCo acquires SmallAI, a two-person model tooling startup, for $3M', CORPORATIVA);
+    expect(enEscalaCorporativa(record)).toBe(true);
+    expect(record.triageScore).toBeLessThan(THRESHOLDS.promote);
+    expect(record.triageDecision).not.toBe('promote');
+  });
+
+  it('una operación ajena al sector se sigue rechazando', () => {
+    /*
+     * Borrar el descarte del todo dejaba a esta puntuando 65 por la escala de
+     * producto, que es peor que el problema que se venía a arreglar.
+     */
+    expect(judge('Acme Logistics acquires Beta Freight for $4M', CORPORATIVA).triageDecision).toBe(
+      'reject'
+    );
+  });
+
+  it('la gratuidad no puntúa en una operación corporativa', () => {
+    /*
+     * El cruce «acceso × relevancia» es de la escala de producto. Si apareciera
+     * aquí, una adquisición empezaría a puntuar por algo que no tiene.
+     */
+    const record = judge('NVIDIA to Acquire Hugging Face', CORPORATIVA);
+    for (const eje of ['acceso-gratuito', 'acceso-x-relevancia', 'disponibilidad', 'artefacto']) {
+      expect(record.triageReasons.some((r) => r.axis === eje)).toBe(false);
+    }
+  });
+
+  it('la actualidad pesa: la misma operación envejecida no promociona', () => {
+    /* Una compra de hace tres meses ya no es actualidad, por grande que fuera. */
+    const vieja = judge('NVIDIA to Acquire Hugging Face', { ...CORPORATIVA, publishedAt: '2026-05-01' });
+    expect(vieja.triageScore).toBeLessThan(THRESHOLDS.promote);
+  });
+
+  it('un lanzamiento de producto sigue yendo por la escala de producto', () => {
+    /* El reparto no puede llevarse por delante lo que ya funcionaba. */
+    const record = judge('Introducing Claude Opus 5');
+    expect(enEscalaCorporativa(record)).toBe(false);
+    expect(record.triageReasons.some((r) => r.axis === 'acceso-gratuito')).toBe(true);
   });
 });
