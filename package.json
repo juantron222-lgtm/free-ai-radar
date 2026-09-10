@@ -54,6 +54,7 @@
     "newsroom:schema": "node scripts/newsroom-schema.mjs",
     "newsroom:cobertura": "node scripts/newsroom-cobertura.mjs",
     "newsroom:cobertura:historial": "node scripts/newsroom-cobertura.mjs --historial",
+    "newsroom:publicar": "node scripts/newsroom-publicar.mjs",
     "newsroom:pasadas": "node scripts/newsroom-cobertura.mjs --pasadas",
     "newsroom:e2e": "node scripts/newsroom-e2e.mjs",
     "newsroom:e2e:seed": "node scripts/newsroom-e2e.mjs --seed",
