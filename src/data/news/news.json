@@ -1,5 +1,99 @@
 [
   {
+    "id": "news-2026-09-09-openai-gpt-6-astra",
+    "slug": "openai-gpt-6-astra",
+    "title": "OpenAI lanza GPT-6 Astra y lo declara su primer modelo de nivel crítico en ciberseguridad",
+    "author": "Redacción de Free AI Radar",
+    "summary": "OpenAI presentó el 9 de septiembre GPT-6 Astra, al que describe como su modelo más inteligente y mejor alineado hasta la fecha, con capacidades punteras en uso de ordenador, programación, ciberseguridad y ciencia. En su resumen de seguridad la compañía va más lejos: afirma que es su modelo desplegado de forma amplia más capaz y el primero en alcanzar el nivel «crítico» de capacidad en ciberseguridad dentro de su Preparedness Framework, el marco con el que clasifica los riesgos de sus propios sistemas antes de desplegarlos.",
+    "impact": "Que un laboratorio sitúe a su modelo en el escalón más alto de su propia escala de riesgo en ciberseguridad es una declaración con consecuencias: ese marco condiciona qué salvaguardas exige antes de desplegar y qué accesos restringe. La clasificación es de OpenAI sobre sí misma, no de un evaluador independiente.",
+    "category": "modelo-lenguaje",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-09-09",
+    "checkedAt": "2026-09-10",
+    "officialUrl": "https://openai.com/index/gpt-6-astra",
+    "sources": [
+      {
+        "url": "https://openai.com/index/gpt-6-astra",
+        "kind": "official",
+        "label": "GPT-6 Astra: A new generation of intelligence",
+        "checkedAt": "2026-09-10",
+        "publisher": "openai.com"
+      },
+      {
+        "url": "https://openai.com/news/rss.xml",
+        "kind": "official",
+        "label": "OpenAI News, canal oficial",
+        "checkedAt": "2026-09-10",
+        "publisher": "openai.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-09-suno-v6",
+    "slug": "suno-v6",
+    "title": "Suno lanza v6, su nueva generación de modelos musicales, con Warner, BMG y Believe",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Suno presentó el 9 de septiembre v6, una nueva generación de modelos de generación musical desarrollada junto a socios de la industria discográfica entre los que figuran Warner Music Group, BMG y Believe. La compañía sostiene que los modelos son más rápidos, más expresivos y de mayor calidad que los anteriores, y que incorporan controles nuevos para quienes crean música. Suno enmarca el lanzamiento como la base para futuros productos que abran vías de ingreso dentro del ecosistema musical.",
+    "impact": "Suno llevaba meses en conflicto con titulares de derechos. Lanzar producto junto a tres de los mayores actores de la distribución musical cambia el terreno práctico para un músico: la discusión deja de ser si un tema generado puede publicarse y pasa a ser en qué condiciones y con qué reparto.",
+    "category": "audio",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-09-09",
+    "checkedAt": "2026-09-10",
+    "officialUrl": "https://suno.com/blog/introducing-v6",
+    "sources": [
+      {
+        "url": "https://suno.com/blog/introducing-v6",
+        "kind": "official",
+        "label": "Introducing v6",
+        "checkedAt": "2026-09-10",
+        "publisher": "suno.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-03-nvidia-compra-hugging-face",
+    "slug": "nvidia-compra-hugging-face",
+    "title": "NVIDIA compra Hugging Face por 12.930 millones de dólares",
+    "author": "Redacción de Free AI Radar",
+    "summary": "NVIDIA acordó el 3 de septiembre la compra de Hugging Face por 12.930 millones de dólares, según anunció en su blog corporativo. La plataforma es el principal repositorio público de modelos de aprendizaje automático: NVIDIA cifra en más de 18 millones los desarrolladores, investigadores y creadores que la usan para compartir más de 3 millones de modelos, 500.000 conjuntos de datos y un millón de aplicaciones. La compradora afirma que seguirá siendo una plataforma abierta para todo el ecosistema.",
+    "impact": "Hugging Face es la infraestructura por la que pasa buena parte de la distribución de modelos de pesos abiertos. Que su propietario sea ahora un fabricante de aceleradores sitúa bajo un mismo dueño el catálogo donde se publican los modelos y el hardware sobre el que se ejecutan. El compromiso de neutralidad es, por ahora, una declaración de la compradora.",
+    "category": "local-open-source",
+    "eventType": "anuncio",
+    "availability": "unknown",
+    "publishedAt": "2026-09-03",
+    "checkedAt": "2026-09-10",
+    "officialUrl": "https://blogs.nvidia.com/blog/nvidia-to-acquire-hugging-face/",
+    "sources": [
+      {
+        "url": "https://blogs.nvidia.com/blog/nvidia-to-acquire-hugging-face/",
+        "kind": "official",
+        "label": "NVIDIA to Acquire Hugging Face",
+        "checkedAt": "2026-09-10",
+        "publisher": "nvidia.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-09-03-runway-com-runway-research-introducing-gwm-worlds-2",
     "slug": "runway-com-runway-research-introducing-gwm-worlds-2",
     "title": "Runway Research | Introducing GWM Worlds 2",

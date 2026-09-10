@@ -36,6 +36,16 @@ function textoVisible(html) {
   return String(html ?? '')
     .replace(/<script[\s\S]*?<\/script>/gi, ' ')
     .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    /*
+     * Los marcadores CDATA se quitan antes que las etiquetas, no después.
+     *
+     * Un feed mete el texto en `<![CDATA[ … ]]>`, y como ahí dentro no suele
+     * haber ningún «>», el patrón de etiquetas se traga el bloque entero con su
+     * contenido. Toda cita procedente de un feed quedaba entonces sin verificar
+     * —fallando cerrado, que es la dirección buena, pero por el motivo
+     * equivocado— y OpenAI, que sólo se deja leer por feed, era inpublicable.
+     */
+    .replace(/<!\[CDATA\[|\]\]>/g, ' ')
     .replace(/<[^>]+>/g, ' ')
     .replace(/&#x27;|&#39;/g, "'")
     .replace(/&amp;/g, '&')
@@ -157,12 +167,66 @@ async function main() {
     return;
   }
 
+  const previo = readFileSync(SEMILLA, 'utf-8');
+
   semilla.push(item);
   semilla.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt) || a.slug.localeCompare(b.slug));
   writeFileSync(SEMILLA, `${JSON.stringify(semilla, null, 2)}\n`, 'utf-8');
 
-  console.log(`\n✓ Escrita en la semilla. ${semilla.length} noticias.`);
-  console.log('  El build revalida con Zod e isPublishable antes de desplegar.\n');
+  /*
+   * Escribir y después preguntar, deshaciendo si la respuesta es que no.
+   *
+   * El esquema y `isPublishable` viven en TypeScript con alias de módulo, así
+   * que este script no puede invocarlos directamente; la suite del conjunto de
+   * datos sí, y es exactamente la misma que aplica el build. Se ejecuta aquí
+   * para que un error salga al publicar y no media hora después, cuando el
+   * build lo encuentre.
+   *
+   * El primer lote de verdad justificó esto dos veces: un resumen de 627
+   * caracteres sobre un tope de 600, y una noticia de IBM cuya única fuente
+   * estaba en huggingface.co y no en el dominio del fabricante. Las dos habrían
+   * llegado al build.
+   */
+  const { spawnSync } = await import('node:child_process');
+  process.stdout.write('\n  revalidando el conjunto de datos… ');
+
+  const prueba = spawnSync(
+    process.platform === 'win32' ? 'npx.cmd' : 'npx',
+    ['vitest', 'run', 'tests/unit/news.test.ts'],
+    { cwd: ROOT, encoding: 'utf-8' }
+  );
+
+  if (prueba.status !== 0) {
+    writeFileSync(SEMILLA, previo, 'utf-8');
+    console.error('rechazada.\n');
+    /*
+     * La cola en bruto, sin filtrar por patrones.
+     *
+     * Un filtro por «AssertionError» no casaba con lo que vitest escribe de
+     * verdad, y el resultado era un rechazo sin motivo — peor que no imprimir
+     * nada, porque parece que no lo hay.
+     */
+    const salida = `${prueba.stdout ?? ''}${prueba.stderr ?? ''}`;
+
+    /*
+     * El escape ANSI se construye, no se escribe.
+     *
+     * Un ESC literal dentro de una expresión regular es un carácter de control
+     * y ESLint lo rechaza con razón: en el fichero no se ve, así que nadie
+     * puede leer qué hace ese patrón.
+     */
+    const COLOR = new RegExp(`${String.fromCharCode(27)}\\[[0-9;]*m`, 'g');
+
+    for (const linea of salida.split('\n').filter((l) => l.trim()).slice(-12)) {
+      console.error(`   ${linea.replace(COLOR, '').trimEnd().slice(0, 150)}`);
+    }
+    console.error('\n  La semilla se ha dejado como estaba.\n');
+    process.exitCode = 1;
+    return;
+  }
+
+  console.log('vale.');
+  console.log(`\n✓ Escrita en la semilla. ${semilla.length} noticias.\n`);
 }
 
 /*
