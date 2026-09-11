@@ -190,14 +190,73 @@ async function main() {
   const { spawnSync } = await import('node:child_process');
   process.stdout.write('\n  revalidando el conjunto de datos… ');
 
-  const prueba = spawnSync(
-    process.platform === 'win32' ? 'npx.cmd' : 'npx',
-    ['vitest', 'run', 'tests/unit/news.test.ts'],
-    { cwd: ROOT, encoding: 'utf-8' }
-  );
+  /*
+   * vitest se lanza con este mismo Node y su punto de entrada, no con `npx`.
+   *
+   * `spawnSync('npx.cmd', …)` sin shell falla con EINVAL en Node 24 sobre
+   * Windows: el proceso no llega a arrancar, `status` vuelve `null`, y la
+   * condición de abajo lo leía como «rechazada». Este paso rechazaba todas las
+   * noticias sin haber ejecutado ni una prueba — incluida la de IBM que se tomó
+   * por demostración de que funcionaba. Con `process.execPath` no hay `.cmd`,
+   * ni shell, ni argumentos concatenados.
+   */
+  const { existsSync } = await import('node:fs');
+  const VITEST = resolve(ROOT, 'node_modules/vitest/vitest.mjs');
+  const SYNC = resolve(ROOT, 'scripts/newsroom-sync.mjs');
+  const GENERADO = resolve(ROOT, 'src/data/generated/news.json');
+
+  /*
+   * La suite no valida la semilla: valida lo que `newsroom-sync.mjs` genera a
+   * partir de ella, que es además lo que el build prerenderiza.
+   *
+   * Escribir la semilla y probar sin regenerar comparaba 16 noticias contra 15
+   * y rechazaba cualquier publicación nueva por un desfase que no tenía nada
+   * que ver con la noticia. Así que se regenera antes de probar, y deshacer
+   * restaura los dos ficheros: si sólo volviera la semilla, el generado se
+   * quedaría con una noticia que ya no existe.
+   */
+  const previoGenerado = existsSync(GENERADO) ? readFileSync(GENERADO, 'utf-8') : null;
+  const deshacer = () => {
+    writeFileSync(SEMILLA, previo, 'utf-8');
+    if (previoGenerado !== null) writeFileSync(GENERADO, previoGenerado, 'utf-8');
+  };
+
+  const lanzar = (entrada, args) =>
+    existsSync(entrada)
+      ? spawnSync(process.execPath, [entrada, ...args], { cwd: ROOT, encoding: 'utf-8' })
+      : { status: null, error: new Error(`no se encuentra ${entrada}`), stdout: '', stderr: '' };
+
+  /* Un fallo al regenerar es «no he podido mirar», no «la noticia suspende». */
+  const sincronizado = lanzar(SYNC, ['--seed']);
+  const prueba =
+    sincronizado.error || sincronizado.status !== 0
+      ? {
+          ...sincronizado,
+          status: null,
+          error:
+            sincronizado.error ??
+            new Error(`newsroom-sync.mjs terminó con código ${sincronizado.status}`),
+        }
+      : lanzar(VITEST, ['run', 'tests/unit/news.test.ts']);
+
+  /*
+   * No haber podido comprobar no es haber suspendido, y se dice distinto.
+   *
+   * Las dos cosas acaban igual —no se publica, la semilla vuelve atrás—, pero
+   * confundirlas es lo que ocultó durante un día entero que este guardián no
+   * funcionaba: decía «rechazada» cuando lo cierto era «no he podido mirar».
+   */
+  if (prueba.error || prueba.status === null) {
+    deshacer();
+    console.error('no se ha podido ejecutar.\n');
+    console.error(`   ${prueba.error?.message ?? 'el proceso no devolvió código de salida'}`);
+    console.error('\n  Sin revalidación no se publica. La semilla se ha dejado como estaba.\n');
+    process.exitCode = 1;
+    return;
+  }
 
   if (prueba.status !== 0) {
-    writeFileSync(SEMILLA, previo, 'utf-8');
+    deshacer();
     console.error('rechazada.\n');
     /*
      * La cola en bruto, sin filtrar por patrones.

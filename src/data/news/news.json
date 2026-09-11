@@ -1,5 +1,135 @@
 [
   {
+    "id": "news-2026-09-10-deepseek-v4-1-flash",
+    "slug": "deepseek-v4-1-flash",
+    "title": "DeepSeek lanza V4.1-Flash y desviará a él las peticiones de V4-Pro desde el 14 de septiembre",
+    "author": "Redacción de Free AI Radar",
+    "summary": "DeepSeek presentó el 10 de septiembre V4.1-Flash, el modelo más pequeño de su nueva familia de arquitectura, con comprensión visual nativa. Es un modelo de mezcla de expertos de 552.000 millones de parámetros que activa 8.000 millones para procesar la entrada y 16.000 millones para generar la salida. Ya está disponible en la API de DeepSeek. La compañía afirma que pruebas de varias partes lo sitúan por delante de V4-Pro en rendimiento, coste, velocidad y tiempo total de ejecución.",
+    "impact": "Desde las 04:00 UTC del 14 de septiembre, las peticiones a V4-Pro se desviarán a V4.1-Flash y se cobrarán a su tarifa hasta que llegue V4.1-Pro: quien integra la API cambiará de modelo sin tocar su código. DeepSeek sostiene que el nuevo modelo le permite servir a más usuarios con menor coste, y mantiene tarifas fuera de hora punta a la mitad de las de hora punta.",
+    "category": "modelo-multimodal",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-09-10",
+    "checkedAt": "2026-09-11",
+    "officialUrl": "https://www.deepseek.com/en/news/deepseek-v4-1-flash/",
+    "sources": [
+      {
+        "url": "https://www.deepseek.com/en/news/deepseek-v4-1-flash/",
+        "kind": "official",
+        "label": "Introducing DeepSeek-V4.1-Flash: smarter, faster, more efficient.",
+        "checkedAt": "2026-09-11",
+        "publisher": "deepseek.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-10-elevenlabs-universal-music-group",
+    "slug": "elevenlabs-universal-music-group",
+    "title": "ElevenLabs y Universal Music Group firman un acuerdo de licencias y desarrollo de producto",
+    "author": "Redacción de Free AI Radar",
+    "summary": "ElevenLabs y Universal Music Group anunciaron el 10 de septiembre un acuerdo plurianual de licencias y colaboración estratégica. Las dos compañías desarrollarán productos de audio con IA para artistas y compositores, y ElevenLabs lanzará una plataforma musical para fans basada en música licenciada. Esa plataforma, todavía en desarrollo, permitirá crear remezclas, mashups, nuevas interpretaciones de temas y experiencias vocales personalizadas. Según ElevenLabs, es su primer acuerdo con una gran discográfica.",
+    "impact": "Lucian Grainge, presidente y consejero delegado de Universal Music Group, afirma que las posibilidades más interesantes de la IA en la música son las que sitúan en el centro a artistas, compositores y fans. Para el audio generativo, un acuerdo de licencias con una gran discográfica cambia la base del producto: la plataforma se construye sobre música licenciada y con la participación de los artistas.",
+    "category": "audio",
+    "eventType": "anuncio",
+    "availability": "announced",
+    "publishedAt": "2026-09-10",
+    "checkedAt": "2026-09-11",
+    "officialUrl": "https://elevenlabs.io/blog/umg",
+    "sources": [
+      {
+        "url": "https://elevenlabs.io/blog/umg",
+        "kind": "official",
+        "label": "ElevenLabs and Universal Music Group enter strategic agreement",
+        "checkedAt": "2026-09-11",
+        "publisher": "elevenlabs.io"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-10-openai-agents-api-gpt-live-1",
+    "slug": "openai-agents-api-gpt-live-1",
+    "title": "OpenAI lanza la Agents API y lleva la voz en tiempo real de GPT-Live-1 a su API",
+    "author": "Redacción de Free AI Radar",
+    "summary": "OpenAI presentó el 10 de septiembre la Agents API, un servicio gestionado para crear y lanzar agentes en la nube que se apoya en el entorno de Codex para la orquestación, las sesiones de larga duración y el uso de herramientas. El mismo día incorporó a su API GPT-Live-1, que ofrece conversaciones de voz naturales en dúplex completo, con mejor seguimiento de instrucciones, voces personalizadas y soporte para telefonía.",
+    "impact": "Las dos piezas empujan en la misma dirección: agentes que trabajan en sesiones largas y usan herramientas, y voz natural capaz de atender llamadas telefónicas, ambas servidas desde la plataforma de OpenAI. Que la orquestación llegue como servicio gestionado desplaza hacia OpenAI una parte del trabajo de infraestructura que exige desplegar agentes.",
+    "category": "agentes",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-09-10",
+    "checkedAt": "2026-09-11",
+    "officialUrl": "https://openai.com/index/introducing-the-agents-api",
+    "sources": [
+      {
+        "url": "https://openai.com/index/introducing-the-agents-api",
+        "kind": "official",
+        "label": "Introducing the Agents API",
+        "checkedAt": "2026-09-11",
+        "publisher": "openai.com"
+      },
+      {
+        "url": "https://openai.com/news/rss.xml",
+        "kind": "official",
+        "label": "OpenAI News, canal oficial",
+        "checkedAt": "2026-09-11",
+        "publisher": "openai.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-10-positron-ronda-875-millones",
+    "slug": "positron-ronda-875-millones",
+    "title": "Positron levanta 875 millones de dólares y alcanza una valoración de 5.000 millones",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Positron, que diseña hardware para la inferencia de modelos de IA, anunció el 10 de septiembre una ronda de Serie C de 875 millones de dólares que la valora en 5.000 millones. NEA, Atreides Management, Valor Equity Partners y Andra Capital figuran entre los colíderes. La compañía destina los fondos a llevar al mercado su próxima generación de silicio para inferencia. Ya ofrece un equipo listo para producción que admite modelos de hasta 500.000 millones de parámetros y anuncia para 2027 un chip acelerador con hasta 2,3 TB de memoria por chip.",
+    "impact": "La apuesta de Positron es la memoria: su equipo actual admite modelos de hasta 500.000 millones de parámetros y el chip anunciado para 2027 llega a 2,3 TB por unidad. Para quien sirve modelos grandes, más memoria por chip significa necesitar menos chips por modelo. La ronda financia el paso de ese diseño a producción.",
+    "category": "modelo-lenguaje",
+    "eventType": "anuncio",
+    "availability": "unknown",
+    "publishedAt": "2026-09-10",
+    "checkedAt": "2026-09-11",
+    "officialUrl": "https://www.positron.ai/press",
+    "sources": [
+      {
+        "url": "https://www.positron.ai/press",
+        "kind": "official",
+        "label": "Positron Raises $875M Series C",
+        "checkedAt": "2026-09-11",
+        "publisher": "positron.ai"
+      },
+      {
+        "url": "https://www.positron.ai/",
+        "kind": "official",
+        "label": "Positron",
+        "checkedAt": "2026-09-11",
+        "publisher": "positron.ai"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-09-09-openai-gpt-6-astra",
     "slug": "openai-gpt-6-astra",
     "title": "OpenAI lanza GPT-6 Astra y lo declara su primer modelo de nivel crítico en ciberseguridad",
