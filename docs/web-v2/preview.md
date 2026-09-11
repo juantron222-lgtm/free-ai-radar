@@ -21,8 +21,15 @@ La salida termina con la URL del Preview (`https://free-ai-radar-XXXX-nada-de-pr
 y un bloque JSON con `"target": null`. Ese `null` es lo que confirma que es un
 Preview y no Production.
 
-`.vercelignore` deja fuera `docs/`, `tests/` y los resultados de pruebas, así que
-la subida pasa de unos 84 MB a unos 11 MB.
+`.vercelignore` deja fuera `docs/`, `tests/` y los resultados de pruebas. Medido
+el 11 de septiembre de 2026, la subida baja de 94,5 MB en 1034 ficheros a
+10,0 MB en 391, y crece con cada captura que se añada a `docs/` si se quita.
+
+También deja fuera los ficheros de credenciales locales (`.env*`, `*.local.txt`,
+`*.bak-*`). La CLI no lee `.gitignore`: sin `.vercelignore` sólo excluye
+`.env.local` y `.env.*.local`, y cualquier copia con otro nombre viajaría con el
+código fuente del despliegue. Si se añade otro fichero con secretos en la raíz,
+hay que añadirlo aquí antes de desplegar.
 
 ## Lo que nunca se usa en esta rama
 
