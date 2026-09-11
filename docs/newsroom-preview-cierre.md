@@ -507,3 +507,35 @@ Cuatro borradores esperando decisión humana. Los dos de ComfyUI, por alcance de
 terceros y edad. Los **dos de Suno pasan todo menos la edad** —26 y 29 días—:
 son el atasco de la primera barrida con la red ancha, no un defecto de la
 puerta. A partir de ahora el cron las encontrará dentro de la ventana.
+
+---
+
+## 10. Deuda editorial para Web V2 — 11 de septiembre de 2026
+
+### Positron figura en «Modelos de lenguaje», y no lo es
+
+`positron-ronda-875-millones` cuenta la Serie C de una empresa que diseña
+hardware de inferencia, y se publicó con `category: 'modelo-lenguaje'`. No había
+dónde ponerla mejor: las trece categorías de `NewsCategory` vienen del catálogo
+de IA gratis y describen cosas que se usan —modelos, agentes, imagen, audio,
+planes, precios—. Ninguna cubre chips, infraestructura ni operaciones
+empresariales, y /noticias ya cubre la actualidad general del sector.
+
+**Se deja así a propósito.** Crear una categoría sólo para esta noticia sería
+ampliar la taxonomía por la puerta de atrás, y la taxonomía se decide entera en
+Web V2. El texto de la noticia es correcto; lo que falla es la etiqueta.
+
+### Lo que Web V2 tiene que decidir
+
+1. Si /noticias necesita categorías propias, separadas de las del catálogo.
+2. Dónde van el hardware y la infraestructura, y dónde las operaciones
+   empresariales —adquisiciones, rondas, acuerdos—, que el triaje puede llevar a
+   la prioridad máxima desde `092a7cf`.
+3. Reclasificar `positron-ronda-875-millones` con lo que salga, y revisar a la
+   vez dos noticias que encajan sólo a medias por la misma causa:
+   `nvidia-compra-hugging-face` (`local-open-source`) y
+   `elevenlabs-universal-music-group` (`audio`). Las dos etiquetas describen a
+   una de las empresas, no lo que ha ocurrido.
+
+Reclasificar es editar la semilla, que gana en la fusión. La URL depende sólo
+del slug, así que ni la página ni su entrada en el sitemap cambian.
