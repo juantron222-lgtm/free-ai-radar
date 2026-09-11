@@ -1,0 +1,38 @@
+{
+  "portada-primera-visita": {
+    "focoAlCargar": "nada (body)",
+    "botones": [
+      {
+        "texto": "Aceptar todo",
+        "fondo": "rgb(255, 255, 255)"
+      },
+      {
+        "texto": "Rechazar todo",
+        "fondo": "rgb(255, 255, 255)"
+      },
+      {
+        "texto": "Personalizar",
+        "fondo": "rgb(255, 255, 255)"
+      }
+    ],
+    "enterAlCargarDecide": false
+  },
+  "aviso-cookies-movil": {
+    "focoAlCargar": "nada (body)",
+    "botones": [
+      {
+        "texto": "Aceptar todo",
+        "fondo": "rgb(255, 255, 255)"
+      },
+      {
+        "texto": "Rechazar todo",
+        "fondo": "rgb(255, 255, 255)"
+      },
+      {
+        "texto": "Personalizar",
+        "fondo": "rgb(255, 255, 255)"
+      }
+    ],
+    "enterAlCargarDecide": false
+  }
+}
