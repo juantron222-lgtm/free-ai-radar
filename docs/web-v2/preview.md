@@ -54,8 +54,13 @@ sesión de Vercel. Para comprobarlo desde la terminal sin cambiar ninguna
 configuración:
 
 ```bash
-npx vercel curl /herramientas --deployment <url-del-preview>
+npx vercel curl <url-del-preview>/herramientas
 ```
+
+Con la URL completa. La forma `vercel curl /herramientas --deployment <url>`
+falla desde Git Bash en Windows: convierte `/herramientas` en una ruta de disco y
+curl responde «URL rejected: Malformed input to a URL function» con el cuerpo
+vacío, que en una comprobación automática parece una página sin contenido.
 
 ## Diferencias conocidas con Production
 
