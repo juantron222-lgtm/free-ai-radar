@@ -21,7 +21,8 @@
  *   node scripts/newsroom-publicar.mjs noticia.json --dry-run  sólo comprueba
  */
 
-import { readFileSync, writeFileSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
+import { existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -64,6 +65,129 @@ async function descargar(url) {
   });
   if (!r.ok) throw new Error(`${url} respondió ${r.status}`);
   return textoVisible(await r.text());
+}
+
+/* ---------------------------------------------------------- revalidación -- */
+
+/**
+ * @typedef {object} Proceso lo que devuelve `spawnSync`, o lo que se hace pasar por ello
+ * @property {number | null} status
+ * @property {string | null} [signal]
+ * @property {Error} [error]
+ * @property {string} [stdout]
+ * @property {string} [stderr]
+ */
+
+/**
+ * @typedef {(orden: string, args: string[], opciones: { cwd: string, encoding: 'utf-8' }) => Proceso} Lanzador
+ */
+
+/**
+ * Tres respuestas, no dos.
+ *
+ * No haber podido comprobar no es haber suspendido, y se dice distinto. Las dos
+ * cosas acaban igual —no se publica, la semilla vuelve atrás—, pero confundirlas
+ * es lo que ocultó durante un día entero que este guardián no funcionaba: decía
+ * «rechazada» cuando lo cierto era «no he podido mirar».
+ *
+ * @param {Proceso} proceso
+ * @returns {'aprobada' | 'rechazada' | 'no-ejecutada'}
+ */
+export function veredicto(proceso) {
+  if (proceso.error || proceso.status === null) return 'no-ejecutada';
+  return proceso.status === 0 ? 'aprobada' : 'rechazada';
+}
+
+/**
+ * Regenera el conjunto de datos, pasa su suite y, si la respuesta no es que sí,
+ * deja el disco como estaba.
+ *
+ * Se llama con la noticia ya escrita en la semilla. Escribir y después
+ * preguntar tiene su razón: el esquema y `isPublishable` viven en TypeScript
+ * con alias de módulo, así que este script no puede invocarlos directamente; la
+ * suite del conjunto de datos sí, y es exactamente la misma que aplica el
+ * build. Se ejecuta aquí para que un error salga al publicar y no media hora
+ * después, cuando el build lo encuentre.
+ *
+ * El primer lote de verdad justificó esto dos veces: un resumen de 627
+ * caracteres sobre un tope de 600, y una noticia de IBM cuya única fuente
+ * estaba en huggingface.co y no en el dominio del fabricante. Las dos habrían
+ * llegado al build.
+ *
+ * `raiz` y `lanzarProceso` sólo cambian en las pruebas, que montan un
+ * repositorio de mentira y miran con qué se lanza cada cosa.
+ *
+ * @param {object} opciones
+ * @param {string} opciones.semillaAnterior la semilla tal y como estaba antes de escribir
+ * @param {string} [opciones.raiz]
+ * @param {Lanzador} [opciones.lanzarProceso]
+ * @returns {{ veredicto: 'aprobada' | 'rechazada' | 'no-ejecutada', motivo: string, salida: string }}
+ */
+export function revalidar({ semillaAnterior, raiz = ROOT, lanzarProceso = spawnSync }) {
+  const semilla = resolve(raiz, 'src/data/news/news.json');
+  const generado = resolve(raiz, 'src/data/generated/news.json');
+
+  /*
+   * vitest se lanza con este mismo Node y su punto de entrada, no con `npx`.
+   *
+   * `spawnSync('npx.cmd', …)` sin shell falla con EINVAL en Node 24 sobre
+   * Windows: el proceso no llega a arrancar, `status` vuelve `null`, y la
+   * comprobación lo leía como «rechazada». Este paso rechazaba todas las
+   * noticias sin haber ejecutado ni una prueba — incluida la de IBM que se tomó
+   * por demostración de que funcionaba. Con `process.execPath` no hay `.cmd`,
+   * ni shell, ni argumentos concatenados.
+   */
+  const vitest = resolve(raiz, 'node_modules/vitest/vitest.mjs');
+  const sync = resolve(raiz, 'scripts/newsroom-sync.mjs');
+
+  const lanzar = (entrada, args) =>
+    existsSync(entrada)
+      ? lanzarProceso(process.execPath, [entrada, ...args], { cwd: raiz, encoding: 'utf-8' })
+      : { status: null, error: new Error(`no se encuentra ${entrada}`), stdout: '', stderr: '' };
+
+  /*
+   * La suite no valida la semilla: valida lo que `newsroom-sync.mjs` genera a
+   * partir de ella, que es además lo que el build prerenderiza.
+   *
+   * Escribir la semilla y probar sin regenerar comparaba 16 noticias contra 15
+   * y rechazaba cualquier publicación nueva por un desfase que no tenía nada
+   * que ver con la noticia. Así que se regenera antes de probar, y deshacer
+   * restaura los dos ficheros: si sólo volviera la semilla, el generado se
+   * quedaría con una noticia que ya no existe. Por lo mismo, si el generado no
+   * existía, se retira el que haya dejado la regeneración.
+   */
+  const generadoAnterior = existsSync(generado) ? readFileSync(generado, 'utf-8') : null;
+  const deshacer = () => {
+    writeFileSync(semilla, semillaAnterior, 'utf-8');
+    if (generadoAnterior === null) rmSync(generado, { force: true });
+    else writeFileSync(generado, generadoAnterior, 'utf-8');
+  };
+  const salidaDe = (proceso) => `${proceso.stdout ?? ''}${proceso.stderr ?? ''}`;
+
+  /* Un fallo al regenerar es «no he podido mirar», no «la noticia suspende». */
+  const sincronizado = lanzar(sync, ['--seed']);
+  if (veredicto(sincronizado) !== 'aprobada') {
+    deshacer();
+    return {
+      veredicto: 'no-ejecutada',
+      motivo:
+        sincronizado.error?.message ?? `newsroom-sync.mjs terminó con código ${sincronizado.status}`,
+      salida: salidaDe(sincronizado),
+    };
+  }
+
+  const prueba = lanzar(vitest, ['run', 'tests/unit/news.test.ts']);
+  const resultado = veredicto(prueba);
+  if (resultado !== 'aprobada') deshacer();
+
+  return {
+    veredicto: resultado,
+    motivo:
+      resultado === 'no-ejecutada'
+        ? (prueba.error?.message ?? 'el proceso no devolvió código de salida')
+        : '',
+    salida: salidaDe(prueba),
+  };
 }
 
 /* ------------------------------------------------------------------ main -- */
@@ -173,90 +297,18 @@ async function main() {
   semilla.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt) || a.slug.localeCompare(b.slug));
   writeFileSync(SEMILLA, `${JSON.stringify(semilla, null, 2)}\n`, 'utf-8');
 
-  /*
-   * Escribir y después preguntar, deshaciendo si la respuesta es que no.
-   *
-   * El esquema y `isPublishable` viven en TypeScript con alias de módulo, así
-   * que este script no puede invocarlos directamente; la suite del conjunto de
-   * datos sí, y es exactamente la misma que aplica el build. Se ejecuta aquí
-   * para que un error salga al publicar y no media hora después, cuando el
-   * build lo encuentre.
-   *
-   * El primer lote de verdad justificó esto dos veces: un resumen de 627
-   * caracteres sobre un tope de 600, y una noticia de IBM cuya única fuente
-   * estaba en huggingface.co y no en el dominio del fabricante. Las dos habrían
-   * llegado al build.
-   */
-  const { spawnSync } = await import('node:child_process');
   process.stdout.write('\n  revalidando el conjunto de datos… ');
+  const revision = revalidar({ semillaAnterior: previo });
 
-  /*
-   * vitest se lanza con este mismo Node y su punto de entrada, no con `npx`.
-   *
-   * `spawnSync('npx.cmd', …)` sin shell falla con EINVAL en Node 24 sobre
-   * Windows: el proceso no llega a arrancar, `status` vuelve `null`, y la
-   * condición de abajo lo leía como «rechazada». Este paso rechazaba todas las
-   * noticias sin haber ejecutado ni una prueba — incluida la de IBM que se tomó
-   * por demostración de que funcionaba. Con `process.execPath` no hay `.cmd`,
-   * ni shell, ni argumentos concatenados.
-   */
-  const { existsSync } = await import('node:fs');
-  const VITEST = resolve(ROOT, 'node_modules/vitest/vitest.mjs');
-  const SYNC = resolve(ROOT, 'scripts/newsroom-sync.mjs');
-  const GENERADO = resolve(ROOT, 'src/data/generated/news.json');
-
-  /*
-   * La suite no valida la semilla: valida lo que `newsroom-sync.mjs` genera a
-   * partir de ella, que es además lo que el build prerenderiza.
-   *
-   * Escribir la semilla y probar sin regenerar comparaba 16 noticias contra 15
-   * y rechazaba cualquier publicación nueva por un desfase que no tenía nada
-   * que ver con la noticia. Así que se regenera antes de probar, y deshacer
-   * restaura los dos ficheros: si sólo volviera la semilla, el generado se
-   * quedaría con una noticia que ya no existe.
-   */
-  const previoGenerado = existsSync(GENERADO) ? readFileSync(GENERADO, 'utf-8') : null;
-  const deshacer = () => {
-    writeFileSync(SEMILLA, previo, 'utf-8');
-    if (previoGenerado !== null) writeFileSync(GENERADO, previoGenerado, 'utf-8');
-  };
-
-  const lanzar = (entrada, args) =>
-    existsSync(entrada)
-      ? spawnSync(process.execPath, [entrada, ...args], { cwd: ROOT, encoding: 'utf-8' })
-      : { status: null, error: new Error(`no se encuentra ${entrada}`), stdout: '', stderr: '' };
-
-  /* Un fallo al regenerar es «no he podido mirar», no «la noticia suspende». */
-  const sincronizado = lanzar(SYNC, ['--seed']);
-  const prueba =
-    sincronizado.error || sincronizado.status !== 0
-      ? {
-          ...sincronizado,
-          status: null,
-          error:
-            sincronizado.error ??
-            new Error(`newsroom-sync.mjs terminó con código ${sincronizado.status}`),
-        }
-      : lanzar(VITEST, ['run', 'tests/unit/news.test.ts']);
-
-  /*
-   * No haber podido comprobar no es haber suspendido, y se dice distinto.
-   *
-   * Las dos cosas acaban igual —no se publica, la semilla vuelve atrás—, pero
-   * confundirlas es lo que ocultó durante un día entero que este guardián no
-   * funcionaba: decía «rechazada» cuando lo cierto era «no he podido mirar».
-   */
-  if (prueba.error || prueba.status === null) {
-    deshacer();
+  if (revision.veredicto === 'no-ejecutada') {
     console.error('no se ha podido ejecutar.\n');
-    console.error(`   ${prueba.error?.message ?? 'el proceso no devolvió código de salida'}`);
+    console.error(`   ${revision.motivo}`);
     console.error('\n  Sin revalidación no se publica. La semilla se ha dejado como estaba.\n');
     process.exitCode = 1;
     return;
   }
 
-  if (prueba.status !== 0) {
-    deshacer();
+  if (revision.veredicto === 'rechazada') {
     console.error('rechazada.\n');
     /*
      * La cola en bruto, sin filtrar por patrones.
@@ -265,7 +317,6 @@ async function main() {
      * verdad, y el resultado era un rechazo sin motivo — peor que no imprimir
      * nada, porque parece que no lo hay.
      */
-    const salida = `${prueba.stdout ?? ''}${prueba.stderr ?? ''}`;
 
     /*
      * El escape ANSI se construye, no se escribe.
@@ -276,7 +327,7 @@ async function main() {
      */
     const COLOR = new RegExp(`${String.fromCharCode(27)}\\[[0-9;]*m`, 'g');
 
-    for (const linea of salida.split('\n').filter((l) => l.trim()).slice(-12)) {
+    for (const linea of revision.salida.split('\n').filter((l) => l.trim()).slice(-12)) {
       console.error(`   ${linea.replace(COLOR, '').trimEnd().slice(0, 150)}`);
     }
     console.error('\n  La semilla se ha dejado como estaba.\n');
@@ -289,6 +340,12 @@ async function main() {
 }
 
 /*
+ * Sólo se ejecuta cuando se invoca directamente.
+ *
+ * Importarlo desde una prueba no debe publicar nada, y sin esta guarda ni
+ * siquiera fallaría limpio: `main()` tomaría los argumentos de vitest por el
+ * fichero de la noticia y dejaría el código de salida de la suite en 1.
+ *
  * `process.exitCode` y no `process.exit()`.
  *
  * Salir de golpe con una descarga todavía viva aborta libuv en Windows: el
@@ -296,7 +353,11 @@ async function main() {
  * puerta tiene que poder decir «he rechazado esto» sin que parezca que se ha
  * roto.
  */
-main().catch((error) => {
-  console.error('\n✗', error instanceof Error ? error.message : String(error));
-  process.exitCode = 1;
-});
+const invocadoDirectamente = process.argv[1]?.replace(/\\/g, '/').endsWith('newsroom-publicar.mjs');
+
+if (invocadoDirectamente) {
+  main().catch((error) => {
+    console.error('\n✗', error instanceof Error ? error.message : String(error));
+    process.exitCode = 1;
+  });
+}
