@@ -2,11 +2,13 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import ToolExplorer from '@components/discovery/ToolExplorer.astro';
 import { getAllTools, getCatalogStats } from '@lib/data/catalog';
+import { recuentoVerificacion } from '@lib/domain/verification';
 import { itemListSchema } from '@lib/seo/structured-data';
 import { ROUTES } from '@lib/nav';
 
 const tools = getAllTools();
 const stats = getCatalogStats();
+const recuento = recuentoVerificacion(tools);
 
 /**
  * Indexing of filtered views.
@@ -31,18 +33,23 @@ const crumbs = [
 ---
 
 <BaseLayout
-  title={`Las ${stats.total} herramientas de IA gratuitas que hemos verificado`}
+  title={`Catálogo de ${stats.total} herramientas de IA gratuitas`}
   description={`Catálogo completo con filtros por tarjeta, marca de agua, uso comercial, open source y ejecución local. ${stats.noCard} no piden tarjeta y ${stats.commercialUse} permiten uso comercial.`}
   crumbs={crumbs}
-  schemas={[itemListSchema(tools, 'Herramientas de IA gratuitas verificadas')]}
+  schemas={[itemListSchema(tools, 'Catálogo de herramientas de IA gratuitas')]}
 >
   <div class="page listing">
     <header class="listing-head">
-      <h1 class="listing-title">Herramientas verificadas</h1>
+      <h1 class="listing-title">Catálogo de herramientas</h1>
       <p class="listing-lede">
         Filtra por lo que de verdad decide: si piden tarjeta, si dejan marca de agua, si te dejan
         usar el resultado para trabajar y si puedes ejecutarlo en tu equipo. Todos los filtros se
         combinan y la URL resultante se puede compartir.
+      </p>
+      <p class="listing-states tnum">
+        {recuento.total} en el catálogo: {recuento.verificada} verificadas, {recuento.parcial} con
+        verificación parcial y {recuento.catalogada} catalogadas.{' '}
+        <a href={ROUTES.methodology}>Qué significa cada estado</a>.
       </p>
     </header>
 
@@ -65,6 +72,14 @@ const crumbs = [
   .listing-lede {
     margin: 0;
     max-width: 60ch;
+    color: var(--ink-muted);
+  }
+</style>
+
+<style>
+  .listing-states {
+    margin: var(--space-2xs) 0 0;
+    font-size: 0.875rem;
     color: var(--ink-muted);
   }
 </style>

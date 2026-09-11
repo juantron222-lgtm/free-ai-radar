@@ -2,13 +2,13 @@ import { OPENNESS_LABEL, TRI_STATE_LABEL } from '@lib/domain/primitives';
 import {
   CREDIT_RESET_LABEL,
   HOSTING_LABEL,
-  START_EFFORT_LABEL,
   CAPABILITY_LABEL,
   PRODUCT_TYPE_LABEL,
   getCategory,
   getFreeModel,
 } from '@lib/domain/taxonomy';
 import type { EvidenceField, Tool } from '@lib/domain/tool';
+import { esfuerzoDe } from '@lib/domain/esfuerzo';
 import {
   MOTIVO_EXPLICACION,
   MOTIVO_LABEL,
@@ -160,7 +160,7 @@ export const ROWS: Row[] = [
     better: (v) => v === 'Sí',
   },
   { label: 'Dónde se ejecuta', values: (t) => valor(HOSTING_LABEL[t.hosting]) },
-  { label: 'Cuánto cuesta empezar', values: (t) => valor(START_EFFORT_LABEL[t.startEffort]) },
+  { label: 'Cuánto cuesta empezar', values: (t) => valor(esfuerzoDe(t).label) },
   {
     label: 'Por dónde se accede',
     values: (t) => {

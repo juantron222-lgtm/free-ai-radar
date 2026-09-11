@@ -1,10 +1,12 @@
 ---
 import Logo from './Logo.astro';
 import { FOOTER_NAV } from '@lib/nav';
-import { getCatalogStats } from '@lib/data/catalog';
+import { getAllTools, getCatalogStats } from '@lib/data/catalog';
+import { recuentoVerificacion } from '@lib/domain/verification';
 import { SITE } from '@lib/seo/site';
 
 const stats = getCatalogStats();
+const recuento = recuentoVerificacion(getAllTools());
 const year = new Date().getFullYear();
 ---
 
@@ -14,13 +16,14 @@ const year = new Date().getFullYear();
       <div class="footer-brand">
         <Logo />
         <p class="footer-pitch">
-          Verificamos herramientas de IA una por una y publicamos lo que encontramos: los límites
+          Revisamos herramientas de IA una por una contra la página de su fabricante y publicamos lo que encontramos: los límites
           reales del plan gratuito, si piden tarjeta, si dejan marca de agua y si puedes usar el
           resultado para trabajar.
         </p>
         <p class="footer-stat tnum">
-          <strong>{stats.total}</strong> herramientas verificadas ·
-          <strong>{stats.noCard}</strong> sin tarjeta ·
+          <strong>{stats.total}</strong> herramientas revisadas ·{' '}
+          <strong>{recuento.verificada}</strong> verificadas ·{' '}
+          <strong>{stats.noCard}</strong> sin tarjeta ·{' '}
           <strong>{stats.openSource}</strong> open source
         </p>
       </div>

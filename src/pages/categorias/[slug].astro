@@ -4,6 +4,7 @@ import ToolExplorer from '@components/discovery/ToolExplorer.astro';
 import { getPopulatedCategories, getToolsByCategory } from '@lib/data/catalog';
 import { faqSchema, itemListSchema } from '@lib/seo/structured-data';
 import { ROUTES } from '@lib/nav';
+import { recuentoVerificacion } from '@lib/domain/verification';
 
 /**
  * Imagen no se genera aquí: tiene su propia página en `/imagen`, construida
@@ -35,6 +36,7 @@ const noCard = tools.filter((t) => t.freePlan.requiresCreditCard === 'no');
 const commercial = tools.filter((t) => t.freePlan.commercialUse === 'yes');
 const openSource = tools.filter((t) => t.openSource === 'yes');
 const best = tools[0];
+const estados = recuentoVerificacion(tools);
 
 // Prerendered: filtered permutations are handled by robots.txt, the canonical
 // and the explorer's client-side robots swap. See `herramientas/index.astro`.
@@ -50,8 +52,8 @@ const crumbs = [
  */
 const faqs = [
   {
-    question: `¿Cuántas herramientas de ${category.name.toLowerCase()} gratuitas hay verificadas?`,
-    answer: `Hemos verificado ${tools.length} herramientas en esta categoría. De ellas, ${noCard.length} no piden tarjeta y ${commercial.length} permiten uso comercial en su plan gratuito.`,
+    question: `¿Cuántas herramientas de ${category.name.toLowerCase()} gratuitas hay en el catálogo?`,
+    answer: `Hay ${tools.length} en esta categoría: ${estados.verificada} verificadas, ${estados.parcial} con verificación parcial y ${estados.catalogada} catalogadas. ${noCard.length} no piden tarjeta y ${commercial.length} permiten uso comercial en su plan gratuito.`,
   },
   /*
    * Aquí había «obtiene 89 sobre 100».
@@ -82,7 +84,7 @@ const faqs = [
 ---
 
 <BaseLayout
-  title={`${category.name} gratis: ${tools.length} herramientas verificadas`}
+  title={`${category.name} gratis: ${tools.length} herramientas revisadas`}
   description={`${category.intro} ${noCard.length} de las ${tools.length} no piden tarjeta y ${commercial.length} permiten uso comercial.`}
   crumbs={crumbs}
   schemas={[
@@ -96,7 +98,7 @@ const faqs = [
       <p class="cat-intro">{category.intro}</p>
 
       <dl class="cat-stats">
-        <div><dt>Verificadas</dt><dd class="tnum">{tools.length}</dd></div>
+        <div><dt>Revisadas</dt><dd class="tnum">{tools.length}</dd></div>
         <div><dt>Sin tarjeta</dt><dd class="tnum">{noCard.length}</dd></div>
         <div><dt>Uso comercial</dt><dd class="tnum">{commercial.length}</dd></div>
         <div><dt>Open source</dt><dd class="tnum">{openSource.length}</dd></div>

@@ -1,0 +1,25 @@
+# Lo que no hace falta para construir ni para servir la web.
+#
+# Sin este fichero, `vercel deploy` subía 84 MB y fallaba por red dos de cada
+# tres veces: 62 MB eran `docs/` —capturas y evidencias de las auditorías— y
+# otros 15 MB, resultados de pruebas locales. Nada de eso lo lee el build.
+#
+# No se excluyen `scripts/` (el prebuild ejecuta `newsroom-sync.mjs`), `src/`,
+# `public/` ni `supabase/`.
+
+# Credenciales locales. El build de Vercel usa las variables del proyecto, no
+# ficheros: nada de esto tiene que viajar con el código fuente del despliegue,
+# ni siquiera las copias (`.env.local.bak-*`, `credenciales-*.local.txt`) que
+# no encajan en los nombres que la CLI ya ignora por su cuenta.
+.env*
+*.local.txt
+*.bak-*
+
+docs/
+tests/
+test-results/
+playwright-report/
+coverage/
+dist/
+.astro/
+.github/

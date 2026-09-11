@@ -26,7 +26,7 @@ const paragraphs = collection.context.split('\n\n');
 ---
 
 <BaseLayout
-  title={`${collection.title} (${tools.length} verificadas)`}
+  title={`${collection.title} (${tools.length} herramientas)`}
   description={collection.description}
   crumbs={crumbs}
   schemas={[itemListSchema(tools, collection.title)]}
@@ -36,7 +36,7 @@ const paragraphs = collection.context.split('\n\n');
       <h1 class="collection-h1">{collection.h1}</h1>
       <p class="collection-lede">{collection.lede}</p>
       <p class="collection-count tnum">
-        <strong>{tools.length}</strong> herramientas cumplen esta condición, verificadas una por una.
+        <strong>{tools.length}</strong> herramientas cumplen esta condición según el dato confirmado en su ficha.
       </p>
     </header>
 

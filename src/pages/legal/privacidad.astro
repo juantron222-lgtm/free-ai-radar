@@ -3,6 +3,7 @@ import ArticleLayout from '@layouts/ArticleLayout.astro';
 import { supabase, stripe, email as emailConfig, analytics } from '@lib/config';
 import { ROUTES } from '@lib/nav';
 import { SITE } from '@lib/seo/site';
+import DatoTitular from '@components/legal/DatoTitular.astro';
 
 const crumbs = [
   { name: 'Inicio', path: ROUTES.home },
@@ -26,18 +27,27 @@ const processors = [
   heading="Política de privacidad"
   lede="Qué recogemos, por qué, cuánto lo guardamos y cómo lo borras."
   crumbs={crumbs}
-  updatedAt="2026-08-03"
-  draftNotice
+  updatedAt="2026-09-11"
 >
+  {/*
+    El responsable, con sus datos o con el hueco marcado.
+
+    Aquí había un recuadro «Pendiente antes de publicar» dentro de una página
+    que ya estaba publicada. Los datos se rellenan en `src/lib/legal/titular.ts`;
+    mientras no estén, cada uno se ve como pendiente y no se sustituye por nada.
+  */}
   <h2>Quién es el responsable</h2>
   <p>
-    {SITE.legalName}, proyecto editorial con sede en España. Contacto para asuntos de datos:
-    <a href={`mailto:${SITE.email}`}> {SITE.email}</a>.
+    El responsable del tratamiento es el titular de {SITE.name}, proyecto editorial con sede en
+    España.
   </p>
-  <p class="pending">
-    <strong>Pendiente antes de publicar:</strong> razón social completa, NIF, domicilio y, si
-    procede, delegado de protección de datos.
-  </p>
+  <dl class="titular">
+    <div><dt>Responsable</dt><dd><DatoTitular campo="nombre" /></dd></div>
+    <div><dt>NIF</dt><dd><DatoTitular campo="nif" /></dd></div>
+    <div><dt>Domicilio</dt><dd><DatoTitular campo="domicilio" /></dd></div>
+    <div><dt>Delegado de protección de datos</dt><dd><DatoTitular campo="dpo" /></dd></div>
+    <div><dt>Contacto para asuntos de datos</dt><dd><a href={`mailto:${SITE.email}`}>{SITE.email}</a></dd></div>
+  </dl>
 
   <h2>Qué datos tratamos y por qué</h2>
   <table>
@@ -157,12 +167,35 @@ const processors = [
 </ArticleLayout>
 
 <style>
-  .pending {
-    padding: 0.6rem 0.85rem;
-    border-radius: var(--radius-m);
-    background: var(--warn-soft);
-    border: 1px solid var(--warn-line);
-    font-size: 0.875rem;
+  .titular {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: 0.4rem 1.25rem;
+    margin: 0 0 var(--space-m);
+  }
+
+  .titular div {
+    display: contents;
+  }
+
+  .titular dt {
+    font-weight: 650;
+    color: var(--ink-strong);
+  }
+
+  .titular dd {
+    margin: 0;
+  }
+
+  @media (max-width: 36rem) {
+    .titular {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.15rem;
+    }
+
+    .titular dd {
+      margin-block-end: 0.6rem;
+    }
   }
 
   .link-button {

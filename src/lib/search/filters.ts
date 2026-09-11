@@ -89,7 +89,7 @@ export const DEFAULT_SORT: SortKey = 'verified';
  * siendo el orden con el que todo el mundo veía el catálogo por primera vez.
  */
 export const SORT_OPTIONS: ReadonlyArray<{ key: SortKey; label: string }> = [
-  { key: 'verified', label: 'Verificadas hace menos' },
+  { key: 'verified', label: 'Revisadas hace menos' },
   { key: 'recent', label: 'Añadidas hace menos' },
   { key: 'name', label: 'Alfabético' },
 ];

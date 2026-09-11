@@ -18,13 +18,13 @@ import {
   CREDIT_RESET_LABEL,
   HOSTING_LABEL,
   PLATFORM_LABEL,
-  START_EFFORT_LABEL,
   getCategory,
   getFreeModel,
 } from '@lib/domain/taxonomy';
 import { OPENNESS_LABEL, TRI_STATE_LABEL } from '@lib/domain/primitives';
 import { ROUTES, categoryLabel } from '@lib/nav';
 import { selloDe, verificacionDe } from '@lib/domain/verification';
+import { esfuerzoDe } from '@lib/domain/esfuerzo';
 
 export function getStaticPaths() {
   return getAllTools().map((tool) => ({ params: { slug: tool.slug }, props: { tool } }));
@@ -64,7 +64,7 @@ const facts = [
   ...(tool.freeModel === 'credits'
     ? [{ label: 'Renovación de créditos', value: CREDIT_RESET_LABEL[tool.freePlan.creditReset], good: tool.freePlan.creditReset !== 'one_off' }]
     : []),
-  { label: 'Cuánto cuesta empezar', value: START_EFFORT_LABEL[tool.startEffort], good: false },
+  { label: 'Cuánto cuesta empezar', value: esfuerzoDe(tool).label, good: false },
   /*
    * La licencia, capa por capa, cuando difieren.
    *
@@ -538,10 +538,10 @@ const verificacion = verificacionDe(tool);
         <div class="card tool-aside-card">
           <p class="eyebrow">Resumen</p>
           <dl class="tool-summary">
-            <div><dt>Modelo</dt><dd>{freeModel.label}</dd></div>
+            <div><dt>Acceso gratuito</dt><dd>{freeModel.label}</dd></div>
             <div><dt>Categoría</dt><dd><a href={ROUTES.category(category.slug)}>{category.name}</a></dd></div>
             <div><dt>Ejecución</dt><dd>{HOSTING_LABEL[tool.hosting]}</dd></div>
-            <div><dt>Empezar</dt><dd title={tool.startEffortReason || undefined}>{START_EFFORT_LABEL[tool.startEffort]}</dd></div>
+            <div><dt>Empezar</dt><dd title={tool.startEffortReason || undefined}>{esfuerzoDe(tool).label}</dd></div>
           </dl>
           <p class="tool-aside-meaning">{freeModel.meaning}</p>
         </div>

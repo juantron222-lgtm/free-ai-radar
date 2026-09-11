@@ -66,18 +66,30 @@ const description =
 ---
 
 <BaseLayout
-  title="Free AI Radar — IA gratis, verificada de verdad"
+  title="Free AI Radar — Qué IA es gratis de verdad"
   description={description}
   schemas={[itemListSchema(prueba.map((d) => d.tool), 'Herramientas de IA con acceso gratuito confirmado')]}
 >
   <section class="hero">
     <div class="page hero-inner">
+      {/*
+        Qué fecha es ésta.
+
+        Ponía «actualizado el» y la fecha era la última revisión del catálogo
+        de herramientas: la portada se fechaba el 30 de agosto con noticias
+        del 9 de septiembre debajo. Ahora dice lo que mide.
+
+        Y va entera en un solo elemento. Con el texto y el <time> como hermanos
+        de un contenedor flexible, a 375 px la fecha se iba a otra columna.
+      */}
       <p class="eyebrow hero-eyebrow">
         <span class="hero-pulse" aria-hidden="true"></span>
-        Radar editorial independiente · actualizado el
-        <time datetime={stats.lastVerifiedAt}>
-          {new Date(`${stats.lastVerifiedAt}T00:00:00Z`).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })}
-        </time>
+        <span>
+          Radar editorial independiente · catálogo revisado por última vez el{' '}
+          <time datetime={stats.lastVerifiedAt}>
+            {new Date(`${stats.lastVerifiedAt}T00:00:00Z`).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })}
+          </time>
+        </span>
       </p>
 
       <h1 class="hero-title">
@@ -234,13 +246,15 @@ const description =
   }
 
   .hero-eyebrow {
-    display: inline-flex;
-    align-items: center;
+    display: flex;
+    align-items: flex-start;
     gap: 0.45rem;
     margin: 0 0 var(--space-s);
   }
 
   .hero-pulse {
+    flex: none;
+    margin-block-start: 0.4em;
     width: 7px;
     height: 7px;
     border-radius: 50%;

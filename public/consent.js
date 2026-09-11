@@ -190,9 +190,20 @@
 
   var lastFocused = null;
 
-  function openBanner(showOptions) {
+  /*
+   * Abrir no elige por nadie.
+   *
+   * Aquí se enfocaba «Aceptar todo» nada más cargar, así que el Enter de quien
+   * sigue leyendo, o el de un lector de pantalla que confirma, aceptaba todas
+   * las categorías. Ahora:
+   *   · al cargar la página no se mueve el foco: la barra se ve y se responde
+   *     cuando uno quiere;
+   *   · al reabrirla a propósito desde el pie o la política de cookies, el foco
+   *     va al panel y no a un botón, así que Enter tampoco decide nada.
+   */
+  function openBanner(showOptions, moverFoco) {
     if (!root) return;
-    lastFocused = document.activeElement;
+    lastFocused = moverFoco ? document.activeElement : null;
     root.hidden = false;
     var options = document.getElementById('consent-options');
     var save = root.querySelector('[data-consent-save]');
@@ -202,8 +213,10 @@
       if (save) save.hidden = false;
       if (customize) customize.hidden = true;
     }
-    var first = root.querySelector('[data-consent-accept-all]');
-    if (first) first.focus();
+    if (moverFoco) {
+      var panel = root.querySelector('.consent-panel');
+      if (panel) panel.focus();
+    }
     document.addEventListener('keydown', onKeydown, true);
   }
 
@@ -214,34 +227,17 @@
     if (lastFocused && lastFocused.focus) lastFocused.focus();
   }
 
-  /** Focus trap + Escape. Escape is treated as "no decision", not as consent. */
+  /*
+   * Escape, y sólo Escape.
+   *
+   * Aquí también se atrapaba el tabulador dentro de la barra, herencia de
+   * cuando era un diálogo modal. Una barra que no bloquea la página no puede
+   * secuestrar el teclado: el resto de la página tiene que seguir siendo
+   * alcanzable. Escape cierra sólo si ya hay una decisión, porque cerrar sin
+   * elegir no es aceptar.
+   */
   function onKeydown(event) {
-    if (event.key === 'Escape') {
-      // Only dismissable once a decision already exists; otherwise the dialog
-      // stays, because "closed without choosing" must not read as acceptance.
-      if (loadRecord()) closeBanner();
-      return;
-    }
-    if (event.key !== 'Tab') return;
-
-    var focusable = root.querySelectorAll(
-      'button:not([hidden]), input:not([disabled]), a[href]'
-    );
-    var visible = [];
-    for (var i = 0; i < focusable.length; i++) {
-      if (focusable[i].offsetParent !== null) visible.push(focusable[i]);
-    }
-    if (!visible.length) return;
-
-    var first = visible[0];
-    var last = visible[visible.length - 1];
-    if (event.shiftKey && document.activeElement === first) {
-      event.preventDefault();
-      last.focus();
-    } else if (!event.shiftKey && document.activeElement === last) {
-      event.preventDefault();
-      first.focus();
-    }
+    if (event.key === 'Escape' && loadRecord()) closeBanner();
   }
 
   function decide(state, hadConsent) {
@@ -316,7 +312,7 @@
     event.preventDefault();
     var record = loadRecord();
     if (record) writeSelection(record.state);
-    openBanner(true);
+    openBanner(true, true);
   });
 
   // ---- Boot ---------------------------------------------------------------
@@ -326,7 +322,7 @@
     applyConsent(existing.state);
   } else {
     applyConsent(DENY_ALL);
-    openBanner(false);
+    openBanner(false, false);
   }
 
   window.farConsent = {
@@ -337,7 +333,7 @@
     open: function () {
       var record = loadRecord();
       if (record) writeSelection(record.state);
-      openBanner(true);
+      openBanner(true, true);
     },
   };
 })();

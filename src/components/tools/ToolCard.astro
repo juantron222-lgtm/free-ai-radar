@@ -6,6 +6,7 @@ import FactChips from './FactChips.astro';
 import CompareToggle from './CompareToggle.astro';
 import { getCategory } from '@lib/domain/taxonomy';
 import { ROUTES } from '@lib/nav';
+import { verificacionDe } from '@lib/domain/verification';
 
 interface Props {
   tool: Tool;
@@ -19,6 +20,7 @@ interface Props {
 const { tool, variant = 'default', headingLevel: Heading = 'h3', priority = false } = Astro.props;
 const category = getCategory(tool.categorySlug);
 const href = ROUTES.tool(tool.slug);
+const verificacion = verificacionDe(tool);
 ---
 
 <article
@@ -60,18 +62,31 @@ const href = ROUTES.tool(tool.slug);
   <FactChips tool={tool} limit={4} />
 
   <div class="tool-card-foot">
-    <span class="tool-card-verified" data-freshness={tool.freshness}>
-      {tool.freshness === 'fresh' ? 'Verificada' : 'Sin revisar desde'}
-      {' '}
-      <time datetime={tool.lastVerifiedAt}>
-        {new Date(`${tool.lastVerifiedAt}T00:00:00Z`).toLocaleDateString('es-ES', {
-          day: 'numeric',
-          month: 'short',
-          year: 'numeric',
-          timeZone: 'UTC',
-        })}
-      </time>
-    </span>
+    {/*
+      El estado y la fecha, cada uno con su nombre.
+
+      Aquí ponía «Verificada» siempre que la ficha fuese reciente: medía cuándo
+      se revisó y lo llamaba verificación. Las 94 tarjetas del catálogo decían
+      «Verificada» mientras la portada contaba doce. El estado sale ahora de
+      `verificacionDe()`, el mismo que usa la ficha, y la fecha dice sólo lo que
+      es: cuándo se revisó.
+    */}
+    <p class="tool-card-status">
+      <span class="tool-card-state" data-state={verificacion.state}>{verificacion.label}</span>
+      <span aria-hidden="true"> · </span>
+      <span class="tool-card-verified" data-freshness={tool.freshness}>
+        {tool.freshness === 'fresh' ? 'revisada el' : 'sin revisar desde el'}
+        {' '}
+        <time datetime={tool.lastVerifiedAt}>
+          {new Date(`${tool.lastVerifiedAt}T00:00:00Z`).toLocaleDateString('es-ES', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+            timeZone: 'UTC',
+          })}
+        </time>
+      </span>
+    </p>
     <CompareToggle slug={tool.slug} name={tool.name} />
   </div>
 </article>
@@ -176,6 +191,7 @@ const href = ROUTES.tool(tool.slug);
 
   .tool-card-foot {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: var(--space-2xs);
@@ -184,6 +200,20 @@ const href = ROUTES.tool(tool.slug);
     border-block-start: 1px solid var(--line-hairline);
     font-size: 0.75rem;
     color: var(--ink-subtle);
+  }
+
+  .tool-card-status {
+    margin: 0;
+    min-width: 0;
+  }
+
+  .tool-card-state {
+    font-weight: 650;
+    color: var(--ink-muted);
+  }
+
+  .tool-card-state[data-state='verificada'] {
+    color: var(--signal-strong);
   }
 
   .tool-card-verified[data-freshness='stale'],

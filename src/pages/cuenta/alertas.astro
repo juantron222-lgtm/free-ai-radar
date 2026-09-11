@@ -47,7 +47,7 @@ const atLimit = user.plan === 'free' && activeAlerts.length >= MAX_ALERTS_FREE;
                   <div>
                     <a href={ROUTES.tool(tool.slug)} class="alerts-tool">{tool.name}</a>
                     <span class="alerts-meta">
-                      Verificada hace {tool.daysSinceVerified} días
+                      Revisada hace {tool.daysSinceVerified} días
                     </span>
                   </div>
                   <form method="post" action="/api/account/follows" data-alert-form>

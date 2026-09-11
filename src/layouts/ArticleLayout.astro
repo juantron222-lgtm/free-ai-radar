@@ -42,7 +42,7 @@ const {
       {lede && <p class="article-lede">{lede}</p>}
       {updatedAt && (
         <p class="article-meta">
-          Actualizado el
+          Actualizado el{' '}
           <time datetime={updatedAt}>
             {new Date(`${updatedAt}T00:00:00Z`).toLocaleDateString('es-ES', {
               day: 'numeric',

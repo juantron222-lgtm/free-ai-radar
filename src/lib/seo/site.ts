@@ -6,7 +6,7 @@ export const SITE_URL = (PUBLIC_SITE_URL || 'https://www.freeairadar.com').repla
 export const SITE = {
   name: 'Free AI Radar',
   legalName: 'Free AI Radar',
-  tagline: 'IA gratis, verificada de verdad',
+  tagline: 'Qué IA es gratis de verdad',
   description:
     'Radar independiente de herramientas de IA. Revisamos contra la página oficial de cada fabricante qué es gratis de verdad, con qué límites, si piden tarjeta y si permiten uso comercial. Lo que no publican, lo decimos.',
   locale: 'es_ES',

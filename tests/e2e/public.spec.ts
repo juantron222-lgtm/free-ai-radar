@@ -75,6 +75,40 @@ test.describe('consentimiento', () => {
     await expect(dialog).toBeHidden();
   });
 
+  test('abrir no elige por nadie: nada enfocado, Enter no acepta y las tres respuestas pesan igual', async ({
+    page,
+    context,
+  }) => {
+    /*
+     * El aviso enfocaba «Aceptar todo» al cargar, así que un Enter nada más
+     * llegar aceptaba todas las categorías, y era además el único botón
+     * relleno. Lo que se exige: al cargar no hay ningún botón del aviso
+     * enfocado, Enter no crea ninguna decisión y las respuestas se ven igual.
+     */
+    await page.goto('/');
+    const region = page.getByRole('region', { name: /cookies/i });
+    await expect(region).toBeVisible();
+
+    const botonEnfocado = await page.evaluate(() => {
+      const activo = document.activeElement;
+      return Boolean(activo && activo.tagName === 'BUTTON' && activo.closest('#consent-root'));
+    });
+    expect(botonEnfocado, 'un botón del aviso recibe el foco al cargar').toBe(false);
+
+    await page.keyboard.press('Enter');
+    await expect(region).toBeVisible();
+    const decision = (await context.cookies()).find((c) => c.name === 'far_consent');
+    expect(decision, 'Enter al cargar ha dejado una decisión guardada').toBeUndefined();
+
+    const fondos = await region.getByRole('button').evaluateAll((botones) =>
+      botones
+        .filter((boton) => (boton as HTMLElement).offsetParent !== null)
+        .map((boton) => getComputedStyle(boton).backgroundColor)
+    );
+    expect(fondos.length).toBeGreaterThanOrEqual(3);
+    expect(new Set(fondos).size, `fondos distintos: ${fondos.join(' · ')}`).toBe(1);
+  });
+
   test('la decisión se recuerda entre visitas', async ({ page }) => {
     await page.goto('/');
     await page.getByRole('button', { name: 'Rechazar todo' }).click();
@@ -617,8 +651,8 @@ test.describe('accesibilidad', () => {
    * can take focus, and actually moves the reader to the content.
    */
   test('hay un enlace para saltar al contenido', async ({ page }, testInfo) => {
-    // The consent dialog is modal and traps focus by design, so the decision
-    // has to exist before the page's own tab order can be exercised.
+    // La decisión de cookies se siembra antes para que el primer Tab recorra la
+    // página y no la barra de consentimiento.
     await seedConsent(page);
     await page.goto('/');
 

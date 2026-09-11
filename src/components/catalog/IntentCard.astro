@@ -1,6 +1,7 @@
 ---
 import type { Tool } from '@lib/domain/tool';
-import { CAPABILITY_LABEL, HOSTING_LABEL, START_EFFORT_LABEL } from '@lib/domain/taxonomy';
+import { CAPABILITY_LABEL, HOSTING_LABEL } from '@lib/domain/taxonomy';
+import { esfuerzoDe } from '@lib/domain/esfuerzo';
 import type { Capability } from '@lib/domain/taxonomy';
 import { freeAccessLabel } from '@lib/data/category-page';
 import { ROUTES } from '@lib/nav';
@@ -71,6 +72,7 @@ const {
 } = Astro.props;
 
 const access = freeAccessLabel(tool);
+const esfuerzo = esfuerzoDe(tool);
 const shown = capabilityOrder.filter((c) => tool.capabilities.includes(c));
 const visible = shown.slice(0, capabilityLimit);
 const rest = shown.length - visible.length;
@@ -196,7 +198,7 @@ const licenciaDividida = Boolean(capas.code && capas.weights && capas.code !== c
     </div>
     <div class="ic-fact ic-fact-effort">
       <dt>Empezar</dt>
-      <dd title={tool.startEffortReason || undefined}>{START_EFFORT_LABEL[tool.startEffort]}</dd>
+      <dd title={tool.startEffortReason || esfuerzo.meaning}>{esfuerzo.label}</dd>
     </div>
   </dl>
 
