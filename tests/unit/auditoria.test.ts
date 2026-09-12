@@ -46,7 +46,23 @@ const codigo = (ruta: string): string =>
     .replace(/^\s*\/\/.*$/gm, '');
 
 const ficha = codigo('src/pages/herramientas/[slug].astro');
-const portada = codigo('src/pages/index.astro');
+/**
+ * La portada, con todo lo que la compone.
+ *
+ * Dejó de ser un fichero: la fase 2 la partió en tres puertas, la fila de
+ * verticales y la franja de confianza. Lo que estas reglas vigilan es lo que
+ * llega a la pantalla, así que se leen juntos.
+ */
+const portada = [
+  'src/pages/index.astro',
+  'src/components/home/PuertaBuscar.astro',
+  'src/components/home/PuertaActualidad.astro',
+  'src/components/home/PuertaComparar.astro',
+  'src/components/home/FilaVerticales.astro',
+  'src/components/home/FranjaConfianza.astro',
+]
+  .map(codigo)
+  .join('\n');
 const panel = codigo('src/components/discovery/FilterPanel.astro');
 
 describe('un estado de verificación, una sola fuente', () => {
@@ -121,8 +137,16 @@ describe('cada cifra pública significa una cosa, y las series cierran', () => {
     expect(r.accesoGratuitoConfirmado + r.sinPlanGratuito + r.accesoSinConfirmar).toBe(r.total);
   });
 
-  it('la portada enseña la suma, para poder comprobarla sin salir de ella', () => {
-    expect(portada).toContain('hero-stats-suma');
+  it('la portada enseña el reparto, para poder comprobar que cierra', () => {
+    /*
+     * Esto era una frase con la suma escrita dentro de un bloque de 350
+     * palabras al final de la portada. Ahora es una franja con las cuatro
+     * cifras: sumarlas sigue siendo la comprobación, y cabe en una línea.
+     */
+    expect(portada).toContain('recuento.total');
+    expect(portada).toContain('recuento.verificada');
+    expect(portada).toContain('recuento.parcial');
+    expect(portada).toContain('recuento.catalogada');
   });
 });
 

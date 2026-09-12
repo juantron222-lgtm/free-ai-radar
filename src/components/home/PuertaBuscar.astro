@@ -1,0 +1,308 @@
+---
+import type { Conteo, FilaEvidencia } from '@lib/data/portada';
+import { ROUTES } from '@lib/nav';
+
+interface Props {
+  filas: FilaEvidencia[];
+  conteos: Conteo[];
+  total: number;
+}
+
+const { filas, conteos, total } = Astro.props;
+
+/**
+ * La primera puerta: encontrar una IA.
+ *
+ * Es la más grande de las tres porque es a lo que viene la mayoría, y lleva
+ * dentro lo que antes había que ir a buscar a `/herramientas`: la caja, las
+ * condiciones que deciden con su cifra, y una tabla con fichas reales. La tabla
+ * enseña las tres preguntas que hacen elegir —tarjeta, registro, uso
+ * comercial— con el dato tal cual está, incluido «sin verificar» cuando el
+ * fabricante no lo publica.
+ */
+const COLUMNAS = ['Herramienta', 'Qué da gratis', '¿Tarjeta?', '¿Registro?', '¿Uso comercial?'];
+---
+
+<section class="puerta puerta-buscar" aria-labelledby="puerta-buscar-t">
+  <header class="puerta-head">
+    <h2 id="puerta-buscar-t" class="puerta-title">Encontrar una IA</h2>
+    <p class="puerta-lede">
+      Busca por lo que necesitas hacer o filtra por la condición que te importe.
+    </p>
+  </header>
+
+  <form class="buscar-form" role="search" action={ROUTES.tools} method="get">
+    <label class="sr-only" for="portada-q">¿Qué necesitas hacer?</label>
+    <input
+      type="search"
+      id="portada-q"
+      name="q"
+      class="input buscar-input"
+      placeholder="Quitar fondo, transcribir audio, generar vídeo…"
+      autocomplete="off"
+    />
+    <button type="submit" class="btn btn-primary">Buscar</button>
+  </form>
+
+  <ul class="conteos">
+    {conteos.map((c) => (
+      <li>
+        <a href={c.href} class="conteo">
+          <span>{c.etiqueta}</span>
+          <span class="conteo-n tnum">{c.n}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <div class="tabla-wrap">
+    <table class="evidencia">
+      <caption class="sr-only">
+        Cinco herramientas con acceso gratuito comprobado y lo que exige cada una
+      </caption>
+      <thead>
+        <tr>
+          {COLUMNAS.map((c) => <th scope="col">{c}</th>)}
+        </tr>
+      </thead>
+      <tbody>
+        {filas.map((f) => (
+          <tr>
+            <th scope="row" data-col="Herramienta">
+              <a href={ROUTES.tool(f.slug)}>{f.nombre}</a>
+            </th>
+            <td data-col="Qué da gratis">
+              <span class="acceso-tipo">{f.tipoDeAcceso}</span>
+              <span class="acceso-cantidad">{f.cantidad}</span>
+            </td>
+            <td data-col="¿Tarjeta?"><span class="cond" data-tono={f.tarjeta.tono}>{f.tarjeta.etiqueta}</span></td>
+            <td data-col="¿Registro?"><span class="cond" data-tono={f.registro.tono}>{f.registro.etiqueta}</span></td>
+            <td data-col="¿Uso comercial?"><span class="cond" data-tono={f.comercial.tono}>{f.comercial.etiqueta}</span></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <p class="puerta-pie">
+    <a href={ROUTES.tools} class="btn btn-secondary btn-sm">Ver las {total} con filtros</a>
+    <span class="puerta-nota">«Sin verificar» significa que no lo hemos comprobado, no que sea que no.</span>
+  </p>
+</section>
+
+<style>
+  .puerta {
+    display: grid;
+    gap: var(--space-s);
+    align-content: start;
+    padding: var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface);
+    min-width: 0;
+  }
+
+  @media (min-width: 48rem) {
+    .puerta {
+      padding: var(--space-m);
+    }
+  }
+
+  .puerta-head {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .puerta-title {
+    margin: 0;
+    font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+  }
+
+  .puerta-lede {
+    margin: 0;
+    color: var(--ink-muted);
+    max-width: 52ch;
+  }
+
+  .buscar-form {
+    display: flex;
+    gap: var(--space-3xs);
+  }
+
+  .buscar-input {
+    min-height: 46px;
+  }
+
+  .conteos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .conteo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.7rem;
+    min-height: 36px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-full);
+    background: var(--paper);
+    font-size: 0.875rem;
+    font-weight: 550;
+    color: var(--ink-muted);
+    text-decoration: none;
+  }
+
+  .conteo:hover {
+    color: var(--ink-strong);
+    border-color: var(--ink-muted);
+  }
+
+  .conteo-n {
+    font-weight: 650;
+    color: var(--ink-strong);
+  }
+
+  .tabla-wrap {
+    min-width: 0;
+  }
+
+  .evidencia {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+
+  .evidencia th,
+  .evidencia td {
+    text-align: left;
+    vertical-align: top;
+    padding: 0.6rem 0.5rem;
+    border-block-end: 1px solid var(--line-hairline);
+  }
+
+  .evidencia thead th {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    white-space: nowrap;
+  }
+
+  .evidencia tbody th {
+    font-weight: 650;
+  }
+
+  .evidencia a {
+    color: var(--ink-strong);
+    text-decoration: none;
+  }
+
+  .evidencia a:hover {
+    text-decoration: underline;
+  }
+
+  .acceso-tipo {
+    display: block;
+    font-weight: 600;
+  }
+
+  .acceso-cantidad {
+    display: block;
+    color: var(--ink-muted);
+  }
+
+  .cond {
+    font-weight: 600;
+  }
+
+  .cond[data-tono='bien'] {
+    color: var(--signal-strong);
+  }
+
+  .cond[data-tono='mal'] {
+    color: var(--warn);
+  }
+
+  .cond[data-tono='neutro'] {
+    color: var(--ink-muted);
+    font-weight: 500;
+  }
+
+  .puerta-pie {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2xs) var(--space-s);
+    margin: 0;
+  }
+
+  .puerta-nota {
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+  }
+
+  /*
+   * En móvil la tabla se convierte en fichas.
+   *
+   * Cinco columnas en 375 px obligan a desplazarse en horizontal justo donde se
+   * está decidiendo. Cada fila pasa a ser un bloque con su etiqueta delante del
+   * dato; los roles explícitos mantienen la semántica de tabla, que el cambio
+   * de `display` se lleva por delante en varios navegadores.
+   */
+  @media (max-width: 47.99rem) {
+    .evidencia,
+    .evidencia tbody,
+    .evidencia tr,
+    .evidencia th,
+    .evidencia td {
+      display: block;
+    }
+
+    .evidencia thead {
+      display: none;
+    }
+
+    .evidencia tr {
+      padding-block: 0.7rem;
+      border-block-end: 1px solid var(--line);
+    }
+
+    .evidencia tbody tr:last-child {
+      border-block-end: 0;
+    }
+
+    .evidencia th,
+    .evidencia td {
+      padding: 0.15rem 0;
+      border-block-end: 0;
+    }
+
+    .evidencia tbody th {
+      font-size: 1rem;
+      margin-block-end: 0.2rem;
+    }
+
+    .evidencia td[data-col]::before {
+      content: attr(data-col) ' ';
+      color: var(--ink-muted);
+      font-weight: 500;
+    }
+
+    .acceso-tipo,
+    .acceso-cantidad {
+      display: inline;
+    }
+
+    .acceso-cantidad::before {
+      content: ' · ';
+    }
+  }
+</style>

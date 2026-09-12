@@ -1,0 +1,94 @@
+---
+import type { VerticalConCifra } from '@lib/data/portada';
+
+interface Props {
+  verticales: VerticalConCifra[];
+}
+
+const { verticales } = Astro.props;
+
+/**
+ * Las seis verticales, con cuántas fichas tiene cada una.
+ *
+ * Sustituyen a los seis atajos del hero y a las seis tarjetas «una por
+ * vertical»: eran la misma lista tres veces. La cifra evita el clic a ciegas.
+ */
+---
+
+<section class="verticales" aria-labelledby="verticales-t">
+  <h2 id="verticales-t" class="verticales-title">Por lo que quieres hacer</h2>
+  <ul class="verticales-lista">
+    {verticales.map((v) => (
+      <li>
+        <a href={v.href} class="vertical">
+          <span class="vertical-head">
+            <span class="vertical-label">{v.etiqueta}</span>
+            <span class="vertical-n tnum">{v.n}</span>
+          </span>
+          <span class="vertical-desc">{v.descripcion}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .verticales {
+    display: grid;
+    gap: var(--space-s);
+  }
+
+  .verticales-title {
+    margin: 0;
+    font-size: 1.125rem;
+    letter-spacing: -0.01em;
+  }
+
+  .verticales-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+    gap: var(--space-2xs);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .vertical {
+    display: grid;
+    gap: 0.15rem;
+    height: 100%;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-m);
+    background: var(--surface);
+    text-decoration: none;
+    min-height: 44px;
+  }
+
+  .vertical:hover {
+    border-color: var(--ink-muted);
+  }
+
+  .vertical-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .vertical-label {
+    font-weight: 650;
+    color: var(--ink-strong);
+  }
+
+  .vertical-n {
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .vertical-desc {
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+    line-height: 1.35;
+  }
+</style>

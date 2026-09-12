@@ -33,23 +33,23 @@ test.describe('portada', () => {
     });
   }
 
-  test('la primera acción útil entra en la primera pantalla', async ({ page }) => {
+  test('las tres cosas que se pueden hacer están arriba, y la primera a mano', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto('/');
 
     /*
-     * El buscador y las seis intenciones son lo que alguien puede *hacer*
-     * nada más llegar. Si caen por debajo del pliegue, la portada se ha vuelto
-     * a llenar de preámbulo.
+     * La portada abría con un buscador, seis atajos de intención y seis
+     * tarjetas: cuatro listas para el mismo viaje. Lo que tiene que quedar
+     * claro arriba es qué se puede hacer aquí, y la acción principal —buscar—
+     * tiene que estar a mano sin desplazar.
      */
-    const buscador = page.getByRole('search').first();
-    await expect(buscador).toBeVisible();
+    const puertas = page.locator('.puertas section h2');
+    await expect(puertas).toHaveText([/encontrar una ia/i, /qué está pasando/i, /comparar/i]);
 
-    const primeraIntencion = page.getByRole('link', { name: /crear imágenes/i });
-    const top = await primeraIntencion.evaluate(
-      (el) => el.getBoundingClientRect().top + window.scrollY
-    );
-    expect(top, 'la primera intención debe verse sin desplazar').toBeLessThan(812);
+    const campo = page.locator('.buscar-form input[name="q"]');
+    await expect(campo).toBeVisible();
+    const fondo = await campo.evaluate((el) => el.getBoundingClientRect().bottom);
+    expect(fondo, 'el campo de búsqueda cae por debajo del pliegue').toBeLessThan(812);
   });
 
   test('el titular no pega dos palabras', async ({ page }) => {
@@ -78,31 +78,27 @@ test.describe('portada', () => {
     expect(new Set(slugs).size, `repetidas: ${slugs.join(', ')}`).toBe(slugs.length);
   });
 
-  test('el módulo principal enseña varias categorías, no una', async ({ page }) => {
+  test('la tabla de la portada enseña herramientas distintas', async ({ page }) => {
     await page.goto('/');
-    const nombres = await page.evaluate(() =>
-      [...document.querySelectorAll('#prueba-title')]
-        .map((h) => h.closest('section'))
-        .flatMap((s) => [...(s?.querySelectorAll('.ic-name') ?? [])])
-        .map((n) => n.textContent?.trim() ?? '')
-    );
-    expect(nombres.length).toBeGreaterThanOrEqual(4);
-    expect(new Set(nombres).size).toBe(nombres.length);
+    const nombres = await page.locator('.evidencia tbody th a').allInnerTexts();
+    expect(nombres.length, 'la portada debe enseñar varias fichas').toBeGreaterThanOrEqual(4);
+    expect(new Set(nombres).size, `repetidas: ${nombres.join(', ')}`).toBe(nombres.length);
   });
 
-  test('el nombre de la tarjeta no se estruja en móvil', async ({ page }) => {
+  test('el nombre de la herramienta no se estruja en móvil', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto('/');
 
     /*
-     * El defecto medido: con el nombre y la etiqueta de acceso en la misma
-     * fila, «Amazon Q Developer» se partía letra a letra para dejarle sitio a
-     * «Free tier». Se comprueba el ancho disponible, no la apariencia.
+     * El defecto medido en las tarjetas: con el nombre y la etiqueta de acceso
+     * en la misma fila, «Amazon Q Developer» se partía letra a letra. La tabla
+     * de la portada se apila en móvil justamente para que eso no pase; se
+     * comprueba el ancho disponible, no la apariencia.
      */
-    const anchos = await page.evaluate(() =>
-      [...document.querySelectorAll('.ic-name')].map((n) => ({
-        texto: n.textContent?.trim().slice(0, 24) ?? '',
-        ancho: Math.round(n.getBoundingClientRect().width),
+    const anchos = await page.locator('.evidencia tbody th').evaluateAll((celdas) =>
+      celdas.map((c) => ({
+        texto: (c.textContent ?? '').trim().slice(0, 24),
+        ancho: Math.round(c.getBoundingClientRect().width),
       }))
     );
 
@@ -112,11 +108,16 @@ test.describe('portada', () => {
     }
   });
 
-  test('cada tarjeta lleva su distintivo visual', async ({ page }) => {
+  test('cada fila lleva a su ficha y contesta las tres condiciones', async ({ page }) => {
     await page.goto('/');
-    const tarjetas = await page.locator('#prueba-title').locator('..').locator('..').locator('article.ic').count();
-    const logos = await page.locator('article.ic .tool-logo').count();
-    expect(logos, 'toda tarjeta necesita logo o monograma').toBeGreaterThanOrEqual(tarjetas);
+    const filas = page.locator('.evidencia tbody tr');
+    const cuantas = await filas.count();
+    expect(cuantas, 'la tabla necesita filas').toBeGreaterThanOrEqual(3);
+
+    for (let i = 0; i < cuantas; i++) {
+      await expect(filas.nth(i).locator('th a')).toHaveAttribute('href', /^\/herramientas\//);
+      await expect(filas.nth(i).locator('.cond')).toHaveCount(3);
+    }
   });
 
 });
@@ -147,7 +148,7 @@ test.describe('portada sin decisión de cookies', () => {
     const medida = await page.evaluate(() => {
       const root = document.getElementById('consent-root');
       const h1 = document.querySelector('h1');
-      const buscador = document.querySelector('.hero-search');
+      const buscador = document.querySelector('.buscar-form');
       return {
         altoBanner: root ? Math.round(root.getBoundingClientRect().height) : 0,
         viewport: window.innerHeight,

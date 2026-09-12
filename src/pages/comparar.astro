@@ -13,11 +13,22 @@ export const prerender = false;
 const MAX = 4;
 const MIN_INDEXABLE = 2;
 
-const requested = (Astro.url.searchParams.get('t') ?? '')
-  .split(',')
-  .map((s) => s.trim())
-  .filter(Boolean)
-  .slice(0, MAX);
+/*
+ * `?t=a,b` y `?t=a&t=b` son la misma petición.
+ *
+ * La forma con comas es la que produce esta página y la que se comparte. La
+ * repetida es la que produce un formulario con dos desplegables llamados `t`,
+ * que es como se empieza una comparación desde la portada sin JavaScript.
+ * Aceptar las dos evita tener que elegir entre una URL legible y un formulario
+ * que funcione sin scripts.
+ */
+const requested = [...new Set(
+  Astro.url.searchParams
+    .getAll('t')
+    .flatMap((valor) => valor.split(','))
+    .map((s) => s.trim())
+    .filter(Boolean)
+)].slice(0, MAX);
 
 const tools = requested.map((slug) => getTool(slug)).filter((t) => t !== undefined);
 const missing = requested.filter((slug) => !getTool(slug));

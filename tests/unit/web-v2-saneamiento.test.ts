@@ -110,10 +110,10 @@ describe('«verificada» es un estado, no un adjetivo para el catálogo', () => 
      * encima de noticias del 9 de septiembre.
      */
     const portada = codigo('src/pages/index.astro');
-    expect(portada).toContain('catálogo revisado por última vez el');
+    expect(portada).toMatch(/catálogo revisado por última vez el/i);
     expect(portada).not.toMatch(/actualizado el/i);
     expect(portada).toMatch(
-      /<span>\s*Radar editorial independiente · catálogo revisado por última vez el[\s\S]*?<\/time>\s*<\/span>/
+      /<span>\s*Catálogo revisado por última vez el[\s\S]*?<\/time>\s*<\/span>/
     );
   });
 });

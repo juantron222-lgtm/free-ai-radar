@@ -1,0 +1,120 @@
+---
+import { ROUTES } from '@lib/nav';
+
+interface Props {
+  opciones: { slug: string; name: string }[];
+  /** Las dos que vienen puestas, para no abrir con dos desconocidas. */
+  preseleccion: string[];
+  /** Una comparación ya escrita, para quien no quiere elegir. */
+  sugerencia?: { etiqueta: string; href: string };
+}
+
+const { opciones, preseleccion, sugerencia } = Astro.props;
+
+/**
+ * La tercera puerta: comparar.
+ *
+ * Dos desplegables y un botón, sin JavaScript: el formulario envía `t` dos
+ * veces y `/comparar` ya entiende tanto `?t=a&t=b` como `?t=a,b`. Es la misma
+ * página de siempre; lo único nuevo es poder empezar la comparación desde la
+ * portada en vez de tener que buscar dos fichas primero.
+ */
+---
+
+<section class="puerta" aria-labelledby="puerta-comparar-t">
+  <header class="puerta-head">
+    <h2 id="puerta-comparar-t" class="puerta-title">Comparar herramientas</h2>
+    <p class="puerta-lede">Las mismas filas para todas: límites, tarjeta, marca de agua y licencia.</p>
+  </header>
+
+  <form class="comparar-form" action={ROUTES.compare} method="get">
+    <div class="campo">
+      <label class="sr-only" for="comparar-a">Primera herramienta</label>
+      <select id="comparar-a" name="t" class="input">
+        {opciones.map((o) => (
+          <option value={o.slug} selected={o.slug === preseleccion[0]}>{o.name}</option>
+        ))}
+      </select>
+    </div>
+    <span class="comparar-vs" aria-hidden="true">vs</span>
+    <div class="campo">
+      <label class="sr-only" for="comparar-b">Segunda herramienta</label>
+      <select id="comparar-b" name="t" class="input">
+        {opciones.map((o) => (
+          <option value={o.slug} selected={o.slug === preseleccion[1]}>{o.name}</option>
+        ))}
+      </select>
+    </div>
+    <button type="submit" class="btn btn-secondary">Comparar</button>
+  </form>
+
+  {sugerencia && (
+    <p class="puerta-lede">
+      O mira una ya hecha: <a href={sugerencia.href}>{sugerencia.etiqueta}</a>.
+    </p>
+  )}
+</section>
+
+<style>
+  .puerta {
+    display: grid;
+    gap: var(--space-s);
+    align-content: start;
+    padding: var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface);
+    min-width: 0;
+  }
+
+  @media (min-width: 48rem) {
+    .puerta {
+      padding: var(--space-m);
+    }
+  }
+
+  .puerta-head {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .puerta-title {
+    margin: 0;
+    font-size: clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .puerta-lede {
+    margin: 0;
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+    max-width: 46ch;
+  }
+
+  .comparar-form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: var(--space-3xs);
+  }
+
+  .campo {
+    min-width: 0;
+  }
+
+  .campo .input {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .comparar-vs {
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+  }
+
+  .comparar-form .btn {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+</style>

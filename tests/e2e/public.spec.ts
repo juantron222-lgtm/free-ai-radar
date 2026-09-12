@@ -632,7 +632,14 @@ test.describe('SEO técnico', () => {
   test('la 404 es útil, no un callejón sin salida', async ({ page }) => {
     const response = await page.goto('/una-ruta-que-no-existe');
     expect(response?.status()).toBe(404);
-    await expect(page.getByRole('searchbox')).toBeVisible();
+
+    /*
+     * Dos cajas desde que el buscador es global: la de la cabecera, que está
+     * en todas las páginas, y la de la propia 404. Lo que esta prueba pregunta
+     * es si la página perdida ofrece salida por sí misma, así que mira la suya
+     * y, de paso, comprueba que la global también llegó hasta aquí.
+     */
+    await expect(page.getByRole('searchbox', { name: /buscar en el catálogo/i })).toBeVisible();
   });
 });
 

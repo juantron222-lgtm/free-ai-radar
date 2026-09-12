@@ -1,9 +1,17 @@
 ---
 import Logo from './Logo.astro';
 import ThemeToggle from './ThemeToggle.astro';
-import { PRIMARY_NAV, ROUTES, isActivePath } from '@lib/nav';
+import { PRIMARY_NAV, VERTICALS, ROUTES, isActivePath } from '@lib/nav';
 
 const current = Astro.url.pathname;
+
+/**
+ * Lo que ya se buscó, de vuelta en la caja.
+ *
+ * Quien llega al catálogo desde una búsqueda y quiere afinarla encontraba la
+ * caja vacía y tenía que reescribir la consulta entera.
+ */
+const consulta = isActivePath(current, ROUTES.tools) ? (Astro.url.searchParams.get('q') ?? '') : '';
 ---
 
 <header class="site-header">
@@ -28,13 +36,43 @@ const current = Astro.url.pathname;
       </ul>
     </nav>
 
+    {/*
+      El buscador vive aquí, no sólo en la portada.
+
+      Antes esto era una lupa que llevaba a `/herramientas#buscador`: dos clics
+      y un salto de página para escribir una palabra. Buscar es lo primero que
+      alguien quiere hacer en un catálogo de 94 fichas, así que la caja está en
+      todas las páginas. Es un formulario GET normal: funciona sin JavaScript y
+      la URL resultante se puede compartir.
+    */}
+    <form class="header-search" role="search" action={ROUTES.tools} method="get">
+      <label class="sr-only" for="header-q">Buscar herramientas</label>
+      <input
+        type="search"
+        id="header-q"
+        name="q"
+        class="input header-search-input"
+        value={consulta}
+        placeholder="Quitar fondo, transcribir audio…"
+        autocomplete="off"
+      />
+      <button type="submit" class="btn btn-secondary btn-sm header-search-go">Buscar</button>
+    </form>
+
     <div class="header-actions">
-      <a href={`${ROUTES.tools}#buscador`} class="header-icon-btn" aria-label="Buscar herramientas">
+      <button
+        type="button"
+        class="header-icon-btn header-search-btn"
+        id="search-toggle"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Buscar herramientas</span>
         <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
           <circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.8" />
           <path d="M13.5 13.5 L17 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
         </svg>
-      </a>
+      </button>
 
       <ThemeToggle />
 
@@ -57,8 +95,40 @@ const current = Astro.url.pathname;
 
   <div class="mobile-menu" id="mobile-menu" hidden>
     <nav class="page" aria-label="Navegación móvil">
+      <form class="mobile-search" role="search" action={ROUTES.tools} method="get">
+        <label class="sr-only" for="mobile-q">Buscar herramientas</label>
+        <input
+          type="search"
+          id="mobile-q"
+          name="q"
+          class="input"
+          placeholder="Quitar fondo, transcribir audio…"
+          autocomplete="off"
+        />
+        <button type="submit" class="btn btn-secondary">Buscar</button>
+      </form>
+
       <ul>
         {PRIMARY_NAV.map((item) => (
+          <li>
+            <a href={item.href} aria-current={isActivePath(current, item.href) ? 'page' : undefined}>
+              <span class="mobile-menu-label">{item.label}</span>
+              {item.description && <span class="mobile-menu-desc">{item.description}</span>}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      {/*
+        Las seis verticales siguen a un clic.
+
+        Salieron de la cabecera porque «Herramientas» y ellas son el mismo
+        viaje, pero en móvil elegir por lo que quieres hacer es la forma más
+        corta de llegar, así que aquí van enteras y con su descripción.
+      */}
+      <p class="mobile-menu-group">Por lo que quieres hacer</p>
+      <ul>
+        {VERTICALS.map((item) => (
           <li>
             <a href={item.href} aria-current={isActivePath(current, item.href) ? 'page' : undefined}>
               <span class="mobile-menu-label">{item.label}</span>
@@ -90,7 +160,7 @@ const current = Astro.url.pathname;
   .header-inner {
     display: flex;
     align-items: center;
-    gap: var(--space-m);
+    gap: var(--space-s);
     height: 60px;
   }
 
@@ -101,7 +171,7 @@ const current = Astro.url.pathname;
 
   .header-nav {
     display: none;
-    flex: 1;
+    flex: none;
   }
 
   .header-nav ul {
@@ -137,6 +207,24 @@ const current = Astro.url.pathname;
     font-weight: 650;
     box-shadow: inset 0 -2px 0 var(--signal);
     border-radius: var(--radius-s);
+  }
+
+  .header-search {
+    display: none;
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 26rem;
+    align-items: center;
+    gap: var(--space-3xs);
+  }
+
+  .header-search-input {
+    min-height: 38px;
+    min-width: 0;
+  }
+
+  .header-search-go {
+    flex: none;
   }
 
   .header-actions {
@@ -177,6 +265,16 @@ const current = Astro.url.pathname;
     overflow-y: auto;
   }
 
+  .mobile-search {
+    display: flex;
+    gap: var(--space-3xs);
+    padding-block: var(--space-2xs) var(--space-s);
+  }
+
+  .mobile-search .input {
+    min-height: 44px;
+  }
+
   .mobile-menu ul {
     list-style: none;
     margin: 0;
@@ -193,8 +291,18 @@ const current = Astro.url.pathname;
     min-height: 44px;
   }
 
-  .mobile-menu li:last-child a {
+  .mobile-menu ul:last-of-type li:last-child a {
     border-bottom: 0;
+  }
+
+  .mobile-menu-group {
+    margin: var(--space-s) 0 0;
+    padding: 0 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
   }
 
   .mobile-menu-divider {
@@ -215,6 +323,16 @@ const current = Astro.url.pathname;
   .mobile-menu-desc {
     font-size: 0.8125rem;
     color: var(--ink-muted);
+  }
+
+  @media (min-width: 48rem) {
+    .header-search {
+      display: flex;
+    }
+
+    .header-search-btn {
+      display: none;
+    }
   }
 
   @media (min-width: 68rem) {
@@ -239,10 +357,13 @@ const current = Astro.url.pathname;
 <script>
   const toggle = document.getElementById('menu-toggle');
   const menu = document.getElementById('mobile-menu');
+  const searchToggle = document.getElementById('search-toggle');
+  const mobileSearch = document.getElementById('mobile-q');
 
   if (toggle && menu) {
     const setOpen = (open: boolean) => {
       toggle.setAttribute('aria-expanded', String(open));
+      searchToggle?.setAttribute('aria-expanded', String(open));
       menu.hidden = !open;
     };
 
@@ -250,6 +371,19 @@ const current = Astro.url.pathname;
 
     toggle.addEventListener('click', () => {
       setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    /*
+     * La lupa abre el mismo panel y deja el cursor en la caja.
+     *
+     * Es la única acción de la cabecera que mueve el foco, y lo hace porque la
+     * ha pedido quien la pulsa: no se enfoca nada al cargar la página.
+     */
+    searchToggle?.addEventListener('click', () => {
+      const abierto = toggle.getAttribute('aria-expanded') === 'true';
+      const yaEnLaCaja = abierto && document.activeElement === mobileSearch;
+      setOpen(!yaEnLaCaja);
+      if (!yaEnLaCaja && mobileSearch instanceof HTMLInputElement) mobileSearch.focus();
     });
 
     // Escape closes the menu and returns focus to the control that opened it.
@@ -261,7 +395,7 @@ const current = Astro.url.pathname;
     });
 
     // Resizing into the desktop breakpoint must not leave a hidden-but-open menu.
-    const desktop = window.matchMedia('(min-width: 60rem)');
+    const desktop = window.matchMedia('(min-width: 68rem)');
     desktop.addEventListener('change', (event) => {
       if (event.matches) setOpen(false);
     });

@@ -1,65 +1,60 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import IntentCard from '@components/catalog/IntentCard.astro';
+import PuertaBuscar from '@components/home/PuertaBuscar.astro';
+import PuertaActualidad from '@components/home/PuertaActualidad.astro';
+import PuertaComparar from '@components/home/PuertaComparar.astro';
+import FilaVerticales from '@components/home/FilaVerticales.astro';
+import FranjaConfianza from '@components/home/FranjaConfianza.astro';
 import CompareTray from '@components/tools/CompareTray.astro';
 import NewsletterForm from '@components/marketing/NewsletterForm.astro';
 import { getAllTools, getCatalogStats } from '@lib/data/catalog';
 import { destacadas } from '@lib/data/home';
+import { conteosDeDecision, filasDeEvidencia, verticalesConCifra } from '@lib/data/portada';
 import { getLatestNews } from '@lib/data/news';
 import { itemListSchema } from '@lib/seo/structured-data';
 import { recuentoVerificacion } from '@lib/domain/verification';
-import { ROUTES } from '@lib/nav';
 
+/*
+ * Tres puertas, no cuatro llamadas compitiendo.
+ *
+ * La portada anterior ponía a la vez un buscador, seis atajos de intención,
+ * seis tarjetas «una por vertical» y ocho enlaces en la cabecera: cuatro listas
+ * para el mismo viaje. Ahora dice en la primera pantalla las tres cosas que se
+ * pueden hacer aquí —encontrar, ver qué ha cambiado y comparar—, y cada una
+ * lleva dentro contenido de verdad en vez de un botón.
+ */
+const tools = getAllTools();
 const stats = getCatalogStats();
+const recuento = recuentoVerificacion(tools);
+
+const filas = filasDeEvidencia(5);
+const conteos = conteosDeDecision(tools);
+const verticales = verticalesConCifra(tools);
+const paraSchema = destacadas(5).map(({ tool }) => tool);
 
 /*
- * Las cifras que podemos demostrar, y en ese orden.
+ * Lo que Newsroom haya publicado, sin tocar nada suyo.
  *
- * La portada decía «Herramientas verificadas: 94». No era cierto de las 94:
- * nueve no tienen plan gratuito, cinco están sin comprobar contra la fuente y
- * en setenta y nueve queda algún hecho que su fabricante no publica.
- */
-const recuento = recuentoVerificacion(getAllTools());
-
-/*
- * Seis acciones, no seis etiquetas de taxonomía.
- *
- * «Imagen IA» es cómo lo llamamos por dentro; «Crear imágenes» es lo que
- * alguien quiere hacer. La rejilla de categorías que había aquí estaba
- * ordenada por número de fichas, así que enseñaba «Modelos open-source» —una
- * categoría técnica— antes que Audio.
- */
-const INTENCIONES = [
-  { ruta: '/imagen', accion: 'Crear imágenes', pista: 'Generar y editar' },
-  { ruta: '/video', accion: 'Generar vídeo', pista: 'Texto o imagen a vídeo' },
-  { ruta: '/audio', accion: 'Crear música y voz', pista: 'Componer, clonar, transcribir' },
-  { ruta: '/codigo', accion: 'Programar con IA', pista: 'Editores, copilotos, agentes' },
-  { ruta: '/agentes', accion: 'Usar agentes', pista: 'Que hagan la tarea entera' },
-  { ruta: '/modelos', accion: 'Elegir un modelo', pista: 'Chat, API o pesos abiertos' },
-];
-
-/*
- * Una herramienta por vertical, sin repetir.
- *
- * El criterio está en `destacadas()` y se puede discutir mirando: usable hoy
- * sin pagar ni instalar, acceso comprobado contra la fuente oficial y
- * capacidades citadas. Lo que decide entre las que cumplen es cuántos huecos
- * le quedan a su ficha, no una calidad que no medimos.
- */
-const prueba = destacadas(6);
-
-/*
- * «Qué ha cambiado últimamente», con noticias de verdad recientes.
- *
- * Esto salía de `changelog`, cuya entrada más nueva es del 1 de junio de 2024.
- * En agosto de 2026 la portada presentaba como «últimamente» algo de hace dos
- * años, mientras `/noticias` tenía casi doscientas entradas de este verano.
+ * La portada sólo lee. Ni decide qué se publica, ni cuándo, ni con qué fuente.
  */
 const VENTANA_DIAS = 90;
 const limite = Date.now() - VENTANA_DIAS * 24 * 60 * 60 * 1000;
-const changes = getLatestNews(12)
+const noticias = getLatestNews(12)
   .filter((item) => new Date(item.publishedAt).getTime() >= limite)
-  .slice(0, 4);
+  .slice(0, 3);
+
+const opciones = tools.map((t) => ({ slug: t.slug, name: t.name }));
+
+/*
+ * Con qué dos herramientas viene puesto el comparador.
+ *
+ * Arrancaba con las dos primeras del abecedario, que no le dicen nada a nadie.
+ * Estas dos son las que más gente reconoce y, además, comparten casi todo menos
+ * lo que decide: es una comparación que se entiende sin leer la tabla entera.
+ */
+const PAR_INICIAL = ['chatgpt', 'claude'];
+const par = PAR_INICIAL.filter((slug) => opciones.some((o) => o.slug === slug));
+const preseleccion = par.length === 2 ? par : opciones.slice(0, 2).map((o) => o.slug);
 
 const description =
   `Revisamos herramientas de IA contra la página oficial de su fabricante: qué es gratis de verdad, con qué límites, si piden tarjeta y si permiten uso comercial. ${recuento.total} revisadas, ${recuento.accesoGratuitoConfirmado} con acceso gratuito confirmado. Lo que no publican, lo decimos.`;
@@ -68,24 +63,14 @@ const description =
 <BaseLayout
   title="Free AI Radar — Qué IA es gratis de verdad"
   description={description}
-  schemas={[itemListSchema(prueba.map((d) => d.tool), 'Herramientas de IA con acceso gratuito confirmado')]}
+  schemas={[itemListSchema(paraSchema, 'Herramientas de IA con acceso gratuito confirmado')]}
 >
   <section class="hero">
     <div class="page hero-inner">
-      {/*
-        Qué fecha es ésta.
-
-        Ponía «actualizado el» y la fecha era la última revisión del catálogo
-        de herramientas: la portada se fechaba el 30 de agosto con noticias
-        del 9 de septiembre debajo. Ahora dice lo que mide.
-
-        Y va entera en un solo elemento. Con el texto y el <time> como hermanos
-        de un contenedor flexible, a 375 px la fecha se iba a otra columna.
-      */}
       <p class="eyebrow hero-eyebrow">
         <span class="hero-pulse" aria-hidden="true"></span>
         <span>
-          Radar editorial independiente · catálogo revisado por última vez el{' '}
+          Catálogo revisado por última vez el{' '}
           <time datetime={stats.lastVerifiedAt}>
             {new Date(`${stats.lastVerifiedAt}T00:00:00Z`).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })}
           </time>
@@ -93,141 +78,42 @@ const description =
       </p>
 
       <h1 class="hero-title">
-        La IA que es <span class="hero-accent">gratis de verdad</span>,<br class="hero-break" />{' '}
-        separada del humo.
+        La IA que es <span class="hero-accent">gratis de verdad</span>, separada del humo.
       </h1>
 
       <p class="hero-lede">
-        Comprobamos cada herramienta contra la página de su fabricante y publicamos
-        lo incómodo: el límite real del plan gratuito, si piden tarjeta y si puedes
-        usar el resultado para trabajar.
+        Comprobamos cada herramienta contra la página de su fabricante y publicamos lo incómodo:
+        el límite real del plan gratuito, si piden tarjeta y si puedes usar el resultado para trabajar.
       </p>
-
-      <form class="hero-search" action={ROUTES.tools} method="get" role="search">
-        <label class="sr-only" for="hero-q">¿Qué necesitas hacer?</label>
-        <input
-          type="search"
-          id="hero-q"
-          name="q"
-          class="input"
-          placeholder="Quitar fondo, transcribir audio, generar vídeo…"
-          autocomplete="off"
-        />
-        <button type="submit" class="btn btn-primary">Buscar</button>
-      </form>
-
-      <ul class="hero-intents">
-        {INTENCIONES.map((i) => (
-          <li>
-            <a href={i.ruta} class="hero-intent">
-              <span class="hero-intent-accion">{i.accion}</span>
-              <span class="hero-intent-pista">{i.pista}</span>
-            </a>
-          </li>
-        ))}
-      </ul>
-
     </div>
   </section>
 
-  <div class="page home-sections">
-    <!-- B · ¿Qué puedo probar gratis hoy? ------------------------------- -->
-    <section aria-labelledby="prueba-title">
-      <header class="section-head">
-        <div>
-          <p class="eyebrow">Una por cada cosa que puedes hacer</p>
-          <h2 id="prueba-title" class="section-title">Prueba estas gratis hoy</h2>
-        </div>
-        <a href={ROUTES.tools} class="btn btn-ghost btn-sm">Ver las {recuento.total} →</a>
-      </header>
-      <p class="section-lede">
-        Funcionan en el navegador, su acceso gratuito se renueva y lo hemos
-        comprobado contra la página oficial. Una por vertical, para que no sean
-        seis versiones de lo mismo.
-      </p>
-      <ul class="home-grid">
-        {prueba.map(({ tool }) => (
-          <li><IntentCard tool={tool} capabilityOrder={tool.capabilities} priority /></li>
-        ))}
-      </ul>
-    </section>
+  <div class="page home">
+    {/*
+      Cada puerta va en su hueco.
 
-    <!-- C · ¿Qué ha cambiado? ------------------------------------------- -->
-    {changes.length > 0 && (
-      <section aria-labelledby="changes-title" class="changes-section">
-        <header class="section-head">
-          <div>
-            <p class="eyebrow">Últimos {VENTANA_DIAS} días</p>
-            <h2 id="changes-title" class="section-title">Qué ha cambiado</h2>
-          </div>
-          <a href={ROUTES.news} class="btn btn-ghost btn-sm">Todas las noticias →</a>
-        </header>
-        <ol class="change-list">
-          {changes.map((item) => (
-            <li class="change-item">
-              <time datetime={item.publishedAt} class="change-date tnum">
-                {new Date(item.publishedAt).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' })}
-              </time>
-              <div>
-                <a href={ROUTES.newsItem(item.slug)} class="change-tool">{item.title}</a>
-                <p class="change-summary">{item.summary}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </section>
-    )}
+      El hueco lo pone la página y la tarjeta la pinta el componente: el CSS de
+      un fichero de Astro sólo alcanza a los elementos que ese fichero escribe,
+      así que colocar las secciones de los hijos con `nth-child` no funciona —lo
+      comprobé: las tres quedaban en colocación automática—.
+    */}
+    <div class="puertas">
+      <div class="hueco hueco-buscar">
+        <PuertaBuscar filas={filas} conteos={conteos} total={recuento.total} />
+      </div>
+      <div class="hueco hueco-actualidad">
+        <PuertaActualidad noticias={noticias} />
+      </div>
+      <div class="hueco hueco-comparar">
+        <PuertaComparar opciones={opciones} preseleccion={preseleccion} />
+      </div>
+    </div>
 
-    <!-- D · ¿Por qué fiarte? -------------------------------------------- -->
-    <section class="promise" aria-labelledby="promise-title">
-      <h2 id="promise-title" class="section-title">Por qué fiarte de esto</h2>
-      {/*
-        Cuatro cifras que no se podían sumar.
+    <FilaVerticales verticales={verticales} />
 
-        Aquí había «94 revisadas · 79 con acceso gratuito · 11 verificación
-        completa · 78 con algún dato sin publicar», y un lector que hiciera la
-        comprobación más elemental que existe —sumar— obtenía 89 sobre 94. No
-        fallaban los datos: faltaba un cubo, las 5 catalogadas, y las dos ideas
-        distintas iban en el mismo renglón con el mismo aspecto.
+    <FranjaConfianza recuento={recuento} />
 
-        Ahora la lista es una partición del catálogo y cierra. El acceso
-        gratuito, que responde a otra pregunta, se cuenta aparte y también
-        cierra.
-      */}
-      <dl class="hero-stats">
-        <div><dt>Verificadas</dt><dd class="tnum">{recuento.verificada}</dd></div>
-        <div><dt>Verificación parcial</dt><dd class="tnum">{recuento.parcial}</dd></div>
-        <div><dt>Catalogadas</dt><dd class="tnum">{recuento.catalogada}</dd></div>
-      </dl>
-      <p class="hero-stats-suma">
-        {recuento.verificada} + {recuento.parcial} + {recuento.catalogada} ={' '}
-        <strong>{recuento.total} herramientas revisadas</strong>
-      </p>
-      <p class="hero-stats-note">
-        <strong>Verificada</strong> significa que hemos abierto la web del fabricante y
-        que todos los hechos que le aplican están confirmados. En las de
-        <strong> verificación parcial</strong> falta alguno concreto, y su ficha dice cuál y
-        si el hueco es suyo o nuestro. Las <strong>catalogadas</strong> están en la lista
-        pero aún no las hemos comprobado contra la fuente oficial, y lo dicen.
-      </p>
-      <p class="hero-stats-note">
-        Por separado, y respondiendo a otra pregunta:
-        <strong> {recuento.accesoGratuitoConfirmado}</strong> tienen acceso gratuito confirmado y
-        utilizable hoy, <strong>{recuento.sinPlanGratuito}</strong> no tienen plan gratuito —están
-        para decir que no lo tienen— y de <strong>{recuento.accesoSinConfirmar}</strong> todavía no
-        sabemos qué dan. <a href={ROUTES.methodology}>Cómo lo comprobamos</a>.
-      </p>
-
-      <ul class="promise-list">
-        <li><strong>Fuente oficial.</strong> Cada dato sale de la página del fabricante, enlazada en la ficha.</li>
-        <li><strong>Con fecha.</strong> Cada ficha dice cuándo se comprobó por última vez.</li>
-        <li><strong>«Sin confirmar» no es «no».</strong> Si el fabricante no lo publica, lo decimos así.</li>
-        <li><strong>Sin nota ni ranking.</strong> No hay puntuación sobre 100 ni orden por calidad.</li>
-        <li><strong>Se nos puede corregir.</strong> Si algo ha dejado de ser cierto, <a href={ROUTES.submit}>avísanos</a>.</li>
-      </ul>
-    </section>
-
-    <NewsletterForm />
+    <NewsletterForm variant="inline" />
   </div>
 
   <CompareTray />
@@ -236,20 +122,29 @@ const description =
 <style>
   .hero {
     border-block-end: 1px solid var(--line);
-    background:
-      linear-gradient(to bottom, var(--surface-sunken), transparent 70%);
-    padding-block: var(--space-xl) var(--space-l);
+    background: linear-gradient(to bottom, var(--surface-sunken), transparent 70%);
+    padding-block: var(--space-s) var(--space-2xs);
   }
 
-  .hero-inner {
-    max-width: 62rem;
+  @media (min-width: 48rem) {
+    .hero {
+      padding-block: var(--space-l) var(--space-m);
+    }
   }
+
+  /*
+   * El hero empieza donde empiezan las puertas.
+   *
+   * Con un `max-width` propio se centraba dentro del contenedor ya centrado, y
+   * el titular quedaba indentado respecto a las tarjetas de abajo. La medida de
+   * línea se limita en el texto, no en el contenedor.
+   */
 
   .hero-eyebrow {
     display: flex;
     align-items: flex-start;
     gap: 0.45rem;
-    margin: 0 0 var(--space-s);
+    margin: 0 0 var(--space-2xs);
   }
 
   .hero-pulse {
@@ -272,381 +167,90 @@ const description =
     }
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .hero-pulse {
+      animation: none;
+    }
+  }
+
   .hero-title {
-    font-size: clamp(2.1rem, 1.3rem + 3.8vw, 3.9rem);
-    line-height: 1.03;
-    letter-spacing: -0.033em;
-    margin-block-end: var(--space-s);
+    max-width: 22ch;
+    font-size: clamp(1.75rem, 1.2rem + 3vw, 3.25rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-block-end: var(--space-2xs);
+    text-wrap: balance;
   }
 
   .hero-accent {
     color: var(--signal);
   }
 
-  .hero-break {
-    display: none;
-  }
-
   .hero-lede {
-    max-width: 46rem;
-    font-size: clamp(1rem, 0.95rem + 0.35vw, 1.1875rem);
+    max-width: 62ch;
+    font-size: clamp(1rem, 0.95rem + 0.35vw, 1.125rem);
     color: var(--ink-muted);
-    margin-block-end: var(--space-m);
-  }
-
-  .hero-search {
-    display: flex;
-    gap: var(--space-2xs);
-    max-width: 34rem;
-    margin-block-end: var(--space-s);
-  }
-
-  .hero-search .input {
-    min-height: 48px;
-  }
-
-  .hero-shortcuts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    list-style: none;
-    margin: 0 0 var(--space-l);
-    padding: 0;
-  }
-
-  .hero-shortcuts a {
-    display: inline-block;
-    padding: 0.35rem 0.75rem;
-    border-radius: var(--radius-full);
-    border: 1px solid var(--line-strong);
-    background: var(--surface);
-    font-size: 0.8125rem;
-    font-weight: 550;
-    color: var(--ink-muted);
-    text-decoration: none;
-    min-height: 34px;
-    line-height: 1.6;
-  }
-
-  .hero-shortcuts a:hover {
-    border-color: var(--signal);
-    color: var(--signal);
-  }
-
-  /*
-   * La suma, escrita.
-   *
-   * Un bloque que se titula «por qué fiarte» y publica cifras invita a
-   * sumarlas. Antes no cerraban y el lector que lo comprobaba se llevaba la
-   * impresión contraria a la que el bloque busca. Enseñar la operación cuesta
-   * una línea y convierte la comprobación en parte del argumento.
-   */
-  .hero-stats-suma {
-    margin: var(--space-2xs) 0 0;
-    font-size: 0.875rem;
-    font-variant-numeric: tabular-nums;
-    color: var(--ink-muted);
-  }
-
-  .hero-stats-suma strong {
-    color: var(--ink-strong);
-  }
-
-  .hero-stats-note {
-    margin: var(--space-2xs) 0 0;
-    max-width: 52ch;
-    font-size: 0.8125rem;
-    line-height: 1.5;
-    color: var(--ink-subtle);
-  }
-
-  /*
-   * Las seis intenciones, que son la navegación real de la portada.
-   *
-   * Sustituyen a cinco atajos de filtro genéricos —«Sin pedir tarjeta», «Open
-   * source»— que competían con el buscador justo encima y no llevaban a
-   * ninguna parte concreta. Una acción y su matiz caben en dos líneas y se
-   * pulsan con el pulgar.
-   */
-  .hero-intents {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
-    gap: var(--space-2xs);
-    margin: var(--space-s) 0 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .hero-intent {
-    display: block;
-    min-height: 3.25rem;
-    padding: 0.55rem 0.75rem;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-m);
-    background: var(--surface);
-    text-decoration: none;
-    transition: border-color 140ms ease, background-color 140ms ease;
-  }
-
-  .hero-intent:hover,
-  .hero-intent:focus-visible {
-    border-color: var(--signal-line);
-    background: var(--signal-soft);
-  }
-
-  .hero-intent-accion {
-    display: block;
-    font-weight: 650;
-    color: var(--ink-strong);
-  }
-
-  .hero-intent-pista {
-    display: block;
-    margin-top: 0.1rem;
-    font-size: 0.8125rem;
-    color: var(--ink-muted);
-  }
-
-  .home-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
-    gap: var(--space-xs);
-    margin: var(--space-s) 0 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .home-grid > li {
-    display: flex;
-  }
-
-  .promise-list {
-    display: grid;
-    gap: var(--space-2xs);
-    margin: var(--space-2xs) 0 0;
-    padding-inline-start: 1.1rem;
-    max-width: 60ch;
-    line-height: 1.55;
-  }
-
-  .promise-more {
-    margin: var(--space-xs) 0 0;
-  }
-
-  .hero-stats {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-s);
     margin: 0;
-    padding-block-start: var(--space-s);
-    border-block-start: 1px solid var(--line);
   }
 
-  .hero-stats dt {
-    font-size: 0.75rem;
-    color: var(--ink-subtle);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-weight: 600;
-  }
-
-  .hero-stats dd {
-    margin: 0.1rem 0 0;
-    font-family: var(--font-display);
-    font-size: 1.75rem;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    color: var(--ink-strong);
-  }
-
-  .home-sections {
+  .home {
     display: grid;
-    gap: var(--space-2xl);
-    padding-block: var(--space-xl);
+    gap: var(--space-m);
+    padding-block: var(--space-s) var(--space-xl);
   }
 
   /*
-   * `min-width: 0`, que es la trampa clásica de CSS Grid.
+   * En movil, la primera puerta tiene que caber por encima del aviso de cookies.
    *
-   * Un hijo de grid tiene `min-width: auto`, así que se niega a encoger por
-   * debajo del ancho mínimo de su contenido. Con tarjetas que dentro llevan
-   * líneas largas —«Se conecta con otras aplicaciones»— la sección crecía
-   * hasta 507 px dentro de un viewport de 375 y arrastraba a toda la página
-   * a un desplazamiento lateral.
+   * Medido a 375x812: con la cabecera anterior el titulo de la puerta quedaba a
+   * 508 px y su buscador acababa en 627, con la barra de consentimiento
+   * empezando en 545. Es decir, la primera visita veia el nombre de la accion y
+   * no el campo donde hacerla. Se recorta el aire de arriba, no el contenido.
    */
-  .home-sections > * {
+  @media (min-width: 48rem) {
+    .home {
+      gap: var(--space-l);
+      padding-block: var(--space-l) var(--space-xl);
+    }
+  }
+
+  .puertas {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-m);
+  }
+
+  .hueco {
+    display: grid;
     min-width: 0;
   }
 
   /*
-   * En móvil el aire entre secciones cuesta pantalla, no claridad.
+   * La puerta del catálogo manda.
    *
-   * Cinco secciones con `--space-2xl` entre cada dos suman más de 250 px de
-   * nada en un viewport de 375. El borde y el titular de cada bloque ya
-   * separan lo suficiente.
+   * Las tres caben en la primera pantalla, pero no pesan igual: buscar es a lo
+   * que viene la mayoría, así que ocupa la columna ancha y las dos filas. Tres
+   * cajas idénticas serían un índice, que es justo lo que no queremos.
    */
-  @media (max-width: 40rem) {
-    .home-sections {
-      gap: var(--space-xl);
+  @media (min-width: 62rem) {
+    .puertas {
+      grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+      grid-template-areas:
+        'buscar actualidad'
+        'buscar comparar';
+      align-items: start;
     }
 
-    .change-summary {
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+    .hueco-buscar {
+      grid-area: buscar;
     }
-  }
 
-  .section-head {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: var(--space-s);
-    margin-block-end: var(--space-s);
-    padding-block-end: var(--space-2xs);
-    border-block-end: 1px solid var(--line);
-  }
-
-  .section-title {
-    font-size: clamp(1.35rem, 1.15rem + 0.9vw, 1.85rem);
-    margin: 0.15rem 0 0;
-  }
-
-  .section-lede {
-    margin: calc(-1 * var(--space-3xs)) 0 var(--space-s);
-    color: var(--ink-muted);
-    font-size: 0.9375rem;
-    max-width: 50ch;
-  }
-
-  /* La segunda fila son categorías técnicas: van detrás y algo más apagadas. */
-  .category-grid-rest {
-    margin-block-start: var(--space-2xs);
-    opacity: 0.85;
-  }
-
-  .card-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .card-list > li {
-    display: flex;
-  }
-
-  .card-list > li > :global(*) {
-    width: 100%;
-  }
-
-  .category-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 11rem), 1fr));
-    gap: var(--space-2xs);
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .category-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-2xs);
-    padding: var(--space-xs) var(--space-s);
-    text-decoration: none;
-    min-height: 56px;
-  }
-
-  .category-name {
-    font-weight: 600;
-    color: var(--ink-strong);
-  }
-
-  .category-count {
-    font-size: 0.8125rem;
-    color: var(--ink-subtle);
-    font-weight: 600;
-  }
-
-  .change-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 0;
-  }
-
-  .change-item {
-    display: grid;
-    grid-template-columns: 4.5rem 1fr;
-    gap: var(--space-s);
-    padding-block: var(--space-xs);
-    border-block-end: 1px solid var(--line-hairline);
-  }
-
-  .change-item:last-child {
-    border-block-end: 0;
-  }
-
-  .change-date {
-    font-size: 0.75rem;
-    color: var(--ink-subtle);
-    font-weight: 600;
-    padding-block-start: 0.15rem;
-  }
-
-  .change-tool {
-    font-weight: 650;
-    color: var(--ink-strong);
-    text-decoration: none;
-  }
-
-  .change-tool:hover {
-    text-decoration: underline;
-  }
-
-  .change-summary {
-    margin: 0.1rem 0 0;
-    font-size: 0.875rem;
-    color: var(--ink-muted);
-  }
-
-  .promise-list {
-    display: grid;
-    gap: var(--space-m);
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
-    list-style: none;
-    margin: var(--space-s) 0 0;
-    padding: 0;
-  }
-
-  .promise-list h3 {
-    font-size: 1rem;
-    margin-block-end: 0.25rem;
-  }
-
-  .promise-list p {
-    margin: 0;
-    font-size: 0.9375rem;
-    color: var(--ink-muted);
-  }
-
-  .promise-list a {
-    color: var(--signal);
-  }
-
-  @media (min-width: 40rem) {
-    .hero-stats {
-      grid-template-columns: repeat(4, 1fr);
+    .hueco-actualidad {
+      grid-area: actualidad;
     }
-  }
 
-  @media (min-width: 52rem) {
-    .hero-break {
-      display: inline;
+    .hueco-comparar {
+      grid-area: comparar;
     }
   }
 </style>

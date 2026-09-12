@@ -1,0 +1,91 @@
+---
+import type { RecuentoVerificacion } from '@lib/domain/verification';
+import { ROUTES } from '@lib/nav';
+
+interface Props {
+  recuento: RecuentoVerificacion;
+}
+
+const { recuento } = Astro.props;
+
+/**
+ * La confianza, en una franja.
+ *
+ * Aquí había un bloque de unas 350 palabras —tres cifras, la suma, dos
+ * párrafos y cinco principios— al final de la portada. Decía cosas ciertas y
+ * las decía dos veces: cada ficha ya lleva su estado, su fecha y su fuente. Lo
+ * que hace falta arriba es el reparto, que cierra, y por dónde comprobarlo.
+ */
+---
+
+<aside class="franja" aria-label="Estado del catálogo">
+  <dl class="franja-cifras">
+    <div>
+      <dt>Revisadas</dt>
+      <dd class="tnum">{recuento.total}</dd>
+    </div>
+    <div>
+      <dt>Verificadas</dt>
+      <dd class="tnum">{recuento.verificada}</dd>
+    </div>
+    <div>
+      <dt>Verificación parcial</dt>
+      <dd class="tnum">{recuento.parcial}</dd>
+    </div>
+    <div>
+      <dt>Catalogadas</dt>
+      <dd class="tnum">{recuento.catalogada}</dd>
+    </div>
+  </dl>
+  <p class="franja-nota">
+    Cada dato sale de la página del fabricante y lleva fecha.{' '}
+    <a href={ROUTES.methodology}>Cómo lo comprobamos</a>.
+  </p>
+</aside>
+
+<style>
+  .franja {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2xs) var(--space-m);
+    padding: var(--space-s) var(--space-m);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface-sunken);
+  }
+
+  .franja-cifras {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs) var(--space-m);
+    margin: 0;
+  }
+
+  .franja-cifras div {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+  }
+
+  .franja-cifras dt {
+    order: 2;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .franja-cifras dd {
+    order: 1;
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 650;
+    color: var(--ink-strong);
+  }
+
+  .franja-nota {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+</style>

@@ -116,17 +116,19 @@ export const VERTICALS: readonly NavItem[] = [
 ];
 
 /*
- * La cabecera lleva las seis verticales.
+ * Cuatro entradas: las tres cosas que se pueden hacer aquí, y cómo se comprueba.
  *
- * Antes llevaba dos —Modelos y Agentes— y las otras cuatro no estaban ni aquí
- * ni en el pie: se habían construido seis secciones y sólo se podía llegar a
- * dos navegando. «Últimas noticias» y «Metodología» bajan al pie, donde ya
- * estaban, porque el catálogo es lo que la gente viene a recorrer.
+ * La cabecera llevaba ocho. «Herramientas» y las seis verticales son el mismo
+ * viaje contado dos veces, y con el buscador global al lado competían por la
+ * misma mirada. Las verticales no desaparecen: están en la portada, dentro del
+ * catálogo y en el menú móvil, que es donde alguien elige por lo que quiere
+ * hacer. «Noticias» sube desde el pie porque es la segunda razón para volver.
  */
 export const PRIMARY_NAV: readonly NavItem[] = [
   { label: 'Herramientas', href: ROUTES.tools, description: 'El catálogo completo, con filtros' },
-  ...VERTICALS,
+  { label: 'Noticias', href: ROUTES.news, description: 'Qué ha cambiado en los planes gratuitos' },
   { label: 'Comparar', href: ROUTES.compare, description: 'Enfrenta hasta cuatro herramientas' },
+  { label: 'Metodología', href: ROUTES.methodology, description: 'Cómo comprobamos cada dato' },
 ];
 
 export const FOOTER_NAV: ReadonlyArray<{ title: string; items: NavItem[] }> = [
