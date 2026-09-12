@@ -2,6 +2,9 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
+// El mismo paquete que usa la CLI de Vercel para decidir qué sube. Llega como
+// dependencia de eslint; si algún día desaparece, esta prueba lo dirá.
+import ignore from 'ignore';
 import { getAllTools } from '@lib/data/catalog';
 import { esfuerzoDe } from '@lib/domain/esfuerzo';
 import { START_EFFORT_LABEL } from '@lib/domain/taxonomy';
@@ -255,16 +258,52 @@ describe('el Preview sube lo que el build necesita, y nada más', () => {
       .map((l) => l.trim())
       .filter((l) => l && !l.startsWith('#'));
     for (const fuera of ['docs/', 'tests/', 'test-results/']) expect(lineas).toContain(fuera);
+    for (const dentro of ['src/', 'scripts/', 'public/']) expect(lineas).not.toContain(dentro);
   });
 
-  it('.vercelignore no deja subir credenciales locales', () => {
+  it('.vercelignore no deja subir credenciales ni datos locales', () => {
     /*
      * El primer Preview de `web-v2` se subió sin este fichero, desde una carpeta
-     * con `.env.local.bak-*` y `credenciales-newsroom.local.txt`.
+     * con `.env.local.bak-*`, `credenciales-newsroom.local.txt`, `.data/` y
+     * `.claude/`. Se borró y sus secretos se rotaron.
      */
     const lineas = leer('.vercelignore').split(/\r?\n/).map((l) => l.trim());
-    for (const fuera of ['.env*', '*.local.txt', '*.bak-*']) expect(lineas).toContain(fuera);
-    for (const dentro of ['src/', 'scripts/', 'public/']) expect(lineas).not.toContain(dentro);
+    for (const fuera of ['.env*', '*.local', '*.local.*', '*.bak', '*.bak-*', '*credenciales*', '.data/', '.claude/', 'docs/']) {
+      expect(lineas, `falta ${fuera}`).toContain(fuera);
+    }
+  });
+
+  it('ningún fichero sensible de esta carpeta entraría en una subida', () => {
+    /*
+     * La regla de la CLI de Vercel, leída en su código (59.16): su lista por
+     * defecto más `.vercelignore`, con el paquete `ignore`. No lee `.gitignore`.
+     * Esta prueba recorre la carpeta real, así que en la máquina donde viven
+     * las credenciales falla si alguien añade una copia con un nombre nuevo.
+     */
+    const DEFECTO = [
+      '.hg', '.git', '.gitmodules', '.svn', '.cache', '.next', '.now', '.vercel', '.npmignore',
+      '.dockerignore', '.gitignore', '.*.swp', '.DS_Store', '.wafpicke-*', '.lock-wscript',
+      '.env.local', '.env.*.local', '.venv', '.yarn/cache', '.pnp*', 'npm-debug.log',
+      'config.gypi', 'node_modules', '__pycache__', 'venv', 'CVS',
+    ];
+    const ig = ignore().add(DEFECTO).add(leer('.vercelignore'));
+    const SENSIBLE =
+      /(^|\/)\.env|credenciales|credentials|\.bak|\.backup|\.pem$|\.key$|\.p12$|\.pfx$|(^|\/)\.data\/|(^|\/)\.claude\/|\.local(\.|$)|(^|\/)\.npmrc$|(^|\/)\.netrc$/i;
+
+    const subirian: string[] = [];
+    const pila = [''];
+    while (pila.length) {
+      const rel = pila.pop()!;
+      for (const entrada of readdirSync(join(ROOT, rel), { withFileTypes: true })) {
+        const ruta = rel ? `${rel}/${entrada.name}` : entrada.name;
+        if (entrada.isDirectory()) {
+          if (!ig.ignores(`${ruta}/`)) pila.push(ruta);
+        } else if (!ig.ignores(ruta) && SENSIBLE.test(ruta) && ruta !== '.env.example') {
+          subirian.push(ruta);
+        }
+      }
+    }
+    expect(subirian).toEqual([]);
   });
 });
 

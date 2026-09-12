@@ -1,20 +1,48 @@
 # Lo que no hace falta para construir ni para servir la web.
 #
-# Sin este fichero, `vercel deploy` subía 84 MB y fallaba por red dos de cada
-# tres veces: 62 MB eran `docs/` —capturas y evidencias de las auditorías— y
-# otros 15 MB, resultados de pruebas locales. Nada de eso lo lee el build.
+# La CLI de Vercel no lee `.gitignore`. Sin este fichero sólo excluye su lista
+# por defecto (`.git`, `node_modules`, `.vercel`, `.env.local`, `.env.*.local`
+# y poco más) y sube todo lo demás con el código fuente del despliegue.
 #
 # No se excluyen `scripts/` (el prebuild ejecuta `newsroom-sync.mjs`), `src/`,
-# `public/` ni `supabase/`.
+# `public/` ni `supabase/migrations` y `supabase/seed`.
 
-# Credenciales locales. El build de Vercel usa las variables del proyecto, no
-# ficheros: nada de esto tiene que viajar con el código fuente del despliegue,
-# ni siquiera las copias (`.env.local.bak-*`, `credenciales-*.local.txt`) que
-# no encajan en los nombres que la CLI ya ignora por su cuenta.
+# --- Credenciales y copias locales ---------------------------------------------
+#
+# Incidente del 11 de septiembre de 2026: el primer Preview de `web-v2` se subió
+# sin este fichero y llevó `.env.local.bak-*` y `credenciales-newsroom.local.txt`.
+# Ese despliegue se borró y sus secretos se rotaron. El build usa las variables
+# del proyecto en Vercel, nunca ficheros: nada de esto tiene que viajar.
 .env*
-*.local.txt
+*.local
+*.local.*
+*.bak
 *.bak-*
+*.backup
+*.old
+*.orig
+*credenciales*
+*credentials*
+*.pem
+*.key
+*.p12
+*.pfx
+.npmrc
+.netrc
 
+# --- Datos y configuración de herramientas locales -----------------------------
+#
+# `.data/` es el almacén de identidades de desarrollo (usuarios de prueba y sus
+# datos). `.claude/` son los ajustes y skills del asistente en esta máquina.
+.data/
+.claude/
+supabase/.temp/
+supabase/.branches/
+
+# --- Peso que el build no lee --------------------------------------------------
+#
+# Sin estas líneas, la subida pesaba más de 84 MB y fallaba por red: capturas y
+# evidencias de las auditorías en `docs/` y resultados de pruebas locales.
 docs/
 tests/
 test-results/
