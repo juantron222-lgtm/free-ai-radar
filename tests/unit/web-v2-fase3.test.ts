@@ -134,3 +134,31 @@ describe('las seis verticales son la misma web que el catálogo', () => {
     expect(tarjeta).not.toContain('ic-facts');
   });
 });
+
+describe('el comparador enseña primero lo que separa', () => {
+  it('la prosa y la fecha no cuentan como diferencia', async () => {
+    const { FILAS_DE_CONTEXTO, agruparFilas, filasDe } = await import('@lib/data/comparador');
+    const chatgpt = tools.find((t) => t.slug === 'chatgpt')!;
+    const claude = tools.find((t) => t.slug === 'claude')!;
+    const grupos = agruparFilas(filasDe([chatgpt, claude]));
+    for (const fila of [...grupos.diferencias, ...grupos.coincidencias]) {
+      expect(FILAS_DE_CONTEXTO.has(fila.row.label), fila.row.label).toBe(false);
+    }
+    for (const fila of grupos.contexto) expect(FILAS_DE_CONTEXTO.has(fila.row.label)).toBe(true);
+    for (const fila of grupos.coincidencias) expect(fila.iguales).toBe(true);
+    for (const fila of grupos.diferencias) expect(fila.iguales).toBe(false);
+  });
+
+  it('arranca con «sólo diferencias» encendido cuando hay algo que esconder', () => {
+    const pagina = codigo('src/pages/comparar.astro');
+    expect(pagina).toContain('<CabeceraPagina');
+    expect(pagina).toMatch(/id="solo-diferencias" checked/);
+    expect(pagina).toContain("'solo-diferencias': soloDiferencias");
+  });
+
+  it('en móvil cada valor lleva el nombre de su herramienta', () => {
+    const pagina = codigo('src/pages/comparar.astro');
+    expect(pagina).toContain('data-herramienta={tools[i]?.name}');
+    expect(pagina).toContain('content: attr(data-herramienta)');
+  });
+});

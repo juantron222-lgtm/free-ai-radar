@@ -194,30 +194,46 @@ test.describe('comparador: entrada', () => {
   });
 });
 
+/*
+ * La tabla arranca enseñando sólo lo que separa.
+ *
+ * Las pruebas que miran el contenido de una celda concreta, y no el punto de
+ * partida, abren antes las filas que coinciden: lo que comprueban es que el
+ * dato está bien dicho, no en qué grupo cae para ese par de herramientas.
+ */
+async function mostrarTodas(page: import('@playwright/test').Page) {
+  const interruptor = page.locator('#solo-diferencias');
+  if (await interruptor.count()) await interruptor.uncheck();
+}
+
 test.describe('comparador: la tabla', () => {
   const URL_TRES = '/comparar?t=lovable,bolt-new,v0-by-vercel';
 
   test('empieza por lo que distingue', async ({ page }) => {
     await page.goto(URL_TRES);
-    const primera = page.locator('tbody tr').first().locator('th');
-    await expect(primera).toHaveText('Qué clase de producto es');
+    const primera = page.locator('#compare-table tbody tr').first();
+    await expect(primera).toHaveAttribute('data-igual', 'no');
+    await expect(primera).toBeVisible();
   });
 
-  test('«sólo diferencias» esconde las filas que coinciden', async ({ page }) => {
+  test('por defecto sólo enseña diferencias, y el interruptor devuelve el resto', async ({ page }) => {
     await page.goto(URL_TRES);
     const filas = page.locator('tbody tr');
     const total = await filas.count();
     const iguales = await page.locator('tbody tr[data-igual="si"]').count();
     expect(iguales).toBeGreaterThan(0);
 
-    await page.locator('#solo-diferencias').check();
+    const interruptor = page.locator('#solo-diferencias');
+    await expect(interruptor).toBeChecked();
+    await expect(page.locator('tbody tr:visible')).toHaveCount(total - iguales);
 
-    const visibles = page.locator('tbody tr:visible');
-    await expect(visibles).toHaveCount(total - iguales);
+    await interruptor.uncheck();
+    await expect(page.locator('tbody tr:visible')).toHaveCount(total);
   });
 
   test('un hueco de análisis se lee como hueco, no como ventaja', async ({ page }) => {
     await page.goto('/comparar?t=whisper,descript');
+    await mostrarTodas(page);
     const tabla = await page.locator('#compare-table').innerText();
 
     // El guion suelto era la ambigüedad: fuera de la tabla.
@@ -378,6 +394,7 @@ test.describe('un dato que sólo vale por una puerta lo dice', () => {
      * promesa general.
      */
     await page.goto('/comparar?t=deepseek-v4-flash,gemma-4');
+    await mostrarTodas(page);
     const matiz = page.locator('.compare-matiz', { hasText: 'pesos descargables' }).first();
     await expect(matiz).toBeVisible();
 
@@ -387,6 +404,7 @@ test.describe('un dato que sólo vale por una puerta lo dice', () => {
 
   test('lo leído en la tabla de precios de una API se atribuye a la API', async ({ page }) => {
     await page.goto('/comparar?t=gemini-3-flash,claude-haiku-4-5');
+    await mostrarTodas(page);
     await expect(page.locator('.compare-matiz', { hasText: 'en la API' }).first()).toBeVisible();
   });
 });
@@ -394,17 +412,28 @@ test.describe('un dato que sólo vale por una puerta lo dice', () => {
 test.describe('a 375 px', () => {
   test.use({ viewport: { width: 375, height: 780 } });
 
-  test('la tabla se desplaza dentro de su caja, no la página', async ({ page }) => {
+  test('cada condición se lee apilada, sin arrastrar nada de lado', async ({ page }) => {
+    /*
+     * Antes la tabla se desplazaba dentro de su caja: no rompía la página, pero
+     * para comparar dos párrafos había que arrastrarla y perder de vista a quién
+     * pertenecía cada dato. Ahora se apila y cada valor lleva el nombre de su
+     * herramienta delante.
+     */
     await page.goto('/comparar?t=lovable,bolt-new,v0-by-vercel');
     await expect(page.getByRole('table')).toBeVisible();
 
     expect(await sePuedeArrastrarDeLado(page)).toBe(false);
 
-    const desplazaLaTabla = await page.evaluate(() => {
+    const medida = await page.evaluate(() => {
       const caja = document.querySelector('.compare-scroll');
-      return caja ? caja.scrollWidth > caja.clientWidth : false;
+      const celda = document.querySelector('#compare-table tbody tr[data-igual="no"] td');
+      return {
+        desplazaLaTabla: caja ? caja.scrollWidth > caja.clientWidth + 1 : true,
+        etiqueta: celda ? getComputedStyle(celda, '::before').content : '',
+      };
     });
-    expect(desplazaLaTabla).toBe(true);
+    expect(medida.desplazaLaTabla).toBe(false);
+    expect(medida.etiqueta).toMatch(/Lovable|Bolt|v0/);
   });
 
   test('el selector no desborda', async ({ page }) => {

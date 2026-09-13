@@ -230,6 +230,22 @@ export function clave(celda: Celda): string {
 }
 
 
+/**
+ * Filas que se leen, no se comparan.
+ *
+ * Un resumen del plan gratuito, una lista de límites, las pegas, el veredicto y
+ * la fecha de revisión no coinciden nunca letra por letra aunque digan lo mismo:
+ * contaban como «diferencias» y la tabla abría con dos párrafos largos. Se
+ * siguen enseñando, en su propio grupo al final, y no entran en la cuenta.
+ */
+export const FILAS_DE_CONTEXTO: ReadonlySet<string> = new Set([
+  'Qué te dan gratis',
+  'Límites',
+  'En contra',
+  'Veredicto',
+  'Última verificación',
+]);
+
 export interface FilaComparada {
   row: Row;
   celdas: Celda[];
@@ -258,4 +274,29 @@ export function filasDe(tools: readonly Tool[]): FilaComparada[] {
      */
     (f) => !f.celdas.every((c) => c.tipo === 'ausente' && c.texto === NO_APLICA)
   );
+}
+
+export interface ComparacionAgrupada {
+  /** Condiciones comparables en las que al menos una columna dice otra cosa. */
+  diferencias: FilaComparada[];
+  /** Condiciones comparables en las que todas dicen lo mismo. */
+  coincidencias: FilaComparada[];
+  /** Prosa y fechas: se leen al final y no cuentan como diferencia. */
+  contexto: FilaComparada[];
+}
+
+/**
+ * La comparación en tres grupos, sin cambiar el orden de `ROWS` dentro de cada uno.
+ *
+ * La tabla enseña primero lo que separa. Lo que coincide sigue en la página,
+ * detrás del interruptor, porque «las dos piden cuenta» también es información;
+ * lo que no hace es ocupar el primer vistazo.
+ */
+export function agruparFilas(filas: readonly FilaComparada[]): ComparacionAgrupada {
+  const comparables = filas.filter((f) => !FILAS_DE_CONTEXTO.has(f.row.label));
+  return {
+    diferencias: comparables.filter((f) => !f.iguales),
+    coincidencias: comparables.filter((f) => f.iguales),
+    contexto: filas.filter((f) => FILAS_DE_CONTEXTO.has(f.row.label)),
+  };
 }

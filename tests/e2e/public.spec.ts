@@ -294,7 +294,8 @@ test.describe('comparador', () => {
     await page.goto('/comparar?t=ollama,lm-studio');
     await expect(page.getByRole('heading', { level: 1 })).toContainText(/vs/i);
     await expect(page.getByRole('table')).toBeVisible();
-    await expect(page.getByRole('rowheader', { name: '¿Pide tarjeta?' })).toBeVisible();
+    // Si las dos dicen lo mismo, la fila está detrás del interruptor: existe, no se ve.
+    await expect(page.getByRole('rowheader', { name: '¿Pide tarjeta?' })).toHaveCount(1);
   });
 
   test('el comparador vacío no es indexable', async ({ page }) => {
