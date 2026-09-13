@@ -1,0 +1,39 @@
+---
+import Breadcrumbs from './Breadcrumbs.astro';
+
+interface Crumb {
+  name: string;
+  path: string;
+}
+
+interface Props {
+  titulo: string;
+  crumbs?: Crumb[];
+  /** Antetítulo pequeño sobre el H1, si la página lo necesita. */
+  antetitulo?: string;
+}
+
+const { titulo, crumbs = [], antetitulo } = Astro.props;
+
+/**
+ * La cabecera de todas las páginas interiores.
+ *
+ * Es la banda de la portada llevada al resto del sitio: misma tipografía,
+ * mismo fondo y las migas dentro, en vez de sueltas encima. Cada sección
+ * pintaba la suya —`listing-head`, `hub-h1`, `cat-h1`, la de noticias— con
+ * tamaños y márgenes distintos, y eso era lo que más delataba que eran webs de
+ * épocas diferentes. La entradilla y lo que venga debajo van por slot.
+ *
+ * Quien la use tiene que pasar `migasEnCabecera` a `BaseLayout`, para que las
+ * migas no salgan dos veces. El JSON-LD de migas lo sigue poniendo el layout.
+ */
+---
+
+<header class="cabecera">
+  <div class="page cabecera-inner">
+    {crumbs.length > 0 && <Breadcrumbs crumbs={crumbs} />}
+    {antetitulo && <p class="eyebrow">{antetitulo}</p>}
+    <h1 class="cabecera-titulo">{titulo}</h1>
+    <slot />
+  </div>
+</header>

@@ -12,6 +12,15 @@ const current = Astro.url.pathname;
  * caja vacía y tenía que reescribir la consulta entera.
  */
 const consulta = isActivePath(current, ROUTES.tools) ? (Astro.url.searchParams.get('q') ?? '') : '';
+
+/*
+ * En el catálogo la caja de la cabecera sobra.
+ *
+ * `/herramientas` tiene su propio buscador, que filtra en vivo y sugiere
+ * mientras escribes. Con los dos a la vista había dos cajas iguales que hacían
+ * cosas distintas a dos centímetros una de otra.
+ */
+const enCatalogo = current.replace(/\/+$/, '') === ROUTES.tools;
 ---
 
 <header class="site-header">
@@ -45,6 +54,7 @@ const consulta = isActivePath(current, ROUTES.tools) ? (Astro.url.searchParams.g
       todas las páginas. Es un formulario GET normal: funciona sin JavaScript y
       la URL resultante se puede compartir.
     */}
+    {!enCatalogo && (
     <form class="header-search" role="search" action={ROUTES.tools} method="get">
       <label class="sr-only" for="header-q">Buscar herramientas</label>
       <input
@@ -58,6 +68,7 @@ const consulta = isActivePath(current, ROUTES.tools) ? (Astro.url.searchParams.g
       />
       <button type="submit" class="btn btn-secondary btn-sm header-search-go">Buscar</button>
     </form>
+    )}
 
     <div class="header-actions">
       <button

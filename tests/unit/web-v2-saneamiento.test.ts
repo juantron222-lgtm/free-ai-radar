@@ -99,7 +99,7 @@ describe('«verificada» es un estado, no un adjetivo para el catálogo', () => 
 
   it('el catálogo enseña el reparto de estados', () => {
     const listado = codigo('src/pages/herramientas/index.astro');
-    expect(listado).toMatch(/recuento\.verificada\}\s+verificadas/);
+    expect(listado).toMatch(/recuento\.verificada\}(<\/strong>)?\s+verificadas/);
     expect(listado).toContain('recuento.parcial');
     expect(listado).toContain('recuento.catalogada');
   });

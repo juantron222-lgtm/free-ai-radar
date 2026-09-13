@@ -1315,3 +1315,154 @@
     line-height: 1.45;
   }
 }
+
+/* ---------------------------------------------------------------------
+   Sistema de producto (Web V2)
+
+   Lo que la portada estrenó en la fase 2 y ahora comparten todas las
+   secciones: la cabecera de página, el panel, la pastilla con cifra, las
+   condiciones con tono y la franja de estado. Una sola definición para que
+   catálogo, fichas, verticales, comparador y noticias no vuelvan a parecer
+   cinco webs con la misma cabecera encima.
+   --------------------------------------------------------------------- */
+@layer components {
+  .cabecera {
+    border-block-end: 1px solid var(--line);
+    background: linear-gradient(to bottom, var(--surface-sunken), transparent 85%);
+    padding-block-end: var(--space-s);
+  }
+
+  @media (min-width: 48rem) {
+    .cabecera {
+      padding-block-end: var(--space-m);
+    }
+  }
+
+  .cabecera-inner {
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .cabecera-titulo {
+    margin: var(--space-3xs) 0 0;
+    max-width: 24ch;
+    font-size: clamp(1.75rem, 1.3rem + 2vw, 2.75rem);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+
+  .cabecera-entradilla {
+    margin: 0;
+    max-width: 62ch;
+    font-size: clamp(1rem, 0.95rem + 0.3vw, 1.0625rem);
+    color: var(--ink-muted);
+  }
+
+  .panel {
+    display: grid;
+    gap: var(--space-s);
+    align-content: start;
+    padding: var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface);
+    min-width: 0;
+  }
+
+  @media (min-width: 48rem) {
+    .panel {
+      padding: var(--space-m);
+    }
+  }
+
+  .panel-titulo {
+    margin: 0;
+    font-size: clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .panel-entradilla {
+    margin: 0;
+    max-width: 60ch;
+    font-size: 0.9375rem;
+    color: var(--ink-muted);
+  }
+
+  .seccion-titulo {
+    margin: 0;
+    font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  .cifra-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.7rem;
+    min-height: 36px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-full);
+    background: var(--paper);
+    font-size: 0.875rem;
+    font-weight: 550;
+    color: var(--ink-muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .cifra-chip:hover {
+    color: var(--ink-strong);
+    border-color: var(--ink-muted);
+  }
+
+  .cifra-chip[aria-current='true'],
+  .cifra-chip[aria-pressed='true'] {
+    color: var(--ink-strong);
+    border-color: var(--signal);
+    background: var(--signal-soft);
+  }
+
+  .cifra-chip-n {
+    font-weight: 650;
+    color: var(--ink-strong);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Sí / No / Sin verificar: el tono sale de la pregunta, no del valor. */
+  .cond {
+    font-weight: 600;
+  }
+
+  .cond[data-tono='bien'] {
+    color: var(--signal-strong);
+  }
+
+  .cond[data-tono='mal'] {
+    color: var(--warn);
+  }
+
+  .cond[data-tono='neutro'] {
+    color: var(--ink-muted);
+    font-weight: 500;
+  }
+
+  .franja-estado {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem var(--space-s);
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .franja-estado strong {
+    color: var(--ink-strong);
+    font-weight: 650;
+    font-variant-numeric: tabular-nums;
+  }
+}
