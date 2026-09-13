@@ -939,9 +939,15 @@
  * fila de atajos en el móvil.
  * ========================================================================= */
 
+/*
+ * Con la cabecera fuera del contenedor, el contenedor sólo lleva bloques.
+ * Menos distancia entre ellos: con la banda arriba ya no hace falta separar
+ * la cabecera del primer bloque a base de aire.
+ */
 .vert {
   display: grid;
-  gap: var(--space-xl);
+  gap: var(--space-l);
+  padding-block: var(--space-m) var(--space-xl);
 }
 
 .vert-hero {
@@ -959,7 +965,8 @@
 
 .vert-lede {
   margin: 0;
-  font-size: 1.0625rem;
+  max-width: 62ch;
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.0625rem);
   color: var(--ink-muted);
   line-height: 1.55;
 }
@@ -978,20 +985,25 @@
   font-size: 0.8125rem;
 }
 
+/* Los atajos, con la misma pastilla que las cifras de la portada y el catálogo. */
 .vert-jump a {
-  padding: 0.3rem 0.6rem;
-  border: 1px solid var(--line);
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--line-strong);
   border-radius: var(--radius-full);
+  background: var(--paper);
   text-decoration: none;
   color: var(--ink-muted);
-  min-height: 32px;
+  font-size: 0.875rem;
+  font-weight: 550;
+  white-space: nowrap;
+  min-height: 36px;
   display: inline-flex;
   align-items: center;
 }
 
 .vert-jump a:hover {
-  border-color: var(--signal-line);
-  color: var(--signal);
+  border-color: var(--ink-muted);
+  color: var(--ink-strong);
 }
 
 .vert-block {
@@ -1008,9 +1020,10 @@
 
 .vert-h2 {
   margin: 0;
-  font-size: clamp(1.35rem, 3.2vw, 1.75rem);
+  font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
   line-height: 1.15;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
 }
 
 .vert-block-lede {

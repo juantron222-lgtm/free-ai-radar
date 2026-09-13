@@ -1,6 +1,7 @@
 ---
 import type { Tool } from '@lib/domain/tool';
 import BaseLayout from '@layouts/BaseLayout.astro';
+import CabeceraPagina from '@components/site/CabeceraPagina.astro';
 import IntentCard from '@components/catalog/IntentCard.astro';
 import ToolMention from '@components/catalog/ToolMention.astro';
 import CatalogFilters from '@components/catalog/CatalogFilters.astro';
@@ -139,23 +140,31 @@ const faqs = [
   title={`IA para vídeo: ${tools.length} herramientas revisadas y qué dan gratis`}
   description={`Cuáles generan vídeo gratis hoy, cuáles sólo dan créditos que no vuelven y qué pide cada modelo local. ${tools.length} revisadas contra la página oficial de cada fabricante.`}
   crumbs={crumbs}
+  migasEnCabecera
   schemas={[itemListSchema(tools, 'Herramientas de vídeo con IA'), faqSchema(faqs)]}
 >
+  {/*
+    La cabecera de la vertical es la del resto del sitio.
+
+    Cada vertical tenía la suya dentro del contenedor —`vert-hero`, con
+    otro tamaño de titular y las migas sueltas encima—. Ahora es la banda
+    común, con las migas dentro y los atajos a los bloques como pastillas.
+  */}
+  <CabeceraPagina titulo="IA para vídeo" crumbs={crumbs}>
+    <p class="vert-lede">
+      Qué genera cada herramienta, qué te deja hacer sin pagar y cuánto cuesta empezar.{' '}
+      <span class="vert-lede-method">
+        Sin puntuaciones: lo que hay debajo de cada tarjeta es lo que dice la página
+        oficial del fabricante.
+      </span>
+    </p>
+    <nav class="vert-jump" aria-label="Ir a un bloque">
+      {bloques.map((b) => <a href={`#${b.id}`}>{b.titulo}</a>)}
+      <a href="#todas">Todas</a>
+    </nav>
+  </CabeceraPagina>
+
   <div class="page vert">
-    <header class="vert-hero">
-      <h1 class="vert-h1">IA para vídeo</h1>
-      <p class="vert-lede">
-        Qué genera cada herramienta, qué te deja hacer sin pagar y cuánto cuesta empezar.{' '}
-        <span class="vert-lede-method">
-          Sin puntuaciones: lo que hay debajo de cada tarjeta es lo que dice la página
-          oficial del fabricante.
-        </span>
-      </p>
-      <nav class="vert-jump" aria-label="Ir a un bloque">
-        {bloques.map((b) => <a href={`#${b.id}`}>{b.titulo}</a>)}
-        <a href="#todas">Todas</a>
-      </nav>
-    </header>
 
     <!-- ------------------------------------------------------------------ -->
     {bloques.map((bloque) => (

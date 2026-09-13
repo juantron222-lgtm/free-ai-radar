@@ -7,6 +7,8 @@ import { freeAccessLabel } from '@lib/data/category-page';
 import { ROUTES } from '@lib/nav';
 import ToolLogo from '@components/tools/ToolLogo.astro';
 import { estaProbada } from '@lib/data/muestras';
+import { filaDe } from '@lib/data/portada';
+import { verificacionDe } from '@lib/domain/verification';
 
 /**
  * Una tarjeta que contesta cuatro preguntas y ninguna más.
@@ -119,6 +121,27 @@ const puertas = [
  */
 const capas = tool.licences ?? {};
 const licenciaDividida = Boolean(capas.code && capas.weights && capas.code !== capas.weights);
+
+/*
+ * Las mismas tres condiciones que la tarjeta del catálogo.
+ *
+ * Esta tarjeta y la del catálogo describían la misma ficha con dos diseños:
+ * aquí «Cuánto, Dónde, Empezar» con la gratuidad en una pastilla arriba a la
+ * derecha; allí el acceso en una línea y tarjeta, registro y uso comercial.
+ * Quien pasaba de /herramientas a /imagen tenía que volver a aprender a leer.
+ * Ahora las dos salen de `filaDe()`. Lo que es propio de la vertical —qué hace
+ * en su orden, el tipo de agente, las puertas de un modelo— se queda.
+ */
+const fila = filaDe(tool);
+const verificacion = verificacionDe(tool);
+const CONDICIONES = [
+  { etiqueta: 'Tarjeta', condicion: fila.tarjeta },
+  { etiqueta: 'Registro', condicion: fila.registro },
+  { etiqueta: 'Uso comercial', condicion: fila.comercial },
+];
+
+/* Registro ya dice si hace falta cuenta; el esfuerzo sólo añade algo si hay que instalar. */
+const seInstala = tool.startEffort === 'install' || tool.startEffort === 'technical';
 ---
 
 <article
@@ -146,9 +169,15 @@ const licenciaDividida = Boolean(capas.code && capas.weights && capas.code !== c
           </span>
         )}
       </Heading>
-      <span class="chip ic-access" data-tone={access.tone}>{access.kind}</span>
     </div>
   </div>
+
+  <p class="ic-acceso">
+    <span class="ic-acceso-tipo" data-tono={access.tone}>{access.kind}</span>
+    <span class={access.amount ? 'ic-acceso-cantidad' : 'ic-acceso-cantidad ic-unpublished'}>
+      {access.amount ?? access.amountFallback}
+    </span>
+  </p>
 
   {typeLabel && (
     <p class="ic-type">
@@ -164,7 +193,12 @@ const licenciaDividida = Boolean(capas.code && capas.weights && capas.code !== c
     </p>
   )}
 
-  {soloPersonal && (
+  {/*
+    «Uso comercial: No» ya está en las condiciones, con tono de aviso. La
+    pastilla sólo sigue cuando añade algo que esa fila no dice: que la licencia
+    del código y la de los pesos no coinciden.
+  */}
+  {soloPersonal && licenciaDividida && (
     <p class="ic-personal">
       <span class="chip chip-warn ic-personal-chip">Solo uso personal</span>
       {licenciaDividida && <span class="ic-personal-why">pesos {capas.weights}</span>}
@@ -186,32 +220,38 @@ const licenciaDividida = Boolean(capas.code && capas.weights && capas.code !== c
     <p class="ic-does ic-does-empty">Capacidades sin confirmar en fuente oficial</p>
   )}
 
-  <dl class="ic-facts">
-    {/* Cuánto da, o el hecho de que no lo digan: nunca una cifra estimada. */}
-    <div class="ic-fact">
-      <dt>Cuánto</dt>
-      <dd class={access.amount ? undefined : 'ic-unpublished'}>{access.amount ?? access.amountFallback}</dd>
-    </div>
-    <div class="ic-fact">
-      <dt>Dónde</dt>
-      <dd>{local ? HOSTING_LABEL[tool.hosting] : 'En el navegador'}</dd>
-    </div>
-    <div class="ic-fact ic-fact-effort">
-      <dt>Empezar</dt>
-      <dd title={tool.startEffortReason || esfuerzo.meaning}>{esfuerzo.label}</dd>
-    </div>
+  <dl class="ic-condiciones">
+    {CONDICIONES.map(({ etiqueta, condicion }) => (
+      <div>
+        <dt>{etiqueta}</dt>
+        <dd class="cond" data-tono={condicion.tono}>{condicion.etiqueta}</dd>
+      </div>
+    ))}
   </dl>
 
+  {/* «En el navegador» en cada tarjeta era ruido: sólo se dice lo que se sale de lo normal. */}
+  {(local || seInstala) && (
+    <p class="ic-ejecucion">
+      {local && <span>{HOSTING_LABEL[tool.hosting]}</span>}
+      {local && seInstala && <span aria-hidden="true"> · </span>}
+      {seInstala && <span title={tool.startEffortReason || esfuerzo.meaning}>{esfuerzo.label}</span>}
+    </p>
+  )}
+
   <p class="ic-foot">
-    <span class="ic-cta">Ver ficha</span>
-    <time class="ic-date" datetime={tool.lastVerifiedAt}>
-      {new Date(`${tool.lastVerifiedAt}T00:00:00Z`).toLocaleDateString('es-ES', {
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric',
-        timeZone: 'UTC',
-      })}
-    </time>
+    <span class="ic-estado" data-state={verificacion.state}>{verificacion.label}</span>
+    <span aria-hidden="true"> · </span>
+    <span class="ic-date">
+      revisada el{' '}
+      <time datetime={tool.lastVerifiedAt}>
+        {new Date(`${tool.lastVerifiedAt}T00:00:00Z`).toLocaleDateString('es-ES', {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric',
+          timeZone: 'UTC',
+        })}
+      </time>
+    </span>
   </p>
 </article>
 
@@ -300,10 +340,34 @@ const licenciaDividida = Boolean(capas.code && capas.weights && capas.code !== c
     text-decoration-color: var(--signal);
   }
 
-  .ic-access {
-    flex: none;
-    font-size: 0.75rem;
-    white-space: nowrap;
+  .ic-acceso {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.1rem 0.5rem;
+    margin: 0;
+    font-size: 0.875rem;
+  }
+
+  .ic-acceso-tipo {
+    font-weight: 650;
+    color: var(--ink-strong);
+  }
+
+  .ic-acceso-tipo[data-tono='good'] {
+    color: var(--signal-strong);
+  }
+
+  .ic-acceso-tipo[data-tono='warn'] {
+    color: var(--warn);
+  }
+
+  .ic-acceso-cantidad {
+    color: var(--ink-muted);
+  }
+
+  .ic-acceso-cantidad.ic-unpublished {
+    font-style: italic;
   }
 
   .ic-probada {
@@ -320,17 +384,6 @@ const licenciaDividida = Boolean(capas.code && capas.weights && capas.code !== c
     white-space: nowrap;
   }
 
-  /* El color acompaña, nunca informa por su cuenta: el texto ya lo dice. */
-  .ic-access[data-tone='good'] {
-    background: var(--signal-soft);
-    color: var(--signal-strong);
-    border-color: var(--signal-line);
-  }
-  .ic-access[data-tone='warn'] {
-    background: var(--warn-soft);
-    color: var(--warn);
-    border-color: var(--warn-line);
-  }
 
   /* Pegada a la etiqueta de gratuidad: es la letra pequeña de esa promesa. */
   .ic-doors {
@@ -402,13 +455,37 @@ const licenciaDividida = Boolean(capas.code && capas.weights && capas.code !== c
     color: var(--ink-muted);
   }
 
-  .ic-facts {
+  .ic-condiciones {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
-    gap: var(--space-3xs) var(--space-2xs);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
     margin: var(--space-3xs) 0 0;
-    padding-block-start: var(--space-2xs);
-    border-block-start: 1px solid var(--line-hairline);
+    padding-block: 0.55rem;
+    border-block: 1px solid var(--line-hairline);
+  }
+
+  .ic-condiciones div {
+    display: grid;
+    gap: 0.1rem;
+    min-width: 0;
+  }
+
+  .ic-condiciones dt {
+    font-size: 0.6875rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .ic-condiciones dd {
+    margin: 0;
+    font-size: 0.8125rem;
+  }
+
+  .ic-ejecucion {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--ink-muted);
   }
 
   /*
@@ -460,17 +537,20 @@ const licenciaDividida = Boolean(capas.code && capas.weights && capas.code !== c
    */
   .ic-foot {
     display: flex;
+    flex-wrap: wrap;
     align-items: baseline;
-    justify-content: space-between;
-    gap: var(--space-2xs);
+    gap: 0 0.25rem;
     margin: auto 0 0;
-    padding-block-start: var(--space-2xs);
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
+    color: var(--ink-muted);
   }
 
-  .ic-cta {
-    font-weight: 600;
-    color: var(--signal);
+  .ic-estado {
+    font-weight: 650;
+  }
+
+  .ic-estado[data-state='verificada'] {
+    color: var(--signal-strong);
   }
 
   .ic-date {

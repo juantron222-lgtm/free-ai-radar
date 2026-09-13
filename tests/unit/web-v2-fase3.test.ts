@@ -104,9 +104,33 @@ describe('la ficha pone arriba lo que decide', () => {
     expect(ficha).not.toContain('tool-aside');
   });
 
+  it('conserva las secciones y los contratos que prueban los E2E del catálogo', () => {
+    expect(ficha).toContain('tool-verified-note');
+  });
+
   it('conserva las secciones y los contratos que prueban los E2E', () => {
     for (const contrato of ['Qué te dan gratis', '>Fuentes<', 'Para quién sirve', '<CorrectionForm', '<OutboundButton']) {
       expect(ficha, `falta ${contrato}`).toContain(contrato);
     }
+  });
+});
+
+describe('las seis verticales son la misma web que el catálogo', () => {
+  const VERTICALES = ['imagen', 'video', 'audio', 'codigo', 'agentes', 'modelos'];
+
+  it('usan la cabecera común con las migas dentro', () => {
+    for (const nombre of VERTICALES) {
+      const pagina = codigo(`src/pages/${nombre}.astro`);
+      expect(pagina, nombre).toContain('<CabeceraPagina');
+      expect(pagina, nombre).toContain('migasEnCabecera');
+      expect(pagina, nombre).not.toContain('class="vert-hero"');
+    }
+  });
+
+  it('su tarjeta dice acceso y condiciones con la misma función que la del catálogo', () => {
+    const tarjeta = codigo('src/components/catalog/IntentCard.astro');
+    expect(tarjeta).toContain('filaDe(tool)');
+    expect(tarjeta).toContain('verificacionDe(tool)');
+    expect(tarjeta).not.toContain('ic-facts');
   });
 });
