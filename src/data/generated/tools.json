@@ -2876,7 +2876,11 @@
     "hosting": "cloud",
     "openSource": "no",
     "platforms": [
-      "web"
+      "web",
+      "cli",
+      "macos",
+      "linux",
+      "windows"
     ],
     "freeModel": "freemium",
     "tagline": "Terminal, editor y navegador propios. El plan gratuito no publica cuánto da.",
@@ -2933,6 +2937,13 @@
         "kind": "docs",
         "publisher": "docs.devin.ai",
         "checkedAt": "2026-08-19"
+      },
+      {
+        "url": "https://docs.devin.ai/cli",
+        "label": "Documentación oficial: Devin CLI",
+        "kind": "docs",
+        "publisher": "docs.devin.ai",
+        "checkedAt": "2026-09-13"
       }
     ],
     "evidence": [
@@ -2955,10 +2966,10 @@
         "scope": "cloud"
       }
     ],
-    "auditNotes": "La documentación afirma «if you can do it in three hours, Devin can most likely do it». Es una promesa de alcance, no un dato comprobable, y no se recoge como capacidad.",
+    "auditNotes": "La documentación afirma «if you can do it in three hours, Devin can most likely do it». Es una promesa de alcance, no un dato comprobable, y no se recoge como capacidad. Plataformas corregidas el 13 de septiembre de 2026: la documentación de Devin CLI la describe como «a local command-line coding agent» e indica cómo instalarla en macOS, Linux/WSL y Windows. Ya aparecía en las notas de versión de abril de 2026, así que era una omisión de la ficha y no un cambio del fabricante, y por eso no va al changelog. Devin Desktop no se añade por separado: ninguna página oficial consultada declara explícitamente en qué sistemas se instala. SWE-2, el modelo presentado el 10 de septiembre, no altera ningún campo de la ficha. Planes y precios comprobados el 13 de septiembre, sin cambios.",
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19",
+    "updatedAt": "2026-09-13",
     "access": {},
     "productType": "agent"
   },
@@ -4647,7 +4658,11 @@
     "hosting": "cloud",
     "platforms": [
       "web",
-      "extension"
+      "extension",
+      "windows",
+      "macos",
+      "android",
+      "ios"
     ],
     "languages": [],
     "skillLevel": "beginner",
@@ -4672,6 +4687,34 @@
         "kind": "docs",
         "publisher": "support.google.com",
         "checkedAt": "2026-08-20"
+      },
+      {
+        "url": "https://gemini.google/desktop/",
+        "label": "Web oficial: Gemini para ordenadores (Windows y macOS)",
+        "kind": "official",
+        "publisher": "gemini.google",
+        "checkedAt": "2026-09-13"
+      },
+      {
+        "url": "https://blog.google/innovation-and-ai/products/gemini-app/gemini-app-now-on-windows/",
+        "label": "Blog oficial: la aplicación de Gemini llega a Windows",
+        "kind": "official",
+        "publisher": "blog.google",
+        "checkedAt": "2026-09-13"
+      },
+      {
+        "url": "https://support.google.com/gemini/answer/14579026?hl=en&co=GENIE.Platform%3DAndroid",
+        "label": "Ayuda oficial: la aplicación de Gemini en Android",
+        "kind": "docs",
+        "publisher": "support.google.com",
+        "checkedAt": "2026-09-13"
+      },
+      {
+        "url": "https://support.google.com/gemini/answer/14579026?hl=en&co=GENIE.Platform%3DiOS",
+        "label": "Ayuda oficial: la aplicación de Gemini en iPhone y iPad",
+        "kind": "docs",
+        "publisher": "support.google.com",
+        "checkedAt": "2026-09-13"
       }
     ],
     "scores": {
@@ -4713,8 +4756,8 @@
     "status": "published",
     "detectedAt": "2023-12-06",
     "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-08-20",
-    "auditNotes": "Entra en /agentes por `secondaryCategories`, no por su `kind`: es un asistente con un modo de investigación documentado, no un agente de propósito general. La cifra del límite diario no se publica; la cadencia sí.",
+    "updatedAt": "2026-09-13",
+    "auditNotes": "Entra en /agentes por `secondaryCategories`, no por su `kind`: es un asistente con un modo de investigación documentado, no un agente de propósito general. La cifra del límite diario no se publica; la cadencia sí. Plataformas ampliadas el 13 de septiembre de 2026 con fuentes oficiales: aplicación de escritorio para Windows y macOS (gemini.google/desktop) y aplicación móvil para Android e iOS (ayuda de Google). Sólo la de Windows es posterior a la verificación anterior (10 de septiembre de 2026); no se anota en el changelog porque el del catálogo está congelado por decisión de producto, y el lanzamiento consta en la noticia gemini-app-windows, enlazada a esta ficha. La de macOS ya figura en las notas de versión del 29 de julio, y las fuentes consultadas no fechan las móviles. «extension» procede de los datos originales y ninguna fuente consultada la confirma ni la descarta: queda pendiente. Precio de Google AI Plus comprobado el 13 de septiembre, sin cambios: 4,99 €/mes.",
     "startEffort": "signup",
     "capabilities": [
       "text-to-image",
