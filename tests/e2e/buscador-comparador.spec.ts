@@ -201,7 +201,7 @@ test.describe('comparador: entrada', () => {
  * partida, abren antes las filas que coinciden: lo que comprueban es que el
  * dato está bien dicho, no en qué grupo cae para ese par de herramientas.
  */
-async function mostrarTodas(page: import('@playwright/test').Page) {
+async function mostrarTodas(page: Page) {
   const interruptor = page.locator('#solo-diferencias');
   if (await interruptor.count()) await interruptor.uncheck();
 }
