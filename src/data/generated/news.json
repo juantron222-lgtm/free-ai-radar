@@ -1,5 +1,72 @@
 [
   {
+    "id": "news-2026-09-10-anthropic-informe-amenazas-septiembre-2026",
+    "slug": "anthropic-informe-amenazas-septiembre-2026",
+    "title": "Anthropic alerta de que el papel de la IA en los ciberataques es cada vez más autónomo",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Anthropic publicó el 10 de septiembre un informe sobre las operaciones maliciosas con Claude que desarticuló entre diciembre de 2025 y agosto de 2026 en siete áreas, de las ciberoperaciones y la vigilancia al fraude y la destilación. Según la compañía, la mayoría de las operaciones descritas usaban la IA para ejecutar u orquestar el ataque, con marcos de varios agentes para el reconocimiento, la explotación y la extracción de datos. Los casos emplearon Claude Haiku, Sonnet y Opus; no halló actividad maliciosa en Fable ni en Mythos.",
+    "impact": "Según el informe, la IA ha reducido la distancia entre las operaciones con respaldo estatal y los atacantes individuales: un hacktivista con claves de API robadas e individuos con ánimo de lucro sostuvieron campañas contra varias víctimas. En uno de los casos, una clave robada sirvió unas tres semanas para atacar a otras organizaciones, y Anthropic advierte de que una API expuesta elimina la barrera de entrada. También dice haber frenado nuevos intentos de destilar Claude desde siete laboratorios con sede en China.",
+    "category": "agentes",
+    "eventType": "anuncio",
+    "availability": "unknown",
+    "publishedAt": "2026-09-10",
+    "checkedAt": "2026-09-13",
+    "officialUrl": "https://www.anthropic.com/threat-intelligence-report-september-2026",
+    "sources": [
+      {
+        "url": "https://www.anthropic.com/threat-intelligence-report-september-2026",
+        "kind": "official",
+        "label": "Detecting and countering misuse of AI: September 2026",
+        "checkedAt": "2026-09-13",
+        "publisher": "anthropic.com"
+      },
+      {
+        "url": "https://www.anthropic.com/news",
+        "kind": "official",
+        "label": "Anthropic Newsroom",
+        "checkedAt": "2026-09-13",
+        "publisher": "anthropic.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-10-cognition-swe-2",
+    "slug": "cognition-swe-2",
+    "title": "Cognition lanza SWE-2 y afirma que se queda a un punto de Fable 5.1 en programación con un coste un 64 % menor",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Cognition presentó el 10 de septiembre SWE-2, su modelo de programación más avanzado, disponible desde ese día en Devin Desktop y en la CLI de Devin y en despliegue en Devin Web y Fusion. Según la compañía, logra un 50,0 % en FrontierCode 1.1 Main, a un punto de Fable 5.1, con un coste un 64 % inferior. SWE-2 parte de Kimi K3, un modelo de 2,8 billones de parámetros ya entrenado para programación agéntica, y añade un algoritmo de aprendizaje por refuerzo que entrena todos los niveles de esfuerzo de razonamiento en una sola ejecución.",
+    "impact": "El argumento de Cognition es el coste: sostiene que en FrontierCode y DeepSWE iguala a GPT-5.6 Sol y a Fable 5/5.1 por una fracción de su precio y queda a pocos puntos de GPT-6 Astra por una cuarta parte. Su propia tabla marca el límite: en Terminal-Bench 4 obtiene un 27,3 %, frente al 55,8 % de Fable 5.1 y el 57,9 % de GPT-6 Astra. Parte de las cifras procede de evaluaciones internas de la compañía, a falta de resultados públicos.",
+    "category": "programacion",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-09-10",
+    "checkedAt": "2026-09-13",
+    "officialUrl": "https://cognition.com/blog/swe-2",
+    "sources": [
+      {
+        "url": "https://cognition.com/blog/swe-2",
+        "kind": "official",
+        "label": "Introducing SWE-2: Pushing the Pareto Frontier",
+        "checkedAt": "2026-09-13",
+        "publisher": "cognition.com"
+      }
+    ],
+    "relatedTools": [
+      "devin"
+    ],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-09-10-deepseek-v4-1-flash",
     "slug": "deepseek-v4-1-flash",
     "title": "DeepSeek lanza V4.1-Flash y desviará a él las peticiones de V4-Pro desde el 14 de septiembre",
@@ -51,6 +118,37 @@
       }
     ],
     "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-10-gemini-app-windows",
+    "slug": "gemini-app-windows",
+    "title": "Google lanza la aplicación de Gemini para Windows, que se abre con Alt + Espacio",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Google lanzó el 10 de septiembre la aplicación de Gemini para Windows, disponible desde ese día en todo el mundo para Windows 10 y 11 y descargable en gemini.google/desktop. El atajo Alt + Espacio abre el asistente encima de la aplicación en la que se esté trabajando. Desde ella se puede pedir a Gemini el resumen de un proyecto con información de Gmail y Google Drive o generar imágenes con Nano Banana.",
+    "impact": "Para quien trabaja en Windows, el cambio es de fricción: el asistente aparece sobre la aplicación activa con un atajo de teclado y puede tirar de Gmail y Drive sin salir del trabajo. Las funciones de más alcance que Google anuncia para la aplicación, encargar tareas de varios pasos al agente Gemini Spark o dirigir vídeos con Gemini Omni, requieren una suscripción de Google AI y su disponibilidad varía. Google la presenta como un punto de partida y promete más funciones nativas de escritorio.",
+    "category": "modelo-multimodal",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-09-10",
+    "checkedAt": "2026-09-13",
+    "officialUrl": "https://blog.google/innovation-and-ai/products/gemini-app/gemini-app-now-on-windows/",
+    "sources": [
+      {
+        "url": "https://blog.google/innovation-and-ai/products/gemini-app/gemini-app-now-on-windows/",
+        "kind": "official",
+        "label": "The Gemini app is now available for Windows",
+        "checkedAt": "2026-09-13",
+        "publisher": "blog.google"
+      }
+    ],
+    "relatedTools": [
+      "google-gemini"
+    ],
     "affectsFreePlan": "unverified",
     "verification": "verified",
     "status": "published",
