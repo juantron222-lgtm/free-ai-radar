@@ -76,3 +76,37 @@ describe('el catálogo habla como la portada', () => {
     expect(catalogo).toContain('migasEnCabecera');
   });
 });
+
+describe('la ficha pone arriba lo que decide', () => {
+  const ficha = codigo('src/pages/herramientas/[slug].astro');
+
+  it('el panel de decisión va antes que la muestra, la tabla y las fuentes', () => {
+    const decision = ficha.indexOf('id="decision-title"');
+    expect(decision, 'no hay panel de decisión').toBeGreaterThan(-1);
+    for (const despues of ['<MuestraEditorial', 'id="free-title"', 'id="sources-title"', 'id="review-title"']) {
+      expect(ficha.indexOf(despues), `${despues} va antes que lo que decide`).toBeGreaterThan(decision);
+    }
+  });
+
+  it('el panel dice acceso, tarjeta, registro, uso comercial, licencia y alternativas', () => {
+    for (const dato of ['fila.tipoDeAcceso', 'fila.tarjeta', 'fila.registro', 'fila.comercial', '{licencia}', 'alternativasCortas']) {
+      expect(ficha, `falta ${dato}`).toContain(dato);
+    }
+  });
+
+  it('el acceso no se repite en insignia, pastillas y resumen lateral', () => {
+    /*
+     * La ficha decía el tipo de acceso en la insignia del veredicto, en la
+     * primera pastilla de debajo del nombre y en el «Resumen» lateral.
+     */
+    expect(ficha).not.toContain('<AccessBadge');
+    expect(ficha).not.toContain('<FactChips');
+    expect(ficha).not.toContain('tool-aside');
+  });
+
+  it('conserva las secciones y los contratos que prueban los E2E', () => {
+    for (const contrato of ['Qué te dan gratis', '>Fuentes<', 'Para quién sirve', '<CorrectionForm', '<OutboundButton']) {
+      expect(ficha, `falta ${contrato}`).toContain(contrato);
+    }
+  });
+});
