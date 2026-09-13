@@ -33,23 +33,30 @@ test.describe('portada', () => {
     });
   }
 
-  test('las tres cosas que se pueden hacer están arriba, y la primera a mano', async ({ page }) => {
+  test('la primera pantalla pregunta y deja elegir entre las seis verticales', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto('/');
 
     /*
-     * La portada abría con un buscador, seis atajos de intención y seis
-     * tarjetas: cuatro listas para el mismo viaje. Lo que tiene que quedar
-     * claro arriba es qué se puede hacer aquí, y la acción principal —buscar—
-     * tiene que estar a mano sin desplazar.
+     * Una pregunta, seis respuestas y un buscador. Sin fecha, sin cifras y sin
+     * párrafos antes de poder elegir: eso empieza después de esta pantalla.
      */
-    const puertas = page.locator('.puertas section h2');
-    await expect(puertas).toHaveText([/encontrar una ia/i, /qué está pasando/i, /comparar/i]);
+    await expect(page.locator('h1')).toHaveText('¿Qué clase de IA estás buscando?');
 
-    const campo = page.locator('.buscar-form input[name="q"]');
-    await expect(campo).toBeVisible();
-    const fondo = await campo.evaluate((el) => el.getBoundingClientRect().bottom);
-    expect(fondo, 'el campo de búsqueda cae por debajo del pliegue').toBeLessThan(812);
+    const verticales = page.getByRole('navigation', { name: 'Elegir por clase de IA' }).getByRole('link');
+    await expect(verticales).toHaveText([/Imagen/, /Vídeo/, /Audio/, /Agentes/, /Modelos/, /Código/]);
+    const hrefs = await verticales.evaluateAll((enlaces) => enlaces.map((a) => a.getAttribute('href')));
+    expect(hrefs).toEqual(['/imagen', '/video', '/audio', '/agentes', '/modelos', '/codigo']);
+
+    const fondo = await verticales.last().evaluate((el) => el.getBoundingClientRect().bottom);
+    expect(fondo, 'la sexta vertical cae por debajo del pliegue').toBeLessThan(812);
+
+    const hero = page.locator('.hero');
+    await expect(hero.getByRole('search')).toBeVisible();
+    await expect(hero).not.toContainText(/revisado|verificad|metodolog/i);
+
+    // Las tres puertas siguen, después de la primera pantalla.
+    await expect(page.locator('.puertas section h2')).toHaveText([/encontrar una ia/i, /qué está pasando/i, /comparar/i]);
   });
 
   test('el titular no pega dos palabras', async ({ page }) => {
@@ -148,7 +155,7 @@ test.describe('portada sin decisión de cookies', () => {
     const medida = await page.evaluate(() => {
       const root = document.getElementById('consent-root');
       const h1 = document.querySelector('h1');
-      const buscador = document.querySelector('.buscar-form');
+      const buscador = document.querySelector('.hero-verticales');
       return {
         altoBanner: root ? Math.round(root.getBoundingClientRect().height) : 0,
         viewport: window.innerHeight,
@@ -166,7 +173,7 @@ test.describe('portada sin decisión de cookies', () => {
     expect(medida.h1Bottom, 'el titular tiene que quedar por encima de la barra').toBeLessThan(
       medida.topBanner
     );
-    expect(medida.buscadorBottom, 'y el buscador también').toBeLessThan(medida.topBanner);
+    expect(medida.buscadorBottom, 'y las seis verticales también').toBeLessThan(medida.topBanner);
   });
 
   test('las dos opciones de consentimiento son igual de alcanzables', async ({ page }) => {

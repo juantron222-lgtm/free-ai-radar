@@ -13,6 +13,7 @@ import { conteosDeDecision, filasDeEvidencia, verticalesConCifra } from '@lib/da
 import { getLatestNews } from '@lib/data/news';
 import { itemListSchema } from '@lib/seo/structured-data';
 import { recuentoVerificacion } from '@lib/domain/verification';
+import { ROUTES, VERTICALS } from '@lib/nav';
 
 /*
  * Tres puertas, no cuatro llamadas compitiendo.
@@ -46,6 +47,23 @@ const noticias = getLatestNews(12)
 const opciones = tools.map((t) => ({ slug: t.slug, name: t.name }));
 
 /*
+ * La primera pantalla hace una sola pregunta.
+ *
+ * Abría con la fecha de revisión, un titular sobre lo gratis y un párrafo de
+ * método: tres cosas ciertas que obligaban a leer antes de poder hacer nada.
+ * Ahora pregunta qué clase de IA buscas y ofrece las seis respuestas como
+ * botones grandes; quien ya sabe el nombre tiene el buscador justo debajo. La
+ * fecha, las cifras y el método siguen en la página, después de esta pantalla.
+ *
+ * El orden es el de la pregunta —de lo que se genera a lo que se usa para
+ * construir—, no el de la navegación, así que se fija aquí por ruta.
+ */
+const ORDEN_HERO = ['/imagen', '/video', '/audio', ROUTES.agents, ROUTES.models, '/codigo'];
+const verticalesHero = ORDEN_HERO.map((href) => VERTICALS.find((v) => v.href === href)).filter(
+  (v): v is (typeof VERTICALS)[number] => v !== undefined
+);
+
+/*
  * Con qué dos herramientas viene puesto el comparador.
  *
  * Arrancaba con las dos primeras del abecedario, que no le dicen nada a nadie.
@@ -65,26 +83,37 @@ const description =
   description={description}
   schemas={[itemListSchema(paraSchema, 'Herramientas de IA con acceso gratuito confirmado')]}
 >
-  <section class="hero">
+  <section class="hero" aria-labelledby="hero-titulo">
     <div class="page hero-inner">
-      <p class="eyebrow hero-eyebrow">
-        <span class="hero-pulse" aria-hidden="true"></span>
-        <span>
-          Catálogo revisado por última vez el{' '}
-          <time datetime={stats.lastVerifiedAt}>
-            {new Date(`${stats.lastVerifiedAt}T00:00:00Z`).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })}
-          </time>
-        </span>
-      </p>
+      <h1 id="hero-titulo" class="hero-title">¿Qué clase de IA estás buscando?</h1>
 
-      <h1 class="hero-title">
-        La IA que es <span class="hero-accent">gratis de verdad</span>, separada del humo.
-      </h1>
+      <nav class="hero-verticales" aria-label="Elegir por clase de IA">
+        <ul>
+          {verticalesHero.map((vertical) => (
+            <li>
+              <a class="hero-vertical" href={vertical.href}>
+                <span>{vertical.label}</span>
+                <span class="hero-vertical-flecha" aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
-      <p class="hero-lede">
-        Comprobamos cada herramienta contra la página de su fabricante y publicamos lo incómodo:
-        el límite real del plan gratuito, si piden tarjeta y si puedes usar el resultado para trabajar.
-      </p>
+      <form class="hero-buscar" role="search" action={ROUTES.tools} method="get">
+        <label class="hero-buscar-intro" for="hero-q">¿Buscas algo concreto?</label>
+        <div class="hero-buscar-campo">
+          <input
+            type="search"
+            id="hero-q"
+            name="q"
+            class="input"
+            placeholder="Quitar fondo, transcribir audio, generar vídeo…"
+            autocomplete="off"
+          />
+          <button type="submit" class="btn btn-primary">Buscar</button>
+        </div>
+      </form>
     </div>
   </section>
 
@@ -111,6 +140,15 @@ const description =
 
     <FilaVerticales verticales={verticales} />
 
+    <p class="home-revisado">
+      <span>
+        Catálogo revisado por última vez el{' '}
+        <time datetime={stats.lastVerifiedAt}>
+          {new Date(`${stats.lastVerifiedAt}T00:00:00Z`).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })}
+        </time>
+      </span>
+    </p>
+
     <FranjaConfianza recuento={recuento} />
 
     <NewsletterForm variant="inline" />
@@ -122,75 +160,133 @@ const description =
 <style>
   .hero {
     border-block-end: 1px solid var(--line);
-    background: linear-gradient(to bottom, var(--surface-sunken), transparent 70%);
-    padding-block: var(--space-s) var(--space-2xs);
+    background: linear-gradient(to bottom, var(--surface-sunken), transparent 85%);
+    padding-block: var(--space-m);
   }
 
   @media (min-width: 48rem) {
     .hero {
-      padding-block: var(--space-l) var(--space-m);
+      padding-block: var(--space-xl) var(--space-l);
     }
   }
 
-  /*
-   * El hero empieza donde empiezan las puertas.
-   *
-   * Con un `max-width` propio se centraba dentro del contenedor ya centrado, y
-   * el titular quedaba indentado respecto a las tarjetas de abajo. La medida de
-   * línea se limita en el texto, no en el contenedor.
-   */
-
-  .hero-eyebrow {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.45rem;
-    margin: 0 0 var(--space-2xs);
-  }
-
-  .hero-pulse {
-    flex: none;
-    margin-block-start: 0.4em;
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--signal);
-    box-shadow: 0 0 0 0 color-mix(in srgb, var(--signal) 60%, transparent);
-    animation: pulse 2.6s ease-out infinite;
-  }
-
-  @keyframes pulse {
-    70% {
-      box-shadow: 0 0 0 7px color-mix(in srgb, var(--signal) 0%, transparent);
-    }
-    100% {
-      box-shadow: 0 0 0 0 color-mix(in srgb, var(--signal) 0%, transparent);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hero-pulse {
-      animation: none;
-    }
+  .hero-inner {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-m);
+    text-align: center;
   }
 
   .hero-title {
-    max-width: 22ch;
-    font-size: clamp(1.75rem, 1.2rem + 3vw, 3.25rem);
-    line-height: 1.05;
-    letter-spacing: -0.03em;
-    margin-block-end: var(--space-2xs);
+    margin: 0;
+    max-width: 18ch;
+    font-size: clamp(2rem, 1.1rem + 4.2vw, 4rem);
+    line-height: 1.04;
+    letter-spacing: -0.035em;
     text-wrap: balance;
   }
 
-  .hero-accent {
-    color: var(--signal);
+  /*
+   * Seis botones, no seis enlaces.
+   *
+   * Tienen que parecer lo que son —la respuesta a la pregunta de arriba— y
+   * poder pulsarse con el pulgar: 56 px de alto, 2×3 en un móvil de 375 px y
+   * una fila en escritorio. Sin descripción ni cifra debajo: aquí sólo se elige.
+   */
+  .hero-verticales {
+    width: 100%;
+    max-width: 68rem;
   }
 
-  .hero-lede {
-    max-width: 62ch;
-    font-size: clamp(1rem, 0.95rem + 0.35vw, 1.125rem);
-    color: var(--ink-muted);
+  .hero-verticales ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-2xs);
     margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 40rem) {
+    .hero-verticales ul {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 62rem) {
+    .hero-verticales ul {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+  }
+
+  .hero-vertical {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    min-height: 56px;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-l);
+    background: var(--surface);
+    color: var(--ink-strong);
+    font-size: 1.125rem;
+    font-weight: 650;
+    text-decoration: none;
+    transition:
+      border-color 140ms ease,
+      color 140ms ease,
+      box-shadow 140ms ease;
+  }
+
+  .hero-vertical:hover {
+    border-color: var(--signal);
+    color: var(--signal-strong);
+    box-shadow: var(--shadow-m);
+  }
+
+  .hero-vertical:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .hero-vertical-flecha {
+    color: var(--ink-muted);
+    font-weight: 500;
+  }
+
+  .hero-vertical:hover .hero-vertical-flecha {
+    color: inherit;
+  }
+
+  .hero-buscar {
+    display: grid;
+    justify-items: center;
+    gap: 0.4rem;
+    width: 100%;
+    max-width: 40rem;
+  }
+
+  .hero-buscar-intro {
+    font-size: 0.9375rem;
+    color: var(--ink-muted);
+  }
+
+  .hero-buscar-campo {
+    display: flex;
+    gap: var(--space-3xs);
+    width: 100%;
+    text-align: start;
+  }
+
+  .hero-buscar-campo .input {
+    min-height: 48px;
+  }
+
+  .home-revisado {
+    margin: 0 0 calc(var(--space-2xs) * -1);
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
   }
 
   .home {
