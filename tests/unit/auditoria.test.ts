@@ -49,8 +49,8 @@ const ficha = codigo('src/pages/herramientas/[slug].astro');
 /**
  * La portada, con todo lo que la compone.
  *
- * Dejó de ser un fichero: la fase 2 la partió en tres puertas, la fila de
- * verticales y la franja de confianza. Lo que estas reglas vigilan es lo que
+ * Dejó de ser un fichero: la fase 2 la partió en tres puertas y la franja de
+ * confianza. Lo que estas reglas vigilan es lo que
  * llega a la pantalla, así que se leen juntos.
  */
 const portada = [
@@ -58,7 +58,6 @@ const portada = [
   'src/components/home/PuertaBuscar.astro',
   'src/components/home/PuertaActualidad.astro',
   'src/components/home/PuertaComparar.astro',
-  'src/components/home/FilaVerticales.astro',
   'src/components/home/FranjaConfianza.astro',
 ]
   .map(codigo)

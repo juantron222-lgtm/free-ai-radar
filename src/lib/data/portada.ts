@@ -3,7 +3,7 @@ import type { TriState } from '@lib/domain/primitives';
 import { TRI_STATE_LABEL } from '@lib/domain/primitives';
 import { getAllTools } from './catalog';
 import { freeAccessLabel } from './category-page';
-import { VERTICALES, destacadas, enVertical } from './home';
+import { VERTICALES, destacadas } from './home';
 import { ROUTES, VERTICALS } from '@lib/nav';
 
 /**
@@ -11,9 +11,9 @@ import { ROUTES, VERTICALS } from '@lib/nav';
  *
  * La portada anterior contaba tres historias con los mismos datos —seis atajos,
  * seis tarjetas y un bloque de cifras— y cada una los pedía a su manera. Aquí
- * están las tres cosas que la nueva enseña: qué condiciones cumple una
- * herramienta concreta, cuántas cumplen cada condición, y cuántas hay por
- * vertical. Nada de esto opina: son recuentos sobre datos ya verificados.
+ * están las dos cosas que la nueva enseña: qué condiciones cumple una
+ * herramienta concreta y cuántas cumplen cada condición. Nada de esto opina:
+ * son recuentos sobre datos ya verificados.
  */
 
 export type Tono = 'bien' | 'mal' | 'neutro';
@@ -66,16 +66,33 @@ export function filaDe(tool: Tool): FilaEvidencia {
   };
 }
 
+export interface Recomendada {
+  tool: Tool;
+  fila: FilaEvidencia;
+  /** La clase de IA por la que entra: dice por qué está en la lista. */
+  clase: string;
+}
+
 /**
- * Las filas de la tabla de la portada.
+ * Las herramientas con las que empezar, desde la portada.
  *
  * Salen de `destacadas()`, que ya resuelve la pregunta difícil —cuál de cada
  * vertical— con un criterio que se puede comprobar: usable hoy sin pagar ni
  * instalar, acceso comprobado contra la fuente y capacidades citadas. La
- * portada no vuelve a elegir; sólo enseña menos filas de las que hay.
+ * portada no vuelve a elegir; sólo enseña menos de las que hay, y dice de qué
+ * clase es cada una para que un nombre desconocido no llegue sin contexto.
  */
-export function filasDeEvidencia(limite = 5): FilaEvidencia[] {
-  return destacadas(6).slice(0, limite).map(({ tool }) => filaDe(tool));
+export function recomendadas(limite = 5): Recomendada[] {
+  return destacadas(6)
+    .slice(0, limite)
+    .map(({ vertical, tool }) => {
+      const ruta = VERTICALES.find((v) => v.id === vertical)?.ruta;
+      return {
+        tool,
+        fila: filaDe(tool),
+        clase: VERTICALS.find((v) => v.href === ruta)?.label ?? vertical,
+      };
+    });
 }
 
 export interface Conteo {
@@ -120,32 +137,4 @@ export function conteosDeDecision(tools: readonly Tool[] = getAllTools()): Conte
       href: `${ROUTES.tools}?oss=1`,
     },
   ];
-}
-
-export interface VerticalConCifra {
-  id: string;
-  etiqueta: string;
-  descripcion: string;
-  href: string;
-  n: number;
-}
-
-/**
- * Las seis verticales con cuántas fichas tiene cada una.
- *
- * El rótulo y la descripción salen de la navegación, y el recuento del mismo
- * `enVertical` que usa la portada para elegir destacadas: si una ficha cuenta
- * para la cifra, puede aparecer en esa vertical, y al revés.
- */
-export function verticalesConCifra(tools: readonly Tool[] = getAllTools()): VerticalConCifra[] {
-  return VERTICALES.map((vertical) => {
-    const enNav = VERTICALS.find((v) => v.href === vertical.ruta);
-    return {
-      id: vertical.id,
-      etiqueta: enNav?.label ?? vertical.id,
-      descripcion: enNav?.description ?? '',
-      href: vertical.ruta,
-      n: tools.filter((t) => enVertical(t, vertical.slugs)).length,
-    };
-  });
 }

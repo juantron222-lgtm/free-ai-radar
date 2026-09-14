@@ -66,8 +66,8 @@ describe('el catálogo habla como la portada', () => {
 
   it('en el catálogo no hay dos cajas de búsqueda', () => {
     const cabecera = codigo('src/components/site/Header.astro');
-    expect(cabecera).toMatch(/enCatalogo\s*=/);
-    expect(cabecera).toMatch(/\{!enCatalogo && \(\s*<form class="header-search"/);
+    expect(cabecera).toMatch(/conBuscador = !enCatalogo && !enPortada/);
+    expect(cabecera).toMatch(/\{conBuscador && \(\s*<form class="header-search"/);
   });
 
   it('las páginas interiores usan la misma cabecera, con las migas dentro', () => {

@@ -3,13 +3,12 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import PuertaBuscar from '@components/home/PuertaBuscar.astro';
 import PuertaActualidad from '@components/home/PuertaActualidad.astro';
 import PuertaComparar from '@components/home/PuertaComparar.astro';
-import FilaVerticales from '@components/home/FilaVerticales.astro';
 import FranjaConfianza from '@components/home/FranjaConfianza.astro';
 import CompareTray from '@components/tools/CompareTray.astro';
 import NewsletterForm from '@components/marketing/NewsletterForm.astro';
 import { getAllTools, getCatalogStats } from '@lib/data/catalog';
 import { destacadas } from '@lib/data/home';
-import { conteosDeDecision, filasDeEvidencia, verticalesConCifra } from '@lib/data/portada';
+import { conteosDeDecision, recomendadas } from '@lib/data/portada';
 import { getLatestNews } from '@lib/data/news';
 import { itemListSchema } from '@lib/seo/structured-data';
 import { recuentoVerificacion } from '@lib/domain/verification';
@@ -28,9 +27,8 @@ const tools = getAllTools();
 const stats = getCatalogStats();
 const recuento = recuentoVerificacion(tools);
 
-const filas = filasDeEvidencia(5);
 const conteos = conteosDeDecision(tools);
-const verticales = verticalesConCifra(tools);
+const paraEmpezar = recomendadas(5);
 const paraSchema = destacadas(5).map(({ tool }) => tool);
 
 /*
@@ -128,7 +126,7 @@ const description =
     */}
     <div class="puertas">
       <div class="hueco hueco-buscar">
-        <PuertaBuscar filas={filas} conteos={conteos} total={recuento.total} />
+        <PuertaBuscar recomendadas={paraEmpezar} conteos={conteos} />
       </div>
       <div class="hueco hueco-actualidad">
         <PuertaActualidad noticias={noticias} />
@@ -138,8 +136,12 @@ const description =
       </div>
     </div>
 
-    <FilaVerticales verticales={verticales} />
+    {/*
+      Sin la fila «Por lo que quieres hacer».
 
+      Eran las mismas seis verticales que la hero pregunta en la primera
+      pantalla, repetidas con su cifra dos desplazamientos más abajo.
+    */}
     <p class="home-revisado">
       <span>
         Catálogo revisado por última vez el{' '}
@@ -331,6 +333,7 @@ const description =
   @media (min-width: 62rem) {
     .puertas {
       grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+      grid-template-rows: auto 1fr;
       grid-template-areas:
         'buscar actualidad'
         'buscar comparar';

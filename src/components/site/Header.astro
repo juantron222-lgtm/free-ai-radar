@@ -14,13 +14,20 @@ const current = Astro.url.pathname;
 const consulta = isActivePath(current, ROUTES.tools) ? (Astro.url.searchParams.get('q') ?? '') : '';
 
 /*
- * En el catálogo la caja de la cabecera sobra.
+ * En la portada y en el catálogo la caja de la cabecera sobra.
  *
  * `/herramientas` tiene su propio buscador, que filtra en vivo y sugiere
- * mientras escribes. Con los dos a la vista había dos cajas iguales que hacían
- * cosas distintas a dos centímetros una de otra.
+ * mientras escribes, y la portada abre con el suyo debajo de la pregunta. Con
+ * los dos a la vista había dos cajas iguales a dos centímetros una de otra. En
+ * la portada tampoco sale la lupa del móvil, que abría una tercera; el menú
+ * conserva su caja para quien ya ha bajado. En el resto del sitio la cabecera
+ * es el buscador global y se queda.
  */
-const enCatalogo = current.replace(/\/+$/, '') === ROUTES.tools;
+const ruta = current.replace(/\/+$/, '') || '/';
+const enCatalogo = ruta === ROUTES.tools;
+const enPortada = ruta === ROUTES.home;
+const conBuscador = !enCatalogo && !enPortada;
+const conLupa = !enPortada;
 ---
 
 <header class="site-header">
@@ -54,7 +61,7 @@ const enCatalogo = current.replace(/\/+$/, '') === ROUTES.tools;
       todas las páginas. Es un formulario GET normal: funciona sin JavaScript y
       la URL resultante se puede compartir.
     */}
-    {!enCatalogo && (
+    {conBuscador && (
     <form class="header-search" role="search" action={ROUTES.tools} method="get">
       <label class="sr-only" for="header-q">Buscar herramientas</label>
       <input
@@ -71,6 +78,7 @@ const enCatalogo = current.replace(/\/+$/, '') === ROUTES.tools;
     )}
 
     <div class="header-actions">
+      {conLupa && (
       <button
         type="button"
         class="header-icon-btn header-search-btn"
@@ -84,6 +92,7 @@ const enCatalogo = current.replace(/\/+$/, '') === ROUTES.tools;
           <path d="M13.5 13.5 L17 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
         </svg>
       </button>
+      )}
 
       <ThemeToggle />
 

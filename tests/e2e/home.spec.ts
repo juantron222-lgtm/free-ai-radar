@@ -85,6 +85,48 @@ test.describe('portada', () => {
     expect(new Set(slugs).size, `repetidas: ${slugs.join(', ')}`).toBe(slugs.length);
   });
 
+  test('en la portada sólo hay un buscador, el de la hero', async ({ page }) => {
+    /*
+     * Había tres: la cabecera, la hero y la puerta «Encontrar una IA». En el
+     * resto del sitio la cabecera conserva el suyo.
+     */
+    for (const ancho of [375, 1280]) {
+      await page.setViewportSize({ width: ancho, height: 900 });
+      await page.goto('/');
+      await expect(page.locator('main [role="search"]'), `a ${ancho} px`).toHaveCount(1);
+      await expect(page.locator('.site-header .header-search')).toHaveCount(0);
+      await expect(page.locator('#search-toggle')).toHaveCount(0);
+      await expect(page.locator('.hero [role="search"] input[name="q"]')).toBeVisible();
+    }
+
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto('/comparar');
+    await expect(page.locator('.site-header .header-search')).toBeVisible();
+  });
+
+  test('las seis verticales no se repiten más abajo', async ({ page }) => {
+    await page.goto('/');
+    for (const ruta of ['/imagen', '/video', '/audio', '/agentes', '/modelos', '/codigo']) {
+      await expect(page.locator(`main a[href="${ruta}"]`), ruta).toHaveCount(1);
+    }
+  });
+
+  test('«Encontrar una IA» filtra, recomienda y lleva al catálogo', async ({ page }) => {
+    await page.goto('/');
+    const puerta = page.locator('.puerta-buscar');
+
+    const filtros = puerta.getByRole('navigation', { name: 'Filtros rápidos' }).getByRole('link');
+    await expect(filtros).toHaveText([/Sin tarjeta\s*\d+/, /Sin registro\s*\d+/, /Uso comercial\s*\d+/, /Open source\s*\d+/]);
+    const hrefs = await filtros.evaluateAll((enlaces) => enlaces.map((a) => a.getAttribute('href')));
+    expect(hrefs).toEqual(['/herramientas?nocard=1', '/herramientas?nosignup=1', '/herramientas?comm=1', '/herramientas?oss=1']);
+
+    await expect(puerta.getByRole('link', { name: /Ver todas las herramientas/ })).toHaveAttribute('href', '/herramientas');
+
+    // Y cada filtro es una URL del catálogo, no un formulario.
+    await filtros.first().click();
+    await expect(page).toHaveURL(/\/herramientas\?nocard=1$/);
+  });
+
   test('la tabla de la portada enseña herramientas distintas', async ({ page }) => {
     await page.goto('/');
     const nombres = await page.locator('.evidencia tbody th a').allInnerTexts();

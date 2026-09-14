@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { getAllTools } from '@lib/data/catalog';
 import { usableFreeNow } from '@lib/data/category-page';
-import { conteosDeDecision, filaDe, filasDeEvidencia, verticalesConCifra } from '@lib/data/portada';
+import { conteosDeDecision, filaDe, recomendadas } from '@lib/data/portada';
 import { verificacionDe } from '@lib/domain/verification';
 import { EMPTY_FILTERS, applyFilters, parseFilters } from '@lib/search/filters';
 import { PRIMARY_NAV, ROUTES, VERTICALS } from '@lib/nav';
@@ -54,13 +54,16 @@ describe('la puerta del catálogo enseña datos, no promesas', () => {
     }
   });
 
-  it('la tabla sólo enseña fichas usables hoy y comprobadas, sin repetir', () => {
-    const filas = filasDeEvidencia(5);
-    expect(filas).toHaveLength(5);
-    expect(new Set(filas.map((f) => f.slug)).size).toBe(filas.length);
+  it('las recomendadas sólo son fichas usables hoy y comprobadas, sin repetir', () => {
+    const lista = recomendadas(5);
+    expect(lista).toHaveLength(5);
+    expect(new Set(lista.map((r) => r.fila.slug)).size).toBe(lista.length);
+    // Una por clase de IA: es lo que promete el criterio escrito encima.
+    expect(new Set(lista.map((r) => r.clase)).size).toBe(lista.length);
 
-    for (const fila of filas) {
-      const tool = tools.find((t) => t.slug === fila.slug)!;
+    for (const { tool, fila, clase } of lista) {
+      expect(fila.slug).toBe(tool.slug);
+      expect(VERTICALS.map((v) => v.label), `${fila.slug} sin clase legible`).toContain(clase);
       expect(usableFreeNow(tool), `${fila.slug} no se puede usar gratis hoy`).toBe(true);
       expect(verificacionDe(tool).state, `${fila.slug} está sin comprobar`).not.toBe('catalogada');
     }
@@ -82,15 +85,16 @@ describe('la puerta del catálogo enseña datos, no promesas', () => {
     }
   });
 
-  it('cada vertical enseña una cifra que existe', () => {
-    const verticales = verticalesConCifra(tools);
-    expect(verticales).toHaveLength(VERTICALS.length);
-    for (const vertical of verticales) {
-      expect(vertical.etiqueta, vertical.id).not.toBe(vertical.id);
-      expect(vertical.n, `${vertical.etiqueta} sale vacía`).toBeGreaterThan(0);
-      expect(vertical.n).toBeLessThanOrEqual(tools.length);
-      expect(VERTICALS.some((v) => v.href === vertical.href)).toBe(true);
-    }
+  it('la puerta del catálogo no es otro buscador', () => {
+    /*
+     * Llevaba su propia caja, la tercera de la portada contando la hero y la
+     * cabecera. Ahora filtra y recomienda; buscar se hace arriba.
+     */
+    const puerta = codigo('src/components/home/PuertaBuscar.astro');
+    expect(puerta).not.toContain('role="search"');
+    expect(puerta).not.toContain('name="q"');
+    expect(puerta).toContain('conteos.filter');
+    expect(puerta).toContain('Ver todas las herramientas');
   });
 });
 
@@ -107,7 +111,15 @@ describe('la navegación es la lista de lo que se puede hacer', () => {
     }
   });
 
-  it('el buscador global es un formulario GET al catálogo, en todas las páginas', () => {
+  it('en la portada la cabecera no lleva buscador: el de la hero es el de entrada', () => {
+    const cabecera = codigo('src/components/site/Header.astro');
+    expect(cabecera).toMatch(/enPortada = ruta === ROUTES\.home/);
+    expect(cabecera).toMatch(/\{conBuscador && \(\s*<form class="header-search"/);
+    expect(cabecera).toMatch(/\{conLupa && \(\s*<button/);
+    expect(codigo('src/pages/index.astro')).toContain('class="hero-buscar" role="search"');
+  });
+
+  it('el buscador global es un formulario GET al catálogo, en el resto de páginas', () => {
     const cabecera = codigo('src/components/site/Header.astro');
     expect(cabecera).toContain('role="search"');
     expect(cabecera).toContain('action={ROUTES.tools}');
@@ -127,6 +139,12 @@ describe('la portada no cuenta el mismo viaje cuatro veces', () => {
     expect(portada).not.toContain('IntentCard');
     expect(portada).not.toContain('Por qué fiarte');
     expect(portada).not.toContain('home-grid');
+  });
+
+  it('las seis verticales salen una vez: en la hero, no otra vez más abajo', () => {
+    const portada = codigo('src/pages/index.astro');
+    expect(portada).not.toContain('FilaVerticales');
+    expect(portada.match(/VERTICALS\.find/g) ?? []).toHaveLength(1);
   });
 
   it('la comparación se puede empezar desde la portada sin JavaScript', () => {
