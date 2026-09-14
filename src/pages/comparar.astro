@@ -231,7 +231,7 @@ const FILTROS_VERTICAL = [
           Cuando falta un dato, la tabla dice por qué. <strong>Sin comprobar</strong> es deuda
           nuestra: todavía no hemos abierto la fuente oficial. <strong>El fabricante no lo
           publica</strong> es lo contrario: la abrimos y no lo dice, y eso es información sobre
-          el producto. <strong>Sin analizar</strong> es un hueco de redacción nuestro, y
+          el producto. <strong>Sin analizar</strong> es un hueco de redacción nuestro, y{' '}
           <strong>No aplica</strong> una fila que no tiene sentido para esa clase de herramienta.
           Pasa el ratón por encima para ver qué buscábamos.
         </p>
@@ -761,6 +761,25 @@ const FILTROS_VERTICAL = [
 
     .compare-grupo th {
       padding: var(--space-s) var(--space-s) var(--space-3xs);
+    }
+
+    /*
+     * La prosa, con el nombre encima y no al lado.
+     *
+     * «Qué te dan gratis», «Límites», «En contra» y el veredicto son párrafos
+     * y listas: con la herramienta en la columna de la izquierda se quedaban
+     * en media pantalla, a cuatro o cinco palabras por línea. Las condiciones
+     * cortas de arriba siguen en dos columnas, que es donde se comparan de un
+     * vistazo.
+     */
+    .compare-contexto td {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.15rem;
+      padding-block: 0.45rem;
+    }
+
+    .compare-contexto td .compare-list {
+      padding-inline-start: 0;
     }
   }
 </style>

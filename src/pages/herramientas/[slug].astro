@@ -342,7 +342,7 @@ const compararHref = compararCon.length
                 : es trabajo nuestro pendiente, no un silencio suyo.
               </>
             )}
-            {' '}Los fabricantes cambian estas condiciones sin avisar:
+            {' '}Los fabricantes cambian estas condiciones sin avisar:{' '}
             <a href="#reportar">avísanos si algo ya no es cierto</a>.
           </p>
         </section>
@@ -543,7 +543,7 @@ const compararHref = compararCon.length
           {tool.privacy.trainsOnUserData === 'unverified' && (
             <p class="hint">
               Todavía no hemos confirmado la política de entrenamiento de {tool.name}. Preferimos
-              decirlo a suponerlo. Si tienes la fuente oficial,
+              decirlo a suponerlo. Si tienes la fuente oficial,{' '}
               <a href="#reportar">envíanosla</a>.
             </p>
           )}
@@ -628,7 +628,7 @@ const compararHref = compararCon.length
           <p>
             Revisado por <strong>{tool.reviewedBy || 'la redacción de Free AI Radar'}</strong> ·
             última verificación <time datetime={tool.lastVerifiedAt}>{fmtDate(tool.lastVerifiedAt)}</time> ·
-            en el radar desde <time datetime={tool.detectedAt}>{fmtDate(tool.detectedAt)}</time>.
+            en el radar desde <time datetime={tool.detectedAt}>{fmtDate(tool.detectedAt)}</time>.{' '}
             <a href={ROUTES.methodology}>Cómo lo comprobamos</a>.
           </p>
         </section>
