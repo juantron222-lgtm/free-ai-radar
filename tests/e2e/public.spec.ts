@@ -12,7 +12,9 @@ import { isThirdPartyNoise, seedConsent, trackThirdPartyFailures } from './helpe
 test.describe('portada', () => {
   test('carga y comunica la propuesta de valor', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByRole('heading', { level: 1 })).toContainText(/gratis de verdad/i);
+    // La hero pregunta; lo gratis de verdad lo dicen el título y la descripción.
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('¿Qué clase de IA estás buscando?');
+    await expect(page).toHaveTitle(/gratis de verdad/i);
     await expect(page).toHaveTitle(/Free AI Radar/);
   });
 
@@ -295,7 +297,7 @@ test.describe('comparador', () => {
     await expect(page.getByRole('heading', { level: 1 })).toContainText(/vs/i);
     await expect(page.getByRole('table')).toBeVisible();
     // Si las dos dicen lo mismo, la fila está detrás del interruptor: existe, no se ve.
-    await expect(page.getByRole('rowheader', { name: '¿Pide tarjeta?' })).toHaveCount(1);
+    await expect(page.getByRole('rowheader', { name: '¿Pide tarjeta?', includeHidden: true })).toHaveCount(1);
   });
 
   test('el comparador vacío no es indexable', async ({ page }) => {

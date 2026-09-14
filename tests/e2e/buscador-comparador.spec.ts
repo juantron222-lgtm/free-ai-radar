@@ -429,11 +429,15 @@ test.describe('a 375 px', () => {
       const celda = document.querySelector('#compare-table tbody tr[data-igual="no"] td');
       return {
         desplazaLaTabla: caja ? caja.scrollWidth > caja.clientWidth + 1 : true,
-        etiqueta: celda ? getComputedStyle(celda, '::before').content : '',
+        // Firefox devuelve `attr(...)` sin resolver: se comprueba que el
+        // pseudoelemento existe y, aparte, qué nombre lleva la celda.
+        antes: celda ? getComputedStyle(celda, '::before').content : 'none',
+        herramienta: celda?.getAttribute('data-herramienta') ?? '',
       };
     });
     expect(medida.desplazaLaTabla).toBe(false);
-    expect(medida.etiqueta).toMatch(/Lovable|Bolt|v0/);
+    expect(medida.antes).not.toBe('none');
+    expect(medida.herramienta).toMatch(/Lovable|Bolt|v0/);
   });
 
   test('el selector no desborda', async ({ page }) => {
