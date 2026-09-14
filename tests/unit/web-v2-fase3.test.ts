@@ -162,3 +162,42 @@ describe('el comparador enseña primero lo que separa', () => {
     expect(pagina).toContain('content: attr(data-herramienta)');
   });
 });
+
+describe('noticias hereda el sistema, no la lógica', () => {
+  const indice = codigo('src/pages/noticias/index.astro');
+  const noticia = codigo('src/pages/noticias/[slug].astro');
+  const tarjeta = codigo('src/components/news/NewsCard.astro');
+
+  it('la portada de noticias usa la cabecera común y las pastillas con cifra', () => {
+    expect(indice).toContain('<CabeceraPagina');
+    expect(indice).toContain('migasEnCabecera');
+    expect(indice).toContain('class="cifra-chip"');
+    expect(indice).not.toContain('news-h1');
+  });
+
+  it('cada noticia lleva la cabecera de la ficha y las migas dentro', () => {
+    expect(noticia).toMatch(/<header class="cabecera noticia-cabecera">/);
+    expect(noticia).toContain('migasEnCabecera');
+    expect(noticia).toContain('<Breadcrumbs crumbs={migasVisibles}');
+    // El JSON-LD de migas sigue llevando el titular: el layout recibe las tres.
+    expect(noticia).toMatch(/crumbs=\{crumbs\}/);
+  });
+
+  it('el separador no va en el color de las líneas', () => {
+    /* Medía 1,3:1 en claro y en oscuro con `--line`. */
+    const regla = /\.news-state-sep\s*\{([^}]*)\}/.exec(tarjeta);
+    expect(regla, 'falta la regla del separador').not.toBeNull();
+    expect(regla![1]).not.toMatch(/var\(--line/);
+  });
+
+  it('las plantillas sólo leen noticias: nada de publicar, verificar ni Supabase', () => {
+    for (const plantilla of [indice, noticia, tarjeta]) {
+      expect(plantilla).not.toMatch(/@lib\/newsroom|supabase|factTrace|publicar|canAutoPublish/i);
+    }
+  });
+
+  it('el tipo de cada fuente se lee en castellano', () => {
+    expect(noticia).toContain('TIPO_DE_FUENTE[source.kind]');
+    expect(noticia).not.toMatch(/\{source\.kind\}/);
+  });
+});

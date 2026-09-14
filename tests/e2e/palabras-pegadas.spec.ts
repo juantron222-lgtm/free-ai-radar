@@ -17,11 +17,16 @@ const RUTAS = [
   '/imagen',
   '/codigo',
   '/comparar?t=chatgpt,claude',
+  '/noticias',
+  '/noticias/accomplish-sandbox-claude-code-cursor',
 ];
 
 for (const ruta of RUTAS) {
   test(`${ruta} no pega palabras a sus enlaces`, async ({ page }) => {
     await page.goto(ruta);
+    // En frío, el servidor de desarrollo puede recargar la página una vez al
+    // optimizar dependencias; se lee el DOM cuando ya no queda nada en vuelo.
+    await page.waitForLoadState('networkidle');
     const pegadas = await page.evaluate(() => {
       const INLINE = new Set(['A', 'STRONG', 'EM', 'CODE', 'TIME', 'B', 'I', 'ABBR']);
       const out: string[] = [];

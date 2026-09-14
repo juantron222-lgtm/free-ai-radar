@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import CabeceraPagina from '@components/site/CabeceraPagina.astro';
 import NewsCard from '@components/news/NewsCard.astro';
 import NewsletterForm from '@components/marketing/NewsletterForm.astro';
 import {
@@ -59,24 +60,32 @@ void itemListSchema;
   title="Últimas noticias de IA, con fuente y fecha"
   description={`${stats.total} novedades verificadas contra la página oficial del fabricante: modelos, agentes, planes gratuitos, precios y limitaciones nuevas. ${stats.affectingFreePlan} afectan a lo que puedes hacer gratis.`}
   crumbs={crumbs}
+  migasEnCabecera
   schemas={[listSchema]}
 >
-  <div class="page news-page">
-    <header class="news-header">
-      <h1 class="news-h1">Últimas noticias</h1>
-      <p class="news-lede">
-        Sólo publicamos lo que hemos podido verificar en la página oficial del fabricante, con su
-        fecha y su enlace. Un resumen de buscador nos sirve para encontrar la noticia; nunca para
-        respaldarla.
-      </p>
+  {/*
+    La cabecera de todas las secciones.
 
-      <dl class="news-stats">
-        <div><dt>Noticias</dt><dd class="tnum">{stats.total}</dd></div>
-        <div><dt>Verificadas</dt><dd class="tnum">{stats.verified}</dd></div>
-        <div><dt>Afectan al plan gratuito</dt><dd class="tnum">{stats.affectingFreePlan}</dd></div>
-        <div><dt>Categorías</dt><dd class="tnum">{stats.categories}</dd></div>
-      </dl>
-    </header>
+    Noticias pintaba la suya, con cuatro cifras grandes en rejilla que pesaban
+    más que el titular. Ahora es la misma banda que el catálogo y las
+    verticales, y las cifras van en la franja de estado, a tamaño de texto:
+    siguen a la vista y no compiten con las noticias.
+  */}
+  <CabeceraPagina titulo="Últimas noticias" crumbs={crumbs}>
+    <p class="cabecera-entradilla">
+      Sólo publicamos lo que hemos podido verificar en la página oficial del fabricante, con su
+      fecha y su enlace. Un resumen de buscador nos sirve para encontrar la noticia; nunca para
+      respaldarla.
+    </p>
+    <p class="franja-estado">
+      <span><strong>{stats.total}</strong> noticias</span>
+      <span><strong>{stats.verified}</strong> verificadas</span>
+      <span><strong>{stats.affectingFreePlan}</strong> afectan al plan gratuito</span>
+      <span><strong>{stats.categories}</strong> categorías</span>
+    </p>
+  </CabeceraPagina>
+
+  <div class="page news-page">
 
     {news.length === 0 ? (
       <div class="card news-empty">
@@ -89,26 +98,32 @@ void itemListSchema;
       </div>
     ) : (
       <>
+        {/*
+          Las mismas pastillas con cifra que la portada y el catálogo.
+
+          El estado activo va en `aria-current`, no en una clase: así lo oye
+          también quien no lo ve, y el sistema ya sabe pintarlo.
+        */}
         <nav class="news-filters scroll-x" aria-label="Filtrar por categoría">
-          <a href="#todas" class="filter-chip is-active" data-news-filter="all">
-            Todas <span class="tnum">{stats.total}</span>
+          <a href="#todas" class="cifra-chip" aria-current="true" data-news-filter="all">
+            Todas <span class="cifra-chip-n">{stats.total}</span>
           </a>
           {categories.map((category) => (
-            <a href={`#${category.category}`} class="filter-chip" data-news-filter={category.category}>
-              {category.label} <span class="tnum">{category.count}</span>
+            <a href={`#${category.category}`} class="cifra-chip" data-news-filter={category.category}>
+              {category.label} <span class="cifra-chip-n">{category.count}</span>
             </a>
           ))}
         </nav>
 
         {freePlanNews.length > 0 && (
-          <section class="news-highlight" aria-labelledby="free-title">
-            <h2 id="free-title" class="news-section-title">
-              Lo que cambia si no pagas
-            </h2>
-            <p class="news-section-lede">
-              De las {stats.total} noticias, estas {freePlanNews.length} afectan directamente a lo
-              que puedes hacer sin pagar.
-            </p>
+          <section class="panel news-highlight" aria-labelledby="free-title">
+            <div class="news-section-head">
+              <h2 id="free-title" class="panel-titulo">Lo que cambia si no pagas</h2>
+              <p class="panel-entradilla">
+                De las {stats.total} noticias, estas {freePlanNews.length} afectan directamente a lo
+                que puedes hacer sin pagar.
+              </p>
+            </div>
             <ul class="grid-cards news-grid">
               {freePlanNews.map((item) => (
                 <li data-news-item data-category={item.category}>
@@ -119,8 +134,8 @@ void itemListSchema;
           </section>
         )}
 
-        <section aria-labelledby="all-title">
-          <h2 id="all-title" class="news-section-title">Todas las noticias</h2>
+        <section class="news-section" aria-labelledby="all-title">
+          <h2 id="all-title" class="seccion-titulo">Todas las noticias</h2>
           <ul class="grid-cards news-grid" id="news-list">
             {lead && (
               <li data-news-item data-category={lead.category}>
@@ -139,11 +154,13 @@ void itemListSchema;
         </section>
 
         {archivo.length > 0 && (
-          <section class="news-archive" aria-labelledby="archive-title">
-            <h2 id="archive-title" class="news-section-title">Archivo</h2>
-            <p class="news-section-lede">
-              Siguen siendo ciertas y siguen accesibles; ya no son actualidad. {archivo.length} en total.
-            </p>
+          <section class="news-section" aria-labelledby="archive-title">
+            <div class="news-section-head">
+              <h2 id="archive-title" class="seccion-titulo">Archivo</h2>
+              <p class="news-section-lede">
+                Siguen siendo ciertas y siguen accesibles; ya no son actualidad. {archivo.length} en total.
+              </p>
+            </div>
             <ul class="archive-list">
               {archivo.map((item) => (
                 <li>
@@ -160,12 +177,14 @@ void itemListSchema;
         )}
 
         {catalogChanges.length > 0 && (
-          <section class="news-catalog" aria-labelledby="catalog-title">
-            <h2 id="catalog-title" class="news-section-title">Cambios detectados en el catálogo</h2>
-            <p class="news-section-lede">
-              Además de las noticias del sector, anotamos cada vez que cambia algo en una ficha que
-              ya teníamos verificada.
-            </p>
+          <section class="news-section" aria-labelledby="catalog-title">
+            <div class="news-section-head">
+              <h2 id="catalog-title" class="seccion-titulo">Cambios detectados en el catálogo</h2>
+              <p class="news-section-lede">
+                Además de las noticias del sector, anotamos cada vez que cambia algo en una ficha que
+                ya teníamos verificada.
+              </p>
+            </div>
             <ol class="catalog-changes">
               {catalogChanges.map(({ tool, change }) => (
                 <li>
@@ -189,12 +208,14 @@ void itemListSchema;
       </>
     )}
 
-    <section class="news-cta card" aria-labelledby="cta-title">
-      <h2 id="cta-title" class="news-section-title">No vuelvas a enterarte tarde</h2>
-      <p class="news-section-lede">
-        Los planes gratuitos cambian sin avisar. Puedes seguir una herramienta concreta desde su
-        ficha, o recibir el resumen semanal con lo que ha cambiado.
-      </p>
+    <section class="panel" aria-labelledby="cta-title">
+      <div class="news-section-head">
+        <h2 id="cta-title" class="panel-titulo">No vuelvas a enterarte tarde</h2>
+        <p class="panel-entradilla">
+          Los planes gratuitos cambian sin avisar. Puedes seguir una herramienta concreta desde su
+          ficha, o recibir el resumen semanal con lo que ha cambiado.
+        </p>
+      </div>
       <div class="news-cta-actions">
         <a href={ROUTES.tools} class="btn btn-secondary btn-sm">Seguir una herramienta</a>
         <a href={ROUTES.pricing} class="btn btn-ghost btn-sm">Avisos inmediatos con Pro</a>
@@ -205,7 +226,7 @@ void itemListSchema;
     <NewsletterForm source="noticias" />
 
     <p class="news-method">
-      ¿Cómo decidimos qué se publica? Está en la
+      ¿Cómo decidimos qué se publica? Está en la{' '}
       <a href={ROUTES.editorialPolicy}>política editorial</a>. Los cambios de esta web, no del
       sector, están en <a href={ROUTES.radarChangelog}>cambios del Radar</a>.
     </p>
@@ -213,115 +234,51 @@ void itemListSchema;
 </BaseLayout>
 
 <style>
-  .news-archive {
-    margin-block-start: var(--space-l);
-    padding-block-start: var(--space-s);
-    border-block-start: 1px solid var(--line-hairline);
-  }
-
-  .archive-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 0.15rem;
-  }
-
-  .archive-list li {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: var(--space-xs);
-    padding-block: 0.35rem;
-    border-block-end: 1px solid var(--line-hairline);
-    font-size: 0.875rem;
-  }
-
-  .archive-list a {
-    color: var(--ink-muted);
-    text-decoration: none;
-  }
-
-  .archive-list a:hover {
-    color: var(--ink-strong);
-    text-decoration: underline;
-  }
-
-  .archive-date {
-    color: var(--ink-subtle);
-    font-size: 0.75rem;
-    white-space: nowrap;
-  }
-
   .news-page {
-    padding-block: var(--space-m) var(--space-xl);
+    padding-block: var(--space-s) var(--space-xl);
     display: grid;
     gap: var(--space-l);
   }
 
-  .news-h1 {
-    font-size: clamp(1.75rem, 1.4rem + 1.6vw, 2.6rem);
-    margin-block-end: var(--space-2xs);
+  @media (min-width: 48rem) {
+    .news-page {
+      padding-block-start: var(--space-m);
+    }
   }
 
-  .news-lede {
-    margin: 0 0 var(--space-s);
-    max-width: 60ch;
-    color: var(--ink-muted);
-    font-size: 1.0625rem;
-  }
-
-  .news-stats {
+  .news-section {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-2xs) var(--space-s);
-    margin: 0;
-    padding-block: var(--space-s);
-    border-block: 1px solid var(--line);
+    gap: var(--space-s);
   }
 
-  .news-stats dt {
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--ink-subtle);
-    font-weight: 600;
+  .news-section-head {
+    display: grid;
+    gap: 0.25rem;
   }
 
-  .news-stats dd {
+  .news-section-lede {
     margin: 0;
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--ink-strong);
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+    max-width: 60ch;
   }
 
   .news-filters {
     display: flex;
-    gap: 0.35rem;
+    gap: 0.4rem;
     padding-block-end: 0.25rem;
   }
 
-  .news-filters .filter-chip {
-    text-decoration: none;
-  }
-
-  .news-filters .filter-chip.is-active {
-    background: var(--signal-soft);
-    border-color: var(--signal);
-    color: var(--signal);
-  }
-
-  .news-section-title {
-    font-size: clamp(1.2rem, 1.05rem + 0.7vw, 1.5rem);
-    margin-block-end: var(--space-3xs);
-  }
-
-  .news-section-lede {
-    margin: 0 0 var(--space-s);
-    color: var(--ink-muted);
-    font-size: 0.9375rem;
-    max-width: 60ch;
+  /*
+   * El bloque del plan gratuito, destacado sin pintarlo de verde.
+   *
+   * Era un recuadro verde con tarjetas blancas dentro: el color de «disponible»
+   * usado como fondo de sección, encima de pastillas que usan ese mismo verde
+   * para decir otra cosa. Ahora es un panel del sistema sobre fondo hundido,
+   * que separa el bloque sin prestarle significado a un color.
+   */
+  .news-highlight {
+    background: var(--surface-sunken);
   }
 
   .news-grid {
@@ -338,38 +295,73 @@ void itemListSchema;
     width: 100%;
   }
 
-  .news-highlight {
-    padding: var(--space-s);
-    border: 1px solid var(--signal-line);
-    border-radius: var(--radius-l);
-    background: var(--signal-soft);
+  .news-none {
+    margin: 0;
+    color: var(--ink-subtle);
   }
 
-  .news-none {
-    margin: var(--space-s) 0 0;
+  .archive-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    max-width: 56rem;
+  }
+
+  .archive-list li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-xs);
+    padding-block: 0.55rem;
+    border-block-end: 1px solid var(--line-hairline);
+    font-size: 0.9375rem;
+  }
+
+  .archive-list a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .archive-list a:hover {
+    color: var(--ink-strong);
+    text-decoration: underline;
+    text-decoration-color: var(--signal);
+  }
+
+  .archive-date {
     color: var(--ink-subtle);
+    font-size: 0.8125rem;
+    white-space: nowrap;
   }
 
   .catalog-changes {
     list-style: none;
     margin: 0;
     padding: 0;
-    max-width: 46rem;
+    max-width: 56rem;
   }
 
   .catalog-changes li {
     display: grid;
-    grid-template-columns: 6rem 1fr;
-    gap: var(--space-s);
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.15rem;
     padding-block: var(--space-2xs);
     border-block-end: 1px solid var(--line-hairline);
   }
 
+  @media (min-width: 36rem) {
+    .catalog-changes li {
+      grid-template-columns: 7rem minmax(0, 1fr);
+      gap: var(--space-s);
+    }
+  }
+
   .catalog-changes time {
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
     color: var(--ink-subtle);
     font-weight: 600;
-    padding-block-start: 0.15rem;
+    padding-block-start: 0.1rem;
   }
 
   .catalog-changes a {
@@ -380,17 +372,13 @@ void itemListSchema;
 
   .catalog-changes a:hover {
     text-decoration: underline;
+    text-decoration-color: var(--signal);
   }
 
   .catalog-changes p {
     margin: 0.1rem 0 0;
     font-size: 0.875rem;
     color: var(--ink-muted);
-  }
-
-  .news-cta {
-    padding: var(--space-s);
-    background: var(--surface-sunken);
   }
 
   .news-cta-actions {
@@ -425,12 +413,6 @@ void itemListSchema;
   .news-method a {
     color: var(--signal);
   }
-
-  @media (min-width: 40rem) {
-    .news-stats {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
 </style>
 
 <script>
@@ -448,7 +430,10 @@ void itemListSchema;
       event.preventDefault();
       const wanted = chip.dataset['newsFilter']!;
 
-      for (const other of chips) other.classList.toggle('is-active', other === chip);
+      for (const other of chips) {
+        if (other === chip) other.setAttribute('aria-current', 'true');
+        else other.removeAttribute('aria-current');
+      }
 
       let visible = 0;
       for (const item of items) {
