@@ -70,3 +70,20 @@ test.describe('noticias', () => {
     });
   }
 });
+
+test.describe('historial de cambios en noticias', () => {
+  test('se presenta como historial y va de más reciente a más antiguo', async ({ page }) => {
+    await seedConsent(page);
+    await page.goto('/noticias');
+    const seccion = page.locator('section[aria-labelledby="catalog-title"]');
+    await expect(seccion.getByRole('heading', { level: 2 })).toHaveText('Historial de cambios');
+    await expect(page.getByText('Cambios detectados en el catálogo')).toHaveCount(0);
+
+    const fechas = await seccion.locator('ol time').evaluateAll((ts) => ts.map((t) => t.getAttribute('datetime') ?? ''));
+    expect(fechas.length).toBeGreaterThan(1);
+    expect(fechas).toEqual([...fechas].sort((a, b) => b.localeCompare(a)));
+
+    // La entradilla dice de cuándo es la más reciente.
+    await expect(seccion.locator('.news-section-lede time')).toHaveAttribute('datetime', fechas[0]!);
+  });
+});

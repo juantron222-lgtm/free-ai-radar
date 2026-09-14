@@ -29,7 +29,33 @@ const { destacadas, archivo } = getPortada();
 const stats = getNewsStats();
 const categories = getPopulatedNewsCategories();
 const freePlanNews = getFreePlanNews();
-const catalogChanges = getCatalogChanges(8);
+
+/*
+ * Historial, no actualidad.
+ *
+ * La sección se llamaba «Cambios detectados en el catálogo» y decía que
+ * anotamos cada cambio en una ficha verificada. Las anotaciones que hay van de
+ * 2022 a junio de 2024: en una página de actualidad, debajo de noticias de esta
+ * semana, se leían como recientes. Ahora se llama lo que es, dice de cuándo es
+ * la más reciente y, si esa fecha queda fuera de la ventana de actualidad de la
+ * portada (90 días), lo dice con todas las letras.
+ *
+ * El orden lo garantiza `getCatalogChanges`, de más reciente a más antiguo; lo
+ * vigila `web-v2-fase3.test.ts`.
+ */
+const historial = getCatalogChanges(8);
+const historialMasReciente = historial[0]?.change.date;
+const DIAS_DE_ACTUALIDAD = 90;
+const historialEsAntiguo =
+  historialMasReciente !== undefined &&
+  Date.now() - new Date(`${historialMasReciente}T00:00:00Z`).getTime() > DIAS_DE_ACTUALIDAD * 86_400_000;
+const fechaLarga = (iso: string) =>
+  new Date(`${iso}T00:00:00Z`).toLocaleDateString('es-ES', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
 
 const [lead, ...rest] = destacadas;
 
@@ -176,17 +202,27 @@ void itemListSchema;
           </section>
         )}
 
-        {catalogChanges.length > 0 && (
+        {historial.length > 0 && historialMasReciente && (
           <section class="news-section" aria-labelledby="catalog-title">
             <div class="news-section-head">
-              <h2 id="catalog-title" class="seccion-titulo">Cambios detectados en el catálogo</h2>
+              <h2 id="catalog-title" class="seccion-titulo">Historial de cambios</h2>
               <p class="news-section-lede">
-                Además de las noticias del sector, anotamos cada vez que cambia algo en una ficha que
-                ya teníamos verificada.
+                Lo que se anotó en las fichas del catálogo, de más reciente a más antiguo.{' '}
+                {historialEsAntiguo ? (
+                  <>
+                    Es historial, no actualidad: la anotación más reciente es del{' '}
+                    <time datetime={historialMasReciente}>{fechaLarga(historialMasReciente)}</time>.
+                  </>
+                ) : (
+                  <>
+                    La más reciente es del{' '}
+                    <time datetime={historialMasReciente}>{fechaLarga(historialMasReciente)}</time>.
+                  </>
+                )}
               </p>
             </div>
             <ol class="catalog-changes">
-              {catalogChanges.map(({ tool, change }) => (
+              {historial.map(({ tool, change }) => (
                 <li>
                   <time datetime={change.date} class="tnum">
                     {new Date(`${change.date}T00:00:00Z`).toLocaleDateString('es-ES', {

@@ -201,3 +201,48 @@ describe('noticias hereda el sistema, no la lógica', () => {
     expect(noticia).not.toMatch(/\{source\.kind\}/);
   });
 });
+
+describe('el historial del catálogo no se hace pasar por actualidad', () => {
+  it('se ordena de más reciente a más antiguo', async () => {
+    const { getCatalogChanges } = await import('@lib/data/catalog');
+    const fechas = getCatalogChanges(100).map((c) => c.change.date);
+    expect(fechas.length).toBeGreaterThan(0);
+    expect(fechas).toEqual([...fechas].sort((a, b) => b.localeCompare(a)));
+  });
+
+  it('noticias lo llama historial y dice de cuándo es la anotación más reciente', () => {
+    const indice = codigo('src/pages/noticias/index.astro');
+    expect(indice).toContain('Historial de cambios');
+    expect(indice).not.toContain('Cambios detectados en el catálogo');
+    // Prometía que anotamos cada cambio; lo que hay son anotaciones de 2022 a 2024.
+    expect(indice).not.toMatch(/anotamos cada vez/);
+    expect(indice).toContain('historialMasReciente');
+  });
+});
+
+describe('las migas de una vertical dicen lo mismo que la navegación', () => {
+  const VERTICALES = ['imagen', 'video', 'audio', 'codigo', 'agentes', 'modelos'];
+
+  it('cada vertical usa el rótulo de la navegación, sin «IA» ni «Categorías»', async () => {
+    const { VERTICALS, migasDeVertical } = await import('@lib/nav');
+    for (const vertical of VERTICALS) {
+      const migas = migasDeVertical(vertical.href);
+      expect(migas.map((m) => m.name), vertical.href).toEqual(['Inicio', vertical.label]);
+    }
+    for (const nombre of VERTICALES) {
+      const pagina = codigo(`src/pages/${nombre}.astro`);
+      expect(pagina, nombre).toMatch(/const crumbs = migasDeVertical\(/);
+    }
+  });
+
+  it('la miga de categoría de una ficha también, si la categoría tiene vertical', async () => {
+    const { categoryLabel } = await import('@lib/nav');
+    expect(categoryLabel('imagen', 'Imagen IA')).toBe('Imagen');
+    expect(categoryLabel('video', 'Vídeo IA')).toBe('Vídeo');
+    // Música y voz van a /audio: la miga dice «Audio», como la navegación.
+    expect(categoryLabel('musica', 'Música IA')).toBe('Audio');
+    expect(categoryLabel('voz', 'Voz IA')).toBe('Audio');
+    // Sin vertical propia, se queda el nombre de la taxonomía.
+    expect(categoryLabel('escritura', 'Escritura')).toBe('Escritura');
+  });
+});

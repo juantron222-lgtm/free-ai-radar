@@ -16,7 +16,7 @@ import {
   withCapability,
 } from '@lib/data/audio';
 import { faqSchema, itemListSchema } from '@lib/seo/structured-data';
-import { ROUTES } from '@lib/nav';
+import { ROUTES, migasDeVertical } from '@lib/nav';
 
 /**
  * Audio: una página, dos categorías técnicas, y bloques sólo donde hay
@@ -106,11 +106,7 @@ const bloques = repartirBloques(declarados);
 
 const sinComercial = tools.filter((t) => t.freePlan.commercialUse === 'no');
 
-const crumbs = [
-  { name: 'Inicio', path: ROUTES.home },
-  { name: 'Categorías', path: ROUTES.categories },
-  { name: 'Audio IA', path: '/audio' },
-];
+const crumbs = migasDeVertical('/audio');
 
 /** Cada respuesta es un dato que esta misma página enseña. */
 const faqs = [

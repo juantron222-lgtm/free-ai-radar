@@ -19,7 +19,7 @@ import {
   local,
 } from '@lib/data/agentes';
 import { faqSchema, itemListSchema } from '@lib/seo/structured-data';
-import { ROUTES } from '@lib/nav';
+import { ROUTES, migasDeVertical } from '@lib/nav';
 
 /**
  * Agentes: primero qué clase de cosa es, después si es gratis.
@@ -129,10 +129,7 @@ const porTipo = (['listo', 'codigo', 'investigacion', 'plataforma', 'framework']
 const sinTarjeta = tools.filter((t) => t.freePlan.requiresCreditCard === 'no');
 const abiertos = tools.filter((t) => t.openSource === 'yes');
 
-const crumbs = [
-  { name: 'Inicio', path: ROUTES.home },
-  { name: 'Agentes', path: ROUTES.agents },
-];
+const crumbs = migasDeVertical(ROUTES.agents);
 
 /** Cada respuesta es un dato que esta misma página enseña. */
 const faqs = [

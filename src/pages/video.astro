@@ -6,7 +6,6 @@ import IntentCard from '@components/catalog/IntentCard.astro';
 import ToolMention from '@components/catalog/ToolMention.astro';
 import CatalogFilters from '@components/catalog/CatalogFilters.astro';
 import { getToolsByCategory } from '@lib/data/catalog';
-import { getCategory } from '@lib/domain/taxonomy';
 import { catalogueOrder, decideFilters } from '@lib/data/category-page';
 import {
   CANDIDATE_FILTERS,
@@ -19,7 +18,7 @@ import {
 } from '@lib/data/video';
 import { repartirBloques } from '@lib/data/category-page';
 import { faqSchema, itemListSchema } from '@lib/seo/structured-data';
-import { ROUTES } from '@lib/nav';
+import { ROUTES, migasDeVertical } from '@lib/nav';
 
 /**
  * Vídeo, construida con el método de Imagen y con otros bloques.
@@ -35,7 +34,6 @@ import { ROUTES } from '@lib/nav';
  * renuevan.
  */
 
-const category = getCategory('video')!;
 const tools = getToolsByCategory('video');
 
 const gratis = freeNow(tools);
@@ -109,11 +107,7 @@ const conCifra = tools.filter(
   (t) => t.freePlan.creditsAmount && ['daily', 'weekly', 'monthly'].includes(t.freePlan.creditReset)
 ).length;
 
-const crumbs = [
-  { name: 'Inicio', path: ROUTES.home },
-  { name: 'Categorías', path: ROUTES.categories },
-  { name: category.name, path: ROUTES.category('video') },
-];
+const crumbs = migasDeVertical('/video');
 
 /** Cada respuesta es un dato que esta misma página enseña. */
 const faqs = [

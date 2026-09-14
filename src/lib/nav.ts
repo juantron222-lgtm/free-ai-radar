@@ -18,18 +18,6 @@ const RUTA_PROPIA = new Set(['imagen', 'video', 'modelos', 'codigo', 'agentes'])
  */
 const RUTA_UNIFICADA: Record<string, string> = { musica: '/audio', voz: '/audio' };
 
-/*
- * Y con la ruta cambia el rótulo.
- *
- * La miga de Suno decía «Música IA» y aterrizaba en una página cuyo título es
- * «IA para audio». La ruta estaba bien y el nombre se había quedado en la
- * categoría técnica, que es la que ya no se enseña.
- */
-const NOMBRE_UNIFICADO: Record<string, string> = { musica: 'Audio IA', voz: 'Audio IA' };
-
-export const categoryLabel = (slug: string, fallback: string): string =>
-  NOMBRE_UNIFICADO[slug] ?? fallback;
-
 export const ROUTES = {
   home: '/',
   tools: '/herramientas',
@@ -114,6 +102,32 @@ export const VERTICALS: readonly NavItem[] = [
   { label: 'Agentes', href: ROUTES.agents, description: 'Agentes y plataformas para construirlos' },
   { label: 'Código', href: '/codigo', description: 'Editores, copilotos, agentes y terminales' },
 ];
+
+/*
+ * Una vertical se llama igual en la navegación y en las migas.
+ *
+ * La cabecera, el menú y la portada decían «Imagen» y la miga de la propia
+ * página decía «Categorías / Imagen IA»; en Código, Agentes y Modelos no había
+ * «Categorías» y en Audio ponía «Audio IA». Tres formas de nombrar el mismo
+ * sitio. No hay razón SEO que lo sostenga: el título y el H1 ya dicen «IA para
+ * imágenes», y el nombre de una miga no es donde se posiciona una página.
+ *
+ * `categoryLabel` hace lo mismo para la miga de una ficha: si la categoría
+ * tiene vertical propia —también `musica` y `voz`, que van a /audio—, la miga
+ * lleva el rótulo de la vertical. La taxonomía conserva sus nombres
+ * («Imagen IA», «Música IA») para filtros y búsqueda.
+ */
+export const categoryLabel = (slug: string, fallback: string): string =>
+  VERTICALS.find((v) => v.href === ROUTES.category(slug))?.label ?? fallback;
+
+export function migasDeVertical(href: string): { name: string; path: string }[] {
+  const vertical = VERTICALS.find((v) => v.href === href);
+  if (!vertical) throw new Error(`${href} no es una vertical`);
+  return [
+    { name: 'Inicio', path: ROUTES.home },
+    { name: vertical.label, path: vertical.href },
+  ];
+}
 
 /*
  * Cuatro entradas: las tres cosas que se pueden hacer aquí, y cómo se comprueba.

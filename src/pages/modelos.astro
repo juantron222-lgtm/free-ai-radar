@@ -19,7 +19,7 @@ import {
   withCapability,
 } from '@lib/data/modelos';
 import { faqSchema, itemListSchema } from '@lib/seo/structured-data';
-import { ROUTES } from '@lib/nav';
+import { ROUTES, migasDeVertical } from '@lib/nav';
 
 /**
  * Modelos: por dónde se llega a cada uno.
@@ -136,10 +136,7 @@ const [primero, ...resto] = bloques;
 const conPesosOsi = pesos.filter((t) => t.openSource === 'yes');
 const conLicenciaPropia = pesos.filter((t) => t.openSource === 'weights');
 
-const crumbs = [
-  { name: 'Inicio', path: ROUTES.home },
-  { name: 'Modelos', path: ROUTES.models },
-];
+const crumbs = migasDeVertical(ROUTES.models);
 
 const faqs = [
   {

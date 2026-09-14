@@ -6,7 +6,6 @@ import IntentCard from '@components/catalog/IntentCard.astro';
 import CatalogFilters from '@components/catalog/CatalogFilters.astro';
 import ToolMention from '@components/catalog/ToolMention.astro';
 import { getToolsByCategory } from '@lib/data/catalog';
-import { getCategory } from '@lib/domain/taxonomy';
 import {
   CANDIDATE_FILTERS,
   IMAGE_CAPABILITIES,
@@ -19,7 +18,7 @@ import {
 } from '@lib/data/imagen';
 import { repartirBloques } from '@lib/data/category-page';
 import { faqSchema, itemListSchema } from '@lib/seo/structured-data';
-import { ROUTES } from '@lib/nav';
+import { ROUTES, migasDeVertical } from '@lib/nav';
 
 /**
  * Imagen, reconstruida alrededor de lo que la gente viene a hacer.
@@ -36,7 +35,6 @@ import { ROUTES } from '@lib/nav';
  * Piloto: ninguna otra categoría cambia hasta que esta se revise.
  */
 
-const category = getCategory('imagen')!;
 const tools = getToolsByCategory('imagen');
 
 const gratis = freeNow(tools);
@@ -105,11 +103,7 @@ const conCreditosDocumentados = tools.filter(
   (t) => t.freePlan.creditsAmount && ['daily', 'weekly', 'monthly'].includes(t.freePlan.creditReset)
 ).length;
 
-const crumbs = [
-  { name: 'Inicio', path: ROUTES.home },
-  { name: 'Categorías', path: ROUTES.categories },
-  { name: category.name, path: ROUTES.category('imagen') },
-];
+const crumbs = migasDeVertical('/imagen');
 
 /** Cada respuesta es un dato que esta misma página enseña. */
 const faqs = [

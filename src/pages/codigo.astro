@@ -22,7 +22,7 @@ import {
   type CodeType,
 } from '@lib/data/codigo';
 import { faqSchema, itemListSchema } from '@lib/seo/structured-data';
-import { ROUTES } from '@lib/nav';
+import { ROUTES, migasDeVertical } from '@lib/nav';
 
 /**
  * Código: cinco productos distintos con las mismas dos palabras.
@@ -135,10 +135,7 @@ const leyenda = (['ide', 'copilot', 'agent', 'cli', 'app-builder'] as CodeType[]
   .map((type) => ({ type, cuantos: byType(tools, type).length }))
   .filter((t) => t.cuantos > 0);
 
-const crumbs = [
-  { name: 'Inicio', path: ROUTES.home },
-  { name: 'Código', path: '/codigo' },
-];
+const crumbs = migasDeVertical('/codigo');
 
 const faqs = [
   {
