@@ -765,7 +765,15 @@
   }
 
   /* --- Scrollbars that do not shout --- */
+  /*
+   * `position: relative` hace de la fila el bloque contenedor de lo que va
+   * posicionado dentro. Las casillas `sr-only` de las pastillas del catálogo
+   * son `position: absolute`: sin esto se colocaban respecto a la página, no a
+   * la fila, y las que quedaban fuera de la vista la ensanchaban hasta 642 px
+   * en un móvil de 375, que se podía arrastrar de lado.
+   */
   .scroll-x {
+    position: relative;
     overflow-x: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--line-strong) transparent;
