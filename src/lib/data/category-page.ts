@@ -106,8 +106,27 @@ export function freeAccessLabel(tool: Tool): FreeAccessLabel {
   const amount = creditsAmount?.trim() || null;
   const unpublished = 'No publican la cantidad';
 
+  /*
+   * «Gratis» no es «sin cuotas».
+   *
+   * Aquí todo `free_real` salía como «Sin cuotas», y en la tarjeta del catálogo
+   * ChatGPT decía «Gratis · Sin cuotas» justo encima de «límites de mensajes que
+   * el fabricante no publica». Gemini CLI, con 1.000 peticiones al día
+   * publicadas, decía lo mismo. Ahora: si el fabricante publica la cantidad, se
+   * enseña; si se usa en la nube y tiene límites, se dice que los tiene; y «sin
+   * cuotas» queda para lo que corre en tu equipo.
+   */
   if (tool.freeModel === 'free_real' || tool.freeModel === 'open_source') {
-    return { kind: 'Gratis', amount: null, amountFallback: 'Sin cuotas', tone: 'good' };
+    if (amount) return { kind: 'Gratis', amount, amountFallback: amount, tone: 'good' };
+    if (tool.hosting === 'cloud') {
+      return {
+        kind: 'Gratis',
+        amount: null,
+        amountFallback: tool.freePlan.limits.length > 0 ? 'Con límites de uso' : 'Sin límite publicado',
+        tone: 'good',
+      };
+    }
+    return { kind: 'Gratis', amount: null, amountFallback: 'Sin cuotas en tu equipo', tone: 'good' };
   }
   if (tool.freeModel === 'local') {
     return { kind: 'Gratis en local', amount: null, amountFallback: 'Sin cuotas', tone: 'good' };

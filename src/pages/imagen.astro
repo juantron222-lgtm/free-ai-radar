@@ -1,11 +1,11 @@
 ---
 import type { Tool } from '@lib/domain/tool';
 import BaseLayout from '@layouts/BaseLayout.astro';
+import CabeceraPagina from '@components/site/CabeceraPagina.astro';
 import IntentCard from '@components/catalog/IntentCard.astro';
 import CatalogFilters from '@components/catalog/CatalogFilters.astro';
 import ToolMention from '@components/catalog/ToolMention.astro';
 import { getToolsByCategory } from '@lib/data/catalog';
-import { getCategory } from '@lib/domain/taxonomy';
 import {
   CANDIDATE_FILTERS,
   IMAGE_CAPABILITIES,
@@ -18,7 +18,7 @@ import {
 } from '@lib/data/imagen';
 import { repartirBloques } from '@lib/data/category-page';
 import { faqSchema, itemListSchema } from '@lib/seo/structured-data';
-import { ROUTES } from '@lib/nav';
+import { ROUTES, migasDeVertical } from '@lib/nav';
 
 /**
  * Imagen, reconstruida alrededor de lo que la gente viene a hacer.
@@ -35,7 +35,6 @@ import { ROUTES } from '@lib/nav';
  * Piloto: ninguna otra categoría cambia hasta que esta se revise.
  */
 
-const category = getCategory('imagen')!;
 const tools = getToolsByCategory('imagen');
 
 const gratis = freeNow(tools);
@@ -104,17 +103,13 @@ const conCreditosDocumentados = tools.filter(
   (t) => t.freePlan.creditsAmount && ['daily', 'weekly', 'monthly'].includes(t.freePlan.creditReset)
 ).length;
 
-const crumbs = [
-  { name: 'Inicio', path: ROUTES.home },
-  { name: 'Categorías', path: ROUTES.categories },
-  { name: category.name, path: ROUTES.category('imagen') },
-];
+const crumbs = migasDeVertical('/imagen');
 
 /** Cada respuesta es un dato que esta misma página enseña. */
 const faqs = [
   {
     question: '¿Qué herramientas de imagen puedo usar gratis ahora mismo?',
-    answer: `${gratis.length} de las ${tools.length} que hemos verificado generan imágenes, funcionan en el navegador y tienen acceso gratuito utilizable hoy: ${gratis
+    answer: `${gratis.length} de las ${tools.length} que hemos revisado generan imágenes, funcionan en el navegador y tienen acceso gratuito utilizable hoy: ${gratis
       .slice(0, 5)
       .map((t) => t.name)
       .join(', ')}. Las herramientas locales quedan fuera de esa lista porque hay que instalarlas antes de generar nada.`,
@@ -135,39 +130,47 @@ const faqs = [
   title={`IA para imágenes: ${tools.length} herramientas revisadas y qué dan gratis`}
   description={`Cuáles generan imágenes gratis hoy, cuáles piden instalación y qué da exactamente cada plan gratuito. ${tools.length} revisadas contra la página oficial de cada fabricante.`}
   crumbs={crumbs}
+  migasEnCabecera
   schemas={[itemListSchema(tools, 'Herramientas de imagen con IA'), faqSchema(faqs)]}
 >
+  {/*
+    La cabecera de la vertical es la del resto del sitio.
+
+    Cada vertical tenía la suya dentro del contenedor —`vert-hero`, con
+    otro tamaño de titular y las migas sueltas encima—. Ahora es la banda
+    común, con las migas dentro y los atajos a los bloques como pastillas.
+  */}
+  <CabeceraPagina titulo="IA para imágenes" crumbs={crumbs}>
+    {/*
+      Un párrafo con dos frases: la promesa y el método.
+      Van en el mismo `<p>` para que en el escritorio se lean seguidas, como
+      siempre; el `<span>` sólo existe para que en el móvil la segunda baje de
+      tamaño y salte de línea. Nada de lo que esta página dice sobre cómo
+      trabaja se esconde según el ancho de la pantalla: pesa menos donde el
+      alto es el recurso escaso, y nada más.
+    */}
+    <p class="vert-lede">
+      Qué hace cada herramienta, qué te deja hacer sin pagar y cuánto cuesta empezar.{' '}
+      <span class="vert-lede-method">
+        Sin puntuaciones: lo que hay debajo de cada tarjeta es lo que dice la página
+        oficial del fabricante.
+      </span>
+    </p>
+    {/*
+      Un `nav` con nombre, no un párrafo de enlaces.
+      Es navegación dentro de la página, así que decirlo cuesta un atributo y
+      se lo gana quien usa un lector de pantalla: aparece en la lista de
+      regiones en vez de como texto suelto. De paso da un asidero estable —el
+      nombre accesible— a la prueba que vigila el alto en el móvil, en lugar
+      de una clase CSS que cualquiera puede renombrar.
+    */}
+    <nav class="vert-jump" aria-label="Ir a un bloque">
+      {bloques.map((b) => <a href={`#${b.id}`}>{b.titulo}</a>)}
+      <a href="#todas">Todas</a>
+    </nav>
+  </CabeceraPagina>
+
   <div class="page vert">
-    <header class="vert-hero">
-      <h1 class="vert-h1">IA para imágenes</h1>
-      {/*
-        Un párrafo con dos frases: la promesa y el método.
-        Van en el mismo `<p>` para que en el escritorio se lean seguidas, como
-        siempre; el `<span>` sólo existe para que en el móvil la segunda baje de
-        tamaño y salte de línea. Nada de lo que esta página dice sobre cómo
-        trabaja se esconde según el ancho de la pantalla: pesa menos donde el
-        alto es el recurso escaso, y nada más.
-      */}
-      <p class="vert-lede">
-        Qué hace cada herramienta, qué te deja hacer sin pagar y cuánto cuesta empezar.{' '}
-        <span class="vert-lede-method">
-          Sin puntuaciones: lo que hay debajo de cada tarjeta es lo que dice la página
-          oficial del fabricante.
-        </span>
-      </p>
-      {/*
-        Un `nav` con nombre, no un párrafo de enlaces.
-        Es navegación dentro de la página, así que decirlo cuesta un atributo y
-        se lo gana quien usa un lector de pantalla: aparece en la lista de
-        regiones en vez de como texto suelto. De paso da un asidero estable —el
-        nombre accesible— a la prueba que vigila el alto en el móvil, en lugar
-        de una clase CSS que cualquiera puede renombrar.
-      */}
-      <nav class="vert-jump" aria-label="Ir a un bloque">
-        {bloques.map((b) => <a href={`#${b.id}`}>{b.titulo}</a>)}
-        <a href="#todas">Todas</a>
-      </nav>
-    </header>
 
     <!-- ------------------------------------------------------------------ -->
     {bloques.map((bloque) => (

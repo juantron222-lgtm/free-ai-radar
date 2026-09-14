@@ -54,6 +54,9 @@ const PAGES = [
   '/comparar?t=lovable,bolt-new,v0-by-vercel',
   '/herramientas?q=quitar+fondo',
   '/noticias',
+  // Una parcialmente verificada (aviso ámbar) y otra con herramientas afectadas.
+  '/noticias/accomplish-sandbox-claude-code-cursor',
+  '/noticias/claude-sonnet-5-pasa-a-ser-el-modelo-por-defecto-del-plan-gratuito',
   '/metodologia',
   '/colecciones',
   '/guias',

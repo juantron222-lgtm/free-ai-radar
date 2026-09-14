@@ -30,7 +30,7 @@ export const VERTICALES = [
 
 export type VerticalId = (typeof VERTICALES)[number]['id'];
 
-const enVertical = (tool: Tool, slugs: readonly string[]): boolean =>
+export const enVertical = (tool: Tool, slugs: readonly string[]): boolean =>
   slugs.includes(tool.categorySlug) || tool.secondaryCategories.some((c) => slugs.includes(c));
 
 /**

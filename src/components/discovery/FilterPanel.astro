@@ -24,7 +24,7 @@ const HARD_REQUIREMENTS = [
     field: 'freePlan.commercialUse',
   },
   { key: 'oss', label: 'Open source', hint: 'Código o pesos abiertos' },
-  { key: 'fresh', label: 'Verificada hace poco', hint: 'Revisada en los últimos 4 meses' },
+  { key: 'fresh', label: 'Revisada hace poco', hint: 'Revisada en los últimos 4 meses' },
 ] as const;
 
 /**
@@ -331,9 +331,47 @@ const SUSTITUTOS: Record<string, { key: string; label: (n: number) => string; hi
 </form>
 
 <style>
+  /*
+   * Buscar, condiciones y, en una sola fila, «Más filtros» y el orden.
+   *
+   * «Más filtros» era una barra a todo el ancho y el orden un desplegable solo
+   * en la fila de abajo: dos franjas para dos controles pequeños entre los
+   * filtros y los resultados. En una fila dejan claro que son lo mismo —ajustes
+   * de la lista— y suben las tarjetas. Al abrir «Más filtros», su panel ocupa
+   * el ancho entero.
+   */
   .filters {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-2xs);
+    align-items: start;
+  }
+
+  @media (min-width: 36rem) {
+    .filters {
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .filters-search,
+    .filters-quick,
+    .filters-cobertura {
+      grid-column: 1 / -1;
+    }
+
+    .filters-more {
+      grid-column: 1;
+      justify-self: start;
+    }
+
+    .filters-more[open] {
+      grid-column: 1 / -1;
+      justify-self: stretch;
+    }
+
+    .filters-bar {
+      grid-column: 2;
+      justify-content: flex-end;
+    }
   }
 
   .filters-search {
@@ -431,8 +469,8 @@ const SUSTITUTOS: Record<string, { key: string; label: (n: number) => string; hi
   }
 
   .filters-cobertura {
-    margin: var(--space-2xs) 0 0;
-    max-width: 64ch;
+    margin: 0;
+    max-width: 72ch;
     font-size: 0.75rem;
     line-height: 1.5;
     color: var(--ink-subtle);
@@ -454,11 +492,11 @@ const SUSTITUTOS: Record<string, { key: string; label: (n: number) => string; hi
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.6rem 0.85rem;
+    padding: 0.45rem 0.85rem;
     cursor: pointer;
     font-size: 0.875rem;
     font-weight: 600;
-    min-height: 44px;
+    min-height: 40px;
     list-style: none;
   }
 
@@ -468,7 +506,7 @@ const SUSTITUTOS: Record<string, { key: string; label: (n: number) => string; hi
 
   .filters-more > summary::after {
     content: '';
-    margin-inline-start: auto;
+    margin-inline-start: 0.35rem;
     width: 0.5rem;
     height: 0.5rem;
     border-right: 1.8px solid currentColor;

@@ -363,7 +363,7 @@ const VERTICALES_VISIBLES = [
     wmknown: 'con la marca de agua comprobada',
     comm: 'con uso comercial',
     oss: 'open source',
-    fresh: 'verificadas hace poco',
+    fresh: 'revisadas hace poco',
   };
 
   /**
@@ -405,7 +405,7 @@ const VERTICALES_VISIBLES = [
 
     intentEl.hidden = intents.length === 0;
     intentEl.textContent = intents.length
-      ? `Entendido como: ${intents.join(' + ')}. Se muestran las que lo cumplen según su ficha verificada.`
+      ? `Entendido como: ${intents.join(' + ')}. Se muestran las que lo cumplen según su ficha.`
       : '';
 
     const visible = new Set(matched.map((e) => e.slug));
@@ -450,7 +450,7 @@ const VERTICALES_VISIBLES = [
          * palabras sería mandar a alguien a dar vueltas.
          */
         emptyReasonEl.textContent = intents.length
-          ? `Hemos entendido “${state.q}” como ${intents.join(' + ')}, y ninguna ficha del catálogo lo cumple con datos verificados. Preferimos decírtelo a enseñarte algo parecido.`
+          ? `Hemos entendido “${state.q}” como ${intents.join(' + ')}, y ninguna ficha del catálogo lo cumple con datos confirmados. Preferimos decírtelo a enseñarte algo parecido.`
           : `No encontramos nada para “${state.q}”. Prueba con el tipo de trabajo (“quitar fondo”, “transcribir”, “crear una app”) en vez del nombre del producto.`;
         relaxBtn.hidden = true;
       } else {

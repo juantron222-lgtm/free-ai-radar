@@ -33,23 +33,30 @@ test.describe('portada', () => {
     });
   }
 
-  test('la primera acción útil entra en la primera pantalla', async ({ page }) => {
+  test('la primera pantalla pregunta y deja elegir entre las seis verticales', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto('/');
 
     /*
-     * El buscador y las seis intenciones son lo que alguien puede *hacer*
-     * nada más llegar. Si caen por debajo del pliegue, la portada se ha vuelto
-     * a llenar de preámbulo.
+     * Una pregunta, seis respuestas y un buscador. Sin fecha, sin cifras y sin
+     * párrafos antes de poder elegir: eso empieza después de esta pantalla.
      */
-    const buscador = page.getByRole('search').first();
-    await expect(buscador).toBeVisible();
+    await expect(page.locator('h1')).toHaveText('¿Qué clase de IA estás buscando?');
 
-    const primeraIntencion = page.getByRole('link', { name: /crear imágenes/i });
-    const top = await primeraIntencion.evaluate(
-      (el) => el.getBoundingClientRect().top + window.scrollY
-    );
-    expect(top, 'la primera intención debe verse sin desplazar').toBeLessThan(812);
+    const verticales = page.getByRole('navigation', { name: 'Elegir por clase de IA' }).getByRole('link');
+    await expect(verticales).toHaveText([/Imagen/, /Vídeo/, /Audio/, /Agentes/, /Modelos/, /Código/]);
+    const hrefs = await verticales.evaluateAll((enlaces) => enlaces.map((a) => a.getAttribute('href')));
+    expect(hrefs).toEqual(['/imagen', '/video', '/audio', '/agentes', '/modelos', '/codigo']);
+
+    const fondo = await verticales.last().evaluate((el) => el.getBoundingClientRect().bottom);
+    expect(fondo, 'la sexta vertical cae por debajo del pliegue').toBeLessThan(812);
+
+    const hero = page.locator('.hero');
+    await expect(hero.getByRole('search')).toBeVisible();
+    await expect(hero).not.toContainText(/revisado|verificad|metodolog/i);
+
+    // Las tres puertas siguen, después de la primera pantalla.
+    await expect(page.locator('.puertas section h2')).toHaveText([/encontrar una ia/i, /qué está pasando/i, /comparar/i]);
   });
 
   test('el titular no pega dos palabras', async ({ page }) => {
@@ -78,31 +85,69 @@ test.describe('portada', () => {
     expect(new Set(slugs).size, `repetidas: ${slugs.join(', ')}`).toBe(slugs.length);
   });
 
-  test('el módulo principal enseña varias categorías, no una', async ({ page }) => {
-    await page.goto('/');
-    const nombres = await page.evaluate(() =>
-      [...document.querySelectorAll('#prueba-title')]
-        .map((h) => h.closest('section'))
-        .flatMap((s) => [...(s?.querySelectorAll('.ic-name') ?? [])])
-        .map((n) => n.textContent?.trim() ?? '')
-    );
-    expect(nombres.length).toBeGreaterThanOrEqual(4);
-    expect(new Set(nombres).size).toBe(nombres.length);
+  test('en la portada sólo hay un buscador, el de la hero', async ({ page }) => {
+    /*
+     * Había tres: la cabecera, la hero y la puerta «Encontrar una IA». En el
+     * resto del sitio la cabecera conserva el suyo.
+     */
+    for (const ancho of [375, 1280]) {
+      await page.setViewportSize({ width: ancho, height: 900 });
+      await page.goto('/');
+      await expect(page.locator('main [role="search"]'), `a ${ancho} px`).toHaveCount(1);
+      await expect(page.locator('.site-header .header-search')).toHaveCount(0);
+      await expect(page.locator('#search-toggle')).toHaveCount(0);
+      await expect(page.locator('.hero [role="search"] input[name="q"]')).toBeVisible();
+    }
+
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto('/comparar');
+    await expect(page.locator('.site-header .header-search')).toBeVisible();
   });
 
-  test('el nombre de la tarjeta no se estruja en móvil', async ({ page }) => {
+  test('las seis verticales no se repiten más abajo', async ({ page }) => {
+    await page.goto('/');
+    for (const ruta of ['/imagen', '/video', '/audio', '/agentes', '/modelos', '/codigo']) {
+      await expect(page.locator(`main a[href="${ruta}"]`), ruta).toHaveCount(1);
+    }
+  });
+
+  test('«Encontrar una IA» filtra, recomienda y lleva al catálogo', async ({ page }) => {
+    await page.goto('/');
+    const puerta = page.locator('.puerta-buscar');
+
+    const filtros = puerta.getByRole('navigation', { name: 'Filtros rápidos' }).getByRole('link');
+    await expect(filtros).toHaveText([/Sin tarjeta\s*\d+/, /Sin registro\s*\d+/, /Uso comercial\s*\d+/, /Open source\s*\d+/]);
+    const hrefs = await filtros.evaluateAll((enlaces) => enlaces.map((a) => a.getAttribute('href')));
+    expect(hrefs).toEqual(['/herramientas?nocard=1', '/herramientas?nosignup=1', '/herramientas?comm=1', '/herramientas?oss=1']);
+
+    await expect(puerta.getByRole('link', { name: /Ver todas las herramientas/ })).toHaveAttribute('href', '/herramientas');
+
+    // Y cada filtro es una URL del catálogo, no un formulario.
+    await filtros.first().click();
+    await expect(page).toHaveURL(/\/herramientas\?nocard=1$/);
+  });
+
+  test('la tabla de la portada enseña herramientas distintas', async ({ page }) => {
+    await page.goto('/');
+    const nombres = await page.locator('.evidencia tbody th a').allInnerTexts();
+    expect(nombres.length, 'la portada debe enseñar varias fichas').toBeGreaterThanOrEqual(4);
+    expect(new Set(nombres).size, `repetidas: ${nombres.join(', ')}`).toBe(nombres.length);
+  });
+
+  test('el nombre de la herramienta no se estruja en móvil', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto('/');
 
     /*
-     * El defecto medido: con el nombre y la etiqueta de acceso en la misma
-     * fila, «Amazon Q Developer» se partía letra a letra para dejarle sitio a
-     * «Free tier». Se comprueba el ancho disponible, no la apariencia.
+     * El defecto medido en las tarjetas: con el nombre y la etiqueta de acceso
+     * en la misma fila, «Amazon Q Developer» se partía letra a letra. La tabla
+     * de la portada se apila en móvil justamente para que eso no pase; se
+     * comprueba el ancho disponible, no la apariencia.
      */
-    const anchos = await page.evaluate(() =>
-      [...document.querySelectorAll('.ic-name')].map((n) => ({
-        texto: n.textContent?.trim().slice(0, 24) ?? '',
-        ancho: Math.round(n.getBoundingClientRect().width),
+    const anchos = await page.locator('.evidencia tbody th').evaluateAll((celdas) =>
+      celdas.map((c) => ({
+        texto: (c.textContent ?? '').trim().slice(0, 24),
+        ancho: Math.round(c.getBoundingClientRect().width),
       }))
     );
 
@@ -112,11 +157,16 @@ test.describe('portada', () => {
     }
   });
 
-  test('cada tarjeta lleva su distintivo visual', async ({ page }) => {
+  test('cada fila lleva a su ficha y contesta las tres condiciones', async ({ page }) => {
     await page.goto('/');
-    const tarjetas = await page.locator('#prueba-title').locator('..').locator('..').locator('article.ic').count();
-    const logos = await page.locator('article.ic .tool-logo').count();
-    expect(logos, 'toda tarjeta necesita logo o monograma').toBeGreaterThanOrEqual(tarjetas);
+    const filas = page.locator('.evidencia tbody tr');
+    const cuantas = await filas.count();
+    expect(cuantas, 'la tabla necesita filas').toBeGreaterThanOrEqual(3);
+
+    for (let i = 0; i < cuantas; i++) {
+      await expect(filas.nth(i).locator('th a')).toHaveAttribute('href', /^\/herramientas\//);
+      await expect(filas.nth(i).locator('.cond')).toHaveCount(3);
+    }
   });
 
 });
@@ -147,7 +197,7 @@ test.describe('portada sin decisión de cookies', () => {
     const medida = await page.evaluate(() => {
       const root = document.getElementById('consent-root');
       const h1 = document.querySelector('h1');
-      const buscador = document.querySelector('.hero-search');
+      const buscador = document.querySelector('.hero-verticales');
       return {
         altoBanner: root ? Math.round(root.getBoundingClientRect().height) : 0,
         viewport: window.innerHeight,
@@ -165,7 +215,7 @@ test.describe('portada sin decisión de cookies', () => {
     expect(medida.h1Bottom, 'el titular tiene que quedar por encima de la barra').toBeLessThan(
       medida.topBanner
     );
-    expect(medida.buscadorBottom, 'y el buscador también').toBeLessThan(medida.topBanner);
+    expect(medida.buscadorBottom, 'y las seis verticales también').toBeLessThan(medida.topBanner);
   });
 
   test('las dos opciones de consentimiento son igual de alcanzables', async ({ page }) => {

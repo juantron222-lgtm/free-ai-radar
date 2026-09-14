@@ -2,7 +2,7 @@
   "id": "/?source=pwa",
   "name": "Free AI Radar",
   "short_name": "AI Radar",
-  "description": "IA gratis verificada de verdad: qué es gratis, con qué límites y a qué coste real.",
+  "description": "Qué IA es gratis de verdad: con qué límites y a qué coste real.",
   "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",

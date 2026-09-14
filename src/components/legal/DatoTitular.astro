@@ -1,0 +1,38 @@
+---
+import { TITULAR, type ClaveTitular } from '@lib/legal/titular';
+
+interface Props {
+  campo: ClaveTitular;
+}
+
+const { campo } = Astro.props;
+const dato = TITULAR[campo];
+
+/*
+ * Un hueco que se ve como hueco.
+ *
+ * Sin dato no se escribe nada que lo parezca: ni un nombre genérico, ni «Free
+ * AI Radar» haciéndose pasar por razón social. Se marca el sitio con lo que
+ * falta y quién tiene que aportarlo. La etiqueta va tal cual —«NIF», no «nif»—:
+ * minusculizar siglas fue un error de este mismo sitio.
+ */
+---
+
+{dato.valor ? (
+  <span data-titular={campo}>{dato.valor}</span>
+) : (
+  <mark class="dato-pendiente" data-titular={campo} data-pendiente title={dato.porQue}>
+    Pendiente · lo aporta el titular — {dato.etiqueta}{dato.obligatorio ? '' : ' (sólo si procede)'}
+  </mark>
+)}
+
+<style>
+  .dato-pendiente {
+    padding: 0.05em 0.4em;
+    border: 1px dashed var(--warn-line);
+    border-radius: var(--radius-s);
+    background: var(--warn-soft);
+    color: var(--ink);
+    font-size: 0.9em;
+  }
+</style>

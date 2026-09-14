@@ -1,6 +1,7 @@
 ---
 import type { Tool } from '@lib/domain/tool';
 import BaseLayout from '@layouts/BaseLayout.astro';
+import CabeceraPagina from '@components/site/CabeceraPagina.astro';
 import IntentCard from '@components/catalog/IntentCard.astro';
 import ToolMention from '@components/catalog/ToolMention.astro';
 import CatalogFilters from '@components/catalog/CatalogFilters.astro';
@@ -21,7 +22,7 @@ import {
   type CodeType,
 } from '@lib/data/codigo';
 import { faqSchema, itemListSchema } from '@lib/seo/structured-data';
-import { ROUTES } from '@lib/nav';
+import { ROUTES, migasDeVertical } from '@lib/nav';
 
 /**
  * Código: cinco productos distintos con las mismas dos palabras.
@@ -134,10 +135,7 @@ const leyenda = (['ide', 'copilot', 'agent', 'cli', 'app-builder'] as CodeType[]
   .map((type) => ({ type, cuantos: byType(tools, type).length }))
   .filter((t) => t.cuantos > 0);
 
-const crumbs = [
-  { name: 'Inicio', path: ROUTES.home },
-  { name: 'Código', path: '/codigo' },
-];
+const crumbs = migasDeVertical('/codigo');
 
 const faqs = [
   {
@@ -168,24 +166,32 @@ const faqs = [
   title={`Programar con IA: ${tools.length} herramientas y qué dan gratis`}
   description={`Editores, copilotos, agentes, terminales y constructores de aplicaciones, separados por lo que son. ${tools.length} revisadas contra la documentación oficial de cada fabricante.`}
   crumbs={crumbs}
+  migasEnCabecera
   schemas={[itemListSchema(tools, 'Herramientas de programación con IA'), faqSchema(faqs)]}
 >
+  {/*
+    La cabecera de la vertical es la del resto del sitio.
+
+    Cada vertical tenía la suya dentro del contenedor —`vert-hero`, con
+    otro tamaño de titular y las migas sueltas encima—. Ahora es la banda
+    común, con las migas dentro y los atajos a los bloques como pastillas.
+  */}
+  <CabeceraPagina titulo="Programar con IA" crumbs={crumbs}>
+    <p class="vert-lede">
+      Qué clase de herramienta es cada una, y qué puedes hacer sin pagar.{' '}
+      <span class="vert-lede-method">
+        Un editor, un copiloto, un agente y un constructor de aplicaciones no
+        son lo mismo.
+      </span>
+    </p>
+    <nav class="vert-jump" aria-label="Ir a un bloque">
+      <a href="#tipos">Qué es cada cosa</a>
+      {bloques.map((b) => <a href={`#${b.id}`}>{b.titulo}</a>)}
+      <a href="#todas">Todas</a>
+    </nav>
+  </CabeceraPagina>
+
   <div class="page vert">
-    <header class="vert-hero">
-      <h1 class="vert-h1">Programar con IA</h1>
-      <p class="vert-lede">
-        Qué clase de herramienta es cada una, y qué puedes hacer sin pagar.{' '}
-        <span class="vert-lede-method">
-          Un editor, un copiloto, un agente y un constructor de aplicaciones no
-          son lo mismo.
-        </span>
-      </p>
-      <nav class="vert-jump" aria-label="Ir a un bloque">
-        <a href="#tipos">Qué es cada cosa</a>
-        {bloques.map((b) => <a href={`#${b.id}`}>{b.titulo}</a>)}
-        <a href="#todas">Todas</a>
-      </nav>
-    </header>
 
     <!-- ------------------------------------------------------------------ -->
     <!-- ------------------------------------------------------------------ -->

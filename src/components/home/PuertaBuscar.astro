@@ -1,0 +1,431 @@
+---
+import ToolLogo from '@components/tools/ToolLogo.astro';
+import type { Conteo, Recomendada } from '@lib/data/portada';
+import { ROUTES } from '@lib/nav';
+
+interface Props {
+  recomendadas: Recomendada[];
+  conteos: Conteo[];
+}
+
+const { recomendadas, conteos } = Astro.props;
+
+/**
+ * La primera puerta: encontrar una IA, para quien todavía no sabe el nombre.
+ *
+ * Llevaba otra caja de búsqueda, y la hero ya tiene una justo encima: dos cajas
+ * iguales a un desplazamiento de distancia. Lo que no hace la hero es lo que
+ * queda aquí: filtrar por la condición que uno no negocia —tarjeta, registro,
+ * uso comercial, código abierto— y ofrecer cinco con las que empezar, con el
+ * dato que decide a la vista y no una promesa.
+ */
+
+/* Un filtro que devuelve cero es un callejón: no se ofrece. */
+const filtros = conteos.filter((c) => c.n > 0);
+
+/*
+ * La nota de «sin verificar» sólo cuando hace falta.
+ *
+ * Explica un valor que puede no aparecer: si ninguna de las cinco lo tiene, es
+ * una línea más que leer para nada.
+ */
+const haySinVerificar = recomendadas.some(({ fila }) =>
+  [fila.tarjeta, fila.registro, fila.comercial].some((c) => c.sinConfirmar)
+);
+
+const COLUMNAS = ['Herramienta', 'Qué da gratis', '¿Tarjeta?', '¿Registro?', '¿Uso comercial?'];
+---
+
+<section class="puerta puerta-buscar" aria-labelledby="puerta-buscar-t">
+  <header class="puerta-head">
+    <h2 id="puerta-buscar-t" class="puerta-title">Encontrar una IA</h2>
+    <p class="puerta-lede">Filtra por lo que no estás dispuesto a dar, o empieza por una de estas.</p>
+  </header>
+
+  {filtros.length > 0 && (
+    <nav class="filtros" aria-labelledby="filtros-t">
+      <h3 id="filtros-t" class="puerta-sub">Filtros rápidos</h3>
+      {/*
+        Enlaces, no casillas.
+
+        Cada uno es la URL del catálogo con ese filtro puesto: funciona sin
+        JavaScript, se puede compartir y el número es el que devuelve al
+        pulsarlo (lo comprueba `web-v2-portada.test.ts`). Casillas que marcar
+        aquí para luego pulsar «Buscar» serían otro formulario encima de la hero.
+      */}
+      <ul class="filtros-lista">
+        {filtros.map((c) => (
+          <li>
+            <a href={c.href} class="filtro">
+              <span class="filtro-etiqueta">{c.etiqueta}</span>
+              <span class="filtro-n tnum">{c.n}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )}
+
+  {recomendadas.length > 0 && (
+    <div class="recomendadas">
+      <div class="recomendadas-head">
+        <h3 class="puerta-sub" id="recomendadas-t">Para empezar hoy, sin pagar</h3>
+        <p class="recomendadas-criterio">
+          Una por clase de IA: se usan gratis sin instalar nada y su acceso está comprobado.
+        </p>
+      </div>
+
+      <div class="tabla-wrap">
+        <table class="evidencia" aria-labelledby="recomendadas-t" role="table">
+          <thead role="rowgroup">
+            <tr role="row">
+              {COLUMNAS.map((c) => <th scope="col" role="columnheader">{c}</th>)}
+            </tr>
+          </thead>
+          <tbody role="rowgroup">
+            {recomendadas.map(({ tool, fila, clase }) => (
+              <tr role="row">
+                <th scope="row" role="rowheader">
+                  <span class="rec">
+                    <ToolLogo tool={tool} size="sm" />
+                    <span class="rec-textos">
+                      <a href={ROUTES.tool(fila.slug)}>{fila.nombre}</a>
+                      <span class="rec-clase">{clase}</span>
+                    </span>
+                  </span>
+                </th>
+                <td role="cell">
+                  <span class="acceso-tipo">{fila.tipoDeAcceso}</span>
+                  <span class="acceso-cantidad">{fila.cantidad}</span>
+                </td>
+                <td role="cell" class="celda-cond" data-etiqueta="Tarjeta"><span class="cond" data-tono={fila.tarjeta.tono}>{fila.tarjeta.etiqueta}</span></td>
+                <td role="cell" class="celda-cond" data-etiqueta="Registro"><span class="cond" data-tono={fila.registro.tono}>{fila.registro.etiqueta}</span></td>
+                <td role="cell" class="celda-cond" data-etiqueta="Uso comercial"><span class="cond" data-tono={fila.comercial.tono}>{fila.comercial.etiqueta}</span></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )}
+
+  <p class="puerta-pie">
+    <a href={ROUTES.tools} class="btn btn-secondary">
+      Ver todas las herramientas <span aria-hidden="true">→</span>
+    </a>
+    {haySinVerificar && (
+      <span class="puerta-nota">«Sin verificar» significa que no lo hemos comprobado, no que sea que no.</span>
+    )}
+  </p>
+</section>
+
+<style>
+  .puerta {
+    display: grid;
+    gap: var(--space-m);
+    align-content: start;
+    padding: var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface);
+    min-width: 0;
+  }
+
+  @media (min-width: 48rem) {
+    .puerta {
+      padding: var(--space-m);
+    }
+  }
+
+  .puerta-head {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .puerta-title {
+    margin: 0;
+    font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+  }
+
+  .puerta-lede {
+    margin: 0;
+    color: var(--ink-muted);
+    max-width: 52ch;
+  }
+
+  .puerta-sub {
+    margin: 0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .filtros {
+    display: grid;
+    gap: var(--space-2xs);
+    container-type: inline-size;
+  }
+
+  /*
+   * Cuatro filtros, 2×2 en móvil y en fila en cuanto caben.
+   *
+   * Son la misma familia visual que los seis botones de la hero, un escalón por
+   * debajo: borde, 48 px de alto y el número a la derecha. Como pastillas de
+   * 36 px quedaban por debajo de lo que un pulgar acierta con comodidad y se
+   * leían como etiquetas, no como algo que se pulsa.
+   *
+   * Las columnas dependen del ancho de la puerta, no de la pantalla: a 1024 px
+   * la puerta es la columna estrecha y cuatro en fila partían «Uso comercial»
+   * en dos líneas. Medido: cada casilla necesita unos 145 px.
+   */
+  .filtros-lista {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-3xs);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @container (min-width: 18.5rem) {
+    .filtros-lista {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @container (min-width: 37rem) {
+    .filtros-lista {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .filtro {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+    min-height: 48px;
+    padding: 0.5rem 0.6rem 0.5rem 0.75rem;
+    font-size: 0.9375rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-m);
+    background: var(--paper);
+    color: var(--ink-strong);
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+      border-color 140ms ease,
+      color 140ms ease;
+  }
+
+  .filtro:hover {
+    border-color: var(--signal);
+    color: var(--signal-strong);
+  }
+
+  .filtro:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .filtro-n {
+    font-weight: 500;
+    color: var(--ink-muted);
+  }
+
+  .recomendadas {
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .recomendadas-head {
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  .recomendadas-criterio {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .tabla-wrap {
+    min-width: 0;
+  }
+
+  .evidencia {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+
+  .evidencia th,
+  .evidencia td {
+    text-align: left;
+    vertical-align: middle;
+    padding: 0.6rem 0.5rem;
+    border-block-end: 1px solid var(--line-hairline);
+  }
+
+  .evidencia thead th {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    white-space: nowrap;
+  }
+
+  .evidencia tbody tr:last-child th,
+  .evidencia tbody tr:last-child td {
+    border-block-end: 0;
+  }
+
+  /*
+   * El enlace ocupa la fila entera del nombre y el logo.
+   *
+   * Sólo el texto medía 20 px de alto en móvil; así el objetivo es el bloque
+   * del logo, sin añadir un segundo enlace a la misma ficha.
+   */
+  .rec {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .rec-textos {
+    display: grid;
+    min-width: 0;
+  }
+
+  .rec a {
+    font-weight: 650;
+    color: var(--ink-strong);
+    text-decoration: none;
+  }
+
+  .rec a:hover {
+    text-decoration: underline;
+  }
+
+  .rec a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .rec-clase {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+  }
+
+  .acceso-tipo {
+    display: block;
+    font-weight: 600;
+  }
+
+  .acceso-cantidad {
+    display: block;
+    color: var(--ink-muted);
+  }
+
+  .puerta-pie {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2xs) var(--space-s);
+    margin: 0;
+  }
+
+  .puerta-nota {
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+  }
+
+  /*
+   * En móvil la tabla se convierte en fichas, con la forma de la tarjeta del
+   * catálogo.
+   *
+   * Cinco columnas en 375 px obligan a desplazarse en horizontal justo donde se
+   * está decidiendo. Apiladas con una etiqueta por línea, cada herramienta
+   * ocupaba siete líneas y las cinco llenaban tres pantallas. Ahora son el
+   * nombre, lo que da gratis y las tres condiciones en una fila, como en
+   * `/herramientas`: la misma lectura en los dos sitios. Los roles explícitos
+   * mantienen la semántica de tabla, que el cambio de `display` se lleva por
+   * delante en varios navegadores.
+   */
+  @media (max-width: 47.99rem) {
+    .evidencia,
+    .evidencia tbody,
+    .evidencia th,
+    .evidencia td {
+      display: block;
+    }
+
+    .evidencia thead {
+      display: none;
+    }
+
+    .evidencia tbody tr {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.4rem 0.5rem;
+      padding-block: 0.8rem;
+      border-block-end: 1px solid var(--line);
+    }
+
+    .evidencia tbody tr:first-child {
+      padding-block-start: 0;
+    }
+
+    .evidencia tbody tr:last-child {
+      border-block-end: 0;
+      padding-block-end: 0;
+    }
+
+    .evidencia th,
+    .evidencia td {
+      padding: 0;
+      border-block-end: 0;
+    }
+
+    .evidencia tbody th,
+    .evidencia tbody td:not(.celda-cond) {
+      grid-column: 1 / -1;
+    }
+
+    .evidencia tbody th {
+      font-size: 1rem;
+    }
+
+    .evidencia .celda-cond {
+      display: grid;
+      gap: 0.1rem;
+      min-width: 0;
+      font-size: 0.8125rem;
+    }
+
+    .evidencia .celda-cond::before {
+      content: attr(data-etiqueta);
+      font-size: 0.6875rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    .acceso-tipo,
+    .acceso-cantidad {
+      display: inline;
+    }
+
+    .acceso-cantidad::before {
+      content: ' · ';
+    }
+  }
+</style>

@@ -1,6 +1,7 @@
 ---
 import type { Tool } from '@lib/domain/tool';
 import BaseLayout from '@layouts/BaseLayout.astro';
+import CabeceraPagina from '@components/site/CabeceraPagina.astro';
 import IntentCard from '@components/catalog/IntentCard.astro';
 import ToolMention from '@components/catalog/ToolMention.astro';
 import CatalogFilters from '@components/catalog/CatalogFilters.astro';
@@ -15,7 +16,7 @@ import {
   withCapability,
 } from '@lib/data/audio';
 import { faqSchema, itemListSchema } from '@lib/seo/structured-data';
-import { ROUTES } from '@lib/nav';
+import { ROUTES, migasDeVertical } from '@lib/nav';
 
 /**
  * Audio: una página, dos categorías técnicas, y bloques sólo donde hay
@@ -105,11 +106,7 @@ const bloques = repartirBloques(declarados);
 
 const sinComercial = tools.filter((t) => t.freePlan.commercialUse === 'no');
 
-const crumbs = [
-  { name: 'Inicio', path: ROUTES.home },
-  { name: 'Categorías', path: ROUTES.categories },
-  { name: 'Audio IA', path: '/audio' },
-];
+const crumbs = migasDeVertical('/audio');
 
 /** Cada respuesta es un dato que esta misma página enseña. */
 const faqs = [
@@ -136,24 +133,32 @@ const faqs = [
   title={`IA para audio: ${tools.length} herramientas revisadas y qué dan gratis`}
   description={`Música, voz, clonación y transcripción con IA. Qué da cada plan gratuito, cuáles permiten uso comercial y cuáles se ejecutan en tu equipo. ${tools.length} revisadas contra la página oficial de cada fabricante.`}
   crumbs={crumbs}
+  migasEnCabecera
   schemas={[itemListSchema(tools, 'Herramientas de audio con IA'), faqSchema(faqs)]}
 >
+  {/*
+    La cabecera de la vertical es la del resto del sitio.
+
+    Cada vertical tenía la suya dentro del contenedor —`vert-hero`, con
+    otro tamaño de titular y las migas sueltas encima—. Ahora es la banda
+    común, con las migas dentro y los atajos a los bloques como pastillas.
+  */}
+  <CabeceraPagina titulo="IA para audio" crumbs={crumbs}>
+    <p class="vert-lede">
+      Música, voz, clonación y transcripción. Qué da cada plan gratuito y si puedes
+      publicarlo.{' '}
+      <span class="vert-lede-method">
+        Sin puntuaciones: lo que hay debajo de cada tarjeta es lo que dice la página
+        oficial del fabricante.
+      </span>
+    </p>
+    <nav class="vert-jump" aria-label="Ir a un bloque">
+      {bloques.map((b) => <a href={`#${b.id}`}>{b.titulo}</a>)}
+      <a href="#todas">Todas</a>
+    </nav>
+  </CabeceraPagina>
+
   <div class="page vert">
-    <header class="vert-hero">
-      <h1 class="vert-h1">IA para audio</h1>
-      <p class="vert-lede">
-        Música, voz, clonación y transcripción. Qué da cada plan gratuito y si puedes
-        publicarlo.{' '}
-        <span class="vert-lede-method">
-          Sin puntuaciones: lo que hay debajo de cada tarjeta es lo que dice la página
-          oficial del fabricante.
-        </span>
-      </p>
-      <nav class="vert-jump" aria-label="Ir a un bloque">
-        {bloques.map((b) => <a href={`#${b.id}`}>{b.titulo}</a>)}
-        <a href="#todas">Todas</a>
-      </nav>
-    </header>
 
     <!-- ------------------------------------------------------------------ -->
     {bloques.map((bloque) => (

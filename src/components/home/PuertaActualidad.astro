@@ -1,0 +1,129 @@
+---
+import type { NewsItem } from '@lib/domain/news';
+import { ROUTES } from '@lib/nav';
+
+interface Props {
+  noticias: NewsItem[];
+}
+
+const { noticias } = Astro.props;
+
+/**
+ * La segunda puerta: qué está pasando.
+ *
+ * Sólo lee lo que Newsroom ya ha publicado. Aquí no se decide nada editorial:
+ * ni qué se publica, ni cuándo, ni con qué fuentes. Antes esto vivía al final
+ * de la portada, debajo de un bloque de seiscientas palabras.
+ */
+const fecha = (iso: string) =>
+  new Date(iso).toLocaleDateString('es-ES', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+---
+
+<section class="puerta" aria-labelledby="puerta-actualidad-t">
+  <header class="puerta-head">
+    <h2 id="puerta-actualidad-t" class="puerta-title">Ver qué está pasando</h2>
+    <p class="puerta-lede">Cambios comprobados en planes gratuitos, modelos y límites.</p>
+  </header>
+
+  {noticias.length > 0 ? (
+    <ol class="titulares">
+      {noticias.map((item) => (
+        <li>
+          <time datetime={item.publishedAt} class="titular-fecha tnum">{fecha(item.publishedAt)}</time>
+          <a href={ROUTES.newsItem(item.slug)} class="titular-texto">{item.title}</a>
+        </li>
+      ))}
+    </ol>
+  ) : (
+    <p class="puerta-lede">No hay noticias nuevas esta semana.</p>
+  )}
+
+  <p class="puerta-pie">
+    <a href={ROUTES.news} class="btn btn-secondary btn-sm">Todas las noticias</a>
+  </p>
+</section>
+
+<style>
+  .puerta {
+    display: grid;
+    gap: var(--space-s);
+    align-content: start;
+    padding: var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface);
+    min-width: 0;
+  }
+
+  @media (min-width: 48rem) {
+    .puerta {
+      padding: var(--space-m);
+    }
+  }
+
+  .puerta-head {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .puerta-title {
+    margin: 0;
+    font-size: clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .puerta-lede {
+    margin: 0;
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+    max-width: 46ch;
+  }
+
+  .titulares {
+    display: grid;
+    gap: var(--space-2xs);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .titulares li {
+    display: grid;
+    gap: 0.15rem;
+    padding-block-end: var(--space-2xs);
+    border-block-end: 1px solid var(--line-hairline);
+  }
+
+  .titulares li:last-child {
+    padding-block-end: 0;
+    border-block-end: 0;
+  }
+
+  .titular-fecha {
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .titular-texto {
+    color: var(--ink-strong);
+    font-weight: 600;
+    line-height: 1.35;
+    text-decoration: none;
+  }
+
+  .titular-texto:hover {
+    text-decoration: underline;
+  }
+
+  .puerta-pie {
+    margin: 0;
+  }
+</style>

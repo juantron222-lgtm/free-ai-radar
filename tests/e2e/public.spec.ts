@@ -12,7 +12,9 @@ import { isThirdPartyNoise, seedConsent, trackThirdPartyFailures } from './helpe
 test.describe('portada', () => {
   test('carga y comunica la propuesta de valor', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByRole('heading', { level: 1 })).toContainText(/gratis de verdad/i);
+    // La hero pregunta; lo gratis de verdad lo dicen el título y la descripción.
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('¿Qué clase de IA estás buscando?');
+    await expect(page).toHaveTitle(/gratis de verdad/i);
     await expect(page).toHaveTitle(/Free AI Radar/);
   });
 
@@ -73,6 +75,40 @@ test.describe('consentimiento', () => {
 
     await reject.click();
     await expect(dialog).toBeHidden();
+  });
+
+  test('abrir no elige por nadie: nada enfocado, Enter no acepta y las tres respuestas pesan igual', async ({
+    page,
+    context,
+  }) => {
+    /*
+     * El aviso enfocaba «Aceptar todo» al cargar, así que un Enter nada más
+     * llegar aceptaba todas las categorías, y era además el único botón
+     * relleno. Lo que se exige: al cargar no hay ningún botón del aviso
+     * enfocado, Enter no crea ninguna decisión y las respuestas se ven igual.
+     */
+    await page.goto('/');
+    const region = page.getByRole('region', { name: /cookies/i });
+    await expect(region).toBeVisible();
+
+    const botonEnfocado = await page.evaluate(() => {
+      const activo = document.activeElement;
+      return Boolean(activo && activo.tagName === 'BUTTON' && activo.closest('#consent-root'));
+    });
+    expect(botonEnfocado, 'un botón del aviso recibe el foco al cargar').toBe(false);
+
+    await page.keyboard.press('Enter');
+    await expect(region).toBeVisible();
+    const decision = (await context.cookies()).find((c) => c.name === 'far_consent');
+    expect(decision, 'Enter al cargar ha dejado una decisión guardada').toBeUndefined();
+
+    const fondos = await region.getByRole('button').evaluateAll((botones) =>
+      botones
+        .filter((boton) => (boton as HTMLElement).offsetParent !== null)
+        .map((boton) => getComputedStyle(boton).backgroundColor)
+    );
+    expect(fondos.length).toBeGreaterThanOrEqual(3);
+    expect(new Set(fondos).size, `fondos distintos: ${fondos.join(' · ')}`).toBe(1);
   });
 
   test('la decisión se recuerda entre visitas', async ({ page }) => {
@@ -260,7 +296,8 @@ test.describe('comparador', () => {
     await page.goto('/comparar?t=ollama,lm-studio');
     await expect(page.getByRole('heading', { level: 1 })).toContainText(/vs/i);
     await expect(page.getByRole('table')).toBeVisible();
-    await expect(page.getByRole('rowheader', { name: '¿Pide tarjeta?' })).toBeVisible();
+    // Si las dos dicen lo mismo, la fila está detrás del interruptor: existe, no se ve.
+    await expect(page.getByRole('rowheader', { name: '¿Pide tarjeta?', includeHidden: true })).toHaveCount(1);
   });
 
   test('el comparador vacío no es indexable', async ({ page }) => {
@@ -598,7 +635,14 @@ test.describe('SEO técnico', () => {
   test('la 404 es útil, no un callejón sin salida', async ({ page }) => {
     const response = await page.goto('/una-ruta-que-no-existe');
     expect(response?.status()).toBe(404);
-    await expect(page.getByRole('searchbox')).toBeVisible();
+
+    /*
+     * Dos cajas desde que el buscador es global: la de la cabecera, que está
+     * en todas las páginas, y la de la propia 404. Lo que esta prueba pregunta
+     * es si la página perdida ofrece salida por sí misma, así que mira la suya
+     * y, de paso, comprueba que la global también llegó hasta aquí.
+     */
+    await expect(page.getByRole('searchbox', { name: /buscar en el catálogo/i })).toBeVisible();
   });
 });
 
@@ -617,8 +661,8 @@ test.describe('accesibilidad', () => {
    * can take focus, and actually moves the reader to the content.
    */
   test('hay un enlace para saltar al contenido', async ({ page }, testInfo) => {
-    // The consent dialog is modal and traps focus by design, so the decision
-    // has to exist before the page's own tab order can be exercised.
+    // La decisión de cookies se siembra antes para que el primer Tab recorra la
+    // página y no la barra de consentimiento.
     await seedConsent(page);
     await page.goto('/');
 

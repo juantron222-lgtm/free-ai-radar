@@ -765,7 +765,15 @@
   }
 
   /* --- Scrollbars that do not shout --- */
+  /*
+   * `position: relative` hace de la fila el bloque contenedor de lo que va
+   * posicionado dentro. Las casillas `sr-only` de las pastillas del catálogo
+   * son `position: absolute`: sin esto se colocaban respecto a la página, no a
+   * la fila, y las que quedaban fuera de la vista la ensanchaban hasta 642 px
+   * en un móvil de 375, que se podía arrastrar de lado.
+   */
   .scroll-x {
+    position: relative;
     overflow-x: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--line-strong) transparent;
@@ -939,9 +947,15 @@
  * fila de atajos en el móvil.
  * ========================================================================= */
 
+/*
+ * Con la cabecera fuera del contenedor, el contenedor sólo lleva bloques.
+ * Menos distancia entre ellos: con la banda arriba ya no hace falta separar
+ * la cabecera del primer bloque a base de aire.
+ */
 .vert {
   display: grid;
-  gap: var(--space-xl);
+  gap: var(--space-l);
+  padding-block: var(--space-m) var(--space-xl);
 }
 
 .vert-hero {
@@ -959,7 +973,8 @@
 
 .vert-lede {
   margin: 0;
-  font-size: 1.0625rem;
+  max-width: 62ch;
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.0625rem);
   color: var(--ink-muted);
   line-height: 1.55;
 }
@@ -978,20 +993,25 @@
   font-size: 0.8125rem;
 }
 
+/* Los atajos, con la misma pastilla que las cifras de la portada y el catálogo. */
 .vert-jump a {
-  padding: 0.3rem 0.6rem;
-  border: 1px solid var(--line);
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--line-strong);
   border-radius: var(--radius-full);
+  background: var(--paper);
   text-decoration: none;
   color: var(--ink-muted);
-  min-height: 32px;
+  font-size: 0.875rem;
+  font-weight: 550;
+  white-space: nowrap;
+  min-height: 36px;
   display: inline-flex;
   align-items: center;
 }
 
 .vert-jump a:hover {
-  border-color: var(--signal-line);
-  color: var(--signal);
+  border-color: var(--ink-muted);
+  color: var(--ink-strong);
 }
 
 .vert-block {
@@ -1008,9 +1028,10 @@
 
 .vert-h2 {
   margin: 0;
-  font-size: clamp(1.35rem, 3.2vw, 1.75rem);
+  font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
   line-height: 1.15;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
 }
 
 .vert-block-lede {
@@ -1313,5 +1334,156 @@
   .vert-sub-lede {
     font-size: 0.8125rem;
     line-height: 1.45;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Sistema de producto (Web V2)
+
+   Lo que la portada estrenó en la fase 2 y ahora comparten todas las
+   secciones: la cabecera de página, el panel, la pastilla con cifra, las
+   condiciones con tono y la franja de estado. Una sola definición para que
+   catálogo, fichas, verticales, comparador y noticias no vuelvan a parecer
+   cinco webs con la misma cabecera encima.
+   --------------------------------------------------------------------- */
+@layer components {
+  .cabecera {
+    border-block-end: 1px solid var(--line);
+    background: linear-gradient(to bottom, var(--surface-sunken), transparent 85%);
+    padding-block-end: var(--space-s);
+  }
+
+  @media (min-width: 48rem) {
+    .cabecera {
+      padding-block-end: var(--space-m);
+    }
+  }
+
+  .cabecera-inner {
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .cabecera-titulo {
+    margin: var(--space-3xs) 0 0;
+    max-width: 24ch;
+    font-size: clamp(1.75rem, 1.3rem + 2vw, 2.75rem);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+
+  .cabecera-entradilla {
+    margin: 0;
+    max-width: 62ch;
+    font-size: clamp(1rem, 0.95rem + 0.3vw, 1.0625rem);
+    color: var(--ink-muted);
+  }
+
+  .panel {
+    display: grid;
+    gap: var(--space-s);
+    align-content: start;
+    padding: var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface);
+    min-width: 0;
+  }
+
+  @media (min-width: 48rem) {
+    .panel {
+      padding: var(--space-m);
+    }
+  }
+
+  .panel-titulo {
+    margin: 0;
+    font-size: clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .panel-entradilla {
+    margin: 0;
+    max-width: 60ch;
+    font-size: 0.9375rem;
+    color: var(--ink-muted);
+  }
+
+  .seccion-titulo {
+    margin: 0;
+    font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  .cifra-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.7rem;
+    min-height: 36px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-full);
+    background: var(--paper);
+    font-size: 0.875rem;
+    font-weight: 550;
+    color: var(--ink-muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .cifra-chip:hover {
+    color: var(--ink-strong);
+    border-color: var(--ink-muted);
+  }
+
+  .cifra-chip[aria-current='true'],
+  .cifra-chip[aria-pressed='true'] {
+    color: var(--ink-strong);
+    border-color: var(--signal);
+    background: var(--signal-soft);
+  }
+
+  .cifra-chip-n {
+    font-weight: 650;
+    color: var(--ink-strong);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Sí / No / Sin verificar: el tono sale de la pregunta, no del valor. */
+  .cond {
+    font-weight: 600;
+  }
+
+  .cond[data-tono='bien'] {
+    color: var(--signal-strong);
+  }
+
+  .cond[data-tono='mal'] {
+    color: var(--warn);
+  }
+
+  .cond[data-tono='neutro'] {
+    color: var(--ink-muted);
+    font-weight: 500;
+  }
+
+  .franja-estado {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem var(--space-s);
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .franja-estado strong {
+    color: var(--ink-strong);
+    font-weight: 650;
+    font-variant-numeric: tabular-nums;
   }
 }

@@ -586,14 +586,14 @@ export const START_EFFORT = ['instant', 'signup', 'install', 'technical'] as con
 export type StartEffort = (typeof START_EFFORT)[number];
 
 export const START_EFFORT_LABEL: Record<StartEffort, string> = {
-  instant: 'Abres y generas',
-  signup: 'Cuenta y algo de configuración',
+  instant: 'Abres y usas',
+  signup: 'Cuenta o configuración previa',
   install: 'Instalación sencilla',
   technical: 'Instalación técnica, modelos o GPU',
 };
 
 export const START_EFFORT_MEANING: Record<StartEffort, string> = {
-  instant: 'Entras en la web y generas. Sin instalar nada.',
+  instant: 'Entras en la web y la usas: sin instalar nada y sin registrarte.',
   signup: 'Hace falta crear cuenta o configurar algo antes del primer resultado.',
   install: 'Se instala en tu equipo, pero el proceso es guiado y no exige conocimientos.',
   technical: 'Exige descargar modelos, configurar entornos o disponer de GPU.',

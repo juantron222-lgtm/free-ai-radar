@@ -1,11 +1,12 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/site/Breadcrumbs.astro';
 import NewsCard from '@components/news/NewsCard.astro';
 import ToolCard from '@components/tools/ToolCard.astro';
 import { getAllNews } from '@lib/data/news';
 import { getTool } from '@lib/data/catalog';
 import { articleSchema } from '@lib/seo/structured-data';
-import { NEWS_CATEGORY_LABEL, type AvailabilityTone } from '@lib/domain/news';
+import { NEWS_CATEGORY_LABEL, type AvailabilityTone, type NewsSourceKind } from '@lib/domain/news';
 import { ROUTES } from '@lib/nav';
 
 export function getStaticPaths() {
@@ -29,6 +30,15 @@ const crumbs = [
   { name: item.title, path: ROUTES.newsItem(item.slug) },
 ];
 
+/*
+ * Las migas visibles paran en la sección.
+ *
+ * La última era el titular entero, que en 375 px ocupaba tres líneas justo
+ * encima del mismo titular en grande. El JSON-LD de migas sigue llevando las
+ * tres: lo pone el layout con `crumbs`.
+ */
+const migasVisibles = crumbs.slice(0, -1);
+
 const fmt = (iso: string) =>
   new Date(`${iso}T00:00:00Z`).toLocaleDateString('es-ES', {
     day: 'numeric',
@@ -42,6 +52,22 @@ const FREE_PLAN_LABEL = {
   no: 'No afecta al plan gratuito',
   unverified: 'Sin confirmar si afecta al plan gratuito',
 } as const;
+
+/*
+ * Qué es cada fuente, dicho en castellano.
+ *
+ * Debajo de cada enlace salía el valor interno tal cual —«official»,
+ * «release-notes», «model-card»—: un error de presentación, no de datos. El
+ * dato no cambia; sólo cómo se lee.
+ */
+const TIPO_DE_FUENTE: Record<NewsSourceKind, string> = {
+  official: 'anuncio oficial',
+  'release-notes': 'notas de versión',
+  pricing: 'página de precios',
+  docs: 'documentación',
+  repo: 'repositorio',
+  'model-card': 'ficha del modelo',
+};
 
 /** Same mapping as the card, so a story reads identically in both places. */
 const AVAILABILITY_CHIP: Record<AvailabilityTone, string> = {
@@ -57,6 +83,7 @@ const AVAILABILITY_CHIP: Record<AvailabilityTone, string> = {
   title={item.seoTitle ?? item.title}
   description={item.seoDescription ?? item.summary}
   crumbs={crumbs}
+  migasEnCabecera
   ogType="article"
   schemas={[
     articleSchema({
@@ -69,30 +96,52 @@ const AVAILABILITY_CHIP: Record<AvailabilityTone, string> = {
     }),
   ]}
 >
-  <article class="page news-detail">
-    <header class="detail-head">
-      <p class="detail-meta">
-        <span class="chip detail-cat">{NEWS_CATEGORY_LABEL[item.category]}</span>
-        <span class="detail-event">{item.eventTypeLabel}</span>
-        <span class={`chip ${AVAILABILITY_CHIP[item.availabilityTone]}`}>
-          {item.availabilityLabel}
-        </span>
-        <time datetime={item.publishedAt} class="tnum">{fmt(item.publishedAt)}</time>
-      </p>
+  <article class="noticia">
+    {/*
+      La cabecera de la ficha, contando una noticia.
 
-      <h1 class="detail-title">{item.title}</h1>
-      <p class="detail-summary">{item.summary}</p>
+      Misma banda, misma tipografía y las migas dentro. Arriba va lo que se
+      decide antes de leer: de qué va, cuándo, si está disponible, si afecta
+      al plan gratuito y si está verificada. La acción principal —ir al anuncio
+      oficial— sube aquí, como «Ir a…» en la ficha de una herramienta: estaba
+      al final de las fuentes, después de todo el texto.
+    */}
+    <header class="cabecera noticia-cabecera">
+      <div class="page cabecera-inner">
+        <Breadcrumbs crumbs={migasVisibles} />
+        <p class="eyebrow noticia-antetitulo">
+          <span>{NEWS_CATEGORY_LABEL[item.category]}</span>
+          <span aria-hidden="true">·</span>
+          <time datetime={item.publishedAt} class="tnum">{fmt(item.publishedAt)}</time>
+        </p>
 
-      <div class="detail-flags">
-        <span class={`chip ${item.affectsFreePlan === 'yes' ? 'chip-signal' : ''}`}>
-          {FREE_PLAN_LABEL[item.affectsFreePlan]}
-        </span>
-        <span class={`chip ${item.verification === 'verified' ? 'chip-signal' : 'chip-warn'}`}>
-          {item.verificationLabel}
-        </span>
+        <h1 class="cabecera-titulo noticia-titulo">{item.title}</h1>
+        <p class="cabecera-entradilla">{item.summary}</p>
+
+        <p class="franja-estado noticia-estado">
+          <span class="detail-event">{item.eventTypeLabel}</span>
+          <span class={`chip ${AVAILABILITY_CHIP[item.availabilityTone]}`}>
+            {item.availabilityLabel}
+          </span>
+          <span class={`chip ${item.affectsFreePlan === 'yes' ? 'chip-signal' : ''}`}>
+            {FREE_PLAN_LABEL[item.affectsFreePlan]}
+          </span>
+          <span class={`chip ${item.verification === 'verified' ? 'chip-signal' : 'chip-warn'}`}>
+            {item.verificationLabel}
+          </span>
+        </p>
+
+        <div class="noticia-acciones">
+          <a class="btn btn-primary" href={item.officialUrl} rel="nofollow noopener" target="_blank">
+            Leer el anuncio oficial <span aria-hidden="true">↗</span>
+            <span class="sr-only">(se abre en una pestaña nueva)</span>
+          </a>
+          <a class="noticia-fuentes" href="#sources-title">Ver fuentes</a>
+        </div>
       </div>
     </header>
 
+    <div class="page news-detail">
     {item.verification === 'partial' && item.unconfirmed.length > 0 && (
       <div class="detail-caveat" role="note">
         <p><strong>Lo que todavía no hemos confirmado</strong></p>
@@ -100,8 +149,8 @@ const AVAILABILITY_CHIP: Record<AvailabilityTone, string> = {
           {item.unconfirmed.map((point) => <li>{point}</li>)}
         </ul>
         <p class="detail-caveat-note">
-          Lo decimos en vez de omitirlo. Si tienes la fuente oficial que lo aclara,
-          <a href={ROUTES.contact}> escríbenos</a>.
+          Lo decimos en vez de omitirlo. Si tienes la fuente oficial que lo aclara,{' '}
+          <a href={ROUTES.contact}>escríbenos</a>.
         </p>
       </div>
     )}
@@ -129,7 +178,7 @@ const AVAILABILITY_CHIP: Record<AvailabilityTone, string> = {
 
       <section class="detail-section" aria-labelledby="sources-title">
         <h2 id="sources-title">Fuentes</h2>
-        <p>
+        <p class="detail-texto">
           Todo lo anterior sale de estas páginas. Si alguna contradice lo que publicamos, gana la
           fuente y lo corregimos.
         </p>
@@ -139,18 +188,12 @@ const AVAILABILITY_CHIP: Record<AvailabilityTone, string> = {
               <a href={source.url} rel="nofollow noopener" target="_blank">{source.label}</a>
               <span class="detail-source-meta">
                 {new URL(source.url).hostname.replace(/^www\./, '')} ·
-                {' '}{source.kind} ·
+                {' '}{TIPO_DE_FUENTE[source.kind]} ·
                 comprobada el <time datetime={source.checkedAt}>{fmt(source.checkedAt)}</time>
               </span>
             </li>
           ))}
         </ul>
-        <p class="detail-cta">
-          <a class="btn btn-primary" href={item.officialUrl} rel="nofollow noopener" target="_blank">
-            Leer el anuncio oficial
-            <span class="sr-only">(se abre en una pestaña nueva)</span>
-          </a>
-        </p>
       </section>
 
       <section class="detail-section detail-byline" aria-labelledby="byline-title">
@@ -158,15 +201,15 @@ const AVAILABILITY_CHIP: Record<AvailabilityTone, string> = {
         <p>
           Redactado por <strong>{item.author}</strong> ·
           publicado por el fabricante el <time datetime={item.publishedAt}>{fmt(item.publishedAt)}</time> ·
-          fuente comprobada el <time datetime={item.checkedAt}>{fmt(item.checkedAt)}</time>.
-          <a href={ROUTES.editorialPolicy}> Cómo decidimos qué publicamos</a>.
+          fuente comprobada el <time datetime={item.checkedAt}>{fmt(item.checkedAt)}</time>.{' '}
+          <a href={ROUTES.editorialPolicy}>Cómo decidimos qué publicamos</a>.
         </p>
       </section>
     </div>
 
     {alsoRead.length > 0 && (
       <section class="detail-more" aria-labelledby="more-title">
-        <h2 id="more-title" class="detail-more-title">Seguir leyendo</h2>
+        <h2 id="more-title" class="seccion-titulo">Seguir leyendo</h2>
         <ul class="grid-cards detail-more-grid">
           {alsoRead.map((other) => (
             <li><NewsCard item={other} headingLevel="h3" /></li>
@@ -174,67 +217,73 @@ const AVAILABILITY_CHIP: Record<AvailabilityTone, string> = {
         </ul>
       </section>
     )}
+    </div>
   </article>
 </BaseLayout>
 
 <style>
-  .news-detail {
-    padding-block: var(--space-m) var(--space-xl);
-    display: grid;
-    gap: var(--space-l);
-  }
-
-  .detail-head {
-    max-width: var(--measure);
-  }
-
-  .detail-meta {
+  .noticia-antetitulo {
     display: flex;
-    align-items: center;
-    gap: var(--space-2xs);
     flex-wrap: wrap;
-    margin: 0 0 var(--space-2xs);
-    font-size: 0.8125rem;
-    color: var(--ink-subtle);
-  }
-
-  .detail-cat {
-    background: var(--info-soft);
-    border-color: var(--info-line);
-    color: var(--info);
+    gap: 0.4rem;
+    margin: var(--space-3xs) 0 0;
   }
 
   /*
-    Plain text, not a chip, and deliberately placed between the two chips: it
-    keeps the category and the availability from reading as one run of colour,
-    and it keeps the meta line from turning into a row of badges.
+   * Un escalón por debajo del H1 de una sección.
+   *
+   * «Últimas noticias» son dos palabras; un titular de noticia son quince, y al
+   * tamaño de la cabecera común ocupaba cinco líneas en 375 px y cuatro en
+   * escritorio antes de la entradilla.
+   */
+  .noticia-titulo {
+    max-width: 34ch;
+    font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);
+    line-height: 1.12;
+  }
+
+  .noticia-estado {
+    align-items: center;
+    gap: 0.35rem 0.5rem;
+    margin-block-start: var(--space-3xs);
+  }
+
+  /*
+    Plain text, not a chip, and placed before the chips: it keeps the event
+    type from reading as one more badge, and says what happened before the
+    three states say what it means.
   */
   .detail-event {
     font-weight: 600;
     color: var(--ink-muted);
   }
 
-  .detail-title {
-    font-size: clamp(1.6rem, 1.3rem + 1.7vw, 2.5rem);
-    margin-block-end: var(--space-2xs);
-  }
-
-  .detail-summary {
-    margin: 0 0 var(--space-s);
-    font-size: 1.0625rem;
-    color: var(--ink-muted);
-  }
-
-  .detail-flags {
+  .noticia-acciones {
     display: flex;
-    gap: 0.35rem;
     flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2xs) var(--space-s);
+    margin-block-start: var(--space-2xs);
+  }
+
+  .noticia-fuentes {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-size: 0.9375rem;
+    color: var(--signal);
+  }
+
+  .news-detail {
+    padding-block: var(--space-m) var(--space-xl);
+    display: grid;
+    gap: var(--space-l);
   }
 
   .detail-caveat {
     max-width: var(--measure);
     padding: var(--space-xs) var(--space-s);
-    border-radius: var(--radius-m);
+    border-radius: var(--radius-l);
     border: 1px solid var(--warn-line);
     background: var(--warn-soft);
   }
@@ -255,8 +304,9 @@ const AVAILABILITY_CHIP: Record<AvailabilityTone, string> = {
     color: var(--ink);
   }
 
-  .detail-caveat-note {
-    font-size: 0.8125rem !important;
+  .detail-caveat .detail-caveat-note {
+    margin: 0;
+    font-size: 0.8125rem;
     color: var(--ink-muted);
   }
 
@@ -271,21 +321,23 @@ const AVAILABILITY_CHIP: Record<AvailabilityTone, string> = {
     max-width: var(--measure);
   }
 
+  /* Los mismos títulos de sección que la ficha de una herramienta. */
   .detail-section h2 {
-    font-size: clamp(1.15rem, 1.05rem + 0.5vw, 1.35rem);
+    font-size: clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
     margin-block-end: var(--space-2xs);
     padding-block-end: var(--space-3xs);
     border-block-end: 1px solid var(--line);
   }
 
-  .detail-section > p {
-    color: var(--ink-muted);
+  .detail-texto {
     margin: 0;
+    color: var(--ink-muted);
   }
 
   .detail-impact {
+    margin: 0;
     font-size: 1.0625rem;
-    color: var(--ink) !important;
+    color: var(--ink);
   }
 
   .detail-tools {
@@ -303,17 +355,17 @@ const AVAILABILITY_CHIP: Record<AvailabilityTone, string> = {
   }
 
   .detail-hint {
-    margin-block-start: var(--space-2xs) !important;
+    margin: var(--space-2xs) 0 0;
     font-size: 0.8125rem;
     color: var(--ink-subtle);
   }
 
   .detail-sources {
     list-style: none;
-    margin: var(--space-2xs) 0 0;
+    margin: var(--space-s) 0 0;
     padding: 0;
     display: grid;
-    gap: var(--space-2xs);
+    gap: var(--space-xs);
   }
 
   .detail-sources li {
@@ -328,15 +380,12 @@ const AVAILABILITY_CHIP: Record<AvailabilityTone, string> = {
   }
 
   .detail-source-meta {
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
     color: var(--ink-subtle);
   }
 
-  .detail-cta {
-    margin-block-start: var(--space-s) !important;
-  }
-
   .detail-byline p {
+    margin: 0;
     font-size: 0.8125rem;
     color: var(--ink-subtle);
     padding: var(--space-2xs) 0;
@@ -348,13 +397,10 @@ const AVAILABILITY_CHIP: Record<AvailabilityTone, string> = {
   }
 
   .detail-more {
+    display: grid;
+    gap: var(--space-s);
     padding-block-start: var(--space-m);
     border-block-start: 1px solid var(--line);
-  }
-
-  .detail-more-title {
-    font-size: 1.2rem;
-    margin-block-end: var(--space-s);
   }
 
   .detail-more-grid {

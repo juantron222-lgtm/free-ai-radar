@@ -18,18 +18,6 @@ const RUTA_PROPIA = new Set(['imagen', 'video', 'modelos', 'codigo', 'agentes'])
  */
 const RUTA_UNIFICADA: Record<string, string> = { musica: '/audio', voz: '/audio' };
 
-/*
- * Y con la ruta cambia el rótulo.
- *
- * La miga de Suno decía «Música IA» y aterrizaba en una página cuyo título es
- * «IA para audio». La ruta estaba bien y el nombre se había quedado en la
- * categoría técnica, que es la que ya no se enseña.
- */
-const NOMBRE_UNIFICADO: Record<string, string> = { musica: 'Audio IA', voz: 'Audio IA' };
-
-export const categoryLabel = (slug: string, fallback: string): string =>
-  NOMBRE_UNIFICADO[slug] ?? fallback;
-
 export const ROUTES = {
   home: '/',
   tools: '/herramientas',
@@ -116,17 +104,45 @@ export const VERTICALS: readonly NavItem[] = [
 ];
 
 /*
- * La cabecera lleva las seis verticales.
+ * Una vertical se llama igual en la navegación y en las migas.
  *
- * Antes llevaba dos —Modelos y Agentes— y las otras cuatro no estaban ni aquí
- * ni en el pie: se habían construido seis secciones y sólo se podía llegar a
- * dos navegando. «Últimas noticias» y «Metodología» bajan al pie, donde ya
- * estaban, porque el catálogo es lo que la gente viene a recorrer.
+ * La cabecera, el menú y la portada decían «Imagen» y la miga de la propia
+ * página decía «Categorías / Imagen IA»; en Código, Agentes y Modelos no había
+ * «Categorías» y en Audio ponía «Audio IA». Tres formas de nombrar el mismo
+ * sitio. No hay razón SEO que lo sostenga: el título y el H1 ya dicen «IA para
+ * imágenes», y el nombre de una miga no es donde se posiciona una página.
+ *
+ * `categoryLabel` hace lo mismo para la miga de una ficha: si la categoría
+ * tiene vertical propia —también `musica` y `voz`, que van a /audio—, la miga
+ * lleva el rótulo de la vertical. La taxonomía conserva sus nombres
+ * («Imagen IA», «Música IA») para filtros y búsqueda.
+ */
+export const categoryLabel = (slug: string, fallback: string): string =>
+  VERTICALS.find((v) => v.href === ROUTES.category(slug))?.label ?? fallback;
+
+export function migasDeVertical(href: string): { name: string; path: string }[] {
+  const vertical = VERTICALS.find((v) => v.href === href);
+  if (!vertical) throw new Error(`${href} no es una vertical`);
+  return [
+    { name: 'Inicio', path: ROUTES.home },
+    { name: vertical.label, path: vertical.href },
+  ];
+}
+
+/*
+ * Cuatro entradas: las tres cosas que se pueden hacer aquí, y cómo se comprueba.
+ *
+ * La cabecera llevaba ocho. «Herramientas» y las seis verticales son el mismo
+ * viaje contado dos veces, y con el buscador global al lado competían por la
+ * misma mirada. Las verticales no desaparecen: están en la portada, dentro del
+ * catálogo y en el menú móvil, que es donde alguien elige por lo que quiere
+ * hacer. «Noticias» sube desde el pie porque es la segunda razón para volver.
  */
 export const PRIMARY_NAV: readonly NavItem[] = [
   { label: 'Herramientas', href: ROUTES.tools, description: 'El catálogo completo, con filtros' },
-  ...VERTICALS,
+  { label: 'Noticias', href: ROUTES.news, description: 'Qué ha cambiado en los planes gratuitos' },
   { label: 'Comparar', href: ROUTES.compare, description: 'Enfrenta hasta cuatro herramientas' },
+  { label: 'Metodología', href: ROUTES.methodology, description: 'Cómo comprobamos cada dato' },
 ];
 
 export const FOOTER_NAV: ReadonlyArray<{ title: string; items: NavItem[] }> = [

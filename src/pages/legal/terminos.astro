@@ -2,6 +2,7 @@
 import ArticleLayout from '@layouts/ArticleLayout.astro';
 import { ROUTES } from '@lib/nav';
 import { SITE } from '@lib/seo/site';
+import DatoTitular from '@components/legal/DatoTitular.astro';
 
 const crumbs = [
   { name: 'Inicio', path: ROUTES.home },
@@ -15,23 +16,38 @@ const crumbs = [
   heading="Términos de uso"
   lede="Las condiciones de usar el sitio y, si te suscribes, de la suscripción."
   crumbs={crumbs}
-  updatedAt="2026-08-03"
-  draftNotice
+  updatedAt="2026-09-11"
 >
+  {/*
+    Quién presta el servicio, antes que nada.
+
+    La página abría con un aviso de «borrador» y no decía en ninguna parte quién
+    está detrás. Los datos del titular no se redactan: los aporta él, y mientras
+    no estén cada hueco se ve como hueco. Se rellenan en `src/lib/legal/titular.ts`.
+  */}
+  <h2>Quién presta el servicio</h2>
+  <dl class="titular">
+    <div><dt>Titular</dt><dd><DatoTitular campo="nombre" /></dd></div>
+    <div><dt>NIF</dt><dd><DatoTitular campo="nif" /></dd></div>
+    <div><dt>Domicilio</dt><dd><DatoTitular campo="domicilio" /></dd></div>
+    <div><dt>Inscripción registral</dt><dd><DatoTitular campo="registro" /></dd></div>
+    <div><dt>Contacto</dt><dd><a href={`mailto:${SITE.email}`}>{SITE.email}</a></dd></div>
+  </dl>
+
   <h2>1. Objeto</h2>
   <p>
-    {SITE.legalName} publica análisis editoriales sobre herramientas de inteligencia artificial y
+    {SITE.name} publica análisis editoriales sobre herramientas de inteligencia artificial y
     sus planes gratuitos. Usar el sitio implica aceptar estos términos.
   </p>
 
   <h2>2. Naturaleza de la información</h2>
   <p>
-    El contenido es <strong>informativo y editorial</strong>. Verificamos cada dato contra las
-    fuentes oficiales del fabricante y anotamos la fecha, pero las condiciones de los servicios de
-    terceros cambian sin previo aviso. <strong>Antes de tomar una decisión con consecuencias
+    El contenido es <strong>informativo y editorial</strong>. Contrastamos cada dato con las
+    fuentes oficiales del fabricante, anotamos la fecha y decimos cuándo un dato no está
+    confirmado, pero las condiciones de los servicios de terceros cambian sin previo aviso. <strong>Antes de tomar una decisión con consecuencias
     económicas, confirma las condiciones en la web del proveedor.</strong> No respondemos de los
     daños derivados de un dato que el fabricante haya modificado después de nuestra última
-    verificación.
+    revisión.
   </p>
   <p>
     No somos parte de ninguna relación entre tú y las herramientas que documentamos, ni prestamos
@@ -67,7 +83,7 @@ const crumbs = [
 
   <h2>5. Propiedad intelectual</h2>
   <p>
-    Los textos, análisis, puntuaciones y el diseño del sitio son de {SITE.legalName}. Puedes citarlos
+    Los textos, los análisis y el diseño del sitio pertenecen a su titular. Puedes citarlos
     con atribución y enlace. No puedes reproducir el catálogo de forma sistemática, ni extraerlo
     automáticamente para reconstruir una base de datos equivalente.
   </p>
@@ -104,3 +120,36 @@ const crumbs = [
     antelación a las personas suscritas.
   </p>
 </ArticleLayout>
+
+<style>
+  .titular {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: 0.4rem 1.25rem;
+    margin: 0 0 var(--space-m);
+  }
+
+  .titular div {
+    display: contents;
+  }
+
+  .titular dt {
+    font-weight: 650;
+    color: var(--ink-strong);
+  }
+
+  .titular dd {
+    margin: 0;
+  }
+
+  @media (max-width: 36rem) {
+    .titular {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.15rem;
+    }
+
+    .titular dd {
+      margin-block-end: 0.6rem;
+    }
+  }
+</style>

@@ -21,6 +21,8 @@ interface Props {
   schemas?: Record<string, unknown>[];
   /** Suppresses the site chrome — used by the auth and admin shells. */
   bare?: boolean;
+  /** La página pinta las migas en su cabecera (`CabeceraPagina`). El JSON-LD se mantiene. */
+  migasEnCabecera?: boolean;
   mainClass?: string;
 }
 
@@ -34,6 +36,7 @@ const {
   crumbs = [],
   schemas = [],
   bare = false,
+  migasEnCabecera = false,
   mainClass = '',
 } = Astro.props;
 
@@ -102,7 +105,7 @@ const jsonLd = graph(
     {!bare && <Header />}
 
     <main id="main" class={mainClass} tabindex="-1">
-      {crumbs.length > 0 && !bare && (
+      {crumbs.length > 0 && !bare && !migasEnCabecera && (
         <div class="page">
           <Breadcrumbs crumbs={crumbs} />
         </div>

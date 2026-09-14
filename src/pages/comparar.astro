@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import CabeceraPagina from '@components/site/CabeceraPagina.astro';
 import { getAllTools, getTool } from '@lib/data/catalog';
-import { filasDe } from '@lib/data/comparador';
+import { agruparFilas, filasDe } from '@lib/data/comparador';
 import { comparacionesVigentes, urlDe } from '@lib/data/comparaciones';
 import { VERTICALES } from '@lib/data/home';
 import { normalize } from '@lib/search/index';
@@ -13,11 +14,22 @@ export const prerender = false;
 const MAX = 4;
 const MIN_INDEXABLE = 2;
 
-const requested = (Astro.url.searchParams.get('t') ?? '')
-  .split(',')
-  .map((s) => s.trim())
-  .filter(Boolean)
-  .slice(0, MAX);
+/*
+ * `?t=a,b` y `?t=a&t=b` son la misma petición.
+ *
+ * La forma con comas es la que produce esta página y la que se comparte. La
+ * repetida es la que produce un formulario con dos desplegables llamados `t`,
+ * que es como se empieza una comparación desde la portada sin JavaScript.
+ * Aceptar las dos evita tener que elegir entre una URL legible y un formulario
+ * que funcione sin scripts.
+ */
+const requested = [...new Set(
+  Astro.url.searchParams
+    .getAll('t')
+    .flatMap((valor) => valor.split(','))
+    .map((s) => s.trim())
+    .filter(Boolean)
+)].slice(0, MAX);
 
 const tools = requested.map((slug) => getTool(slug)).filter((t) => t !== undefined);
 const missing = requested.filter((slug) => !getTool(slug));
@@ -49,7 +61,24 @@ const noindex = !hasComparison;
 
 const filas = hasComparison ? filasDe(tools) : [];
 
-const distintas = filas.filter((f) => !f.iguales);
+const grupos = agruparFilas(filas);
+const distintas = grupos.diferencias;
+const comparables = grupos.diferencias.length + grupos.coincidencias.length;
+
+/*
+ * Por defecto, sólo lo que separa.
+ *
+ * El interruptor existía, pero arrancaba apagado: una comparación de ChatGPT y
+ * Claude enseñaba diecisiete filas para cinco diferencias. Ahora arranca
+ * encendido siempre que haya algo que esconder y algo que enseñar.
+ */
+const soloDiferencias = distintas.length > 0 && grupos.coincidencias.length > 0;
+
+/* Los grupos de la tabla, en el orden en que se leen. */
+const cuerpos = [
+  { clase: undefined, titulo: null, filas: [...grupos.diferencias, ...grupos.coincidencias] },
+  { clase: 'compare-contexto', titulo: 'Con más detalle', filas: grupos.contexto },
+].filter((cuerpo) => cuerpo.filas.length > 0);
 
 /*
  * Un resumen que apunta a filas, no a un ganador.
@@ -89,20 +118,22 @@ const FILTROS_VERTICAL = [
   title={title}
   description={description}
   crumbs={crumbs}
+  migasEnCabecera
   noindex={noindex}
   canonicalQuery={['t']}
 >
+  <CabeceraPagina
+    titulo={hasComparison ? tools.map((t) => t.name).join(' vs ') : 'Comparador'}
+    crumbs={crumbs}
+  >
+    <p class="cabecera-entradilla">
+      {hasComparison
+        ? 'Los mismos datos para todas, en las mismas filas. Sin ganadores prefabricados y sin nota: la fila que decide es la que a ti te importe.'
+        : 'Elige entre dos y cuatro herramientas y las enfrentamos condición por condición. La URL resultante se puede compartir.'}
+    </p>
+  </CabeceraPagina>
+
   <div class="page compare-page">
-    <header>
-      <h1 class="compare-h1">
-        {hasComparison ? tools.map((t) => t.name).join(' vs ') : 'Comparador'}
-      </h1>
-      <p class="compare-lede">
-        {hasComparison
-          ? 'Los mismos datos verificados para todas, en las mismas filas. Sin ganadores prefabricados y sin nota: la fila que decide es la que a ti te importe.'
-          : 'Elige entre dos y cuatro herramientas y las enfrentamos condición por condición. La URL resultante se puede compartir.'}
-      </p>
-    </header>
 
     {missing.length > 0 && (
       <p class="compare-missing" role="status">
@@ -115,41 +146,54 @@ const FILTROS_VERTICAL = [
         <div class="compare-toolbar">
           <p class="compare-summary">
             {distintas.length === 0 ? (
-              <>Estas {tools.length} coinciden en las {filas.length} filas que comparamos.</>
+              <>Estas {tools.length} coinciden en las {comparables} filas que comparamos.</>
             ) : (
               <>
-                Se diferencian en <strong>{distintas.length}</strong> de {filas.length} filas.
+                Se diferencian en <strong>{distintas.length}</strong> de {comparables} filas.
                 {resumen.length > 0 && <> Las primeras que las separan: {resumen.join(', ')}.</>}
+                {grupos.coincidencias.length > 0 && <> En {grupos.coincidencias.length} dicen lo mismo.</>}
               </>
             )}
           </p>
-          <label class="compare-only-diff">
-            <input type="checkbox" id="solo-diferencias" />
-            <span>Mostrar sólo diferencias</span>
-          </label>
+          {grupos.coincidencias.length > 0 && distintas.length > 0 && (
+            <label class="compare-only-diff">
+              <input type="checkbox" id="solo-diferencias" checked />
+              <span>Mostrar sólo diferencias</span>
+            </label>
+          )}
         </div>
 
         <div class="table-scroll compare-scroll">
-          <table class="data-table compare-table" id="compare-table">
+          <table
+            class:list={['data-table', 'compare-table', { 'solo-diferencias': soloDiferencias }]}
+            id="compare-table"
+            role="table"
+          >
             <caption class="sr-only">
               Comparativa de {tools.map((t) => t.name).join(', ')}
             </caption>
-            <thead>
-              <tr>
-                <th scope="col" class="compare-corner">Condición</th>
+            <thead role="rowgroup">
+              <tr role="row">
+                <th scope="col" class="compare-corner" role="columnheader">Condición</th>
                 {tools.map((tool) => (
-                  <th scope="col">
+                  <th scope="col" role="columnheader">
                     <a href={ROUTES.tool(tool.slug)} class="compare-tool-name">{tool.name}</a>
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody>
-              {filas.map(({ row, celdas, iguales }) => (
-                <tr data-igual={iguales ? 'si' : 'no'}>
-                  <th scope="row">{row.label}</th>
-                  {celdas.map((celda) => (
-                    <td>
+            {cuerpos.map((cuerpo) => (
+            <tbody class={cuerpo.clase} role="rowgroup">
+              {cuerpo.titulo && (
+                <tr class="compare-grupo" role="row">
+                  <th scope="colgroup" colspan={tools.length + 1} role="columnheader">{cuerpo.titulo}</th>
+                </tr>
+              )}
+              {cuerpo.filas.map(({ row, celdas, iguales }) => (
+                <tr data-igual={iguales ? 'si' : 'no'} role="row">
+                  <th scope="row" role="rowheader">{row.label}</th>
+                  {celdas.map((celda, i) => (
+                    <td role="cell" data-herramienta={tools[i]?.name}>
                       {celda.tipo === 'lista' && (
                         <ul class="compare-list">
                           {celda.items.slice(0, 4).map((item) => <li>{item}</li>)}
@@ -179,6 +223,7 @@ const FILTROS_VERTICAL = [
                 </tr>
               ))}
             </tbody>
+            ))}
           </table>
         </div>
 
@@ -186,7 +231,7 @@ const FILTROS_VERTICAL = [
           Cuando falta un dato, la tabla dice por qué. <strong>Sin comprobar</strong> es deuda
           nuestra: todavía no hemos abierto la fuente oficial. <strong>El fabricante no lo
           publica</strong> es lo contrario: la abrimos y no lo dice, y eso es información sobre
-          el producto. <strong>Sin analizar</strong> es un hueco de redacción nuestro, y
+          el producto. <strong>Sin analizar</strong> es un hueco de redacción nuestro, y{' '}
           <strong>No aplica</strong> una fila que no tiene sentido para esa clase de herramienta.
           Pasa el ratón por encima para ver qué buscábamos.
         </p>
@@ -333,16 +378,33 @@ const FILTROS_VERTICAL = [
     gap: var(--space-m);
   }
 
-  .compare-h1 {
-    font-size: clamp(1.6rem, 1.3rem + 1.5vw, 2.4rem);
-    margin-block-end: var(--space-2xs);
+  /*
+   * El grupo de prosa, separado y en tono de lectura.
+   *
+   * No compite con las condiciones: va después, con su propio rótulo, y el
+   * texto baja de peso para que se lea como contexto y no como veredicto.
+   */
+  .compare-grupo th {
+    padding-block: var(--space-s) var(--space-3xs);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    background: var(--surface-sunken);
   }
 
-  .compare-lede {
-    margin: 0;
-    max-width: 58ch;
+  .compare-contexto td,
+  .compare-contexto th[scope='row'] {
+    font-size: 0.875rem;
     color: var(--ink-muted);
   }
+
+  .compare-contexto .compare-value {
+    font-weight: 400;
+    color: var(--ink);
+  }
+
 
   .compare-missing {
     margin: 0;
@@ -624,6 +686,100 @@ const FILTROS_VERTICAL = [
     .compare-toolbar {
       flex-direction: column;
       align-items: flex-start;
+    }
+  }
+
+  /*
+   * En móvil, una condición debajo de otra.
+   *
+   * La tabla tenía un ancho mínimo de 46rem y en 375 px se desplazaba de lado:
+   * para comparar dos párrafos había que arrastrar la tabla y perder de vista la
+   * primera columna. Apilada, cada condición lleva su nombre arriba y cada valor
+   * el nombre de su herramienta delante, así que se lee de arriba abajo sin
+   * perder a quién pertenece cada dato. Los roles de tabla se declaran en el
+   * marcado para que el cambio de `display` no se lleve la semántica.
+   *
+   * Va al final de la hoja: más arriba, la regla general del ancho mínimo lo
+   * pisaba y la tabla apilada seguía midiendo 46rem.
+   */
+  @media (max-width: 47.99rem) {
+    .compare-scroll {
+      overflow: visible;
+    }
+
+    .compare-table {
+      min-width: 0;
+    }
+
+    .compare-table,
+    .compare-table tbody,
+    .compare-table tr,
+    .compare-table th,
+    .compare-table td {
+      display: block;
+    }
+
+    .compare-table thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    .compare-table tbody tr {
+      padding: var(--space-2xs) var(--space-s);
+      border-block-end: 1px solid var(--line);
+    }
+
+    .compare-table.solo-diferencias tbody tr[data-igual='si'] {
+      display: none;
+    }
+
+    .compare-table tbody th[scope='row'] {
+      padding: 0 0 0.35rem;
+      border: 0;
+      font-size: 0.9375rem;
+      color: var(--ink-strong);
+    }
+
+    .compare-table td {
+      display: grid;
+      grid-template-columns: minmax(6.5rem, 34%) minmax(0, 1fr);
+      gap: 0.5rem;
+      padding: 0.3rem 0;
+      border: 0;
+    }
+
+    .compare-table td::before {
+      content: attr(data-herramienta);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+    }
+
+    .compare-grupo th {
+      padding: var(--space-s) var(--space-s) var(--space-3xs);
+    }
+
+    /*
+     * La prosa, con el nombre encima y no al lado.
+     *
+     * «Qué te dan gratis», «Límites», «En contra» y el veredicto son párrafos
+     * y listas: con la herramienta en la columna de la izquierda se quedaban
+     * en media pantalla, a cuatro o cinco palabras por línea. Las condiciones
+     * cortas de arriba siguen en dos columnas, que es donde se comparan de un
+     * vistazo.
+     */
+    .compare-contexto td {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.15rem;
+      padding-block: 0.45rem;
+    }
+
+    .compare-contexto td .compare-list {
+      padding-inline-start: 0;
     }
   }
 </style>

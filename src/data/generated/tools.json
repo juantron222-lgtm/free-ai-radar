@@ -768,7 +768,7 @@
     "detectedAt": "2022-11-30",
     "lastVerifiedAt": "2026-08-30",
     "updatedAt": "2026-07-08",
-    "startEffort": "instant",
+    "startEffort": "signup",
     "capabilities": [
       "text-generation",
       "api"
@@ -793,7 +793,7 @@
         "quote": "File uploads, image generation, voice, data analysis, and other tools have separate usage limits on the Free tier."
       }
     ],
-    "startEffortReason": "Se puede escribir en la caja y obtener respuesta nada más entrar.",
+    "startEffortReason": "Hace falta crear una cuenta; después se escribe en la caja y responde.",
     "licences": {},
     "access": {}
   },
@@ -1054,7 +1054,7 @@
     "detectedAt": "2023-07-01",
     "lastVerifiedAt": "2026-08-30",
     "updatedAt": "2026-07-08",
-    "startEffort": "instant",
+    "startEffort": "signup",
     "capabilities": [
       "api"
     ],
@@ -1078,7 +1078,7 @@
         "quote": "While using the free Claude plan, there is a session-based usage limit that will reset every five hours. […] the number of messages you can send will vary based on demand, and we may impose other types of usage limits to ensure fair access to all users."
       }
     ],
-    "startEffortReason": "Se puede escribir en la caja y obtener respuesta nada más entrar.",
+    "startEffortReason": "Hace falta crear una cuenta; después se escribe en la caja y responde.",
     "licences": {},
     "access": {}
   },
@@ -1846,7 +1846,7 @@
       "background-removal",
       "api"
     ],
-    "startEffortReason": "Cada herramienta de edición se usa desde su página sin alta previa. Generar imágenes pide cuenta Pro.",
+    "startEffortReason": "Cada herramienta de edición se usa desde su página, sin instalar nada. Generar imágenes pide cuenta Pro.",
     "licences": {},
     "access": {}
   },

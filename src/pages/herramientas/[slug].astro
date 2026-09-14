@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import AccessBadge from '@components/tools/AccessBadge.astro';
-import FactChips from '@components/tools/FactChips.astro';
+import Breadcrumbs from '@components/site/Breadcrumbs.astro';
 import ToolLogo from '@components/tools/ToolLogo.astro';
 import MuestraEditorial from '@components/tools/MuestraEditorial.astro';
 import CapturasDeInterfaz from '@components/tools/CapturasDeInterfaz.astro';
@@ -15,16 +14,19 @@ import AffiliatePlacement from '@components/affiliate/AffiliatePlacement.astro';
 import { getAllTools, getAlternativesFor } from '@lib/data/catalog';
 import { softwareApplicationSchema } from '@lib/seo/structured-data';
 import {
+  CAPABILITY_LABEL,
   CREDIT_RESET_LABEL,
   HOSTING_LABEL,
   PLATFORM_LABEL,
-  START_EFFORT_LABEL,
   getCategory,
   getFreeModel,
 } from '@lib/domain/taxonomy';
 import { OPENNESS_LABEL, TRI_STATE_LABEL } from '@lib/domain/primitives';
 import { ROUTES, categoryLabel } from '@lib/nav';
 import { selloDe, verificacionDe } from '@lib/domain/verification';
+import { esfuerzoDe } from '@lib/domain/esfuerzo';
+import { freeAccessLabel } from '@lib/data/category-page';
+import { filaDe } from '@lib/data/portada';
 
 export function getStaticPaths() {
   return getAllTools().map((tool) => ({ params: { slug: tool.slug }, props: { tool } }));
@@ -64,7 +66,7 @@ const facts = [
   ...(tool.freeModel === 'credits'
     ? [{ label: 'Renovación de créditos', value: CREDIT_RESET_LABEL[tool.freePlan.creditReset], good: tool.freePlan.creditReset !== 'one_off' }]
     : []),
-  { label: 'Cuánto cuesta empezar', value: START_EFFORT_LABEL[tool.startEffort], good: false },
+  { label: 'Cuánto cuesta empezar', value: esfuerzoDe(tool).label, good: false },
   /*
    * La licencia, capa por capa, cuando difieren.
    *
@@ -96,61 +98,166 @@ const description = `${tool.tagline} Analizamos su plan gratuito: ${tool.freePla
  * hay y el estado va arriba, con lo que falta nombrado.
  */
 const verificacion = verificacionDe(tool);
+
+/*
+ * Lo que decide, calculado con las mismas funciones que la portada y el catálogo.
+ *
+ * Si la tarjeta del catálogo dice «Registro: Sí», la ficha no puede decirlo con
+ * otras palabras ni con otro color: sale de `filaDe()` en los tres sitios.
+ */
+const fila = filaDe(tool);
+const tonoAcceso = freeAccessLabel(tool).tone;
+
+/*
+ * La licencia en una línea.
+ *
+ * Cuando código y pesos tienen licencias distintas se dicen las dos, porque la
+ * que falta es la que decide si puedes usarlo en un encargo. Si no consta
+ * licencia, se dice si es abierto o cerrado, que es lo que sí sabemos.
+ */
+const licencia =
+  tool.licences.code && tool.licences.weights && tool.licences.code !== tool.licences.weights
+    ? `Código ${tool.licences.code} · pesos ${tool.licences.weights}`
+    : tool.licence || OPENNESS_LABEL[tool.openSource];
+
+const alternativasCortas = alternatives.slice(0, 4);
+const compararCon = alternativasCortas.slice(0, 2);
+const compararHref = compararCon.length
+  ? `${ROUTES.compare}?t=${[tool.slug, ...compararCon.map((a) => a.slug)].join(',')}`
+  : null;
 ---
 
 <BaseLayout
   title={`${tool.name}: ¿es gratis de verdad? Análisis y límites reales`}
   description={description}
   crumbs={crumbs}
+  migasEnCabecera
   ogType="article"
   schemas={[softwareApplicationSchema(tool)]}
 >
-  <article class="page tool-page">
-    <header class="tool-header">
-      <div class="tool-header-main">
-        {/*
-          Identidad y contexto en la misma línea.
+  {/*
+    La cabecera de la ficha, con el mismo sistema que las demás páginas.
 
-          El primer viewport de una ficha tiene que contestar seis cosas —qué
-          marca es, cómo se llama, qué es, cómo se accede, cuánto está
-          verificado y por dónde se entra— y hasta ahora las cinco últimas
-          estaban y la primera no. El logo va con el rótulo de vertical y el
-          nombre porque es lo que se reconoce sin leer.
-        */}
-        <div class="tool-ident">
-          <ToolLogo tool={tool} size="lg" priority />
-          <div class="tool-ident-text">
-            <p class="eyebrow">
-              <a href={ROUTES.category(category.slug)}>{category.name}</a>
-            </p>
-            <h1 class="tool-title">{tool.name}</h1>
-          </div>
+    Era una columna con el nombre y, a su derecha, una tarjeta «Veredicto» con la
+    insignia de acceso, el estado, el texto y los botones; debajo, pastillas que
+    repetían el acceso y, más abajo aún, un «Resumen» lateral que volvía a
+    decirlo. Ahora la cabecera identifica —marca, nombre, qué es y en qué estado
+    está la ficha— y lleva las acciones. Lo que decide va justo debajo, una vez.
+  */}
+  <header class="cabecera ficha-cabecera">
+    <div class="page cabecera-inner">
+      <Breadcrumbs crumbs={crumbs} />
+      <div class="ficha-ident">
+        <ToolLogo tool={tool} size="lg" priority />
+        <div class="ficha-ident-texto">
+          <p class="eyebrow">
+            <a href={ROUTES.category(category.slug)}>{category.name}</a>
+          </p>
+          <h1 class="cabecera-titulo ficha-titulo">{tool.name}</h1>
         </div>
-        <p class="tool-tagline">{tool.tagline}</p>
-        <FactChips tool={tool} />
       </div>
-
-      <aside class="tool-verdict card" aria-labelledby="verdict-title">
-        <p class="eyebrow" id="verdict-title">Veredicto</p>
-        <AccessBadge tool={tool} size="lg" />
-        <p class="tool-vstate" data-state={verificacion.state}>
-          <span class="tool-vstate-label">{verificacion.label}</span>
-          {verificacion.total > 0 && (
-            <span class="tool-vstate-count tnum">
-              {verificacion.confirmados}/{verificacion.total} hechos confirmados
-            </span>
-          )}
-        </p>
-        <p class="tool-verdict-text">{tool.verdict || freeModel.meaning}</p>
+      <p class="cabecera-entradilla">{tool.tagline}</p>
+      <p class="franja-estado ficha-estado" data-state={verificacion.state}>
+        <span class="ficha-estado-label">{verificacion.label}</span>
+        {verificacion.total > 0 && (
+          <span class="tnum">
+            {verificacion.confirmados}/{verificacion.total} hechos confirmados
+          </span>
+        )}
+        <span>
+          revisada el <time datetime={tool.lastVerifiedAt}>{fmtDate(tool.lastVerifiedAt)}</time>
+        </span>
+        <a href="#sources-title">Ver fuentes</a>
+      </p>
+      <div class="ficha-acciones">
         <OutboundButton tool={tool} />
         <ToolActions slug={tool.slug} name={tool.name} />
-      </aside>
-    </header>
+      </div>
+    </div>
+  </header>
 
+  <article class="page tool-page">
     <FreshnessNotice tool={tool} />
 
     <div class="tool-body">
       <div class="tool-main">
+        {/*
+          Lo que decide, antes que nada.
+
+          Qué hace, qué da gratis y las condiciones que separan «me sirve» de
+          «no me sirve»: tarjeta, registro, uso comercial y licencia. Con las
+          alternativas al lado, porque muchas veces la respuesta a «¿me sirve?»
+          es «no, pero esta sí». La evidencia —la tabla completa, las fuentes y
+          el estado de cada dato— sigue más abajo.
+        */}
+        <section class="panel decision" aria-labelledby="decision-title">
+          <div class="decision-cabeza">
+            <h2 id="decision-title" class="panel-titulo">Lo que decide</h2>
+            <p class="panel-entradilla">{tool.verdict || freeModel.meaning}</p>
+          </div>
+
+          {tool.capabilities.length > 0 && (
+            <div class="decision-hace">
+              <p class="decision-etiqueta">Qué hace</p>
+              <ul class="decision-capacidades">
+                {tool.capabilities.map((capacidad) => <li>{CAPABILITY_LABEL[capacidad]}</li>)}
+              </ul>
+            </div>
+          )}
+
+          <dl class="decision-datos">
+            <div>
+              <dt>Acceso gratuito</dt>
+              <dd>
+                <span class="decision-acceso" data-tono={tonoAcceso}>{fila.tipoDeAcceso}</span>
+                <span class="decision-sub">{fila.cantidad}</span>
+              </dd>
+            </div>
+            <div>
+              <dt>Tarjeta</dt>
+              <dd class="cond" data-tono={fila.tarjeta.tono}>{fila.tarjeta.etiqueta}</dd>
+            </div>
+            <div>
+              <dt>Registro</dt>
+              <dd class="cond" data-tono={fila.registro.tono}>{fila.registro.etiqueta}</dd>
+            </div>
+            <div>
+              <dt>Uso comercial</dt>
+              <dd class="cond" data-tono={fila.comercial.tono}>{fila.comercial.etiqueta}</dd>
+            </div>
+            <div>
+              <dt>Licencia</dt>
+              <dd>{licencia}</dd>
+            </div>
+            <div>
+              <dt>Dónde se ejecuta</dt>
+              <dd>{HOSTING_LABEL[tool.hosting]}</dd>
+            </div>
+            <div>
+              <dt>Empezar</dt>
+              <dd title={tool.startEffortReason || undefined}>{esfuerzoDe(tool).label}</dd>
+            </div>
+          </dl>
+
+          {alternativasCortas.length > 0 && (
+            <p class="decision-alternativas">
+              <span class="decision-etiqueta">Alternativas</span>
+              <span class="decision-alt-lista">
+                {alternativasCortas.map((alt, i) => (
+                  <>
+                    {i > 0 && <span aria-hidden="true"> · </span>}
+                    <a href={ROUTES.tool(alt.slug)}>{alt.name}</a>
+                  </>
+                ))}
+              </span>
+              {compararHref && (
+                <a class="decision-comparar" href={compararHref}>
+                  Comparar con {compararCon.map((a) => a.name).join(' y ')}
+                </a>
+              )}
+            </p>
+          )}
+        </section>
         {/*
           La prueba propia va antes que lo que promete el fabricante.
 
@@ -235,7 +342,7 @@ const verificacion = verificacionDe(tool);
                 : es trabajo nuestro pendiente, no un silencio suyo.
               </>
             )}
-            {' '}Los fabricantes cambian estas condiciones sin avisar:
+            {' '}Los fabricantes cambian estas condiciones sin avisar:{' '}
             <a href="#reportar">avísanos si algo ya no es cierto</a>.
           </p>
         </section>
@@ -436,7 +543,7 @@ const verificacion = verificacionDe(tool);
           {tool.privacy.trainsOnUserData === 'unverified' && (
             <p class="hint">
               Todavía no hemos confirmado la política de entrenamiento de {tool.name}. Preferimos
-              decirlo a suponerlo. Si tienes la fuente oficial,
+              decirlo a suponerlo. Si tienes la fuente oficial,{' '}
               <a href="#reportar">envíanosla</a>.
             </p>
           )}
@@ -521,7 +628,7 @@ const verificacion = verificacionDe(tool);
           <p>
             Revisado por <strong>{tool.reviewedBy || 'la redacción de Free AI Radar'}</strong> ·
             última verificación <time datetime={tool.lastVerifiedAt}>{fmtDate(tool.lastVerifiedAt)}</time> ·
-            en el radar desde <time datetime={tool.detectedAt}>{fmtDate(tool.detectedAt)}</time>.
+            en el radar desde <time datetime={tool.detectedAt}>{fmtDate(tool.detectedAt)}</time>.{' '}
             <a href={ROUTES.methodology}>Cómo lo comprobamos</a>.
           </p>
         </section>
@@ -532,22 +639,10 @@ const verificacion = verificacionDe(tool);
         <AffiliatePlacement slot="tool_detail_footer" toolSlug={tool.slug} />
 
         <CorrectionForm toolSlug={tool.slug} toolName={tool.name} />
-      </div>
-
-      <aside class="tool-aside">
-        <div class="card tool-aside-card">
-          <p class="eyebrow">Resumen</p>
-          <dl class="tool-summary">
-            <div><dt>Modelo</dt><dd>{freeModel.label}</dd></div>
-            <div><dt>Categoría</dt><dd><a href={ROUTES.category(category.slug)}>{category.name}</a></dd></div>
-            <div><dt>Ejecución</dt><dd>{HOSTING_LABEL[tool.hosting]}</dd></div>
-            <div><dt>Empezar</dt><dd title={tool.startEffortReason || undefined}>{START_EFFORT_LABEL[tool.startEffort]}</dd></div>
-          </dl>
-          <p class="tool-aside-meaning">{freeModel.meaning}</p>
-        </div>
 
         <AffiliatePlacement slot="tool_detail_sidebar" toolSlug={tool.slug} />
-      </aside>
+      </div>
+
     </div>
   </article>
 
@@ -556,23 +651,13 @@ const verificacion = verificacionDe(tool);
 
 <style>
   .tool-page {
-    padding-block: var(--space-m) var(--space-xl);
+    padding-block: var(--space-s) var(--space-xl);
   }
 
-  .tool-header {
-    display: grid;
-    gap: var(--space-m);
-    padding-block-end: var(--space-m);
-    border-block-end: 1px solid var(--line);
-  }
-
-  .tool-header .eyebrow a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .tool-header .eyebrow a:hover {
-    color: var(--signal);
+  .ficha-ident {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
   }
 
   /*
@@ -581,84 +666,177 @@ const verificacion = verificacionDe(tool);
    * `min-width: 0` en la columna de texto y nada de suelo en el logo: en 320 px
    * el nombre sigue teniendo su ancho y no vuelve a partirse por palabras.
    */
-  .tool-ident {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2xs);
-  }
-
-  .tool-ident-text {
+  .ficha-ident-texto {
     min-width: 0;
   }
 
-  .tool-ident .eyebrow {
-    margin-block-end: 0.1rem;
+  .ficha-ident .eyebrow {
+    margin: 0 0 0.1rem;
   }
 
-  .tool-title {
-    font-size: clamp(2rem, 1.5rem + 2.4vw, 3.25rem);
-    margin-block: 0.35rem var(--space-2xs);
+  .ficha-ident .eyebrow a {
+    color: inherit;
+    text-decoration: none;
   }
 
-  .tool-tagline {
-    margin: 0 0 var(--space-s);
-    font-size: clamp(1rem, 0.95rem + 0.3vw, 1.1875rem);
-    color: var(--ink-muted);
-    max-width: 52ch;
+  .ficha-ident .eyebrow a:hover {
+    color: var(--signal);
   }
 
-  .tool-verdict {
-    padding: var(--space-s);
-    display: grid;
-    gap: var(--space-2xs);
-    align-content: start;
+  .ficha-titulo {
+    margin: 0;
   }
 
   /*
    * El estado de la ficha, con el color como refuerzo y nunca como único
    * portador: el texto ya dice «Verificada» o «Verificación parcial».
    */
-  .tool-vstate {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0.3rem 0.5rem;
-    margin: var(--space-2xs) 0 0;
-    font-size: 0.8125rem;
-  }
-
-  .tool-vstate-label {
-    padding: 0.1rem 0.5rem;
+  .ficha-estado-label {
+    padding: 0.05rem 0.5rem;
     border: 1px solid var(--line);
     border-radius: var(--radius-full);
     font-weight: 650;
     color: var(--ink-muted);
   }
 
-  .tool-vstate[data-state='verificada'] .tool-vstate-label {
+  .ficha-estado[data-state='verificada'] .ficha-estado-label {
     border-color: var(--signal-line);
     background: var(--signal-soft);
     color: var(--signal);
   }
 
-  .tool-vstate[data-state='catalogada'] .tool-vstate-label {
+  .ficha-estado[data-state='catalogada'] .ficha-estado-label {
     border-style: dashed;
   }
 
-  .tool-vstate-count {
-    color: var(--ink-subtle);
+  .ficha-acciones {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: var(--space-2xs) var(--space-s);
+    margin-block-start: var(--space-3xs);
   }
 
-  .tool-verdict-text {
+  .decision {
+    gap: var(--space-s);
+  }
+
+  .decision-cabeza {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .decision-etiqueta {
     margin: 0;
-    font-size: 0.9375rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
     color: var(--ink-muted);
   }
 
+  .decision-hace {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .decision-capacidades {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .decision-capacidades li {
+    padding: 0.15rem 0.55rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-full);
+    background: var(--paper);
+    font-size: 0.8125rem;
+    color: var(--ink);
+  }
+
+  .decision-datos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 8.5rem), 1fr));
+    gap: var(--space-2xs) var(--space-s);
+    margin: 0;
+    padding-block: var(--space-2xs);
+    border-block: 1px solid var(--line-hairline);
+  }
+
+  .decision-datos > div {
+    display: grid;
+    gap: 0.1rem;
+    align-content: start;
+    min-width: 0;
+  }
+
+  .decision-datos dt {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .decision-datos dd {
+    margin: 0;
+    font-size: 0.9375rem;
+    overflow-wrap: break-word;
+  }
+
+  .decision-acceso {
+    display: block;
+    font-weight: 650;
+    color: var(--ink-strong);
+  }
+
+  .decision-acceso[data-tono='good'] {
+    color: var(--signal-strong);
+  }
+
+  .decision-acceso[data-tono='warn'] {
+    color: var(--warn);
+  }
+
+  .decision-sub {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+  }
+
+  .decision-alternativas {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35rem var(--space-2xs);
+    margin: 0;
+    font-size: 0.9375rem;
+  }
+
+  .decision-alternativas a {
+    color: var(--signal);
+  }
+
+  .decision-comparar {
+    font-weight: 600;
+  }
+
+  /*
+   * Una columna con medida de lectura.
+   *
+   * El lateral «Resumen» se retira porque repetía el panel de decisión, y sin
+   * él la ficha no necesita dos columnas: la lectura va a un ancho cómodo y las
+   * tablas y rejillas siguen teniendo sitio.
+   */
   .tool-body {
     display: grid;
     gap: var(--space-l);
-    padding-block-start: var(--space-m);
+    padding-block-start: var(--space-2xs);
+    max-width: 56rem;
   }
 
   .tool-main {
@@ -882,69 +1060,10 @@ const verificacion = verificacionDe(tool);
     color: var(--signal);
   }
 
-  .tool-aside-card {
-    padding: var(--space-s);
-    position: sticky;
-    top: 76px;
-  }
-
-  .tool-summary {
-    margin: var(--space-2xs) 0 0;
-    display: grid;
-    gap: 0.4rem;
-  }
-
-  .tool-summary > div {
-    display: flex;
-    justify-content: space-between;
-    gap: var(--space-2xs);
-    font-size: 0.875rem;
-    padding-block-end: 0.4rem;
-    border-block-end: 1px solid var(--line-hairline);
-  }
-
-  .tool-summary dt {
-    color: var(--ink-subtle);
-  }
-
-  .tool-summary dd {
-    margin: 0;
-    font-weight: 600;
-    text-align: right;
-  }
-
-  .tool-summary a {
-    color: var(--signal);
-  }
-
-  .tool-aside-meaning {
-    margin: var(--space-2xs) 0 0;
-    font-size: 0.8125rem;
-    color: var(--ink-muted);
-  }
 
   @media (min-width: 56rem) {
-    .tool-header {
-      grid-template-columns: 1.7fr 1fr;
-      gap: var(--space-xl);
-      align-items: start;
-    }
-
     .proscons {
       grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  @media (min-width: 72rem) {
-    .tool-body {
-      grid-template-columns: minmax(0, 1fr) 17rem;
-      gap: var(--space-xl);
-    }
-  }
-
-  @media (max-width: 71.99rem) {
-    .tool-aside {
-      display: none;
     }
   }
 </style>

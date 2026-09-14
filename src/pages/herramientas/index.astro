@@ -1,12 +1,15 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import CabeceraPagina from '@components/site/CabeceraPagina.astro';
 import ToolExplorer from '@components/discovery/ToolExplorer.astro';
 import { getAllTools, getCatalogStats } from '@lib/data/catalog';
+import { recuentoVerificacion } from '@lib/domain/verification';
 import { itemListSchema } from '@lib/seo/structured-data';
 import { ROUTES } from '@lib/nav';
 
 const tools = getAllTools();
 const stats = getCatalogStats();
+const recuento = recuentoVerificacion(tools);
 
 /**
  * Indexing of filtered views.
@@ -31,21 +34,33 @@ const crumbs = [
 ---
 
 <BaseLayout
-  title={`Las ${stats.total} herramientas de IA gratuitas que hemos verificado`}
+  title={`Catálogo de ${stats.total} herramientas de IA gratuitas`}
   description={`Catálogo completo con filtros por tarjeta, marca de agua, uso comercial, open source y ejecución local. ${stats.noCard} no piden tarjeta y ${stats.commercialUse} permiten uso comercial.`}
   crumbs={crumbs}
-  schemas={[itemListSchema(tools, 'Herramientas de IA gratuitas verificadas')]}
+  migasEnCabecera
+  schemas={[itemListSchema(tools, 'Catálogo de herramientas de IA gratuitas')]}
 >
-  <div class="page listing">
-    <header class="listing-head">
-      <h1 class="listing-title">Herramientas verificadas</h1>
-      <p class="listing-lede">
-        Filtra por lo que de verdad decide: si piden tarjeta, si dejan marca de agua, si te dejan
-        usar el resultado para trabajar y si puedes ejecutarlo en tu equipo. Todos los filtros se
-        combinan y la URL resultante se puede compartir.
-      </p>
-    </header>
+  {/*
+    Una frase de entradilla y el reparto de estados, no un párrafo de cuatro.
 
+    La entradilla anterior explicaba cómo funcionan los filtros justo encima de
+    los filtros. Lo que sí hace falta antes de mirar tarjetas es saber qué
+    significa el estado que llevan, así que eso sube a la cabecera como franja.
+  */}
+  <CabeceraPagina titulo="Catálogo de herramientas" crumbs={crumbs}>
+    <p class="cabecera-entradilla">
+      Las {stats.total} herramientas, con lo que exige cada una para usarla gratis: tarjeta, registro y
+      uso comercial.
+    </p>
+    <p class="franja-estado">
+      <span><strong>{recuento.verificada}</strong> verificadas</span>
+      <span><strong>{recuento.parcial}</strong> con verificación parcial</span>
+      <span><strong>{recuento.catalogada}</strong> catalogadas</span>
+      <a href={ROUTES.methodology}>Qué significa cada estado</a>
+    </p>
+  </CabeceraPagina>
+
+  <div class="page listing">
     <ToolExplorer tools={tools} />
   </div>
 </BaseLayout>
@@ -53,18 +68,5 @@ const crumbs = [
 <style>
   .listing {
     padding-block: var(--space-m) var(--space-xl);
-    display: grid;
-    gap: var(--space-m);
-  }
-
-  .listing-title {
-    font-size: clamp(1.75rem, 1.4rem + 1.6vw, 2.6rem);
-    margin-block-end: var(--space-2xs);
-  }
-
-  .listing-lede {
-    margin: 0;
-    max-width: 60ch;
-    color: var(--ink-muted);
   }
 </style>
