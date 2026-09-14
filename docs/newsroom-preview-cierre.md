@@ -539,3 +539,14 @@ Web V2. El texto de la noticia es correcto; lo que falla es la etiqueta.
 
 Reclasificar es editar la semilla, que gana en la fusión. La URL depende sólo
 del slug, así que ni la página ni su entrada en el sitemap cambian.
+
+### Añadidas después con la misma deuda
+
+Publicadas el 13 de septiembre con la categoría menos mala disponible, a la
+espera de la misma decisión:
+
+- `anthropic-informe-amenazas-septiembre-2026` en `agentes`: es un informe de
+  seguridad, y lo que comparte con esa categoría es que los ataques que describe
+  ya se orquestan con agentes.
+- `gemini-app-windows` en `modelo-multimodal`: es el lanzamiento de una
+  aplicación de escritorio, no el de un modelo.
