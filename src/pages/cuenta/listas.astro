@@ -22,8 +22,7 @@ const atLimit = user.plan === 'free' && data.lists.length >= MAX_LISTS_FREE;
       <h2 id="create-title" class="list-create-title">Crear una lista</h2>
       {atLimit ? (
         <p class="list-limit">
-          Has llegado al límite de {MAX_LISTS_FREE} listas del plan gratuito.
-          <a href={ROUTES.pricing}>Radar Pro</a> las hace ilimitadas, o puedes borrar una.
+          Has llegado al límite de {MAX_LISTS_FREE} listas. Borra una para crear otra.
         </p>
       ) : (
         <form method="post" action="/api/account/lists" class="list-form" data-list-form>

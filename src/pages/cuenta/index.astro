@@ -104,16 +104,6 @@ void suggestions;
       </section>
     )}
 
-    {user.plan === 'free' && (
-      <section class="dash-upsell card" aria-labelledby="upsell-title">
-        <h2 id="upsell-title" class="dash-title">Radar Pro</h2>
-        <p>
-          Avisos en el momento en que detectamos el cambio, listas y comparaciones sin límite,
-          historial completo y sin anuncios. El plan gratuito seguirá siendo útil de todas formas.
-        </p>
-        <a href={ROUTES.pricing} class="btn btn-primary btn-sm">Ver qué incluye</a>
-      </section>
-    )}
   </div>
 </AccountLayout>
 
@@ -230,18 +220,6 @@ void suggestions;
     color: var(--ink-subtle);
     font-size: 0.8125rem;
     font-weight: 600;
-  }
-
-  .dash-upsell {
-    padding: var(--space-s);
-    background: var(--surface-sunken);
-  }
-
-  .dash-upsell p {
-    margin: 0 0 var(--space-s);
-    color: var(--ink-muted);
-    font-size: 0.9375rem;
-    max-width: 56ch;
   }
 
   @media (min-width: 40rem) {

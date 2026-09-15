@@ -2,12 +2,15 @@
 import Logo from './Logo.astro';
 import { FOOTER_NAV } from '@lib/nav';
 import { getAllTools, getCatalogStats } from '@lib/data/catalog';
+import { estadoComercial } from '@lib/data/affiliate';
 import { recuentoVerificacion } from '@lib/domain/verification';
 import { SITE } from '@lib/seo/site';
 
 const stats = getCatalogStats();
 const recuento = recuentoVerificacion(getAllTools());
 const year = new Date().getFullYear();
+const comercial = estadoComercial(getAllTools());
+const nadaComercial = comercial.enlacesDeAfiliacion === 0 && comercial.colocaciones === 0;
 ---
 
 <footer class="site-footer">
@@ -47,8 +50,23 @@ const year = new Date().getFullYear();
         © {year} {SITE.name}. Proyecto editorial independiente.
       </p>
       <p class="footer-disclosure">
-        Algunos enlaces salientes pueden ser de afiliación y están etiquetados como tales.{' '}
-        <a href="/transparencia-afiliados">La afiliación nunca altera lo que dice una ficha.</a>
+        {/*
+          Lo que es verdad hoy, no lo que podría serlo.
+
+          Decía «algunos enlaces pueden ser de afiliación» con cero enlaces de
+          afiliación, y la página de transparencia decía lo contrario.
+        */}
+        {nadaComercial ? (
+          <>
+            Hoy ningún enlace saliente es de afiliación ni está patrocinado.{' '}
+            <a href="/transparencia-afiliados">Si alguno lo fuera, iría marcado y no cambiaría lo que dice una ficha.</a>
+          </>
+        ) : (
+          <>
+            Algunos enlaces salientes son de afiliación y están marcados como tales.{' '}
+            <a href="/transparencia-afiliados">La afiliación nunca altera lo que dice una ficha.</a>
+          </>
+        )}
       </p>
       <button type="button" class="btn btn-ghost btn-sm" data-open-consent>
         Preferencias de cookies

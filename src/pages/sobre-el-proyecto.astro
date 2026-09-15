@@ -1,10 +1,22 @@
 ---
 import ArticleLayout from '@layouts/ArticleLayout.astro';
-import { getCatalogStats } from '@lib/data/catalog';
+import { getAllTools, getCatalogStats } from '@lib/data/catalog';
+import { estadoComercial } from '@lib/data/affiliate';
 import { ROUTES } from '@lib/nav';
 import { SITE } from '@lib/seo/site';
 
 const stats = getCatalogStats();
+
+/*
+ * Cómo se sostiene, dicho con lo que hay.
+ *
+ * Decía que el proyecto se sostiene «con afiliación declarada, patrocinios
+ * etiquetados y suscripciones a Radar Pro» y pedía suscribirse. Hoy no hay
+ * ningún enlace de afiliación, ninguna colocación comercial y Radar Pro no se
+ * puede contratar.
+ */
+const comercial = estadoComercial(getAllTools());
+const sinIngresos = comercial.enlacesDeAfiliacion === 0 && comercial.colocaciones === 0;
 
 const crumbs = [
   { name: 'Inicio', path: ROUTES.home },
@@ -62,12 +74,24 @@ const crumbs = [
   </ul>
 
   <h2>Cómo se sostiene</h2>
-  <p>
-    Con afiliación declarada, patrocinios etiquetados y suscripciones a
-    <a href={ROUTES.pricing}> Radar Pro</a>. Las tres cosas están descritas en
-    <a href={ROUTES.advertising}> publicidad y patrocinios</a> y ninguna toca el criterio editorial:
-    esa separación está escrita en la <a href={ROUTES.editorialPolicy}>política editorial</a>.
-  </p>
+  {sinIngresos ? (
+    <p>
+      Hoy, sin ingresos: ningún enlace es de afiliación, no hay patrocinios y{' '}
+      <a href={ROUTES.pricing}>Radar Pro</a> todavía no se puede contratar. Si llegan, será por
+      esas tres vías, descritas en{' '}
+      <a href={ROUTES.advertising}>publicidad y patrocinios</a>, y ninguna tocará el criterio
+      editorial: esa separación está escrita en la{' '}
+      <a href={ROUTES.editorialPolicy}>política editorial</a>.
+    </p>
+  ) : (
+    <p>
+      Con afiliación declarada, patrocinios etiquetados y, cuando exista, suscripciones a{' '}
+      <a href={ROUTES.pricing}>Radar Pro</a>. Las tres cosas están descritas en{' '}
+      <a href={ROUTES.advertising}>publicidad y patrocinios</a> y ninguna toca el criterio
+      editorial: esa separación está escrita en la{' '}
+      <a href={ROUTES.editorialPolicy}>política editorial</a>.
+    </p>
+  )}
   <p>
     El contenido es gratuito y va a seguir siéndolo. Sería bastante contradictorio poner un muro de
     pago delante de una web sobre lo que es gratis de verdad.
@@ -77,7 +101,6 @@ const crumbs = [
   <ul>
     <li><a href={ROUTES.submit}>Enviar una herramienta</a> que falte.</li>
     <li>Reportar un dato desactualizado desde el formulario del final de cada ficha. Es lo más útil que puedes hacer.</li>
-    <li>Suscribirte a <a href={ROUTES.pricing}>Radar Pro</a> si el proyecto te ahorra tiempo.</li>
   </ul>
 
   <h2>Contacto</h2>

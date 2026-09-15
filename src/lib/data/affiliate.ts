@@ -294,6 +294,24 @@ function load(): Snapshot {
 }
 
 /**
+ * Lo que hoy es comercial en el sitio, contado.
+ *
+ * El pie decía «algunos enlaces salientes pueden ser de afiliación» mientras
+ * /transparencia-afiliados decía, con razón, que no lo era ninguno. Las dos
+ * frases salen ahora de estas dos cifras: enlaces de afiliación en fichas y
+ * colocaciones comerciales activas.
+ */
+export function estadoComercial(tools: readonly { affiliation: { isAffiliate: boolean } }[]): {
+  enlacesDeAfiliacion: number;
+  colocaciones: number;
+} {
+  return {
+    enlacesDeAfiliacion: tools.filter((tool) => tool.affiliation.isAffiliate).length,
+    colocaciones: load().placements.length,
+  };
+}
+
+/**
  * Commercial content for one slot on one tool page.
  *
  * Returns `[]` whenever there is nothing to show, which is the normal case

@@ -278,7 +278,7 @@ export async function toggleFollow(
   if (add && plan === 'free' && existing.alerts.length >= MAX_ALERTS_FREE) {
     return {
       ok: false,
-      message: `El plan gratuito permite ${MAX_ALERTS_FREE} avisos. Quita uno o pásate a Radar Pro para tenerlos ilimitados.`,
+      message: `Puedes seguir hasta ${MAX_ALERTS_FREE} herramientas. Quita una para añadir otra.`,
     };
   }
 
@@ -316,7 +316,7 @@ export async function createList(
   if (plan === 'free' && existing.lists.length >= MAX_LISTS_FREE) {
     return {
       ok: false,
-      message: `El plan gratuito permite ${MAX_LISTS_FREE} listas. Radar Pro las hace ilimitadas.`,
+      message: `Puedes tener hasta ${MAX_LISTS_FREE} listas. Borra una para crear otra.`,
     };
   }
 

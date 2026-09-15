@@ -17,7 +17,7 @@ const atLimit = user.plan === 'free' && activeAlerts.length >= MAX_ALERTS_FREE;
 <AccountLayout
   title="Tus alertas"
   heading="Alertas de cambios"
-  lede="Marca las herramientas cuyo plan gratuito te importa. El envío automático de avisos todavía no funciona: por ahora esto es tu lista de vigilancia."
+  lede="Tu lista de vigilancia. Todavía no se pueden añadir herramientas desde las fichas ni enviamos avisos automáticos: cuando funcionen, lo diremos aquí."
 >
   <div class="alerts">
     <section class="card alerts-summary">
@@ -64,7 +64,7 @@ const atLimit = user.plan === 'free' && activeAlerts.length >= MAX_ALERTS_FREE;
         </ul>
       ) : (
         <p class="alerts-empty">
-          No sigues ninguna herramienta todavía. Pulsa «Avisarme» en cualquier ficha.
+          No sigues ninguna herramienta. Seguir una desde su ficha todavía no está disponible.
         </p>
       )}
     </section>
