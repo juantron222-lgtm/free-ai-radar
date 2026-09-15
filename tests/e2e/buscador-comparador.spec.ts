@@ -285,6 +285,35 @@ test.describe('comparador: la tabla', () => {
     await expect(resumen).not.toContainText(/la mejor|el mejor|gana/i);
   });
 
+  test('un dato que falta no se cuenta como diferencia', async ({ page }) => {
+    /*
+     * «Sí» frente a «El fabricante no lo publica» salía como diferencia. Ahora
+     * esa fila dice que faltan datos y el resumen lo cuenta aparte.
+     */
+    await page.goto('/comparar?t=chatgpt,claude,perplexity-ai');
+    await mostrarTodas(page);
+    const faltan = page.locator('#compare-table tbody tr[data-igual="faltan"]');
+    expect(await faltan.count()).toBeGreaterThan(0);
+    await expect(faltan.first().locator('.compare-faltan')).toHaveText('Faltan datos');
+    await expect(page.locator('.compare-summary')).toContainText('falta algún dato');
+  });
+
+  test('«Añadir otra» propone lo que hace lo mismo, y no aparece si ya hay cuatro', async ({ page }) => {
+    await page.goto('/comparar?t=lovable,bolt-new');
+    const propuestas = await page.locator('.compare-more-list a').allInnerTexts();
+    expect(propuestas, 'v0 construye aplicaciones como las dos').toContain('v0 by Vercel');
+    for (const ajena of ['Suno AI', 'Midjourney', 'Aider']) expect(propuestas).not.toContain(ajena);
+
+    await page.goto('/comparar?t=klingai,hailuo-ai,luma-dream-machine,pika-labs');
+    await expect(page.locator('.compare-more')).toHaveCount(0);
+  });
+
+  test('pedir más de cuatro dice cuál se ha quedado fuera', async ({ page }) => {
+    await page.goto('/comparar?t=klingai,hailuo-ai,luma-dream-machine,pika-labs,runwayml');
+    await expect(page.locator('thead th')).toHaveCount(5);
+    await expect(page.getByRole('status').filter({ hasText: 'como mucho 4' })).toContainText('RunwayML');
+  });
+
   test('la URL sigue siendo compartible con cuatro columnas', async ({ page }) => {
     await page.goto('/comparar?t=klingai,hailuo-ai,luma-dream-machine,pika-labs');
     await expect(page.getByRole('table')).toBeVisible();

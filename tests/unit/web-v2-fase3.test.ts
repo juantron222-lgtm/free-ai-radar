@@ -146,7 +146,8 @@ describe('el comparador enseña primero lo que separa', () => {
     }
     for (const fila of grupos.contexto) expect(FILAS_DE_CONTEXTO.has(fila.row.label)).toBe(true);
     for (const fila of grupos.coincidencias) expect(fila.iguales).toBe(true);
-    for (const fila of grupos.diferencias) expect(fila.iguales).toBe(false);
+    for (const fila of grupos.diferencias) expect(fila.distinta).toBe(true);
+    for (const fila of grupos.faltanDatos) expect(fila.faltanDatos).toBe(true);
   });
 
   it('arranca con «sólo diferencias» encendido cuando hay algo que esconder', () => {

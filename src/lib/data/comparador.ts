@@ -249,9 +249,22 @@ export const FILAS_DE_CONTEXTO: ReadonlySet<string> = new Set([
 export interface FilaComparada {
   row: Row;
   celdas: Celda[];
-  /** Todas las columnas dicen lo mismo: no aporta nada a esta comparación. */
+  /** Todas las columnas dicen lo mismo y lo sabemos de todas. */
   iguales: boolean;
+  /** Al menos dos columnas con dato dicen cosas distintas. */
+  distinta: boolean;
+  /**
+   * Lo que sabemos coincide, pero alguna columna no tiene el dato.
+   *
+   * «Sí» frente a «El fabricante no lo publica» contaba como diferencia, y
+   * «Sin comprobar» en las dos como coincidencia. Ninguna de las dos cosas es
+   * cierta: en esa fila no sabemos si se diferencian.
+   */
+  faltanDatos: boolean;
 }
+
+/** Una celda sin dato. «No aplica» sí es una respuesta. */
+const sinDato = (celda: Celda): boolean => celda.tipo === 'ausente' && celda.texto !== NO_APLICA;
 
 /**
  * La comparación entera, calculada una vez y en el servidor.
@@ -264,8 +277,10 @@ export interface FilaComparada {
 export function filasDe(tools: readonly Tool[]): FilaComparada[] {
   return ROWS.map((row) => {
     const celdas = tools.map((tool) => row.values(tool));
-    const claves = celdas.map(clave);
-    return { row, celdas, iguales: claves.every((k) => k === claves[0]) };
+    const conocidas = celdas.filter((c) => !sinDato(c));
+    const distinta = new Set(conocidas.map(clave)).size > 1;
+    const faltanDatos = !distinta && conocidas.length < celdas.length;
+    return { row, celdas, distinta, faltanDatos, iguales: !distinta && !faltanDatos };
   }).filter(
     /*
      * Una fila que no aplica a ninguna de las elegidas se cae: cuatro «No
@@ -279,6 +294,8 @@ export function filasDe(tools: readonly Tool[]): FilaComparada[] {
 export interface ComparacionAgrupada {
   /** Condiciones comparables en las que al menos una columna dice otra cosa. */
   diferencias: FilaComparada[];
+  /** Condiciones en las que no sabemos si se diferencian: falta algún dato. */
+  faltanDatos: FilaComparada[];
   /** Condiciones comparables en las que todas dicen lo mismo. */
   coincidencias: FilaComparada[];
   /** Prosa y fechas: se leen al final y no cuentan como diferencia. */
@@ -295,7 +312,8 @@ export interface ComparacionAgrupada {
 export function agruparFilas(filas: readonly FilaComparada[]): ComparacionAgrupada {
   const comparables = filas.filter((f) => !FILAS_DE_CONTEXTO.has(f.row.label));
   return {
-    diferencias: comparables.filter((f) => !f.iguales),
+    diferencias: comparables.filter((f) => f.distinta),
+    faltanDatos: comparables.filter((f) => f.faltanDatos),
     coincidencias: comparables.filter((f) => f.iguales),
     contexto: filas.filter((f) => FILAS_DE_CONTEXTO.has(f.row.label)),
   };

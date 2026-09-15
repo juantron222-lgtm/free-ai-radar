@@ -3,6 +3,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import CabeceraPagina from '@components/site/CabeceraPagina.astro';
 import { getAllTools, getTool } from '@lib/data/catalog';
 import { agruparFilas, filasDe } from '@lib/data/comparador';
+import { parecidas } from '@lib/data/afinidad';
 import { comparacionesVigentes, urlDe } from '@lib/data/comparaciones';
 import { VERTICALES } from '@lib/data/home';
 import { normalize } from '@lib/search/index';
@@ -23,20 +24,39 @@ const MIN_INDEXABLE = 2;
  * Aceptar las dos evita tener que elegir entre una URL legible y un formulario
  * que funcione sin scripts.
  */
-const requested = [...new Set(
+const pedidas = [...new Set(
   Astro.url.searchParams
     .getAll('t')
     .flatMap((valor) => valor.split(','))
     .map((s) => s.trim())
     .filter(Boolean)
-)].slice(0, MAX);
+)];
+const requested = pedidas.slice(0, MAX);
+
+/*
+ * Pedir cinco comparaba cuatro sin decirlo: la quinta desaparecía. Ahora se
+ * dice cuáles se han quedado fuera.
+ */
+const fueraDelLimite = pedidas.slice(MAX);
 
 const tools = requested.map((slug) => getTool(slug)).filter((t) => t !== undefined);
 const missing = requested.filter((slug) => !getTool(slug));
 const hasComparison = tools.length >= MIN_INDEXABLE;
 
 const allTools = getAllTools();
-const suggestions = allTools.filter((t) => !requested.includes(t.slug)).slice(0, 12);
+/*
+ * «Añadir otra» proponía las doce primeras del abecedario, y con cuatro ya
+ * elegidas enlazaba a la misma comparación, porque la quinta se recortaba.
+ * Ahora propone las que hacen la misma tarea que las que ya están, y sólo si
+ * cabe otra.
+ */
+const suggestions =
+  tools.length >= MIN_INDEXABLE && tools.length < MAX
+    ? (() => {
+        const estrictas = parecidas(tools, allTools, 8, requested);
+        return estrictas.length ? estrictas : parecidas(tools, allTools, 8, requested, true);
+      })()
+    : [];
 const utiles = comparacionesVigentes();
 
 const crumbs = [
@@ -63,7 +83,7 @@ const filas = hasComparison ? filasDe(tools) : [];
 
 const grupos = agruparFilas(filas);
 const distintas = grupos.diferencias;
-const comparables = grupos.diferencias.length + grupos.coincidencias.length;
+const comparables = grupos.diferencias.length + grupos.faltanDatos.length + grupos.coincidencias.length;
 
 /*
  * Por defecto, sólo lo que separa.
@@ -76,7 +96,7 @@ const soloDiferencias = distintas.length > 0 && grupos.coincidencias.length > 0;
 
 /* Los grupos de la tabla, en el orden en que se leen. */
 const cuerpos = [
-  { clase: undefined, titulo: null, filas: [...grupos.diferencias, ...grupos.coincidencias] },
+  { clase: undefined, titulo: null, filas: [...grupos.diferencias, ...grupos.faltanDatos, ...grupos.coincidencias] },
   { clase: 'compare-contexto', titulo: 'Con más detalle', filas: grupos.contexto },
 ].filter((cuerpo) => cuerpo.filas.length > 0);
 
@@ -141,16 +161,34 @@ const FILTROS_VERTICAL = [
       </p>
     )}
 
+    {fueraDelLimite.length > 0 && (
+      <p class="compare-missing" role="status">
+        Se comparan como mucho {MAX} a la vez. Se ha{fueraDelLimite.length === 1 ? '' : 'n'} quedado
+        fuera: {fueraDelLimite.map((slug) => getTool(slug)?.name ?? slug).join(', ')}. Quita una de la
+        tabla para meterla.
+      </p>
+    )}
+
     {hasComparison ? (
       <>
         <div class="compare-toolbar">
           <p class="compare-summary">
             {distintas.length === 0 ? (
-              <>Estas {tools.length} coinciden en las {comparables} filas que comparamos.</>
+              grupos.faltanDatos.length === 0 ? (
+                <>Estas {tools.length} coinciden en las {comparables} filas que comparamos.</>
+              ) : (
+                <>
+                  En lo que sabemos de ellas no se diferencian. En {grupos.faltanDatos.length} de{' '}
+                  {comparables} filas falta algún dato para saberlo.
+                </>
+              )
             ) : (
               <>
                 Se diferencian en <strong>{distintas.length}</strong> de {comparables} filas.
                 {resumen.length > 0 && <> Las primeras que las separan: {resumen.join(', ')}.</>}
+                {grupos.faltanDatos.length > 0 && (
+                  <> En {grupos.faltanDatos.length} falta algún dato para saber si se diferencian.</>
+                )}
                 {grupos.coincidencias.length > 0 && <> En {grupos.coincidencias.length} dicen lo mismo.</>}
               </>
             )}
@@ -189,9 +227,12 @@ const FILTROS_VERTICAL = [
                   <th scope="colgroup" colspan={tools.length + 1} role="columnheader">{cuerpo.titulo}</th>
                 </tr>
               )}
-              {cuerpo.filas.map(({ row, celdas, iguales }) => (
-                <tr data-igual={iguales ? 'si' : 'no'} role="row">
-                  <th scope="row" role="rowheader">{row.label}</th>
+              {cuerpo.filas.map(({ row, celdas, iguales, faltanDatos }) => (
+                <tr data-igual={iguales ? 'si' : faltanDatos ? 'faltan' : 'no'} role="row">
+                  <th scope="row" role="rowheader">
+                    {row.label}
+                    {faltanDatos && <span class="compare-faltan">Faltan datos</span>}
+                  </th>
                   {celdas.map((celda, i) => (
                     <td role="cell" data-herramienta={tools[i]?.name}>
                       {celda.tipo === 'lista' && (
@@ -351,7 +392,7 @@ const FILTROS_VERTICAL = [
 
     {hasComparison && suggestions.length > 0 && (
       <section class="compare-more" aria-labelledby="more-title">
-        <h2 id="more-title" class="compare-more-title">Añadir otra</h2>
+        <h2 id="more-title" class="compare-more-title">Añadir otra que hace lo mismo</h2>
         <ul class="compare-more-list">
           {suggestions.slice(0, 8).map((tool) => (
             <li>
@@ -422,6 +463,14 @@ const FILTROS_VERTICAL = [
     align-items: baseline;
     justify-content: space-between;
     gap: var(--space-2xs) var(--space-s);
+  }
+
+  .compare-faltan {
+    display: block;
+    margin-top: 0.125rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--ink-subtle);
   }
 
   .compare-summary {

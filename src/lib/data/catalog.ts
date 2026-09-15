@@ -2,6 +2,7 @@ import rawTools from '@/data/generated/tools.json';
 import { ToolRecord, hydrateTool, type Tool } from '@lib/domain/tool';
 import { CATEGORIES, getCategory, type CategoryDef } from '@lib/domain/taxonomy';
 import { cifrasDelCatalogo } from './cifras';
+import { parecidas } from './afinidad';
 
 /**
  * The catalogue.
@@ -100,13 +101,15 @@ export function getPopulatedCategories(): CategoryWithCount[] {
 }
 
 /**
- * Alternatives for a tool.
+ * Alternativas a una herramienta: las elegidas a mano primero, después las que
+ * hacen la misma tarea.
  *
- * Editorially chosen ones come first. When there are too few, the gap is filled
- * by relevance rather than left empty — first same-category tools, then tools
- * that solve the same underlying problem (same free-tier model or same
- * cloud/local split). A tool that is the only one in its category still gets a
- * useful block instead of a dead end.
+ * El relleno era por categoría y forma de acceso, y a ChatGPT le proponía
+ * Hugging Face Spaces y LM Studio. Ahora sale de `parecidas()`, que exige
+ * compartir una tarea de verdad (ver `afinidad.ts`). Si no hay ninguna que
+ * encaje en la misma forma de uso, se prueba sin esa exigencia —Whisper es
+ * local y lo que transcribe como él vive en la nube—; y si tampoco, el bloque
+ * no sale: una alternativa que no lo es resta, no suma.
  */
 export function getAlternativesFor(tool: Tool, limit = 6): Tool[] {
   const explicit = tool.alternatives
@@ -114,27 +117,13 @@ export function getAlternativesFor(tool: Tool, limit = 6): Tool[] {
     .map((slug) => BY_SLUG.get(slug))
     .filter((candidate): candidate is Tool => candidate !== undefined);
 
-  if (explicit.length >= 3) return explicit.slice(0, limit);
+  if (explicit.length >= limit) return explicit.slice(0, limit);
 
-  const seen = new Set([tool.slug, ...explicit.map((t) => t.slug)]);
-  const candidates = TOOLS.filter((candidate) => !seen.has(candidate.slug));
+  const excluir = explicit.map((t) => t.slug);
+  let relleno = parecidas([tool], TOOLS, limit - explicit.length, excluir);
+  if (explicit.length + relleno.length === 0) relleno = parecidas([tool], TOOLS, limit, excluir, true);
 
-  const affinity = (candidate: Tool): number => {
-    let score = 0;
-    if (candidate.categorySlug === tool.categorySlug) score += 100;
-    if (candidate.secondaryCategories.includes(tool.categorySlug)) score += 60;
-    if (candidate.freeModel === tool.freeModel) score += 25;
-    if (candidate.hosting === tool.hosting) score += 15;
-    if (candidate.openSource === tool.openSource) score += 5;
-    // Editorial quality only breaks ties; it never outranks relevance.
-    return score + candidate.scoreTotal / 100;
-  };
-
-  const filler = [...candidates]
-    .sort((a, b) => affinity(b) - affinity(a))
-    .slice(0, limit - explicit.length);
-
-  return [...explicit, ...filler];
+  return [...explicit, ...relleno];
 }
 
 /** Tools whose free plan we have not re-checked recently. Drives the admin queue. */

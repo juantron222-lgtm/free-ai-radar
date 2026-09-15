@@ -112,7 +112,35 @@ describe('«sólo diferencias» quita exactamente lo que no separa', () => {
   it('comparar una herramienta consigo misma no deja ni una diferencia', () => {
     const tool = getTool('lovable')!;
     const filas = filasDe([tool, tool]);
-    expect(filas.filter((f) => !f.iguales)).toEqual([]);
+    expect(filas.filter((f) => f.distinta)).toEqual([]);
+  });
+
+  it('un dato desconocido no cuenta como diferencia ni como coincidencia', () => {
+    /*
+     * «Sí» frente a «El fabricante no lo publica» salía como diferencia, y
+     * «Sin comprobar» en las dos, como coincidencia.
+     */
+    const a = makeTool({ slug: 'a', name: 'A' });
+    const conDato = makeTool({ slug: 'b', name: 'B', freePlan: { ...a.freePlan, requiresCreditCard: 'no' } });
+    const sinDato = makeTool({ slug: 'c', name: 'C', freePlan: { ...a.freePlan, requiresCreditCard: 'unverified' } });
+    const tarjeta = (tools: Parameters<typeof filasDe>[0]) =>
+      filasDe(tools).find((f) => /tarjeta/i.test(f.row.label))!;
+
+    const mezcla = tarjeta([conDato, sinDato]);
+    expect(mezcla.distinta).toBe(false);
+    expect(mezcla.faltanDatos).toBe(true);
+    expect(mezcla.iguales).toBe(false);
+
+    const ambasSin = tarjeta([sinDato, { ...sinDato, slug: 'd', name: 'D' }]);
+    expect(ambasSin.iguales, 'no saber en las dos no es coincidir').toBe(false);
+    expect(ambasSin.faltanDatos).toBe(true);
+  });
+
+  it('cada fila está en un solo grupo', () => {
+    const filas = filasDe(['chatgpt', 'claude', 'perplexity-ai'].map((s) => getTool(s)!));
+    for (const f of filas) {
+      expect([f.distinta, f.faltanDatos, f.iguales].filter(Boolean), f.row.label).toHaveLength(1);
+    }
   });
 
   it('toda comparación declarada tiene algo que enseñar con el filtro puesto', () => {
@@ -122,7 +150,7 @@ describe('«sólo diferencias» quita exactamente lo que no separa', () => {
      */
     for (const comparacion of comparacionesVigentes()) {
       const filas = filasDe(comparacion.slugs.map((s) => getTool(s)!));
-      const distintas = filas.filter((f) => !f.iguales);
+      const distintas = filas.filter((f) => f.distinta);
       expect(distintas.length, comparacion.id).toBeGreaterThan(0);
     }
   });

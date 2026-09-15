@@ -1,5 +1,8 @@
 import type { Tool } from '@lib/domain/tool';
+import { tieneAccesoGratuito } from '@lib/domain/acceso';
 import { getAllTools } from './catalog';
+
+export { tieneAccesoGratuito };
 
 /**
  * Curated collections.
@@ -19,17 +22,6 @@ export interface Collection {
   context: string;
   match: (tool: Tool) => boolean;
 }
-
-/**
- * Lo que puede aparecer bajo un título que empieza por «IA gratis».
- *
- * «IA gratis sin marca de agua» incluía Claude Code, que no tiene plan
- * gratuito: su dato de marca de agua es cierto, pero la promesa del título no.
- * Y «IA gratis para creadores» incluía una prueba. Una prueba, una demo, un
- * producto sólo de pago o uno cuyo acceso no conocemos no son «gratis».
- */
-const SIN_ACCESO_GRATUITO: ReadonlySet<Tool['freeModel']> = new Set(['paid_only', 'unknown', 'trial', 'demo']);
-export const tieneAccesoGratuito = (tool: Tool): boolean => !SIN_ACCESO_GRATUITO.has(tool.freeModel);
 
 export const COLLECTIONS: readonly Collection[] = [
   {

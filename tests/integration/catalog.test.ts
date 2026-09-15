@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { readFileSync } from 'node:fs';
 import {
   getAllTools,
   getAlternativesFor,
@@ -138,11 +139,40 @@ describe('categorías', () => {
 });
 
 describe('alternativas', () => {
-  it('siempre ofrece algo, nunca un bloque vacío', () => {
-    for (const tool of getAllTools()) {
-      const alternatives = getAlternativesFor(tool);
-      expect(alternatives.length, `${tool.slug}`).toBeGreaterThan(0);
+  it('casi todas tienen alguna, pero ninguna se rellena con lo que no hace lo mismo', () => {
+    /*
+     * La prueba decía «siempre ofrece algo, nunca un bloque vacío», y así fue
+     * como ChatGPT acabó con Hugging Face Spaces y LM Studio de alternativas.
+     * Ahora se admite un bloque vacío; lo que no se admite es un relleno que
+     * no comparte tarea ni categoría.
+     */
+    const tools = getAllTools();
+    const vacias = tools.filter((t) => getAlternativesFor(t).length === 0);
+    expect(vacias.length, vacias.map((t) => t.slug).join(', ')).toBeLessThanOrEqual(Math.ceil(tools.length * 0.05));
+
+    for (const tool of tools) {
+      for (const alt of getAlternativesFor(tool)) {
+        if (tool.alternatives.includes(alt.slug)) continue;
+        const comparten = alt.capabilities.some((c) => tool.capabilities.includes(c));
+        const categoria = alt.categorySlug === tool.categorySlug || alt.secondaryCategories.includes(tool.categorySlug);
+        expect(comparten || categoria, `${tool.slug} → ${alt.slug}`).toBe(true);
+      }
     }
+  });
+
+  it('a ChatGPT no le salen piezas ni modelos por API, y a Lovable no le salen copilotos', () => {
+    const chatgpt = getAlternativesFor(getAllTools().find((t) => t.slug === 'chatgpt')!).map((t) => t.slug);
+    expect(chatgpt).not.toContain('hugging-face-spaces');
+    expect(chatgpt).not.toContain('lm-studio');
+    for (const slug of chatgpt) {
+      expect(getAllTools().find((t) => t.slug === slug)!.kind, slug).not.toBe('model');
+    }
+    const lovable = getAlternativesFor(getAllTools().find((t) => t.slug === 'lovable')!);
+    for (const alt of lovable) expect(alt.productType ?? 'app-builder', alt.slug).toBe('app-builder');
+  });
+
+  it('el orden no depende de la vieja nota sobre 100', () => {
+    expect(readFileSync('src/lib/data/afinidad.ts', 'utf8')).not.toContain('scoreTotal');
   });
 
   it('nunca se incluye a sí misma', () => {
