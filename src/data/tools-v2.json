@@ -840,7 +840,12 @@
     "startEffort": "signup",
     "capabilities": [
       "text-generation",
-      "api"
+      "api",
+      "text-to-image",
+      "audio-input",
+      "research",
+      "memory",
+      "code-generation"
     ],
     "evidence": [
       {
@@ -855,11 +860,12 @@
       {
         "field": "capabilities",
         "outcome": "stated",
-        "sourceUrl": "https://help.openai.com/en/articles/9275245-chatgpt-free-tier-faq",
-        "sourceKind": "docs",
-        "scope": "product",
-        "checkedAt": "2026-08-30",
-        "quote": "File uploads, image generation, voice, data analysis, and other tools have separate usage limits on the Free tier."
+        "sourceUrl": "https://chatgpt.com/pricing",
+        "sourceKind": "pricing",
+        "scope": "web",
+        "checkedAt": "2026-09-15",
+        "quote": "Unlimited text chats with GPT-5.6 Luna · Limited and slower image generation · Limited voice chats · Limited deep research · Limited memory and context · Limited Codex access",
+        "basis": "Lista del plan Free en la página de precios."
       },
       {
         "field": "freePlan.requiresCreditCard",
@@ -2253,7 +2259,7 @@
         "Los workflows complejos pueden ser difíciles de depurar"
       ],
       "requiresSignup": "no",
-      "requiresCreditCard": "unverified",
+      "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
@@ -2353,6 +2359,16 @@
         "checkedAt": "2026-08-12",
         "quote": "Image generation : Stable Diffusion 1 · advanced examples: “Hires Fix” aka 2 Pass Txt2Img Img2Img Inpainting Lora Hypernetworks Embeddings/Textual Inv · Image editing : Flux Kontext, Flux",
         "scope": "local"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "derived",
+        "sourceUrl": "https://github.com/Comfy-Org/ComfyUI",
+        "sourceKind": "repo",
+        "scope": "local",
+        "checkedAt": "2026-09-15",
+        "quote": "Runs fully offline: core does not download anything unless you request it.",
+        "basis": "Se instala desde el repositorio oficial (GPL-3.0) y funciona sin conexión: no hay alta ni pago donde pedir una tarjeta. Los nodos de API de pago son opcionales y aparte."
       }
     ],
     "startEffortReason": "Exige instalar el entorno, descargar los modelos y montar el grafo de nodos.",
@@ -3773,7 +3789,7 @@
         "Personalización avanzada limitada"
       ],
       "requiresSignup": "no",
-      "requiresCreditCard": "unverified",
+      "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
@@ -3872,6 +3888,16 @@
         "checkedAt": "2026-08-12",
         "quote": "urney's examples: Midjourney Fooocus High-quality text-to-image without needing much prompt engineering or par · oint swap system of the refiner now also supports img2img and upscale in a seamless way · 5x) / Upscale (2x) Inpaint / Up / Down / Left / Right (Pan) Input Image -&gt; Inpaint",
         "scope": "local"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "derived",
+        "sourceUrl": "https://github.com/lllyasviel/Fooocus",
+        "sourceKind": "repo",
+        "scope": "local",
+        "checkedAt": "2026-09-15",
+        "quote": "The software is offline, open source, and free",
+        "basis": "Se descarga del repositorio oficial y funciona sin conexión: no hay alta ni pago donde pedir una tarjeta."
       }
     ],
     "startEffortReason": "Se descarga y se ejecuta con un solo fichero, pero exige GPU y descarga modelos de varios gigas.",
@@ -7470,7 +7496,7 @@
         "Rendimiento depende del hardware local"
       ],
       "requiresSignup": "no",
-      "requiresCreditCard": "unverified",
+      "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
@@ -7548,11 +7574,36 @@
     "lastVerifiedAt": "2026-07-08",
     "updatedAt": "2026-07-08",
     "startEffort": "install",
-    "capabilities": [],
+    "capabilities": [
+      "text-generation",
+      "model-download",
+      "api",
+      "tool-use"
+    ],
     "startEffortReason": "Instalador de escritorio con catálogo de modelos integrado: no hay que tocar la línea de órdenes.",
     "licences": {},
     "access": {},
-    "evidence": []
+    "evidence": [
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "derived",
+        "sourceUrl": "https://lmstudio.ai/docs/app",
+        "sourceKind": "docs",
+        "scope": "local",
+        "checkedAt": "2026-09-15",
+        "quote": "To get LM Studio, head over to the Downloads page and download an installer for your operating system.",
+        "basis": "La documentación sólo pide descargar el instalador; no menciona cuenta ni pago para instalarlo ni para ejecutar modelos."
+      },
+      {
+        "field": "capabilities",
+        "outcome": "stated",
+        "sourceUrl": "https://lmstudio.ai/docs/app",
+        "sourceKind": "docs",
+        "scope": "local",
+        "checkedAt": "2026-09-15",
+        "quote": "Run an LLM like gpt-oss, Llama, Qwen, Mistral, or DeepSeek R1 on your computer · Search & download functionality (via Hugging Face 🤗) · Serve local models on OpenAI-like endpoints, locally and on the network · You can install MCP servers in LM Studio and use them with your local models."
+      }
+    ]
   },
   {
     "skillLevel": "beginner",
@@ -9042,7 +9093,7 @@
         "No tiene interfaz gráfica oficial (solo CLI y API)"
       ],
       "requiresSignup": "no",
-      "requiresCreditCard": "unverified",
+      "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
@@ -9130,17 +9181,29 @@
     "startEffort": "install",
     "capabilities": [
       "api",
-      "model-download"
+      "model-download",
+      "text-generation"
     ],
     "evidence": [
       {
         "field": "capabilities",
         "outcome": "stated",
-        "sourceUrl": "https://ollama.com",
-        "sourceKind": "official",
-        "checkedAt": "2026-08-12",
-        "quote": "nect editors and frameworks through Ollama&apos;s API · Ollama Models Docs Pricing Sign in Download Models Download Docs Pricing Sign in Build with open models, on yo",
-        "scope": "product"
+        "sourceUrl": "https://github.com/ollama/ollama",
+        "sourceKind": "repo",
+        "scope": "local",
+        "checkedAt": "2026-09-15",
+        "quote": "Ollama has a REST API for running and managing models. · See ollama.com/library for the full list.",
+        "basis": "El README enseña a ejecutar y chatear con modelos de lenguaje abiertos descargados de su biblioteca."
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "derived",
+        "sourceUrl": "https://ollama.com/pricing",
+        "sourceKind": "pricing",
+        "scope": "local",
+        "checkedAt": "2026-09-15",
+        "quote": "Running models on your own hardware is always unlimited",
+        "basis": "El plan Free es «Run models locally» y se descarga sin alta. Sólo cubre el uso en tu equipo: los modelos en la nube de Ollama tienen cuenta y créditos, y ahí no publica si pide tarjeta."
       }
     ],
     "startEffortReason": "Instalador propio y una sola orden para descargar un modelo.",
@@ -9490,7 +9553,10 @@
     "auditNotes": "No entra en Imagen. Dos razones, las dos de fuente oficial: el plan gratuito excluye expresamente la generación de imágenes, y cuando la hay no la genera Perplexity sino GPT Image 1, Nano Banana o Seedream 4.5, elegidos en ajustes. Marcarla con text-to-image diría que genera imágenes, igual que decirlo de una plataforma que aloja modelos ajenos. requiresSignup baja de «no» a «unverified»: ninguna página oficial afirma que se pueda buscar sin cuenta.",
     "startEffort": "signup",
     "capabilities": [
-      "api"
+      "api",
+      "text-generation",
+      "web-browsing",
+      "research"
     ],
     "evidence": [
       {
@@ -9519,6 +9585,16 @@
         "checkedAt": "2026-09-15",
         "scope": "product",
         "quote": "We hereby permit you to use the Services for your personal, non-commercial use only"
+      },
+      {
+        "field": "capabilities",
+        "outcome": "stated",
+        "sourceUrl": "https://www.perplexity.ai/help-center/en/articles/11187416-which-perplexity-subscription-plan-is-right-for-you",
+        "sourceKind": "help",
+        "scope": "product",
+        "checkedAt": "2026-09-15",
+        "quote": "Practically unlimited basic searches · Very limited amount of Pro Searches · Basic file uploads (limited)",
+        "basis": "Lista del plan Free (Standard). La generación de imagen y vídeo de Perplexity ejecuta modelos de terceros y no se le atribuye como capacidad propia."
       }
     ],
     "startEffortReason": "El plan gratuito es un plan con historial y cuotas, así que arranca en una cuenta.",
@@ -9832,7 +9908,7 @@
         "Interfaz a veces poco intuitiva"
       ],
       "requiresSignup": "no",
-      "requiresCreditCard": "unverified",
+      "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
@@ -9930,6 +10006,16 @@
         "checkedAt": "2026-08-12",
         "quote": "More Store Type: api api plugin All Platform: All All macOS Windows Linux GPU: All A · c, a Metal-only DeepSeek V4 Flash inference server",
         "scope": "product"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "derived",
+        "sourceUrl": "https://pinokio.co/",
+        "sourceKind": "official",
+        "scope": "local",
+        "checkedAt": "2026-09-15",
+        "quote": "Install Pinokio",
+        "basis": "Se instala en tu equipo desde su web oficial y su código es MIT; las apps que lanza se ejecutan en local. No hay alta ni pago previos donde pedir una tarjeta."
       }
     ],
     "startEffortReason": "Instalador de escritorio que se encarga de las dependencias de cada aplicación.",
@@ -11112,11 +11198,30 @@
         "checkedAt": "2026-08-12",
         "quote": "spdx_id: Apache-2.0 · archived: false · pushed_at: 2026-08-12",
         "scope": "local"
+      },
+      {
+        "field": "capabilities",
+        "outcome": "stated",
+        "sourceUrl": "https://github.com/vladmandic/sdnext",
+        "sourceKind": "repo",
+        "scope": "local",
+        "checkedAt": "2026-09-15",
+        "quote": "Generate with Text-to-Image, Image-to-Image, Text-to-Video, Image-to-Video, etc. · Edit with Detailer, HiRes/Refine, Image-Edit, Inpainting, Outpainting, etc. · Process with Caption, Tag, Upscale, Interpolate, Colorize, Filter, etc. · Automatic model download"
       }
     ],
     "descriptionLong": "",
     "startEffort": "technical",
-    "capabilities": [],
+    "capabilities": [
+      "text-to-image",
+      "image-to-image",
+      "text-to-video",
+      "image-to-video",
+      "image-editing",
+      "inpainting",
+      "outpainting",
+      "upscaling",
+      "model-download"
+    ],
     "startEffortReason": "Exige entorno de Python, descarga de modelos y configuración manual.",
     "licences": {},
     "access": {}
@@ -11151,7 +11256,7 @@
         "No incluye modelos por defecto (hay que descargarlos)"
       ],
       "requiresSignup": "no",
-      "requiresCreditCard": "unverified",
+      "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
@@ -11248,6 +11353,16 @@
         "checkedAt": "2026-08-12",
         "quote": "can be tiled like textures Progress bar and live image generation preview Can use a separate neural network to · ature showcase with images : Original txt2img and img2img modes One click install and run script (but you stil · ou still must install python and git) Outpainting Inpainting Color Sketch Prompt Matrix Stable Diffusion Upsca",
         "scope": "local"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "derived",
+        "sourceUrl": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
+        "sourceKind": "repo",
+        "scope": "local",
+        "checkedAt": "2026-09-15",
+        "quote": "Download sd.webui.zip from v1.0.0-pre and extract its contents.",
+        "basis": "Se instala descargando el paquete del repositorio oficial (AGPL-3.0): no hay alta ni pago donde pedir una tarjeta."
       }
     ],
     "startEffortReason": "Exige entorno de Python, descarga de modelos y GPU.",

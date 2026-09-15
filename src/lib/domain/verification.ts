@@ -94,7 +94,13 @@ export function hechosCriticos(tool: Tool): HechoCritico[] {
     hecho('commercialUse', 'freePlan.commercialUse', '¿Uso comercial?', freePlan.commercialUse),
   ];
 
-  if (tool.capabilities.some((c) => (GENERA_MEDIOS as readonly string[]).includes(c))) {
+  /*
+   * Lo que genera archivos *en su plan gratuito*. Perplexity genera imagen y
+   * vídeo sólo pagando: preguntar por la marca de agua de su plan gratuito es
+   * preguntar por algo que ese plan no produce.
+   */
+  const excluidas = new Set(freePlan.excludedCapabilities ?? []);
+  if (tool.capabilities.some((c) => !excluidas.has(c) && (GENERA_MEDIOS as readonly string[]).includes(c))) {
     hechos.push(hecho('hasWatermark', 'freePlan.hasWatermark', '¿Marca de agua?', freePlan.hasWatermark));
   }
 

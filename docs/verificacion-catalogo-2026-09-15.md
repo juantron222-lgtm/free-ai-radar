@@ -92,6 +92,55 @@ cambio y el precio actual de Pro, porque la misma página muestra tanto 10 $ com
 `lastVerifiedAt` no se ha movido: la verificación de hoy es parcial y queda
 registrada en el `checkedAt` de cada evidencia.
 
+## Segunda pasada: software local y capacidades (filas 8 y 9)
+
+### Tarjeta en software que se instala
+
+35 fichas locales ya decían «No». Las seis que quedaban «sin verificar» se
+instalan sin cuenta. Se ha guardado como `derived`, con la base escrita y
+alcance `local`. El diagnóstico proponía un «No aplica», pero se ha preferido
+«No»: es lo que ya dicen las otras 35 y lo que el filtro «Sin tarjeta» debe
+devolver.
+
+| Ficha | Cita | Fuente |
+|---|---|---|
+| comfyui | «Runs fully offline: core does not download anything unless you request it.» | github.com/Comfy-Org/ComfyUI (GPL-3.0) |
+| fooocus | «The software is offline, open source, and free» | github.com/lllyasviel/Fooocus (GPL-3.0) |
+| stable-diffusion-webui | «Download sd.webui.zip from v1.0.0-pre and extract its contents.» | github.com/AUTOMATIC1111/stable-diffusion-webui (AGPL-3.0) |
+| lm-studio | «…download an installer for your operating system.» | lmstudio.ai/docs/app |
+| ollama | «Running models on your own hardware is always unlimited» | ollama.com/pricing |
+| pinokio | «Install Pinokio» | pinokio.co (MIT) |
+
+La de Ollama cubre sólo el uso en tu equipo. Sus modelos en la nube piden
+cuenta y créditos, y ahí no publica si hace falta tarjeta. La web lo marca con
+el alcance.
+
+### Capacidades
+
+| Ficha | Antes | Ahora | Fuente |
+|---|---|---|---|
+| lm-studio | ninguna | texto, descarga de modelos, API, uso de herramientas | lmstudio.ai/docs/app |
+| sdnext | ninguna | imagen y vídeo desde texto o imagen, edición, relleno, ampliación, descarga de modelos | README oficial |
+| chatgpt | texto, API | + imagen, voz, investigación, memoria, código | chatgpt.com/pricing (lista Free) |
+| perplexity-ai | API | + texto, búsqueda web, investigación | Centro de ayuda, plan Free (Standard) |
+| ollama | API, descarga | + texto; se sustituye una cita que era un fragmento del menú de la web | README oficial |
+
+Decisiones:
+
+- **Perplexity** no recibe generación de imagen ni de vídeo, aunque Pro las
+  anuncia. Ya estaba decidido que no se le atribuye una capacidad que ejecuta
+  el modelo de otro.
+- **Claude** queda pendiente. La lista del plan Free de claude.com/pricing da
+  para nueve capacidades, pero cada campo admite una sola evidencia publicada, y
+  la de capacidades de Claude sostiene hoy «modelo por defecto: Sonnet 5». Hace
+  falta un campo de evidencia propio para el modelo por defecto antes de
+  sustituirla.
+- **Marca de agua.** Deja de contar como hecho pendiente cuando la capacidad
+  que genera el archivo está excluida del plan gratuito.
+
+Además, hay citas guardadas que son fragmentos del menú de la web y no frases
+del fabricante; en Pinokio, por ejemplo. Quedan para la revisión de P2.
+
 ## Comprobaciones
 
 - `npm run data:migrate:dry`: 94 herramientas, sin descartadas ni duplicadas.

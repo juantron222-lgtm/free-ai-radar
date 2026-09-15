@@ -5,6 +5,7 @@ import {
   recuentoVerificacion,
   verificacionDe,
 } from '@lib/domain/verification';
+import { makeTool, makeToolRecord } from '../fixtures/tool';
 
 /**
  * Una ficha no puede decir de sí misma más de lo que sostiene.
@@ -81,6 +82,19 @@ describe('el estado de verificación', () => {
 
     const midjourney = getTool('midjourney')!;
     expect(hechosCriticos(midjourney).map((h) => h.key)).toContain('hasWatermark');
+
+    /*
+     * Y tampoco donde el plan gratuito no genera el archivo: si la imagen sólo
+     * se genera pagando, la marca de agua del plan gratuito no existe.
+     */
+    const base = makeToolRecord();
+    const soloPagando = makeTool({
+      capabilities: ['text-generation', 'text-to-image'],
+      freePlan: { ...base.freePlan, excludedCapabilities: ['text-to-image'] },
+    });
+    expect(hechosCriticos(soloPagando).map((h) => h.key)).not.toContain('hasWatermark');
+    const gratis = makeTool({ capabilities: ['text-generation', 'text-to-image'] });
+    expect(hechosCriticos(gratis).map((h) => h.key)).toContain('hasWatermark');
   });
 
   it('los tres estados suman el catálogo entero', () => {
