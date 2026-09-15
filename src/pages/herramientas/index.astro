@@ -34,11 +34,11 @@ const crumbs = [
 ---
 
 <BaseLayout
-  title={`Catálogo de ${stats.total} herramientas de IA gratuitas`}
+  title={`${stats.total} herramientas de IA revisadas y qué dan gratis`}
   description={`Catálogo completo con filtros por tarjeta, marca de agua, uso comercial, open source y ejecución local. ${stats.noCard} no piden tarjeta y ${stats.commercialUse} permiten uso comercial.`}
   crumbs={crumbs}
   migasEnCabecera
-  schemas={[itemListSchema(tools, 'Catálogo de herramientas de IA gratuitas')]}
+  schemas={[itemListSchema(tools, 'Herramientas de IA revisadas y qué dan gratis')]}
 >
   {/*
     Una frase de entradilla y el reparto de estados, no un párrafo de cuatro.

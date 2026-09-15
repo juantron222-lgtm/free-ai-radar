@@ -88,7 +88,20 @@ const facts = [
     : []),
 ];
 
-const description = `${tool.tagline} Analizamos su plan gratuito: ${tool.freePlan.summary}`;
+/*
+ * Una ficha sin plan gratuito no se anuncia como el análisis de su plan gratuito.
+ *
+ * Claude Code, Midjourney o los modelos de pago salían en el buscador como
+ * «¿es gratis de verdad?» y «Analizamos su plan gratuito», que es la respuesta
+ * que alguien busca y no la que tiene. El título ya contesta.
+ */
+const sinPlanGratuito = tool.freeModel === 'paid_only';
+const title = sinPlanGratuito
+  ? `${tool.name}: no tiene plan gratuito. Qué ofrece y alternativas`
+  : `${tool.name}: ¿es gratis de verdad? Análisis y límites reales`;
+const description = sinPlanGratuito
+  ? `${tool.tagline} No tiene plan gratuito: ${tool.freePlan.summary}`
+  : `${tool.tagline} Analizamos su plan gratuito: ${tool.freePlan.summary}`;
 
 /*
  * El estado de la ficha, que es lo que puede decir de sí misma.
@@ -128,7 +141,7 @@ const compararHref = compararCon.length
 ---
 
 <BaseLayout
-  title={`${tool.name}: ¿es gratis de verdad? Análisis y límites reales`}
+  title={title}
   description={description}
   crumbs={crumbs}
   migasEnCabecera

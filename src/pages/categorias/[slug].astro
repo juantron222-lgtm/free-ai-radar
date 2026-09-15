@@ -5,6 +5,7 @@ import { getPopulatedCategories, getToolsByCategory } from '@lib/data/catalog';
 import { faqSchema, itemListSchema } from '@lib/seo/structured-data';
 import { ROUTES } from '@lib/nav';
 import { recuentoVerificacion } from '@lib/domain/verification';
+import { cifrasDelCatalogo } from '@lib/data/cifras';
 
 /**
  * Imagen no se genera aquí: tiene su propia página en `/imagen`, construida
@@ -32,8 +33,14 @@ export function getStaticPaths() {
 
 const { category, tools } = Astro.props;
 
-const noCard = tools.filter((t) => t.freePlan.requiresCreditCard === 'no');
-const commercial = tools.filter((t) => t.freePlan.commercialUse === 'yes');
+/*
+ * Las cifras salen del mismo cálculo que el catálogo y la portada.
+ *
+ * Además, esta página se titulaba «Chat gratis» y su FAQ preguntaba cuántas
+ * herramientas «gratuitas» había, y respondía con el total, incluidas las que
+ * no tienen plan gratuito. Ahora el total y las de pago se dicen por separado.
+ */
+const cifras = cifrasDelCatalogo(tools);
 const openSource = tools.filter((t) => t.openSource === 'yes');
 const best = tools[0];
 const estados = recuentoVerificacion(tools);
@@ -52,8 +59,8 @@ const crumbs = [
  */
 const faqs = [
   {
-    question: `¿Cuántas herramientas de ${category.name.toLowerCase()} gratuitas hay en el catálogo?`,
-    answer: `Hay ${tools.length} en esta categoría: ${estados.verificada} verificadas, ${estados.parcial} con verificación parcial y ${estados.catalogada} catalogadas. ${noCard.length} no piden tarjeta y ${commercial.length} permiten uso comercial en su plan gratuito.`,
+    question: `¿Cuántas herramientas de ${category.name.toLowerCase()} hay en el catálogo y cuántas tienen plan gratuito?`,
+    answer: `Hay ${tools.length} en esta categoría${cifras.sinPlanGratuito ? `, y ${cifras.sinPlanGratuito} no tiene${cifras.sinPlanGratuito === 1 ? '' : 'n'} plan gratuito` : ''}: ${estados.verificada} verificadas, ${estados.parcial} con verificación parcial y ${estados.catalogada} catalogadas. ${cifras.sinTarjeta.cumplen} no piden tarjeta y ${cifras.usoComercial.cumplen} permiten uso comercial en su plan gratuito.`,
   },
   /*
    * Aquí había «obtiene 89 sobre 100».
@@ -84,11 +91,11 @@ const faqs = [
 ---
 
 <BaseLayout
-  title={`${category.name} gratis: ${tools.length} herramientas revisadas`}
-  description={`${category.intro} ${noCard.length} de las ${tools.length} no piden tarjeta y ${commercial.length} permiten uso comercial.`}
+  title={`${category.name}: ${tools.length} herramientas revisadas y qué dan gratis`}
+  description={`${category.intro} ${cifras.sinTarjeta.cumplen} de las ${tools.length} no piden tarjeta y ${cifras.usoComercial.cumplen} permiten uso comercial.`}
   crumbs={crumbs}
   schemas={[
-    itemListSchema(tools, `Herramientas de ${category.name} gratuitas`),
+    itemListSchema(tools, `Herramientas de ${category.name} revisadas`),
     ...(faqs.length ? [faqSchema(faqs)] : []),
   ]}
 >
@@ -99,8 +106,8 @@ const faqs = [
 
       <dl class="cat-stats">
         <div><dt>Revisadas</dt><dd class="tnum">{tools.length}</dd></div>
-        <div><dt>Sin tarjeta</dt><dd class="tnum">{noCard.length}</dd></div>
-        <div><dt>Uso comercial</dt><dd class="tnum">{commercial.length}</dd></div>
+        <div><dt>Sin tarjeta</dt><dd class="tnum">{cifras.sinTarjeta.cumplen}</dd></div>
+        <div><dt>Uso comercial</dt><dd class="tnum">{cifras.usoComercial.cumplen}</dd></div>
         <div><dt>Open source</dt><dd class="tnum">{openSource.length}</dd></div>
       </dl>
     </header>

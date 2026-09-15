@@ -20,6 +20,17 @@ export interface Collection {
   match: (tool: Tool) => boolean;
 }
 
+/**
+ * Lo que puede aparecer bajo un título que empieza por «IA gratis».
+ *
+ * «IA gratis sin marca de agua» incluía Claude Code, que no tiene plan
+ * gratuito: su dato de marca de agua es cierto, pero la promesa del título no.
+ * Y «IA gratis para creadores» incluía una prueba. Una prueba, una demo, un
+ * producto sólo de pago o uno cuyo acceso no conocemos no son «gratis».
+ */
+const SIN_ACCESO_GRATUITO: ReadonlySet<Tool['freeModel']> = new Set(['paid_only', 'unknown', 'trial', 'demo']);
+export const tieneAccesoGratuito = (tool: Tool): boolean => !SIN_ACCESO_GRATUITO.has(tool.freeModel);
+
 export const COLLECTIONS: readonly Collection[] = [
   {
     slug: 'sin-tarjeta',
@@ -31,7 +42,7 @@ export const COLLECTIONS: readonly Collection[] = [
     context: `Pedir la tarjeta "sólo para verificar" es el patrón más rentable del sector: convierte una prueba en una suscripción por inercia, porque casi nadie cancela a tiempo. Por eso lo tratamos como un dato de primer nivel.
 
 Aquí sólo aparecen las herramientas donde hemos **confirmado** que no hace falta tarjeta. Las que no hemos podido verificar no entran: un "no lo sé" no vale como garantía.`,
-    match: (tool) => tool.freePlan.requiresCreditCard === 'no',
+    match: (tool) => tieneAccesoGratuito(tool) && tool.freePlan.requiresCreditCard === 'no',
   },
   {
     slug: 'uso-comercial',
@@ -43,18 +54,20 @@ Aquí sólo aparecen las herramientas donde hemos **confirmado** que no hace fal
     context: `Mucha gente descubre el problema tarde: has generado el material, se lo has entregado al cliente y entonces lees que el plan gratuito era "sólo para uso personal". La licencia de lo que generas es tan importante como la calidad.
 
 Estas herramientas permiten explícitamente uso comercial en su capa gratuita. Aun así, revisa siempre los términos concretos antes de un encargo grande: algunas limitan por volumen o por tipo de proyecto, y esos matices están anotados en cada ficha.`,
-    match: (tool) => tool.freePlan.commercialUse === 'yes',
+    match: (tool) => tieneAccesoGratuito(tool) && tool.freePlan.commercialUse === 'yes',
   },
   {
     slug: 'en-local',
-    title: 'IA que funciona en tu ordenador',
-    h1: 'IA que se ejecuta en tu propio equipo',
-    lede: 'Sin cuotas, sin límites de uso y sin enviar tus archivos a nadie. El coste se traslada a tu hardware.',
+    title: 'IA que se instala en tu ordenador',
+    h1: 'IA que se instala en tu propio equipo',
+    lede: 'Unas hacen todo el trabajo en tu máquina; otras se instalan pero también usan un servicio en la nube. Cada ficha dice cuál es cuál.',
     description:
-      'Herramientas de IA que se ejecutan localmente: sin suscripción, sin límites de generación y sin que tus datos salgan de tu equipo.',
+      'Herramientas de IA que se instalan en tu equipo. Las que funcionan sólo en local no tienen cuotas y tus archivos no salen de tu máquina; las híbridas, sí dependen de su servicio.',
     context: `Ejecutar el modelo en tu máquina cambia la ecuación entera. No hay cuota mensual, no hay límite de generaciones y, sobre todo, no hay una empresa decidiendo el mes que viene que tu plan gratuito ahora cuesta 20 € al mes.
 
-A cambio necesitas hardware: para modelos de imagen y vídeo, una GPU con VRAM suficiente; para modelos de lenguaje, memoria. Cada ficha indica los requisitos concretos cuando los hemos comprobado.`,
+Eso vale para las que funcionan sólo en local. Las híbridas —un editor que llama a un modelo en la nube, por ejemplo— se instalan en tu equipo, pero su parte de IA tiene los límites de su servicio, y lo que envías sale de tu máquina. Su ficha lo dice.
+
+Para ejecutar en local necesitas hardware: para modelos de imagen y vídeo, una GPU con VRAM suficiente; para modelos de lenguaje, memoria. Cada ficha indica los requisitos concretos cuando los hemos comprobado.`,
     match: (tool) => tool.hosting === 'local' || tool.hosting === 'hybrid',
   },
   {
@@ -79,7 +92,7 @@ Es la única categoría donde la palabra "gratis" no lleva asterisco.`,
     context: `La marca de agua es la forma más común de hacer que un plan "gratuito" no sirva para nada entregable. Puedes practicar, no puedes trabajar.
 
 Estas herramientas entregan el resultado limpio en su capa gratuita. Comprueba también la fila de uso comercial: no tener marca de agua y poder monetizar son dos permisos distintos, y no siempre vienen juntos.`,
-    match: (tool) => tool.freePlan.hasWatermark === 'no',
+    match: (tool) => tieneAccesoGratuito(tool) && tool.freePlan.hasWatermark === 'no',
   },
   {
     slug: 'para-creadores',
@@ -92,10 +105,7 @@ Estas herramientas entregan el resultado limpio en su capa gratuita. Comprueba t
 
 No es una lista de "lo más popular": es lo que sobrevive a mirar la letra pequeña.`,
     match: (tool) =>
-      tool.scores.creatorValue >= 7 &&
-      tool.freePlan.hasWatermark !== 'yes' &&
-      tool.freeModel !== 'demo' &&
-      tool.freeModel !== 'paid_only',
+      tieneAccesoGratuito(tool) && tool.scores.creatorValue >= 7 && tool.freePlan.hasWatermark !== 'yes',
   },
   {
     slug: 'sin-registro',
@@ -107,7 +117,7 @@ No es una lista de "lo más popular": es lo que sobrevive a mirar la letra peque
     context: `Poder probar algo sin dejar un correo es cada vez más raro, y es exactamente lo que quieres cuando sólo necesitas resolver una cosa puntual.
 
 Ojo: no registrarse no significa que no se procesen tus datos. Revisa la sección de privacidad de cada ficha para saber qué pasa con lo que subes.`,
-    match: (tool) => tool.freePlan.requiresSignup === 'no',
+    match: (tool) => tieneAccesoGratuito(tool) && tool.freePlan.requiresSignup === 'no',
   },
 ] as const;
 

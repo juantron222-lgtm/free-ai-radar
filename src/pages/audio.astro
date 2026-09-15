@@ -6,6 +6,7 @@ import IntentCard from '@components/catalog/IntentCard.astro';
 import ToolMention from '@components/catalog/ToolMention.astro';
 import CatalogFilters from '@components/catalog/CatalogFilters.astro';
 import { catalogueOrder, decideFilters, repartirBloques } from '@lib/data/category-page';
+import { cifraDe } from '@lib/data/cifras';
 import {
   AUDIO_CAPABILITIES,
   CANDIDATE_FILTERS,
@@ -104,7 +105,7 @@ const declarados = [
 
 const bloques = repartirBloques(declarados);
 
-const sinComercial = tools.filter((t) => t.freePlan.commercialUse === 'no');
+const sinComercial = cifraDe('comm', tools).enContra;
 
 const crumbs = migasDeVertical('/audio');
 
@@ -119,7 +120,7 @@ const faqs = [
   },
   {
     question: '¿Puedo monetizar lo que genere con el plan gratuito?',
-    answer: `No siempre. ${sinComercial.length} de las ${tools.length} fichas declaran expresamente que su plan gratuito o sus pesos no permiten uso comercial: Suno lo dice en su tabla de precios, ElevenLabs reserva la licencia comercial para los planes de pago, y los pesos de AudioCraft y F5-TTS son CC-BY-NC.`,
+    answer: `No siempre. ${sinComercial} de las ${tools.length} fichas declaran expresamente que su plan gratuito o sus pesos no permiten uso comercial: Suno lo dice en su tabla de precios, ElevenLabs reserva la licencia comercial para los planes de pago, y los pesos de AudioCraft y F5-TTS son CC-BY-NC.`,
   },
   {
     question: '¿«Open source» significa que puedo usarlo en un trabajo?',

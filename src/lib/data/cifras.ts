@@ -31,6 +31,11 @@ export interface CifraCondicion {
   noCumplen: number;
   /** Las que todavía no tienen respuesta. */
   sinDato: number;
+  /**
+   * Las que dicen expresamente lo contrario: piden tarjeta, piden registro o
+   * no permiten uso comercial. «Sólo en parte» no cuenta aquí.
+   */
+  enContra: number;
   total: number;
 }
 
@@ -45,10 +50,13 @@ export function devuelveElFiltro(tools: readonly Tool[], clave: string): number 
   return applyFilters(tools, { ...EMPTY_FILTERS, ...parseFilters(new URLSearchParams(`${clave}=1`)) }).length;
 }
 
+const CONTRARIO: Record<ClaveCondicion, TriState> = { nocard: 'yes', nosignup: 'yes', comm: 'no' };
+
 export function cifraDe(clave: ClaveCondicion, tools: readonly Tool[]): CifraCondicion {
   const cumplen = devuelveElFiltro(tools, clave);
   const sinDato = tools.filter((tool) => CAMPO[clave](tool) === 'unverified').length;
-  return { clave, cumplen, noCumplen: tools.length - cumplen - sinDato, sinDato, total: tools.length };
+  const enContra = tools.filter((tool) => CAMPO[clave](tool) === CONTRARIO[clave]).length;
+  return { clave, cumplen, noCumplen: tools.length - cumplen - sinDato, sinDato, enContra, total: tools.length };
 }
 
 export interface CifrasDelCatalogo {

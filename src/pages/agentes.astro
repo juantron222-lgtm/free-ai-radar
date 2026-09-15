@@ -5,6 +5,7 @@ import CabeceraPagina from '@components/site/CabeceraPagina.astro';
 import IntentCard from '@components/catalog/IntentCard.astro';
 import CatalogFilters from '@components/catalog/CatalogFilters.astro';
 import { catalogueOrder, decideFilters, repartirBloques } from '@lib/data/category-page';
+import { cifraDe } from '@lib/data/cifras';
 import ToolMention from '@components/catalog/ToolMention.astro';
 import {
   AGENT_CAPABILITIES,
@@ -126,7 +127,7 @@ const porTipo = (['listo', 'codigo', 'investigacion', 'plataforma', 'framework']
   (tipo) => ({ tipo, total: tools.filter((t) => agentType(t) === tipo).length })
 );
 
-const sinTarjeta = tools.filter((t) => t.freePlan.requiresCreditCard === 'no');
+const sinTarjeta = cifraDe('nocard', tools).cumplen;
 const abiertos = tools.filter((t) => t.openSource === 'yes');
 
 const crumbs = migasDeVertical(ROUTES.agents);
@@ -143,7 +144,7 @@ const faqs = [
     answer: `${gratis.length} de los ${tools.length} revisados funcionan en el navegador con acceso gratuito que se renueva: ${gratis
       .slice(0, 4)
       .map((t) => t.name)
-      .join(', ')}. ${sinTarjeta.length} tienen confirmado por escrito que no piden tarjeta.`,
+      .join(', ')}. ${sinTarjeta} tienen confirmado por escrito que no piden tarjeta.`,
   },
   {
     question: '¿Un modelo con capacidades agénticas es un agente?',

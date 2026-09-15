@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 import { getAllTools, getCatalogStats, getToolsByCategory, getPopulatedCategories } from '@lib/data/catalog';
 import { cifraDe, cifrasDelCatalogo, devuelveElFiltro, fraseDeCobertura } from '@lib/data/cifras';
 import { conteosDeDecision } from '@lib/data/portada';
-import { getCollection, getCollectionTools } from '@lib/data/collections';
+import { COLLECTIONS, getCollection, getCollectionTools, tieneAccesoGratuito } from '@lib/data/collections';
 
 /**
  * Una sola fuente para cada cifra pública.
@@ -25,6 +25,7 @@ describe('las cifras del catálogo cuadran entre sí', () => {
     for (const cifra of [cifras.sinTarjeta, cifras.sinRegistro, cifras.usoComercial]) {
       expect(cifra.cumplen + cifra.noCumplen + cifra.sinDato, cifra.clave).toBe(tools.length);
       expect(cifra.noCumplen, cifra.clave).toBeGreaterThanOrEqual(0);
+      expect(cifra.enContra, cifra.clave).toBeLessThanOrEqual(cifra.noCumplen);
     }
   });
 
@@ -69,6 +70,46 @@ describe('las cifras del catálogo cuadran entre sí', () => {
   });
 });
 
+describe('«gratis» sólo donde hay acceso gratuito', () => {
+  it('ninguna colección «IA gratis» contiene una herramienta sin plan gratuito, una prueba o una demo', () => {
+    /* «IA gratis sin marca de agua» incluía Claude Code, que es sólo de pago. */
+    for (const coleccion of COLLECTIONS) {
+      if (!/gratis/i.test(coleccion.title)) continue;
+      const colados = getCollectionTools(coleccion).filter((t) => !tieneAccesoGratuito(t));
+      expect(colados.map((t) => `${t.slug} (${t.freeModel})`), coleccion.slug).toEqual([]);
+    }
+  });
+
+  it('los títulos del catálogo, categorías y comparador no llaman «gratuitas» a todas', () => {
+    /*
+     * «Catálogo de 94 herramientas de IA gratuitas» con 9 sin plan gratuito.
+     * Los títulos dicen ahora lo que hay: herramientas revisadas y qué dan gratis.
+     */
+    for (const ruta of [
+      'src/pages/herramientas/index.astro',
+      'src/pages/categorias/index.astro',
+      'src/pages/categorias/[slug].astro',
+      'src/pages/comparar.astro',
+    ]) {
+      expect(readFileSync(join(ROOT, ruta), 'utf8'), ruta).not.toMatch(/herramientas de (IA|\$\{[^}]+\}) gratuitas|\$\{category\.name\} gratis:/);
+    }
+  });
+
+  it('una ficha sin plan gratuito no se titula «¿es gratis de verdad?»', () => {
+    const ficha = readFileSync(join(ROOT, 'src/pages/herramientas/[slug].astro'), 'utf8');
+    expect(ficha).toContain("tool.freeModel === 'paid_only'");
+    expect(ficha).toContain('no tiene plan gratuito');
+    expect(getAllTools().some((t) => t.freeModel === 'paid_only')).toBe(true);
+  });
+
+  it('«en local» no promete a las híbridas lo que sólo cumple lo local', () => {
+    const local = getCollection('en-local')!;
+    expect(getCollectionTools(local).some((t) => t.hosting === 'hybrid')).toBe(true);
+    expect(local.lede).not.toMatch(/^Sin cuotas/);
+    expect(local.description).not.toMatch(/sin límites de generación/);
+  });
+});
+
 describe('nadie vuelve a contar por su cuenta', () => {
   /*
    * Contar «requiresCreditCard === 'no'» fuera de este módulo, de los filtros o
@@ -81,6 +122,8 @@ describe('nadie vuelve a contar por su cuenta', () => {
     'src/lib/data/category-page.ts',
     'src/lib/search/client-index.ts',
   ]);
+  /* Contar en una variable y leer `.length` después también es contar por su cuenta. */
+  const enVariable = /=\s*\w+\.filter\(\s*\(?\w+\)?\s*=>\s*\w+\.freePlan\.(requiresCreditCard|requiresSignup|commercialUse)\s*===\s*'(no|yes)'\s*\)\s*;/;
 
   function recorrer(dir: string): string[] {
     return readdirSync(dir).flatMap((nombre) => {
@@ -96,7 +139,8 @@ describe('nadie vuelve a contar por su cuenta', () => {
       if (!/\.(ts|astro)$/.test(fichero)) continue;
       const rel = relative(ROOT, fichero).replace(/\\/g, '/');
       if (PERMITIDOS.has(rel) || rel.startsWith('src/pages/admin/')) continue;
-      if (recuento.test(readFileSync(fichero, 'utf8'))) sueltos.push(rel);
+      const texto = readFileSync(fichero, 'utf8');
+      if (recuento.test(texto) || enVariable.test(texto)) sueltos.push(rel);
     }
     expect(sueltos).toEqual([]);
   });
