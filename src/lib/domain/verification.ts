@@ -28,9 +28,9 @@ export const VERIFICATION_STATE_MEANING: Record<VerificationState, string> = {
   verificada:
     'Comprobada contra la página oficial, y todos los hechos que le aplican están confirmados.',
   parcial:
-    'Comprobada contra la página oficial, pero su fabricante no publica alguno de los hechos que resumimos. Lo que falta aparece como «Sin confirmar» en la tabla.',
+    'Comprobada contra la página oficial, con parte de los hechos que resumimos confirmados. La ficha dice cuáles faltan y si el hueco es nuestro o de su fabricante.',
   catalogada:
-    'Está en el catálogo, pero su acceso gratuito todavía no se ha comprobado contra la fuente oficial.',
+    'Está en el catálogo, pero todavía no hemos confirmado contra la fuente oficial ninguno de los hechos que resumimos.',
 };
 
 /**
@@ -137,10 +137,19 @@ export function verificacionDe(tool: Tool): Verificacion {
   const pendientes = hechos.filter((h) => !h.confirmado);
   const confirmados = hechos.length - pendientes.length;
 
+  /*
+   * Sin ningún hecho confirmado no hay verificación, ni parcial.
+   *
+   * Adobe Firefly, Clipdrop y Perplexity salían como «Verificación parcial ·
+   * 0/4 hechos confirmados»: la ficha se había revisado, pero no se había
+   * podido confirmar nada de lo que resume. «Parcial» promete una parte hecha;
+   * con cero, lo honesto es «Catalogada».
+   */
   const sinComprobar =
     tool.verification === 'pending_review' ||
     tool.verification === 'outdated' ||
-    tool.freeModel === 'unknown';
+    tool.freeModel === 'unknown' ||
+    (hechos.length > 0 && confirmados === 0);
 
   const state: VerificationState = sinComprobar
     ? 'catalogada'

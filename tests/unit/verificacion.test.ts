@@ -45,6 +45,20 @@ describe('el estado de verificación', () => {
     }
   });
 
+  it('ninguna ficha es «parcial» sin al menos un hecho confirmado', () => {
+    /* Adobe Firefly, Clipdrop y Perplexity decían «Verificación parcial · 0/4». */
+    for (const tool of tools) {
+      const v = verificacionDe(tool);
+      if (v.state !== 'parcial') continue;
+      expect(v.confirmados, `${tool.slug} es parcial con 0/${v.total}`).toBeGreaterThan(0);
+    }
+    for (const slug of ['adobe-firefly', 'clipdrop', 'perplexity-ai']) {
+      const tool = tools.find((t) => t.slug === slug)!;
+      const v = verificacionDe(tool);
+      if (v.confirmados === 0) expect(v.state, slug).toBe('catalogada');
+    }
+  });
+
   it('la parcial nombra lo que le falta en vez de insinuarlo', () => {
     const parciales = tools.filter((t) => verificacionDe(t).state === 'parcial');
     expect(parciales.length).toBeGreaterThan(0);
