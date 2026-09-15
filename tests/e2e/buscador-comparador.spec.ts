@@ -321,12 +321,22 @@ test.describe('por qué falta un dato', () => {
 
     const nota = page.locator('.filters-cobertura');
     await expect(nota).toBeVisible();
-    await expect(nota).toContainText('sin tarjeta');
-    await expect(nota).toContainText('tenemos el dato confirmado en');
-    await expect(nota).toContainText('no porque incumplan');
+    await expect(nota).toContainText('Sin tarjeta');
+    await expect(nota).toContainText('aún no lo sabemos');
 
+    /*
+     * La nota y el chip dicen el mismo número, y la nota suma el catálogo.
+     * Antes ponía «confirmado en 38» junto al chip «37»: dos cifras ciertas que
+     * se leían como una contradicción.
+     */
     const cuenta = page.locator('[data-filter-count="nocard"]');
     await expect(cuenta).toHaveText(/^\d+$/);
+    const chip = Number(await cuenta.innerText());
+    const tramo = (await nota.innerText()).match(/Sin tarjeta:\s*(\d+)[^.]*?(\d+)[^.]*?(\d+)/);
+    expect(tramo, 'la nota cuenta la condición entera').not.toBeNull();
+    expect(Number(tramo![1])).toBe(chip);
+    const total = Number((await page.locator('.cabecera-entradilla').innerText()).match(/Las (\d+) herramientas/)?.[1]);
+    expect(Number(tramo![1]) + Number(tramo![2]) + Number(tramo![3])).toBe(total);
   });
 
   test('el número de una casilla es lo que devuelve al marcarla', async ({ page }) => {

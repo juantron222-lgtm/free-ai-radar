@@ -174,7 +174,7 @@ describe('un filtro devuelve lo que su etiqueta promete', () => {
      * de resolverlas.
      */
     expect(panel).toContain('filters-cobertura');
-    expect(panel).toMatch(/tenemos el dato confirmado en/);
+    expect(panel).toContain('fraseDeCobertura(cifraDe(');
   });
 
   it('ninguna casilla se ofrece si devuelve el catálogo entero o cero', () => {

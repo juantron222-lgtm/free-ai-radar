@@ -1,6 +1,7 @@
 import rawTools from '@/data/generated/tools.json';
 import { ToolRecord, hydrateTool, type Tool } from '@lib/domain/tool';
 import { CATEGORIES, getCategory, type CategoryDef } from '@lib/domain/taxonomy';
+import { cifrasDelCatalogo } from './cifras';
 
 /**
  * The catalogue.
@@ -181,14 +182,16 @@ export function getCatalogStats(): CatalogStats {
     (acc, t) => (t.lastVerifiedAt > acc ? t.lastVerifiedAt : acc),
     '0000-00-00'
   );
+  // Las tres cifras que se publican salen del mismo cálculo que los filtros.
+  const cifras = cifrasDelCatalogo(TOOLS);
   return {
     total: TOOLS.length,
     freeReal: TOOLS.filter((t) => t.freeModel === 'free_real' || t.freeModel === 'open_source')
       .length,
-    noCard: TOOLS.filter((t) => t.freePlan.requiresCreditCard === 'no').length,
-    openSource: TOOLS.filter((t) => t.openSource === 'yes').length,
+    noCard: cifras.sinTarjeta.cumplen,
+    openSource: cifras.openSource,
     local: TOOLS.filter((t) => t.hosting !== 'cloud').length,
-    commercialUse: TOOLS.filter((t) => t.freePlan.commercialUse === 'yes').length,
+    commercialUse: cifras.usoComercial.cumplen,
     categories: getPopulatedCategories().length,
     lastVerifiedAt: lastVerified,
   };

@@ -1,13 +1,14 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getPopulatedCategories, getToolsByCategory } from '@lib/data/catalog';
+import { cifraDe } from '@lib/data/cifras';
 import { ROUTES } from '@lib/nav';
 
 const categories = getPopulatedCategories().map((category) => {
   const tools = getToolsByCategory(category.slug);
   return {
     ...category,
-    noCard: tools.filter((t) => t.freePlan.requiresCreditCard === 'no').length,
+    noCard: cifraDe('nocard', tools).cumplen,
   };
 });
 

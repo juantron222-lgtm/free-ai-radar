@@ -3,6 +3,7 @@ import type { TriState } from '@lib/domain/primitives';
 import { TRI_STATE_LABEL } from '@lib/domain/primitives';
 import { getAllTools } from './catalog';
 import { freeAccessLabel } from './category-page';
+import { cifrasDelCatalogo } from './cifras';
 import { VERTICALES, destacadas } from './home';
 import { ROUTES, VERTICALS } from '@lib/nav';
 
@@ -111,29 +112,30 @@ export interface Conteo {
  * cifra: una casilla sin número obliga a pulsarla para saber si vale la pena.
  */
 export function conteosDeDecision(tools: readonly Tool[] = getAllTools()): Conteo[] {
+  const cifras = cifrasDelCatalogo(tools);
   return [
     {
       clave: 'nocard',
       etiqueta: 'Sin tarjeta',
-      n: tools.filter((t) => t.freePlan.requiresCreditCard === 'no').length,
+      n: cifras.sinTarjeta.cumplen,
       href: `${ROUTES.tools}?nocard=1`,
     },
     {
       clave: 'nosignup',
       etiqueta: 'Sin registro',
-      n: tools.filter((t) => t.freePlan.requiresSignup === 'no').length,
+      n: cifras.sinRegistro.cumplen,
       href: `${ROUTES.tools}?nosignup=1`,
     },
     {
       clave: 'comm',
       etiqueta: 'Uso comercial',
-      n: tools.filter((t) => t.freePlan.commercialUse === 'yes').length,
+      n: cifras.usoComercial.cumplen,
       href: `${ROUTES.tools}?comm=1`,
     },
     {
       clave: 'oss',
       etiqueta: 'Open source',
-      n: tools.filter((t) => t.openSource === 'yes').length,
+      n: cifras.openSource,
       href: `${ROUTES.tools}?oss=1`,
     },
   ];
