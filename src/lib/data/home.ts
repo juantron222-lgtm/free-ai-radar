@@ -36,18 +36,24 @@ export const enVertical = (tool: Tool, slugs: readonly string[]): boolean =>
 /**
  * Lo que hace a una candidata defendible para la portada.
  *
- * Tres condiciones, y las tres se pueden comprobar en su ficha:
+ * Cuatro condiciones, y las cuatro se pueden comprobar en su ficha:
  *
  *   1. Se puede usar hoy sin pagar y sin instalar nada. Es lo que la portada
  *      promete, así que es lo mínimo.
  *   2. Su acceso está comprobado contra la fuente oficial: nada `catalogada`,
  *      que por definición es lo que aún no hemos mirado.
  *   3. Dice qué hace. Una tarjeta sin capacidades citadas no informa.
+ *   4. Sabemos si pide tarjeta y si pide registro. La tabla de la portada se
+ *      titula «Para empezar hoy, sin pagar» y enseñaba «Sin verificar» justo en
+ *      esas dos columnas. Si una clase de IA no tiene ninguna candidata que lo
+ *      cumpla, se queda fuera: no se rellena con una dudosa.
  *
  * Entre las que cumplen las tres, gana la que tenga menos huecos y, a igualdad,
  * la comprobada hace menos. No hay nada aquí que se parezca a «la mejor»:
  * ninguna de las tres condiciones es un juicio de calidad.
  */
+const sabemos = (valor: string): boolean => valor !== 'unverified';
+
 export function candidatasDe(tools: readonly Tool[], slugs: readonly string[]): Tool[] {
   return tools
     .filter(
@@ -55,7 +61,9 @@ export function candidatasDe(tools: readonly Tool[], slugs: readonly string[]): 
         enVertical(t, slugs) &&
         usableFreeNow(t) &&
         verificacionDe(t).state !== 'catalogada' &&
-        t.capabilities.length > 0
+        t.capabilities.length > 0 &&
+        sabemos(t.freePlan.requiresCreditCard) &&
+        sabemos(t.freePlan.requiresSignup)
     )
     .sort((a, b) => {
       const huecos = verificacionDe(a).pendientes.length - verificacionDe(b).pendientes.length;

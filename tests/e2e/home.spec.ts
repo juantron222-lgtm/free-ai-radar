@@ -167,6 +167,21 @@ test.describe('portada', () => {
       await expect(filas.nth(i).locator('th a')).toHaveAttribute('href', /^\/herramientas\//);
       await expect(filas.nth(i).locator('.cond')).toHaveCount(3);
     }
+
+    /*
+     * «Para empezar hoy, sin pagar» enseñaba «Sin verificar» en tarjeta. Ahora
+     * tarjeta y registro están comprobados en todas las filas, y lo que falte
+     * en uso comercial dice de quién es el hueco.
+     */
+    const tabla = page.locator('.evidencia');
+    await expect(tabla).not.toContainText('Sin verificar');
+    for (const columna of ['Tarjeta', 'Registro']) {
+      const celdas = await tabla.locator(`td[data-etiqueta="${columna}"]`).allInnerTexts();
+      expect(celdas.length).toBe(cuantas);
+      for (const texto of celdas) {
+        expect(['Sí', 'No'], `${columna}: «${texto}»`).toContain(texto.trim());
+      }
+    }
   });
 
 });

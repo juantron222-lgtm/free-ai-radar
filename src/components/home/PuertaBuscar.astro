@@ -1,6 +1,7 @@
 ---
 import ToolLogo from '@components/tools/ToolLogo.astro';
 import type { Conteo, Recomendada } from '@lib/data/portada';
+import { MOTIVO_EXPLICACION, MOTIVO_LABEL, type MotivoDeHueco } from '@lib/domain/evidencia';
 import { ROUTES } from '@lib/nav';
 
 interface Props {
@@ -24,14 +25,19 @@ const { recomendadas, conteos } = Astro.props;
 const filtros = conteos.filter((c) => c.n > 0);
 
 /*
- * La nota de «sin verificar» sólo cuando hace falta.
+ * Una nota por cada clase de hueco que haya en la tabla, y sólo si lo hay.
  *
  * Explica un valor que puede no aparecer: si ninguna de las cinco lo tiene, es
- * una línea más que leer para nada.
+ * una línea más que leer para nada. Y las dos clases se explican por separado
+ * porque no significan lo mismo: una es trabajo nuestro pendiente, la otra es
+ * un dato que su fabricante no publica.
  */
-const haySinVerificar = recomendadas.some(({ fila }) =>
-  [fila.tarjeta, fila.registro, fila.comercial].some((c) => c.sinConfirmar)
+const motivos = new Set<MotivoDeHueco>(
+  recomendadas.flatMap(({ fila }) =>
+    [fila.tarjeta, fila.registro, fila.comercial].flatMap((c) => (c.motivo ? [c.motivo] : []))
+  )
 );
+const ORDEN_MOTIVOS: MotivoDeHueco[] = ['no_publicado', 'pendiente'];
 
 const COLUMNAS = ['Herramienta', 'Qué da gratis', '¿Tarjeta?', '¿Registro?', '¿Uso comercial?'];
 ---
@@ -71,7 +77,8 @@ const COLUMNAS = ['Herramienta', 'Qué da gratis', '¿Tarjeta?', '¿Registro?', 
       <div class="recomendadas-head">
         <h3 class="puerta-sub" id="recomendadas-t">Para empezar hoy, sin pagar</h3>
         <p class="recomendadas-criterio">
-          Una por clase de IA: se usan gratis sin instalar nada y su acceso está comprobado.
+          Una por clase de IA: se usan gratis sin instalar nada y hemos comprobado en su página
+          oficial si piden tarjeta o registro.
         </p>
       </div>
 
@@ -113,9 +120,9 @@ const COLUMNAS = ['Herramienta', 'Qué da gratis', '¿Tarjeta?', '¿Registro?', 
     <a href={ROUTES.tools} class="btn btn-secondary">
       Ver todas las herramientas <span aria-hidden="true">→</span>
     </a>
-    {haySinVerificar && (
-      <span class="puerta-nota">«Sin verificar» significa que no lo hemos comprobado, no que sea que no.</span>
-    )}
+    {ORDEN_MOTIVOS.filter((m) => motivos.has(m)).map((m) => (
+      <span class="puerta-nota">«{MOTIVO_LABEL[m]}»: {MOTIVO_EXPLICACION[m]}</span>
+    ))}
   </p>
 </section>
 

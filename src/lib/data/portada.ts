@@ -1,6 +1,7 @@
-import type { Tool } from '@lib/domain/tool';
+import type { EvidenceField, Tool } from '@lib/domain/tool';
 import type { TriState } from '@lib/domain/primitives';
 import { TRI_STATE_LABEL } from '@lib/domain/primitives';
+import { MOTIVO_LABEL, motivoDelHueco, type MotivoDeHueco } from '@lib/domain/evidencia';
 import { getAllTools } from './catalog';
 import { freeAccessLabel } from './category-page';
 import { cifrasDelCatalogo } from './cifras';
@@ -24,18 +25,26 @@ export interface Condicion {
   tono: Tono;
   /** Si el dato no está confirmado, para poder marcarlo distinto de un «no». */
   sinConfirmar: boolean;
+  /** Cuando falta: si el hueco es nuestro o de su fabricante. */
+  motivo?: MotivoDeHueco;
 }
 
 /**
  * Un triestado, con el tono que le corresponde a esa pregunta.
  *
  * «¿Pide tarjeta? No» es una buena noticia y «¿Uso comercial? No» es una mala:
- * el tono no puede salir del valor, tiene que salir de la pregunta. Y «sin
- * verificar» no es ninguna de las dos cosas, así que va aparte.
+ * el tono no puede salir del valor, tiene que salir de la pregunta. Y lo que
+ * no sabemos no es ninguna de las dos cosas, así que va aparte.
+ *
+ * Lo que falta se nombra con su motivo, igual que en el comparador y en la
+ * tabla de la ficha. Aquí decía «Sin verificar» también cuando habíamos abierto
+ * la página oficial y el fabricante no lo dice: la misma celda culpaba a Free
+ * AI Radar en la portada y al fabricante tres filas más abajo.
  */
-function condicion(valor: TriState, bueno: 'yes' | 'no'): Condicion {
+function condicion(tool: Tool, field: EvidenceField, valor: TriState, bueno: 'yes' | 'no'): Condicion {
   if (valor === 'unverified') {
-    return { etiqueta: TRI_STATE_LABEL.unverified, tono: 'neutro', sinConfirmar: true };
+    const motivo = motivoDelHueco(tool, field, valor) ?? 'pendiente';
+    return { etiqueta: MOTIVO_LABEL[motivo], tono: 'neutro', sinConfirmar: true, motivo };
   }
   if (valor === 'partial') {
     return { etiqueta: TRI_STATE_LABEL.partial, tono: 'neutro', sinConfirmar: false };
@@ -61,9 +70,9 @@ export function filaDe(tool: Tool): FilaEvidencia {
     nombre: tool.name,
     tipoDeAcceso: acceso.kind,
     cantidad: acceso.amount ?? acceso.amountFallback,
-    tarjeta: condicion(tool.freePlan.requiresCreditCard, 'no'),
-    registro: condicion(tool.freePlan.requiresSignup, 'no'),
-    comercial: condicion(tool.freePlan.commercialUse, 'yes'),
+    tarjeta: condicion(tool, 'freePlan.requiresCreditCard', tool.freePlan.requiresCreditCard, 'no'),
+    registro: condicion(tool, 'freePlan.requiresSignup', tool.freePlan.requiresSignup, 'no'),
+    comercial: condicion(tool, 'freePlan.commercialUse', tool.freePlan.commercialUse, 'yes'),
   };
 }
 

@@ -52,6 +52,22 @@ describe('el módulo principal representa el catálogo', () => {
       expect(usableFreeNow(tool), `${tool.slug} debe ser usable gratis hoy`).toBe(true);
       expect(verificacionDe(tool).state, `${tool.slug} sin comprobar`).not.toBe('catalogada');
       expect(tool.capabilities.length, `${tool.slug} sin capacidades citadas`).toBeGreaterThan(0);
+      expect(tool.freePlan.requiresCreditCard, `${tool.slug}: ¿pide tarjeta? sin comprobar`).not.toBe('unverified');
+      expect(tool.freePlan.requiresSignup, `${tool.slug}: ¿pide registro? sin comprobar`).not.toBe('unverified');
+    }
+  });
+
+  it('una clase sin candidata comprobada se queda fuera, no se rellena con una dudosa', () => {
+    /*
+     * La tabla enseñaba «Sin verificar» en tarjeta. Ninguna candidata de
+     * ninguna vertical puede tener tarjeta o registro sin confirmar, aunque
+     * eso deje una vertical sin fila.
+     */
+    for (const vertical of VERTICALES) {
+      for (const tool of candidatasDe(tools, vertical.slugs)) {
+        expect(tool.freePlan.requiresCreditCard, `${vertical.id} · ${tool.slug}`).not.toBe('unverified');
+        expect(tool.freePlan.requiresSignup, `${vertical.id} · ${tool.slug}`).not.toBe('unverified');
+      }
     }
   });
 

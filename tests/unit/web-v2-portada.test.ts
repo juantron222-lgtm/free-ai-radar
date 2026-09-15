@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest';
 import { getAllTools } from '@lib/data/catalog';
 import { usableFreeNow } from '@lib/data/category-page';
 import { conteosDeDecision, filaDe, recomendadas } from '@lib/data/portada';
+import { MOTIVO_LABEL, motivoDelHueco } from '@lib/domain/evidencia';
 import { verificacionDe } from '@lib/domain/verification';
 import { EMPTY_FILTERS, applyFilters, parseFilters } from '@lib/search/filters';
 import { PRIMARY_NAV, ROUTES, VERTICALS } from '@lib/nav';
@@ -83,6 +84,36 @@ describe('la puerta del catálogo enseña datos, no promesas', () => {
         tool.freePlan.requiresCreditCard === 'unverified'
       );
     }
+  });
+
+  it('lo que falta dice de quién es el hueco, con las palabras del comparador', () => {
+    /*
+     * Decía «Sin verificar» en todas las celdas desconocidas, también cuando el
+     * fabricante no lo publica y la ficha, tres filas más abajo, lo decía así.
+     */
+    const campos = [
+      ['tarjeta', 'freePlan.requiresCreditCard', 'requiresCreditCard'],
+      ['registro', 'freePlan.requiresSignup', 'requiresSignup'],
+      ['comercial', 'freePlan.commercialUse', 'commercialUse'],
+    ] as const;
+    let noPublicados = 0;
+    for (const tool of tools) {
+      const fila = filaDe(tool);
+      for (const [clave, field, campo] of campos) {
+        const c = fila[clave];
+        expect(c.etiqueta, `${tool.slug} · ${clave}`).not.toBe('Sin verificar');
+        if (tool.freePlan[campo] !== 'unverified') {
+          expect(c.motivo, `${tool.slug} · ${clave}`).toBeUndefined();
+          continue;
+        }
+        const motivo = motivoDelHueco(tool, field, 'unverified');
+        expect(c.motivo, `${tool.slug} · ${clave}`).toBe(motivo);
+        expect(c.etiqueta, `${tool.slug} · ${clave}`).toBe(MOTIVO_LABEL[motivo!]);
+        if (motivo === 'no_publicado') noPublicados++;
+      }
+    }
+    expect(noPublicados, 'las evidencias not_published tienen que verse').toBeGreaterThan(0);
+    expect(codigo('src/components/home/PuertaBuscar.astro')).not.toContain('Sin verificar');
   });
 
   it('la puerta del catálogo no es otro buscador', () => {
