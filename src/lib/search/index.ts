@@ -2,9 +2,12 @@ import type { Tool } from '@lib/domain/tool';
 import { CAPABILITY_LABEL, PRODUCT_TYPE_LABEL } from '@lib/domain/taxonomy';
 import { TOOL_KIND_LABEL } from '@lib/domain/tool';
 import {
+  ORDEN_ACCESO,
+  accesoPara,
   detectar,
   fuerza,
   palabrasClave,
+  type AccesoGratis,
   type Deteccion,
   type HechosIndexables,
   type Intencion,
@@ -54,6 +57,11 @@ export interface SearchHit {
   matchedOn: SearchField | 'intent';
   /** Si ganó por intención, cuál. Texto público, nunca el token interno. */
   intent?: string;
+  /**
+   * Cuando la consulta pide una tarea: si la incluye gratis, sólo pagando o
+   * con un acceso gratuito limitado. Ausente cuando es un nombre o un hecho.
+   */
+  acceso?: AccesoGratis;
 }
 
 /** Lowercase, strip accents, collapse whitespace. */
@@ -108,6 +116,15 @@ const FIELD_WEIGHTS: Record<SearchField, number> = {
  * que una, que es exactamente lo que pide «transcribir gratis sin tarjeta».
  */
 const BONO_INTENCION = 16;
+
+/**
+ * Lo que vale una capacidad que sólo se tiene pagando.
+ *
+ * Lo mismo que una capacidad verificada, para que dentro del grupo «de pago»
+ * se ordenen igual que las gratuitas. Nunca las adelanta: el grupo va antes
+ * que la puntuación.
+ */
+const FUERZA_DE_PAGO = 0.5;
 
 /**
  * El suelo de ruido.
@@ -165,6 +182,7 @@ export function hechosDe(tool: Tool): HechosIndexables {
     capabilities: tool.capabilities.filter(
       (c) => !tool.freePlan.excludedCapabilities.includes(c)
     ),
+    capacidadesDePago: tool.freePlan.excludedCapabilities.filter((c) => tool.capabilities.includes(c)),
     categorySlug: tool.categorySlug,
     secondaryCategories: tool.secondaryCategories,
     productType: tool.productType ?? null,
@@ -297,7 +315,16 @@ export function searchWithIntents(
 
   for (const doc of docs) {
     const satisfechas = detecciones
-      .map((d) => ({ intencion: d.intencion, restringe: d.restringe, fuerza: fuerza(doc.hechos, d.intencion) }))
+      .map((d) => {
+        const acceso = accesoPara(doc.hechos, d.intencion);
+        const propia = fuerza(doc.hechos, d.intencion);
+        return {
+          intencion: d.intencion,
+          restringe: d.restringe,
+          acceso,
+          fuerza: propia > 0 ? propia : acceso === 'de-pago' ? FUERZA_DE_PAGO : 0,
+        };
+      })
       .filter((s) => s.fuerza > 0);
     const cumplidasExigidas = satisfechas.filter((s) => s.restringe).length;
 
@@ -366,6 +393,18 @@ export function searchWithIntents(
       satisfechas[0] ?? { intencion: null as Intencion | null, fuerza: 0 }
     );
 
+    /*
+     * El acceso de la herramienta a lo pedido es el peor de sus tareas: si
+     * pide «transcribir y clonar voz» y clona sólo pagando, no lo hace gratis.
+     * Quien escribe un nombre busca una ficha y no se le clasifica.
+     */
+    const accesos = porNombre
+      ? []
+      : satisfechas.flatMap((s) => (s.acceso ? [s.acceso] : []));
+    const acceso = accesos.length
+      ? accesos.reduce((peor, a) => (ORDEN_ACCESO[a] > ORDEN_ACCESO[peor] ? a : peor))
+      : undefined;
+
     hits.push({
       slug: doc.slug,
       score: final,
@@ -373,8 +412,18 @@ export function searchWithIntents(
       ...(ganaLaIntencion && mejorIntencion.intencion
         ? { intent: mejorIntencion.intencion.etiqueta }
         : {}),
+      ...(acceso ? { acceso } : {}),
     });
   }
+
+  /*
+   * Primero lo que se puede hacer gratis, después lo dudoso, al final lo de pago.
+   *
+   * Es un orden de grupos, no un ajuste de puntos: ninguna puntuación puede
+   * subir una herramienta de pago por encima de una que lo incluye gratis,
+   * porque en este sitio esa es la respuesta a la pregunta.
+   */
+  const grupo = (h: SearchHit) => (h.acceso ? ORDEN_ACCESO[h.acceso] : 0);
 
   /*
    * El desempate es alfabético y nada más.
@@ -388,6 +437,7 @@ export function searchWithIntents(
   return {
     hits: hits
       .sort((a, b) => {
+        if (grupo(a) !== grupo(b)) return grupo(a) - grupo(b);
         if (b.score !== a.score) return b.score - a.score;
         return (nombre.get(a.slug) ?? a.slug).localeCompare(nombre.get(b.slug) ?? b.slug, 'es');
       })

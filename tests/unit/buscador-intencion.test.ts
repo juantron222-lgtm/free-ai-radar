@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import { getAllTools, getPopulatedCategories } from '@lib/data/catalog';
 import { buildSearchDocs, searchWithIntents } from '@lib/search/index';
 import { buildClientIndex } from '@lib/search/client-index';
-import { INTENCIONES, detectarIntenciones, fuerza, palabrasClave } from '@lib/search/intents';
+import { INTENCIONES, ORDEN_ACCESO, detectarIntenciones, fuerza, palabrasClave } from '@lib/search/intents';
 import { CAPABILITIES, CAPABILITY_LABEL } from '@lib/domain/taxonomy';
 
 /**
@@ -70,6 +70,63 @@ describe('la búsqueda entiende tareas', () => {
     for (const tool of herramientas('crear video')) {
       expect(tool.categorySlug, tool.name).not.toBe('musica');
     }
+  });
+});
+
+describe('«puede hacerlo» no es «lo incluye gratis»', () => {
+  it('lo que se hace gratis va siempre antes que lo de pago o sin confirmar', () => {
+    for (const q of ['generar imagenes', 'crear video', 'transcribir', 'programar con ia', 'clonar voz']) {
+      const grupos = buscar(q).map((h) => (h.acceso ? ORDEN_ACCESO[h.acceso] : 0));
+      for (let i = 1; i < grupos.length; i++) {
+        expect(grupos[i - 1]!, `${q}: un resultado de pago delante de uno gratis`).toBeLessThanOrEqual(grupos[i]!);
+      }
+    }
+  });
+
+  it('una herramienta sin plan gratuito nunca sale como «gratis»', () => {
+    for (const q of ['generar imagenes', 'crear video', 'programar con ia', 'escribir codigo']) {
+      for (const hit of buscar(q)) {
+        if (porSlug.get(hit.slug)!.freeModel !== 'paid_only') continue;
+        expect(hit.acceso, `${q} · ${hit.slug}`).toBe('de-pago');
+      }
+    }
+    // Y la consulta que lo destapó: Midjourney sale, pero separada.
+    const midjourney = buscar('generar imagenes').find((h) => h.slug === 'midjourney');
+    expect(midjourney?.acceso).toBe('de-pago');
+  });
+
+  it('una capacidad excluida del plan gratuito sale como de pago, no desaparece', () => {
+    const clipdrop = buscar('generar imagenes').find((h) => h.slug === 'clipdrop');
+    expect(clipdrop, 'Clipdrop genera imágenes, sólo que pagando').toBeDefined();
+    expect(clipdrop!.acceso).toBe('de-pago');
+  });
+
+  it('unos créditos que no vuelven no cuentan como «gratis»', () => {
+    for (const hit of buscar('crear video')) {
+      if (porSlug.get(hit.slug)!.freePlan.creditReset !== 'one_off') continue;
+      expect(hit.acceso, hit.slug).not.toBe('gratis');
+    }
+    expect(buscar('generar imagenes').find((h) => h.slug === 'runwayml')?.acceso).toBe('limitado');
+  });
+
+  it('una consulta por nombre no se clasifica', () => {
+    expect(buscar('midjourney').find((h) => h.slug === 'midjourney')?.acceso).toBeUndefined();
+  });
+
+  it('el índice del navegador lleva lo que hace falta para separarlas', () => {
+    const indice = buildClientIndex(tools, (slug) => categorias.get(slug) ?? slug);
+    const clipdrop = indice.find((e) => e.slug === 'clipdrop')!;
+    expect(clipdrop.capsNo).toContain('text-to-image');
+    expect(indice.filter((e) => e.capsNo).length).toBe(
+      tools.filter((t) => t.freePlan.excludedCapabilities.length).length
+    );
+  });
+
+  it('el explorador cuenta las que lo incluyen gratis y separa el resto', () => {
+    const explorador = readFileSync('src/components/discovery/ToolExplorer.astro', 'utf8');
+    expect(explorador).not.toContain("')}. Se muestran las que lo cumplen según su ficha.");
+    expect(explorador).toContain('results-divider');
+    expect(explorador).not.toContain("searchWithIntents(docs, trimmed, { limit: 6 })");
   });
 });
 

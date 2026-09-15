@@ -31,6 +31,30 @@ test.describe('buscador por tarea', () => {
     }
   });
 
+  test('«generar imágenes» separa lo que se hace gratis de lo que se hace pagando', async ({ page }) => {
+    /*
+     * Midjourney salía mezclado con Krea bajo «Se muestran las que lo cumplen
+     * según su ficha». Ahora va debajo de una separación que dice por qué.
+     */
+    await page.goto('/herramientas?q=generar+imagenes');
+
+    const intent = page.locator('#result-intent');
+    await expect(intent).toContainText('en su plan gratuito');
+    await expect(intent).toContainText('pagando, con una prueba');
+
+    const divisor = page.locator('#results [data-divider]');
+    await expect(divisor).toBeVisible();
+    await expect(divisor).toContainText('no en un plan gratuito que se renueve');
+
+    const orden = await page.locator('#results > li:not([hidden])').evaluateAll((lis) =>
+      lis.map((li) => (li.hasAttribute('data-divider') ? '|' : (li as HTMLElement).dataset['slug']))
+    );
+    const corte = orden.indexOf('|');
+    expect(corte, 'hay gratuitas antes de la separación').toBeGreaterThan(0);
+    expect(orden.indexOf('midjourney'), 'Midjourney no tiene plan gratuito').toBeGreaterThan(corte);
+    expect(orden.indexOf('krea'), 'Krea lo incluye gratis').toBeLessThan(corte);
+  });
+
   test('«crear una app» no cuela nada de audio ni de imagen', async ({ page }) => {
     await page.goto('/herramientas?q=crear+una+app');
     const texto = await page.locator('#results').innerText();

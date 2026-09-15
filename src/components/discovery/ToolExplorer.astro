@@ -185,6 +185,18 @@ const VERTICALES_VISIBLES = [
     width: 100%;
   }
 
+  /* Cruza la rejilla: a partir de aquí, lo hacen pero no gratis. */
+  .explorer-grid > :global(.results-divider) {
+    grid-column: 1 / -1;
+    display: block;
+    margin: var(--space-xs) 0 0;
+    padding: var(--space-2xs) 0 0;
+    border-top: 1px solid var(--line);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--ink-muted);
+  }
+
   .explorer-intent {
     margin: var(--space-3xs) 0 0;
     font-size: 0.8125rem;
@@ -297,6 +309,17 @@ const VERTICALES_VISIBLES = [
   const searchClear = document.getElementById('search-clear') as HTMLButtonElement;
   const suggestionsEl = document.getElementById('search-suggestions') as HTMLUListElement;
   const intentEl = document.getElementById('result-intent')!;
+
+  /*
+   * La separación entre las que lo incluyen gratis y las que no.
+   *
+   * Un elemento de la lista, no un título: cruza la rejilla entera y dice qué
+   * cambia a partir de ahí. Se crea una vez y se mueve.
+   */
+  const divisor = document.createElement('li');
+  divisor.className = 'results-divider';
+  divisor.dataset['divider'] = '';
+  divisor.textContent = 'Lo hacen, pero no en un plan gratuito que se renueve: sólo pagando, con una prueba o créditos que no vuelven, o sin acceso gratuito confirmado.';
   const sortSelect = document.getElementById('sort') as HTMLSelectElement;
   const moreDetails = document.getElementById('filters-more') as HTMLDetailsElement;
 
@@ -396,16 +419,29 @@ const VERTICALES_VISIBLES = [
     let matched = applyFilters(entries, state);
 
     let intents: string[] = [];
+    /* Desde qué resultado dejan de incluirlo gratis. -1: todas lo incluyen. */
+    let primeraSinGratis = -1;
     if (state.q) {
       const allowed = new Set(matched.map((e) => e.slug));
       const resultado = searchWithIntents(docs, state.q, { limit: 300 });
       intents = resultado.intents.map((i) => i.etiqueta);
-      matched = resultado.hits.filter((h) => allowed.has(h.slug)).map((h) => byId.get(h.slug)!).filter(Boolean);
+      const hits = resultado.hits.filter((h) => allowed.has(h.slug) && byId.has(h.slug));
+      primeraSinGratis = hits.findIndex((h) => h.acceso && h.acceso !== 'gratis');
+      matched = hits.map((h) => byId.get(h.slug)!);
     }
 
+    /*
+     * «Puede hacerlo» y «lo incluye gratis» son dos respuestas.
+     *
+     * Decía «Se muestran las que lo cumplen según su ficha» con Midjourney
+     * mezclado entre las gratuitas. Ahora se cuenta cuántas lo incluyen gratis
+     * y, debajo de una separación, las que lo hacen pagando o sólo a prueba.
+     */
+    const gratis = primeraSinGratis === -1 ? matched.length : primeraSinGratis;
+    const resto = matched.length - gratis;
     intentEl.hidden = intents.length === 0;
     intentEl.textContent = intents.length
-      ? `Entendido como: ${intents.join(' + ')}. Se muestran las que lo cumplen según su ficha.`
+      ? `Entendido como: ${intents.join(' + ')}. ${gratis === 1 ? '1 lo incluye' : `${gratis} lo incluyen`} en su plan gratuito${resto ? `; debajo, ${resto === 1 ? '1 que lo hace' : `${resto} que lo hacen`} pagando, con una prueba o sin acceso gratuito confirmado` : ''}.`
       : '';
 
     const visible = new Set(matched.map((e) => e.slug));
@@ -415,11 +451,13 @@ const VERTICALES_VISIBLES = [
     }
     // Reorder so the DOM matches the sort/relevance order.
     const fragment = document.createDocumentFragment();
-    for (const entry of matched) {
+    matched.forEach((entry, i) => {
+      if (i === primeraSinGratis) fragment.appendChild(divisor);
       const li = items.get(entry.slug);
       if (li) fragment.appendChild(li);
-    }
+    });
     resultsEl.appendChild(fragment);
+    if (primeraSinGratis === -1) divisor.remove();
 
     countEl.textContent = String(matched.length);
     nounEl.textContent = matched.length === 1 ? 'herramienta' : 'herramientas';
@@ -537,7 +575,15 @@ const VERTICALES_VISIBLES = [
         });
       }
     } else {
-      const { hits, intents } = searchWithIntents(docs, trimmed, { limit: 6 });
+      /*
+       * La cuenta sale de todos los resultados, no de los seis que caben.
+       *
+       * Con `limit: 6` la sugerencia decía «6 herramientas lo hacen» también
+       * cuando lo hacían veinte.
+       */
+      const { hits: todos, intents } = searchWithIntents(docs, trimmed, { limit: 300 });
+      const hits = todos.slice(0, 6);
+      const gratisEnTodos = todos.filter((h) => !h.acceso || h.acceso === 'gratis').length;
 
       /*
        * Primero la tarea, si se ha reconocido una.
@@ -548,10 +594,12 @@ const VERTICALES_VISIBLES = [
        * catálogo, que es `background-removal`.
        */
       for (const intent of intents.slice(0, 2)) {
-        const cuantas = hits.length;
+        const restoEnTodos = todos.length - gratisEnTodos;
         rows.push({
           label: intent.etiqueta,
-          sub: cuantas === 1 ? '1 herramienta lo hace' : `${cuantas} herramientas lo hacen`,
+          sub:
+            `${gratisEnTodos === 1 ? '1 lo incluye' : `${gratisEnTodos} lo incluyen`} gratis` +
+            (restoEnTodos ? ` · ${restoEnTodos} pagando o a prueba` : ''),
           action: () => {
             rememberSearch(trimmed);
             closeSuggestions();

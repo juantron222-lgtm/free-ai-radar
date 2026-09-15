@@ -33,6 +33,14 @@ export interface HechosIndexables {
   freeModel: string;
   requiresCreditCard: string;
   creditReset?: string | null;
+  /**
+   * Lo que el producto sabe hacer pero su plan gratuito no incluye.
+   *
+   * No cuenta para `fuerza`: con estas no se responde a «quiero hacer X gratis».
+   * Sirve para lo contrario, para poder decir «esta lo hace, pero pagando» en
+   * vez de hacerla desaparecer como si no supiera.
+   */
+  capacidadesDePago?: readonly string[];
 }
 
 export interface Intencion {
@@ -369,6 +377,43 @@ export function fuerza(hechos: HechosIndexables, intencion: Intencion): number {
   );
   return enVertical ? 0.35 : 0;
 }
+
+/**
+ * Si lo que se pide viene incluido gratis, o sólo lo hace pagando.
+ *
+ * El buscador decía «Se muestran las que lo cumplen según su ficha» y ponía en
+ * la misma lista, sin distinguir, las que lo hacen gratis y las que no tienen
+ * plan gratuito: «generar imágenes» sacaba Midjourney al lado de Krea. Y hacía
+ * desaparecer a Clipdrop, que genera imágenes sólo en Pro, como si no supiera.
+ * Las dos preguntas son distintas y se contestan por separado:
+ *
+ *   gratis    La hace y su plan gratuito, que se renueva, la incluye.
+ *   limitado  La hace, pero lo gratuito es una prueba, una demo, unos créditos
+ *             que no vuelven (los 125 de Runway) o un acceso sin confirmar.
+ *   de-pago   La hace sólo pagando: no tiene plan gratuito, o su plan
+ *             gratuito excluye justo esa capacidad.
+ *
+ * `null` cuando la intención es un hecho —«sin tarjeta», «en local»—, que ya
+ * es una pregunta sobre el acceso y no tiene esta segunda lectura, o cuando la
+ * herramienta no responde de ninguna de las dos maneras.
+ */
+export type AccesoGratis = 'gratis' | 'limitado' | 'de-pago';
+
+const ACCESO_DUDOSO: ReadonlySet<string> = new Set(['unknown', 'trial', 'demo']);
+
+export function accesoPara(hechos: HechosIndexables, intencion: Intencion): AccesoGratis | null {
+  if (intencion.hecho) return null;
+  if (fuerza(hechos, intencion) > 0) {
+    if (hechos.freeModel === 'paid_only') return 'de-pago';
+    if (ACCESO_DUDOSO.has(hechos.freeModel) || hechos.creditReset === 'one_off') return 'limitado';
+    return 'gratis';
+  }
+  const soloPagando = intencion.capacidades?.some((c) => hechos.capacidadesDePago?.includes(c));
+  return soloPagando ? 'de-pago' : null;
+}
+
+/** El orden de las tres respuestas: primero lo que se puede hacer sin pagar. */
+export const ORDEN_ACCESO: Record<AccesoGratis, number> = { gratis: 0, limitado: 1, 'de-pago': 2 };
 
 /** ¿Esta herramienta responde a esta intención? */
 export function satisface(hechos: HechosIndexables, intencion: Intencion): boolean {

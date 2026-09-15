@@ -21,6 +21,8 @@ export interface ClientIndexEntry extends FilterableTool {
   f: [name: string, alias: string, intent: string, product: string, vertical: string, text: string];
   /** Capacidades verificadas, en token. Sólo las leen los predicados. */
   caps: readonly string[];
+  /** Las que el producto tiene y su plan gratuito excluye. Sólo si hay alguna. */
+  capsNo?: readonly string[];
   /** Tipo de producto, en token. */
   pt: string | null;
   /** Cuándo vuelven los créditos: `one_off` no es gratis recurrente. */
@@ -95,6 +97,9 @@ export function buildClientIndex(
     // Sólo las que el plan gratuito incluye: es lo que decide qué intención
     // responde. Ver `hechosDe` en `search/index.ts`.
     caps: tool.capabilities.filter((c) => !tool.freePlan.excludedCapabilities.includes(c)),
+    ...(tool.freePlan.excludedCapabilities.length
+      ? { capsNo: tool.freePlan.excludedCapabilities.filter((c) => tool.capabilities.includes(c)) }
+      : {}),
     pt: tool.productType ?? null,
     cr: tool.freePlan.creditReset ?? null,
   }));
@@ -125,6 +130,7 @@ export function docsFromIndex(entries: readonly ClientIndexEntry[]): SearchDoc[]
       freeModel: entry.freeModel,
       requiresCreditCard: entry.freePlan.requiresCreditCard,
       creditReset: entry.cr,
+      capacidadesDePago: entry.capsNo ?? [],
     },
   }));
 }
