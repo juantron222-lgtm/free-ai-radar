@@ -298,7 +298,13 @@ test.describe('por qué falta un dato', () => {
   });
 
   test('la ficha no acusa al fabricante de lo que no hemos mirado', async ({ page }) => {
-    await page.goto('/herramientas/ideogram');
+    /*
+     * Hace falta una ficha con los dos huecos a la vez. Era Ideogram hasta el
+     * 15 de septiembre, cuando se comprobó que su página de precios no dice si
+     * pide tarjeta y dejó de tener nada pendiente nuestro. Codex tiene la
+     * tarjeta sin publicar y el uso comercial sin mirar todavía.
+     */
+    await page.goto('/herramientas/codex');
     const nota = page.locator('.tool-verified-note');
     await expect(nota).toContainText('su fabricante no publica');
     await expect(nota).toContainText('Nos falta comprobar');

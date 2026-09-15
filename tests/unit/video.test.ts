@@ -121,10 +121,20 @@ describe('filtros de vídeo', () => {
   const decisions = decideFilters(video, CANDIDATE_FILTERS);
 
   it('esconde los que convertirían «no consta» en «no»', () => {
-    for (const id of ['sin-tarjeta', 'sin-marca', 'comercial']) {
-      const d = decisions.find((x) => x.filter.id === id)!;
-      expect(d.shown, `${id} no tiene cobertura suficiente`).toBe(false);
-      expect(d.reason).toBeTruthy();
+    /*
+     * La regla, no una lista. Antes fijaba «sin-tarjeta, sin-marca y comercial
+     * están escondidos», y eso dejó de ser cierto el 15 de septiembre por la
+     * razón buena: HeyGen, Synthesia y Descript publican que no piden tarjeta.
+     * Lo que no puede cambiar es que un filtro con menos de la mitad de las
+     * fichas confirmadas se enseñe.
+     */
+    const conDato = decisions.filter((d) => d.filter.resolved);
+    expect(conDato.length).toBeGreaterThan(0);
+    for (const d of conDato) {
+      const conocidas = video.filter(d.filter.resolved!).length;
+      if (conocidas / video.length >= 0.5) continue;
+      expect(d.shown, `${d.filter.id}: ${conocidas} de ${video.length} confirmadas`).toBe(false);
+      expect(d.reason).toMatch(/confirmado/);
     }
   });
 

@@ -296,6 +296,15 @@
         "checkedAt": "2026-08-21",
         "quote": "Free Tier: 50 agentic requests per month · 1,000 lines of code per month · Suppress public code suggestions. Pro: $19 per month per user.",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://aws.amazon.com/q/developer/pricing/",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página dice que el Free Tier se usa con AWS Builder ID o con un usuario IAM, pero no si piden tarjeta."
       }
     ],
     "slug": "amazon-q-developer",
@@ -472,6 +481,12 @@
         "kind": "pricing",
         "publisher": "bolt.new",
         "checkedAt": "2026-08-21"
+      },
+      {
+        "url": "https://stackblitz.com/terms-of-service",
+        "label": "Condiciones de uso (StackBlitz)",
+        "kind": "docs",
+        "checkedAt": "2026-09-15"
       }
     ],
     "scores": {
@@ -529,6 +544,24 @@
         "checkedAt": "2026-08-21",
         "quote": "300K tokens daily limit · 1M tokens per month · Pro: $25 per month billed monthly",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://bolt.new/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
+      },
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "not_published",
+        "sourceUrl": "https://stackblitz.com/terms-of-service",
+        "sourceKind": "terms",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Permiso explícito de uso comercial de lo generado con el plan gratuito. Las condiciones ceden al usuario lo que genera la IA sin hablar de uso comercial; sólo piden plan para usar la WebContainer API en producción."
       }
     ],
     "startEffortReason": "Se describe lo que quieres en el navegador; no hace falta instalar nada.",
@@ -589,7 +622,7 @@
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
-      "commercialUse": "unverified",
+      "commercialUse": "no",
       "creditsAmount": "20.000 créditos/mes (≈27 min)",
       "creditReset": "monthly",
       "verifiedAt": "2026-08-18"
@@ -643,6 +676,25 @@
         "checkedAt": "2026-08-18",
         "quote": "Text to Speech (Sonic) · Speech to Text (Ink) · Voice Cloning (instant and professional) · Voice Agents (Line)",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://cartesia.ai/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
+      },
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "derived",
+        "sourceUrl": "https://cartesia.ai/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "quote": "Commercial use license",
+        "basis": "Figura en la lista del plan Pro, que empieza «Everything in Free, plus», así que no forma parte del plan gratuito."
       }
     ],
     "auditNotes": "La equivalencia en minutos se recoge porque la publica la propia tabla. Si no la publicara, se habrían dejado los créditos a secas.",
@@ -687,7 +739,7 @@
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
-      "commercialUse": "unverified",
+      "commercialUse": "yes",
       "creditReset": "none",
       "verifiedAt": "2026-07-08"
     },
@@ -729,6 +781,18 @@
         "label": "openai.com",
         "kind": "community",
         "checkedAt": "2026-07-08"
+      },
+      {
+        "url": "https://openai.com/policies/eu-terms-of-use/",
+        "label": "Condiciones de uso (EEE)",
+        "kind": "docs",
+        "checkedAt": "2026-09-15"
+      },
+      {
+        "url": "https://chatgpt.com/pricing",
+        "label": "Página oficial de precios",
+        "kind": "pricing",
+        "checkedAt": "2026-09-15"
       }
     ],
     "scores": {
@@ -796,6 +860,25 @@
         "scope": "product",
         "checkedAt": "2026-08-30",
         "quote": "File uploads, image generation, voice, data analysis, and other tools have separate usage limits on the Free tier."
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://chatgpt.com/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página sólo habla de tarjeta para comprar Go, Plus, Pro o Business."
+      },
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://openai.com/policies/eu-terms-of-use/",
+        "sourceKind": "terms",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "quote": "Commercial and business use. If you use our Services for commercial or business use, the following terms apply.",
+        "basis": "Condiciones para usuarios del Espacio Económico Europeo, que cubren ChatGPT sin distinguir plan: permiten el uso comercial con un anexo propio."
       }
     ],
     "startEffortReason": "Hace falta crear una cuenta; después se escribe en la caja y responde.",
@@ -979,7 +1062,7 @@
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
-      "commercialUse": "unverified",
+      "commercialUse": "no",
       "creditReset": "none",
       "verifiedAt": "2026-07-08"
     },
@@ -1021,6 +1104,18 @@
         "label": "anthropic.com",
         "kind": "community",
         "checkedAt": "2026-07-08"
+      },
+      {
+        "url": "https://www.anthropic.com/legal/consumer-terms",
+        "label": "Condiciones para consumidores (EEE)",
+        "kind": "docs",
+        "checkedAt": "2026-09-15"
+      },
+      {
+        "url": "https://claude.com/pricing",
+        "label": "Página oficial de precios",
+        "kind": "pricing",
+        "checkedAt": "2026-09-15"
       }
     ],
     "scores": {
@@ -1086,6 +1181,25 @@
         "scope": "product",
         "checkedAt": "2026-08-30",
         "quote": "While using the free Claude plan, there is a session-based usage limit that will reset every five hours. […] the number of messages you can send will vary based on demand, and we may impose other types of usage limits to ensure fair access to all users."
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://claude.com/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página sólo habla de tarjeta como forma de pago de Team y Enterprise."
+      },
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://www.anthropic.com/legal/consumer-terms",
+        "sourceKind": "terms",
+        "checkedAt": "2026-09-15",
+        "scope": "web",
+        "quote": "Non-commercial use only. You agree that you will not use our Services for any commercial or business purposes",
+        "basis": "Condiciones para consumidores residentes en el Espacio Económico Europeo o Suiza, las que se aplican a quien usa Claude.ai desde España. La API se rige por las condiciones comerciales, que son otras."
       }
     ],
     "startEffortReason": "Hace falta crear una cuenta; después se escribe en la caja y responde.",
@@ -1980,6 +2094,15 @@
         "checkedAt": "2026-08-19",
         "quote": "run in the terminal/CLI, edit files in a repository, run commands and tests · Local environments and Cloud environment · Browser [listado como capacidad].",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://learn.chatgpt.com/docs/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
       }
     ],
     "nextReviewAt": "2026-11-17",
@@ -2399,6 +2522,12 @@
         "kind": "pricing",
         "publisher": "cursor.com",
         "checkedAt": "2026-08-21"
+      },
+      {
+        "url": "https://cursor.com/terms-of-service",
+        "label": "Condiciones de uso",
+        "kind": "docs",
+        "checkedAt": "2026-09-15"
       }
     ],
     "scores": {
@@ -2450,6 +2579,25 @@
         "checkedAt": "2026-08-21",
         "quote": "Hobby — No credit card required · Limited Agent requests · Access to Composer. Individual: $20 / mo.",
         "scope": "product"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "stated",
+        "sourceUrl": "https://cursor.com/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "quote": "No credit card required",
+        "basis": "En la lista «Includes» del plan Free."
+      },
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "not_published",
+        "sourceUrl": "https://cursor.com/terms-of-service",
+        "sourceKind": "terms",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Permiso explícito de uso comercial en el plan gratuito. Las condiciones ceden al usuario los derechos sobre las sugerencias, pero no hablan de uso comercial."
       }
     ],
     "startEffort": "install",
@@ -2788,7 +2936,7 @@
         "Plan de pago más barato: Hobbyist, 16 $/mes"
       ],
       "requiresSignup": "yes",
-      "requiresCreditCard": "unverified",
+      "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditsAmount": "60 min de transcripción/mes",
@@ -2823,6 +2971,12 @@
         "kind": "pricing",
         "publisher": "descript.com",
         "checkedAt": "2026-08-15"
+      },
+      {
+        "url": "https://www.descript.com/terms",
+        "label": "Condiciones de uso",
+        "kind": "docs",
+        "checkedAt": "2026-09-15"
       }
     ],
     "evidence": [
@@ -2843,6 +2997,25 @@
         "checkedAt": "2026-08-15",
         "quote": "text-based editing · dynamic captions · transitions · green screen removal · eye contact correction · automatic multicam · avatar-based video generation",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "stated",
+        "sourceUrl": "https://www.descript.com/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "quote": "No, Descript's Free plan includes everything you need to record, edit and mix audio and video content.",
+        "basis": "Respuesta a la pregunta «Do I need to enter a credit card to try Descript?»."
+      },
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "not_published",
+        "sourceUrl": "https://www.descript.com/terms",
+        "sourceKind": "terms",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Permiso explícito de uso comercial para lo creado con el plan gratuito. Las condiciones dicen que el resultado es tuyo, pero no hablan de uso comercial ni distinguen por plan."
       }
     ],
     "nextReviewAt": "2026-11-16",
@@ -2960,6 +3133,12 @@
         "kind": "docs",
         "publisher": "docs.devin.ai",
         "checkedAt": "2026-09-13"
+      },
+      {
+        "url": "https://devin.ai/pricing",
+        "label": "Página oficial de precios",
+        "kind": "pricing",
+        "checkedAt": "2026-09-15"
       }
     ],
     "evidence": [
@@ -2980,6 +3159,15 @@
         "checkedAt": "2026-08-19",
         "quote": "Devin's terminal, where you can watch commands being executed and view output logs · Devin's embedded code editor equipped with all the IDE tools and shortcuts you're familiar with · Browser: allows Devin to browse documentation, test applications, and handle web-based tasks.",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://devin.ai/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
       }
     ],
     "auditNotes": "La documentación afirma «if you can do it in three hours, Devin can most likely do it». Es una promesa de alcance, no un dato comprobable, y no se recoge como capacidad. Plataformas corregidas el 13 de septiembre de 2026: la documentación de Devin CLI la describe como «a local command-line coding agent» e indica cómo instalarla en macOS, Linux/WSL y Windows. Ya aparecía en las notas de versión de abril de 2026, así que era una omisión de la ficha y no un cambio del fabricante, y por eso no va al changelog. Devin Desktop no se añade por separado: ninguna página oficial consultada declara explícitamente en qué sistemas se instala. SWE-2, el modelo presentado el 10 de septiembre, no altera ningún campo de la ficha. Planes y precios comprobados el 13 de septiembre, sin cambios.",
@@ -3267,6 +3455,15 @@
         "scope": "product",
         "checkedAt": "2026-08-24",
         "quote": "if you access or use our Services free of charge (such a user, a 'Free User'), you may only use the Services for non-commercial purposes; if you access or use our Services through a paid subscription plan (such a user, a 'Paid User'), you may use the Services for commercial purposes."
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://elevenlabs.io/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
       }
     ],
     "startEffort": "signup",
@@ -3464,7 +3661,7 @@
         "La cantidad de generaciones mensuales no se publica"
       ],
       "requiresSignup": "yes",
-      "requiresCreditCard": "unverified",
+      "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "commercialUse": "no",
       "creditReset": "unknown",
@@ -3492,6 +3689,12 @@
         "kind": "official",
         "publisher": "fish.audio",
         "checkedAt": "2026-08-18"
+      },
+      {
+        "url": "https://fish.audio/plan/",
+        "label": "Página oficial de precios",
+        "kind": "pricing",
+        "checkedAt": "2026-09-15"
       }
     ],
     "evidence": [
@@ -3512,6 +3715,25 @@
         "checkedAt": "2026-08-18",
         "quote": "text-to-speech, voice cloning, speech-to-text · Voice cloning in as little as 15 seconds · 30+ languages",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "stated",
+        "sourceUrl": "https://fish.audio/plan/",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "quote": "No credit card needed",
+        "basis": "Aparece en la tarjeta del Free Tier, 0 $/mes."
+      },
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://fish.audio/plan/",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "quote": "Free plan users can only use generated content for personal, non-commercial projects."
       }
     ],
     "auditNotes": "Publica modelos abiertos (Fish Speech), pero `openSource` se queda en `unverified`: no se leyó el identificador de licencia del repositorio en esta comprobación.",
@@ -3780,6 +4002,15 @@
         "scope": "api",
         "checkedAt": "2026-08-24",
         "quote": "Free of charge […] $0.75 through December 31, 2026. $1.50 starting January 1, 2027 (input, per 1M tokens)"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "api",
+        "lookedFor": "Si el nivel gratuito de la API pide tarjeta o cuenta de facturación. La tabla de precios separa Free Tier y Paid Tier, pero no dice qué hace falta para el primero."
       }
     ],
     "auditNotes": "No se recogen modalidades de entrada: la tabla de precios las cobra por versión y no son iguales en toda la gama. La cadencia de la capa gratuita queda `unknown` porque la página no publica ni cantidad ni periodo.",
@@ -4737,6 +4968,12 @@
         "kind": "docs",
         "publisher": "support.google.com",
         "checkedAt": "2026-09-13"
+      },
+      {
+        "url": "https://gemini.google/subscriptions/",
+        "label": "Página oficial de precios",
+        "kind": "pricing",
+        "checkedAt": "2026-09-15"
       }
     ],
     "scores": {
@@ -4809,6 +5046,15 @@
         "checkedAt": "2026-08-20",
         "quote": "In Gemini Apps, there are limits for: Daily research requests [...] Google AI Pro and Google AI Ultra users get higher limits for how many research reports they can create.",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://gemini.google/subscriptions/",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
       }
     ],
     "startEffortReason": "Para generar imágenes hay que estar identificado en la app con una cuenta de Google.",
@@ -5426,9 +5672,9 @@
         "Plan de pago más barato: Creator, 29 $/mes (600 créditos)"
       ],
       "requiresSignup": "yes",
-      "requiresCreditCard": "unverified",
+      "requiresCreditCard": "no",
       "hasWatermark": "unverified",
-      "commercialUse": "unverified",
+      "commercialUse": "yes",
       "creditsAmount": "3 vídeos/mes",
       "creditReset": "monthly",
       "verifiedAt": "2026-08-15"
@@ -5461,6 +5707,12 @@
         "kind": "pricing",
         "publisher": "heygen.com",
         "checkedAt": "2026-08-15"
+      },
+      {
+        "url": "https://www.heygen.com/terms",
+        "label": "Condiciones de uso",
+        "kind": "docs",
+        "checkedAt": "2026-09-15"
       }
     ],
     "evidence": [
@@ -5481,6 +5733,24 @@
         "checkedAt": "2026-08-15",
         "quote": "Full Video Translation, with lip sync",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "stated",
+        "sourceUrl": "https://www.heygen.com/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "quote": "You can try HeyGen for free, no credit card required."
+      },
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://www.heygen.com/terms",
+        "sourceKind": "terms",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "quote": "As between HeyGen and you, you own all rights in your User Input or User Output, and does not restrict your ability to use User Output for your own purposes (including for commercial purposes)"
       }
     ],
     "nextReviewAt": "2026-11-13",
@@ -5595,6 +5865,15 @@
         "checkedAt": "2026-08-15",
         "quote": "Kling Omni 3 Image Reference 720p · Grok Video Edit · Higgsfield DoP Standard 720p · Talking-avatar videos",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://higgsfield.ai/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
       }
     ],
     "auditNotes": "Nota de contexto, no de catálogo: esta misma plataforma se descartó como fuente de Newsroom porque publica listículos de posicionamiento. Eso descalifica su blog como fuente, no al producto como herramienta.",
@@ -5983,6 +6262,15 @@
         "scope": "product",
         "checkedAt": "2026-08-29",
         "quote": "Free — Slow credits: Weekly for eligible accounts · Priority credits: Not included"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://ideogram.ai/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios sólo habla de tarjeta para actualizar el pago de un plan ya contratado."
       }
     ],
     "auditNotes": "Las capacidades describen la herramienta completa; en el plan gratuito seis de ellas constan como no incluidas y así figura en los límites. Marca de agua y tarjeta no aparecen en ninguna página oficial.",
@@ -6180,6 +6468,12 @@
         "kind": "docs",
         "publisher": "jetbrains.com",
         "checkedAt": "2026-08-21"
+      },
+      {
+        "url": "https://www.jetbrains.com/legal/docs/terms/jetbrains-ai-service/",
+        "label": "Condiciones de JetBrains AI",
+        "kind": "docs",
+        "checkedAt": "2026-09-15"
       }
     ],
     "evidence": [
@@ -6191,6 +6485,15 @@
         "checkedAt": "2026-08-21",
         "quote": "3 AI Credits per 30-days. The AI Free license tier is not available in Android Studio [and] in Community Editions of PyCharm and IntelliJ IDEA.",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "not_published",
+        "sourceUrl": "https://www.jetbrains.com/legal/docs/terms/jetbrains-ai-service/",
+        "sourceKind": "terms",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Permiso de uso comercial de lo que genera JetBrains AI. Las condiciones dicen que tus entradas y tus datos son tuyos, pero no dicen nada del uso comercial de las respuestas."
       }
     ],
     "auditNotes": "El precio del plan de pago se queda fuera: la misma página muestra dos cifras distintas para AI Pro (10 $ y 20 $) y no hay forma de saber cuál está vigente. Publicar una de las dos sería elegir al azar.",
@@ -6416,6 +6719,12 @@
         "kind": "pricing",
         "publisher": "klingai.com",
         "checkedAt": "2026-08-15"
+      },
+      {
+        "url": "https://kling.ai/app/membership/membership-plan",
+        "label": "Página oficial de precios",
+        "kind": "pricing",
+        "checkedAt": "2026-09-15"
       }
     ],
     "evidence": [
@@ -6436,6 +6745,15 @@
         "checkedAt": "2026-08-15",
         "quote": "Premium Features — 1080p Video Generation · Video Extension for multiple times, up to a maximum of 3 minutes · Image upscaling · Brand watermark removal",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://kling.ai/app/membership/membership-plan",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
       }
     ],
     "auditNotes": "`hasWatermark` queda sin confirmar a propósito: que «Brand watermark removal» figure entre las características de pago sugiere que el gratuito la lleva, pero la tabla no lo afirma del plan Basic y sugerir no es afirmar. `commercialUse: no` sí es explícito.",
@@ -6623,7 +6941,7 @@
         "Sin Krea Nodes, App Builder ni Nodes Agent"
       ],
       "requiresSignup": "yes",
-      "requiresCreditCard": "unverified",
+      "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "commercialUse": "no",
       "creditsAmount": "100 unidades/día",
@@ -6682,6 +7000,26 @@
         "scope": "cloud",
         "checkedAt": "2026-08-13",
         "quote": "Free — 100 units /day · 1 Nano Banana 2 generation · <1 Seedance 2.0 videos [Filas con aspa en el plan Free: All image models, All video models, All 3D & lipsync models, Krea Nodes, App Builder, Nodes Agent, Commercial license. Con visto: Limited LoRA training, Limited image upscaling. Image concurrency 1, Video concurrency 0.]"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "stated",
+        "sourceUrl": "https://www.krea.ai/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "quote": "No credit card required",
+        "basis": "Aparece en la tarjeta del plan Free («100 units /day»)."
+      },
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "derived",
+        "sourceUrl": "https://www.krea.ai/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "quote": "Yes, Basic, Pro, Max, Business, and Enterprise plans include a commercial license that allows you to use all generated content for commercial purposes without restrictions.",
+        "basis": "La respuesta enumera los planes que incluyen licencia comercial y Free no está entre ellos."
       }
     ],
     "auditNotes": "commercialUse es «no» y no «unverified» porque la tabla lo declara explícitamente: «Commercial license» aparece con aspa en la columna Free y con visto en Basic, Pro y Max. Los precios de los planes de pago no están en el DOM de la página, así que el precio mínimo queda sin verificar.",
@@ -6972,6 +7310,15 @@
         "scope": "cloud",
         "checkedAt": "2026-08-13",
         "quote": "FREE $0 /month […] Fast Tokens 150 / day · Token Bank 150 · Creations access Public · Quality settings Basic · Personal collections 1"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://leonardo.ai/pricing/",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
       }
     ],
     "startEffortReason": "Hay que crear cuenta y elegir plan —aunque sea el de 0 $— antes de generar.",
@@ -7780,6 +8127,12 @@
         "kind": "docs",
         "publisher": "manus.im",
         "checkedAt": "2026-08-19"
+      },
+      {
+        "url": "https://manus.im/pricing",
+        "label": "Página oficial de precios",
+        "kind": "pricing",
+        "checkedAt": "2026-09-15"
       }
     ],
     "evidence": [
@@ -7800,6 +8153,15 @@
         "checkedAt": "2026-08-19",
         "quote": "It operates in a complete sandbox environment—a virtual computer with internet access, a persistent file system, and the ability to install software and create custom tools · Manus AI can work independently, remember context across long tasks, and deliver production-ready results.",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://manus.im/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
       }
     ],
     "auditNotes": "`memory` se marca porque la documentación dice «remember context across long tasks», no porque prometa memoria permanente entre sesiones distintas. `computer-use` NO se marca: el ordenador es suyo, no el tuyo.",
@@ -9030,7 +9392,7 @@
       "requiresSignup": "unverified",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
-      "commercialUse": "unverified",
+      "commercialUse": "no",
       "creditReset": "none",
       "verifiedAt": "2026-08-13"
     },
@@ -9069,6 +9431,18 @@
         "kind": "docs",
         "publisher": "perplexity.ai",
         "checkedAt": "2026-08-13"
+      },
+      {
+        "url": "https://www.perplexity.ai/hub/legal/terms-of-service",
+        "label": "Condiciones de uso",
+        "kind": "docs",
+        "checkedAt": "2026-09-15"
+      },
+      {
+        "url": "https://www.perplexity.ai/pro",
+        "label": "Página oficial de precios",
+        "kind": "pricing",
+        "checkedAt": "2026-09-15"
       }
     ],
     "scores": {
@@ -9127,6 +9501,24 @@
         "checkedAt": "2026-08-13",
         "quote": "What do I get with the Free (Standard) plan? Search history access · Practically unlimited basic searches · Very limited amount of Pro Searches · Basic file uploads (limited) · No access to advanced AI models, image generation, or premium support.",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://www.perplexity.ai/pro",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
+      },
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://www.perplexity.ai/hub/legal/terms-of-service",
+        "sourceKind": "terms",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "quote": "We hereby permit you to use the Services for your personal, non-commercial use only"
       }
     ],
     "startEffortReason": "El plan gratuito es un plan con historial y cuotas, así que arranca en una cuenta.",
@@ -9389,6 +9781,15 @@
         "scope": "product",
         "checkedAt": "2026-08-29",
         "basis": "El uso comercial aparece entre las características de los planes de pago y no en la columna del plan gratuito. Deducimos que no está incluido. La página no publica una prohibición expresa."
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://pika.art/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
       }
     ],
     "startEffort": "signup",
@@ -9596,7 +9997,7 @@
       "requiresSignup": "unverified",
       "requiresCreditCard": "unverified",
       "hasWatermark": "no",
-      "commercialUse": "unverified",
+      "commercialUse": "no",
       "creditReset": "unknown",
       "verifiedAt": "2026-08-12"
     },
@@ -9626,6 +10027,25 @@
         "checkedAt": "2026-08-12",
         "quote": "kground Remover Change Background Magic Eraser AI Image Generator AI Video Generator Generative Fill Uncrop AI · fers a free version that provides access to basic image editing tools, allowing users to get started with crea · mage Generator AI Video Generator Generative Fill Uncrop AI Ads Bulk Image Editor Products Pixelcut for Claude",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://www.pixelcut.ai/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
+      },
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "derived",
+        "sourceUrl": "https://www.pixelcut.ai/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "quote": "Commercial license",
+        "basis": "La licencia comercial figura en las columnas Pro y Business y no en la del plan Free."
       }
     ],
     "descriptionLong": "",
@@ -9762,6 +10182,15 @@
         "scope": "product",
         "checkedAt": "2026-08-26",
         "quote": "Limited image generation — Create up to 10 images every 3 hours"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://playgroundai.com/design/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página sólo dice que aceptan tarjetas de crédito y débito para pagar."
       }
     ],
     "descriptionLong": "",
@@ -10117,6 +10546,15 @@
         "checkedAt": "2026-08-12",
         "quote": "')\"> ')\"> Unlike some other image generators like Midjourney, Recraft is highly customizable · erator AI Image Vectorizer AI Vector Generator AI Photo Editor Mockup Generator Image Upscaler Background Remo · d vector generation, editing, background removal, inpainting, outpainting, batch jobs, and asynchronous proces",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://www.recraft.ai/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página sólo dice qué medios de pago aceptan para los planes de pago."
       }
     ],
     "descriptionLong": "",
@@ -10370,6 +10808,12 @@
         "kind": "docs",
         "publisher": "docs.replit.com",
         "checkedAt": "2026-08-19"
+      },
+      {
+        "url": "https://replit.com/terms-of-service",
+        "label": "Condiciones de uso",
+        "kind": "docs",
+        "checkedAt": "2026-09-15"
       }
     ],
     "evidence": [
@@ -10390,6 +10834,24 @@
         "checkedAt": "2026-08-19",
         "quote": "Unlike a chatbot that only answers questions, Agent takes action: it sets up your project, creates applications, checks its work, and fixes problems · Agent writes code, sets up infrastructure, and tests the result · pull data from BigQuery, Linear, Slack, Notion, and more directly from chat.",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://replit.com/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
+      },
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "not_published",
+        "sourceUrl": "https://replit.com/terms-of-service",
+        "sourceKind": "terms",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Permiso explícito de uso comercial en el plan gratuito. Las condiciones remiten a un acuerdo comercial aparte para Pro y Enterprise y no dicen nada del plan gratuito."
       }
     ],
     "auditNotes": "La página dice «Free daily Agent credits» sin cifra. Se registra `daily` porque la renovación sí está publicada, y la cantidad se deja sin afirmar.",
@@ -10432,7 +10894,7 @@
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "yes",
-      "commercialUse": "unverified",
+      "commercialUse": "yes",
       "creditsAmount": "125 créditos (una vez)",
       "creditReset": "one_off",
       "verifiedAt": "2026-08-15"
@@ -10465,6 +10927,12 @@
         "kind": "pricing",
         "publisher": "runway.com",
         "checkedAt": "2026-08-15"
+      },
+      {
+        "url": "https://runway.com/terms-of-use",
+        "label": "Condiciones de uso",
+        "kind": "docs",
+        "checkedAt": "2026-09-15"
       }
     ],
     "scores": {
@@ -10534,6 +11002,24 @@
         "scope": "product",
         "checkedAt": "2026-08-29",
         "basis": "«No watermarks» aparece por primera vez entre las características del plan Standard. Si no llevar marca es lo que se compra al subir de plan, la salida del gratuito la lleva. La página no lo afirma con esas palabras: lo deducimos de su tabla."
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://runway.com/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
+      },
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://runway.com/terms-of-use",
+        "sourceKind": "terms",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "quote": "Subject to your compliance with the Agreement, the Company does not restrict your commercial use of your Outputs."
       }
     ],
     "startEffortReason": "Requiere cuenta antes de generar; los créditos van asociados a ella.",
@@ -10997,6 +11483,25 @@
         "checkedAt": "2026-08-18",
         "quote": "50 credits renew daily (10 songs) · No commercial use · No monthly song downloads (starting 9/3/26) · No add-on credit purchases",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://suno.com/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
+      },
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://suno.com/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "quote": "No commercial rights",
+        "basis": "En la lista del Free Plan."
       }
     ],
     "startEffort": "signup",
@@ -11059,7 +11564,7 @@
         "Plan de pago más barato: Starter, 18 $/mes en anual"
       ],
       "requiresSignup": "yes",
-      "requiresCreditCard": "unverified",
+      "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditsAmount": "1.200 créditos/mes (≈10 min de vídeo)",
@@ -11114,6 +11619,16 @@
         "checkedAt": "2026-08-15",
         "quote": "AI Dubbing · Lip Sync — Match mouth movements to the translated audio · 125+ Synthesia AI Avatars",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "stated",
+        "sourceUrl": "https://www.synthesia.io/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "quote": "No credit card required",
+        "basis": "Aparece en la tarjeta del plan Basic, 0 €/mes."
       }
     ],
     "nextReviewAt": "2026-11-13",
@@ -11264,6 +11779,15 @@
         "scope": "product",
         "checkedAt": "2026-08-24",
         "lookedFor": "Si lo generado en el plan gratuito puede usarse comercialmente. La documentación de precios no lo trata."
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://v0.app/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
       }
     ],
     "startEffortReason": "Se describe lo que quieres en el navegador; no hace falta instalar nada.",
@@ -11580,7 +12104,7 @@
         "Plan de pago más barato: Professional, 19,99 $/mes anual (750 tareas)"
       ],
       "requiresSignup": "yes",
-      "requiresCreditCard": "unverified",
+      "requiresCreditCard": "no",
       "hasWatermark": "no",
       "commercialUse": "unverified",
       "creditsAmount": "400 actividades/mes",
@@ -11635,6 +12159,16 @@
         "checkedAt": "2026-08-19",
         "quote": "do work across 9,000+ apps — on command and while you sleep · connect to your business data and perform tasks · equipped with company knowledge through FAQs, docs, and public links.",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "derived",
+        "sourceUrl": "https://zapier.com/pricing",
+        "sourceKind": "pricing",
+        "checkedAt": "2026-09-15",
+        "scope": "product",
+        "quote": "Yes! When you create a new Zapier account, you're instantly enrolled in a free 14-day trial of the Zapier Professional plan. No credit card is required.",
+        "basis": "Crear la cuenta, que es lo que da acceso al plan Free cuando acaba la prueba, no pide tarjeta."
       }
     ],
     "nextReviewAt": "2026-11-17",
