@@ -4,48 +4,48 @@
     "slug": "accomplish-sandbox-claude-code-cursor",
     "title": "Accomplish detalla cómo un repositorio malicioso podía saltarse el sandbox de Claude Code y de la CLI de Cursor en macOS",
     "author": "Redacción de Free AI Radar",
-    "summary": "Accomplish, que aísla agentes de IA en una máquina virtual, publicó el 11 y el 12 de septiembre, con demostraciones, dos ataques con los que, según describe, un repositorio o carpeta de proyecto preparados ejecutaban código en un Mac fuera del sandbox de Claude Code y de la CLI de Cursor, sin pedir permiso. Según la empresa, el sandbox sólo envolvía la terminal, mientras el propio programa lanzaba git fuera de él y obedecía la opción core.fsmonitor del repositorio. Accomplish da los dos fallos por corregidos.",
-    "impact": "Cursor recoge el cambio en las notas de su CLI del 11 de agosto: la configuración de git que controla el repositorio, fsmonitor incluido, ya no se ejecuta en las operaciones de git del agente. Anthropic no ha publicado un aviso sobre el caso de Claude Code, que Accomplish da por resuelto en la versión 2.1.247. Manifold Security, que investigó la misma familia de fallos, afirma que otra ruta de Claude Code, la de ultrareview, seguía abierta en la 2.1.252 a 1 de septiembre. Ambos exigen abrir con el agente un proyecto preparado por un tercero: con código ajeno, conviene actualizar.",
+    "summary": "Accomplish, una empresa que ejecuta agentes de IA dentro de una máquina virtual, publicó el 11 y el 12 de septiembre dos ataques contra el sandbox de Claude Code y el de la CLI de Cursor en macOS. Según describe, bastaba con abrir con el agente un repositorio o una carpeta preparados para que se ejecutara código en el Mac fuera del sandbox y sin pedir permiso. La causa era la misma en los dos: el sandbox sólo envolvía la terminal, y el propio programa lanzaba git fuera de él. Accomplish da los dos fallos por corregidos.",
+    "impact": "Cursor recoge el cambio en las notas de su CLI del 11 de agosto: la configuración de git que controla el repositorio, fsmonitor incluido, ya no se ejecuta en las operaciones de git del agente. Anthropic no ha publicado un aviso sobre el caso de Claude Code, que Accomplish da por resuelto en la versión 2.1.247. Manifold Security, que investigó la misma familia de fallos, afirma que otra ruta de Claude Code, la de ultrareview, seguía abierta en la 2.1.252 a 1 de septiembre. Con proyectos de terceros, conviene usar versiones actualizadas.",
     "category": "programacion",
     "eventType": "anuncio",
     "availability": "unknown",
     "publishedAt": "2026-09-12",
-    "checkedAt": "2026-09-13",
+    "checkedAt": "2026-09-16",
     "officialUrl": "https://www.accomplish.ai/blog/beltdown2-escaping-the-cursor-cli-sandbox/",
     "sources": [
       {
         "url": "https://www.accomplish.ai/blog/beltdown2-escaping-the-cursor-cli-sandbox/",
         "kind": "official",
         "label": "Beltdown2: Escaping the Cursor CLI sandbox (Accomplish)",
-        "checkedAt": "2026-09-13",
+        "checkedAt": "2026-09-16",
         "publisher": "accomplish.ai"
       },
       {
         "url": "https://www.accomplish.ai/blog/beltdown-escaping-the-claude-code-sandbox/",
         "kind": "official",
         "label": "Beltdown: Escaping the Claude Code sandbox (Accomplish)",
-        "checkedAt": "2026-09-13",
+        "checkedAt": "2026-09-16",
         "publisher": "accomplish.ai"
       },
       {
         "url": "https://cursor.com/docs/cli/changelog",
         "kind": "release-notes",
         "label": "Cursor CLI Changelog",
-        "checkedAt": "2026-09-13",
+        "checkedAt": "2026-09-16",
         "publisher": "cursor.com"
       },
       {
         "url": "https://github.com/anthropics/claude-code/security/advisories",
         "kind": "repo",
         "label": "Security Advisories · anthropics/claude-code",
-        "checkedAt": "2026-09-13",
+        "checkedAt": "2026-09-16",
         "publisher": "github.com/anthropics"
       },
       {
         "url": "https://www.manifold.security/blog/ai-coding-agents-git-hijack",
         "kind": "official",
         "label": "GitSpawn (Manifold Security)",
-        "checkedAt": "2026-09-13",
+        "checkedAt": "2026-09-16",
         "publisher": "manifold.security"
       }
     ],
@@ -100,22 +100,22 @@
   {
     "id": "news-2026-09-10-cognition-swe-2",
     "slug": "cognition-swe-2",
-    "title": "Cognition lanza SWE-2 y afirma que se queda a un punto de Fable 5.1 en programación con un coste un 64 % menor",
+    "title": "Cognition lanza SWE-2 y afirma que se queda a un punto de Claude Fable 5.1 en programación con un coste un 64 % menor",
     "author": "Redacción de Free AI Radar",
-    "summary": "Cognition presentó el 10 de septiembre SWE-2, su modelo de programación más avanzado, disponible desde ese día en Devin Desktop y en la CLI de Devin y en despliegue en Devin Web y Fusion. Según la compañía, logra un 50,0 % en FrontierCode 1.1 Main, a un punto de Fable 5.1, con un coste un 64 % inferior. SWE-2 parte de Kimi K3, un modelo de 2,8 billones de parámetros ya entrenado para programación agéntica, y añade un algoritmo de aprendizaje por refuerzo que entrena todos los niveles de esfuerzo de razonamiento en una sola ejecución.",
+    "summary": "Cognition presentó el 10 de septiembre SWE-2, su modelo de programación más avanzado, disponible desde ese día en Devin Desktop y en la CLI de Devin y en despliegue en Devin Web y Fusion. Según la compañía, logra un 50,0 % en FrontierCode 1.1 Main, a un punto de Claude Fable 5.1, con un coste un 64 % inferior. SWE-2 parte de Kimi K3, un modelo de 2,8 billones de parámetros ya entrenado para programación agéntica, y añade un algoritmo de aprendizaje por refuerzo que entrena todos los niveles de esfuerzo de razonamiento en una sola ejecución.",
     "impact": "El argumento de Cognition es el coste: sostiene que en FrontierCode y DeepSWE iguala a GPT-5.6 Sol y a Fable 5/5.1 por una fracción de su precio y queda a pocos puntos de GPT-6 Astra por una cuarta parte. Su propia tabla marca el límite: en Terminal-Bench 4 obtiene un 27,3 %, frente al 55,8 % de Fable 5.1 y el 57,9 % de GPT-6 Astra. Parte de las cifras procede de evaluaciones internas de la compañía, a falta de resultados públicos.",
     "category": "programacion",
     "eventType": "lanzamiento",
     "availability": "available",
     "publishedAt": "2026-09-10",
-    "checkedAt": "2026-09-13",
+    "checkedAt": "2026-09-16",
     "officialUrl": "https://cognition.com/blog/swe-2",
     "sources": [
       {
         "url": "https://cognition.com/blog/swe-2",
         "kind": "official",
         "label": "Introducing SWE-2: Pushing the Pareto Frontier",
-        "checkedAt": "2026-09-13",
+        "checkedAt": "2026-09-16",
         "publisher": "cognition.com"
       }
     ],
@@ -163,19 +163,19 @@
     "title": "ElevenLabs y Universal Music Group firman un acuerdo de licencias y desarrollo de producto",
     "author": "Redacción de Free AI Radar",
     "summary": "ElevenLabs y Universal Music Group anunciaron el 10 de septiembre un acuerdo plurianual de licencias y colaboración estratégica. Las dos compañías desarrollarán productos de audio con IA para artistas y compositores, y ElevenLabs lanzará una plataforma musical para fans basada en música licenciada. Esa plataforma, todavía en desarrollo, permitirá crear remezclas, mashups, nuevas interpretaciones de temas y experiencias vocales personalizadas. Según ElevenLabs, es su primer acuerdo con una gran discográfica.",
-    "impact": "Lucian Grainge, presidente y consejero delegado de Universal Music Group, afirma que las posibilidades más interesantes de la IA en la música son las que sitúan en el centro a artistas, compositores y fans. Para el audio generativo, un acuerdo de licencias con una gran discográfica cambia la base del producto: la plataforma se construye sobre música licenciada y con la participación de los artistas.",
+    "impact": "La nueva plataforma se construirá sobre música licenciada y con la participación de los artistas, y ElevenLabs aclara que será distinta de sus productos musicales actuales y se ofrecerá por separado. El anuncio no da fecha de lanzamiento ni precio. Lucian Grainge, presidente y consejero delegado de Universal Music Group, afirma que las posibilidades más interesantes de la IA en la música son las que sitúan en el centro a artistas, compositores y fans.",
     "category": "audio",
     "eventType": "anuncio",
     "availability": "announced",
     "publishedAt": "2026-09-10",
-    "checkedAt": "2026-09-11",
+    "checkedAt": "2026-09-16",
     "officialUrl": "https://elevenlabs.io/blog/umg",
     "sources": [
       {
         "url": "https://elevenlabs.io/blog/umg",
         "kind": "official",
         "label": "ElevenLabs and Universal Music Group enter strategic agreement",
-        "checkedAt": "2026-09-11",
+        "checkedAt": "2026-09-16",
         "publisher": "elevenlabs.io"
       }
     ],
@@ -321,22 +321,22 @@
   {
     "id": "news-2026-09-03-nvidia-compra-hugging-face",
     "slug": "nvidia-compra-hugging-face",
-    "title": "NVIDIA compra Hugging Face por 12.930 millones de dólares",
+    "title": "NVIDIA acuerda comprar Hugging Face por 12.930 millones de dólares",
     "author": "Redacción de Free AI Radar",
-    "summary": "NVIDIA acordó el 3 de septiembre la compra de Hugging Face por 12.930 millones de dólares, según anunció en su blog corporativo. La plataforma es el principal repositorio público de modelos de aprendizaje automático: NVIDIA cifra en más de 18 millones los desarrolladores, investigadores y creadores que la usan para compartir más de 3 millones de modelos, 500.000 conjuntos de datos y un millón de aplicaciones. La compradora afirma que seguirá siendo una plataforma abierta para todo el ecosistema.",
-    "impact": "Hugging Face es la infraestructura por la que pasa buena parte de la distribución de modelos de pesos abiertos. Que su propietario sea ahora un fabricante de aceleradores sitúa bajo un mismo dueño el catálogo donde se publican los modelos y el hardware sobre el que se ejecutan. El compromiso de neutralidad es, por ahora, una declaración de la compradora.",
+    "summary": "NVIDIA anunció el 3 de septiembre un acuerdo para comprar Hugging Face por 12.930 millones de dólares, en una entrada de su blog corporativo firmada por Jensen Huang. Según NVIDIA, más de 18 millones de desarrolladores, investigadores y creadores usan Hugging Face para compartir más de 3 millones de modelos, 500.000 conjuntos de datos y un millón de aplicaciones. La compradora afirma que seguirá siendo una plataforma abierta para todo el ecosistema.",
+    "impact": "Si la operación se completa, la plataforma donde se comparten millones de modelos abiertos pasará a ser de un fabricante de hardware para IA. NVIDIA se compromete a que no haga falta su hardware para publicar ni desplegar en Hugging Face, y a seguir admitiendo modelos de cualquier desarrollador y distintas nubes y aceleradores. Por ahora son compromisos de la compradora, y el anuncio no dice cuándo se cerrará la compra.",
     "category": "local-open-source",
     "eventType": "anuncio",
     "availability": "unknown",
     "publishedAt": "2026-09-03",
-    "checkedAt": "2026-09-10",
+    "checkedAt": "2026-09-16",
     "officialUrl": "https://blogs.nvidia.com/blog/nvidia-to-acquire-hugging-face/",
     "sources": [
       {
         "url": "https://blogs.nvidia.com/blog/nvidia-to-acquire-hugging-face/",
         "kind": "official",
         "label": "NVIDIA to Acquire Hugging Face",
-        "checkedAt": "2026-09-10",
+        "checkedAt": "2026-09-16",
         "publisher": "nvidia.com"
       }
     ],
@@ -386,22 +386,22 @@
   {
     "id": "news-2026-09-03-runway-com-runway-research-introducing-gwm-worlds-2",
     "slug": "runway-com-runway-research-introducing-gwm-worlds-2",
-    "title": "Runway Research | Introducing GWM Worlds 2",
+    "title": "Runway presenta GWM Worlds 2, un modelo que genera mundos interactivos con vídeo y audio en tiempo real",
     "author": "Redacción de Free AI Radar",
-    "impact": "La página no menciona ninguna capa gratuita, ni para confirmarla ni para descartarla, así que no podemos decir qué cambia para quien no paga. El anuncio no menciona pesos descargables ni licencia. Verificado leyendo la página del fabricante; queda pendiente la revisión editorial.",
+    "impact": "Runway lo presenta como un avance de investigación, no como un producto: la página no explica cómo probarlo, remite a un formulario de contacto y no menciona precio ni capa gratuita. La propia empresa reconoce sus límites: la generación en tiempo real sacrifica calidad por velocidad, los giros de cámara muy rápidos degradan detalles y geometría, y la memoria a largo plazo es imperfecta. Entre los usos que plantea están los juegos, las experiencias interactivas y los entornos simulados para evaluar y entrenar agentes.",
     "status": "published",
     "sources": [
       {
         "url": "https://runway.com/research/introducing-gwm-worlds-2",
         "kind": "official",
         "label": "Runway Research | Introducing GWM Worlds 2",
-        "checkedAt": "2026-09-08",
+        "checkedAt": "2026-09-16",
         "publisher": "runway.com"
       }
     ],
-    "summary": "runway.com publicó esto el 2026-09-03, según la fecha que declara su propia página. Sobre la disponibilidad, el anuncio dice: «GWM Worlds 2 is a research preview, and real-time generation still trades fidelity for speed.».",
+    "summary": "Runway presentó el 3 de septiembre GWM Worlds 2, un avance de investigación de su modelo de mundos: genera en tiempo real vídeo continuo a 720p y 24 fotogramas por segundo, con audio a 48.000 Hz, y responde a lo que hace el usuario mientras explora. Amplía GWM Worlds, que la empresa mostró en diciembre, con audio generado y más control sobre los personajes y la escena, que se dirigen con instrucciones de texto y movimientos de cámara.",
     "category": "video",
-    "checkedAt": "2026-09-08",
+    "checkedAt": "2026-09-16",
     "eventType": "preview-beta",
     "freeAccess": {
       "model": "unknown",
