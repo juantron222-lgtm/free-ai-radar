@@ -23,7 +23,7 @@ import {
 } from '@lib/domain/taxonomy';
 import { OPENNESS_LABEL, TRI_STATE_LABEL } from '@lib/domain/primitives';
 import { etiquetaDeHecho } from '@lib/domain/evidencia';
-import { ROUTES, categoryLabel } from '@lib/nav';
+import { ROUTES, categoryLabel, ubicacionDe } from '@lib/nav';
 import { selloDe, verificacionDe } from '@lib/domain/verification';
 import { esfuerzoDe } from '@lib/domain/esfuerzo';
 import { freeAccessLabel } from '@lib/data/category-page';
@@ -120,6 +120,7 @@ const verificacion = verificacionDe(tool);
  * otras palabras ni con otro color: sale de `filaDe()` en los tres sitios.
  */
 const fila = filaDe(tool);
+const ubicacion = ubicacionDe(category.slug, category.name);
 const tonoAcceso = freeAccessLabel(tool).tone;
 
 /*
@@ -165,7 +166,8 @@ const compararHref = compararCon.length
         <ToolLogo tool={tool} size="lg" priority />
         <div class="ficha-ident-texto">
           <p class="eyebrow">
-            <a href={ROUTES.category(category.slug)}>{category.name}</a>
+            {/* «Audio › Voz», no «Voz IA» al lado de una miga que dice «Audio». */}
+            <a href={ubicacion.href}>{ubicacion.texto}</a>
           </p>
           <h1 class="cabecera-titulo ficha-titulo">{tool.name}</h1>
         </div>

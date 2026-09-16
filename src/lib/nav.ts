@@ -120,6 +120,51 @@ export const VERTICALS: readonly NavItem[] = [
 export const categoryLabel = (slug: string, fallback: string): string =>
   VERTICALS.find((v) => v.href === ROUTES.category(slug))?.label ?? fallback;
 
+/**
+ * Cómo se nombra dónde está una ficha.
+ *
+ * Había dos ejes a la vez y el lector los veía juntos: la miga de Fish Audio
+ * decía «Audio» y dos líneas más abajo su antetítulo decía «Voz IA», que es
+ * otro nombre de otro árbol. Son dos niveles del mismo sitio, así que se dicen
+ * como tales: «Audio › Voz». Cuando la categoría es la vertical, una sola
+ * palabra; cuando no hay vertical —Escritura, Productividad—, el nombre de la
+ * categoría solo.
+ *
+ * La taxonomía conserva sus nombres («Voz IA», «Música IA») para filtros,
+ * búsqueda y datos estructurados: esto es cómo se lee, no cómo se guarda.
+ */
+const SUBNIVEL: Record<string, string> = {
+  imagen: 'Imagen',
+  video: 'Vídeo',
+  voz: 'Voz',
+  musica: 'Música',
+  codigo: 'Código',
+  agentes: 'Agentes',
+  modelos: 'Modelos',
+  'modelos-open-source': 'Open source',
+};
+
+export interface Ubicacion {
+  /** A dónde lleva: la vertical si existe, la categoría si no. */
+  href: string;
+  /** Lo que se escribe: «Audio › Voz», «Imagen» o «Escritura». */
+  texto: string;
+  /** El rótulo de la vertical, cuando la hay. */
+  vertical?: string;
+}
+
+export function ubicacionDe(slug: string, nombre: string): Ubicacion {
+  const href = ROUTES.category(slug);
+  const vertical = VERTICALS.find((v) => v.href === href);
+  if (!vertical) return { href, texto: nombre };
+  const sub = SUBNIVEL[slug] ?? nombre;
+  return {
+    href,
+    vertical: vertical.label,
+    texto: sub === vertical.label ? vertical.label : `${vertical.label} › ${sub}`,
+  };
+}
+
 export function migasDeVertical(href: string): { name: string; path: string }[] {
   const vertical = VERTICALS.find((v) => v.href === href);
   if (!vertical) throw new Error(`${href} no es una vertical`);
@@ -153,7 +198,7 @@ export const FOOTER_NAV: ReadonlyArray<{ title: string; items: NavItem[] }> = [
       ...VERTICALS.map((v) => ({ label: v.label, href: v.href })),
       { label: 'Categorías', href: ROUTES.categories },
       { label: 'Colecciones', href: ROUTES.collections },
-      { label: 'Comparador', href: ROUTES.compare },
+      { label: 'Comparar', href: ROUTES.compare },
       { label: 'Últimas noticias', href: ROUTES.news },
     ],
   },
@@ -161,7 +206,6 @@ export const FOOTER_NAV: ReadonlyArray<{ title: string; items: NavItem[] }> = [
     title: 'Transparencia',
     items: [
       { label: 'Metodología', href: ROUTES.methodology },
-      { label: 'Últimas noticias', href: ROUTES.news },
       { label: 'Política editorial', href: ROUTES.editorialPolicy },
       { label: 'Afiliados', href: ROUTES.affiliates },
       { label: 'Publicidad y patrocinios', href: ROUTES.advertising },

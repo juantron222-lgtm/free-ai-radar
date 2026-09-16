@@ -116,6 +116,20 @@ describe('la puerta del catálogo enseña datos, no promesas', () => {
     expect(codigo('src/components/home/PuertaBuscar.astro')).not.toContain('Sin verificar');
   });
 
+  it('la portada dice qué la diferencia, en una línea', () => {
+    /*
+     * La hero era deliberadamente mínima y no decía en ninguna parte por qué
+     * este catálogo y no una lista de «las 50 mejores IA». Una línea, no el
+     * párrafo que se quitó: si crece, vuelve a ser lo que se retiró.
+     */
+    const home = codigo('src/pages/index.astro');
+    const linea = home.match(/<p class="hero-diferencial">([\s\S]*?)<\/p>/)?.[1]?.replace(/\s+/g, ' ').trim();
+    expect(linea, 'la hero no dice qué la diferencia').toBeTruthy();
+    expect(linea!.length, `son ${linea!.length} caracteres`).toBeLessThanOrEqual(220);
+    expect(linea).toMatch(/fabricante/);
+    expect(linea).toMatch(/no publica/);
+  });
+
   it('la puerta del catálogo no es otro buscador', () => {
     /*
      * Llevaba su propia caja, la tercera de la portada contando la hero y la

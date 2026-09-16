@@ -3,7 +3,7 @@ import type { Tool } from '@lib/domain/tool';
 import ToolLogo from './ToolLogo.astro';
 import CompareToggle from './CompareToggle.astro';
 import { getCategory } from '@lib/domain/taxonomy';
-import { ROUTES } from '@lib/nav';
+import { ROUTES, ubicacionDe } from '@lib/nav';
 import { verificacionDe } from '@lib/domain/verification';
 import { esfuerzoDe } from '@lib/domain/esfuerzo';
 import { freeAccessLabel } from '@lib/data/category-page';
@@ -20,6 +20,8 @@ interface Props {
 
 const { tool, variant = 'default', headingLevel: Heading = 'h3', priority = false } = Astro.props;
 const category = getCategory(tool.categorySlug);
+/* El mismo nombre que la ficha y que la navegación: «Audio › Voz». */
+const ubicacion = category ? ubicacionDe(category.slug, category.name).texto : '';
 const href = ROUTES.tool(tool.slug);
 const verificacion = verificacionDe(tool);
 
@@ -63,7 +65,7 @@ const seInstala = tool.startEffort === 'install' || tool.startEffort === 'techni
         <a href={href} class="tool-card-link">{tool.name}</a>
       </Heading>
       <p class="tool-card-meta">
-        {category?.name}
+        {ubicacion}
         {tool.sponsorship.isSponsored && (
           <>
             <span aria-hidden="true"> · </span>

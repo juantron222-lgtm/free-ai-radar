@@ -38,7 +38,7 @@ export const PLANS: readonly Plan[] = [
     features: [
       'Catálogo completo y todas las fichas',
       'Búsqueda y filtros combinables',
-      'Comparador de hasta 4 herramientas',
+      'Comparar hasta 4 herramientas',
       'Favoritos y hasta 3 listas',
       'Hasta 5 avisos de cambio',
       'Boletín semanal',

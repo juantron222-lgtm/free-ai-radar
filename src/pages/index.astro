@@ -85,6 +85,20 @@ const description =
     <div class="page hero-inner">
       <h1 id="hero-titulo" class="hero-title">¿Qué clase de IA estás buscando?</h1>
 
+      {/*
+        Una línea, no un párrafo.
+
+        La portada no decía en ninguna parte qué la diferencia de las listas de
+        «las 50 mejores IA»: que cada dato sale de la página oficial del
+        fabricante y que lo que no publica se dice. Va aquí porque es donde se
+        decide si merece la pena quedarse, y es una línea porque el trabajo de
+        la primera pantalla es que elijas, no que leas.
+      */}
+      <p class="hero-diferencial">
+        Comprobamos en la web de cada fabricante qué da gratis: si pide tarjeta, con qué límites y si
+        puedes usarlo para trabajar. Lo que no publica, lo decimos.
+      </p>
+
       <nav class="hero-verticales" aria-label="Elegir por clase de IA">
         <ul>
           {verticalesHero.map((vertical) => (
@@ -186,6 +200,15 @@ const description =
     line-height: 1.04;
     letter-spacing: -0.035em;
     text-wrap: balance;
+  }
+
+  .hero-diferencial {
+    margin: 0;
+    max-width: 52ch;
+    color: var(--ink-muted);
+    font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+    line-height: 1.5;
+    text-wrap: pretty;
   }
 
   /*

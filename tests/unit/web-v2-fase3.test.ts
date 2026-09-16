@@ -246,4 +246,36 @@ describe('las migas de una vertical dicen lo mismo que la navegación', () => {
     // Sin vertical propia, se queda el nombre de la taxonomía.
     expect(categoryLabel('escritura', 'Escritura')).toBe('Escritura');
   });
+
+  it('la ficha y la tarjeta nombran el sitio como la navegación, con su subnivel', async () => {
+    /*
+     * La miga de Fish Audio decía «Audio» y su antetítulo, «Voz IA»: dos
+     * árboles a la vez para el mismo sitio.
+     */
+    const { ubicacionDe } = await import('@lib/nav');
+    expect(ubicacionDe('voz', 'Voz IA')).toEqual({ href: '/audio', texto: 'Audio › Voz', vertical: 'Audio' });
+    expect(ubicacionDe('musica', 'Música IA').texto).toBe('Audio › Música');
+    expect(ubicacionDe('imagen', 'Imagen IA').texto).toBe('Imagen');
+    expect(ubicacionDe('escritura', 'Escritura')).toEqual({ href: '/categorias/escritura', texto: 'Escritura' });
+
+    for (const ruta of ['src/pages/herramientas/[slug].astro', 'src/components/tools/ToolCard.astro']) {
+      expect(codigo(ruta), ruta).toContain('ubicacionDe(');
+    }
+  });
+
+  it('«Comparar» se llama igual en la cabecera, en el pie y en su página', async () => {
+    const { FOOTER_NAV, PRIMARY_NAV } = await import('@lib/nav');
+    const enlaces = [...PRIMARY_NAV, ...FOOTER_NAV.flatMap((s) => s.items)].filter(
+      (i) => i.href === '/comparar'
+    );
+    expect(enlaces.length).toBeGreaterThan(1);
+    for (const enlace of enlaces) expect(enlace.label).toBe('Comparar');
+    expect(codigo('src/pages/comparar.astro')).not.toContain("'Comparador'");
+  });
+
+  it('el pie no repite «Últimas noticias»', async () => {
+    const { FOOTER_NAV } = await import('@lib/nav');
+    const noticias = FOOTER_NAV.flatMap((s) => s.items).filter((i) => i.href === '/noticias');
+    expect(noticias).toHaveLength(1);
+  });
 });
