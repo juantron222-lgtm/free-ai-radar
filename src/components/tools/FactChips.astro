@@ -34,7 +34,7 @@ if (card === 'no') {
 } else if (card === 'yes') {
   facts.push({ label: 'Pide tarjeta', tone: 'alert', title: 'Exige una tarjeta para acceder al plan gratuito.', icon: 'cross' });
 } else {
-  facts.push({ label: 'Tarjeta sin verificar', tone: 'neutral', title: 'Todavía no hemos confirmado si exige tarjeta.', icon: 'question' });
+  facts.push({ label: 'Tarjeta sin comprobar', tone: 'neutral', title: 'Todavía no hemos confirmado si exige tarjeta.', icon: 'question' });
 }
 
 const watermark = tool.freePlan.hasWatermark;

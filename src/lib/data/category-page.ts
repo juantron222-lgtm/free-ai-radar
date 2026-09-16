@@ -141,7 +141,7 @@ export function freeAccessLabel(tool: Tool): FreeAccessLabel {
     return { kind: 'Demo', amount, amountFallback: unpublished, tone: 'warn' };
   }
   if (tool.freeModel === 'unknown') {
-    return { kind: 'Sin confirmar', amount: null, amountFallback: 'Sin comprobar', tone: 'neutral' };
+    return { kind: 'Sin comprobar', amount: null, amountFallback: 'Aún no sabemos qué da gratis', tone: 'neutral' };
   }
 
   if (tool.freeModel === 'credits') {

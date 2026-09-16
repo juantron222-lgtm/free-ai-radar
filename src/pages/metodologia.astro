@@ -3,6 +3,7 @@ import ArticleLayout from '@layouts/ArticleLayout.astro';
 import { STALE_AFTER_DAYS } from '@lib/domain/scoring';
 import { FREE_MODELS } from '@lib/domain/taxonomy';
 import { TRI_STATE_LABEL } from '@lib/domain/primitives';
+import { MOTIVO_EXPLICACION, MOTIVO_LABEL } from '@lib/domain/evidencia';
 import { getCatalogStats } from '@lib/data/catalog';
 import { faqSchema } from '@lib/seo/structured-data';
 import { ROUTES } from '@lib/nav';
@@ -27,9 +28,9 @@ const faqs = [
       'No. Un patrocinio compra visibilidad claramente etiquetada como tal, nunca un cambio de veredicto ni un puesto en una lista. No publicamos ninguna nota ni ningún ranking que se pueda comprar: lo que hay en cada ficha son hechos con su fuente.',
   },
   {
-    question: '¿Qué significa "sin verificar"?',
+    question: '¿Qué significan «Sin comprobar» y «El fabricante no lo publica»?',
     answer:
-      'Que no hemos podido confirmar ese dato en una fuente oficial. Preferimos decirlo a rellenarlo con una suposición, y nunca lo convertimos en un «no»: «sin confirmar» y «no lo permite» son cosas distintas y se escriben distinto.',
+      '«Sin comprobar» quiere decir que todavía no hemos abierto la fuente oficial para ese dato: es trabajo nuestro pendiente. «El fabricante no lo publica» quiere decir que la abrimos y no lo dice. Ninguna de las dos se convierte nunca en un «no», y las dos se escriben igual en todo el sitio.',
   },
   {
     question: '¿Cada cuánto se revisan las fichas?',
@@ -81,7 +82,7 @@ const crumbs = [
   <h2>Las distinciones que no mezclamos</h2>
   <ul>
     <li>
-      <strong>«Sin confirmar» no es «no».</strong> Si el fabricante no lo aclara, lo decimos. No lo
+      <strong>«Sin comprobar» no es «no».</strong> Si el fabricante no lo aclara, lo decimos. No lo
       convertimos en un no, ni siquiera cuando el no nos favorecería.
     </li>
     <li>
@@ -121,17 +122,21 @@ const crumbs = [
 
   <h2>Cuando no lo sabemos</h2>
   <p>
-    Los campos de hecho (tarjeta, marca de agua, uso comercial, código abierto, privacidad) tienen
-    cuatro estados posibles: <strong>{TRI_STATE_LABEL.yes}</strong>,
-    <strong>{TRI_STATE_LABEL.no}</strong>, <strong>{TRI_STATE_LABEL.partial}</strong> y
-    <strong>{TRI_STATE_LABEL.unverified}</strong>.
+    Los campos de hecho (tarjeta, registro, marca de agua, uso comercial, código abierto,
+    privacidad) contestan <strong>{TRI_STATE_LABEL.yes}</strong>,
+    <strong>{TRI_STATE_LABEL.no}</strong> o <strong>{TRI_STATE_LABEL.partial}</strong>. Cuando no
+    podemos contestar, decimos por qué, y siempre con las mismas palabras:
   </p>
+  <ul>
+    <li><strong>{MOTIVO_LABEL.pendiente}</strong>: {MOTIVO_EXPLICACION.pendiente}</li>
+    <li><strong>{MOTIVO_LABEL.no_publicado}</strong>: {MOTIVO_EXPLICACION.no_publicado}</li>
+    <li><strong>No aplica</strong>: la pregunta no tiene sentido para esa herramienta, como la marca de agua de algo que no genera archivos.</li>
+  </ul>
   <p>
-    Ese último es deliberado. Un directorio que rellena todos los huecos con «no» está inventando, y
-    esa invención acaba costándole dinero o tiempo a quien se la cree. Un dato sin verificar se
-    muestra como tal y <strong>no suma ni resta puntos</strong>: ni premiamos ni castigamos nuestra
-    propia ignorancia. Tampoco satisface un filtro: si pides «sin tarjeta», sólo verás las que
-    hemos confirmado que no la piden.
+    Es deliberado. Un directorio que rellena todos los huecos con «no» está inventando, y esa
+    invención acaba costándole dinero o tiempo a quien se la cree. Un dato que falta se muestra como
+    tal y no cuenta ni como un sí ni como un no. Tampoco satisface un filtro: si pides «sin
+    tarjeta», sólo verás las que hemos confirmado que no la piden.
   </p>
 
   <h2>Caducidad de los datos</h2>

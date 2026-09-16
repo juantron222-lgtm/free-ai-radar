@@ -213,7 +213,7 @@ describe('las reglas globales siguen en pie', () => {
   it('unknown nunca se convierte en no', () => {
     for (const tool of codigo) {
       if (tool.freeModel === 'unknown') {
-        expect(freeAccessLabel(tool).kind, tool.slug).toBe('Sin confirmar');
+        expect(freeAccessLabel(tool).kind, tool.slug).toBe('Sin comprobar');
       }
     }
   });

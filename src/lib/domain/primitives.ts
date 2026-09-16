@@ -32,14 +32,23 @@ export const OPENNESS_LABEL: Record<Openness, string> = {
   no: 'Cerrado',
   partial: 'Parcialmente abierto',
   weights: 'Pesos abiertos',
-  unverified: 'Sin confirmar',
+  unverified: 'Sin comprobar',
 };
 
+/*
+ * Lo desconocido se llama igual en todo el sitio.
+ *
+ * Había «Sin verificar», «Sin confirmar» y «Sin comprobar» para lo mismo, a
+ * veces en la misma ficha. Cuando sabemos por qué falta, se usa el motivo
+ * (`etiquetaDeHecho` en evidencia.ts): «Sin comprobar» si el hueco es nuestro,
+ * «El fabricante no lo publica» si es suyo. Esto es sólo el valor de reserva, y
+ * dice lo mismo que el hueco nuestro.
+ */
 export const TRI_STATE_LABEL: Record<TriState, string> = {
   yes: 'Sí',
   no: 'No',
   partial: 'Parcial',
-  unverified: 'Sin verificar',
+  unverified: 'Sin comprobar',
 };
 
 /** Ordering used when a filter asks for "definitely not X" style questions. */

@@ -261,7 +261,7 @@ describe('invariantes de todo el catálogo', () => {
   it('unknown nunca se convierte en no', () => {
     for (const tool of getAllTools()) {
       if (tool.freeModel === 'unknown') {
-        expect(freeAccessLabel(tool).kind, tool.slug).toBe('Sin confirmar');
+        expect(freeAccessLabel(tool).kind, tool.slug).toBe('Sin comprobar');
       }
     }
   });

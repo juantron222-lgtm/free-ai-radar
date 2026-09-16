@@ -22,6 +22,7 @@ import {
   getFreeModel,
 } from '@lib/domain/taxonomy';
 import { OPENNESS_LABEL, TRI_STATE_LABEL } from '@lib/domain/primitives';
+import { etiquetaDeHecho } from '@lib/domain/evidencia';
 import { ROUTES, categoryLabel } from '@lib/nav';
 import { selloDe, verificacionDe } from '@lib/domain/verification';
 import { esfuerzoDe } from '@lib/domain/esfuerzo';
@@ -54,10 +55,10 @@ const fmtDate = (iso: string) =>
 
 /** Rows of the "what you get for free" table. Order = decision order. */
 const facts = [
-  { label: '¿Pide tarjeta?', value: TRI_STATE_LABEL[tool.freePlan.requiresCreditCard], good: tool.freePlan.requiresCreditCard === 'no' },
-  { label: '¿Hay que registrarse?', value: TRI_STATE_LABEL[tool.freePlan.requiresSignup], good: tool.freePlan.requiresSignup === 'no' },
-  { label: '¿Marca de agua?', value: TRI_STATE_LABEL[tool.freePlan.hasWatermark], good: tool.freePlan.hasWatermark === 'no' },
-  { label: '¿Uso comercial?', value: TRI_STATE_LABEL[tool.freePlan.commercialUse], good: tool.freePlan.commercialUse === 'yes' },
+  { label: '¿Pide tarjeta?', value: etiquetaDeHecho(tool, 'freePlan.requiresCreditCard', tool.freePlan.requiresCreditCard), good: tool.freePlan.requiresCreditCard === 'no' },
+  { label: '¿Hay que registrarse?', value: etiquetaDeHecho(tool, 'freePlan.requiresSignup', tool.freePlan.requiresSignup), good: tool.freePlan.requiresSignup === 'no' },
+  { label: '¿Marca de agua?', value: etiquetaDeHecho(tool, 'freePlan.hasWatermark', tool.freePlan.hasWatermark), good: tool.freePlan.hasWatermark === 'no' },
+  { label: '¿Uso comercial?', value: etiquetaDeHecho(tool, 'freePlan.commercialUse', tool.freePlan.commercialUse), good: tool.freePlan.commercialUse === 'yes' },
   { label: '¿Código abierto?', value: OPENNESS_LABEL[tool.openSource], good: tool.openSource === 'yes' },
   { label: 'Dónde se ejecuta', value: HOSTING_LABEL[tool.hosting], good: tool.hosting !== 'cloud' },
   ...(tool.freePlan.creditsAmount
@@ -525,7 +526,7 @@ const compararHref = compararCon.length
               <tbody>
                 <tr>
                   <th scope="row">¿Se entrena con lo que subes?</th>
-                  <td>{TRI_STATE_LABEL[tool.privacy.trainsOnUserData]}</td>
+                  <td>{etiquetaDeHecho(tool, 'privacy.trainsOnUserData', tool.privacy.trainsOnUserData)}</td>
                 </tr>
                 <tr>
                   <th scope="row">¿Puedes desactivarlo sin pagar?</th>

@@ -278,7 +278,7 @@ export const FREE_MODELS: readonly FreeModelDef[] = [
      * Midjourney was stored as `trial` on exactly that basis.
      */
     id: 'unknown',
-    label: 'Sin confirmar',
+    label: 'Sin comprobar',
     meaning: 'No hemos podido comprobarlo en una fuente oficial. No afirmamos nada todavía.',
     tone: 'neutral',
   },
@@ -404,7 +404,7 @@ export const CREDIT_RESET_LABEL: Record<CreditReset, string> = {
   weekly: 'Semanal',
   monthly: 'Mensual',
   one_off: 'Única (no se renueva)',
-  unknown: 'Sin confirmar',
+  unknown: 'Sin comprobar',
 };
 
 // ---------------------------------------------------------------------------

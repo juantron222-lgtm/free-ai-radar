@@ -1,5 +1,6 @@
 import type { EvidenceField, EvidenceScope, FieldEvidence, Tool } from './tool';
 import { EVIDENCE_SCOPE_LABEL } from './tool';
+import { TRI_STATE_LABEL } from './primitives';
 
 /**
  * Por qué no lo sabemos.
@@ -129,6 +130,19 @@ export function motivoDelHueco(
 ): MotivoDeHueco | undefined {
   if (valor !== 'unverified' && valor !== 'unknown') return undefined;
   return evidenciaDe(tool, field)?.outcome === 'not_published' ? 'no_publicado' : 'pendiente';
+}
+
+/**
+ * Lo que se escribe en la celda de un hecho, en cualquier página.
+ *
+ * La ficha decía «El fabricante no lo publica» en el bloque de arriba y «Sin
+ * verificar» del mismo dato en la tabla de abajo. El valor, si lo sabemos; si
+ * no, de quién es el hueco.
+ */
+export function etiquetaDeHecho(tool: Tool, field: EvidenceField, valor: string): string {
+  const motivo = motivoDelHueco(tool, field, valor);
+  if (motivo) return MOTIVO_LABEL[motivo];
+  return TRI_STATE_LABEL[valor as keyof typeof TRI_STATE_LABEL] ?? valor;
 }
 
 /**

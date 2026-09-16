@@ -8,8 +8,7 @@ import {
   ORIGEN_COSTE_LABEL,
   contradicciones,
 } from '@lib/domain/muestra';
-import { TRI_STATE_LABEL } from '@lib/domain/primitives';
-import { MOTIVO_LABEL, motivoDelHueco } from '@lib/domain/evidencia';
+import { etiquetaDeHecho } from '@lib/domain/evidencia';
 
 interface Props {
   tool: Tool;
@@ -88,10 +87,8 @@ const observado = muestra
  * Ponerlas en la misma fila que lo que publica el fabricante es lo que impide
  * ese salto: se ven las dos columnas y se ve que no dicen lo mismo.
  */
-const comoDocumentado = (valor: string, field: 'freePlan.requiresCreditCard' | 'freePlan.hasWatermark') => {
-  const motivo = motivoDelHueco(tool, field, valor);
-  return motivo ? MOTIVO_LABEL[motivo] : TRI_STATE_LABEL[valor as keyof typeof TRI_STATE_LABEL];
-};
+const comoDocumentado = (valor: string, field: 'freePlan.requiresCreditCard' | 'freePlan.hasWatermark') =>
+  etiquetaDeHecho(tool, field, valor);
 
 const enfrentados = muestra
   ? [

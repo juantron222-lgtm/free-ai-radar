@@ -222,7 +222,7 @@ describe('lo que la tarjeta puede enseñar', () => {
   it('unknown nunca se convierte en no', () => {
     for (const tool of audio) {
       if (tool.freeModel === 'unknown') {
-        expect(freeAccessLabel(tool).kind, tool.slug).toBe('Sin confirmar');
+        expect(freeAccessLabel(tool).kind, tool.slug).toBe('Sin comprobar');
       }
     }
   });

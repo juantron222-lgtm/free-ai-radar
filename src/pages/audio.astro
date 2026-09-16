@@ -99,7 +99,7 @@ const declarados = [
     titulo: 'En tu equipo',
     lista: [...install, ...technical],
     lede: 'Modelos que se ejecutan en tu máquina, sin cuotas ni cuenta. Aquí la licencia de los pesos manda sobre la del código, y no siempre coinciden.',
-    motivo: (tool: Tool) => `Se ejecuta en tu equipo; licencia ${tool.licence ?? 'sin confirmar'}.`,
+    motivo: (tool: Tool) => `Se ejecuta en tu equipo; licencia ${tool.licence ?? 'sin comprobar'}.`,
   },
 ].filter((b) => b.lista.length >= MIN_BLOQUE);
 
