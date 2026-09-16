@@ -100,7 +100,14 @@ describe('la procedencia consta', () => {
 
       expect(propio || forja || referida, `${slug}: ${anfitrion} sin atribución`).toBe(true);
       if (referida) {
-        expect(new URL(meta.descubiertoEn!).hostname.replace(/^www\./, ''), slug).toBe(oficial);
+        /*
+         * La página que lo enlaza es del mismo sitio que la oficial: el propio
+         * dominio o un subdominio suyo. El icono de Midjourney sale de
+         * docs.midjourney.com porque midjourney.com rechaza la lectura.
+         */
+        const pagina = new URL(meta.descubiertoEn!).hostname.replace(/^www\./, '');
+        const mismoSitio = pagina === oficial || pagina.endsWith(`.${oficial}`) || oficial.endsWith(`.${pagina}`);
+        expect(mismoSitio, `${slug}: ${pagina} no es del sitio de ${oficial}`).toBe(true);
       }
     }
   });

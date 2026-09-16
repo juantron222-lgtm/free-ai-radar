@@ -25,6 +25,7 @@
  * Uso:
  *   node scripts/logos.mjs --descubrir      # qué iconos publica cada dominio
  *   node scripts/logos.mjs --descargar      # trae y normaliza la cohorte
+ *   node scripts/logos.mjs --completar      # las fichas que aún no tienen logo
  *   node scripts/logos.mjs --medir          # qué fondo necesita cada marca
  *   node scripts/logos.mjs --informe        # qué hay y cuánto pesa
  */
@@ -72,7 +73,7 @@ const COHORTE = [
   { slug: 'krea', fuente: 'https://github.com/krea-ai.png', clase: 'repo' },
   { slug: 'leonardo-ai', fuente: 'https://github.com/Leonardo-Interactive.png', clase: 'repo' },
   { slug: 'playground-ai' },
-  { slug: 'comfyui', fuente: 'https://github.com/comfyanonymous.png', clase: 'repo' },
+  { slug: 'comfyui', fuente: 'https://github.com/Comfy-Org.png', clase: 'repo' },
   { slug: 'clipdrop' },
   // Vídeo
   { slug: 'klingai' },
@@ -86,7 +87,7 @@ const COHORTE = [
   { slug: 'cartesia' },
   { slug: 'fish-audio' },
   { slug: 'whisper', fuente: 'https://github.com/openai.png', clase: 'repo' },
-  { slug: 'kokoro', fuente: 'https://github.com/hexgrad.png', clase: 'repo' },
+  // Kokoro vive en una cuenta personal (hexgrad): su avatar no es la marca del proyecto. Iniciales.
   { slug: 'suno-ai' },
   // Código
   { slug: 'github-copilot' },
@@ -476,9 +477,240 @@ function informe() {
   console.log(`Por formato: ${JSON.stringify(porTipo)}`);
 }
 
+/**
+ * Las que faltan, con las mismas reglas y tres puertas, por orden.
+ *
+ * La cohorte de arriba se escribió a mano con treinta y seis. Las sesenta
+ * restantes se resuelven igual, sin lista: para cada ficha sin logo se prueba
+ *
+ *   1. El icono que declara su web oficial. Se lee con Chromium y no con
+ *      `fetch`: varias responden 403 a un lector automático y sirven la página
+ *      a un navegador. La descarga se hace desde ese mismo navegador.
+ *   2. El avatar de su organización en GitHub, si el repositorio oficial vive
+ *      allí. **Sólo si es una organización**: el avatar de una cuenta personal
+ *      es la foto de una persona, no la marca de un proyecto.
+ *   3. El avatar de su organización en Hugging Face, para los modelos que se
+ *      publican allí.
+ *
+ * Un mapa de bits de menos de `LADO_MINIMO` no es un logo fiable: un favicon de
+ * 32 px ampliado a la cabecera de la ficha se ve roto. Si ninguna puerta da
+ * uno bueno, no se guarda nada y la ficha sigue con sus iniciales, que es
+ * mejor que una imagen dudosa.
+ */
+const LADO_MINIMO = 64;
+const FORJAS = new Set(['github.com', 'huggingface.co']);
+
+async function completar() {
+  const { chromium } = await import('playwright');
+  mkdirSync(DESTINO, { recursive: true });
+  const registro = existsSync(REGISTRO) ? JSON.parse(readFileSync(REGISTRO, 'utf8')) : {};
+  const soloEstos = new Set(process.argv.slice(3));
+  const faltan = tools.filter((t) => !registro[t.slug] && (!soloEstos.size || soloEstos.has(t.slug)));
+  const sinLogo = [];
+
+  const navegador = await chromium.launch();
+  const contexto = await navegador.newContext({
+    userAgent:
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+    locale: 'en-US',
+  });
+
+  /*
+   * Algunas webs —Midjourney— devuelven 403 a una petición suelta y sirven el
+   * mismo icono a la página que lo enlaza. Si hay una página abierta del mismo
+   * sitio, se pide desde ella: es el mismo fichero, del mismo dominio.
+   */
+  async function bajar(url, pagina) {
+    const res = await contexto.request.get(url, { timeout: 20_000 });
+    if (res.ok()) return Buffer.from(await res.body());
+    if (res.status() === 403 && pagina) {
+      const b64 = await pagina.evaluate(async (u) => {
+        const r = await fetch(u, { credentials: 'include' });
+        if (!r.ok) return null;
+        const bytes = new Uint8Array(await r.arrayBuffer());
+        let s = '';
+        for (const b of bytes) s += String.fromCharCode(b);
+        return btoa(s);
+      }, url);
+      if (b64) return Buffer.from(b64, 'base64');
+    }
+    throw new Error(`HTTP ${res.status()}`);
+  }
+
+  /** Un activo que sirve: imagen de verdad, y si es de mapa de bits, grande. */
+  async function aceptable(url, pagina) {
+    const bruto = await bajar(url, pagina);
+    const formato = formatoDe(bruto);
+    if (!formato) return { motivo: 'no es una imagen' };
+    if (formato !== 'svg') {
+      const lado =
+        formato === 'ico'
+          ? Math.max(...Array.from({ length: bruto.readUInt16LE(4) }, (_, i) => bruto.readUInt8(6 + i * 16) || 256))
+          : Math.max((await sharp(bruto).metadata()).width ?? 0, (await sharp(bruto).metadata()).height ?? 0);
+      if (lado < LADO_MINIMO) return { motivo: `${lado} px, por debajo de ${LADO_MINIMO}` };
+    }
+    // Un `.ico` de 8 bits no se puede convertir sin inventarse la paleta: se prueba el siguiente.
+    try {
+      await normalizar(bruto, formato);
+    } catch (e) {
+      return { motivo: e.message };
+    }
+    return { bruto, formato };
+  }
+
+  /** La página de un proyecto dentro de una forja: su icono es el de la forja, no el suyo. */
+  const esPaginaDeForja = (url) => {
+    const u = new URL(url);
+    if (!FORJAS.has(u.hostname.replace(/^www\./, ''))) return false;
+    // Lo que publica la propia forja sobre sí misma —Spaces, su documentación— sí es suyo.
+    const primero = u.pathname.split('/').filter(Boolean)[0] ?? '';
+    return !['spaces', 'docs', 'pricing', ''].includes(primero);
+  };
+
+  /** Mismo dominio registrado: `docs.midjourney.com` es de `midjourney.com`. */
+  const mismoDominio = (a, b) => {
+    const x = new URL(a).hostname.replace(/^www\./, '');
+    const y = new URL(b).hostname.replace(/^www\./, '');
+    return x === y || x.endsWith(`.${y}`) || y.endsWith(`.${x}`);
+  };
+
+  async function desdeWebOficial(tool) {
+    /*
+     * La web oficial y, si ésa no sirve, las otras páginas oficiales de la ficha
+     * que viven en el mismo dominio —la documentación de Midjourney, la tabla de
+     * precios de Zapier—. Nunca una página de otro dominio.
+     */
+    const oficial = new URL(tool.officialUrl);
+    const etiquetas = oficial.hostname.split('.');
+    const paginas = [
+      tool.officialUrl,
+      ...(tool.sources ?? [])
+        .filter((s) => ['official', 'docs', 'pricing'].includes(s.kind) && mismoDominio(s.url, tool.officialUrl))
+        .map((s) => s.url),
+      // La portada del mismo sitio, y la del dominio principal si la oficial es
+      // un subdominio: developers.openai.com → openai.com.
+      `${oficial.origin}/`,
+      ...(etiquetas.length > 2 ? [`https://${etiquetas.slice(-2).join('.')}/`] : []),
+    ].filter((url, i, todas) => !esPaginaDeForja(url) && todas.indexOf(url) === i);
+    if (!paginas.length) return { motivo: 'la web oficial es una forja' };
+
+    const motivos = [];
+    for (const direccion of paginas.slice(0, 5)) {
+      const pagina = await contexto.newPage();
+      try {
+        await pagina.goto(direccion, { waitUntil: 'domcontentloaded', timeout: 45_000 });
+        await pagina.waitForLoadState('networkidle', { timeout: 10_000 }).catch(() => {});
+        const cands = candidatosDe(await pagina.content(), pagina.url()).filter((c) => !c.url.startsWith('data:'));
+        for (const cand of cands.slice(0, 6)) {
+          try {
+            const r = await aceptable(cand.url, pagina);
+            if (r.bruto) return { ...r, url: cand.url, clase: 'favicon', descubiertoEn: direccion };
+            motivos.push(`${cand.url}: ${r.motivo}`);
+          } catch (e) {
+            motivos.push(`${cand.url}: ${e.message}`);
+          }
+        }
+        if (!cands.length) motivos.push(`${direccion}: no declara iconos`);
+      } catch (e) {
+        motivos.push(`${direccion}: ${e.message.split('\n')[0]}`);
+      } finally {
+        await pagina.close();
+      }
+    }
+    return { motivo: motivos.join(' · ') };
+  }
+
+  function propietarioEn(tool, host) {
+    const urls = [tool.officialUrl, ...(tool.sources ?? []).map((s) => s.url)];
+    for (const u of urls) {
+      const url = new URL(u);
+      const h = url.hostname.replace(/^(www|api)\./, '');
+      if (h !== host) continue;
+      const partes = url.pathname.split('/').filter(Boolean);
+      const dueno = host === 'github.com' && partes[0] === 'repos' ? partes[1] : partes[0];
+      if (dueno && !['spaces', 'api', 'orgs'].includes(dueno)) return dueno;
+    }
+    return null;
+  }
+
+  async function desdeGitHub(tool) {
+    const dueno = propietarioEn(tool, 'github.com');
+    if (!dueno) return { motivo: 'sin repositorio en GitHub' };
+    const res = await fetch(`https://api.github.com/users/${dueno}`, {
+      headers: { 'user-agent': 'FreeAIRadar/1.0 (+https://www.freeairadar.com)', accept: 'application/vnd.github+json' },
+    });
+    if (!res.ok) return { motivo: `API de GitHub: HTTP ${res.status}` };
+    const cuenta = await res.json();
+    if (cuenta.type !== 'Organization') return { motivo: `${dueno} es una cuenta personal, no una organización` };
+    const url = `https://github.com/${dueno}.png`;
+    const r = await aceptable(url);
+    return r.bruto ? { ...r, url, clase: 'repo' } : r;
+  }
+
+  async function desdeHuggingFace(tool) {
+    const dueno = propietarioEn(tool, 'huggingface.co');
+    if (!dueno) return { motivo: 'sin página en Hugging Face' };
+    const api = `https://huggingface.co/api/organizations/${dueno}/avatar`;
+    const res = await fetch(api);
+    if (!res.ok) return { motivo: `${dueno} no es una organización de Hugging Face` };
+    const { avatarUrl } = await res.json();
+    if (!avatarUrl) return { motivo: 'sin avatar' };
+    const r = await aceptable(avatarUrl);
+    return r.bruto ? { ...r, url: avatarUrl, clase: 'repo', descubiertoEn: api } : r;
+  }
+
+  for (const tool of faltan) {
+    const intentos = [];
+    let elegido = null;
+    for (const [nombre, puerta] of [
+      ['web', desdeWebOficial],
+      ['github', desdeGitHub],
+      ['huggingface', desdeHuggingFace],
+    ]) {
+      try {
+        const r = await puerta(tool);
+        if (r.bruto) {
+          elegido = r;
+          break;
+        }
+        intentos.push(`${nombre}: ${r.motivo}`);
+      } catch (e) {
+        intentos.push(`${nombre}: ${e.message}`);
+      }
+    }
+
+    if (!elegido) {
+      sinLogo.push(`${tool.slug}: ${intentos.join(' | ')}`);
+      continue;
+    }
+
+    const { datos, extension, ancho, alto } = await normalizar(elegido.bruto, elegido.formato);
+    const nombre = `${tool.slug}.${extension}`;
+    writeFileSync(join(DESTINO, nombre), datos);
+    registro[tool.slug] = {
+      ruta: `/logos/${nombre}`,
+      sourceUrl: elegido.url,
+      sourceKind: elegido.clase,
+      formatoOriginal: elegido.formato,
+      ...(elegido.descubiertoEn ? { descubiertoEn: elegido.descubiertoEn } : {}),
+      ancho: ancho ?? null,
+      alto: alto ?? null,
+      bytes: datos.length,
+      obtenidoEl: HOY,
+    };
+    console.log(`✓ ${tool.slug.padEnd(26)} ${String(datos.length).padStart(6)} B  ${extension}  ${elegido.url}`);
+  }
+
+  await navegador.close();
+  writeFileSync(REGISTRO, `${JSON.stringify(registro, null, 2)}\n`, 'utf8');
+  console.log(`\nCon logo: ${Object.keys(registro).length} · Siguen con iniciales: ${sinLogo.length}`);
+  for (const s of sinLogo) console.log(`  · ${s}`);
+}
+
 const modo = process.argv[2];
 if (modo === '--descubrir') await descubrir();
 else if (modo === '--descargar') await descargar();
+else if (modo === '--completar') await completar();
 else if (modo === '--medir') await medir();
 else if (modo === '--informe') informe();
-else console.log('Modos: --descubrir | --descargar | --medir | --informe');
+else console.log('Modos: --descubrir | --descargar | --completar [slug…] | --medir | --informe');
