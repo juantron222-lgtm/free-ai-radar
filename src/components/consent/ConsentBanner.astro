@@ -101,6 +101,19 @@ import { CONSENT_CATEGORIES, CONSENT_VERSION } from '@lib/consent';
   </div>
 </div>
 
+<style is:global>
+  /*
+   * Mientras la barra está puesta, la página le reserva su alto.
+   *
+   * `--consent-alto` lo escribe `consent.js` con la medida real del panel y lo
+   * devuelve a cero al cerrarlo. Sin esto, una barra fija tapaba el pie entero
+   * en la primera visita, que es justo cuando alguien busca quién está detrás.
+   */
+  body {
+    padding-block-end: var(--consent-alto, 0px);
+  }
+</style>
+
 <style>
   /*
    * One stacking context for the whole overlay.

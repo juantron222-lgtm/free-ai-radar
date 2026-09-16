@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
-import { getAllTools, getPopulatedCategories } from '@lib/data/catalog';
+import { getAllTools, getPopulatedCategories, getToolsByCategory } from '@lib/data/catalog';
+import { getCollection, getCollectionTools } from '@lib/data/collections';
 import { getAllNews } from '@lib/data/news';
 import { absoluteUrl } from '@lib/seo/site';
 import { ROUTES } from '@lib/nav';
@@ -18,6 +19,9 @@ import { ROUTES } from '@lib/nav';
  * sobre la misma página. Vuelven el día que dejen de ser `noindex`, y la prueba
  * de abajo lo comprueba sola.
  */
+
+/** Las colecciones que van al mapa, en el orden en que se listaban. */
+const COLECCIONES_EN_MAPA = ['para-creadores', 'sin-tarjeta', 'uso-comercial', 'en-local'] as const;
 
 interface Entry {
   path: string;
@@ -47,8 +51,23 @@ export const GET: APIRoute = () => {
 
   const newestNews = news.reduce((acc, item) => (item.checkedAt > acc ? item.checkedAt : acc), '');
 
+  /*
+   * La fecha de una página es la de lo que enseña.
+   *
+   * La portada decía el 30 de agosto mientras publicaba noticias del 12 de
+   * septiembre, y las verticales y las colecciones no llevaban fecha ninguna.
+   * Cada una toma la más reciente de las fichas que lista —y la portada, además,
+   * la de la última noticia, porque también las enseña—.
+   */
+  const masReciente = (lista: readonly { lastVerifiedAt: string }[]): string | undefined =>
+    lista.reduce<string | undefined>(
+      (acc, tool) => (!acc || tool.lastVerifiedAt > acc ? tool.lastVerifiedAt : acc),
+      undefined
+    );
+  const portada = newestNews > newestVerification ? newestNews : newestVerification;
+
   const entries: Entry[] = [
-    { path: ROUTES.home, lastmod: newestVerification, changefreq: 'daily', priority: 1.0 },
+    { path: ROUTES.home, lastmod: portada, changefreq: 'daily', priority: 1.0 },
     { path: ROUTES.tools, lastmod: newestVerification, changefreq: 'daily', priority: 0.9 },
     { path: ROUTES.categories, lastmod: newestVerification, changefreq: 'weekly', priority: 0.8 },
     {
@@ -57,9 +76,9 @@ export const GET: APIRoute = () => {
       changefreq: 'daily',
       priority: 0.8,
     },
-    { path: ROUTES.models, lastmod: newestVerification, changefreq: 'weekly', priority: 0.8 },
-    { path: ROUTES.agents, lastmod: newestVerification, changefreq: 'weekly', priority: 0.8 },
-    { path: ROUTES.collections, changefreq: 'weekly', priority: 0.7 },
+    { path: ROUTES.models, lastmod: masReciente(getToolsByCategory('modelos')), changefreq: 'weekly', priority: 0.8 },
+    { path: ROUTES.agents, lastmod: masReciente(getToolsByCategory('agentes')), changefreq: 'weekly', priority: 0.8 },
+    { path: ROUTES.collections, lastmod: newestVerification, changefreq: 'weekly', priority: 0.7 },
     { path: ROUTES.guides, changefreq: 'weekly', priority: 0.6 },
     { path: ROUTES.methodology, changefreq: 'monthly', priority: 0.7 },
     { path: ROUTES.editorialPolicy, changefreq: 'monthly', priority: 0.5 },
@@ -74,12 +93,18 @@ export const GET: APIRoute = () => {
     { path: ROUTES.terms, changefreq: 'yearly', priority: 0.3 },
     { path: ROUTES.rights, changefreq: 'yearly', priority: 0.3 },
     { path: '/guias/comfyui-sin-gpu', changefreq: 'monthly', priority: 0.7 },
-    { path: '/colecciones/para-creadores', changefreq: 'weekly', priority: 0.6 },
-    { path: '/colecciones/sin-tarjeta', changefreq: 'weekly', priority: 0.7 },
-    { path: '/colecciones/uso-comercial', changefreq: 'weekly', priority: 0.7 },
-    { path: '/colecciones/en-local', changefreq: 'weekly', priority: 0.7 },
+    ...COLECCIONES_EN_MAPA.map((slug) => {
+      const coleccion = getCollection(slug);
+      return {
+        path: ROUTES.collection(slug),
+        lastmod: coleccion ? masReciente(getCollectionTools(coleccion)) : undefined,
+        changefreq: 'weekly' as const,
+        priority: slug === 'para-creadores' ? 0.6 : 0.7,
+      };
+    }),
     ...categories.map((category) => ({
       path: ROUTES.category(category.slug),
+      lastmod: masReciente(getToolsByCategory(category.slug)),
       changefreq: 'weekly' as const,
       priority: 0.8,
     })),

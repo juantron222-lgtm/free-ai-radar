@@ -233,6 +233,35 @@ test.describe('portada sin decisión de cookies', () => {
     expect(medida.buscadorBottom, 'y las seis verticales también').toBeLessThan(medida.topBanner);
   });
 
+  test('el cartel de cookies no tapa el pie: la página le reserva su sitio', async ({ page }) => {
+    /*
+     * La barra es `position: fixed`, así que no ocupaba sitio en el flujo y
+     * cubría el pie entero en la primera visita, que es justo cuando alguien
+     * busca quién está detrás. Mientras está puesta, la página reserva abajo su
+     * altura exacta.
+     */
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.goto('/');
+    await expect(page.locator('#consent-root')).toBeVisible();
+
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(300);
+
+    const medidas = await page.evaluate(() => {
+      const pie = document.querySelector('.site-footer')!.getBoundingClientRect();
+      const panel = document.querySelector('.consent-panel')!.getBoundingClientRect();
+      return { pie: pie.bottom, panel: panel.top };
+    });
+    expect(medidas.pie, 'el pie queda por encima del cartel').toBeLessThanOrEqual(medidas.panel + 1);
+
+    await page.getByRole('button', { name: /rechazar todo/i }).click();
+    await expect(page.locator('#consent-root')).toBeHidden();
+    const reservado = await page.evaluate(() =>
+      getComputedStyle(document.documentElement).getPropertyValue('--consent-alto').trim()
+    );
+    expect(reservado, 'al cerrarse devuelve el espacio').toBe('0px');
+  });
+
   test('las dos opciones de consentimiento son igual de alcanzables', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto('/');

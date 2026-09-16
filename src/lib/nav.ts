@@ -198,6 +198,7 @@ export const FOOTER_NAV: ReadonlyArray<{ title: string; items: NavItem[] }> = [
       ...VERTICALS.map((v) => ({ label: v.label, href: v.href })),
       { label: 'Categorías', href: ROUTES.categories },
       { label: 'Colecciones', href: ROUTES.collections },
+      { label: 'Guías', href: ROUTES.guides },
       { label: 'Comparar', href: ROUTES.compare },
       { label: 'Últimas noticias', href: ROUTES.news },
     ],

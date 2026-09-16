@@ -25,7 +25,7 @@ export const CONSENT_CATEGORIES: readonly ConsentCategory[] = [
     id: 'necessary',
     name: 'Necesarias',
     description:
-      'Sesión, seguridad, preferencia de idioma y tema, y el propio registro de tu elección de cookies. Sin ellas el sitio no funciona.',
+      'Sesión, seguridad, preferencia de tema claro u oscuro, tus últimas búsquedas y el propio registro de tu elección de cookies. Sin ellas el sitio no funciona.',
     required: true,
     vendors: [],
   },

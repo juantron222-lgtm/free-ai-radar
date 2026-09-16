@@ -201,6 +201,35 @@
    *   · al reabrirla a propósito desde el pie o la política de cookies, el foco
    *     va al panel y no a un botón, así que Enter tampoco decide nada.
    */
+  /*
+   * La barra tapaba el pie hasta que alguien decidía.
+   *
+   * Es `position: fixed`, así que no ocupa sitio en el flujo: en la portada
+   * cubría el pie entero y en móvil, con el panel de categorías abierto, más de
+   * media pantalla. Mientras está puesta, la página reserva abajo su altura
+   * exacta; al cerrarse, la devuelve. Se mide con `ResizeObserver` porque la
+   * barra cambia de alto al desplegar las categorías.
+   */
+  var observador = null;
+
+  function reservarSitio() {
+    if (!root || root.hidden) {
+      document.documentElement.style.setProperty('--consent-alto', '0px');
+      return;
+    }
+    var panel = root.querySelector('.consent-panel');
+    var alto = panel ? Math.ceil(panel.getBoundingClientRect().height) : 0;
+    document.documentElement.style.setProperty('--consent-alto', alto + 'px');
+  }
+
+  function vigilarAlto() {
+    if (observador || typeof ResizeObserver === 'undefined' || !root) return;
+    var panel = root.querySelector('.consent-panel');
+    if (!panel) return;
+    observador = new ResizeObserver(reservarSitio);
+    observador.observe(panel);
+  }
+
   function openBanner(showOptions, moverFoco) {
     if (!root) return;
     lastFocused = moverFoco ? document.activeElement : null;
@@ -218,11 +247,14 @@
       if (panel) panel.focus();
     }
     document.addEventListener('keydown', onKeydown, true);
+    reservarSitio();
+    vigilarAlto();
   }
 
   function closeBanner() {
     if (!root) return;
     root.hidden = true;
+    reservarSitio();
     document.removeEventListener('keydown', onKeydown, true);
     if (lastFocused && lastFocused.focus) lastFocused.focus();
   }
