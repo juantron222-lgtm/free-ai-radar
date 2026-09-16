@@ -227,18 +227,44 @@ describe('las cifras huérfanas se retiran, no se maquillan', () => {
     expect(texto).not.toMatch(/50 solicitudes de chat/);
     expect(texto, 'debe decir que la cantidad no se publica').toMatch(/sin publicar|no publica/i);
     expect(citaDe(evidenciaDe(copilot, 'freePlan.limits')!), 'la cita debe ser la de hoy').toMatch(
-      /allowance of GitHub AI Credits/i
+      /GitHub AI Credits/i
     );
   });
 
   it('Copilot tampoco niega en rotundo lo que su fuente no menciona', () => {
     /*
-     * «NO incluye revisión de código» era más fuerte que la página, que no
-     * menciona revisión de código en ningún nivel individual. Un negativo sin
-     * fuente es tan inventado como un positivo.
+     * «NO incluye revisión de código» era más fuerte que la página, que en
+     * agosto no mencionaba revisión de código en ningún nivel individual. Un
+     * negativo sin fuente es tan inventado como un positivo.
+     *
+     * El 16 de septiembre la tabla de planes ya la lista, «Not included» en
+     * Free, y la ficha lo dice. La regla sigue siendo la misma: cada «NO
+     * incluye» tiene que estar en lo que cita su evidencia.
      */
     const copilot = tools.find((t) => t.slug === 'github-copilot')!;
-    expect(copilot.freePlan.limits.join(' ')).not.toMatch(/NO incluye revisión de código/i);
+    const ev = evidenciaDe(copilot, 'freePlan.limits')!;
+    const respaldo = citaDe(ev) ?? '';
+    const limites = copilot.freePlan.limits.join(' ');
+    if (/NO incluye revisión de código/i.test(limites)) expect(respaldo).toMatch(/Code review/);
+    if (/agente en la nube/i.test(limites)) expect(respaldo).toMatch(/Cloud agent/);
+    if (/agentes de terceros/i.test(limites)) expect(respaldo).toMatch(/third-party coding agents/);
+  });
+
+  it('Copilot Free incluye modo agente y CLI, y la ficha no lo niega', () => {
+    /*
+     * La ficha decía «NO incluye modo agente» desde agosto. La página de planes
+     * dice hoy «Free plan supports CLI and agent mode». Corregido el 16 de
+     * septiembre con autorización, con entrada en el historial.
+     */
+    const copilot = tools.find((t) => t.slug === 'github-copilot')!;
+    const texto = `${copilot.tagline} ${copilot.descriptionShort} ${copilot.freePlan.summary} ${copilot.freePlan.limits.join(' ')}`;
+    expect(texto).not.toMatch(/NO incluye modo agente/i);
+    expect(copilot.freePlan.limits.join(' ')).toMatch(/Modo agente incluido/);
+    expect(copilot.freePlan.limits.join(' ')).toMatch(/Copilot CLI incluido/);
+    expect(citaDe(evidenciaDe(copilot, 'freePlan.limits')!)).toMatch(/Free plan supports CLI and agent mode/);
+    const entrada = copilot.changelog.find((c) => c.date === '2026-09-16');
+    expect(entrada?.sourceUrl).toBe('https://github.com/features/copilot/plans');
+    expect(entrada?.summary).toMatch(/modo agente/);
   });
 
   it('Ideogram ya no publica los diez créditos que su tabla retiró', () => {

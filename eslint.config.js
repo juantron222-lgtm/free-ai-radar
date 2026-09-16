@@ -14,6 +14,8 @@ export default tseslint.config(
       'test-results/**',
       'coverage/**',
       'src/data/**',
+      // Worktrees temporales de los agentes: son otra copia del repo, no código de éste.
+      '.claude/**',
     ],
   },
   js.configs.recommended,

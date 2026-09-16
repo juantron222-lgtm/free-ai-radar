@@ -4537,7 +4537,14 @@
     "notFor": [],
     "alternatives": [],
     "alternativeNames": [],
-    "changelog": [],
+    "changelog": [
+      {
+        "date": "2026-09-16",
+        "kind": "other",
+        "summary": "Corregido: el plan gratuito incluye el modo agente en el editor y Copilot CLI, con un uso de chat y agente limitado por créditos de IA. La ficha decía que no incluía modo agente ni agentes. Siguen fuera el agente en la nube, la revisión de código, asignar tareas que abren un pull request y delegar en agentes de terceros. GitHub no publica en su página de planes desde cuándo es así: la fecha es la de la comprobación.",
+        "sourceUrl": "https://github.com/features/copilot/plans"
+      }
+    ],
     "affiliation": {
       "isAffiliate": false
     },
@@ -4564,17 +4571,19 @@
       "web"
     ],
     "freeModel": "freemium",
-    "tagline": "El autocompletado es gratis. Los agentes y el modo agente, no.",
-    "descriptionShort": "El autocompletado de GitHub, con chat en el editor y en la web. Su plan gratuito da 2.000 completados al mes y selección automática de modelo, y su página de planes excluye expresamente los agentes y el modo agente.",
-    "verdict": "Es el ejemplo de por qué no se puede heredar el acceso de la marca al producto: Copilot tiene plan gratuito y el agente de Copilot no está en él.",
+    "tagline": "Autocompletado, modo agente y CLI gratis, con créditos limitados. El agente en la nube, no.",
+    "descriptionShort": "El autocompletado de GitHub, con chat, modo agente en el editor y Copilot CLI. Su plan gratuito da 2.000 completados al mes y un uso de chat y agente limitado por créditos de IA; el agente en la nube, la revisión de código y la delegación en agentes de terceros son de pago.",
+    "verdict": "Es el ejemplo de por qué no se puede heredar el acceso de la marca al producto: Copilot Free incluye el modo agente en el editor y Copilot CLI, con créditos limitados, pero el agente en la nube, que trabaja solo y abre pull requests, es de pago.",
     "freePlan": {
-      "summary": "Copilot Free da 2.000 completados en línea al mes, chat en los entornos y en GitHub, y selección automática de modelo. Para el chat, la documentación habla de una asignación de créditos de IA sin publicar la cantidad. Quedan fuera los agentes, el agente de programación, el modo agente y la selección de modelos avanzados.",
+      "summary": "Copilot Free da 2.000 completados en línea al mes, chat, el modo agente en VS Code, Visual Studio, JetBrains, Eclipse y Xcode, y Copilot CLI. Chat, modo agente y CLI gastan créditos de IA, y el plan gratuito trae un uso limitado cuya cantidad no se publica. Los modelos se eligen solos. Quedan fuera el agente en la nube, asignarle tareas para que abra un pull request, la revisión de código y delegar en agentes de terceros.",
       "limits": [
         "2.000 completados en línea al mes",
-        "Chat: la documentación habla de una asignación de créditos de IA, sin publicar cuántos",
+        "Chat, modo agente y Copilot CLI gastan créditos de IA: el plan gratuito da un uso limitado, sin publicar la cantidad",
+        "Modo agente incluido en VS Code, Visual Studio, JetBrains, Eclipse y Xcode",
+        "Copilot CLI incluido",
         "Sólo selección automática de modelo",
-        "NO incluye agentes ni agente de programación",
-        "NO incluye modo agente",
+        "NO incluye el agente en la nube (Cloud agent) ni asignarle tareas para que abra un pull request",
+        "NO incluye revisión de código ni delegar en agentes de terceros (Claude, Codex)",
         "Plan de pago más barato: Pro, 10 $/mes"
       ],
       "requiresSignup": "yes",
@@ -4583,7 +4592,7 @@
       "commercialUse": "unverified",
       "creditsAmount": "2.000 completados/mes",
       "creditReset": "monthly",
-      "verifiedAt": "2026-08-24"
+      "verifiedAt": "2026-09-16"
     },
     "capabilities": [
       "code-generation",
@@ -4614,7 +4623,7 @@
         "label": "Página oficial de precios",
         "kind": "pricing",
         "publisher": "github.com",
-        "checkedAt": "2026-08-24"
+        "checkedAt": "2026-09-16"
       }
     ],
     "evidence": [
@@ -4639,11 +4648,22 @@
       {
         "field": "freePlan.limits",
         "outcome": "stated",
-        "sourceUrl": "https://docs.github.com/en/copilot/about-github-copilot/plans-for-github-copilot",
-        "sourceKind": "docs",
+        "sourceUrl": "https://github.com/features/copilot/plans",
+        "sourceKind": "pricing",
         "scope": "product",
-        "checkedAt": "2026-08-29",
-        "quote": "Limited to 2000 completions per month on Copilot Free · An allowance of GitHub AI Credits"
+        "checkedAt": "2026-09-16",
+        "quote": "2,000 completions per month · Chat, agent mode, code review, Copilot cloud agent, Copilot CLI, and Copilot Apps consume GitHub AI Credits. Free plan supports CLI and agent mode. · Limited chat and agent usage · Cloud agent — Not included · Assign work to Copilot and it creates a pull request — Not included · Code review — Not included · Delegate tasks to third-party coding agents like Claude by Anthropic and OpenAI Codex (Preview) — Not included · $10 per month",
+        "basis": "Texto de la tarjeta Free y filas de la tabla de funciones de la misma página; «—» separa el nombre de la fila del valor de la columna Free. «$10 per month» es el precio de Pro."
+      },
+      {
+        "field": "capabilities",
+        "outcome": "stated",
+        "sourceUrl": "https://github.com/features/copilot/plans",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-16",
+        "quote": "Agent mode use in VS Code, Visual Studio, JetBrains, Eclipse, and Xcode · Use Copilot from your terminal · Make and commit code changes locally or on GitHub",
+        "basis": "Filas de la tabla de funciones marcadas «Included» en Free."
       }
     ],
     "auditNotes": "Las capacidades describen el producto completo; lo que el plan gratuito no incluye está en los límites, que es donde decide.",

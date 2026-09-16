@@ -181,15 +181,20 @@ describe('lo antiguo no se presenta como reciente', () => {
     expect(home, 'la ventana temporal tiene que ser explícita').toMatch(/VENTANA_DIAS/);
   });
 
-  it('el changelog del catálogo está congelado en 2024 y por eso no vale', () => {
+  it('el changelog del catálogo sólo se alimenta con entradas que se pueden comprobar', () => {
     /*
-     * La prueba deja constancia del motivo: si algún día vuelve a alimentarse,
-     * este número cambiará y habrá que decidir de nuevo, en vez de arrastrar
-     * una decisión sin contexto.
+     * Esta prueba decía «está congelado en 2024 y por eso no vale», y pedía
+     * decidir de nuevo el día que volviera a alimentarse. Ese día fue el 16 de
+     * septiembre de 2026: la corrección de GitHub Copilot entró con fecha y
+     * fuente oficial. La decisión: la portada sigue con Noticias, que es lo
+     * editado, y toda entrada nueva del historial de una ficha lleva la página
+     * oficial que la sostiene. Las de 2024 son anteriores a esa regla.
      */
-    const fechas = tools.flatMap((t) => t.changelog.map((c) => c.date)).sort();
-    const masReciente = fechas[fechas.length - 1]!;
-    expect(masReciente < '2025-01-01', `la más reciente es ${masReciente}`).toBe(true);
+    const nuevas = tools.flatMap((t) => t.changelog.map((c) => ({ slug: t.slug, ...c }))).filter((c) => c.date >= '2025-01-01');
+    expect(nuevas.length).toBeGreaterThan(0);
+    for (const entrada of nuevas) {
+      expect(entrada.sourceUrl, `${entrada.slug} · ${entrada.date} sin fuente`).toMatch(/^https:\/\//);
+    }
   });
 });
 
