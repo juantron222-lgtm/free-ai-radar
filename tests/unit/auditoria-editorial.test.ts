@@ -140,14 +140,25 @@ describe('una deducción se archiva como deducción', () => {
     }
   });
 
-  it('Pika y Runway deducen del mismo hecho y lo dicen igual', () => {
-    for (const slug of ['pika-labs', 'runwayml']) {
-      const tool = tools.find((t) => t.slug === slug)!;
-      expect(tool.freePlan.hasWatermark, slug).toBe('yes');
-      const base = baseDe(evidenciaDe(tool, 'freePlan.hasWatermark')!)!;
-      expect(base, `${slug}: no dice de dónde sale`).toMatch(/no watermark/i);
-      expect(base, `${slug}: no admite que es deducción nuestra`).toMatch(/deduc|no lo dice|no lo afirma/i);
-    }
+  it('Pika deduce de su tabla y lo dice; Runway ya lo publica en su ayuda', () => {
+    /*
+     * Las dos estaban deducidas de que «sin marca de agua» se vende en los
+     * planes de pago. El 16 de septiembre el centro de ayuda de Runway lo dice
+     * con todas las letras y su evidencia pasa a cita. Pika sigue sin decirlo
+     * en prosa —lo marca con el icono de «no incluido» en su tarjeta gratuita—
+     * y sigue siendo deducción declarada como tal.
+     */
+    const pika = tools.find((t) => t.slug === 'pika-labs')!;
+    expect(pika.freePlan.hasWatermark).toBe('yes');
+    const base = baseDe(evidenciaDe(pika, 'freePlan.hasWatermark')!)!;
+    expect(base, 'pika: no dice de dónde sale').toMatch(/no watermark/i);
+    expect(base, 'pika: no admite que es deducción nuestra').toMatch(/deduc|no lo dice|no lo afirma/i);
+
+    const runway = tools.find((t) => t.slug === 'runwayml')!;
+    expect(runway.freePlan.hasWatermark).toBe('yes');
+    const ev = evidenciaDe(runway, 'freePlan.hasWatermark')!;
+    expect(ev.outcome).toBe('stated');
+    expect(citaDe(ev)).toMatch(/All videos generated on a Free plan feature a Runway watermark/);
   });
 });
 

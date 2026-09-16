@@ -413,6 +413,15 @@
         "checkedAt": "2026-08-18",
         "quote": "MusicGen: A controllable text-to-music generation system · AudioGen: A text-to-sound synthesis model · MAGNeT · JASCO, conditioned on chords, melodies and drum tracks",
         "scope": "local"
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "not_published",
+        "sourceUrl": "https://github.com/facebookresearch/audiocraft",
+        "sourceKind": "repo",
+        "scope": "local",
+        "checkedAt": "2026-09-16",
+        "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice. Menciona AudioSeal, un modelo aparte para marcar audio, pero no que lo generado lo lleve."
       }
     ],
     "nextReviewAt": "2026-11-16",
@@ -695,6 +704,15 @@
         "scope": "product",
         "quote": "Commercial use license",
         "basis": "Figura en la lista del plan Pro, que empieza «Everything in Free, plus», así que no forma parte del plan gratuito."
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "not_published",
+        "sourceUrl": "https://cartesia.ai/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-16",
+        "lookedFor": "Si el audio del plan gratuito lleva marca de agua. La página de precios no lo menciona."
       }
     ],
     "auditNotes": "La equivalencia en minutos se recoge porque la publica la propia tabla. Si no la publicara, se habrían dejado los créditos a secas.",
@@ -2369,6 +2387,15 @@
         "checkedAt": "2026-09-15",
         "quote": "Runs fully offline: core does not download anything unless you request it.",
         "basis": "Se instala desde el repositorio oficial (GPL-3.0) y funciona sin conexión: no hay alta ni pago donde pedir una tarjeta. Los nodos de API de pago son opcionales y aparte."
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "not_published",
+        "sourceUrl": "https://github.com/Comfy-Org/ComfyUI",
+        "sourceKind": "repo",
+        "scope": "local",
+        "checkedAt": "2026-09-16",
+        "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice."
       }
     ],
     "startEffortReason": "Exige instalar el entorno, descargar los modelos y montar el grafo de nodos.",
@@ -2953,7 +2980,7 @@
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "no",
-      "hasWatermark": "unverified",
+      "hasWatermark": "yes",
       "commercialUse": "unverified",
       "creditsAmount": "60 min de transcripción/mes",
       "creditReset": "monthly",
@@ -2993,6 +3020,12 @@
         "label": "Condiciones de uso",
         "kind": "docs",
         "checkedAt": "2026-09-15"
+      },
+      {
+        "url": "https://help.descript.com/hc/en-us/articles/10255814959245-Export-video-locally",
+        "label": "Centro de ayuda oficial",
+        "kind": "docs",
+        "checkedAt": "2026-09-16"
       }
     ],
     "evidence": [
@@ -3032,6 +3065,15 @@
         "checkedAt": "2026-09-15",
         "scope": "product",
         "lookedFor": "Permiso explícito de uso comercial para lo creado con el plan gratuito. Las condiciones dicen que el resultado es tuyo, pero no hablan de uso comercial ni distinguen por plan."
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "stated",
+        "sourceUrl": "https://help.descript.com/hc/en-us/articles/10255814959245-Export-video-locally",
+        "sourceKind": "help",
+        "scope": "product",
+        "checkedAt": "2026-09-16",
+        "quote": "Exports from a Free drive will include a Descript watermark in the bottom-right corner."
       }
     ],
     "nextReviewAt": "2026-11-16",
@@ -3616,6 +3658,15 @@
         "scope": "weights",
         "checkedAt": "2026-08-24",
         "quote": "The pre-trained models are licensed under the CC-BY-NC license due to the training data Emilia, which is an in-the-wild dataset."
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "not_published",
+        "sourceUrl": "https://github.com/SWivid/F5-TTS",
+        "sourceKind": "repo",
+        "scope": "local",
+        "checkedAt": "2026-09-16",
+        "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice."
       }
     ],
     "auditNotes": "`commercialUse: no` viene de la licencia de los pesos, no del código. La ficha lo dice en el titular porque es el dato que cambia la decisión.",
@@ -3750,6 +3801,15 @@
         "checkedAt": "2026-09-15",
         "scope": "product",
         "quote": "Free plan users can only use generated content for personal, non-commercial projects."
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "not_published",
+        "sourceUrl": "https://fish.audio/plan/",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-16",
+        "lookedFor": "Si el audio del plan gratuito lleva marca de agua. La página de planes no lo menciona."
       }
     ],
     "auditNotes": "Publica modelos abiertos (Fish Speech), pero `openSource` se queda en `unverified`: no se leyó el identificador de licencia del repositorio en esta comprobación.",
@@ -3898,6 +3958,15 @@
         "checkedAt": "2026-09-15",
         "quote": "The software is offline, open source, and free",
         "basis": "Se descarga del repositorio oficial y funciona sin conexión: no hay alta ni pago donde pedir una tarjeta."
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "not_published",
+        "sourceUrl": "https://github.com/lllyasviel/Fooocus",
+        "sourceKind": "repo",
+        "scope": "local",
+        "checkedAt": "2026-09-16",
+        "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice."
       }
     ],
     "startEffortReason": "Se descarga y se ejecuta con un solo fichero, pero exige GPU y descarga modelos de varios gigas.",
@@ -5719,7 +5788,7 @@
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "no",
-      "hasWatermark": "unverified",
+      "hasWatermark": "yes",
       "commercialUse": "yes",
       "creditsAmount": "3 vídeos/mes",
       "creditReset": "monthly",
@@ -5759,6 +5828,12 @@
         "label": "Condiciones de uso",
         "kind": "docs",
         "checkedAt": "2026-09-15"
+      },
+      {
+        "url": "https://help.heygen.com/en/articles/11057301-how-to-remove-the-heygen-watermark",
+        "label": "Centro de ayuda oficial",
+        "kind": "docs",
+        "checkedAt": "2026-09-16"
       }
     ],
     "evidence": [
@@ -5797,6 +5872,15 @@
         "checkedAt": "2026-09-15",
         "scope": "product",
         "quote": "As between HeyGen and you, you own all rights in your User Input or User Output, and does not restrict your ability to use User Output for your own purposes (including for commercial purposes)"
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "stated",
+        "sourceUrl": "https://help.heygen.com/en/articles/11057301-how-to-remove-the-heygen-watermark",
+        "sourceKind": "help",
+        "scope": "product",
+        "checkedAt": "2026-09-16",
+        "quote": "Free user videos automatically include the HeyGen watermark without the option for removal."
       }
     ],
     "nextReviewAt": "2026-11-13",
@@ -5856,7 +5940,7 @@
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
-      "hasWatermark": "unverified",
+      "hasWatermark": "yes",
       "commercialUse": "unverified",
       "creditReset": "unknown",
       "verifiedAt": "2026-08-15"
@@ -5891,6 +5975,12 @@
         "kind": "pricing",
         "publisher": "higgsfield.ai",
         "checkedAt": "2026-08-15"
+      },
+      {
+        "url": "https://higgsfield.ai/creator-hub/help-center/credits/watermark-and-how-to-remove",
+        "label": "Centro de ayuda oficial",
+        "kind": "docs",
+        "checkedAt": "2026-09-16"
       }
     ],
     "evidence": [
@@ -5920,6 +6010,15 @@
         "checkedAt": "2026-09-15",
         "scope": "product",
         "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "stated",
+        "sourceUrl": "https://higgsfield.ai/creator-hub/help-center/credits/watermark-and-how-to-remove",
+        "sourceKind": "help",
+        "scope": "product",
+        "checkedAt": "2026-09-16",
+        "quote": "On a free account, every generation carries a Higgsfield watermark."
       }
     ],
     "auditNotes": "Nota de contexto, no de catálogo: esta misma plataforma se descartó como fuente de Newsroom porque publica listículos de posicionamiento. Eso descalifica su blog como fuente, no al producto como herramienta.",
@@ -6157,6 +6256,15 @@
         "checkedAt": "2026-08-15",
         "quote": "The minimum GPU memory required is 60GB for 720px1280px129f and 45G for 544px960px129f […] recommend using a GPU with 80GB of memory for better generation quality",
         "scope": "local"
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "not_published",
+        "sourceUrl": "https://github.com/Tencent-Hunyuan/HunyuanVideo",
+        "sourceKind": "repo",
+        "scope": "local",
+        "checkedAt": "2026-09-16",
+        "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice."
       }
     ],
     "auditNotes": "`openSource` queda en `unverified` aunque el repositorio sea público: la regla de este catálogo exige leer el identificador de licencia, y en esta comprobación no fue posible. Repositorio abierto no es lo mismo que licencia abierta.",
@@ -6420,6 +6528,15 @@
         "checkedAt": "2026-08-12",
         "quote": "cial-intelligence generative-art image-generation img2img inpainting latent-diffusion linux macos outpainting · elligence generative-art image-generation img2img inpainting latent-diffusion linux macos outpainting stable-d · n img2img inpainting latent-diffusion linux macos outpainting stable-diffusion txt2img windows Resources Readm",
         "scope": "local"
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "not_published",
+        "sourceUrl": "https://github.com/invoke-ai/InvokeAI",
+        "sourceKind": "repo",
+        "scope": "local",
+        "checkedAt": "2026-09-16",
+        "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice."
       }
     ],
     "descriptionLong": "",
@@ -6800,6 +6917,15 @@
         "checkedAt": "2026-09-15",
         "scope": "product",
         "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "not_published",
+        "sourceUrl": "https://kling.ai/app/membership/membership-plan",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-16",
+        "lookedFor": "Si lo que genera el plan gratuito lleva marca de agua. La página de membresías sólo enumera la retirada de la marca como ventaja de los planes de pago, sin decir qué pasa en el gratuito."
       }
     ],
     "auditNotes": "`hasWatermark` queda sin confirmar a propósito: que «Brand watermark removal» figure entre las características de pago sugiere que el gratuito la lleva, pero la tabla no lo afirma del plan Basic y sugerir no es afirmar. `commercialUse: no` sí es explícito.",
@@ -6921,6 +7047,15 @@
         "scope": "weights",
         "checkedAt": "2026-08-24",
         "quote": "With Apache-licensed weights, Kokoro can be deployed anywhere from production environments to personal projects."
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "not_published",
+        "sourceUrl": "https://github.com/hexgrad/kokoro",
+        "sourceKind": "repo",
+        "scope": "local",
+        "checkedAt": "2026-09-16",
+        "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice."
       }
     ],
     "nextReviewAt": "2026-11-22",
@@ -7066,6 +7201,15 @@
         "scope": "product",
         "quote": "Yes, Basic, Pro, Max, Business, and Enterprise plans include a commercial license that allows you to use all generated content for commercial purposes without restrictions.",
         "basis": "La respuesta enumera los planes que incluyen licencia comercial y Free no está entre ellos."
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "not_published",
+        "sourceUrl": "https://www.krea.ai/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-16",
+        "lookedFor": "Si lo que genera el plan gratuito lleva marca de agua. La página de precios no lo menciona."
       }
     ],
     "auditNotes": "commercialUse es «no» y no «unverified» porque la tabla lo declara explícitamente: «Commercial license» aparece con aspa en la columna Free y con visto en Basic, Pro y Max. Los precios de los planes de pago no están en el DOM de la página, así que el precio mínimo queda sin verificar.",
@@ -7365,6 +7509,15 @@
         "checkedAt": "2026-09-15",
         "scope": "product",
         "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "not_published",
+        "sourceUrl": "https://intercom.help/leonardo-ai/en/articles/11027827-generating-video-on-leonardo-ai",
+        "sourceKind": "help",
+        "scope": "product",
+        "checkedAt": "2026-09-16",
+        "lookedFor": "Si las imágenes del plan gratuito llevan marca de agua. El centro de ayuda sólo dice que generar vídeo sin marca exige un plan de pago; de las imágenes no dice nada."
       }
     ],
     "startEffortReason": "Hay que crear cuenta y elegir plan —aunque sea el de 0 $— antes de generar.",
@@ -7973,6 +8126,15 @@
         "checkedAt": "2026-08-15",
         "quote": "Text-to-video · Image-to-video · Video extension (both forward and backward) · Keyframe-based animation · Multi-keyframe conditioning · Video-to-video transformations",
         "scope": "local"
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "not_published",
+        "sourceUrl": "https://github.com/Lightricks/LTX-Video",
+        "sourceKind": "repo",
+        "scope": "local",
+        "checkedAt": "2026-09-16",
+        "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice."
       }
     ],
     "nextReviewAt": "2026-11-13",
@@ -8949,6 +9111,15 @@
         "checkedAt": "2026-08-15",
         "quote": "released under a permissive Apache 2.0 license […] requires approximately 60GB VRAM when running on a single GPU […] ComfyUI can optimize to run in under 20GB VRAM",
         "scope": "local"
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "not_published",
+        "sourceUrl": "https://github.com/genmoai/mochi",
+        "sourceKind": "repo",
+        "scope": "local",
+        "checkedAt": "2026-09-16",
+        "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice."
       }
     ],
     "nextReviewAt": "2026-11-13",
@@ -10297,6 +10468,15 @@
         "checkedAt": "2026-09-15",
         "scope": "product",
         "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página sólo dice que aceptan tarjetas de crédito y débito para pagar."
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "not_published",
+        "sourceUrl": "https://playgroundai.com/design/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-16",
+        "lookedFor": "Si lo que genera el plan gratuito lleva marca de agua. La página de precios no lo menciona."
       }
     ],
     "descriptionLong": "",
@@ -10661,6 +10841,15 @@
         "checkedAt": "2026-09-15",
         "scope": "product",
         "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página sólo dice qué medios de pago aceptan para los planes de pago."
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "not_published",
+        "sourceUrl": "https://www.recraft.ai/docs/plans-and-billing/free-plan",
+        "sourceKind": "docs",
+        "scope": "product",
+        "checkedAt": "2026-09-16",
+        "lookedFor": "Si las imágenes del plan gratuito llevan marca de agua. La documentación del plan Free sólo dice que son públicas; la página de precios tampoco lo menciona."
       }
     ],
     "descriptionLong": "",
@@ -11039,6 +11228,12 @@
         "label": "Condiciones de uso",
         "kind": "docs",
         "checkedAt": "2026-09-15"
+      },
+      {
+        "url": "https://help.runwayml.com/hc/en-us/articles/50404627334547-Free-plan-details",
+        "label": "Centro de ayuda oficial",
+        "kind": "docs",
+        "checkedAt": "2026-09-16"
       }
     ],
     "scores": {
@@ -11102,12 +11297,12 @@
       },
       {
         "field": "freePlan.hasWatermark",
-        "outcome": "derived",
-        "sourceUrl": "https://runway.com/pricing",
-        "sourceKind": "pricing",
+        "outcome": "stated",
+        "sourceUrl": "https://help.runwayml.com/hc/en-us/articles/50404627334547-Free-plan-details",
+        "sourceKind": "help",
         "scope": "product",
-        "checkedAt": "2026-08-29",
-        "basis": "«No watermarks» aparece por primera vez entre las características del plan Standard. Si no llevar marca es lo que se compra al subir de plan, la salida del gratuito la lleva. La página no lo afirma con esas palabras: lo deducimos de su tabla."
+        "checkedAt": "2026-09-16",
+        "quote": "All videos generated on a Free plan feature a Runway watermark."
       },
       {
         "field": "freePlan.requiresCreditCard",
@@ -11227,6 +11422,15 @@
         "scope": "local",
         "checkedAt": "2026-09-15",
         "quote": "Generate with Text-to-Image, Image-to-Image, Text-to-Video, Image-to-Video, etc. · Edit with Detailer, HiRes/Refine, Image-Edit, Inpainting, Outpainting, etc. · Process with Caption, Tag, Upscale, Interpolate, Colorize, Filter, etc. · Automatic model download"
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "not_published",
+        "sourceUrl": "https://github.com/vladmandic/sdnext",
+        "sourceKind": "repo",
+        "scope": "local",
+        "checkedAt": "2026-09-16",
+        "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice."
       }
     ],
     "descriptionLong": "",
@@ -11383,6 +11587,15 @@
         "checkedAt": "2026-09-15",
         "quote": "Download sd.webui.zip from v1.0.0-pre and extract its contents.",
         "basis": "Se instala descargando el paquete del repositorio oficial (AGPL-3.0): no hay alta ni pago donde pedir una tarjeta."
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "not_published",
+        "sourceUrl": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
+        "sourceKind": "repo",
+        "scope": "local",
+        "checkedAt": "2026-09-16",
+        "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice."
       }
     ],
     "startEffortReason": "Exige entorno de Python, descarga de modelos y GPU.",
@@ -11637,6 +11850,15 @@
         "scope": "product",
         "quote": "No commercial rights",
         "basis": "En la lista del Free Plan."
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "not_published",
+        "sourceUrl": "https://suno.com/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-16",
+        "lookedFor": "Si las canciones del plan gratuito llevan marca de agua. La página de precios no lo menciona."
       }
     ],
     "startEffort": "signup",
@@ -11700,7 +11922,7 @@
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "no",
-      "hasWatermark": "unverified",
+      "hasWatermark": "yes",
       "commercialUse": "unverified",
       "creditsAmount": "1.200 créditos/mes (≈10 min de vídeo)",
       "creditReset": "monthly",
@@ -11734,6 +11956,12 @@
         "kind": "pricing",
         "publisher": "synthesia.io",
         "checkedAt": "2026-08-15"
+      },
+      {
+        "url": "https://help.synthesia.io/en/articles/9564635-how-do-i-remove-the-synthesia-watermark",
+        "label": "Centro de ayuda oficial",
+        "kind": "docs",
+        "checkedAt": "2026-09-16"
       }
     ],
     "evidence": [
@@ -11764,6 +11992,16 @@
         "scope": "product",
         "quote": "No credit card required",
         "basis": "Aparece en la tarjeta del plan Basic, 0 €/mes."
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "stated",
+        "sourceUrl": "https://help.synthesia.io/en/articles/9564635-how-do-i-remove-the-synthesia-watermark",
+        "sourceKind": "help",
+        "scope": "product",
+        "checkedAt": "2026-09-16",
+        "quote": "The Synthesia logo (watermark) will appear on all videos created with your account.",
+        "basis": "Es la respuesta del apartado «If you are on the Basic Plan:»; Basic es el plan gratuito."
       }
     ],
     "nextReviewAt": "2026-11-13",
@@ -12032,6 +12270,15 @@
         "checkedAt": "2026-08-15",
         "quote": "Text-to-Video (T2V) · Image-to-Video (I2V) · Speech-to-Video (S2V) · Character Animation and Replacement (Animate)",
         "scope": "local"
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "not_published",
+        "sourceUrl": "https://github.com/Wan-Video/Wan2.2",
+        "sourceKind": "repo",
+        "scope": "local",
+        "checkedAt": "2026-09-16",
+        "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice."
       }
     ],
     "auditNotes": "«Speech-to-Video» y «Animate» no tienen capacidad equivalente en la taxonomía; quedan descritas en el texto en lugar de forzarse dentro de una etiqueta que significaría otra cosa.",
