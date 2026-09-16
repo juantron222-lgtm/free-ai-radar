@@ -66,27 +66,27 @@
     "slug": "anthropic-informe-amenazas-septiembre-2026",
     "title": "Anthropic alerta de que el papel de la IA en los ciberataques es cada vez más autónomo",
     "author": "Redacción de Free AI Radar",
-    "summary": "Anthropic publicó el 10 de septiembre un informe sobre las operaciones maliciosas con Claude que desarticuló entre diciembre de 2025 y agosto de 2026 en siete áreas, de las ciberoperaciones y la vigilancia al fraude y la destilación. Según la compañía, la mayoría de las operaciones descritas usaban la IA para ejecutar u orquestar el ataque, con marcos de varios agentes para el reconocimiento, la explotación y la extracción de datos. Los casos emplearon Claude Haiku, Sonnet y Opus; no halló actividad maliciosa en Fable ni en Mythos.",
+    "summary": "Anthropic publicó el 10 de septiembre un informe sobre las operaciones maliciosas con Claude que desarticuló entre diciembre de 2025 y agosto de 2026 en siete áreas, de las ciberoperaciones y la vigilancia al fraude y la destilación. Según la compañía, la mayoría de las operaciones descritas usaban la IA para ejecutar u orquestar el ataque, con marcos de varios agentes para el reconocimiento, la explotación y la extracción de datos. Los casos emplearon modelos Claude Haiku, Sonnet y Opus; según Anthropic, ninguno usó Fable ni modelos de la clase Mythos, salvo un caso de destilación ilícita.",
     "impact": "Según el informe, la IA ha reducido la distancia entre las operaciones con respaldo estatal y los atacantes individuales: un hacktivista con claves de API robadas e individuos con ánimo de lucro sostuvieron campañas contra varias víctimas. En uno de los casos, una clave robada sirvió unas tres semanas para atacar a otras organizaciones, y Anthropic advierte de que una API expuesta elimina la barrera de entrada. También dice haber frenado nuevos intentos de destilar Claude desde siete laboratorios con sede en China.",
     "category": "agentes",
     "eventType": "anuncio",
     "availability": "unknown",
     "publishedAt": "2026-09-10",
-    "checkedAt": "2026-09-13",
+    "checkedAt": "2026-09-16",
     "officialUrl": "https://www.anthropic.com/threat-intelligence-report-september-2026",
     "sources": [
       {
         "url": "https://www.anthropic.com/threat-intelligence-report-september-2026",
         "kind": "official",
         "label": "Detecting and countering misuse of AI: September 2026",
-        "checkedAt": "2026-09-13",
+        "checkedAt": "2026-09-16",
         "publisher": "anthropic.com"
       },
       {
         "url": "https://www.anthropic.com/news",
         "kind": "official",
         "label": "Anthropic Newsroom",
-        "checkedAt": "2026-09-13",
+        "checkedAt": "2026-09-16",
         "publisher": "anthropic.com"
       }
     ],
@@ -131,22 +131,22 @@
   {
     "id": "news-2026-09-10-deepseek-v4-1-flash",
     "slug": "deepseek-v4-1-flash",
-    "title": "DeepSeek lanza V4.1-Flash y desviará a él las peticiones de V4-Pro desde el 14 de septiembre",
+    "title": "DeepSeek lanza V4.1-Flash y redirige a él las peticiones de V4-Pro desde el 14 de septiembre",
     "author": "Redacción de Free AI Radar",
-    "summary": "DeepSeek presentó el 10 de septiembre V4.1-Flash, el modelo más pequeño de su nueva familia de arquitectura, con comprensión visual nativa. Es un modelo de mezcla de expertos de 552.000 millones de parámetros que activa 8.000 millones para procesar la entrada y 16.000 millones para generar la salida. Ya está disponible en la API de DeepSeek. La compañía afirma que pruebas de varias partes lo sitúan por delante de V4-Pro en rendimiento, coste, velocidad y tiempo total de ejecución.",
-    "impact": "Desde las 04:00 UTC del 14 de septiembre, las peticiones a V4-Pro se desviarán a V4.1-Flash y se cobrarán a su tarifa hasta que llegue V4.1-Pro: quien integra la API cambiará de modelo sin tocar su código. DeepSeek sostiene que el nuevo modelo le permite servir a más usuarios con menor coste, y mantiene tarifas fuera de hora punta a la mitad de las de hora punta.",
+    "summary": "DeepSeek presentó el 10 de septiembre V4.1-Flash, el modelo más pequeño de su nueva familia de arquitectura, con comprensión visual nativa. Es un modelo de mezcla de expertos de 552.000 millones de parámetros que activa 8.000 millones para procesar la entrada y 16.000 millones para generar la salida. Está disponible en la API de DeepSeek y sustituye a V4-Flash y V4-Flash-Vision-Exp, que quedan retirados. Según la compañía, pruebas de varias partes lo sitúan por delante de V4-Pro en rendimiento, coste y velocidad.",
+    "impact": "Desde las 04:00 UTC del 14 de septiembre, las peticiones a V4-Pro se redirigen a V4.1-Flash y se cobran a su tarifa hasta que llegue V4.1-Pro; los identificadores de V4-Flash y V4-Flash-Vision-Exp también apuntan a él de forma temporal. Una integración con la API puede, por tanto, estar usando otro modelo sin haber cambiado su código. DeepSeek bajó además los precios de su API el 10 de septiembre y mantiene las tarifas fuera de hora punta a la mitad de las de hora punta.",
     "category": "modelo-multimodal",
     "eventType": "lanzamiento",
     "availability": "available",
     "publishedAt": "2026-09-10",
-    "checkedAt": "2026-09-11",
+    "checkedAt": "2026-09-16",
     "officialUrl": "https://www.deepseek.com/en/news/deepseek-v4-1-flash/",
     "sources": [
       {
         "url": "https://www.deepseek.com/en/news/deepseek-v4-1-flash/",
         "kind": "official",
         "label": "Introducing DeepSeek-V4.1-Flash: smarter, faster, more efficient.",
-        "checkedAt": "2026-09-11",
+        "checkedAt": "2026-09-16",
         "publisher": "deepseek.com"
       }
     ],
@@ -220,29 +220,29 @@
   {
     "id": "news-2026-09-10-openai-agents-api-gpt-live-1",
     "slug": "openai-agents-api-gpt-live-1",
-    "title": "OpenAI lanza la Agents API y lleva la voz en tiempo real de GPT-Live-1 a su API",
+    "title": "OpenAI abre en beta pública la Agents API y lleva la voz en tiempo real de GPT-Live-1 a su API",
     "author": "Redacción de Free AI Radar",
-    "summary": "OpenAI presentó el 10 de septiembre la Agents API, un servicio gestionado para crear y lanzar agentes en la nube que se apoya en el entorno de Codex para la orquestación, las sesiones de larga duración y el uso de herramientas. El mismo día incorporó a su API GPT-Live-1, que ofrece conversaciones de voz naturales en dúplex completo, con mejor seguimiento de instrucciones, voces personalizadas y soporte para telefonía.",
-    "impact": "Las dos piezas empujan en la misma dirección: agentes que trabajan en sesiones largas y usan herramientas, y voz natural capaz de atender llamadas telefónicas, ambas servidas desde la plataforma de OpenAI. Que la orquestación llegue como servicio gestionado desplaza hacia OpenAI una parte del trabajo de infraestructura que exige desplegar agentes.",
+    "summary": "OpenAI presentó el 10 de septiembre la Agents API, en beta pública para todos los desarrolladores: un servicio gestionado para crear y ejecutar agentes en la nube con el mismo entorno que usa Codex, que se ocupa de la orquestación, las sesiones de larga duración, el uso de herramientas y los subagentes. El mismo día llevó a su API GPT-Live-1, un modelo para conversaciones de voz naturales en dúplex completo, con mejor seguimiento de instrucciones, voces personalizadas y soporte para telefonía.",
+    "impact": "La Agents API no tiene cuota propia: se pagan los tokens y las herramientas que consumen los agentes, según la tabla de precios de OpenAI. Al ser una beta, OpenAI avisa de que la irá cambiando con los comentarios de los desarrolladores antes de su disponibilidad general. El entorno de Codex en el que se apoya es de código abierto, así que se puede inspeccionar la lógica que coordina las llamadas al modelo, las herramientas y el contexto.",
     "category": "agentes",
-    "eventType": "lanzamiento",
-    "availability": "available",
+    "eventType": "preview-beta",
+    "availability": "preview",
     "publishedAt": "2026-09-10",
-    "checkedAt": "2026-09-11",
+    "checkedAt": "2026-09-16",
     "officialUrl": "https://openai.com/index/introducing-the-agents-api",
     "sources": [
       {
         "url": "https://openai.com/index/introducing-the-agents-api",
         "kind": "official",
         "label": "Introducing the Agents API",
-        "checkedAt": "2026-09-11",
+        "checkedAt": "2026-09-16",
         "publisher": "openai.com"
       },
       {
         "url": "https://openai.com/news/rss.xml",
         "kind": "official",
         "label": "OpenAI News, canal oficial",
-        "checkedAt": "2026-09-11",
+        "checkedAt": "2026-09-16",
         "publisher": "openai.com"
       }
     ],
@@ -290,65 +290,29 @@
     "frontPage": true
   },
   {
-    "id": "news-2026-09-09-openai-gpt-6-astra",
-    "slug": "openai-gpt-6-astra",
-    "title": "OpenAI lanza GPT-6 Astra y lo declara su primer modelo de nivel crítico en ciberseguridad",
-    "author": "Redacción de Free AI Radar",
-    "summary": "OpenAI presentó el 9 de septiembre GPT-6 Astra, al que describe como su modelo más inteligente y mejor alineado hasta la fecha, con capacidades punteras en uso de ordenador, programación, ciberseguridad y ciencia. En su resumen de seguridad la compañía va más lejos: afirma que es su modelo desplegado de forma amplia más capaz y el primero en alcanzar el nivel «crítico» de capacidad en ciberseguridad dentro de su Preparedness Framework, el marco con el que clasifica los riesgos de sus propios sistemas antes de desplegarlos.",
-    "impact": "Que un laboratorio sitúe a su modelo en el escalón más alto de su propia escala de riesgo en ciberseguridad es una declaración con consecuencias: ese marco condiciona qué salvaguardas exige antes de desplegar y qué accesos restringe. La clasificación es de OpenAI sobre sí misma, no de un evaluador independiente.",
-    "category": "modelo-lenguaje",
-    "eventType": "lanzamiento",
-    "availability": "available",
-    "publishedAt": "2026-09-09",
-    "checkedAt": "2026-09-10",
-    "officialUrl": "https://openai.com/index/gpt-6-astra",
-    "sources": [
-      {
-        "url": "https://openai.com/index/gpt-6-astra",
-        "kind": "official",
-        "label": "GPT-6 Astra: A new generation of intelligence",
-        "checkedAt": "2026-09-10",
-        "publisher": "openai.com"
-      },
-      {
-        "url": "https://openai.com/news/rss.xml",
-        "kind": "official",
-        "label": "OpenAI News, canal oficial",
-        "checkedAt": "2026-09-10",
-        "publisher": "openai.com"
-      }
-    ],
-    "relatedTools": [],
-    "affectsFreePlan": "unverified",
-    "verification": "verified",
-    "status": "published",
-    "unconfirmed": [],
-    "frontPage": true
-  },
-  {
     "id": "news-2026-09-09-suno-v6",
     "slug": "suno-v6",
-    "title": "Suno lanza v6, su nueva generación de modelos musicales, con Warner, BMG y Believe",
+    "title": "Suno lanza v6: el modelo principal queda para Pro y Premier, y v6-mini está disponible para todos",
     "author": "Redacción de Free AI Radar",
-    "summary": "Suno presentó el 9 de septiembre v6, una nueva generación de modelos de generación musical desarrollada junto a socios de la industria discográfica entre los que figuran Warner Music Group, BMG y Believe. La compañía sostiene que los modelos son más rápidos, más expresivos y de mayor calidad que los anteriores, y que incorporan controles nuevos para quienes crean música. Suno enmarca el lanzamiento como la base para futuros productos que abran vías de ingreso dentro del ecosistema musical.",
-    "impact": "Suno llevaba meses en conflicto con titulares de derechos. Lanzar producto junto a tres de los mayores actores de la distribución musical cambia el terreno práctico para un músico: la discusión deja de ser si un tema generado puede publicarse y pasa a ser en qué condiciones y con qué reparto.",
+    "summary": "Suno presentó el 9 de septiembre v6, una nueva generación de modelos musicales desarrollada con socios de la industria como Warner Music Group, BMG y Believe. Llega en tres modelos: v6, el principal, y v6-wild, pensado para resultados menos previsibles, son para suscriptores Pro y Premier; v6-mini, más rápido y eficiente, está disponible para todos. Suno retirará sus modelos anteriores a medida que despliegue v6.",
+    "impact": "Quien usa Suno sin pagar tiene acceso a v6-mini, no al modelo principal. Suno sostiene que v6-mini da mejores resultados, y más rápido, que cualquier modelo gratuito de otra plataforma de creación musical; es una afirmación de la propia empresa. Entre las novedades de v6 están editar una parte de una canción con instrucciones en lenguaje natural, combinar elementos de varias canciones en una sola petición y cambiar una línea de la letra sin rehacer el tema. El anuncio no detalla qué funciones incluye cada modelo.",
     "category": "audio",
     "eventType": "lanzamiento",
     "availability": "available",
     "publishedAt": "2026-09-09",
-    "checkedAt": "2026-09-10",
+    "checkedAt": "2026-09-16",
     "officialUrl": "https://suno.com/blog/introducing-v6",
     "sources": [
       {
         "url": "https://suno.com/blog/introducing-v6",
         "kind": "official",
         "label": "Introducing v6",
-        "checkedAt": "2026-09-10",
+        "checkedAt": "2026-09-16",
         "publisher": "suno.com"
       }
     ],
     "relatedTools": [],
-    "affectsFreePlan": "unverified",
+    "affectsFreePlan": "yes",
     "verification": "verified",
     "status": "published",
     "unconfirmed": [],
@@ -374,6 +338,42 @@
         "label": "NVIDIA to Acquire Hugging Face",
         "checkedAt": "2026-09-10",
         "publisher": "nvidia.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-09-openai-gpt-6-astra",
+    "slug": "openai-gpt-6-astra",
+    "title": "OpenAI lanza GPT-6 Astra y lo sitúa en el nivel «crítico» de ciberseguridad de su propio marco de riesgos",
+    "author": "Redacción de Free AI Radar",
+    "summary": "OpenAI presentó el 3 de septiembre GPT-6 Astra, al que califica como el modelo más inteligente y mejor alineado del mundo, con capacidades punteras en uso del ordenador, programación, ciberseguridad y ciencia. El acceso es escalonado: ese día llegó a un grupo reducido de organizaciones, y OpenAI anunció que en los días siguientes estaría disponible para los usuarios de ChatGPT Plus, Pro, Business y Enterprise, en su API, en Microsoft Azure y en AWS Bedrock. El anuncio no menciona el plan gratuito de ChatGPT.",
+    "impact": "En su resumen de seguridad, OpenAI afirma que es el primero de sus modelos que alcanza el nivel «crítico» de capacidad en ciberseguridad de su Preparedness Framework, el marco con el que clasifica los riesgos de sus propios sistemas. Por eso lo lanza con salvaguardas más estrictas: rechaza tareas avanzadas como crear exploits de prueba de concepto. En la API cuesta 10 dólares por millón de tokens de entrada y 50 por millón de salida. La clasificación de riesgo es de OpenAI sobre su propio modelo, no de un evaluador independiente.",
+    "category": "modelo-lenguaje",
+    "eventType": "lanzamiento",
+    "availability": "limited",
+    "publishedAt": "2026-09-03",
+    "checkedAt": "2026-09-16",
+    "officialUrl": "https://openai.com/index/gpt-6-astra",
+    "sources": [
+      {
+        "url": "https://openai.com/index/gpt-6-astra",
+        "kind": "official",
+        "label": "GPT-6 Astra: A new generation of intelligence",
+        "checkedAt": "2026-09-16",
+        "publisher": "openai.com"
+      },
+      {
+        "url": "https://openai.com/news/rss.xml",
+        "kind": "official",
+        "label": "OpenAI News, canal oficial",
+        "checkedAt": "2026-09-16",
+        "publisher": "openai.com"
       }
     ],
     "relatedTools": [],
@@ -637,20 +637,20 @@
     "id": "news-2026-06-30-claude-sonnet-5",
     "slug": "claude-sonnet-5-pasa-a-ser-el-modelo-por-defecto-del-plan-gratuito",
     "title": "Claude Sonnet 5 pasa a ser el modelo por defecto del plan gratuito",
-    "summary": "Anthropic publicó Claude Sonnet 5 el 30 de junio de 2026. Según el anuncio oficial, «is the default model for Free and Pro plans, and is available to Max, Team, and Enterprise users». El precio de API es introductorio hasta el 31 de agosto de 2026: 2 dólares por millón de tokens de entrada y 10 por millón de salida, frente a los 3 y 15 estándar.",
-    "impact": "Es de los cambios que más importan aquí: quien usa Claude sin pagar pasa a tener Sonnet 5 por defecto, sin hacer nada. Y si usas la API, el precio sube automáticamente el 1 de septiembre de 2026 a 3 y 15 dólares — conviene tenerlo en cuenta antes de esa fecha.",
+    "summary": "Anthropic publicó Claude Sonnet 5 el 30 de junio de 2026 y lo convirtió en el modelo por defecto de los planes Free y Pro de Claude; también está disponible para los usuarios de Max, Team y Enterprise. En la API cuesta 2 dólares por millón de tokens de entrada y 10 por millón de salida. Ese precio se anunció como introductorio, pero el 10 de agosto Anthropic lo hizo permanente: la subida a 3 y 15 dólares prevista para el 1 de septiembre ya no se aplica.",
+    "impact": "Quien usa Claude sin pagar tiene Sonnet 5 como modelo por defecto sin hacer nada. Para quien usa la API, la subida de precio que el anuncio original fijaba para el 1 de septiembre no ha llegado a aplicarse. Anthropic advierte de que Sonnet 5 usa un tokenizador nuevo: el mismo texto puede convertirse en entre 1 y 1,35 veces más tokens que con Sonnet 4.6, según el tipo de contenido, así que una misma tarea puede consumir más tokens aunque la tarifa no cambie.",
     "category": "modelo-lenguaje",
     "eventType": "lanzamiento",
     "availability": "available",
     "publishedAt": "2026-06-30",
-    "checkedAt": "2026-08-11",
+    "checkedAt": "2026-09-16",
     "sources": [
       {
         "url": "https://www.anthropic.com/news/claude-sonnet-5",
         "label": "Introducing Claude Sonnet 5",
         "kind": "official",
         "publisher": "anthropic.com",
-        "checkedAt": "2026-08-11"
+        "checkedAt": "2026-09-16"
       }
     ],
     "officialUrl": "https://www.anthropic.com/news/claude-sonnet-5",
@@ -663,7 +663,7 @@
     "status": "published",
     "author": "Redacción de Free AI Radar",
     "seoTitle": "Claude Sonnet 5, ya por defecto en el plan gratuito",
-    "seoDescription": "Sonnet 5 es el modelo por defecto de los planes Free y Pro de Claude. Precio de API introductorio hasta el 31 de agosto de 2026.",
+    "seoDescription": "Sonnet 5 es el modelo por defecto de los planes Free y Pro de Claude. En la API cuesta 2 $/M de entrada y 10 $/M de salida, ya de forma permanente.",
     "unconfirmed": []
   },
   {
