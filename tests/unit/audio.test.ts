@@ -159,7 +159,13 @@ describe('la verificación de audio', () => {
     const tool = bySlug.get('suno-ai')!;
     expect(tool.freePlan.commercialUse).toBe('no');
     expect(tool.freePlan.creditReset).toBe('daily');
-    expect(tool.freePlan.creditsAmount).toBe('50 créditos/día (10 canciones)');
+    /*
+     * Decía «50 créditos/día (10 canciones)» porque la página lo equiparaba el
+     * 18 de agosto. El 16 de septiembre ya no publica esa equivalencia, así que
+     * la cifra se queda en créditos.
+     */
+    expect(tool.freePlan.creditsAmount).toBe('50 créditos/día');
+    expect(`${tool.tagline} ${tool.freePlan.summary}`).not.toMatch(/diez canciones|10 canciones/);
   });
 
   it('ElevenLabs reserva la licencia comercial para los planes de pago', () => {
@@ -197,8 +203,8 @@ describe('la verificación de audio', () => {
     /*
      * La equivalencia aparece porque la publica la fuente, no porque la
      * hayamos calculado: 20.000 créditos no son 27 minutos en ninguna regla de
-     * tres nuestra. En Suno pasa lo mismo con «10 canciones», y en ElevenLabs
-     * —que no publica equivalencia— los créditos se quedan a secas.
+     * tres nuestra. Suno la publicaba con «10 canciones» y dejó de hacerlo, así
+     * que ahí también se quedan a secas, como en ElevenLabs.
      */
     const tool = bySlug.get('cartesia')!;
     expect(tool.freePlan.creditsAmount).toContain('20.000 créditos/mes');

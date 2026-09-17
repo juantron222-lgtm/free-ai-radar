@@ -1633,7 +1633,7 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-20",
+      "verifiedAt": "2026-09-16",
       "summary": "Sin capa gratuita de API. 2 $ por millón de tokens de entrada y 10 $ de salida.",
       "limits": [
         "2 $/M de entrada · 10 $/M de salida",
@@ -1730,6 +1730,16 @@
         "checkedAt": "2026-08-20",
         "quote": "Claude Sonnet 5 — The best combination of speed and intelligence · Adaptive thinking: Yes · Context window 1M tokens · Max output 128k · $2 / input MTok $10 / output MTok",
         "scope": "api"
+      },
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://platform.claude.com/docs/en/about-claude/models/overview",
+        "sourceKind": "docs",
+        "scope": "api",
+        "quote": "Claude Sonnet 5 · The best combination of speed and intelligence · $2 / input MTok · $10 / output MTok · claude-sonnet-5 · 1M tokens · 128K tokens",
+        "basis": "Tercera columna de la tabla comparativa de modelos. La página de precios añade que 2/10 $ es ya el precio estándar y que la subida a 3/15 $ del 1 de septiembre no se aplicará.",
+        "checkedAt": "2026-09-16"
       }
     ],
     "startEffortReason": "Por API con clave y facturación; en claude.ai basta una cuenta.",
@@ -2270,18 +2280,19 @@
     ],
     "freeModel": "free_real",
     "freePlan": {
-      "summary": "100% gratuito y open-source. Sin límites. Todo el procesamiento es local.",
+      "summary": "Gratuito y open source. Funciona en local y sin conexión en Windows, Linux y macOS, con GPU de NVIDIA, AMD, Intel, Apple Silicon o Ascend. Los nodos de API de Comfy son opcionales y de pago.",
       "limits": [
-        "Curva de aprendizaje pronunciada (interfaz nodal)",
-        "Requiere GPU NVIDIA con VRAM adecuada",
-        "Los workflows complejos pueden ser difíciles de depurar"
+        "Funciona sin conexión: el núcleo no descarga nada si no se lo pides",
+        "Compatible con GPU NVIDIA, AMD, Intel, Apple Silicon y Ascend",
+        "La versión portátil para Windows funciona también sólo con CPU",
+        "Los nodos de API de Comfy son opcionales y de pago"
       ],
       "requiresSignup": "no",
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-07-08"
+      "verifiedAt": "2026-09-16"
     },
     "openSource": "yes",
     "hosting": "local",
@@ -2312,6 +2323,12 @@
         "label": "Documentación",
         "kind": "docs",
         "checkedAt": "2026-07-08"
+      },
+      {
+        "url": "https://github.com/Comfy-Org/ComfyUI",
+        "label": "Fuente oficial",
+        "kind": "repo",
+        "checkedAt": "2026-09-16"
       }
     ],
     "scores": {
@@ -2325,7 +2342,6 @@
     "pros": [],
     "cons": [
       "Curva de aprendizaje pronunciada (interfaz nodal)",
-      "Requiere GPU NVIDIA con VRAM adecuada",
       "Los workflows complejos pueden ser difíciles de depurar"
     ],
     "bestFor": [],
@@ -2396,6 +2412,15 @@
         "scope": "local",
         "checkedAt": "2026-09-16",
         "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice."
+      },
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://github.com/Comfy-Org/ComfyUI",
+        "sourceKind": "repo",
+        "scope": "local",
+        "quote": "Supports all operating systems and GPU types (NVIDIA, AMD, Intel, Apple Silicon, Ascend). · Runs fully offline: core does not download anything unless you request it. · the optional paid Comfy API nodes · There is a portable standalone build for Windows that should work for running on Nvidia GPUs or for running on your CPU only.",
+        "checkedAt": "2026-09-16"
       }
     ],
     "startEffortReason": "Exige instalar el entorno, descargar los modelos y montar el grafo de nodos.",
@@ -2849,14 +2874,15 @@
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-20",
+      "verifiedAt": "2026-09-16",
       "commercialUse": "yes",
-      "summary": "Repositorio y pesos bajo licencia MIT, que permite uso comercial sin condiciones añadidas. Por API se paga por token, con precio de hora punta —1,32 $ de entrada y 3,96 $ de salida por millón— y de hora valle.",
+      "summary": "Repositorio y pesos bajo licencia MIT. Por API se paga por token: 1,32 $ de entrada sin caché y 3,96 $ de salida por millón en hora punta, y la mitad en hora valle. DeepSeek mantiene la API de V4 Pro después del 14 de septiembre de 2026 con la misma facturación.",
       "limits": [
         "Pesos y código: MIT",
-        "1,7 billones de parámetros · contexto de 1M · salida máxima de 384k",
-        "API en hora valle: 0,22 $/M de entrada sin caché · 0,66 $/M de salida",
-        "API en hora punta: 1,32 $/M de entrada sin caché · 3,96 $/M de salida"
+        "Contexto de 1M · salida máxima de 384K",
+        "API en hora valle: 0,66 $/M de entrada sin caché · 1,98 $/M de salida",
+        "API en hora punta: 1,32 $/M de entrada sin caché · 3,96 $/M de salida",
+        "La API sigue disponible después del 14 de septiembre de 2026, con la misma facturación"
       ]
     },
     "access": {
@@ -2896,18 +2922,15 @@
         "kind": "pricing",
         "publisher": "deepseek.com",
         "checkedAt": "2026-08-20"
+      },
+      {
+        "url": "https://api-docs.deepseek.com/quick_start/pricing",
+        "label": "Fuente oficial",
+        "kind": "pricing",
+        "checkedAt": "2026-09-16"
       }
     ],
     "evidence": [
-      {
-        "field": "freePlan.limits",
-        "outcome": "stated",
-        "sourceUrl": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813",
-        "sourceKind": "repo",
-        "checkedAt": "2026-08-20",
-        "quote": "This repository and the model weights are licensed under the MIT License",
-        "scope": "local"
-      },
       {
         "field": "capabilities",
         "outcome": "stated",
@@ -2916,6 +2939,25 @@
         "scope": "api",
         "checkedAt": "2026-08-29",
         "quote": "deepseek-v4-pro: 1M context length, max 384K output. Peak hours: $1.32/1M input (cache miss), $3.96/1M output"
+      },
+      {
+        "field": "openSource",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813",
+        "sourceKind": "repo",
+        "checkedAt": "2026-08-20",
+        "quote": "This repository and the model weights are licensed under the MIT License",
+        "scope": "local"
+      },
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://api-docs.deepseek.com/quick_start/pricing",
+        "sourceKind": "pricing",
+        "scope": "api",
+        "quote": "CONTEXT LENGTH 1M · MAX OUTPUT MAXIMUM: 384K · OFF-PEAK $0.15 $0.66 · PEAK $0.3 $1.32 · OFF-PEAK $0.6 $1.98 · PEAK $1.2 $3.96 · In response to user demand, we have decided to continue providing API services for DeepSeek V4 Pro after September 14, 2026, with the billing method remaining unchanged.",
+        "basis": "Columna deepseek-v4-pro: la segunda cifra de cada fila de precios. La licencia MIT se cita aparte, en la evidencia de código abierto.",
+        "checkedAt": "2026-09-16"
       }
     ],
     "slug": "deepseek-v4-pro",
@@ -3842,18 +3884,18 @@
     ],
     "freeModel": "free_real",
     "freePlan": {
-      "summary": "100% gratuito y open-source. Instalación en un clic. Sin límites de generación.",
+      "summary": "Gratuito, open source y sin conexión. Está en soporte limitado: sólo recibe correcciones de errores. Con GPU NVIDIA pide como mínimo 4 GB de VRAM y 8 GB de RAM; otras plataformas tienen su propio mínimo.",
       "limits": [
-        "Menos control que ComfyUI o AUTOMATIC1111",
-        "Requiere GPU NVIDIA con al menos 4GB VRAM",
-        "Personalización avanzada limitada"
+        "Requisito mínimo con GPU NVIDIA: 4 GB de VRAM y 8 GB de RAM; otras plataformas tienen el suyo",
+        "Soporte limitado: sólo correcciones de errores",
+        "Construido sólo sobre Stable Diffusion XL"
       ],
       "requiresSignup": "no",
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-07-08"
+      "verifiedAt": "2026-09-16"
     },
     "openSource": "yes",
     "hosting": "local",
@@ -3897,7 +3939,6 @@
     "pros": [],
     "cons": [
       "Menos control que ComfyUI o AUTOMATIC1111",
-      "Requiere GPU NVIDIA con al menos 4GB VRAM",
       "Personalización avanzada limitada"
     ],
     "bestFor": [],
@@ -3967,6 +4008,15 @@
         "scope": "local",
         "checkedAt": "2026-09-16",
         "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice."
+      },
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://github.com/lllyasviel/Fooocus",
+        "sourceKind": "repo",
+        "scope": "local",
+        "quote": "Project Status: Limited Long-Term Support (LTS) with Bug Fixes Only · built entirely on the Stable Diffusion XL architecture · Note that the minimal requirement is 4GB Nvidia GPU memory (4GB VRAM) and 8GB system memory (8GB RAM). · Note that the minimal requirement for different platforms is different.",
+        "checkedAt": "2026-09-16"
       }
     ],
     "startEffortReason": "Se descarga y se ejecuta con un solo fichero, pero exige GPU y descarga modelos de varios gigas.",
@@ -6050,19 +6100,18 @@
     ],
     "freeModel": "free_real",
     "freePlan": {
-      "summary": "Uso completamente gratuito. Navega y prueba miles de demos IA sin registro, sin límites y sin pagar. Alojar tus propias demos también es gratis.",
+      "summary": "Explorar demos y alojar las tuyas es gratis: el hardware básico (2 vCPU y 16 GB) y ZeroGPU tienen precio cero, y las GPU dedicadas se pagan por horas. ZeroGPU tiene cuota: la de la cuenta PRO es ocho veces mayor.",
       "limits": [
-        "Las demos pueden estar lentas si el Space está en CPU",
-        "Las demos pueden caerse si el creador no las mantiene",
-        "Calidad variable entre demos (depende del creador)",
-        "No es una herramienta única sino un repositorio"
+        "Hardware CPU Basic gratuito: 2 vCPU y 16 GB de memoria",
+        "ZeroGPU gratuito, con cuota; la cuenta PRO la multiplica por 8",
+        "GPU dedicadas de pago por horas, desde 0,40 $/h (Nvidia T4)"
       ],
       "requiresSignup": "no",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-07-08"
+      "verifiedAt": "2026-09-16"
     },
     "openSource": "yes",
     "hosting": "cloud",
@@ -6161,6 +6210,15 @@
         "checkedAt": "2026-08-12",
         "quote": "rom the Team plan Highest storage, bandwidth, and API rate limits Automated user management with SCIM provisio · & Enterprise Hugging Face PRO Enterprise Support Inference Providers Inference Endpoints Storage Buckets Log I",
         "scope": "local"
+      },
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "quote": "On-demand GPU hardware. Starting at $0. · CPU Basic 2 vCPU 16 GB - - FREE · ZeroGPU dynamic dynamic Nvidia RTX Pro 6000 Blackwell up to 96 GB FREE · Nvidia T4 - small 4 vCPU 15 GB Nvidia T4 16 GB $0.40 · 8× ZeroGPU quota and highest queue priority",
+        "checkedAt": "2026-09-16"
       }
     ],
     "startEffortReason": "Muchos Spaces se abren sin cuenta, pero las colas y los límites empiezan a exigirla.",
@@ -7662,18 +7720,19 @@
     ],
     "freeModel": "free_real",
     "freePlan": {
-      "summary": "Gratuito para uso personal. La aplicación de escritorio es freeware. Sin límites de generación ni tokens.",
+      "summary": "La app se descarga gratis y ejecuta modelos en tu equipo. Su plan Free incluye el agente Bionic, modelos locales con llama.cpp y MLX, transcripción de voz sin conexión, LM Link para hasta 5 dispositivos y búsqueda web limitada. Los modelos alojados en su nube son de pago, desde 20 $ al mes.",
       "limits": [
-        "No es open-source (freeware propietario)",
-        "Solo disponible para Windows, macOS y Linux x86",
-        "Rendimiento depende del hardware local"
+        "Modelos locales con llama.cpp y MLX",
+        "LM Link para hasta 5 dispositivos",
+        "Búsqueda web limitada",
+        "Modelos en la nube de LM Studio: sólo de pago (Bionic+, 20 $/mes)"
       ],
       "requiresSignup": "no",
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-07-08"
+      "verifiedAt": "2026-09-16"
     },
     "openSource": "no",
     "hosting": "hybrid",
@@ -7703,6 +7762,12 @@
         "label": "Documentación",
         "kind": "docs",
         "checkedAt": "2026-07-08"
+      },
+      {
+        "url": "https://lmstudio.ai/pricing",
+        "label": "Fuente oficial",
+        "kind": "pricing",
+        "checkedAt": "2026-09-16"
       }
     ],
     "scores": {
@@ -7716,7 +7781,6 @@
     "pros": [],
     "cons": [
       "No es open-source (freeware propietario)",
-      "Solo disponible para Windows, macOS y Linux x86",
       "Rendimiento depende del hardware local"
     ],
     "bestFor": [],
@@ -7775,6 +7839,15 @@
         "scope": "local",
         "checkedAt": "2026-09-15",
         "quote": "Run an LLM like gpt-oss, Llama, Qwen, Mistral, or DeepSeek R1 on your computer · Search & download functionality (via Hugging Face 🤗) · Serve local models on OpenAI-like endpoints, locally and on the network · You can install MCP servers in LM Studio and use them with your local models."
+      },
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://lmstudio.ai/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "quote": "Run local LLMs on your machine · Bionic Agent · Run local LLMs using llama.cpp and MLX · State-of-the-art offline voice transcription · LM Link for up to 5 devices · Limited web search · Bionic+ · $20 · US-hosted open source models",
+        "checkedAt": "2026-09-16"
       }
     ]
   },
@@ -8080,17 +8153,17 @@
     "descriptionShort": "Modelo de vídeo de Lightricks con licencia Apache 2.0. Su repositorio documenta texto a vídeo, imagen a vídeo, extensión hacia delante y hacia atrás, animación por fotogramas clave y transformación de vídeo a vídeo.",
     "verdict": "De los pocos modelos abiertos que documentan alargar un vídeo existente y condicionarlo con fotogramas clave, que es lo que separa una demostración de un plano utilizable.",
     "freePlan": {
-      "summary": "Pesos publicados bajo licencia Apache 2.0. Sin cuotas ni cuenta. El repositorio usa una H100 como referencia de rendimiento para su variante destilada.",
+      "summary": "Pesos publicados bajo licencia Apache 2.0. El repositorio usa una H100 como referencia de rendimiento y ofrece variantes que consumen menos VRAM que el modelo de 13B.",
       "limits": [
         "Referencia de rendimiento del repositorio: GPU H100",
-        "Sin cuotas ni cuenta: el coste es el hardware"
+        "El modelo de 13B pide más VRAM; los destilados y el de 2B, menos"
       ],
       "requiresSignup": "no",
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-15"
+      "verifiedAt": "2026-09-16"
     },
     "capabilities": [
       "text-to-video",
@@ -8135,6 +8208,15 @@
         "scope": "local",
         "checkedAt": "2026-09-16",
         "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice."
+      },
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://github.com/Lightricks/LTX-Video",
+        "sourceKind": "repo",
+        "scope": "local",
+        "quote": "generates HD videos in 10 seconds, with low-res preview after just 3 seconds (on H100)! · Highest quality, requires more VRAM · Faster, less VRAM usage, slight quality reduction compared to 13b. · Ideal for fast generation with light VRAM usage",
+        "checkedAt": "2026-09-16"
       }
     ],
     "nextReviewAt": "2026-11-13",
@@ -9277,18 +9359,18 @@
     ],
     "freeModel": "free_real",
     "freePlan": {
-      "summary": "100% gratuito y open-source. Sin límites de uso. Los modelos se descargan gratis desde ollama.com/library.",
+      "summary": "Gratis y open source. Ejecutar modelos en tu equipo no tiene límite de uso. Sus modelos en la nube gastan créditos, y una cuenta gratuita trae una cantidad inicial para unos pocos modelos. Desde julio de 2025 tiene app con interfaz para macOS y Windows.",
       "limits": [
-        "Rendimiento limitado por el hardware local",
-        "Modelos grandes (>13B) requieren mucha RAM/VRAM",
-        "No tiene interfaz gráfica oficial (solo CLI y API)"
+        "Sin límite de uso al ejecutar modelos en tu equipo",
+        "Modelos en la nube: una cuenta gratuita trae una cantidad inicial de uso para unos pocos modelos",
+        "App con interfaz para macOS y Windows desde julio de 2025"
       ],
       "requiresSignup": "no",
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-07-08"
+      "verifiedAt": "2026-09-16"
     },
     "openSource": "yes",
     "hosting": "hybrid",
@@ -9326,6 +9408,12 @@
         "label": "Repositorio",
         "kind": "repo",
         "checkedAt": "2026-07-08"
+      },
+      {
+        "url": "https://ollama.com/pricing",
+        "label": "Fuente oficial",
+        "kind": "pricing",
+        "checkedAt": "2026-09-16"
       }
     ],
     "scores": {
@@ -9338,9 +9426,7 @@
     "verdict": "Imprescindible si quieres LLMs locales. La herramienta más fácil para empezar con IA local. Instalación en 2 minutos.",
     "pros": [],
     "cons": [
-      "Rendimiento limitado por el hardware local",
-      "Modelos grandes (>13B) requieren mucha RAM/VRAM",
-      "No tiene interfaz gráfica oficial (solo CLI y API)"
+      "Rendimiento limitado por el hardware local"
     ],
     "bestFor": [],
     "notFor": [],
@@ -9356,6 +9442,12 @@
         "date": "2023-10-15",
         "kind": "launch",
         "summary": "Ollama es ya el estándar indiscutible para ejecutar LLMs localmente. Su simplicidad y catálogo de modelos lo hacen imbatible."
+      },
+      {
+        "date": "2025-07-30",
+        "kind": "other",
+        "sourceUrl": "https://ollama.com/blog/new-app",
+        "summary": "Ollama publica su app con interfaz para macOS y Windows, con la que se descargan modelos y se chatea con ellos. La ficha decía hasta el 16 de septiembre de 2026 que no tenía interfaz gráfica oficial: corregido."
       }
     ],
     "affiliation": {
@@ -9395,6 +9487,16 @@
         "checkedAt": "2026-09-15",
         "quote": "Running models on your own hardware is always unlimited",
         "basis": "El plan Free es «Run models locally» y se descarga sin alta. Sólo cubre el uso en tu equipo: los modelos en la nube de Ollama tienen cuenta y créditos, y ahí no publica si pide tarjeta."
+      },
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://ollama.com/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "quote": "Running models on your own hardware is always unlimited. · Free accounts include a starter amount of usage for a smaller set of starter models.",
+        "basis": "La app con interfaz está en el blog oficial, «Ollama’s new app is now available for macOS and Windows.» (30 de julio de 2025), anotado en el historial de la ficha.",
+        "checkedAt": "2026-09-16"
       }
     ],
     "startEffortReason": "Instalador propio y una sola orden para descargar un modelo.",
@@ -10091,19 +10193,16 @@
     ],
     "freeModel": "free_real",
     "freePlan": {
-      "summary": "100% gratuito. La aplicación Pinokio es gratis. Los scripts de instalación son open-source. Sin límites.",
+      "summary": "Código abierto con licencia MIT; se instala en tu equipo y desde ahí instala otras apps de IA. Su web no publica límites de uso ni requisitos generales.",
       "limits": [
-        "Solo para herramientas locales (necesitas GPU)",
-        "Los scripts dependen de que la comunidad los mantenga",
-        "Puede descargar archivos muy grandes automáticamente",
-        "Interfaz a veces poco intuitiva"
+        "Límites de uso y requisitos generales: su web no los publica"
       ],
       "requiresSignup": "no",
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-07-08"
+      "verifiedAt": "2026-09-16"
     },
     "openSource": "yes",
     "hosting": "hybrid",
@@ -10140,6 +10239,12 @@
         "label": "Repositorio",
         "kind": "repo",
         "checkedAt": "2026-07-08"
+      },
+      {
+        "url": "https://pinokio.co/",
+        "label": "Fuente oficial",
+        "kind": "docs",
+        "checkedAt": "2026-09-16"
       }
     ],
     "scores": {
@@ -10152,9 +10257,7 @@
     "verdict": "Revolucionario para quien quiere herramientas IA locales sin ser sysadmin. Instalación en un clic que ahorra horas de frustración.",
     "pros": [],
     "cons": [
-      "Solo para herramientas locales (necesitas GPU)",
       "Los scripts dependen de que la comunidad los mantenga",
-      "Puede descargar archivos muy grandes automáticamente",
       "Interfaz a veces poco intuitiva"
     ],
     "bestFor": [],
@@ -10207,6 +10310,15 @@
         "checkedAt": "2026-09-15",
         "quote": "Install Pinokio",
         "basis": "Se instala en tu equipo desde su web oficial y su código es MIT; las apps que lanza se ejecutan en local. No hay alta ni pago previos donde pedir una tarjeta."
+      },
+      {
+        "field": "freePlan.limits",
+        "outcome": "not_published",
+        "sourceUrl": "https://pinokio.co/",
+        "sourceKind": "official",
+        "scope": "product",
+        "lookedFor": "Límites de uso y requisitos de hardware de la aplicación. La web oficial enumera apps instalables, algunas con requisitos propios, pero no publica ninguno para Pinokio en sí.",
+        "checkedAt": "2026-09-16"
       }
     ],
     "startEffortReason": "Instalador de escritorio que se encarga de las dependencias de cada aplicación.",
@@ -10268,15 +10380,16 @@
     "freePlan": {
       "summary": "Plan gratuito a 0 $/mes con quitar fondo y escalado limitados, y exportación sin marca de agua.",
       "limits": [
-        "Limited Background Removal",
-        "Limited Upscale"
+        "Quitar fondo: limitado, sin cifra publicada",
+        "Escalado: limitado, sin cifra publicada",
+        "Exporta sin marca de agua"
       ],
       "requiresSignup": "unverified",
       "requiresCreditCard": "unverified",
       "hasWatermark": "no",
       "commercialUse": "no",
       "creditReset": "unknown",
-      "verifiedAt": "2026-08-12"
+      "verifiedAt": "2026-09-16"
     },
     "scores": {
       "freeReal": 7,
@@ -10323,6 +10436,15 @@
         "scope": "product",
         "quote": "Commercial license",
         "basis": "La licencia comercial figura en las columnas Pro y Business y no en la del plan Free."
+      },
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://www.pixelcut.ai/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "quote": "Limited Background Removal · Limited Upscale · Free export without watermark",
+        "checkedAt": "2026-09-16"
       }
     ],
     "descriptionLong": "",
@@ -10804,7 +10926,7 @@
       "hasWatermark": "unverified",
       "commercialUse": "no",
       "creditReset": "unknown",
-      "verifiedAt": "2026-08-12"
+      "verifiedAt": "2026-09-16"
     },
     "scores": {
       "freeReal": 5,
@@ -10850,6 +10972,15 @@
         "scope": "product",
         "checkedAt": "2026-09-16",
         "lookedFor": "Si las imágenes del plan gratuito llevan marca de agua. La documentación del plan Free sólo dice que son públicas; la página de precios tampoco lo menciona."
+      },
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://www.recraft.ai/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "quote": "Images generated on the Free plan are owned by Recraft. They are publicly visible in the community gallery and are not licensed for commercial use.",
+        "checkedAt": "2026-09-16"
       }
     ],
     "descriptionLong": "",
@@ -11473,18 +11604,17 @@
     ],
     "freeModel": "free_real",
     "freePlan": {
-      "summary": "100% gratuito y open-source. Sin límites de generación ni restricciones. Solo necesitas hardware compatible.",
+      "summary": "Gratuito y open source. Se ejecuta en local; su README documenta la instalación con GPU NVIDIA (recomendada), AMD, Intel y Apple Silicon.",
       "limits": [
-        "Requiere GPU NVIDIA con al menos 4GB VRAM",
-        "Instalación puede ser compleja para principiantes",
-        "No incluye modelos por defecto (hay que descargarlos)"
+        "Instalación documentada para NVIDIA (recomendada), AMD, Intel y Apple Silicon",
+        "Sin límite de tokens en el prompt"
       ],
       "requiresSignup": "no",
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-07-08"
+      "verifiedAt": "2026-09-16"
     },
     "openSource": "yes",
     "hosting": "local",
@@ -11528,9 +11658,7 @@
     "verdict": "La mejor opción si tienes GPU local y quieres el máximo control sobre generación de imágenes. Curva de aprendizaje moderada pero recompensa enorme.",
     "pros": [],
     "cons": [
-      "Requiere GPU NVIDIA con al menos 4GB VRAM",
-      "Instalación puede ser compleja para principiantes",
-      "No incluye modelos por defecto (hay que descargarlos)"
+      "Instalación puede ser compleja para principiantes"
     ],
     "bestFor": [],
     "notFor": [],
@@ -11596,6 +11724,15 @@
         "scope": "local",
         "checkedAt": "2026-09-16",
         "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice."
+      },
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
+        "sourceKind": "repo",
+        "scope": "local",
+        "quote": "NVidia (recommended) · AMD GPUs. · Intel CPUs, Intel GPUs (both integrated and discrete) · Installation on Apple Silicon · No token limit for prompts (original stable diffusion lets you use up to 75 tokens)",
+        "checkedAt": "2026-09-16"
       }
     ],
     "startEffortReason": "Exige entorno de Python, descarga de modelos y GPU.",
@@ -11717,8 +11854,8 @@
     "id": "tool_suno-ai",
     "slug": "suno-ai",
     "name": "Suno AI",
-    "tagline": "Cincuenta créditos al día, diez canciones, y nada de uso comercial.",
-    "descriptionShort": "Generador de canciones completas —letra, voz e instrumentación— desde una descripción. Su plan gratuito renueva 50 créditos cada día, que su propia página equipara a diez canciones, y no permite usar comercialmente lo que produces.",
+    "tagline": "Cincuenta créditos al día, sin descargas mensuales y nada de uso comercial.",
+    "descriptionShort": "Generador de canciones completas —letra, voz e instrumentación— desde una descripción. Su plan gratuito renueva 50 créditos cada día, no incluye descargas mensuales de canciones y no permite usar comercialmente lo que produces.",
     "descriptionLong": "Suno AI genera canciones completas — con voz, letra, melodía e instrumentación — a partir de una simple descripción de texto o incluso de tus propias letras. La calidad ha mejorado drásticamente con cada versión (v3, v3.5, v4), produciendo canciones que suenan sorprendentemente profesionales. Cubre prácticamente cualquier género musical.",
     "kind": "app",
     "verification": "verified",
@@ -11736,11 +11873,12 @@
     ],
     "freeModel": "credits",
     "freePlan": {
-      "summary": "Plan gratuito con 50 créditos que se renuevan a diario, equivalentes a diez canciones según la propia página. Sin uso comercial. Sin descargas mensuales de canciones a partir del 3/9/26 y sin compra de créditos adicionales. El plan de pago más barato es Pro, 8 $/mes.",
+      "summary": "Plan gratuito con 50 créditos que se renuevan cada día y el modelo v6-mini. Sin uso comercial, sin descargas mensuales de canciones y sin compra de créditos adicionales. El plan de pago más barato es Pro, 8 $/mes.",
       "limits": [
-        "50 créditos al día (10 canciones)",
+        "50 créditos al día",
+        "Modelo gratuito: v6-mini",
         "Uso comercial NO permitido",
-        "Sin descargas mensuales de canciones a partir del 3/9/26",
+        "Sin descargas mensuales de canciones",
         "Sin compra de créditos adicionales",
         "Plan de pago más barato: Pro, 8 $/mes"
       ],
@@ -11748,9 +11886,9 @@
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "no",
-      "creditsAmount": "50 créditos/día (10 canciones)",
+      "creditsAmount": "50 créditos/día",
       "creditReset": "daily",
-      "verifiedAt": "2026-08-18"
+      "verifiedAt": "2026-09-16"
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -11809,6 +11947,12 @@
         "date": "2024-01-20",
         "kind": "launch",
         "summary": "Suno v4 elevó la calidad a niveles casi profesionales. La música IA ya no suena a 'música IA'."
+      },
+      {
+        "date": "2026-09-03",
+        "kind": "free_plan_reduced",
+        "sourceUrl": "https://suno.com/pricing",
+        "summary": "El plan gratuito deja de incluir descargas mensuales de canciones. La página de precios lo anunciaba el 18 de agosto para el 3 de septiembre y el 16 de septiembre ya lo da como vigente. También ha dejado de publicar la equivalencia de 50 créditos con 10 canciones, que la ficha retira."
       }
     ],
     "affiliation": {
@@ -11828,9 +11972,9 @@
         "outcome": "stated",
         "sourceUrl": "https://suno.com/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-08-18",
-        "quote": "50 credits renew daily (10 songs) · No commercial use · No monthly song downloads (starting 9/3/26) · No add-on credit purchases",
-        "scope": "cloud"
+        "scope": "product",
+        "quote": "50 credits per day · Best free model (v6-mini) · No monthly song downloads · No commercial rights · No add-on credit purchases · $8 /month",
+        "checkedAt": "2026-09-16"
       },
       {
         "field": "freePlan.requiresCreditCard",
