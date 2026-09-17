@@ -458,7 +458,12 @@ test.describe('los logos', () => {
   });
 
   test('conviven logos reales y monogramas sin que se note el remiendo', async ({ page }) => {
-    await page.goto('/codigo');
+    /*
+     * Hace falta una página con los dos. Era /codigo hasta que, el 16 de
+     * septiembre, todas sus fichas tuvieron logo; /imagen conserva monogramas
+     * donde no hay un logo fiable (Fooocus, SD WebUI, SD.Next, Adobe Firefly).
+     */
+    await page.goto('/imagen');
     const reales = await page.locator('img.tool-logo').count();
     const monogramas = await page.locator('.tool-logo-mono').count();
     expect(reales).toBeGreaterThan(0);

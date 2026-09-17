@@ -127,6 +127,28 @@ const {
     margin-block-start: 0;
   }
 
+  /*
+   * Una tabla ancha se desplaza dentro de su caja, no arrastra la página.
+   *
+   * La de datos personales de /legal/privacidad medía 515 px con la pantalla
+   * en 375 y desplazaba la página entera 156 px de lado. La caja es enfocable
+   * con teclado, porque un área que sólo se desplaza con el dedo no existe
+   * para quien navega sin ratón.
+   */
+  .article-body :global(.tabla-ancha) {
+    overflow-x: auto;
+    margin-block: var(--space-s);
+  }
+
+  .article-body :global(.tabla-ancha:focus-visible) {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .article-body :global(.tabla-ancha > table) {
+    margin-block: 0;
+  }
+
   .article-body :global(table) {
     width: 100%;
     border-collapse: collapse;

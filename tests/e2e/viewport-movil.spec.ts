@@ -11,7 +11,22 @@ import { test, expect } from '@playwright/test';
  * ancho de la pantalla, que no se mueve.
  */
 
-const RUTAS = ['/', '/herramientas', '/imagen', '/herramientas/chatgpt', '/comparar?t=chatgpt,claude', '/noticias'];
+/*
+ * Las páginas de texto largo también: /legal/privacidad desplazaba 156 px de
+ * lado por una tabla y ninguna prueba lo miraba.
+ */
+const RUTAS = [
+  '/',
+  '/herramientas',
+  '/imagen',
+  '/herramientas/chatgpt',
+  '/comparar?t=chatgpt,claude',
+  '/noticias',
+  '/legal/privacidad',
+  '/legal/cookies',
+  '/metodologia',
+  '/politica-editorial',
+];
 
 test.describe('móvil de 375 px con viewport real', () => {
   test.skip(({ browserName }) => browserName === 'firefox', 'Firefox no emula el viewport de móvil');

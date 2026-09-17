@@ -244,15 +244,21 @@ test.describe('portada sin decisión de cookies', () => {
     await page.goto('/');
     await expect(page.locator('#consent-root')).toBeVisible();
 
-    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-    await page.waitForTimeout(300);
-
-    const medidas = await page.evaluate(() => {
-      const pie = document.querySelector('.site-footer')!.getBoundingClientRect();
-      const panel = document.querySelector('.consent-panel')!.getBoundingClientRect();
-      return { pie: pie.bottom, panel: panel.top };
-    });
-    expect(medidas.pie, 'el pie queda por encima del cartel').toBeLessThanOrEqual(medidas.panel + 1);
+    /*
+     * Al final de la página, sin animación: Firefox desplaza suave y a los
+     * 300 ms todavía no había llegado, así que la medida salía del medio.
+     */
+    await expect
+      .poll(async () =>
+        page.evaluate(() => {
+          window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' });
+          const pie = document.querySelector('.site-footer')!.getBoundingClientRect();
+          const panel = document.querySelector('.consent-panel')!.getBoundingClientRect();
+          return pie.bottom - panel.top;
+        }),
+        { message: 'el pie queda por encima del cartel' }
+      )
+      .toBeLessThanOrEqual(1);
 
     await page.getByRole('button', { name: /rechazar todo/i }).click();
     await expect(page.locator('#consent-root')).toBeHidden();
