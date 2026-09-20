@@ -4,48 +4,48 @@
     "slug": "accomplish-sandbox-claude-code-cursor",
     "title": "Accomplish detalla cómo un repositorio malicioso podía saltarse el sandbox de Claude Code y de la CLI de Cursor en macOS",
     "author": "Redacción de Free AI Radar",
-    "summary": "Accomplish, que aísla agentes de IA en una máquina virtual, publicó el 11 y el 12 de septiembre, con demostraciones, dos ataques con los que, según describe, un repositorio o carpeta de proyecto preparados ejecutaban código en un Mac fuera del sandbox de Claude Code y de la CLI de Cursor, sin pedir permiso. Según la empresa, el sandbox sólo envolvía la terminal, mientras el propio programa lanzaba git fuera de él y obedecía la opción core.fsmonitor del repositorio. Accomplish da los dos fallos por corregidos.",
-    "impact": "Cursor recoge el cambio en las notas de su CLI del 11 de agosto: la configuración de git que controla el repositorio, fsmonitor incluido, ya no se ejecuta en las operaciones de git del agente. Anthropic no ha publicado un aviso sobre el caso de Claude Code, que Accomplish da por resuelto en la versión 2.1.247. Manifold Security, que investigó la misma familia de fallos, afirma que otra ruta de Claude Code, la de ultrareview, seguía abierta en la 2.1.252 a 1 de septiembre. Ambos exigen abrir con el agente un proyecto preparado por un tercero: con código ajeno, conviene actualizar.",
+    "summary": "Accomplish, una empresa que ejecuta agentes de IA dentro de una máquina virtual, publicó el 11 y el 12 de septiembre dos ataques contra el sandbox de Claude Code y el de la CLI de Cursor en macOS. Según describe, bastaba con abrir con el agente un repositorio o una carpeta preparados para que se ejecutara código en el Mac fuera del sandbox y sin pedir permiso. La causa era la misma en los dos: el sandbox sólo envolvía la terminal, y el propio programa lanzaba git fuera de él. Accomplish da los dos fallos por corregidos.",
+    "impact": "Cursor recoge el cambio en las notas de su CLI del 11 de agosto: la configuración de git que controla el repositorio, fsmonitor incluido, ya no se ejecuta en las operaciones de git del agente. Anthropic no ha publicado un aviso sobre el caso de Claude Code, que Accomplish da por resuelto en la versión 2.1.247. Manifold Security, que investigó la misma familia de fallos, afirma que otra ruta de Claude Code, la de ultrareview, seguía abierta en la 2.1.252 a 1 de septiembre. Con proyectos de terceros, conviene usar versiones actualizadas.",
     "category": "programacion",
     "eventType": "anuncio",
     "availability": "unknown",
     "publishedAt": "2026-09-12",
-    "checkedAt": "2026-09-13",
+    "checkedAt": "2026-09-16",
     "officialUrl": "https://www.accomplish.ai/blog/beltdown2-escaping-the-cursor-cli-sandbox/",
     "sources": [
       {
         "url": "https://www.accomplish.ai/blog/beltdown2-escaping-the-cursor-cli-sandbox/",
         "kind": "official",
         "label": "Beltdown2: Escaping the Cursor CLI sandbox (Accomplish)",
-        "checkedAt": "2026-09-13",
+        "checkedAt": "2026-09-16",
         "publisher": "accomplish.ai"
       },
       {
         "url": "https://www.accomplish.ai/blog/beltdown-escaping-the-claude-code-sandbox/",
         "kind": "official",
         "label": "Beltdown: Escaping the Claude Code sandbox (Accomplish)",
-        "checkedAt": "2026-09-13",
+        "checkedAt": "2026-09-16",
         "publisher": "accomplish.ai"
       },
       {
         "url": "https://cursor.com/docs/cli/changelog",
         "kind": "release-notes",
         "label": "Cursor CLI Changelog",
-        "checkedAt": "2026-09-13",
+        "checkedAt": "2026-09-16",
         "publisher": "cursor.com"
       },
       {
         "url": "https://github.com/anthropics/claude-code/security/advisories",
         "kind": "repo",
         "label": "Security Advisories · anthropics/claude-code",
-        "checkedAt": "2026-09-13",
+        "checkedAt": "2026-09-16",
         "publisher": "github.com/anthropics"
       },
       {
         "url": "https://www.manifold.security/blog/ai-coding-agents-git-hijack",
         "kind": "official",
         "label": "GitSpawn (Manifold Security)",
-        "checkedAt": "2026-09-13",
+        "checkedAt": "2026-09-16",
         "publisher": "manifold.security"
       }
     ],
@@ -66,27 +66,27 @@
     "slug": "anthropic-informe-amenazas-septiembre-2026",
     "title": "Anthropic alerta de que el papel de la IA en los ciberataques es cada vez más autónomo",
     "author": "Redacción de Free AI Radar",
-    "summary": "Anthropic publicó el 10 de septiembre un informe sobre las operaciones maliciosas con Claude que desarticuló entre diciembre de 2025 y agosto de 2026 en siete áreas, de las ciberoperaciones y la vigilancia al fraude y la destilación. Según la compañía, la mayoría de las operaciones descritas usaban la IA para ejecutar u orquestar el ataque, con marcos de varios agentes para el reconocimiento, la explotación y la extracción de datos. Los casos emplearon Claude Haiku, Sonnet y Opus; no halló actividad maliciosa en Fable ni en Mythos.",
+    "summary": "Anthropic publicó el 10 de septiembre un informe sobre las operaciones maliciosas con Claude que desarticuló entre diciembre de 2025 y agosto de 2026 en siete áreas, de las ciberoperaciones y la vigilancia al fraude y la destilación. Según la compañía, la mayoría de las operaciones descritas usaban la IA para ejecutar u orquestar el ataque, con marcos de varios agentes para el reconocimiento, la explotación y la extracción de datos. Los casos emplearon modelos Claude Haiku, Sonnet y Opus; según Anthropic, ninguno usó Fable ni modelos de la clase Mythos, salvo un caso de destilación ilícita.",
     "impact": "Según el informe, la IA ha reducido la distancia entre las operaciones con respaldo estatal y los atacantes individuales: un hacktivista con claves de API robadas e individuos con ánimo de lucro sostuvieron campañas contra varias víctimas. En uno de los casos, una clave robada sirvió unas tres semanas para atacar a otras organizaciones, y Anthropic advierte de que una API expuesta elimina la barrera de entrada. También dice haber frenado nuevos intentos de destilar Claude desde siete laboratorios con sede en China.",
     "category": "agentes",
     "eventType": "anuncio",
     "availability": "unknown",
     "publishedAt": "2026-09-10",
-    "checkedAt": "2026-09-13",
+    "checkedAt": "2026-09-16",
     "officialUrl": "https://www.anthropic.com/threat-intelligence-report-september-2026",
     "sources": [
       {
         "url": "https://www.anthropic.com/threat-intelligence-report-september-2026",
         "kind": "official",
         "label": "Detecting and countering misuse of AI: September 2026",
-        "checkedAt": "2026-09-13",
+        "checkedAt": "2026-09-16",
         "publisher": "anthropic.com"
       },
       {
         "url": "https://www.anthropic.com/news",
         "kind": "official",
         "label": "Anthropic Newsroom",
-        "checkedAt": "2026-09-13",
+        "checkedAt": "2026-09-16",
         "publisher": "anthropic.com"
       }
     ],
@@ -100,22 +100,22 @@
   {
     "id": "news-2026-09-10-cognition-swe-2",
     "slug": "cognition-swe-2",
-    "title": "Cognition lanza SWE-2 y afirma que se queda a un punto de Fable 5.1 en programación con un coste un 64 % menor",
+    "title": "Cognition lanza SWE-2 y afirma que se queda a un punto de Claude Fable 5.1 en programación con un coste un 64 % menor",
     "author": "Redacción de Free AI Radar",
-    "summary": "Cognition presentó el 10 de septiembre SWE-2, su modelo de programación más avanzado, disponible desde ese día en Devin Desktop y en la CLI de Devin y en despliegue en Devin Web y Fusion. Según la compañía, logra un 50,0 % en FrontierCode 1.1 Main, a un punto de Fable 5.1, con un coste un 64 % inferior. SWE-2 parte de Kimi K3, un modelo de 2,8 billones de parámetros ya entrenado para programación agéntica, y añade un algoritmo de aprendizaje por refuerzo que entrena todos los niveles de esfuerzo de razonamiento en una sola ejecución.",
+    "summary": "Cognition presentó el 10 de septiembre SWE-2, su modelo de programación más avanzado, disponible desde ese día en Devin Desktop y en la CLI de Devin y en despliegue en Devin Web y Fusion. Según la compañía, logra un 50,0 % en FrontierCode 1.1 Main, a un punto de Claude Fable 5.1, con un coste un 64 % inferior. SWE-2 parte de Kimi K3, un modelo de 2,8 billones de parámetros ya entrenado para programación agéntica, y añade un algoritmo de aprendizaje por refuerzo que entrena todos los niveles de esfuerzo de razonamiento en una sola ejecución.",
     "impact": "El argumento de Cognition es el coste: sostiene que en FrontierCode y DeepSWE iguala a GPT-5.6 Sol y a Fable 5/5.1 por una fracción de su precio y queda a pocos puntos de GPT-6 Astra por una cuarta parte. Su propia tabla marca el límite: en Terminal-Bench 4 obtiene un 27,3 %, frente al 55,8 % de Fable 5.1 y el 57,9 % de GPT-6 Astra. Parte de las cifras procede de evaluaciones internas de la compañía, a falta de resultados públicos.",
     "category": "programacion",
     "eventType": "lanzamiento",
     "availability": "available",
     "publishedAt": "2026-09-10",
-    "checkedAt": "2026-09-13",
+    "checkedAt": "2026-09-16",
     "officialUrl": "https://cognition.com/blog/swe-2",
     "sources": [
       {
         "url": "https://cognition.com/blog/swe-2",
         "kind": "official",
         "label": "Introducing SWE-2: Pushing the Pareto Frontier",
-        "checkedAt": "2026-09-13",
+        "checkedAt": "2026-09-16",
         "publisher": "cognition.com"
       }
     ],
@@ -131,26 +131,29 @@
   {
     "id": "news-2026-09-10-deepseek-v4-1-flash",
     "slug": "deepseek-v4-1-flash",
-    "title": "DeepSeek lanza V4.1-Flash y desviará a él las peticiones de V4-Pro desde el 14 de septiembre",
+    "title": "DeepSeek lanza V4.1-Flash y redirige a él las peticiones de V4-Pro desde el 14 de septiembre",
     "author": "Redacción de Free AI Radar",
-    "summary": "DeepSeek presentó el 10 de septiembre V4.1-Flash, el modelo más pequeño de su nueva familia de arquitectura, con comprensión visual nativa. Es un modelo de mezcla de expertos de 552.000 millones de parámetros que activa 8.000 millones para procesar la entrada y 16.000 millones para generar la salida. Ya está disponible en la API de DeepSeek. La compañía afirma que pruebas de varias partes lo sitúan por delante de V4-Pro en rendimiento, coste, velocidad y tiempo total de ejecución.",
-    "impact": "Desde las 04:00 UTC del 14 de septiembre, las peticiones a V4-Pro se desviarán a V4.1-Flash y se cobrarán a su tarifa hasta que llegue V4.1-Pro: quien integra la API cambiará de modelo sin tocar su código. DeepSeek sostiene que el nuevo modelo le permite servir a más usuarios con menor coste, y mantiene tarifas fuera de hora punta a la mitad de las de hora punta.",
+    "summary": "DeepSeek presentó el 10 de septiembre V4.1-Flash, el modelo más pequeño de su nueva familia de arquitectura, con comprensión visual nativa. Es un modelo de mezcla de expertos de 552.000 millones de parámetros que activa 8.000 millones para procesar la entrada y 16.000 millones para generar la salida. Está disponible en la API de DeepSeek y sustituye a V4-Flash y V4-Flash-Vision-Exp, que quedan retirados. Según la compañía, pruebas de varias partes lo sitúan por delante de V4-Pro en rendimiento, coste y velocidad.",
+    "impact": "Desde las 04:00 UTC del 14 de septiembre, las peticiones a V4-Pro se redirigen a V4.1-Flash y se cobran a su tarifa hasta que llegue V4.1-Pro; los identificadores de V4-Flash y V4-Flash-Vision-Exp también apuntan a él de forma temporal. Una integración con la API puede, por tanto, estar usando otro modelo sin haber cambiado su código. DeepSeek bajó además los precios de su API el 10 de septiembre y mantiene las tarifas fuera de hora punta a la mitad de las de hora punta.",
     "category": "modelo-multimodal",
     "eventType": "lanzamiento",
     "availability": "available",
     "publishedAt": "2026-09-10",
-    "checkedAt": "2026-09-11",
+    "checkedAt": "2026-09-16",
     "officialUrl": "https://www.deepseek.com/en/news/deepseek-v4-1-flash/",
     "sources": [
       {
         "url": "https://www.deepseek.com/en/news/deepseek-v4-1-flash/",
         "kind": "official",
         "label": "Introducing DeepSeek-V4.1-Flash: smarter, faster, more efficient.",
-        "checkedAt": "2026-09-11",
+        "checkedAt": "2026-09-16",
         "publisher": "deepseek.com"
       }
     ],
-    "relatedTools": [],
+    "relatedTools": [
+      "deepseek-v4-flash",
+      "deepseek-v4-pro"
+    ],
     "affectsFreePlan": "unverified",
     "verification": "verified",
     "status": "published",
@@ -163,19 +166,19 @@
     "title": "ElevenLabs y Universal Music Group firman un acuerdo de licencias y desarrollo de producto",
     "author": "Redacción de Free AI Radar",
     "summary": "ElevenLabs y Universal Music Group anunciaron el 10 de septiembre un acuerdo plurianual de licencias y colaboración estratégica. Las dos compañías desarrollarán productos de audio con IA para artistas y compositores, y ElevenLabs lanzará una plataforma musical para fans basada en música licenciada. Esa plataforma, todavía en desarrollo, permitirá crear remezclas, mashups, nuevas interpretaciones de temas y experiencias vocales personalizadas. Según ElevenLabs, es su primer acuerdo con una gran discográfica.",
-    "impact": "Lucian Grainge, presidente y consejero delegado de Universal Music Group, afirma que las posibilidades más interesantes de la IA en la música son las que sitúan en el centro a artistas, compositores y fans. Para el audio generativo, un acuerdo de licencias con una gran discográfica cambia la base del producto: la plataforma se construye sobre música licenciada y con la participación de los artistas.",
+    "impact": "La nueva plataforma se construirá sobre música licenciada y con la participación de los artistas, y ElevenLabs aclara que será distinta de sus productos musicales actuales y se ofrecerá por separado. El anuncio no da fecha de lanzamiento ni precio. Lucian Grainge, presidente y consejero delegado de Universal Music Group, afirma que las posibilidades más interesantes de la IA en la música son las que sitúan en el centro a artistas, compositores y fans.",
     "category": "audio",
     "eventType": "anuncio",
     "availability": "announced",
     "publishedAt": "2026-09-10",
-    "checkedAt": "2026-09-11",
+    "checkedAt": "2026-09-16",
     "officialUrl": "https://elevenlabs.io/blog/umg",
     "sources": [
       {
         "url": "https://elevenlabs.io/blog/umg",
         "kind": "official",
         "label": "ElevenLabs and Universal Music Group enter strategic agreement",
-        "checkedAt": "2026-09-11",
+        "checkedAt": "2026-09-16",
         "publisher": "elevenlabs.io"
       }
     ],
@@ -220,29 +223,29 @@
   {
     "id": "news-2026-09-10-openai-agents-api-gpt-live-1",
     "slug": "openai-agents-api-gpt-live-1",
-    "title": "OpenAI lanza la Agents API y lleva la voz en tiempo real de GPT-Live-1 a su API",
+    "title": "OpenAI abre en beta pública la Agents API y lleva la voz en tiempo real de GPT-Live-1 a su API",
     "author": "Redacción de Free AI Radar",
-    "summary": "OpenAI presentó el 10 de septiembre la Agents API, un servicio gestionado para crear y lanzar agentes en la nube que se apoya en el entorno de Codex para la orquestación, las sesiones de larga duración y el uso de herramientas. El mismo día incorporó a su API GPT-Live-1, que ofrece conversaciones de voz naturales en dúplex completo, con mejor seguimiento de instrucciones, voces personalizadas y soporte para telefonía.",
-    "impact": "Las dos piezas empujan en la misma dirección: agentes que trabajan en sesiones largas y usan herramientas, y voz natural capaz de atender llamadas telefónicas, ambas servidas desde la plataforma de OpenAI. Que la orquestación llegue como servicio gestionado desplaza hacia OpenAI una parte del trabajo de infraestructura que exige desplegar agentes.",
+    "summary": "OpenAI presentó el 10 de septiembre la Agents API, en beta pública para todos los desarrolladores: un servicio gestionado para crear y ejecutar agentes en la nube con el mismo entorno que usa Codex, que se ocupa de la orquestación, las sesiones de larga duración, el uso de herramientas y los subagentes. El mismo día llevó a su API GPT-Live-1, un modelo para conversaciones de voz naturales en dúplex completo, con mejor seguimiento de instrucciones, voces personalizadas y soporte para telefonía.",
+    "impact": "La Agents API no tiene cuota propia: se pagan los tokens y las herramientas que consumen los agentes, según la tabla de precios de OpenAI. Al ser una beta, OpenAI avisa de que la irá cambiando con los comentarios de los desarrolladores antes de su disponibilidad general. El entorno de Codex en el que se apoya es de código abierto, así que se puede inspeccionar la lógica que coordina las llamadas al modelo, las herramientas y el contexto.",
     "category": "agentes",
-    "eventType": "lanzamiento",
-    "availability": "available",
+    "eventType": "preview-beta",
+    "availability": "preview",
     "publishedAt": "2026-09-10",
-    "checkedAt": "2026-09-11",
+    "checkedAt": "2026-09-16",
     "officialUrl": "https://openai.com/index/introducing-the-agents-api",
     "sources": [
       {
         "url": "https://openai.com/index/introducing-the-agents-api",
         "kind": "official",
         "label": "Introducing the Agents API",
-        "checkedAt": "2026-09-11",
+        "checkedAt": "2026-09-16",
         "publisher": "openai.com"
       },
       {
         "url": "https://openai.com/news/rss.xml",
         "kind": "official",
         "label": "OpenAI News, canal oficial",
-        "checkedAt": "2026-09-11",
+        "checkedAt": "2026-09-16",
         "publisher": "openai.com"
       }
     ],
@@ -290,65 +293,31 @@
     "frontPage": true
   },
   {
-    "id": "news-2026-09-09-openai-gpt-6-astra",
-    "slug": "openai-gpt-6-astra",
-    "title": "OpenAI lanza GPT-6 Astra y lo declara su primer modelo de nivel crítico en ciberseguridad",
-    "author": "Redacción de Free AI Radar",
-    "summary": "OpenAI presentó el 9 de septiembre GPT-6 Astra, al que describe como su modelo más inteligente y mejor alineado hasta la fecha, con capacidades punteras en uso de ordenador, programación, ciberseguridad y ciencia. En su resumen de seguridad la compañía va más lejos: afirma que es su modelo desplegado de forma amplia más capaz y el primero en alcanzar el nivel «crítico» de capacidad en ciberseguridad dentro de su Preparedness Framework, el marco con el que clasifica los riesgos de sus propios sistemas antes de desplegarlos.",
-    "impact": "Que un laboratorio sitúe a su modelo en el escalón más alto de su propia escala de riesgo en ciberseguridad es una declaración con consecuencias: ese marco condiciona qué salvaguardas exige antes de desplegar y qué accesos restringe. La clasificación es de OpenAI sobre sí misma, no de un evaluador independiente.",
-    "category": "modelo-lenguaje",
-    "eventType": "lanzamiento",
-    "availability": "available",
-    "publishedAt": "2026-09-09",
-    "checkedAt": "2026-09-10",
-    "officialUrl": "https://openai.com/index/gpt-6-astra",
-    "sources": [
-      {
-        "url": "https://openai.com/index/gpt-6-astra",
-        "kind": "official",
-        "label": "GPT-6 Astra: A new generation of intelligence",
-        "checkedAt": "2026-09-10",
-        "publisher": "openai.com"
-      },
-      {
-        "url": "https://openai.com/news/rss.xml",
-        "kind": "official",
-        "label": "OpenAI News, canal oficial",
-        "checkedAt": "2026-09-10",
-        "publisher": "openai.com"
-      }
-    ],
-    "relatedTools": [],
-    "affectsFreePlan": "unverified",
-    "verification": "verified",
-    "status": "published",
-    "unconfirmed": [],
-    "frontPage": true
-  },
-  {
     "id": "news-2026-09-09-suno-v6",
     "slug": "suno-v6",
-    "title": "Suno lanza v6, su nueva generación de modelos musicales, con Warner, BMG y Believe",
+    "title": "Suno lanza v6: el modelo principal queda para Pro y Premier, y v6-mini está disponible para todos",
     "author": "Redacción de Free AI Radar",
-    "summary": "Suno presentó el 9 de septiembre v6, una nueva generación de modelos de generación musical desarrollada junto a socios de la industria discográfica entre los que figuran Warner Music Group, BMG y Believe. La compañía sostiene que los modelos son más rápidos, más expresivos y de mayor calidad que los anteriores, y que incorporan controles nuevos para quienes crean música. Suno enmarca el lanzamiento como la base para futuros productos que abran vías de ingreso dentro del ecosistema musical.",
-    "impact": "Suno llevaba meses en conflicto con titulares de derechos. Lanzar producto junto a tres de los mayores actores de la distribución musical cambia el terreno práctico para un músico: la discusión deja de ser si un tema generado puede publicarse y pasa a ser en qué condiciones y con qué reparto.",
+    "summary": "Suno presentó el 9 de septiembre v6, una nueva generación de modelos musicales desarrollada con socios de la industria como Warner Music Group, BMG y Believe. Llega en tres modelos: v6, el principal, y v6-wild, pensado para resultados menos previsibles, son para suscriptores Pro y Premier; v6-mini, más rápido y eficiente, está disponible para todos. Suno retirará sus modelos anteriores a medida que despliegue v6.",
+    "impact": "Quien usa Suno sin pagar tiene acceso a v6-mini, no al modelo principal. Suno sostiene que v6-mini da mejores resultados, y más rápido, que cualquier modelo gratuito de otra plataforma de creación musical; es una afirmación de la propia empresa. Entre las novedades de v6 están editar una parte de una canción con instrucciones en lenguaje natural, combinar elementos de varias canciones en una sola petición y cambiar una línea de la letra sin rehacer el tema. El anuncio no detalla qué funciones incluye cada modelo.",
     "category": "audio",
     "eventType": "lanzamiento",
     "availability": "available",
     "publishedAt": "2026-09-09",
-    "checkedAt": "2026-09-10",
+    "checkedAt": "2026-09-16",
     "officialUrl": "https://suno.com/blog/introducing-v6",
     "sources": [
       {
         "url": "https://suno.com/blog/introducing-v6",
         "kind": "official",
         "label": "Introducing v6",
-        "checkedAt": "2026-09-10",
+        "checkedAt": "2026-09-16",
         "publisher": "suno.com"
       }
     ],
-    "relatedTools": [],
-    "affectsFreePlan": "unverified",
+    "relatedTools": [
+      "suno-ai"
+    ],
+    "affectsFreePlan": "yes",
     "verification": "verified",
     "status": "published",
     "unconfirmed": [],
@@ -357,23 +326,59 @@
   {
     "id": "news-2026-09-03-nvidia-compra-hugging-face",
     "slug": "nvidia-compra-hugging-face",
-    "title": "NVIDIA compra Hugging Face por 12.930 millones de dólares",
+    "title": "NVIDIA acuerda comprar Hugging Face por 12.930 millones de dólares",
     "author": "Redacción de Free AI Radar",
-    "summary": "NVIDIA acordó el 3 de septiembre la compra de Hugging Face por 12.930 millones de dólares, según anunció en su blog corporativo. La plataforma es el principal repositorio público de modelos de aprendizaje automático: NVIDIA cifra en más de 18 millones los desarrolladores, investigadores y creadores que la usan para compartir más de 3 millones de modelos, 500.000 conjuntos de datos y un millón de aplicaciones. La compradora afirma que seguirá siendo una plataforma abierta para todo el ecosistema.",
-    "impact": "Hugging Face es la infraestructura por la que pasa buena parte de la distribución de modelos de pesos abiertos. Que su propietario sea ahora un fabricante de aceleradores sitúa bajo un mismo dueño el catálogo donde se publican los modelos y el hardware sobre el que se ejecutan. El compromiso de neutralidad es, por ahora, una declaración de la compradora.",
+    "summary": "NVIDIA anunció el 3 de septiembre un acuerdo para comprar Hugging Face por 12.930 millones de dólares, en una entrada de su blog corporativo firmada por Jensen Huang. Según NVIDIA, más de 18 millones de desarrolladores, investigadores y creadores usan Hugging Face para compartir más de 3 millones de modelos, 500.000 conjuntos de datos y un millón de aplicaciones. La compradora afirma que seguirá siendo una plataforma abierta para todo el ecosistema.",
+    "impact": "Si la operación se completa, la plataforma donde se comparten millones de modelos abiertos pasará a ser de un fabricante de hardware para IA. NVIDIA se compromete a que no haga falta su hardware para publicar ni desplegar en Hugging Face, y a seguir admitiendo modelos de cualquier desarrollador y distintas nubes y aceleradores. Por ahora son compromisos de la compradora, y el anuncio no dice cuándo se cerrará la compra.",
     "category": "local-open-source",
     "eventType": "anuncio",
     "availability": "unknown",
     "publishedAt": "2026-09-03",
-    "checkedAt": "2026-09-10",
+    "checkedAt": "2026-09-16",
     "officialUrl": "https://blogs.nvidia.com/blog/nvidia-to-acquire-hugging-face/",
     "sources": [
       {
         "url": "https://blogs.nvidia.com/blog/nvidia-to-acquire-hugging-face/",
         "kind": "official",
         "label": "NVIDIA to Acquire Hugging Face",
-        "checkedAt": "2026-09-10",
+        "checkedAt": "2026-09-16",
         "publisher": "nvidia.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-09-openai-gpt-6-astra",
+    "slug": "openai-gpt-6-astra",
+    "title": "OpenAI lanza GPT-6 Astra y lo sitúa en el nivel «crítico» de ciberseguridad de su propio marco de riesgos",
+    "author": "Redacción de Free AI Radar",
+    "summary": "OpenAI presentó el 3 de septiembre GPT-6 Astra, al que califica como el modelo más inteligente y mejor alineado del mundo, con capacidades punteras en uso del ordenador, programación, ciberseguridad y ciencia. El acceso es escalonado: ese día llegó a un grupo reducido de organizaciones, y OpenAI anunció que en los días siguientes estaría disponible para los usuarios de ChatGPT Plus, Pro, Business y Enterprise, en su API, en Microsoft Azure y en AWS Bedrock. El anuncio no menciona el plan gratuito de ChatGPT.",
+    "impact": "En su resumen de seguridad, OpenAI afirma que es el primero de sus modelos que alcanza el nivel «crítico» de capacidad en ciberseguridad de su Preparedness Framework, el marco con el que clasifica los riesgos de sus propios sistemas. Por eso lo lanza con salvaguardas más estrictas: rechaza tareas avanzadas como crear exploits de prueba de concepto. En la API cuesta 10 dólares por millón de tokens de entrada y 50 por millón de salida. La clasificación de riesgo es de OpenAI sobre su propio modelo, no de un evaluador independiente.",
+    "category": "modelo-lenguaje",
+    "eventType": "lanzamiento",
+    "availability": "limited",
+    "publishedAt": "2026-09-03",
+    "checkedAt": "2026-09-16",
+    "officialUrl": "https://openai.com/index/gpt-6-astra",
+    "sources": [
+      {
+        "url": "https://openai.com/index/gpt-6-astra",
+        "kind": "official",
+        "label": "GPT-6 Astra: A new generation of intelligence",
+        "checkedAt": "2026-09-16",
+        "publisher": "openai.com"
+      },
+      {
+        "url": "https://openai.com/news/rss.xml",
+        "kind": "official",
+        "label": "OpenAI News, canal oficial",
+        "checkedAt": "2026-09-16",
+        "publisher": "openai.com"
       }
     ],
     "relatedTools": [],
@@ -386,22 +391,22 @@
   {
     "id": "news-2026-09-03-runway-com-runway-research-introducing-gwm-worlds-2",
     "slug": "runway-com-runway-research-introducing-gwm-worlds-2",
-    "title": "Runway Research | Introducing GWM Worlds 2",
+    "title": "Runway presenta GWM Worlds 2, un modelo que genera mundos interactivos con vídeo y audio en tiempo real",
     "author": "Redacción de Free AI Radar",
-    "impact": "La página no menciona ninguna capa gratuita, ni para confirmarla ni para descartarla, así que no podemos decir qué cambia para quien no paga. El anuncio no menciona pesos descargables ni licencia. Verificado leyendo la página del fabricante; queda pendiente la revisión editorial.",
+    "impact": "Runway lo presenta como un avance de investigación, no como un producto: la página no explica cómo probarlo, remite a un formulario de contacto y no menciona precio ni capa gratuita. La propia empresa reconoce sus límites: la generación en tiempo real sacrifica calidad por velocidad, los giros de cámara muy rápidos degradan detalles y geometría, y la memoria a largo plazo es imperfecta. Entre los usos que plantea están los juegos, las experiencias interactivas y los entornos simulados para evaluar y entrenar agentes.",
     "status": "published",
     "sources": [
       {
         "url": "https://runway.com/research/introducing-gwm-worlds-2",
         "kind": "official",
         "label": "Runway Research | Introducing GWM Worlds 2",
-        "checkedAt": "2026-09-08",
+        "checkedAt": "2026-09-16",
         "publisher": "runway.com"
       }
     ],
-    "summary": "runway.com publicó esto el 2026-09-03, según la fecha que declara su propia página. Sobre la disponibilidad, el anuncio dice: «GWM Worlds 2 is a research preview, and real-time generation still trades fidelity for speed.».",
+    "summary": "Runway presentó el 3 de septiembre GWM Worlds 2, un avance de investigación de su modelo de mundos: genera en tiempo real vídeo continuo a 720p y 24 fotogramas por segundo, con audio a 48.000 Hz, y responde a lo que hace el usuario mientras explora. Amplía GWM Worlds, que la empresa mostró en diciembre, con audio generado y más control sobre los personajes y la escena, que se dirigen con instrucciones de texto y movimientos de cámara.",
     "category": "video",
-    "checkedAt": "2026-09-08",
+    "checkedAt": "2026-09-16",
     "eventType": "preview-beta",
     "freeAccess": {
       "model": "unknown",
@@ -421,19 +426,26 @@
     "slug": "ollama-0-32-6-retira-temporalmente-la-generacion-de-imagenes",
     "title": "Ollama retira temporalmente la generación de imágenes en la 0.32.6",
     "summary": "La versión 0.32.6 de Ollama, publicada el 4 de agosto de 2026, retira la generación de imágenes experimental. Sus propias notas de versión indican que la retirada es temporal y recomiendan seguir en la 0.32.5 si necesitas esa función. La misma release optimiza Qwen3.5 en GPU de Apple y ajusta el formato de streaming compatible con OpenAI.",
-    "impact": "Si actualizas y tu flujo local dependía de generar imágenes con Ollama, dejarás de poder hacerlo. El propio fabricante señala la salida: quedarse en la 0.32.5. No es un recorte de plan gratuito —Ollama es gratuito y de código abierto— sino una función que desaparece de la última versión.",
+    "impact": "Si tu flujo local dependía de generar imágenes con Ollama, dejarás de poder hacerlo al actualizar; las propias notas recomiendan seguir en la 0.32.5. Ninguna de las notas de versión publicadas después, hasta la 0.34.2 del 15 de septiembre, anuncia que la función haya vuelto.",
     "category": "imagen",
     "eventType": "retirada",
     "availability": "deprecated",
     "publishedAt": "2026-08-04",
-    "checkedAt": "2026-08-11",
+    "checkedAt": "2026-09-16",
     "sources": [
       {
         "url": "https://github.com/ollama/ollama/releases/tag/v0.32.6",
         "label": "Notas de versión de Ollama v0.32.6",
         "kind": "release-notes",
         "publisher": "github.com/ollama",
-        "checkedAt": "2026-08-11"
+        "checkedAt": "2026-09-16"
+      },
+      {
+        "url": "https://github.com/ollama/ollama/releases",
+        "label": "Notas de versión de Ollama, de la 0.32.7 a la 0.34.2",
+        "kind": "release-notes",
+        "publisher": "github.com/ollama",
+        "checkedAt": "2026-09-16"
       }
     ],
     "officialUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.6",
@@ -449,27 +461,25 @@
   {
     "id": "news-2026-07-27-anthropic-open-weights",
     "slug": "anthropic-publica-su-posicion-sobre-modelos-de-pesos-abiertos",
-    "title": "Anthropic publica su posición sobre los modelos de pesos abiertos",
-    "summary": "Anthropic ha publicado un documento con su postura respecto a los modelos de pesos abiertos, dentro de su sección de noticias oficial.",
-    "impact": "Interesa a quien decide entre depender de una API cerrada o de pesos que puede descargar y ejecutar. La postura de un laboratorio grande sobre pesos abiertos condiciona qué modelos estarán disponibles para uso local en los próximos años.",
+    "title": "Anthropic niega querer prohibir los modelos de pesos abiertos y propone controlar chips, destilación y pruebas de seguridad",
+    "summary": "Dario Amodei, consejero delegado de Anthropic, publicó el 27 de julio la postura de la empresa sobre los modelos de pesos abiertos, mientras en Estados Unidos se discutía prohibir a las empresas del país usar los de origen chino. Amodei afirma que Anthropic nunca ha defendido prohibirlos y que los modelos abiertos sin capacidades peligrosas son un bien público. A su juicio, una prohibición proteccionista no resolvería sus dos grandes preocupaciones: que un gobierno autoritario supere a Estados Unidos en IA y que se usen modelos potentes para ciberataques o ataques biológicos.",
+    "impact": "En su lugar, Anthropic defiende tres medidas: no vender a China chips avanzados ni equipos para fabricarlos, perseguir la destilación de modelos a escala industrial y someter a pruebas de seguridad obligatorias a todos los modelos suficientemente capaces, abiertos o cerrados. Amodei coincide con buena parte de la carta abierta a favor de los pesos abiertos que firmaron varias tecnológicas, pero discute que estos modelos faciliten necesariamente las salvaguardas o ayuden más a los defensores que a los atacantes.",
     "category": "local-open-source",
     "eventType": "anuncio",
     "availability": "unknown",
     "publishedAt": "2026-07-27",
-    "checkedAt": "2026-08-11",
+    "checkedAt": "2026-09-16",
     "sources": [
       {
         "url": "https://www.anthropic.com/news/position-open-weights-models",
         "label": "Our position on open-weights models",
         "kind": "official",
         "publisher": "anthropic.com",
-        "checkedAt": "2026-08-11"
+        "checkedAt": "2026-09-16"
       }
     ],
     "officialUrl": "https://www.anthropic.com/news/position-open-weights-models",
-    "relatedTools": [
-      "claude"
-    ],
+    "relatedTools": [],
     "affectsFreePlan": "unverified",
     "verification": "verified",
     "status": "published",
@@ -480,52 +490,53 @@
     "id": "news-2026-07-24-claude-opus-5",
     "slug": "anthropic-lanza-claude-opus-5",
     "title": "Anthropic lanza Claude Opus 5 al mismo precio que Opus 4.8",
-    "summary": "Claude Opus 5 se publica el 24 de julio de 2026 con un precio de 5 dólares por millón de tokens de entrada y 25 por millón de salida, los mismos que Opus 4.8. Está disponible en la API de Claude, y en los planes Max y Pro. El modo rápido cuesta el doble del precio base.",
-    "impact": "El plan gratuito no aparece mencionado en el anuncio, así que Opus 5 no es una opción para quien no paga. Su interés para el lector de este sitio es indirecto: cuando el modelo tope baja de precio, los modelos que sí llegan a la capa gratuita suelen mejorar poco después.",
+    "summary": "Anthropic publicó Claude Opus 5 el 24 de julio de 2026, disponible desde ese día en todas sus plataformas. En la API cuesta 5 dólares por millón de tokens de entrada y 25 por millón de salida, lo mismo que Opus 4.8. Es el nuevo modelo por defecto de Claude Max y el más capaz de Claude Pro. También se ofrece en modo rápido, unas 2,5 veces más veloz, al doble del precio base en la plataforma de Claude y con créditos de uso en Claude Code.",
+    "impact": "El anuncio no menciona el plan gratuito de Claude: los planes que cita son Max y Pro, así que no consta que quien no paga pueda usar Opus 5. Según Anthropic, se acerca a la inteligencia de Claude Fable 5 por la mitad de precio, aunque queda por detrás de Mythos 5 en tareas de ciberseguridad. En Claude.ai, Claude Code y Claude Cowork, las peticiones que sus salvaguardas marcan pasan por defecto a Opus 4.8.",
     "category": "modelo-lenguaje",
     "eventType": "lanzamiento",
     "availability": "available",
     "publishedAt": "2026-07-24",
-    "checkedAt": "2026-08-11",
+    "checkedAt": "2026-09-16",
     "sources": [
       {
         "url": "https://www.anthropic.com/news/claude-opus-5",
         "label": "Introducing Claude Opus 5",
         "kind": "official",
         "publisher": "anthropic.com",
-        "checkedAt": "2026-08-11"
+        "checkedAt": "2026-09-16"
       }
     ],
     "officialUrl": "https://www.anthropic.com/news/claude-opus-5",
     "relatedTools": [
-      "claude"
+      "claude",
+      "claude-opus-5"
     ],
     "affectsFreePlan": "unverified",
     "verification": "verified",
     "status": "published",
     "author": "Redacción de Free AI Radar",
-    "seoTitle": "Claude Opus 5: precio, disponibilidad y plan gratuito",
-    "seoDescription": "Anthropic lanza Claude Opus 5 a 5 $/M entrada y 25 $/M salida, en API, Max y Pro. Qué significa para quien usa Claude gratis.",
+    "seoTitle": "Claude Opus 5: precio y planes en los que está disponible",
+    "seoDescription": "Anthropic lanza Claude Opus 5 a 5 $/M de entrada y 25 $/M de salida. Es el modelo por defecto de Claude Max y el más capaz de Claude Pro.",
     "unconfirmed": []
   },
   {
     "id": "news-2026-07-14-claude-for-teachers",
     "slug": "anthropic-presenta-claude-for-teachers",
     "title": "Anthropic presenta Claude for Teachers",
-    "summary": "Anthropic anunció el 14 de julio de 2026 Claude for Teachers, un producto dirigido a personal docente. Según el anuncio oficial, el profesorado de primaria y secundaria de Estados Unidos que verifique su condición obtiene acceso «entirely free», y quien se dé de alta antes del 30 de junio de 2027 dispone de un año completo de acceso.",
-    "impact": "Es acceso gratuito a capacidades de pago, pero sólo si eres docente verificado de un centro estadounidense de K-12. Fuera de ese grupo no cambia nada. La oferta para centros y distritos, según la propia página, todavía no está disponible.",
+    "summary": "Anthropic presentó el 14 de julio de 2026 Claude for Teachers, que da a los docentes de primaria y secundaria (K-12) de Estados Unidos, una vez verificados, acceso gratuito a funciones de pago de Claude, una biblioteca de habilidades para la enseñanza y conexión con currículos alineados con los estándares de los 50 estados. Quien se dé de alta hasta el 30 de junio de 2027 tiene un año completo de acceso.",
+    "impact": "Es acceso gratuito a capacidades de pago, pero sólo para docentes verificados de centros estadounidenses de K-12; fuera de ese grupo no cambia nada. Incluye Claude Code y Cowork, y Anthropic afirma que no entrena sus modelos con las conversaciones de las cuentas docentes verificadas. Desde el 28 de agosto hay además una oferta específica para centros y distritos.",
     "category": "plan-gratuito",
     "eventType": "lanzamiento",
     "availability": "limited",
     "publishedAt": "2026-07-14",
-    "checkedAt": "2026-08-11",
+    "checkedAt": "2026-09-16",
     "sources": [
       {
         "url": "https://www.anthropic.com/news/claude-for-teachers",
         "label": "Introducing Claude for Teachers",
         "kind": "official",
         "publisher": "anthropic.com",
-        "checkedAt": "2026-08-11"
+        "checkedAt": "2026-09-16"
       }
     ],
     "officialUrl": "https://www.anthropic.com/news/claude-for-teachers",
@@ -542,59 +553,66 @@
     "id": "news-2026-07-11-ollama-agente",
     "slug": "ollama-0-32-0-activa-su-agente-interactivo-por-defecto",
     "title": "Ollama activa por defecto su experiencia de agente interactivo",
-    "summary": "La versión 0.32.0 de Ollama, del 11 de julio de 2026, lanza por defecto una nueva experiencia de agente interactivo: según sus notas de versión, ejecutar `ollama` arranca ahora un agente que ayuda a programar y a delegar trabajo.",
-    "impact": "Ollama deja de ser sólo un ejecutor de modelos en local y pasa a ofrecer un agente de serie. Para quien quiere agentes sin pagar API ni enviar datos fuera de su equipo, es la vía gratuita más directa: el coste se traslada a tu hardware.",
+    "summary": "La versión 0.32.0 de Ollama, publicada el 11 de julio de 2026, cambia lo que ocurre al ejecutar «ollama»: según sus notas de versión, ahora arranca un agente interactivo que ayuda a programar y a delegar trabajo. La misma versión renombra la integración de Codex App como ChatGPT y avisa antes de lanzar modelos de agente antiguos como CodeLlama o Llama 3.x.",
+    "impact": "Ollama deja de ser sólo un ejecutor de modelos y ofrece un agente de serie. Ojo con el modelo: el ejemplo de las notas arranca con glm-5.2:cloud, y la etiqueta «cloud» corresponde, según las propias notas de Ollama, a modelos que funcionan en la nube, no en tu equipo. Si quieres que nada salga de tu ordenador, tienes que elegir un modelo local. Las notas no hablan de precios ni de límites de uso.",
     "category": "agentes",
     "eventType": "actualizacion",
     "availability": "available",
     "publishedAt": "2026-07-11",
-    "checkedAt": "2026-08-11",
+    "checkedAt": "2026-09-16",
     "sources": [
       {
         "url": "https://github.com/ollama/ollama/releases/tag/v0.32.0",
         "label": "Notas de versión de Ollama v0.32.0",
         "kind": "release-notes",
         "publisher": "github.com/ollama",
-        "checkedAt": "2026-08-11"
+        "checkedAt": "2026-09-16"
+      },
+      {
+        "url": "https://github.com/ollama/ollama/releases/tag/v0.32.6",
+        "label": "Notas de versión de Ollama v0.32.6, que describen los modelos «cloud»",
+        "kind": "release-notes",
+        "publisher": "github.com/ollama",
+        "checkedAt": "2026-09-16"
       }
     ],
     "officialUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.0",
     "relatedTools": [
       "ollama"
     ],
-    "affectsFreePlan": "yes",
+    "affectsFreePlan": "unverified",
     "verification": "verified",
     "status": "published",
     "author": "Redacción de Free AI Radar",
     "seoTitle": "Ollama estrena agente interactivo por defecto (v0.32.0)",
-    "seoDescription": "Ollama 0.32.0 activa un agente interactivo de serie. Agentes en local, gratis y sin enviar datos fuera de tu equipo.",
+    "seoDescription": "Ollama 0.32.0 arranca un agente interactivo al ejecutar ollama. El ejemplo usa un modelo en la nube; para trabajar sólo en local hay que elegir otro.",
     "unconfirmed": []
   },
   {
     "id": "news-2026-07-08-robostral-navigate",
     "slug": "mistral-presenta-robostral-navigate",
-    "title": "Mistral presenta Robostral Navigate, su primer modelo de navegación embebida",
-    "summary": "Mistral presentó Robostral Navigate, un modelo de 8.000 millones de parámetros para navegación robótica que se apoya en una única cámara RGB para desplazarse de forma autónoma por entornos complejos. La fecha, 8 de julio de 2026, figura en el índice de noticias de Mistral; la página de detalle no la muestra.",
-    "impact": "La página no dice si el modelo se puede descargar, bajo qué licencia, ni por qué vía se accede a él: enlaza un informe técnico e invita a hablar con su equipo comercial, y nada más. Mientras Mistral no lo concrete no hay manera de saber si esto llega a quien no paga, así que lo tratamos como lo que demuestra ser: un anuncio, no algo que puedas probar hoy.",
+    "title": "Mistral presenta Robostral Navigate, su primer modelo de navegación para robots",
+    "summary": "Mistral presentó el 8 de julio de 2026 Robostral Navigate, un modelo de 8.000 millones de parámetros que permite a un robot desplazarse de forma autónoma por oficinas, edificios y exteriores con una sola cámara RGB, sin LiDAR ni sensores de profundidad. Según Mistral, se entrenó por completo en simulación y funciona en robots con ruedas, con patas y voladores.",
+    "impact": "Mistral lo orienta a usos en fabricación, reparto, logística y hostelería. La página no dice si el modelo se puede descargar, bajo qué licencia ni cómo se accede a él: enlaza un informe técnico e invita a hablar con su equipo, sin ofrecer ninguna vía para probarlo.",
     "category": "modelo-multimodal",
     "eventType": "anuncio",
     "availability": "unknown",
     "publishedAt": "2026-07-08",
-    "checkedAt": "2026-08-11",
+    "checkedAt": "2026-09-16",
     "sources": [
       {
         "url": "https://mistral.ai/news/robostral-navigate/",
         "label": "Introducing Robostral Navigate",
         "kind": "official",
         "publisher": "mistral.ai",
-        "checkedAt": "2026-08-11"
+        "checkedAt": "2026-09-16"
       },
       {
         "url": "https://mistral.ai/news",
         "label": "Índice de noticias de Mistral, donde consta la fecha del anuncio",
         "kind": "official",
         "publisher": "mistral.ai",
-        "checkedAt": "2026-08-11"
+        "checkedAt": "2026-09-16"
       }
     ],
     "officialUrl": "https://mistral.ai/news/robostral-navigate/",
@@ -609,20 +627,20 @@
     "id": "news-2026-07-02-leanstral",
     "slug": "mistral-publica-leanstral-1-5",
     "title": "Mistral publica Leanstral 1.5 como modelo de código abierto",
-    "summary": "El 2 de julio de 2026 Mistral anunció Leanstral 1.5, un modelo de verificación formal para pruebas en Lean 4, publicado bajo licencia Apache-2.0. Sus pesos están en Hugging Face y el modelo está además disponible como punto final de API gratuito con el identificador `leanstral-1-5`.",
-    "impact": "Otro modelo que se puede descargar y ejecutar sin cuota mensual, y que además ofrece una API gratuita. La gratuidad de un modelo con pesos abiertos bajo Apache-2.0 no depende de que una empresa mantenga su plan gratuito.",
+    "summary": "El 2 de julio de 2026 Mistral publicó Leanstral 1.5, un modelo de verificación formal para demostraciones en Lean 4, con licencia Apache-2.0. Sus pesos están en Hugging Face y el modelo también está disponible gratis en la API de Mistral, con el identificador leanstral-1-5.",
+    "impact": "Se puede descargar y ejecutar sin pagar cuota, o usar a través de la API gratuita. Mistral lo describe como un modelo de 119.000 millones de parámetros en total, de los que sólo activa 6.000 millones, y recomienda usarlo desde Mistral Vibe. Como los pesos están publicados bajo Apache-2.0, poder usarlo gratis no depende de que Mistral mantenga la API gratuita.",
     "category": "local-open-source",
     "eventType": "lanzamiento",
     "availability": "available",
     "publishedAt": "2026-07-02",
-    "checkedAt": "2026-08-11",
+    "checkedAt": "2026-09-16",
     "sources": [
       {
         "url": "https://mistral.ai/news/leanstral-1-5/",
         "label": "Leanstral 1.5: Proof Abundance for All",
         "kind": "official",
         "publisher": "mistral.ai",
-        "checkedAt": "2026-08-11"
+        "checkedAt": "2026-09-16"
       }
     ],
     "officialUrl": "https://mistral.ai/news/leanstral-1-5/",
@@ -637,20 +655,20 @@
     "id": "news-2026-06-30-claude-sonnet-5",
     "slug": "claude-sonnet-5-pasa-a-ser-el-modelo-por-defecto-del-plan-gratuito",
     "title": "Claude Sonnet 5 pasa a ser el modelo por defecto del plan gratuito",
-    "summary": "Anthropic publicó Claude Sonnet 5 el 30 de junio de 2026. Según el anuncio oficial, «is the default model for Free and Pro plans, and is available to Max, Team, and Enterprise users». El precio de API es introductorio hasta el 31 de agosto de 2026: 2 dólares por millón de tokens de entrada y 10 por millón de salida, frente a los 3 y 15 estándar.",
-    "impact": "Es de los cambios que más importan aquí: quien usa Claude sin pagar pasa a tener Sonnet 5 por defecto, sin hacer nada. Y si usas la API, el precio sube automáticamente el 1 de septiembre de 2026 a 3 y 15 dólares — conviene tenerlo en cuenta antes de esa fecha.",
+    "summary": "Anthropic publicó Claude Sonnet 5 el 30 de junio de 2026 y lo convirtió en el modelo por defecto de los planes Free y Pro de Claude; también está disponible para los usuarios de Max, Team y Enterprise. En la API cuesta 2 dólares por millón de tokens de entrada y 10 por millón de salida. Ese precio se anunció como introductorio, pero el 10 de agosto Anthropic lo hizo permanente: la subida a 3 y 15 dólares prevista para el 1 de septiembre ya no se aplica.",
+    "impact": "Quien usa Claude sin pagar tiene Sonnet 5 como modelo por defecto sin hacer nada. Para quien usa la API, la subida de precio que el anuncio original fijaba para el 1 de septiembre no ha llegado a aplicarse. Anthropic advierte de que Sonnet 5 usa un tokenizador nuevo: el mismo texto puede convertirse en entre 1 y 1,35 veces más tokens que con Sonnet 4.6, según el tipo de contenido, así que una misma tarea puede consumir más tokens aunque la tarifa no cambie.",
     "category": "modelo-lenguaje",
     "eventType": "lanzamiento",
     "availability": "available",
     "publishedAt": "2026-06-30",
-    "checkedAt": "2026-08-11",
+    "checkedAt": "2026-09-16",
     "sources": [
       {
         "url": "https://www.anthropic.com/news/claude-sonnet-5",
         "label": "Introducing Claude Sonnet 5",
         "kind": "official",
         "publisher": "anthropic.com",
-        "checkedAt": "2026-08-11"
+        "checkedAt": "2026-09-16"
       }
     ],
     "officialUrl": "https://www.anthropic.com/news/claude-sonnet-5",
@@ -663,27 +681,27 @@
     "status": "published",
     "author": "Redacción de Free AI Radar",
     "seoTitle": "Claude Sonnet 5, ya por defecto en el plan gratuito",
-    "seoDescription": "Sonnet 5 es el modelo por defecto de los planes Free y Pro de Claude. Precio de API introductorio hasta el 31 de agosto de 2026.",
+    "seoDescription": "Sonnet 5 es el modelo por defecto de los planes Free y Pro de Claude. En la API cuesta 2 $/M de entrada y 10 $/M de salida, ya de forma permanente.",
     "unconfirmed": []
   },
   {
     "id": "news-2026-06-30-ollama-gemma-4",
     "slug": "ollama-acelera-gemma-4-en-apple-silicon",
     "title": "Ollama acelera Gemma 4 casi un 90 % en Apple Silicon",
-    "summary": "La versión 0.31.1 de Ollama, del 30 de junio de 2026, indica que Gemma 4 es «significantly faster» en Apple Silicon gracias a la predicción multi-token (MTP), y cifra la mejora en «nearly 90% faster on average across a coding-agent benchmark». La propia release señala que la ganancia se aplica sola, sin configuración.",
-    "impact": "Si ejecutas modelos en un Mac, actualizar Ollama puede ser la mejora de rendimiento más barata disponible: no cuesta nada y no requiere hardware nuevo. La cifra del 90 % es la media de una prueba de agente de programación, no una mejora garantizada en cualquier uso.",
+    "summary": "La versión 0.31.1 de Ollama, publicada el 30 de junio de 2026, acelera Gemma 4 en los Mac con Apple Silicon gracias a la predicción de varios tokens a la vez (MTP): según sus notas, genera tokens casi un 90 % más rápido de media en una prueba de agentes de programación. La mejora viene activada por defecto, no requiere configuración y no cambia las respuestas del modelo.",
+    "impact": "Si ejecutas Gemma 4 en un Mac, basta con actualizar Ollama para tener la mejora, sin coste ni hardware nuevo. La cifra del 90 % es la media de una prueba concreta de agentes de programación, no una mejora garantizada en cualquier uso.",
     "category": "local-open-source",
     "eventType": "actualizacion",
     "availability": "available",
     "publishedAt": "2026-06-30",
-    "checkedAt": "2026-08-11",
+    "checkedAt": "2026-09-16",
     "sources": [
       {
         "url": "https://github.com/ollama/ollama/releases/tag/v0.31.1",
         "label": "Notas de versión de Ollama v0.31.1",
         "kind": "release-notes",
         "publisher": "github.com/ollama",
-        "checkedAt": "2026-08-11"
+        "checkedAt": "2026-09-16"
       }
     ],
     "officialUrl": "https://github.com/ollama/ollama/releases/tag/v0.31.1",
@@ -691,7 +709,7 @@
       "ollama",
       "gemma-4"
     ],
-    "affectsFreePlan": "yes",
+    "affectsFreePlan": "unverified",
     "verification": "verified",
     "status": "published",
     "author": "Redacción de Free AI Radar",
@@ -702,19 +720,19 @@
     "slug": "mistral-lanza-ocr-4",
     "title": "Mistral lanza OCR 4, su modelo de inteligencia documental",
     "summary": "El 23 de junio de 2026 Mistral anunció OCR 4, un modelo de inteligencia documental con cajas delimitadoras, clasificación de bloques, puntuaciones de confianza y soporte para 170 idiomas. Se ofrece como servicio de API y a través de Document AI en Mistral Studio, Amazon SageMaker y Microsoft Foundry. El autoalojamiento queda reservado a clientes empresariales que lo soliciten.",
-    "impact": "Si buscabas OCR gratuito, no es esto: la propia página fija el precio en 4 dólares por cada 1.000 páginas, con un 50 % de descuento usando la API por lotes, y 5 dólares por cada 1.000 en Document AI. No menciona ninguna capa gratuita. Tampoco ofrece pesos descargables, así que procesar los documentos en tu propio equipo sólo está al alcance de las empresas que pidan el autoalojamiento.",
+    "impact": "Si buscabas OCR gratuito, no es esto: la propia página fija el precio en 4 dólares por cada 1.000 páginas en la API, que bajan a 2 con la API por lotes, y en 5 dólares por cada 1.000 en Document AI. No menciona ninguna capa gratuita ni pesos descargables, y procesar los documentos en infraestructura propia sólo se ofrece a clientes empresariales.",
     "category": "modelo-multimodal",
     "eventType": "lanzamiento",
     "availability": "available",
     "publishedAt": "2026-06-23",
-    "checkedAt": "2026-08-11",
+    "checkedAt": "2026-09-16",
     "sources": [
       {
         "url": "https://mistral.ai/news/ocr-4/",
         "label": "Introducing Mistral OCR 4",
         "kind": "official",
         "publisher": "mistral.ai",
-        "checkedAt": "2026-08-11"
+        "checkedAt": "2026-09-16"
       }
     ],
     "officialUrl": "https://mistral.ai/news/ocr-4/",
@@ -729,25 +747,25 @@
     "id": "news-2026-05-22-mistral-medium-35",
     "slug": "mistral-medium-3-5-y-agentes-remotos-en-vibe",
     "title": "Mistral estrena agentes remotos en Vibe con Mistral Medium 3.5",
-    "summary": "El 22 de mayo de 2026 Mistral anunció agentes remotos en su producto Vibe, impulsados por Mistral Medium 3.5. Según la página oficial, el modelo se publica con pesos abiertos en Hugging Face bajo una licencia MIT modificada, mientras que los agentes remotos y el modo Work de Le Chat quedan disponibles en los planes Pro, Team y Enterprise.",
-    "impact": "Los agentes remotos de Vibe no entran en ningún plan gratuito: la propia página los limita a Pro, Team y Enterprise. Lo que sí queda al alcance de cualquiera son los pesos de Medium 3.5, que se pueden descargar y ejecutar en local si tienes hardware para ello.",
+    "summary": "Mistral anunció el 22 de mayo de 2026 agentes de programación remotos en Vibe, que trabajan en la nube y en paralelo, y un modo Work en Le Chat para tareas de varios pasos. Los dos funcionan con Mistral Medium 3.5, un modelo denso de 128.000 millones de parámetros en vista previa pública, y están disponibles en los planes Pro, Team y Enterprise. Los pesos del modelo están en Hugging Face con una licencia MIT modificada; en la API cuesta 1,5 dólares por millón de tokens de entrada y 7,5 por millón de salida.",
+    "impact": "La página reserva los agentes remotos y el modo Work a los planes Pro, Team y Enterprise. Mistral también hace de Medium 3.5 el modelo por defecto de Le Chat, sin precisar si eso incluye a quien no paga. Lo que sí está al alcance de cualquiera son los pesos, que según Mistral pueden ejecutarse con sólo cuatro GPU.",
     "category": "plataforma-agentes",
     "eventType": "lanzamiento",
     "availability": "limited",
     "publishedAt": "2026-05-22",
-    "checkedAt": "2026-08-11",
+    "checkedAt": "2026-09-16",
     "sources": [
       {
         "url": "https://mistral.ai/news/vibe-remote-agents-mistral-medium-3-5/",
         "label": "Remote agents in Vibe. Powered by Mistral Medium 3.5.",
         "kind": "official",
         "publisher": "mistral.ai",
-        "checkedAt": "2026-08-11"
+        "checkedAt": "2026-09-16"
       }
     ],
     "officialUrl": "https://mistral.ai/news/vibe-remote-agents-mistral-medium-3-5/",
     "relatedTools": [],
-    "affectsFreePlan": "no",
+    "affectsFreePlan": "unverified",
     "verification": "verified",
     "status": "published",
     "author": "Redacción de Free AI Radar",
