@@ -1,5 +1,108 @@
 [
   {
+    "id": "news-2026-09-17-anthropic-metricas-ritmo-ia",
+    "slug": "anthropic-metricas-ritmo-ia",
+    "title": "Anthropic publica tres métricas sobre su propio desarrollo: Claude ya «lidera» el 26 % de su investigación en IA",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Anthropic publicó el 17 de septiembre tres mediciones con las que propone que el público pueda seguir el ritmo del desarrollo de la IA dentro de los laboratorios: cuánta investigación la hace ya la propia IA, cómo se supervisan las acciones de los agentes y cómo se reparte el cómputo. Según sus datos, en agosto Claude «lideraba» el 26 % del trabajo de investigación y desarrollo de la compañía y más del 90 % estaba al menos en el nivel de «la IA colabora». Añade que Claude no operaba de forma totalmente autónoma en ninguna parte medida.",
+    "impact": "Las cifras las calcula la propia Anthropic, y quien puntúa cada tarea es un juez que también es Claude, sobre una escala de Epoch AI. Aun así dan una referencia pública donde no había ninguna: unos 30.000 agentes trabajando a la vez en su plataforma interna y, en la semana examinada, un 6 % del cómputo de I+D dedicado a seguridad. La empresa dice que incorporará evaluadores externos con acceso comparable al de sus equipos de riesgo, y que estos números cambiarían si se coordinara frenar el ritmo, como pidió su consejero delegado.",
+    "category": "agentes",
+    "eventType": "anuncio",
+    "availability": "unknown",
+    "publishedAt": "2026-09-17",
+    "checkedAt": "2026-09-20",
+    "officialUrl": "https://www.anthropic.com/institute/measuring-pace-of-ai-development",
+    "sources": [
+      {
+        "url": "https://www.anthropic.com/institute/measuring-pace-of-ai-development",
+        "kind": "official",
+        "label": "Measurements for understanding the pace of AI development inside frontier labs",
+        "checkedAt": "2026-09-20",
+        "publisher": "anthropic.com"
+      },
+      {
+        "url": "https://www.anthropic.com/news",
+        "kind": "official",
+        "label": "Anthropic Newsroom",
+        "checkedAt": "2026-09-20",
+        "publisher": "anthropic.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-16-mistral-mozilla-firefox-smart-window",
+    "slug": "mistral-mozilla-firefox-smart-window",
+    "title": "Firefox pasa a usar modelos de Mistral en Smart Window, su asistente de navegación",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Mistral y Mozilla anunciaron el 16 de septiembre que Smart Window, el asistente de navegación de Firefox, funciona ya con modelos de Mistral. Está en beta y Mistral lo servirá primero en Francia y Norteamérica, con Reino Unido y Alemania previstos para más adelante este año. El asistente ayuda a entender búsquedas complejas, a recuperar algo que se cerró y a reunir información a partir de las pestañas abiertas. Las conversaciones no se guardan en los servidores de Mozilla de forma predeterminada y los socios se comprometen a no retener datos.",
+    "impact": "Lo comprobable para quien lo use es el trato con sus datos: nada guardado por defecto en Mozilla, retención cero en el proveedor y, por ahora, dos mercados. Para Mozilla, el acuerdo evita que el navegador quede atado a un único proveedor de IA; su consejero delegado, Anthony Enzor-DeMeo, lo resume diciendo que un navegador no debería ser un embudo de sentido único. Para Mistral es salir del terreno empresarial y llegar al consumidor, con modelos que dice ajustar a lenguas y dialectos regionales.",
+    "category": "modelo-lenguaje",
+    "eventType": "actualizacion",
+    "availability": "limited",
+    "publishedAt": "2026-09-16",
+    "checkedAt": "2026-09-20",
+    "officialUrl": "https://mistral.ai/news/mistral-x-mozilla/",
+    "sources": [
+      {
+        "url": "https://mistral.ai/news/mistral-x-mozilla/",
+        "kind": "official",
+        "label": "Mistral and Mozilla are bringing open, private and multilingual AI to your web browser",
+        "checkedAt": "2026-09-20",
+        "publisher": "mistral.ai"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-15-gemini-3-8-live",
+    "slug": "gemini-3-8-live",
+    "title": "Google lanza Gemini 3.8 Live, dos modelos de voz que cambian de idioma a mitad de conversación",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Google DeepMind presentó el 15 de septiembre Gemini 3.8 Live y Gemini 3.8 Live Extended Thinking, dos modelos de audio pensados para agentes de voz. El primero está orientado a escala y coste, con diálogo fluido y anclaje visual; el segundo, a tareas complejas con razonamiento de varios pasos. Detectan y cambian entre 97 idiomas en mitad de la conversación y ejecutan herramientas y llamadas a la API en segundo plano mientras siguen hablando. Ambos empezaron a desplegarse ese mismo día.",
+    "impact": "El reparto explica a quién llega cada cosa: los desarrolladores los tienen en la API de Gemini y Google AI Studio, las empresas en vista previa privada dentro de Gemini Enterprise, y el público en Search Live, mientras la variante Extended Thinking aparece en Gemini Live y para suscriptores de Google AI Pro y Ultra en Workspace. Google añade que todo el audio que generan sus productos lleva la marca de agua SynthID. Los resultados que cita en EVA-Bench, la prueba de ServiceNow, los ejecutó en su propia plataforma.",
+    "category": "audio",
+    "eventType": "lanzamiento",
+    "availability": "limited",
+    "publishedAt": "2026-09-15",
+    "checkedAt": "2026-09-20",
+    "officialUrl": "https://deepmind.google/blog/introducing-gemini-3-8-live-and-3-8-live-extended-thinking/",
+    "sources": [
+      {
+        "url": "https://deepmind.google/blog/introducing-gemini-3-8-live-and-3-8-live-extended-thinking/",
+        "kind": "official",
+        "label": "Introducing Gemini 3.8 Live and 3.8 Live Extended Thinking",
+        "checkedAt": "2026-09-20",
+        "publisher": "deepmind.google"
+      },
+      {
+        "url": "https://deepmind.google/blog/rss.xml",
+        "kind": "official",
+        "label": "Google DeepMind News, canal oficial",
+        "checkedAt": "2026-09-20",
+        "publisher": "deepmind.google"
+      }
+    ],
+    "relatedTools": [
+      "google-gemini"
+    ],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-09-12-accomplish-sandbox-claude-code-cursor",
     "slug": "accomplish-sandbox-claude-code-cursor",
     "title": "Accomplish detalla cómo un repositorio malicioso podía saltarse el sandbox de Claude Code y de la CLI de Cursor en macOS",
