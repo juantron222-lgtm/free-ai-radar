@@ -140,25 +140,27 @@ describe('una deducción se archiva como deducción', () => {
     }
   });
 
-  it('Pika deduce de su tabla y lo dice; Runway ya lo publica en su ayuda', () => {
+  it('las dos que afirman marca de agua lo hacen con la frase del fabricante', () => {
     /*
-     * Las dos estaban deducidas de que «sin marca de agua» se vende en los
-     * planes de pago. El 16 de septiembre el centro de ayuda de Runway lo dice
-     * con todas las letras y su evidencia pasa a cita. Pika sigue sin decirlo
-     * en prosa —lo marca con el icono de «no incluido» en su tarjeta gratuita—
-     * y sigue siendo deducción declarada como tal.
+     * Las dos estuvieron deducidas de que «sin marca de agua» se vende en los
+     * planes de pago, y las dos dejaron de estarlo leyendo mejor la fuente: el
+     * centro de ayuda de Runway lo dice en prosa, y la tabla de Pika etiqueta
+     * cada fila con «Included:» o «Not included:», lo que convirtió su «sí»
+     * deducido en un «no» citado.
+     *
+     * Lo que esta prueba fija no es el valor de ninguna de las dos: es que
+     * nadie pueda afirmar marca de agua sin una frase suya detrás.
      */
-    const pika = tools.find((t) => t.slug === 'pika-labs')!;
-    expect(pika.freePlan.hasWatermark).toBe('yes');
-    const base = baseDe(evidenciaDe(pika, 'freePlan.hasWatermark')!)!;
-    expect(base, 'pika: no dice de dónde sale').toMatch(/no watermark/i);
-    expect(base, 'pika: no admite que es deducción nuestra').toMatch(/deduc|no lo dice|no lo afirma/i);
-
     const runway = tools.find((t) => t.slug === 'runwayml')!;
     expect(runway.freePlan.hasWatermark).toBe('yes');
     const ev = evidenciaDe(runway, 'freePlan.hasWatermark')!;
     expect(ev.outcome).toBe('stated');
     expect(citaDe(ev)).toMatch(/All videos generated on a Free plan feature a Runway watermark/);
+
+    const pika = tools.find((t) => t.slug === 'pika-labs')!;
+    const evPika = evidenciaDe(pika, 'freePlan.hasWatermark')!;
+    expect(evPika.outcome).toBe('stated');
+    expect(citaDe(evPika)).toBe('Included: No watermark');
   });
 });
 
@@ -195,20 +197,33 @@ describe('fichas hermanas, misma política', () => {
 });
 
 describe('los precios son los del modelo del que habla la ficha', () => {
-  it('DeepSeek Pro y Flash no comparten cifras de hora punta', () => {
+  it('cada DeepSeek publica los precios de su propia columna, y el retirado ninguno', () => {
     /*
      * La ficha de Pro publicaba «hora punta: 0,44 y 1,32», que son los precios
      * de Flash. Un catálogo que se equivoca de columna en una tabla de precios
      * se equivoca justo en lo que el lector va a usar para decidir.
+     *
+     * V4-Flash ya no tiene columna: DeepSeek lo retiró de su API el 10 de
+     * septiembre de 2026 y sus precios sólo sobreviven en el historial, que es
+     * donde un precio que ya no se cobra puede estar sin engañar a nadie.
      */
     const pro = tools.find((t) => t.slug === 'deepseek-v4-pro')!;
     const flash = tools.find((t) => t.slug === 'deepseek-v4-flash')!;
+    const nueva = tools.find((t) => t.slug === 'deepseek-v4-1-flash')!;
     const puntaDe = (t: (typeof tools)[number]) =>
       t.freePlan.limits.find((l) => /hora punta/i.test(l)) ?? '';
 
     expect(puntaDe(pro), 'Pro sin precio de punta').toMatch(/1,32.*3,96/);
-    expect(puntaDe(flash), 'Flash sin precio de punta').toMatch(/0,44.*1,32/);
-    expect(puntaDe(pro)).not.toBe(puntaDe(flash));
+    expect(puntaDe(nueva), 'V4.1 Flash sin precio de punta').toMatch(/0,30.*1,20/);
+    expect(puntaDe(pro)).not.toBe(puntaDe(nueva));
+
+    expect(flash.verification, 'Flash debería constar como retirado').toBe('discontinued');
+    expect(puntaDe(flash), 'un modelo retirado no publica precios vigentes').toBe('');
+    expect(
+      flash.changelog.some((c) => c.kind === 'shutdown' && /0,44|0,22/.test(c.summary)),
+      'los precios viejos tienen que quedar en el historial, con su fecha'
+    ).toBe(true);
+    expect(flash.replacedBy, 'una retirada tiene que decir a dónde ir').toBe('deepseek-v4-1-flash');
   });
 
   it('GPT-5.6 distingue contexto corto de largo, que es lo que hace su tabla', () => {

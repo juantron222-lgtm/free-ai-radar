@@ -36,6 +36,19 @@ const { recuento } = Astro.props;
       <dt>Catalogadas</dt>
       <dd class="tnum">{recuento.catalogada}</dd>
     </div>
+    {/*
+      Las retiradas sólo aparecen cuando las hay.
+
+      El reparto tiene que cerrar —es lo único que esta franja promete— y una
+      cuarta cifra clavada en cero cuando no hay ninguna es ruido que se lee
+      como un hueco.
+    */}
+    {recuento.retirada > 0 && (
+      <div>
+        <dt>Retiradas</dt>
+        <dd class="tnum">{recuento.retirada}</dd>
+      </div>
+    )}
   </dl>
   <p class="franja-nota">
     Cada dato sale de la página del fabricante y lleva fecha.{' '}

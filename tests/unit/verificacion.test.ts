@@ -97,10 +97,17 @@ describe('el estado de verificación', () => {
     expect(hechosCriticos(gratis).map((h) => h.key)).toContain('hasWatermark');
   });
 
-  it('los tres estados suman el catálogo entero', () => {
+  it('los cuatro estados suman el catálogo entero', () => {
+    /*
+     * Eran tres hasta que DeepSeek retiró V4-Flash de su API. Una ficha
+     * retirada no cabía en ninguno: con sus hechos confirmados y nada
+     * pendiente salía como «Verificación parcial», que promete algo a medias
+     * de una herramienta que ya no existe.
+     */
     const r = recuentoVerificacion(tools);
-    expect(r.verificada + r.parcial + r.catalogada).toBe(r.total);
+    expect(r.verificada + r.parcial + r.catalogada + r.retirada).toBe(r.total);
     expect(r.total).toBe(tools.length);
+    expect(r.retirada, 'si no hay ninguna retirada, esta suma no prueba nada').toBeGreaterThan(0);
   });
 });
 

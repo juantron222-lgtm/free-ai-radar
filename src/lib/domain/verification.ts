@@ -16,12 +16,13 @@ import { motivoDelHueco, type MotivoDeHueco } from './evidencia';
  * no puede llamarse verificada. Ese es todo el contrato.
  */
 
-export type VerificationState = 'verificada' | 'parcial' | 'catalogada';
+export type VerificationState = 'verificada' | 'parcial' | 'catalogada' | 'retirada';
 
 export const VERIFICATION_STATE_LABEL: Record<VerificationState, string> = {
   verificada: 'Verificada',
   parcial: 'Verificación parcial',
   catalogada: 'Catalogada',
+  retirada: 'Retirada',
 };
 
 export const VERIFICATION_STATE_MEANING: Record<VerificationState, string> = {
@@ -31,6 +32,8 @@ export const VERIFICATION_STATE_MEANING: Record<VerificationState, string> = {
     'Comprobada contra la página oficial, con parte de los hechos que resumimos confirmados. La ficha dice cuáles faltan y si el hueco es nuestro o de su fabricante.',
   catalogada:
     'Está en el catálogo, pero todavía no hemos confirmado contra la fuente oficial ninguno de los hechos que resumimos.',
+  retirada:
+    'Su fabricante la ha retirado. La ficha se queda para que sus enlaces sigan respondiendo y para decir qué ocupa su sitio.',
 };
 
 /**
@@ -157,11 +160,24 @@ export function verificacionDe(tool: Tool): Verificacion {
     tool.freeModel === 'unknown' ||
     (hechos.length > 0 && confirmados === 0);
 
-  const state: VerificationState = sinComprobar
-    ? 'catalogada'
-    : pendientes.length === 0 && tool.verification === 'verified'
-      ? 'verificada'
-      : 'parcial';
+  /*
+   * Una ficha retirada no es ni verificada ni parcial.
+   *
+   * DeepSeek retiró V4-Flash de su API y la ficha se quedó con sus tres hechos
+   * confirmados y ninguno pendiente, así que la regla de antes la llamaba
+   * «Verificación parcial» sin tener nada que nombrar como pendiente. El
+   * problema no era el recuento: era que el vocabulario no tenía la palabra.
+   * Lo que un lector necesita saber de ella no es cuánto comprobamos, sino que
+   * ya no existe y qué ocupa su sitio.
+   */
+  const state: VerificationState =
+    tool.verification === 'discontinued'
+      ? 'retirada'
+      : sinComprobar
+        ? 'catalogada'
+        : pendientes.length === 0 && tool.verification === 'verified'
+          ? 'verificada'
+          : 'parcial';
 
   return {
     state,
@@ -180,6 +196,8 @@ export interface RecuentoVerificacion {
   verificada: number;
   parcial: number;
   catalogada: number;
+  /** Retiradas por su fabricante; siguen en el catálogo para decirlo. */
+  retirada: number;
   /** Con acceso gratuito comprobado y utilizable hoy, sin instalar. */
   accesoGratuitoConfirmado: number;
   /** Sin plan gratuito: están para decir que no lo tienen. */
@@ -205,6 +223,7 @@ export function recuentoVerificacion(tools: readonly Tool[]): RecuentoVerificaci
     verificada: 0,
     parcial: 0,
     catalogada: 0,
+    retirada: 0,
     accesoGratuitoConfirmado: 0,
     sinPlanGratuito: 0,
     accesoSinConfirmar: 0,
@@ -242,7 +261,7 @@ export function recuentoVerificacion(tools: readonly Tool[]): RecuentoVerificaci
  * confirmar—, así que esto se limita a contarlo con palabras.
  */
 export function selloDe(v: Verificacion): string {
-  if (v.state === 'catalogada') return v.meaning;
+  if (v.state === 'catalogada' || v.state === 'retirada') return v.meaning;
   if (v.state === 'verificada') {
     return 'Hemos abierto la web del fabricante y confirmado uno a uno los hechos que le aplican.';
   }

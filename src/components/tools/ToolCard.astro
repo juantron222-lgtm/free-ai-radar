@@ -280,6 +280,10 @@ const seInstala = tool.startEffort === 'install' || tool.startEffort === 'techni
     color: var(--signal-strong);
   }
 
+  .tool-card-state[data-state='retirada'] {
+    color: var(--alert);
+  }
+
   .tool-card-verified[data-freshness='stale'],
   .tool-card-verified[data-freshness='very_stale'] {
     color: var(--warn);

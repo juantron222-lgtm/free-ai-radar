@@ -121,8 +121,8 @@ describe('un estado de verificación, una sola fuente', () => {
 describe('cada cifra pública significa una cosa, y las series cierran', () => {
   const r = recuentoVerificacion(tools);
 
-  it('los tres estados particionan el catálogo', () => {
-    expect(r.verificada + r.parcial + r.catalogada).toBe(r.total);
+  it('los cuatro estados particionan el catálogo', () => {
+    expect(r.verificada + r.parcial + r.catalogada + r.retirada).toBe(r.total);
     expect(r.total).toBe(tools.length);
   });
 

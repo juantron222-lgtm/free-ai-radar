@@ -74,8 +74,14 @@ export const COMPARACIONES: readonly ComparacionUtil[] = [
      * Luma Dream Machine salió de aquí: su ficha es `paid_only` y esta
      * comparación promete planes gratuitos. Cuatro columnas de las que una no
      * cumple el titular es exactamente lo que este sitio dice no hacer.
+     *
+     * Pika se queda, y el motivo lo dice. El 21 de septiembre de 2026 su tabla
+     * pasó a dar al plan gratuito cero créditos al mes, así que la columna
+     * sigue siendo útil —enseña qué se pierde— pero la cabecera ya no puede
+     * prometer por ella. Ésta es la prueba de que la regla funciona en los dos
+     * sentidos: no obliga a sacar lo de pago, obliga a advertirlo.
      */
-    motivo: 'Los planes gratuitos de vídeo son los más cambiantes del catálogo. Aquí, uno al lado del otro y con su fecha de comprobación.',
+    motivo: 'Los planes gratuitos de vídeo son los más cambiantes del catálogo. Aquí, uno al lado del otro y con su fecha de comprobación. No son todos gratuitos: Pika dejó de repartir créditos mensuales y su columna está para que se vea la diferencia.',
     slugs: ['klingai', 'hailuo-ai', 'pika-labs', 'higgsfield'],
   },
   {

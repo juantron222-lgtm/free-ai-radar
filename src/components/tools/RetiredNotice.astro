@@ -1,0 +1,105 @@
+---
+import type { Tool } from '@lib/domain/tool';
+import { ROUTES } from '@lib/nav';
+import { getAllTools } from '@lib/data/catalog';
+
+interface Props {
+  tool: Tool;
+}
+const { tool } = Astro.props;
+
+const retirada = tool.verification === 'discontinued';
+/*
+ * El relevo se busca en el catálogo, no se da por bueno.
+ *
+ * Un `replacedBy` que apunte a un slug que ya no existe escribiría un enlace
+ * roto justo en la frase que promete una salida, que es el peor sitio posible.
+ */
+const relevo = retirada && tool.replacedBy
+  ? getAllTools().find((t) => t.slug === tool.replacedBy)
+  : undefined;
+
+/** El último cambio de la ficha es lo que la retiró, cuando lo hay. */
+const cierre = retirada
+  ? [...tool.changelog].filter((c) => c.kind === 'shutdown').sort((a, b) => b.date.localeCompare(a.date))[0]
+  : undefined;
+
+const fecha = (iso: string) =>
+  new Date(`${iso}T00:00:00Z`).toLocaleDateString('es-ES', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+---
+
+{/*
+  Una ficha retirada sigue respondiendo, y dice a dónde ir.
+
+  Borrarla rompería los enlaces de quien la guardó y dejaría sin respuesta a
+  quien la busca por su nombre, que es justo cuando más falta hace contestar.
+*/}
+{retirada && (
+  <div class="retirada" role="note">
+    <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <circle cx="10" cy="10" r="7.5" stroke="currentColor" stroke-width="1.6" />
+      <path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+    </svg>
+    <p>
+      <strong>Su fabricante la ha retirado.</strong>{' '}
+      {cierre ? (
+        <>
+          {cierre.summary}{' '}
+          <span class="retirada-fecha">
+            Fecha del cambio: <time datetime={cierre.date}>{fecha(cierre.date)}</time>.
+          </span>{' '}
+        </>
+      ) : (
+        <>Lo que hay debajo describe lo que fue, no lo que puedes usar hoy. </>
+      )}
+      {relevo && (
+        <>
+          Lo que ocupa su sitio es <a href={ROUTES.tool(relevo.slug)}>{relevo.name}</a>.
+        </>
+      )}
+    </p>
+  </div>
+)}
+
+<style>
+  .retirada {
+    display: flex;
+    gap: var(--space-2xs);
+    align-items: start;
+    padding: var(--space-xs) var(--space-s);
+    margin-block-start: var(--space-s);
+    border-radius: var(--radius-m);
+    border: 1px solid var(--alert-line);
+    background: var(--alert-soft);
+    color: var(--alert);
+  }
+
+  .retirada svg {
+    flex-shrink: 0;
+    margin-block-start: 0.15rem;
+  }
+
+  .retirada p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--ink);
+  }
+
+  .retirada strong {
+    color: var(--alert);
+  }
+
+  .retirada a {
+    color: var(--alert);
+    font-weight: 600;
+  }
+
+  .retirada-fecha {
+    color: var(--ink-muted);
+  }
+</style>

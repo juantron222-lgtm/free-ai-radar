@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { getAllTools } from '@lib/data/catalog';
-import { FieldEvidence, EVIDENCE_FIELDS } from '@lib/domain/tool';
+import { FieldEvidence, EVIDENCE_FIELDS, EVIDENCE_SCOPE_LABEL } from '@lib/domain/tool';
 import {
   MOTIVO_LABEL,
   SEMANTICA_FILTRO_ALCANCE,
@@ -316,11 +316,31 @@ describe('una evidencia dice por qué puerta se entra', () => {
   });
 
   it('las licencias de pesos de la cohorte están marcadas como tales', () => {
-    for (const slug of ['whisper', 'kokoro', 'f5-tts', 'deepseek-v4-flash']) {
+    /*
+     * Kokoro salió de esta lista el 21 de septiembre de 2026 y el motivo vale
+     * la pena escribirlo, porque es el criterio entero en un ejemplo.
+     *
+     * Las cuatro decían «uso comercial» a partir de la licencia de sus pesos.
+     * Tres se pueden citar: MIT concede «the rights to use, copy, modify,
+     * merge, publish, distribute, sublicense, and/or sell copies», y CC BY-NC
+     * dice «You may not use the material for commercial purposes». Las dos
+     * contestan la pregunta con sus palabras.
+     *
+     * Apache-2.0 no. Concede mucho y no menciona el uso comercial en ninguna
+     * parte de su articulado, así que responder «sí» por ella es una
+     * conclusión nuestra, no suya. Kokoro vuelve a «Sin comprobar».
+     */
+    for (const slug of ['whisper', 'f5-tts', 'deepseek-v4-flash']) {
       const tool = tools.find((t) => t.slug === slug)!;
       const ev = evidenciaDe(tool, 'freePlan.commercialUse')!;
       expect(ev.scope, slug).toBe('weights');
+      expect(ev.outcome, slug).toBe('stated');
+      expect(citaDe(ev), slug).toMatch(/sell copies|not use the material for commercial/i);
     }
+
+    const kokoro = tools.find((t) => t.slug === 'kokoro')!;
+    expect(kokoro.freePlan.commercialUse, 'Apache-2.0 no contesta la pregunta').toBe('unverified');
+    expect(evidenciaDe(kokoro, 'freePlan.commercialUse')).toBeUndefined();
   });
 
   it('ninguna afirmación pública descansa sólo en una puerta sin decirlo', () => {
@@ -620,18 +640,83 @@ describe('la cobertura se puede medir antes de decidir un filtro', () => {
 });
 
 describe('los hechos volátiles confirmados en esta cohorte llevan fuente', () => {
-  it('todo lo que cambió de valor tiene evidencia que lo sostiene', () => {
+  it('ningún hecho decidido de estos dos campos se queda sin fuente', () => {
     /*
-     * No se exige a las noventa y cuatro: se exige a las que esta fase tocó,
-     * que son las que se pueden defender hoy. El resto queda en el informe.
+     * Antes esto era una lista de cuatro fichas que la fase había tocado. La
+     * lista sobraba desde que el catálogo dejó de tener deducciones: la regla
+     * se puede exigir a las noventa y cinco, y exigirla entera es más barato
+     * de mantener que acordarse de actualizar una cohorte.
+     *
+     * Las dos caras: lo decidido lleva fuente, y lo que no la tiene se queda
+     * en «Sin comprobar» en vez de aparecer resuelto.
      */
-    const cohorte = ['whisper', 'kokoro', 'lovable', 'gemini-3-flash'];
-    for (const slug of cohorte) {
-      const tool = tools.find((t) => t.slug === slug)!;
-      const campos = ['freePlan.commercialUse', 'privacy.trainsOnUserData'] as const;
-      const alguno = campos.some((f) => evidenciaDe(tool, f));
-      expect(alguno, `${slug} cambió de valor sin dejar evidencia`).toBe(true);
+    const campos = ['freePlan.commercialUse', 'privacy.trainsOnUserData'] as const;
+    const valorDe = (tool: (typeof tools)[number], field: (typeof campos)[number]) =>
+      field === 'freePlan.commercialUse' ? tool.freePlan.commercialUse : tool.privacy.trainsOnUserData;
+
+    /*
+     * Doce valores vienen decididos de antes de que existiera el registro de
+     * evidencias, casi todos licencias de pesos abiertos. No se tocan aquí:
+     * la decisión del 21 de septiembre era sobre las veintiuna deducciones, y
+     * bajarlos a «Sin comprobar» sin leer sus licencias tiraría información
+     * cierta. Están nombrados uno a uno para que la lista no crezca sola: un
+     * hecho decidido sin fuente que no esté aquí rompe la suite.
+     */
+    const SIN_FUENTE_CONOCIDOS = [
+      'audiocraft·freePlan.commercialUse',
+      'deepseek-v4-pro·freePlan.commercialUse',
+      'gemma-4·freePlan.commercialUse',
+      'gemma-4·privacy.trainsOnUserData',
+      'glm-5·freePlan.commercialUse',
+      'klingai·freePlan.commercialUse',
+      'llama-4·freePlan.commercialUse',
+      'ministral·freePlan.commercialUse',
+      'mistral-large·freePlan.commercialUse',
+      'mistral-small·freePlan.commercialUse',
+      'phi-4·freePlan.commercialUse',
+      'qwen3-27b·freePlan.commercialUse',
+    ];
+
+    let decididos = 0;
+    const sinFuente: string[] = [];
+    for (const tool of tools) {
+      for (const field of campos) {
+        const valor = valorDe(tool, field);
+        const ev = evidenciaDe(tool, field);
+        if (valor === 'unverified' || valor === undefined) {
+          expect(
+            ev?.outcome,
+            `${tool.slug}·${field} está sin decidir y guarda una evidencia que no es un silencio`
+          ).not.toBe('stated');
+          continue;
+        }
+        decididos++;
+        if (!ev) {
+          sinFuente.push(`${tool.slug}·${field}`);
+          continue;
+        }
+        expect(ev.outcome, `${tool.slug}·${field}`).toBe('stated');
+      }
     }
+    expect(decididos, 'la regla no vale si no queda nada decidido').toBeGreaterThan(20);
+    expect(sinFuente.sort()).toEqual(SIN_FUENTE_CONOCIDOS);
+  });
+
+  it('el catálogo no publica ninguna deducción, por decisión editorial', () => {
+    /*
+     * 21 de septiembre de 2026: «nada por inferencia», en estricto. Una
+     * deducción se lee igual que una cita —el lector no distingue el origen
+     * de un «Sí» en una tabla— así que las veintiuna que había pasaron a
+     * «Sin comprobar» y su razonamiento quedó en
+     * docs/deducciones-retiradas-2026-09-21.md para investigarlo después.
+     *
+     * El esquema sigue admitiendo `derived`: la regla es editorial, y lo que
+     * la sostiene es esta prueba, no la ausencia de la palabra en el código.
+     */
+    const derivadas = tools.flatMap((t) =>
+      t.evidence.filter((e) => e.outcome === 'derived').map((e) => `${t.slug}·${e.field}`)
+    );
+    expect(derivadas).toEqual([]);
   });
 });
 
@@ -771,8 +856,54 @@ describe('un filtro sobre un hecho con alcance dice qué promete', () => {
   });
 
   it('pero la ficha no lo anuncia como si valiera para todo', () => {
-    const deepseek = tools.find((t) => t.slug === 'deepseek-v4-flash')!;
-    expect(matizDeAlcance(deepseek, 'freePlan.commercialUse')).toBe('los pesos descargables');
+    /*
+     * El ejemplo era DeepSeek V4 Flash, y dejó de serlo el día que su API se
+     * retiró: sin API, sus únicas puertas son los pesos y el equipo de quien
+     * los ejecuta, así que la licencia de los pesos sí cubre el producto
+     * entero y el matiz sobraría. El caso que la regla vigila es el de un
+     * modelo que además vende una API con sus propias condiciones.
+     */
+    const conApi = makeTool({
+      slug: 'con-api',
+      name: 'Con API',
+      hosting: 'local',
+      access: { chat: 'unverified', chatFree: 'unverified', api: 'yes', apiFree: 'no', weights: 'yes' },
+      freePlan: {
+        summary: 'Pesos MIT y una API aparte.',
+        limits: ['Pesos: MIT'],
+        requiresSignup: 'no',
+        requiresCreditCard: 'no',
+        hasWatermark: 'unverified',
+        commercialUse: 'yes',
+        creditReset: 'none',
+        excludedCapabilities: [],
+        verifiedAt: '2026-09-21',
+      },
+      evidence: [
+        {
+          field: 'freePlan.commercialUse',
+          outcome: 'stated',
+          sourceUrl: 'https://ejemplo.com/LICENSE',
+          sourceKind: 'licence',
+          scope: 'weights',
+          checkedAt: '2026-09-21',
+          quote: 'sell copies of the Software',
+        },
+      ],
+    });
+
+    const ev = evidenciaDe(conApi, 'freePlan.commercialUse')!;
+    expect(cubreTodo(conApi, ev), 'la API es una puerta que la licencia no cubre').toBe(false);
+    expect(matizDeAlcance(conApi, 'freePlan.commercialUse')).toBe(EVIDENCE_SCOPE_LABEL.weights);
+
+    // Y en el catálogo real, todo lo que lleva matiz lo lleva por este motivo.
+    for (const tool of tools) {
+      const matiz = matizDeAlcance(tool, 'freePlan.commercialUse');
+      if (!matiz) continue;
+      const real = evidenciaDe(tool, 'freePlan.commercialUse')!;
+      expect(cubreTodo(tool, real), tool.slug).toBe(false);
+      expect(matiz, tool.slug).toBe(EVIDENCE_SCOPE_LABEL[real.scope]);
+    }
   });
 
   it('y una afirmación que sí cubre el producto no lleva matiz', () => {

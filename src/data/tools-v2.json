@@ -631,7 +631,7 @@
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
-      "commercialUse": "no",
+      "commercialUse": "unverified",
       "creditsAmount": "20.000 créditos/mes (≈27 min)",
       "creditReset": "monthly",
       "verifiedAt": "2026-08-18"
@@ -694,16 +694,6 @@
         "checkedAt": "2026-09-15",
         "scope": "product",
         "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
-      },
-      {
-        "field": "freePlan.commercialUse",
-        "outcome": "derived",
-        "sourceUrl": "https://cartesia.ai/pricing",
-        "sourceKind": "pricing",
-        "checkedAt": "2026-09-15",
-        "scope": "product",
-        "quote": "Commercial use license",
-        "basis": "Figura en la lista del plan Pro, que empieza «Everything in Free, plus», así que no forma parte del plan gratuito."
       },
       {
         "field": "freePlan.hasWatermark",
@@ -1463,15 +1453,6 @@
         "scope": "api",
         "checkedAt": "2026-08-24",
         "quote": "Claude Haiku 4.5 — $1 / MTok (base input tokens) · $5 / MTok (output tokens)"
-      },
-      {
-        "field": "freePlan.creditReset",
-        "outcome": "derived",
-        "sourceUrl": "https://platform.claude.com/docs/en/about-claude/pricing",
-        "sourceKind": "pricing",
-        "scope": "api",
-        "checkedAt": "2026-08-24",
-        "basis": "Las preguntas frecuentes dicen «New users receive a small amount of free credits to test the API»: es un saldo de bienvenida por cuenta nueva, no una cuota que vuelva. Por eso `none` y no una renovación periódica."
       },
       {
         "field": "freePlan.requiresCreditCard",
@@ -2288,7 +2269,7 @@
         "Los nodos de API de Comfy son opcionales y de pago"
       ],
       "requiresSignup": "no",
-      "requiresCreditCard": "no",
+      "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
@@ -2393,16 +2374,6 @@
         "checkedAt": "2026-08-12",
         "quote": "Image generation : Stable Diffusion 1 · advanced examples: “Hires Fix” aka 2 Pass Txt2Img Img2Img Inpainting Lora Hypernetworks Embeddings/Textual Inv · Image editing : Flux Kontext, Flux",
         "scope": "local"
-      },
-      {
-        "field": "freePlan.requiresCreditCard",
-        "outcome": "derived",
-        "sourceUrl": "https://github.com/Comfy-Org/ComfyUI",
-        "sourceKind": "repo",
-        "scope": "local",
-        "checkedAt": "2026-09-15",
-        "quote": "Runs fully offline: core does not download anything unless you request it.",
-        "basis": "Se instala desde el repositorio oficial (GPL-3.0) y funciona sin conexión: no hay alta ni pago donde pedir una tarjeta. Los nodos de API de pago son opcionales y aparte."
       },
       {
         "field": "freePlan.hasWatermark",
@@ -2697,7 +2668,14 @@
     "notFor": [],
     "alternatives": [],
     "alternativeNames": [],
-    "changelog": [],
+    "changelog": [
+      {
+        "date": "2026-09-10",
+        "kind": "shutdown",
+        "summary": "DeepSeek retiró V4-Flash y V4-Flash-Vision-Exp de su API. Hasta ese día costaba 0,22 $ por millón de tokens de entrada sin caché y 0,66 $ de salida en hora valle, y 0,44 $ y 1,32 $ en hora punta. El nombre heredado se sigue aceptando, pero lo atiende DeepSeek-V4.1-Flash y se factura al precio de ese modelo. Los pesos siguen publicados con licencia MIT.",
+        "sourceUrl": "https://api-docs.deepseek.com/news/news260910"
+      }
+    ],
     "affiliation": {
       "isAffiliate": false
     },
@@ -2713,7 +2691,7 @@
       "weights": "MIT"
     },
     "name": "DeepSeek V4 Flash",
-    "verification": "verified",
+    "verification": "discontinued",
     "officialUrl": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731",
     "pricingUrl": "https://api-docs.deepseek.com/quick_start/pricing/",
     "repoUrl": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731",
@@ -2721,91 +2699,71 @@
     "openSource": "yes",
     "licence": "MIT",
     "platforms": [
-      "linux",
-      "api"
+      "linux"
     ],
     "freeModel": "open_source",
-    "tagline": "La gama pequeña de DeepSeek: 284.000 millones de parámetros con 13.000 activos, MIT.",
-    "descriptionShort": "La hermana ligera de V4 Pro, con 304.000 millones de parámetros y el mismo contexto de un millón de tokens. Misma licencia MIT y un precio de API que es la tercera parte.",
-    "verdict": "La opción razonable si el objetivo es la API: mismo contexto que la grande a un tercio de precio, y con la hora valle sale por 0,22 $ el millón de tokens de entrada.",
+    "tagline": "Retirado de la API. Sus pesos siguen publicados con licencia MIT.",
+    "descriptionShort": "La gama pequeña de la generación V4: 284.000 millones de parámetros con 13.000 activos por token y contexto de un millón. DeepSeek lo retiró de su API el 10 de septiembre de 2026 y desde entonces el nombre «deepseek-v4-flash» lo atiende V4.1-Flash. Los pesos siguen descargables con licencia MIT.",
+    "verdict": "Ya no se puede consumir por API: las peticiones que usan su nombre las contesta otro modelo. Lo que queda es lo que se descarga, que no es poco —284.000 millones de parámetros con licencia MIT— pero exige hardware de centro de datos. Para usarlo por API, la ficha vigente es la de V4.1-Flash.",
     "freePlan": {
       "requiresSignup": "no",
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-24",
+      "verifiedAt": "2026-09-21",
       "commercialUse": "yes",
-      "summary": "Repositorio y pesos bajo licencia MIT. Por API, 0,22 $ por millón de tokens de entrada sin caché en hora valle y 0,66 $ de salida.",
+      "summary": "Repositorio y pesos bajo licencia MIT, todavía publicados. Por API está retirado desde el 10 de septiembre de 2026: el nombre heredado se sigue aceptando, pero lo atiende DeepSeek-V4.1-Flash y se factura al precio de ese modelo.",
       "limits": [
         "Pesos y código: MIT",
         "284.000 millones de parámetros · 13.000 millones activos por token · contexto de 1M",
-        "API en hora valle: 0,22 $/M de entrada · 0,66 $/M de salida",
-        "API en hora punta: 0,44 $/M de entrada · 1,32 $/M de salida"
+        "Retirado de la API el 10 de septiembre de 2026",
+        "El nombre «deepseek-v4-flash» se sigue aceptando, pero lo atiende V4.1-Flash y se factura a su precio"
       ]
     },
     "access": {
       "chat": "unverified",
       "chatFree": "unverified",
-      "api": "yes",
+      "api": "no",
       "apiFree": "no",
       "weights": "yes"
     },
     "capabilities": [
       "text-generation",
-      "model-download",
-      "api"
+      "model-download"
     ],
     "startEffort": "technical",
     "startEffortReason": "Los pesos se descargan; por API basta una clave.",
     "scores": {
       "freeReal": 9,
-      "usefulness": 8,
+      "usefulness": 5,
       "ease": 3,
       "transparency": 10,
       "creatorValue": 8
     },
     "sources": [
       {
-        "url": "https://api-docs.deepseek.com/quick_start/pricing/",
-        "label": "Precios oficiales de la API",
-        "kind": "pricing",
-        "publisher": "deepseek.com",
-        "checkedAt": "2026-08-20"
+        "url": "https://api-docs.deepseek.com/news/news260910",
+        "label": "Anuncio oficial de la retirada",
+        "kind": "official",
+        "publisher": "api-docs.deepseek.com",
+        "checkedAt": "2026-09-21"
       },
       {
-        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash",
+        "url": "https://api-docs.deepseek.com/quick_start/pricing/",
+        "label": "Modelos y precios oficiales",
+        "kind": "pricing",
+        "publisher": "api-docs.deepseek.com",
+        "checkedAt": "2026-09-21"
+      },
+      {
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731",
         "label": "Ficha oficial del modelo",
         "kind": "repo",
         "publisher": "huggingface.co",
-        "checkedAt": "2026-08-29"
-      },
-      {
-        "url": "https://api-docs.deepseek.com/quick_start/pricing",
-        "label": "Documentación oficial",
-        "kind": "docs",
-        "publisher": "api-docs.deepseek.com",
-        "checkedAt": "2026-08-24"
+        "checkedAt": "2026-09-21"
       }
     ],
     "evidence": [
-      {
-        "field": "freePlan.commercialUse",
-        "outcome": "derived",
-        "sourceUrl": "https://huggingface.co/deepseek-ai/DeepSeek-V3.2-Exp",
-        "sourceKind": "repo",
-        "scope": "weights",
-        "checkedAt": "2026-08-24",
-        "basis": "La ficha oficial del modelo declara «License: mit» para los pesos. La MIT permite el uso comercial."
-      },
-      {
-        "field": "freePlan.limits",
-        "outcome": "stated",
-        "sourceUrl": "https://api-docs.deepseek.com/quick_start/pricing",
-        "sourceKind": "docs",
-        "scope": "api",
-        "checkedAt": "2026-08-24",
-        "quote": "Off-peak: $0.22/1M input, $0.66/1M output. Peak hours are 01:00 - 04:00 and 06:00 - 10:00 UTC, Monday through Friday."
-      },
       {
         "field": "capabilities",
         "outcome": "stated",
@@ -2814,13 +2772,33 @@
         "scope": "weights",
         "checkedAt": "2026-08-29",
         "quote": "284B parameters · 13B activated · one million tokens context"
+      },
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/main/LICENSE",
+        "sourceKind": "licence",
+        "scope": "weights",
+        "checkedAt": "2026-09-21",
+        "quote": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software",
+        "basis": "La ficha oficial del modelo remite a ese fichero: «This repository and the model weights are licensed under the MIT License»."
+      },
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://api-docs.deepseek.com/quick_start/pricing/",
+        "sourceKind": "pricing",
+        "scope": "api",
+        "checkedAt": "2026-09-21",
+        "quote": "Use deepseek-flash as the model name. The legacy names deepseek-v4-flash and deepseek-v4-flash-vision-exp are still accepted, but the corresponding models have been retired, their requests are served by the DeepSeek-V4.1-Flash model and billed at the Flash price."
       }
     ],
     "slug": "deepseek-v4-flash",
     "id": "tool_deepseek-v4-flash",
-    "nextReviewAt": "2026-11-22",
-    "lastVerifiedAt": "2026-08-29",
-    "updatedAt": "2026-08-20"
+    "nextReviewAt": "2026-12-20",
+    "lastVerifiedAt": "2026-09-21",
+    "updatedAt": "2026-09-21",
+    "replacedBy": "deepseek-v4-1-flash"
   },
   {
     "skillLevel": "beginner",
@@ -3684,15 +3662,6 @@
         "scope": "local"
       },
       {
-        "field": "freePlan.commercialUse",
-        "outcome": "derived",
-        "sourceUrl": "https://github.com/SWivid/F5-TTS",
-        "sourceKind": "repo",
-        "scope": "weights",
-        "checkedAt": "2026-08-24",
-        "basis": "El README separa las dos licencias: «The pre-trained models are licensed under the CC-BY-NC license due to the training data Emilia, which is an in-the-wild dataset». El código es MIT, pero los pesos publicados llevan NC, que excluye el uso comercial."
-      },
-      {
         "field": "openSource",
         "outcome": "stated",
         "sourceUrl": "https://github.com/SWivid/F5-TTS",
@@ -3709,6 +3678,16 @@
         "scope": "local",
         "checkedAt": "2026-09-16",
         "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice."
+      },
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+        "sourceKind": "licence",
+        "scope": "weights",
+        "checkedAt": "2026-09-21",
+        "quote": "NonCommercial — You may not use the material for commercial purposes.",
+        "basis": "El README oficial asigna esa licencia a los pesos preentrenados: «The pre-trained models are licensed under the CC-BY-NC license due to the training data Emilia, which is an in-the-wild dataset»."
       }
     ],
     "auditNotes": "`commercialUse: no` viene de la licencia de los pesos, no del código. La ficha lo dice en el titular porque es el dato que cambia la decisión.",
@@ -3891,7 +3870,7 @@
         "Construido sólo sobre Stable Diffusion XL"
       ],
       "requiresSignup": "no",
-      "requiresCreditCard": "no",
+      "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
@@ -3989,16 +3968,6 @@
         "checkedAt": "2026-08-12",
         "quote": "urney's examples: Midjourney Fooocus High-quality text-to-image without needing much prompt engineering or par · oint swap system of the refiner now also supports img2img and upscale in a seamless way · 5x) / Upscale (2x) Inpaint / Up / Down / Left / Right (Pan) Input Image -&gt; Inpaint",
         "scope": "local"
-      },
-      {
-        "field": "freePlan.requiresCreditCard",
-        "outcome": "derived",
-        "sourceUrl": "https://github.com/lllyasviel/Fooocus",
-        "sourceKind": "repo",
-        "scope": "local",
-        "checkedAt": "2026-09-15",
-        "quote": "The software is offline, open source, and free",
-        "basis": "Se descarga del repositorio oficial y funciona sin conexión: no hay alta ni pago donde pedir una tarjeta."
       },
       {
         "field": "freePlan.hasWatermark",
@@ -4131,15 +4100,6 @@
         "scope": "api"
       },
       {
-        "field": "privacy.trainsOnUserData",
-        "outcome": "derived",
-        "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
-        "sourceKind": "pricing",
-        "scope": "api",
-        "checkedAt": "2026-08-24",
-        "basis": "La tabla oficial de precios marca «Used to improve our products: Yes» en la columna de la capa gratuita, frente a «No» en la de pago."
-      },
-      {
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
@@ -4156,6 +4116,16 @@
         "checkedAt": "2026-09-15",
         "scope": "api",
         "lookedFor": "Si el nivel gratuito de la API pide tarjeta o cuenta de facturación. La tabla de precios separa Free Tier y Paid Tier, pero no dice qué hace falta para el primero."
+      },
+      {
+        "field": "privacy.trainsOnUserData",
+        "outcome": "stated",
+        "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
+        "sourceKind": "pricing",
+        "scope": "api",
+        "checkedAt": "2026-09-21",
+        "quote": "Used to improve our products\tYes\tNo",
+        "basis": "Es una fila de la tabla de cada modelo Flash, con dos columnas: «Free Tier» y «Paid Tier». El «Yes» es el de la capa gratuita."
       }
     ],
     "auditNotes": "No se recogen modalidades de entrada: la tabla de precios las cobra por versión y no son iguales en toda la gama. La cadencia de la capa gratuita queda `unknown` porque la página no publica ni cantidad ni periodo.",
@@ -7052,7 +7022,7 @@
       "requiresSignup": "no",
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
-      "commercialUse": "yes",
+      "commercialUse": "unverified",
       "creditReset": "none",
       "verifiedAt": "2026-08-24"
     },
@@ -7087,15 +7057,6 @@
         "checkedAt": "2026-08-18",
         "quote": "Apache-2.0 · 82 million parameters · comparable quality to larger models while being significantly faster and more cost-efficient · 24,000 Hz",
         "scope": "local"
-      },
-      {
-        "field": "freePlan.commercialUse",
-        "outcome": "derived",
-        "sourceUrl": "https://github.com/hexgrad/kokoro",
-        "sourceKind": "repo",
-        "scope": "weights",
-        "checkedAt": "2026-08-24",
-        "basis": "El README dice: «With Apache-licensed weights, Kokoro can be deployed anywhere from production environments to personal projects». La Apache-2.0 permite el uso comercial."
       },
       {
         "field": "openSource",
@@ -7185,7 +7146,7 @@
       "commercialUse": "no",
       "creditsAmount": "100 unidades/día",
       "creditReset": "daily",
-      "verifiedAt": "2026-08-26"
+      "verifiedAt": "2026-09-21"
     },
     "capabilities": [
       "text-to-image",
@@ -7251,16 +7212,6 @@
         "basis": "Aparece en la tarjeta del plan Free («100 units /day»)."
       },
       {
-        "field": "freePlan.commercialUse",
-        "outcome": "derived",
-        "sourceUrl": "https://www.krea.ai/pricing",
-        "sourceKind": "pricing",
-        "checkedAt": "2026-09-15",
-        "scope": "product",
-        "quote": "Yes, Basic, Pro, Max, Business, and Enterprise plans include a commercial license that allows you to use all generated content for commercial purposes without restrictions.",
-        "basis": "La respuesta enumera los planes que incluyen licencia comercial y Free no está entre ellos."
-      },
-      {
         "field": "freePlan.hasWatermark",
         "outcome": "not_published",
         "sourceUrl": "https://www.krea.ai/pricing",
@@ -7268,12 +7219,22 @@
         "scope": "product",
         "checkedAt": "2026-09-16",
         "lookedFor": "Si lo que genera el plan gratuito lleva marca de agua. La página de precios no lo menciona."
+      },
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://www.krea.ai/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-21",
+        "quote": "Commercial license — Use all generated content for commercial purposes including marketing, products, and client work.",
+        "basis": "En la tarjeta del plan Free esa fila lleva el icono de equis (`lucide-x`), el mismo que marca «All image models» o «Krea Nodes»; en Basic y superiores lleva el de visto (`lucide-check`)."
       }
     ],
     "auditNotes": "commercialUse es «no» y no «unverified» porque la tabla lo declara explícitamente: «Commercial license» aparece con aspa en la columna Free y con visto en Basic, Pro y Max. Los precios de los planes de pago no están en el DOM de la página, así que el precio mínimo queda sin verificar.",
-    "nextReviewAt": "2026-11-24",
-    "lastVerifiedAt": "2026-08-26",
-    "updatedAt": "2026-08-15",
+    "nextReviewAt": "2026-12-20",
+    "lastVerifiedAt": "2026-09-21",
+    "updatedAt": "2026-09-21",
     "licences": {},
     "access": {}
   },
@@ -7728,7 +7689,7 @@
         "Modelos en la nube de LM Studio: sólo de pago (Bionic+, 20 $/mes)"
       ],
       "requiresSignup": "no",
-      "requiresCreditCard": "no",
+      "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
@@ -7821,16 +7782,6 @@
     "licences": {},
     "access": {},
     "evidence": [
-      {
-        "field": "freePlan.requiresCreditCard",
-        "outcome": "derived",
-        "sourceUrl": "https://lmstudio.ai/docs/app",
-        "sourceKind": "docs",
-        "scope": "local",
-        "checkedAt": "2026-09-15",
-        "quote": "To get LM Studio, head over to the Downloads page and download an installer for your operating system.",
-        "basis": "La documentación sólo pide descargar el instalador; no menciona cuenta ni pago para instalarlo ni para ejecutar modelos."
-      },
       {
         "field": "capabilities",
         "outcome": "stated",
@@ -8015,7 +7966,7 @@
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
-      "commercialUse": "yes",
+      "commercialUse": "unverified",
       "creditsAmount": "5 créditos/día (tope de 30/mes)",
       "creditReset": "daily",
       "verifiedAt": "2026-08-24"
@@ -8081,15 +8032,6 @@
         "scope": "product",
         "checkedAt": "2026-08-24",
         "quote": "refresh every day at 00:00 UTC"
-      },
-      {
-        "field": "freePlan.commercialUse",
-        "outcome": "derived",
-        "sourceUrl": "https://lovable.dev/terms",
-        "sourceKind": "terms",
-        "scope": "product",
-        "checkedAt": "2026-08-24",
-        "basis": "Las condiciones dicen «you own your Customer Data, including the applications, websites, or other projects you build using the Services» y conceden licencia para «create, deploy, operate, and make available» esas aplicaciones, sin reservar el uso comercial a los planes de pago."
       },
       {
         "field": "freePlan.requiresCreditCard",
@@ -9366,7 +9308,7 @@
         "App con interfaz para macOS y Windows desde julio de 2025"
       ],
       "requiresSignup": "no",
-      "requiresCreditCard": "no",
+      "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
@@ -9477,16 +9419,6 @@
         "checkedAt": "2026-09-15",
         "quote": "Ollama has a REST API for running and managing models. · See ollama.com/library for the full list.",
         "basis": "El README enseña a ejecutar y chatear con modelos de lenguaje abiertos descargados de su biblioteca."
-      },
-      {
-        "field": "freePlan.requiresCreditCard",
-        "outcome": "derived",
-        "sourceUrl": "https://ollama.com/pricing",
-        "sourceKind": "pricing",
-        "scope": "local",
-        "checkedAt": "2026-09-15",
-        "quote": "Running models on your own hardware is always unlimited",
-        "basis": "El plan Free es «Run models locally» y se descarga sin alta. Sólo cubre el uso en tu equipo: los modelos en la nube de Ollama tienen cuenta y créditos, y ahí no publica si pide tarjeta."
       },
       {
         "field": "freePlan.limits",
@@ -10018,12 +9950,12 @@
     "id": "tool_pika-labs",
     "slug": "pika-labs",
     "name": "Pika Labs",
-    "tagline": "80 créditos de vídeo al mes, a 480p, con marca de agua y sin uso comercial.",
-    "descriptionShort": "Generador de vídeo con efectos propios —Pikaffects, Pikascenes, Pikaswaps—. El plan gratuito da 80 créditos al mes que se renuevan y genera a 480p. Quitar la marca de agua y usar el resultado comercialmente son características de pago.",
+    "tagline": "Su plan gratuito ya no reparte créditos: «0 credits / month · packs only».",
+    "descriptionShort": "Generador de vídeo con efectos propios —Pikaffects, Pikascenes, Pikaswaps—. Su tabla de precios da hoy al plan gratuito cero créditos al mes y dice que sólo funciona con packs comprados, así que generar exige pagar. La cuenta gratuita sí incluye todos los modelos y salida sin marca de agua; la licencia comercial figura como no incluida.",
     "descriptionLong": "Pika Labs permite generar vídeos cortos (3-10 segundos) a partir de descripciones de texto o imágenes de referencia. Su interfaz es extremadamente simple y los resultados son rápidos. La versión 2.0 mejoró significativamente la calidad y coherencia de los vídeos. Popular para crear contenido viral en redes sociales.",
     "kind": "app",
     "verification": "verified",
-    "nextReviewAt": "2026-11-22",
+    "nextReviewAt": "2026-12-20",
     "categorySlug": "video",
     "secondaryCategories": [],
     "tags": [
@@ -10035,22 +9967,22 @@
       "Contenido creativo para redes sociales",
       "Animaciones simples desde imágenes estáticas"
     ],
-    "freeModel": "credits",
+    "freeModel": "paid_only",
     "freePlan": {
-      "summary": "Plan gratuito con 80 créditos de vídeo al mes y acceso a Pika 2.5 sólo a 480p. La descarga sin marca de agua y el uso comercial figuran entre las características de los planes de pago, así que no entran en el gratuito. El más barato es Standard, 8 $/mes en anual, con 700 créditos.",
+      "summary": "La tabla de precios da al plan gratuito «0 credits / month · packs only»: no hay asignación mensual y generar exige comprar packs. Incluye todos los modelos, dos vídeos y dos imágenes con audio en paralelo, y salida sin marca de agua. La licencia comercial figura como no incluida. El plan de pago más barato es Starter, 8 $/mes en anual con 900 créditos.",
       "limits": [
-        "80 créditos de vídeo al mes",
-        "Pika 2.5 sólo a 480p",
-        "La descarga sin marca de agua es de pago: la salida gratuita la lleva",
-        "El uso comercial es de pago"
+        "Sin créditos mensuales: «0 credits / month · packs only»",
+        "Todos los modelos",
+        "2 vídeos · 2 imágenes con audio en paralelo",
+        "Sin marca de agua",
+        "Sin licencia comercial"
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
-      "hasWatermark": "yes",
+      "hasWatermark": "no",
       "commercialUse": "no",
-      "creditsAmount": "80 créditos de vídeo/mes",
-      "creditReset": "monthly",
-      "verifiedAt": "2026-08-24"
+      "creditReset": "none",
+      "verifiedAt": "2026-09-21"
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -10078,7 +10010,7 @@
         "label": "Página oficial de precios",
         "kind": "pricing",
         "publisher": "pika.art",
-        "checkedAt": "2026-08-15"
+        "checkedAt": "2026-09-21"
       }
     ],
     "scores": {
@@ -10088,7 +10020,7 @@
       "transparency": 5,
       "creatorValue": 7
     },
-    "verdict": "Publica la cantidad y la frecuencia, que ya es más de lo que hacen casi todos en vídeo. Lo que hay que leer antes de empezar está en la otra columna: a 480p, con marca y sin uso comercial.",
+    "verdict": "Su tabla es de las pocas que dice de cada característica si entra o no, con todas las letras, y hoy lo que dice del plan gratuito es que no reparte créditos. Sin comprar un pack no se genera nada. A cambio, lo que salga no lleva marca de agua, cosa rara en vídeo.",
     "pros": [],
     "cons": [
       "Vídeos muy cortos (3-10 segundos)",
@@ -10110,6 +10042,12 @@
         "date": "2024-03-10",
         "kind": "launch",
         "summary": "Pika 2.0 trajo mejoras significativas en calidad de vídeo. Sigue siendo una de las opciones más accesibles para vídeo IA."
+      },
+      {
+        "date": "2026-09-21",
+        "kind": "free_plan_reduced",
+        "summary": "La tabla de precios pasó a dar al plan gratuito «0 credits / month · packs only». Antes publicaba 80 créditos de vídeo al mes renovables y limitaba la generación a 480p. Pika no publica la fecha del cambio; ésta es la de nuestra comprobación. En la misma tabla, el plan gratuito pasa a incluir «No watermark».",
+        "sourceUrl": "https://pika.art/pricing"
       }
     ],
     "affiliation": {
@@ -10121,36 +10059,9 @@
     },
     "status": "published",
     "detectedAt": "2024-03-10",
-    "lastVerifiedAt": "2026-08-29",
-    "updatedAt": "2026-08-15",
+    "lastVerifiedAt": "2026-09-21",
+    "updatedAt": "2026-09-21",
     "evidence": [
-      {
-        "field": "freePlan.limits",
-        "outcome": "stated",
-        "sourceUrl": "https://pika.art/pricing",
-        "sourceKind": "pricing",
-        "scope": "product",
-        "checkedAt": "2026-08-24",
-        "quote": "80 monthly video credits"
-      },
-      {
-        "field": "freePlan.hasWatermark",
-        "outcome": "derived",
-        "sourceUrl": "https://pika.art/pricing",
-        "sourceKind": "pricing",
-        "scope": "product",
-        "checkedAt": "2026-08-29",
-        "basis": "La tabla de planes lista «Download videos with no watermark» únicamente bajo los planes de pago. Si quitar la marca es lo que se compra, la salida del plan gratuito la lleva. La página no lo dice con esas palabras: es una deducción nuestra sobre su tabla."
-      },
-      {
-        "field": "freePlan.commercialUse",
-        "outcome": "derived",
-        "sourceUrl": "https://pika.art/pricing",
-        "sourceKind": "pricing",
-        "scope": "product",
-        "checkedAt": "2026-08-29",
-        "basis": "El uso comercial aparece entre las características de los planes de pago y no en la columna del plan gratuito. Deducimos que no está incluido. La página no publica una prohibición expresa."
-      },
       {
         "field": "freePlan.requiresCreditCard",
         "outcome": "not_published",
@@ -10159,6 +10070,35 @@
         "checkedAt": "2026-09-15",
         "scope": "product",
         "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
+      },
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://pika.art/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-21",
+        "quote": "Free 0 credits / month · packs only — Included: All models · Included: 2 video · 2 image + audio in parallel · Included: No watermark · Not included: Commercial license · Not included: Priority queue · Not included: Early access to new models"
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "stated",
+        "sourceUrl": "https://pika.art/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-21",
+        "quote": "Included: No watermark",
+        "basis": "Es la fila de la columna «Free», que la propia página etiqueta «Included:»."
+      },
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://pika.art/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-21",
+        "quote": "Not included: Commercial license",
+        "basis": "Es la fila de la columna «Free», que la propia página etiqueta «Not included:»."
       }
     ],
     "startEffort": "signup",
@@ -10198,7 +10138,7 @@
         "Límites de uso y requisitos generales: su web no los publica"
       ],
       "requiresSignup": "no",
-      "requiresCreditCard": "no",
+      "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
@@ -10302,16 +10242,6 @@
         "scope": "product"
       },
       {
-        "field": "freePlan.requiresCreditCard",
-        "outcome": "derived",
-        "sourceUrl": "https://pinokio.co/",
-        "sourceKind": "official",
-        "scope": "local",
-        "checkedAt": "2026-09-15",
-        "quote": "Install Pinokio",
-        "basis": "Se instala en tu equipo desde su web oficial y su código es MIT; las apps que lanza se ejecutan en local. No hay alta ni pago previos donde pedir una tarjeta."
-      },
-      {
         "field": "freePlan.limits",
         "outcome": "not_published",
         "sourceUrl": "https://pinokio.co/",
@@ -10387,7 +10317,7 @@
       "requiresSignup": "unverified",
       "requiresCreditCard": "unverified",
       "hasWatermark": "no",
-      "commercialUse": "no",
+      "commercialUse": "unverified",
       "creditReset": "unknown",
       "verifiedAt": "2026-09-16"
     },
@@ -10426,16 +10356,6 @@
         "checkedAt": "2026-09-15",
         "scope": "product",
         "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
-      },
-      {
-        "field": "freePlan.commercialUse",
-        "outcome": "derived",
-        "sourceUrl": "https://www.pixelcut.ai/pricing",
-        "sourceKind": "pricing",
-        "checkedAt": "2026-09-15",
-        "scope": "product",
-        "quote": "Commercial license",
-        "basis": "La licencia comercial figura en las columnas Pro y Business y no en la del plan Free."
       },
       {
         "field": "freePlan.limits",
@@ -11610,7 +11530,7 @@
         "Sin límite de tokens en el prompt"
       ],
       "requiresSignup": "no",
-      "requiresCreditCard": "no",
+      "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
@@ -11705,16 +11625,6 @@
         "checkedAt": "2026-08-12",
         "quote": "can be tiled like textures Progress bar and live image generation preview Can use a separate neural network to · ature showcase with images : Original txt2img and img2img modes One click install and run script (but you stil · ou still must install python and git) Outpainting Inpainting Color Sketch Prompt Matrix Stable Diffusion Upsca",
         "scope": "local"
-      },
-      {
-        "field": "freePlan.requiresCreditCard",
-        "outcome": "derived",
-        "sourceUrl": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
-        "sourceKind": "repo",
-        "scope": "local",
-        "checkedAt": "2026-09-15",
-        "quote": "Download sd.webui.zip from v1.0.0-pre and extract its contents.",
-        "basis": "Se instala descargando el paquete del repositorio oficial (AGPL-3.0): no hay alta ni pago donde pedir una tarjeta."
       },
       {
         "field": "freePlan.hasWatermark",
@@ -12490,8 +12400,8 @@
         "small: ~2 GB · medium: ~5 GB · turbo: ~6 GB · large: ~10 GB",
         "Sin cuotas ni cuenta: el coste es el hardware"
       ],
-      "requiresSignup": "no",
-      "requiresCreditCard": "no",
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "yes",
       "creditReset": "none",
@@ -12531,15 +12441,6 @@
         "scope": "local"
       },
       {
-        "field": "freePlan.commercialUse",
-        "outcome": "derived",
-        "sourceUrl": "https://github.com/openai/whisper",
-        "sourceKind": "repo",
-        "scope": "weights",
-        "checkedAt": "2026-08-24",
-        "basis": "El README declara: «Whisper’s code and model weights are released under the MIT License». La MIT permite el uso comercial sin condiciones más allá de conservar el aviso de copyright."
-      },
-      {
         "field": "openSource",
         "outcome": "stated",
         "sourceUrl": "https://github.com/openai/whisper",
@@ -12549,22 +12450,14 @@
         "quote": "Whisper’s code and model weights are released under the MIT License."
       },
       {
-        "field": "freePlan.requiresCreditCard",
-        "outcome": "derived",
-        "sourceUrl": "https://github.com/openai/whisper",
-        "sourceKind": "repo",
-        "scope": "local",
-        "checkedAt": "2026-08-24",
-        "basis": "Se instala con `pip install -U openai-whisper` y se ejecuta en local: el README no describe ninguna cuenta, clave ni pago, porque no hay servicio que cobrar."
-      },
-      {
-        "field": "freePlan.requiresSignup",
-        "outcome": "derived",
-        "sourceUrl": "https://github.com/openai/whisper",
-        "sourceKind": "repo",
-        "scope": "local",
-        "checkedAt": "2026-08-24",
-        "basis": "Mismo motivo: los pesos se descargan y el modelo corre en tu equipo."
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://github.com/openai/whisper/blob/main/LICENSE",
+        "sourceKind": "licence",
+        "scope": "weights",
+        "checkedAt": "2026-09-21",
+        "quote": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software",
+        "basis": "El README oficial asigna esa licencia a los pesos: «Whisper’s code and model weights are released under the MIT License»."
       }
     ],
     "nextReviewAt": "2026-11-22",
@@ -12630,7 +12523,7 @@
         "Plan de pago más barato: Professional, 19,99 $/mes anual (750 tareas)"
       ],
       "requiresSignup": "yes",
-      "requiresCreditCard": "no",
+      "requiresCreditCard": "unverified",
       "hasWatermark": "no",
       "commercialUse": "unverified",
       "creditsAmount": "400 actividades/mes",
@@ -12685,21 +12578,164 @@
         "checkedAt": "2026-08-19",
         "quote": "do work across 9,000+ apps — on command and while you sleep · connect to your business data and perform tasks · equipped with company knowledge through FAQs, docs, and public links.",
         "scope": "cloud"
-      },
-      {
-        "field": "freePlan.requiresCreditCard",
-        "outcome": "derived",
-        "sourceUrl": "https://zapier.com/pricing",
-        "sourceKind": "pricing",
-        "checkedAt": "2026-09-15",
-        "scope": "product",
-        "quote": "Yes! When you create a new Zapier account, you're instantly enrolled in a free 14-day trial of the Zapier Professional plan. No credit card is required.",
-        "basis": "Crear la cuenta, que es lo que da acceso al plan Free cuando acaba la prueba, no pide tarjeta."
       }
     ],
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
     "updatedAt": "2026-08-19",
     "access": {}
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [
+      {
+        "date": "2026-09-10",
+        "kind": "launch",
+        "summary": "DeepSeek publicó V4.1-Flash y lo puso a atender la API bajo el nombre «deepseek-flash». El mismo anuncio retira V4-Flash y V4-Flash-Vision-Exp, y redirige a este modelo las peticiones de V4-Pro a partir de las 04:00 UTC del 14 de septiembre, al precio de Flash, hasta que salga V4.1-Pro.",
+        "sourceUrl": "https://api-docs.deepseek.com/news/news260910"
+      }
+    ],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-09-21",
+    "kind": "model",
+    "categorySlug": "modelos",
+    "licences": {
+      "code": "MIT",
+      "weights": "MIT"
+    },
+    "name": "DeepSeek V4.1 Flash",
+    "verification": "pending_review",
+    "officialUrl": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash",
+    "pricingUrl": "https://api-docs.deepseek.com/quick_start/pricing/",
+    "repoUrl": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash",
+    "hosting": "local",
+    "openSource": "yes",
+    "licence": "MIT",
+    "platforms": [
+      "linux",
+      "api"
+    ],
+    "freeModel": "open_source",
+    "tagline": "El que atiende hoy la API de DeepSeek: multimodal, 1M de contexto y pesos MIT.",
+    "descriptionShort": "Modelo multimodal de mezcla de expertos con 552.000 millones de parámetros de tronco, de los que activa 8.000 millones al leer y 16.000 al escribir. Entiende imágenes además de texto, con contexto de un millón de tokens. Sustituye a V4-Flash en la API y sus pesos se descargan con licencia MIT.",
+    "verdict": "Desde el 10 de septiembre es el modelo que contesta en la API de DeepSeek, también bajo los nombres antiguos. Lo que lo distingue es la caché: DeepSeek publica que su KV cache ocupa una cuarta parte de la memoria de V4-Flash, y eso se nota en el precio de las tareas con mucha entrada. Quedan sin comprobar el alta, la tarjeta y el uso comercial de la API.",
+    "freePlan": {
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "creditReset": "unknown",
+      "commercialUse": "unverified",
+      "verifiedAt": "2026-09-21",
+      "summary": "Repositorio y pesos bajo licencia MIT. La API se paga por token: 0,15 $ por millón de entrada sin caché y 0,60 $ de salida en hora valle, y el doble en hora punta. DeepSeek no publica en esa página si el alta pide tarjeta.",
+      "limits": [
+        "Pesos y código: MIT",
+        "552.000 millones de parámetros de tronco · 8.000 millones activos al leer y 16.000 al escribir",
+        "Contexto de 1M de tokens · salida máxima de 384K",
+        "API en hora valle: 0,15 $/M de entrada sin caché · 0,60 $/M de salida",
+        "API en hora punta: 0,30 $/M de entrada sin caché · 1,20 $/M de salida"
+      ]
+    },
+    "access": {
+      "chat": "unverified",
+      "chatFree": "unverified",
+      "api": "yes",
+      "apiFree": "no",
+      "weights": "yes"
+    },
+    "capabilities": [
+      "text-generation",
+      "vision",
+      "reasoning",
+      "tool-use",
+      "model-download",
+      "api"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Los pesos se descargan; por API basta una clave.",
+    "scores": {
+      "freeReal": 9,
+      "usefulness": 9,
+      "ease": 3,
+      "transparency": 10,
+      "creatorValue": 8
+    },
+    "sources": [
+      {
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash",
+        "label": "Ficha oficial del modelo",
+        "kind": "repo",
+        "publisher": "huggingface.co",
+        "checkedAt": "2026-09-21"
+      },
+      {
+        "url": "https://api-docs.deepseek.com/quick_start/pricing/",
+        "label": "Modelos y precios oficiales",
+        "kind": "pricing",
+        "publisher": "api-docs.deepseek.com",
+        "checkedAt": "2026-09-21"
+      },
+      {
+        "url": "https://api-docs.deepseek.com/news/news260910",
+        "label": "Anuncio oficial del lanzamiento",
+        "kind": "official",
+        "publisher": "api-docs.deepseek.com",
+        "checkedAt": "2026-09-21"
+      }
+    ],
+    "evidence": [
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://api-docs.deepseek.com/quick_start/pricing/",
+        "sourceKind": "pricing",
+        "scope": "api",
+        "checkedAt": "2026-09-21",
+        "quote": "1M INPUT TOKENS (CACHE MISS) OFF-PEAK $0.15 PEAK $0.3 · 1M OUTPUT TOKENS OFF-PEAK $0.6 PEAK $1.2 · CONTEXT LENGTH 1M · MAX OUTPUT MAXIMUM: 384K",
+        "basis": "Son las celdas de la columna «deepseek-flash», cuya fila «MODEL VERSION» dice «DeepSeek-V4.1-Flash»."
+      },
+      {
+        "field": "capabilities",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash",
+        "sourceKind": "repo",
+        "scope": "weights",
+        "checkedAt": "2026-09-21",
+        "quote": "We introduce DeepSeek-V4.1-Flash, a multimodal Mixture-of-Experts (MoE) model with 552B backbone parameters and support for contexts of up to one million tokens. The model natively processes images and text, and generates text autoregressively."
+      },
+      {
+        "field": "openSource",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash",
+        "sourceKind": "repo",
+        "scope": "weights",
+        "checkedAt": "2026-09-21",
+        "quote": "This repository and the model weights are licensed under the MIT License."
+      }
+    ],
+    "slug": "deepseek-v4-1-flash",
+    "id": "tool_deepseek-v4-1-flash",
+    "nextReviewAt": "2026-12-20",
+    "lastVerifiedAt": "2026-09-21",
+    "updatedAt": "2026-09-21"
   }
 ]

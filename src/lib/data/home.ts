@@ -60,7 +60,7 @@ export function candidatasDe(tools: readonly Tool[], slugs: readonly string[]): 
       (t) =>
         enVertical(t, slugs) &&
         usableFreeNow(t) &&
-        verificacionDe(t).state !== 'catalogada' &&
+        !['catalogada', 'retirada'].includes(verificacionDe(t).state) &&
         t.capabilities.length > 0 &&
         sabemos(t.freePlan.requiresCreditCard) &&
         sabemos(t.freePlan.requiresSignup)

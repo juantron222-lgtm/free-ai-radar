@@ -174,38 +174,45 @@ describe('la verificación de vídeo', () => {
     expect(usableFreeNow(tool)).toBe(false);
   });
 
-  it('Pika lleva la cantidad y la frecuencia que publica su web', () => {
-    const tool = bySlug.get('pika-labs')!;
-    expect(tool.freePlan.creditReset).toBe('monthly');
-    expect(tool.freePlan.creditsAmount).toBe('80 créditos de vídeo/mes');
-  });
-
-  it('Pika dice que su plan gratuito marca, y de dónde lo deduce', () => {
+  it('Pika ya no promete créditos gratuitos que su tabla no da', () => {
     /*
-     * Esta prueba ha cambiado dos veces y las dos por la misma razón.
-     *
-     * Primero exigía `hasWatermark: 'no'` con un comentario que decía «de las
-     * pocas fichas del catálogo que pueden afirmar esto». No podía: la página
-     * enumera «Download videos with no watermark» entre lo que traen los planes
-     * de pago, y la cita que sostenía el «no» venía de la columna equivocada.
-     * Se corrigió a `unverified`, que era honesto pero corto.
-     *
-     * Ahora es «sí», y la diferencia está en cómo. La página sigue sin decir
-     * «el plan gratuito pone marca»: dice que quitarla se compra. De ahí a que
-     * la salida gratuita la lleve hay un paso, y ese paso lo damos nosotros. Por
-     * eso la evidencia es `derived` y no `stated`, y por eso la prueba exige que
-     * la base esté escrita: un lector tiene derecho a discutir el razonamiento,
-     * y no puede si no lo ve.
+     * Hasta el 21 de septiembre de 2026 la ficha decía «80 créditos de vídeo
+     * al mes» renovables. Ese día su tabla de precios daba al plan gratuito
+     * «0 credits / month · packs only», así que generar exige comprar. Una
+     * cantidad gratuita anunciada junto a un plan que no la da es la clase de
+     * medio dato que manda a alguien a registrarse para nada.
      */
     const tool = bySlug.get('pika-labs')!;
-    expect(tool.freePlan.hasWatermark).toBe('yes');
+    expect(tool.freeModel).toBe('paid_only');
+    expect(tool.freePlan.creditReset).toBe('none');
+    expect(tool.freePlan.creditsAmount).toBeUndefined();
+    expect(tool.freePlan.limits.join(' ')).toMatch(/packs only/i);
+  });
 
-    const ev = tool.evidence.find((e) => e.field === 'freePlan.hasWatermark');
-    expect(ev?.outcome, 'una deducción nuestra no puede archivarse como cita suya').toBe('derived');
-    expect(ev && 'basis' in ev && ev.basis).toMatch(/no watermark/i);
-    expect(ev && 'basis' in ev && ev.basis, 'la base no dice que es deducción nuestra').toMatch(
-      /deduc|no lo dice/i
-    );
+  it('Pika dice lo que su tabla marca, ni más ni menos', () => {
+    /*
+     * Esta prueba ha cambiado tres veces y siempre por lo mismo: de dónde sale
+     * la respuesta.
+     *
+     * Primero exigía `hasWatermark: 'no'` citando la columna equivocada. Luego
+     * `unverified`. Luego «sí», deducido de que quitar la marca se compraba.
+     * Hoy no hace falta deducir nada: la página etiqueta cada fila del plan
+     * con «Included:» o «Not included:», y la de la marca dice «Included: No
+     * watermark». Eso es una cita, no un razonamiento, así que la evidencia es
+     * `stated` y el valor es «no».
+     *
+     * La regla que deja esta prueba escrita: cuando la fuente contesta con sus
+     * palabras, la ficha copia; cuando no, calla. Ya no hay término medio.
+     */
+    const tool = bySlug.get('pika-labs')!;
+    expect(tool.freePlan.hasWatermark).toBe('no');
+    expect(tool.freePlan.commercialUse).toBe('no');
+
+    for (const field of ['freePlan.hasWatermark', 'freePlan.commercialUse'] as const) {
+      const ev = tool.evidence.find((e) => e.field === field);
+      expect(ev?.outcome, `${field} sin cita`).toBe('stated');
+      expect(ev && 'quote' in ev && ev.quote).toMatch(/^(Included|Not included):/);
+    }
   });
 
   it('Luma no promete un plan gratuito que ya no existe', () => {

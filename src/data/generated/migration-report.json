@@ -1,11 +1,15 @@
 {
-  "generatedAt": "2026-09-16T23:57:19.976Z",
+  "generatedAt": "2026-09-21T20:39:10.045Z",
   "source": "src/data/tools.json",
   "inputCount": 0,
-  "outputCount": 94,
+  "outputCount": 95,
   "dropped": [],
   "duplicates": [],
   "issues": [
+    {
+      "tool": "-",
+      "issue": "Categoría fuera de taxonomía: modelos"
+    },
     {
       "tool": "-",
       "issue": "Categoría fuera de taxonomía: modelos"
@@ -85,5 +89,5 @@
   ],
   "unknownAlternatives": [],
   "scoreDeltas": [],
-  "nativeCount": 94
+  "nativeCount": 95
 }

@@ -56,8 +56,19 @@ describe('la puerta del catálogo enseña datos, no promesas', () => {
   });
 
   it('las recomendadas sólo son fichas usables hoy y comprobadas, sin repetir', () => {
+    /*
+     * Pedimos cinco y pueden salir menos, a propósito.
+     *
+     * La lista exige una por clase de IA con la tarjeta y el registro
+     * confirmados. El 21 de septiembre de 2026 la quinta era Zapier Agents,
+     * cuyo «no pide tarjeta» era una deducción nuestra; al retirarla, esa
+     * clase se quedó sin nadie que cumpliera las condiciones. Rellenar el
+     * hueco con la siguiente menos comprobada sería justo lo contrario de lo
+     * que promete la tabla, así que la portada enseña cuatro filas.
+     */
     const lista = recomendadas(5);
-    expect(lista).toHaveLength(5);
+    expect(lista.length).toBeGreaterThanOrEqual(3);
+    expect(lista.length).toBeLessThanOrEqual(5);
     expect(new Set(lista.map((r) => r.fila.slug)).size).toBe(lista.length);
     // Una por clase de IA: es lo que promete el criterio escrito encima.
     expect(new Set(lista.map((r) => r.clase)).size).toBe(lista.length);

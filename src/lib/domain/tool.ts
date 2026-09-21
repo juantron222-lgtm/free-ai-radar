@@ -308,6 +308,19 @@ export const ToolRecord = z.object({
     .enum(['verified', 'partially_verified', 'pending_review', 'outdated', 'discontinued'])
     .default('pending_review'),
   nextReviewAt: IsoDate.optional(),
+
+  /**
+   * La ficha que ocupa su sitio, cuando `verification` es `discontinued`.
+   *
+   * Retirar una herramienta borrando su ficha rompe los enlaces de quien la
+   * guardó y deja sin respuesta a quien la busca por su nombre. La ficha se
+   * queda, dice que está retirada y señala a dónde ir: DeepSeek retiró
+   * V4-Flash de su API el 10 de septiembre de 2026 y las peticiones que usan
+   * su nombre las contesta V4.1-Flash, así que la pregunta «¿y ahora qué uso?»
+   * tiene una respuesta concreta y es esta.
+   */
+  replacedBy: Slug.optional(),
+
   /** Literal release tag, when the vendor publishes one. */
   version: z.string().max(40).optional(),
 

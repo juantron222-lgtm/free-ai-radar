@@ -81,8 +81,15 @@ const TOOL_COLUMNS = new Set([
   'capabilities', 'start_effort', 'start_effort_reason', 'licences', 'access', 'product_type',
 ]);
 
-/** Campos que sólo viven en el repositorio. Ver el motivo en catalogRows(). */
-const EDITORIAL_ONLY = new Set(['evidence', 'auditNotes']);
+/**
+ * Campos que sólo viven en el repositorio. Ver el motivo en catalogRows().
+ *
+ * `replacedBy` se suma a la lista por lo mismo que los otros dos: dice a qué
+ * ficha mandar a quien llega a una retirada, y eso lo resuelven las páginas
+ * leyendo el JSON. Postgres no lo consulta, así que una columna para él sería
+ * una columna que se queda vieja sin que nadie lo note.
+ */
+const EDITORIAL_ONLY = new Set(['evidence', 'auditNotes', 'replacedBy']);
 
 export async function catalogRows() {
   const tools = JSON.parse(readFileSync(join(ROOT, 'src/data/generated/tools.json'), 'utf8'));
