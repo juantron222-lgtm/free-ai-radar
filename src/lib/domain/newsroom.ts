@@ -79,11 +79,92 @@ export function latestDecision(log: readonly DecisionRecord[], slug: string): De
  * site that writes to the published dataset, so it is the only place where
  * being wrong is irreversible for a reader.
  */
+/**
+ * Marcas de un borrador que nadie ha reescrito todavía.
+ *
+ * `autodraft.mjs` redacta un texto de trabajo para que una persona lo arregle:
+ * copia el `<title>` de la fuente, arma el slug con el dominio, escribe «queda
+ * pendiente la revisión editorial» y pega las citas recortando por donde toque.
+ * Es exactamente lo que debe hacer un borrador.
+ *
+ * El problema era que nada miraba si alguien lo había tocado después. Cohere,
+ * Together y Runway se publicaron solas con ese texto puesto —titular en
+ * inglés incluido— y estuvieron meses en la web firmadas por «Redacción de
+ * Free AI Radar», que es una firma que no había leído nada.
+ *
+ * Cada patrón de aquí corresponde a una línea concreta de `autodraft.mjs`. No
+ * juzgan la calidad del texto: detectan que sigue siendo el de la máquina.
+ */
+const MARCAS_DE_BORRADOR: ReadonlyArray<{ prueba: RegExp; motivo: string; donde: 'titulo' | 'slug' | 'texto' }> = [
+  { donde: 'slug', prueba: /^[a-z0-9]+-(com|ai|io|org|dev|net)-/, motivo: 'el slug empieza por el dominio de la fuente' },
+  { donde: 'texto', prueba: /queda pendiente la revisión editorial/i, motivo: 'conserva «queda pendiente la revisión editorial»' },
+  { donde: 'texto', prueba: /publicó esto el \d{4}-\d{2}-\d{2}/i, motivo: 'conserva «publicó esto el», con la fecha en ISO' },
+  { donde: 'texto', prueba: /según la fecha que declara su propia página/i, motivo: 'conserva la coletilla de la fecha declarada' },
+  /*
+   * Una cita cortada se reconoce por la costura que deja `recortar()`:
+   * dos puntos seguidos, puntos suspensivos, o el espacio que queda antes del
+   * punto final cuando se le arranca el resto de la frase —«The Open Source AI
+   * Stack .»—. También la cita que se quedó en nada.
+   */
+  { donde: 'texto', prueba: /«[^»]*(\.\.|…|\s\.)\s*»|«\s*[^»]{0,3}\s*»/, motivo: 'tiene una cita cortada o vacía' },
+  { donde: 'titulo', prueba: /\s\|\s/, motivo: 'el titular lleva el separador del sitio de origen' },
+];
+
+/** Palabras funcionales que delatan un titular sin traducir. */
+const INGLES = /\b(the|and|for|with|new|now|available|introducing|announcing|open|source|model|our)\b/gi;
+
+/**
+ * ¿Está este texto listo para un lector, o sigue siendo el borrador de la máquina?
+ *
+ * La comprueban las dos rutas —`canApprove`, y por tanto también
+ * `canAutoPublish`— porque el fallo no era de la automática: era de que nadie
+ * la comprobaba en ninguna de las dos.
+ *
+ * No sustituye a que una persona lea la pieza. Sólo impide que salga algo que
+ * demostrablemente nadie ha leído.
+ */
+export function checkReaderReady(draft: {
+  title?: string;
+  slug?: string;
+  summary?: string;
+  impact?: string;
+}): { ok: boolean; reasons: string[] } {
+  const reasons: string[] = [];
+  const titulo = draft.title ?? '';
+  const slug = draft.slug ?? '';
+  const texto = `${draft.summary ?? ''} ${draft.impact ?? ''}`;
+
+  for (const marca of MARCAS_DE_BORRADOR) {
+    const sujeto = marca.donde === 'titulo' ? titulo : marca.donde === 'slug' ? slug : texto;
+    if (marca.prueba.test(sujeto)) reasons.push(marca.motivo);
+  }
+
+  /*
+   * Un titular en inglés no es un error de traducción: es la prueba de que se
+   * copió el de la fuente. El umbral son tres palabras funcionales, para que
+   * «OpenAI lanza GPT-6 Astra» —que lleva nombres propios en inglés y está en
+   * español— no salte.
+   */
+  const funcionales = titulo.match(INGLES)?.length ?? 0;
+  if (funcionales >= 3) {
+    reasons.push(`el titular parece copiado de la fuente, sin traducir (${funcionales} palabras funcionales en inglés)`);
+  }
+
+  return { ok: reasons.length === 0, reasons };
+}
+
 export function canApprove(story: DeskStory): { ok: boolean; reasons: string[] } {
   const reasons: string[] = [];
 
   if (!story.draft) {
     reasons.push('no hay borrador: una historia no puede saltar del radar a publicada');
+  }
+
+  if (story.draft) {
+    const legible = checkReaderReady(story.draft as Parameters<typeof checkReaderReady>[0]);
+    if (!legible.ok) {
+      reasons.push(...legible.reasons.map((r) => `sin reescribir: ${r}`));
+    }
   }
 
   if (!story.verification) {

@@ -65,6 +65,47 @@
     "frontPage": true
   },
   {
+    "id": "news-2026-09-15-accomplish-sandbox-codex",
+    "slug": "accomplish-sandbox-codex",
+    "title": "Accomplish describe dos formas de salir del sandbox de Codex, una de ellas desde el modo de sólo lectura",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Accomplish publicó el 15 de septiembre dos fallos que permitían escapar del sandbox de OpenAI Codex. Dice haberlos comunicado a OpenAI el 12 de agosto y que «both were fixed inside of eight days». El primero, Overpatch, está en la CLI de código abierto: la herramienta de parches concede permiso de escritura a la carpeta padre de cada ruta del parche, así que nombrar /tmp abre la raíz del disco. El segundo, Heapjack, afecta a la herramienta de JavaScript que instala Codex Desktop.",
+    "impact": "Lo llamativo de Heapjack es dónde ocurre: en modo de sólo lectura, el sandbox más estricto de Codex, donde el agente en principio no puede escribir nada. Según Accomplish, el código no fiable lee el token que separa lo fiable de lo que no de la memoria que comparten, y acaba ejecutando órdenes fuera del sandbox sin que Codex pida permiso. Describe el resultado así: abrir un repositorio clonado y hacerle una pregunta basta para que quien lo escribió ejecute lo que quiera. OpenAI no ha publicado nada sobre el caso.",
+    "category": "programacion",
+    "eventType": "anuncio",
+    "availability": "unknown",
+    "publishedAt": "2026-09-15",
+    "checkedAt": "2026-09-21",
+    "officialUrl": "https://www.accomplish.ai/blog/escaping-the-openai-codex-sandbox-twice/",
+    "sources": [
+      {
+        "url": "https://www.accomplish.ai/blog/escaping-the-openai-codex-sandbox-twice/",
+        "kind": "official",
+        "label": "Escaping the OpenAI Codex sandbox, twice (Accomplish)",
+        "checkedAt": "2026-09-21",
+        "publisher": "accomplish.ai"
+      },
+      {
+        "url": "https://www.accomplish.ai/blog",
+        "kind": "official",
+        "label": "Blog de Accomplish, con la fecha de cada artículo",
+        "checkedAt": "2026-09-21",
+        "publisher": "accomplish.ai"
+      }
+    ],
+    "relatedTools": [
+      "codex"
+    ],
+    "affectsFreePlan": "no",
+    "verification": "partial",
+    "status": "published",
+    "unconfirmed": [
+      "OpenAI no ha publicado ningún aviso sobre estos dos fallos. Que existieran, que se comunicaran el 12 de agosto de 2026 y que quedaran corregidos en ocho días es lo que afirma Accomplish, no algo que OpenAI haya confirmado.",
+      "Accomplish no publica en qué versión de Codex se corrigió cada uno, así que no se puede decir desde cuál se está a salvo."
+    ],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-09-15-gemini-3-8-live",
     "slug": "gemini-3-8-live",
     "title": "Google lanza Gemini 3.8 Live, dos modelos de voz que cambian de idioma a mitad de conversación",
@@ -225,6 +266,66 @@
     "relatedTools": [
       "devin"
     ],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-10-cohere-com-introducing-north-small-translate-a-leading-sovereign-open-weig",
+    "slug": "cohere-com-introducing-north-small-translate-a-leading-sovereign-open-weight-mac",
+    "title": "Cohere publica North Small Translate, un modelo de traducción con pesos abiertos para uso no comercial",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Cohere presentó el 10 de septiembre North Small Translate, su primer modelo de traducción de la familia North, con soporte para más de 50 idiomas. Es un modelo de mezcla de expertos de 218.000 millones de parámetros, de los que activa 25.000 millones. Sus pesos se pueden descargar en Hugging Face con licencia CC BY-NC 4.0, para investigación y uso no comercial; el uso comercial exige licencia, y las empresas también pueden usarlo a través de Language Weaver, de RWS.",
+    "impact": "Ejecutarlo en local exige hardware de centro de datos: Cohere indica como mínimo una GPU B200 o dos H100 con cuantización W4A4. También ofrece una demo en Hugging Face. Según las pruebas de la propia Cohere, que usan GPT-5.6 Sol como juez, obtiene 83,6 puntos en WMT26 y supera a DeepL y a Google Translate; son resultados de la empresa, no de un evaluador independiente.",
+    "category": "local-open-source",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-09-10",
+    "checkedAt": "2026-09-16",
+    "officialUrl": "https://cohere.com/blog/north-small-translate",
+    "sources": [
+      {
+        "url": "https://cohere.com/blog/north-small-translate",
+        "kind": "official",
+        "label": "Introducing North Small Translate: A leading sovereign open-weight machine translation model",
+        "checkedAt": "2026-09-16",
+        "publisher": "cohere.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "archived",
+    "unconfirmed": [
+      "REEMPLAZADA POR /noticias/cohere-north-small-translate: importación automática con el titular en inglés, las citas cortadas y el slug formado con el dominio. El texto se conserva tal como se publicó."
+    ],
+    "frontPage": false
+  },
+  {
+    "id": "news-2026-09-10-cohere-north-small-translate",
+    "slug": "cohere-north-small-translate",
+    "title": "Cohere publica North Small Translate, un modelo de traducción con pesos abiertos para uso no comercial",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Cohere presentó el 10 de septiembre North Small Translate, su primer modelo de traducción de la familia North, con soporte para más de 50 idiomas. Es un modelo de mezcla de expertos de 218.000 millones de parámetros, de los que activa 25.000 millones. Sus pesos se pueden descargar en Hugging Face con licencia CC BY-NC 4.0, para investigación y uso no comercial; el uso comercial exige licencia, y las empresas también pueden usarlo a través de Language Weaver, de RWS.",
+    "impact": "Ejecutarlo en local exige hardware de centro de datos: Cohere indica como mínimo una GPU B200 o dos H100 con cuantización W4A4. También ofrece una demo en Hugging Face. Según las pruebas de la propia Cohere, que usan GPT-5.6 Sol como juez, obtiene 83,6 puntos en WMT26 y supera a DeepL y a Google Translate; son resultados de la empresa, no de un evaluador independiente.",
+    "category": "local-open-source",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-09-10",
+    "checkedAt": "2026-09-16",
+    "officialUrl": "https://cohere.com/blog/north-small-translate",
+    "sources": [
+      {
+        "url": "https://cohere.com/blog/north-small-translate",
+        "kind": "official",
+        "label": "Introducing North Small Translate: A leading sovereign open-weight machine translation model",
+        "checkedAt": "2026-09-16",
+        "publisher": "cohere.com"
+      }
+    ],
+    "relatedTools": [],
     "affectsFreePlan": "unverified",
     "verification": "verified",
     "status": "published",
@@ -427,6 +528,37 @@
     "frontPage": true
   },
   {
+    "id": "news-2026-09-09-together-ai-the-open-source-ai-stack",
+    "slug": "together-ai-the-open-source-ai-stack",
+    "title": "The Open Source AI Stack",
+    "author": "Redacción de Free AI Radar",
+    "summary": "together.ai publicó esto el 2026-09-09, según la fecha que declara su propia página. Sobre la disponibilidad, el anuncio dice: «⚡ On-demand B200s now available on Together GPU Clusters →.».",
+    "impact": "La página no menciona ninguna capa gratuita, ni para confirmarla ni para descartarla, así que no podemos decir qué cambia para quien no paga. Sobre pesos y licencia: «The Open Source AI Stack .». Verificado leyendo la página del fabricante; queda pendiente la revisión editorial.",
+    "category": "local-open-source",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-09-09",
+    "checkedAt": "2026-09-10",
+    "officialUrl": "https://together.ai/blog/the-open-source-ai-stack",
+    "sources": [
+      {
+        "url": "https://together.ai/blog/the-open-source-ai-stack",
+        "kind": "official",
+        "label": "The Open Source AI Stack",
+        "checkedAt": "2026-09-10",
+        "publisher": "together.ai"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "archived",
+    "unconfirmed": [
+      "RETIRADA DE PUBLICACIÓN: guía de Together AI, no una noticia; importada automáticamente con la disponibilidad tomada de una barra promocional. El texto se conserva tal como se publicó, para que el historial enseñe qué salió."
+    ],
+    "frontPage": false
+  },
+  {
     "id": "news-2026-09-03-nvidia-compra-hugging-face",
     "slug": "nvidia-compra-hugging-face",
     "title": "NVIDIA acuerda comprar Hugging Face por 12.930 millones de dólares",
@@ -494,6 +626,41 @@
   {
     "id": "news-2026-09-03-runway-com-runway-research-introducing-gwm-worlds-2",
     "slug": "runway-com-runway-research-introducing-gwm-worlds-2",
+    "title": "Runway presenta GWM Worlds 2, un modelo que genera mundos interactivos con vídeo y audio en tiempo real",
+    "author": "Redacción de Free AI Radar",
+    "impact": "Runway lo presenta como un avance de investigación, no como un producto: la página no explica cómo probarlo, remite a un formulario de contacto y no menciona precio ni capa gratuita. La propia empresa reconoce sus límites: la generación en tiempo real sacrifica calidad por velocidad, los giros de cámara muy rápidos degradan detalles y geometría, y la memoria a largo plazo es imperfecta. Entre los usos que plantea están los juegos, las experiencias interactivas y los entornos simulados para evaluar y entrenar agentes.",
+    "status": "archived",
+    "sources": [
+      {
+        "url": "https://runway.com/research/introducing-gwm-worlds-2",
+        "kind": "official",
+        "label": "Runway Research | Introducing GWM Worlds 2",
+        "checkedAt": "2026-09-16",
+        "publisher": "runway.com"
+      }
+    ],
+    "summary": "Runway presentó el 3 de septiembre GWM Worlds 2, un avance de investigación de su modelo de mundos: genera en tiempo real vídeo continuo a 720p y 24 fotogramas por segundo, con audio a 48.000 Hz, y responde a lo que hace el usuario mientras explora. Amplía GWM Worlds, que la empresa mostró en diciembre, con audio generado y más control sobre los personajes y la escena, que se dirigen con instrucciones de texto y movimientos de cámara.",
+    "category": "video",
+    "checkedAt": "2026-09-16",
+    "eventType": "preview-beta",
+    "freeAccess": {
+      "model": "unknown",
+      "creditReset": "unknown"
+    },
+    "officialUrl": "https://runway.com/research/introducing-gwm-worlds-2",
+    "publishedAt": "2026-09-03",
+    "unconfirmed": [
+      "REEMPLAZADA POR /noticias/runway-gwm-worlds-2: el slug lo formó el automatismo con el dominio de la fuente. El texto se conserva tal como se publicó."
+    ],
+    "availability": "preview",
+    "relatedTools": [],
+    "verification": "verified",
+    "affectsFreePlan": "unverified",
+    "frontPage": false
+  },
+  {
+    "id": "news-2026-09-03-runway-gwm-worlds-2",
+    "slug": "runway-gwm-worlds-2",
     "title": "Runway presenta GWM Worlds 2, un modelo que genera mundos interactivos con vídeo y audio en tiempo real",
     "author": "Redacción de Free AI Radar",
     "impact": "Runway lo presenta como un avance de investigación, no como un producto: la página no explica cómo probarlo, remite a un formulario de contacto y no menciona precio ni capa gratuita. La propia empresa reconoce sus límites: la generación en tiempo real sacrifica calidad por velocidad, los giros de cámara muy rápidos degradan detalles y geometría, y la memoria a largo plazo es imperfecta. Entre los usos que plantea están los juegos, las experiencias interactivas y los entornos simulados para evaluar y entrenar agentes.",

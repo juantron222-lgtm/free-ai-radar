@@ -72,6 +72,33 @@ export default defineConfig({
     '/categorias/agentes': { status: 301, destination: '/agentes' },
     '/categorias/musica': { status: 301, destination: '/audio' },
     '/categorias/voz': { status: 301, destination: '/audio' },
+    /*
+     * Una pieza retirada no se convierte en un 404.
+     *
+     * La guía de Together AI entró sola el 9 de septiembre de 2026: no era una
+     * noticia y su «Disponible» salía de una barra promocional. Se retira de
+     * la publicación, pero estuvo indexada, así que su URL manda al índice en
+     * vez de romperse. El texto que salió se conserva en la semilla con
+     * `status: archived` y la fila de Supabase queda como historial: nada de
+     * lo que se publicó se destruye.
+     */
+    '/noticias/together-ai-the-open-source-ai-stack': { status: 301, destination: '/noticias' },
+    /*
+     * Dos URL que formó el automatismo con el dominio de la fuente.
+     *
+     * `checkReaderReady` las señala por eso, y una regla que dice «esto no
+     * está reescrito» mientras la pieza sigue publicada con esa URL es una
+     * regla en la que no creemos. El texto de las dos ya estaba corregido;
+     * esto arregla lo que quedaba, que era la dirección.
+     */
+    '/noticias/cohere-com-introducing-north-small-translate-a-leading-sovereign-open-weight-mac': {
+      status: 301,
+      destination: '/noticias/cohere-north-small-translate',
+    },
+    '/noticias/runway-com-runway-research-introducing-gwm-worlds-2': {
+      status: 301,
+      destination: '/noticias/runway-gwm-worlds-2',
+    },
   },
   vite: {
     plugins: [tailwindcss()],

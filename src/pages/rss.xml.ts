@@ -1,14 +1,20 @@
 import type { APIRoute } from 'astro';
 import { getCatalogChanges, getRecentlyAdded } from '@lib/data/catalog';
+import { getLatestNews } from '@lib/data/news';
 import { SITE, absoluteUrl } from '@lib/seo/site';
 import { ROUTES } from '@lib/nav';
 
 /**
  * Catalogue feed.
  *
- * Carries the two things a reader actually wants pushed: tools that just
- * entered the radar, and free plans that just changed. Not a generic "new
- * post" feed.
+ * Carries the three things a reader actually wants pushed: tools that just
+ * entered the radar, free plans that just changed, and the news. Not a generic
+ * "new post" feed.
+ *
+ * Las noticias faltaban, y el botón «RSS» de /noticias apuntaba aquí: quien lo
+ * pulsaba se suscribía a un feed de cuarenta elementos sin una sola noticia.
+ * Era la clase de enlace que se descubre roto un mes después, cuando ya nadie
+ * recuerda haberse suscrito.
  */
 
 function escapeXml(value: string): string {
@@ -50,7 +56,16 @@ export const GET: APIRoute = () => {
     category: 'Novedades',
   }));
 
-  const items = [...changes, ...additions]
+  const noticias = getLatestNews(20).map((item) => ({
+    title: item.title,
+    description: item.summary,
+    link: absoluteUrl(ROUTES.newsItem(item.slug)),
+    guid: `news-${item.slug}`,
+    date: item.publishedAt,
+    category: 'Noticias',
+  }));
+
+  const items = [...noticias, ...changes, ...additions]
     .sort((a, b) => b.date.localeCompare(a.date))
     .slice(0, 40);
 

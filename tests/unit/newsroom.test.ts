@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { resumirPasada } from '@lib/data/newsroom-store';
 import rawInbox from '@/data/news/inbox.json';
@@ -8,6 +9,7 @@ import rawNews from '@/data/news/news.json';
 import {
   buildDesk,
   canApprove,
+  checkReaderReady,
   deskSection,
   draftToNewsItem,
   latestDecision,
@@ -362,5 +364,143 @@ describe('el resumen que alguien lee por la mañana', () => {
     const resumen = resumirPasada(base);
     expect(resumen).not.toContain('Retenidas');
     expect(resumen.endsWith('superadas por una noticia posterior')).toBe(true);
+  });
+});
+
+describe('un borrador sin reescribir no llega al lector', () => {
+  /*
+   * Tres piezas salieron solas con el texto de trabajo de `autodraft.mjs`
+   * puesto: titular en inglés, «queda pendiente la revisión editorial», citas
+   * cortadas y el slug formado con el dominio. Estuvieron meses en la web
+   * firmadas por «Redacción de Free AI Radar», una firma que no había leído
+   * nada.
+   *
+   * `checkReaderReady` no juzga si el texto es bueno. Detecta que sigue siendo
+   * el de la máquina, que es algo que sí se puede comprobar.
+   */
+  const publicadas = (rawNews as unknown as Array<Record<string, string>>).filter(
+    (n) => n.status === 'published'
+  );
+
+  it('ninguna de las publicadas conserva marcas del automatismo', () => {
+    for (const noticia of publicadas) {
+      const veredicto = checkReaderReady(noticia);
+      expect(veredicto.ok, `${noticia.slug}: ${veredicto.reasons.join('; ')}`).toBe(true);
+    }
+  });
+
+  it('y las que sí las conservan están archivadas, no borradas', () => {
+    /*
+     * Las tres siguen en la semilla con su texto original y `status:
+     * archived`. El registro de qué se publicó no se destruye: se retira de
+     * la vista y su URL manda a la pieza nueva o al índice.
+     */
+    const archivadasConMarcas = (rawNews as unknown as Array<Record<string, string>>)
+      .filter((n) => n.status === 'archived')
+      .filter((n) => !checkReaderReady(n).ok);
+    expect(archivadasConMarcas.length).toBeGreaterThanOrEqual(3);
+    for (const n of archivadasConMarcas) {
+      expect(n.summary, `${n.slug} perdió el texto que se publicó`).toBeTruthy();
+    }
+  });
+
+  it('cada marca corresponde a una línea concreta del generador', () => {
+    const casos: Array<[string, Record<string, string>, RegExp]> = [
+      ['slug con dominio', { slug: 'cohere-com-algo', title: 'Título correcto en español' }, /slug/i],
+      [
+        'coletilla de revisión',
+        { slug: 'ok', title: 'Título correcto en español', impact: 'queda pendiente la revisión editorial' },
+        /revisión editorial/i,
+      ],
+      [
+        'fecha en ISO dentro de la prosa',
+        { slug: 'ok', title: 'Título correcto en español', summary: 'together.ai publicó esto el 2026-09-09.' },
+        /publicó esto el/i,
+      ],
+      [
+        'cita cortada',
+        { slug: 'ok', title: 'Título correcto en español', impact: 'Dice: «The Open Source AI Stack .».' },
+        /cita/i,
+      ],
+      [
+        'titular sin traducir',
+        { slug: 'ok', title: 'Introducing the new open source model for everyone' },
+        /sin traducir/i,
+      ],
+      [
+        'separador del sitio',
+        { slug: 'ok', title: 'Algo en español | Nombre del sitio' },
+        /separador/i,
+      ],
+    ];
+
+    for (const [nombre, borrador, esperado] of casos) {
+      const veredicto = checkReaderReady(borrador);
+      expect(veredicto.ok, nombre).toBe(false);
+      expect(veredicto.reasons.join(' '), nombre).toMatch(esperado);
+    }
+  });
+
+  it('un titular en español con nombres propios en inglés no salta', () => {
+    /*
+     * El umbral son tres palabras funcionales. «OpenAI lanza GPT-6 Astra y lo
+     * sitúa en el nivel crítico» lleva inglés en los nombres y está escrito
+     * para un lector en español: si esto saltara, la regla sería inútil.
+     */
+    for (const titulo of [
+      'OpenAI lanza GPT-6 Astra y lo sitúa en el nivel «crítico» de ciberseguridad',
+      'Cohere publica North Small Translate, un modelo de traducción con pesos abiertos',
+      'Google lanza la aplicación de Gemini para Windows, que se abre con Alt + Espacio',
+    ]) {
+      expect(checkReaderReady({ slug: 'ok', title: titulo }).ok, titulo).toBe(true);
+    }
+  });
+
+  it('la ruta manual la aplica igual que la automática', () => {
+    /*
+     * El fallo no era de la puerta automática: era que nadie comprobaba esto
+     * en ninguna de las dos. Por eso vive en `canApprove`, que es por donde
+     * pasan las dos.
+     */
+    const historia = {
+      key: 'x',
+      title: 'Introducing the new open source model for everyone',
+      publishedAt: '2026-09-20',
+      radar: null,
+      triage: null,
+      verification: { decision: 'verified', checkedAt: '2026-09-20' } as unknown as VerificationRecordShape,
+      draft: {
+        slug: 'together-ai-algo',
+        title: 'Introducing the new open source model for everyone',
+        summary: 'queda pendiente la revisión editorial',
+      } as unknown as DraftShape,
+      gate: { ok: true, reasons: [] },
+      decision: null,
+      published: false,
+    };
+
+    const veredicto = canApprove(historia as unknown as Parameters<typeof canApprove>[0]);
+    expect(veredicto.ok).toBe(false);
+    expect(veredicto.reasons.some((r) => r.startsWith('sin reescribir:'))).toBe(true);
+  });
+});
+
+describe('la autopublicación está pausada', () => {
+  it('el tope es cero, y eso se lee en el código que lo usa', () => {
+    /*
+     * 21 de septiembre de 2026, decisión de Juan: la pasada sigue
+     * descubriendo, leyendo fuentes, verificando y dejando borradores; lo que
+     * no hace es aprobarlos sola.
+     *
+     * Se comprueba sobre el fichero porque el tope es una constante privada:
+     * exportarla sólo para esta prueba sería abrir la puerta a que alguien la
+     * importe y la cambie desde fuera.
+     */
+    const fuente = readFileSync(
+      new URL('../../src/lib/newsroom/daily.ts', import.meta.url),
+      'utf8'
+    );
+    expect(fuente).toMatch(/const MAX_AUTOPUBLICADAS = 0;/);
+    expect(fuente, 'el motivo tiene que estar escrito al lado').toMatch(/cierre editorial/i);
   });
 });

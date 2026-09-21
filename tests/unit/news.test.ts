@@ -672,10 +672,23 @@ describe('loader', () => {
   });
 
   it('counts what it says it counts', async () => {
+    /*
+     * Dos cifras, porque son dos preguntas.
+     *
+     * `affectingFreePlan` cuenta todo lo publicado que toca el plan gratuito,
+     * archivo incluido: es lo que dice la franja de cabecera. El bloque «Lo
+     * que cambia si no pagas» enseña sólo los últimos 45 días, porque abría
+     * con una noticia de junio por encima de las de septiembre. Cuando eran
+     * el mismo número, uno de los dos estaba mintiendo.
+     */
     const { getAllNews, getFreePlanNews, getNewsStats } = await loader();
     const stats = getNewsStats();
     expect(stats.total).toBe(getAllNews().length);
-    expect(stats.affectingFreePlan).toBe(getFreePlanNews().length);
+    expect(stats.affectingFreePlanRecent).toBe(getFreePlanNews().length);
+    expect(stats.affectingFreePlan).toBeGreaterThanOrEqual(stats.affectingFreePlanRecent);
+    expect(stats.affectingFreePlan).toBe(
+      getAllNews().filter((n) => n.affectsFreePlan === 'yes').length
+    );
   });
 
   it('finds the news attached to a tool', async () => {

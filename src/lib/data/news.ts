@@ -15,7 +15,7 @@ import {
   type HydratedNewsItem,
 } from '@lib/domain/news';
 import { getTool } from './catalog';
-import { encontrarSupersesiones, repartirPortada } from '@lib/domain/lifecycle';
+import { DIAS_FRESCA, encontrarSupersesiones, repartirPortada } from '@lib/domain/lifecycle';
 
 /**
  * The newsroom.
@@ -95,16 +95,40 @@ export function getNewsForTool(slug: string): HydratedNewsItem[] {
   return NEWS.filter((item) => item.relatedTools.includes(slug));
 }
 
-/** The ones that change what a free-tier user can actually do. */
-export function getFreePlanNews(): HydratedNewsItem[] {
-  return NEWS.filter((item) => item.affectsFreePlan === 'yes');
+/**
+ * The ones that change what a free-tier user can actually do — recently.
+ *
+ * Filtraba sólo por `affectsFreePlan`, sin mirar la edad ni `frontPage`, y el
+ * bloque «Lo que cambia si no pagas» acababa abriendo con una noticia de junio
+ * por encima de las de septiembre. Un bloque que se lee como «esto ha
+ * cambiado» y enseña algo de hace cuatro meses miente sin decir una sola cosa
+ * falsa.
+ *
+ * Usa la misma ventana que la portada —45 días— y respeta la retirada manual,
+ * porque son las dos reglas que ya deciden qué es actualidad aquí. Es un
+ * filtro de sólo lectura: no toca `repartirPortada`, que alimenta el informe
+ * diario y tiene que seguir viendo todo.
+ */
+export function getFreePlanNews(now: Date = new Date()): HydratedNewsItem[] {
+  return NEWS.map((item) => hydrateNews(item, now)).filter(
+    (item) => item.affectsFreePlan === 'yes' && item.frontPage !== false && item.ageDays <= DIAS_FRESCA
+  );
 }
 
 export interface NewsStats {
   total: number;
   verified: number;
   partial: number;
+  /** Todas las publicadas que tocan el plan gratuito, incluido el archivo. */
   affectingFreePlan: number;
+  /**
+   * Las de los últimos 45 días, que son las que enseña el bloque.
+   *
+   * Existe porque la cifra de la franja y el bloque decían el mismo número
+   * queriendo decir cosas distintas, y en cuanto el bloque empezó a filtrar
+   * por edad dejaron de cuadrar. Dos preguntas distintas, dos cifras.
+   */
+  affectingFreePlanRecent: number;
   categories: number;
   latestAt: string;
 }
@@ -115,6 +139,7 @@ export function getNewsStats(): NewsStats {
     verified: NEWS.filter((n) => n.verification === 'verified').length,
     partial: NEWS.filter((n) => n.verification === 'partial').length,
     affectingFreePlan: NEWS.filter((n) => n.affectsFreePlan === 'yes').length,
+    affectingFreePlanRecent: getFreePlanNews().length,
     categories: new Set(NEWS.map((n) => n.category)).size,
     latestAt: NEWS[0]?.publishedAt ?? '',
   };

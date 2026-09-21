@@ -111,12 +111,27 @@ async function existingCandidates(supabase: SupabaseClient): Promise<InboxCandid
 const feedCache = new Map<string, string>();
 
 /**
- * Cuántas puede publicar sola una pasada.
+ * Cuántas puede publicar sola una pasada. Hoy, ninguna.
  *
- * Un techo, no una cuota. Existe para que un fallo del extractor no se convierta
- * en veinte noticias malas en una mañana, no para asegurar volumen.
+ * Era un techo de cuatro: existía para que un fallo del extractor no se
+ * convirtiera en veinte noticias malas en una mañana, no para asegurar
+ * volumen. El 21 de septiembre de 2026 Juan lo bajó a cero:
+ *
+ *   «La automatización puede seguir descubriendo, recopilando fuentes,
+ *   verificando y preparando borradores, pero ninguna noticia nueva debe
+ *   publicarse automáticamente sin pasar el cierre editorial.»
+ *
+ * El motivo está en `docs/noticias-diagnostico-editorial.md`: las tres piezas
+ * que habían salido solas —Cohere, Together y Runway— llegaron con el texto de
+ * trabajo de `autodraft.mjs` puesto, titular en inglés incluido, y ninguna
+ * puerta lo miraba. `checkReaderReady` (en `domain/newsroom.ts`) cierra ese
+ * agujero y ahora lo aplican las dos rutas, pero eso comprueba la forma del
+ * texto, no que alguien lo haya leído. Esto último es lo que decide.
+ *
+ * La pasada sigue haciendo todo lo demás: lee, verifica y deja borradores en
+ * la mesa. Sólo deja de aprobarlos por su cuenta.
  */
-const MAX_AUTOPUBLICADAS = 4;
+const MAX_AUTOPUBLICADAS = 0;
 
 /** Quién firma lo que se publica sin intervención. Se distingue en el historial. */
 const AUTOR_AUTOMATICO = 'Newsroom automático';

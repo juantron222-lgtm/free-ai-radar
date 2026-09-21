@@ -126,14 +126,27 @@ const AVAILABILITY_CHIP: Record<AvailabilityTone, string> = {
           <span class={`chip ${item.affectsFreePlan === 'yes' ? 'chip-signal' : ''}`}>
             {FREE_PLAN_LABEL[item.affectsFreePlan]}
           </span>
-          <span class={`chip ${item.verification === 'verified' ? 'chip-signal' : 'chip-warn'}`}>
-            {item.verificationLabel}
-          </span>
+          {/*
+            La pastilla «Verificada» se ha ido de aquí a la firma.
+
+            Suelta en la franja era un sello sobre sí misma, sin decir quién lo
+            comprobó ni cuándo; y cuando la pieza es parcial, el aviso de arriba
+            ya nombra lo que falta. Abajo, al lado de la fecha de comprobación,
+            es información.
+          */}
         </p>
 
         <div class="noticia-acciones">
+        {/*
+          «Leer el anuncio oficial» no describe la mitad de lo que enlazamos.
+
+          El análisis de Accomplish sobre el sandbox de Codex no es un anuncio
+          y Accomplish no es el fabricante de Codex: es quien lo investigó.
+          «La fuente original» es cierto en los dos casos —también cuando sí
+          es un anuncio— y no hace falta adivinar cuál de los dos es.
+        */}
           <a class="btn btn-primary" href={item.officialUrl} rel="nofollow noopener" target="_blank">
-            Leer el anuncio oficial <span aria-hidden="true">↗</span>
+            Leer la fuente original <span aria-hidden="true">↗</span>
             <span class="sr-only">(se abre en una pestaña nueva)</span>
           </a>
           <a class="noticia-fuentes" href="#sources-title">Ver fuentes</a>
@@ -198,10 +211,22 @@ const AVAILABILITY_CHIP: Record<AvailabilityTone, string> = {
 
       <section class="detail-section detail-byline" aria-labelledby="byline-title">
         <h2 id="byline-title" class="sr-only">Responsable editorial</h2>
+        {/*
+          «Publicado por el fabricante» no siempre es cierto.
+
+          Accomplish y Manifold Security no fabrican nada de lo que cuentan:
+          son quien lo investigó. «Fecha de la fuente» vale para los dos casos
+          y no le atribuye a nadie un producto que no es suyo.
+
+          El estado de verificación se dice aquí, con su fecha, en vez de como
+          una pastilla suelta en la cabecera: al lado de quién lo comprobó y
+          cuándo significa algo; solo, es una etiqueta más.
+        */}
         <p>
           Redactado por <strong>{item.author}</strong> ·
-          publicado por el fabricante el <time datetime={item.publishedAt}>{fmt(item.publishedAt)}</time> ·
-          fuente comprobada el <time datetime={item.checkedAt}>{fmt(item.checkedAt)}</time>.{' '}
+          fecha de la fuente: <time datetime={item.publishedAt}>{fmt(item.publishedAt)}</time> ·
+          comprobada el <time datetime={item.checkedAt}>{fmt(item.checkedAt)}</time>:{' '}
+          <strong>{item.verificationLabel.toLowerCase()}</strong>.{' '}
           <a href={ROUTES.editorialPolicy}>Cómo decidimos qué publicamos</a>.
         </p>
       </section>

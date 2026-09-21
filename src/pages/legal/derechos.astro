@@ -15,7 +15,7 @@ const crumbs = [
   heading="Tus derechos"
   lede="Cada derecho del RGPD, con el botón concreto que lo ejerce. Sin formularios de fricción."
   crumbs={crumbs}
-  updatedAt="2026-08-03"
+  updatedAt="2026-09-21"
   draftNotice
 >
   <h2>Acceso y portabilidad</h2>
@@ -37,10 +37,17 @@ const crumbs = [
     <a href={ROUTES.settings}>Preferencias → Eliminar la cuenta</a>. Se borran el perfil, los
     favoritos, las listas, las alertas y el historial. Es inmediato y no reversible.
   </p>
+  {/*
+    Aquí se conservaban «las facturas emitidas, durante seis años».
+
+    No hay facturas: no se cobra nada. Lo que queda es lo único que de verdad
+    sobrevive a un borrado, y decirlo sin adornos vale más que una lista de
+    obligaciones mercantiles que hoy no nos aplican.
+  */}
   <p>
-    Se conserva únicamente lo que la ley obliga a conservar: las facturas emitidas, durante seis
-    años, por obligación mercantil, y la prueba de consentimiento del boletín durante tres años,
-    para poder demostrar que la baja se atendió.
+    Se conserva únicamente lo que la ley obliga a conservar: la prueba de consentimiento del boletín
+    durante tres años, para poder demostrar que la baja se atendió. No hay facturas que guardar,
+    porque no se cobra nada.
   </p>
 
   <h2>Oposición y limitación</h2>

@@ -82,9 +82,16 @@ const listSchema = {
 void itemListSchema;
 ---
 
+{/*
+  «N novedades verificadas» contaba también las parciales.
+
+  Una pieza parcial es la que dice qué le falta —el caso de Accomplish, que
+  describe fallos que OpenAI no ha confirmado— y meterla en el recuento de
+  verificadas borra justo la distinción que la hace honesta.
+*/}
 <BaseLayout
   title="Últimas noticias de IA, con fuente y fecha"
-  description={`${stats.total} novedades verificadas contra la página oficial del fabricante: modelos, agentes, planes gratuitos, precios y limitaciones nuevas. ${stats.affectingFreePlan} afectan a lo que puedes hacer gratis.`}
+  description={`${stats.total} novedades contrastadas contra la página oficial del fabricante, ${stats.verified} verificadas por completo: modelos, agentes, planes gratuitos, precios y limitaciones nuevas. ${stats.affectingFreePlan} afectan a lo que puedes hacer gratis.`}
   crumbs={crumbs}
   migasEnCabecera
   schemas={[listSchema]}
@@ -142,12 +149,25 @@ void itemListSchema;
         </nav>
 
         {freePlanNews.length > 0 && (
-          <section class="panel news-highlight" aria-labelledby="free-title">
+          <section class="panel news-highlight" data-news-section aria-labelledby="free-title">
             <div class="news-section-head">
               <h2 id="free-title" class="panel-titulo">Lo que cambia si no pagas</h2>
+              {/*
+                Dos cifras distintas que antes eran la misma, y por eso se
+                contradecían: el bloque prometía «lo que cambia» y podía abrir
+                con algo de hace cuatro meses. Ahora éste enseña lo reciente y
+                dice cuántas hay en total, con el enlace al archivo.
+              */}
               <p class="panel-entradilla">
-                De las {stats.total} noticias, estas {freePlanNews.length} afectan directamente a lo
-                que puedes hacer sin pagar.
+                {freePlanNews.length === 1
+                  ? 'Esta noticia de los últimos 45 días afecta directamente a lo que puedes hacer sin pagar.'
+                  : `Estas ${freePlanNews.length} noticias de los últimos 45 días afectan directamente a lo que puedes hacer sin pagar.`}
+                {stats.affectingFreePlan > freePlanNews.length && (
+                  <>
+                    {' '}En total hay {stats.affectingFreePlan}, contando el
+                    <a href="#archivo"> archivo</a>.
+                  </>
+                )}
               </p>
             </div>
             <ul class="grid-cards news-grid">
@@ -160,7 +180,7 @@ void itemListSchema;
           </section>
         )}
 
-        <section class="news-section" aria-labelledby="all-title">
+        <section class="news-section" data-news-section aria-labelledby="all-title">
           <h2 id="all-title" class="seccion-titulo">Todas las noticias</h2>
           <ul class="grid-cards news-grid" id="news-list">
             {lead && (
@@ -174,13 +194,21 @@ void itemListSchema;
               </li>
             ))}
           </ul>
-          <p class="news-none" id="news-none" hidden>
-            No hay noticias en esa categoría todavía.
-          </p>
         </section>
 
+        {/*
+          El aviso de «no hay nada» vive fuera de los bloques.
+
+          Estaba dentro de «Todas las noticias», que ahora se esconde cuando el
+          filtro la deja vacía: el aviso se habría escondido con ella y el
+          filtro no habría contestado nada.
+        */}
+        <p class="news-none" id="news-none" hidden>
+          No hay noticias en esa categoría todavía.
+        </p>
+
         {archivo.length > 0 && (
-          <section class="news-section" aria-labelledby="archive-title">
+          <section class="news-section" id="archivo" data-news-section aria-labelledby="archive-title">
             <div class="news-section-head">
               <h2 id="archive-title" class="seccion-titulo">Archivo</h2>
               <p class="news-section-lede">
@@ -189,7 +217,7 @@ void itemListSchema;
             </div>
             <ul class="archive-list">
               {archivo.map((item) => (
-                <li>
+                <li data-news-item data-category={item.category}>
                   <a href={ROUTES.newsItem(item.slug)}>{item.title}</a>
                   <time datetime={item.publishedAt} class="archive-date tnum">
                     {new Date(`${item.publishedAt}T00:00:00Z`).toLocaleDateString('es-ES', {
@@ -459,6 +487,7 @@ void itemListSchema;
    */
   const chips = Array.from(document.querySelectorAll<HTMLElement>('[data-news-filter]'));
   const items = Array.from(document.querySelectorAll<HTMLElement>('[data-news-item]'));
+  const secciones = Array.from(document.querySelectorAll<HTMLElement>('[data-news-section]'));
   const none = document.getElementById('news-none');
 
   for (const chip of chips) {
@@ -476,6 +505,19 @@ void itemListSchema;
         const match = wanted === 'all' || item.dataset['category'] === wanted;
         item.hidden = !match;
         if (match) visible++;
+      }
+
+      /*
+       * Las cifras de las pastillas cuentan todas las noticias, y el filtro
+       * sólo alcanzaba la rejilla de portada: pulsar «Imagen» podía contestar
+       * «No hay noticias en esa categoría todavía» teniendo tres en el
+       * archivo. Ahora el filtro llega a los tres bloques, y el que se queda
+       * sin nada se esconde en vez de enseñar un título con una lista vacía.
+       */
+      for (const seccion of secciones) {
+        const dentro = seccion.querySelectorAll<HTMLElement>('[data-news-item]');
+        const algunoVisible = Array.from(dentro).some((el) => !el.hidden);
+        seccion.hidden = dentro.length > 0 && !algunoVisible;
       }
 
       if (none) none.hidden = visible > 0;

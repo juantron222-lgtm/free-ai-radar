@@ -27,7 +27,7 @@ const processors = [
   heading="Política de privacidad"
   lede="Qué recogemos, por qué, cuánto lo guardamos y cómo lo borras."
   crumbs={crumbs}
-  updatedAt="2026-09-11"
+  updatedAt="2026-09-21"
 >
   {/*
     El responsable, con sus datos o con el hueco marcado.
@@ -80,12 +80,15 @@ const processors = [
         <td>Consentimiento (art. 6.1.a)</td>
         <td>Hasta la baja + 3 años de la prueba de consentimiento</td>
       </tr>
-      <tr>
-        <th scope="row">Datos de facturación</th>
-        <td>Cobrar la suscripción y emitir facturas</td>
-        <td>Contrato y obligación legal</td>
-        <td>6 años (obligación mercantil española)</td>
-      </tr>
+      {/*
+        Aquí había una fila de «Datos de facturación · Cobrar la suscripción».
+
+        No se cobra nada: Radar Pro no se puede contratar, no hay precio
+        publicado y Stripe ni siquiera está configurado. Una política que
+        describe un tratamiento que no existe no protege a nadie —no hay dato
+        que proteger— y sí hace dudar del resto, que sí es cierto. Cuando haya
+        cobro, la fila vuelve antes de que se cobre el primer euro.
+      */}
       <tr>
         <th scope="row">Métricas agregadas de uso</th>
         <td>Saber qué contenido merece mantenerse</td>
@@ -109,6 +112,10 @@ const processors = [
     <li>No guardamos direcciones IP en claro en ningún registro.</li>
     <li>No hay decisiones automatizadas con efectos jurídicos ni elaboración de perfiles significativa.</li>
     <li>No hace falta cuenta para leer nada del sitio.</li>
+    <li>
+      No cobramos nada, así que no recogemos datos de pago ni de facturación. Si algún día hay
+      cobro, esta página lo dirá <em>antes</em> del primer cargo, no después.
+    </li>
   </ul>
 
   <h2>Encargados del tratamiento</h2>

@@ -43,7 +43,7 @@ test.describe('noticias', () => {
     expect(new Set(categorias)).toEqual(new Set([categoria]));
   });
 
-  test('cada noticia lleva la cabecera de la ficha y el anuncio oficial arriba', async ({ page }) => {
+  test('cada noticia lleva la cabecera de la ficha y la fuente original arriba', async ({ page }) => {
     await page.goto(NOTICIA);
     const cabecera = page.locator('header.cabecera');
     await expect(cabecera.getByRole('heading', { level: 1 })).toContainText('Claude Sonnet 5');
@@ -52,10 +52,15 @@ test.describe('noticias', () => {
     const migas = cabecera.locator('nav li');
     await expect(migas).toHaveCount(2);
 
-    const oficial = cabecera.getByRole('link', { name: /Leer el anuncio oficial/ });
+    /*
+     * «La fuente original», no «el anuncio oficial»: la mitad de lo que se
+     * enlaza no es un anuncio ni lo firma el fabricante. El análisis de
+     * Accomplish sobre el sandbox de Codex lo escribe quien lo investigó.
+     */
+    const oficial = cabecera.getByRole('link', { name: /Leer la fuente original/ });
     await expect(oficial).toHaveAttribute('target', '_blank');
     await expect(oficial).toHaveAttribute('rel', /noopener/);
-    await expect(page.getByRole('link', { name: /Leer el anuncio oficial/ })).toHaveCount(1);
+    await expect(page.getByRole('link', { name: /Leer la fuente original/ })).toHaveCount(1);
 
     // El tipo de fuente se lee en castellano, no como el valor interno.
     await expect(page.locator('.detail-source-meta').first()).not.toContainText(/official|release-notes|model-card/);
