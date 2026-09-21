@@ -461,8 +461,14 @@ test.describe('un dato que sólo vale por una puerta lo dice', () => {
      * sus propias condiciones. «Uso comercial: sí» es cierto de los pesos y no
      * se ha leído de la API: sin el matiz, un permiso concreto se lee como una
      * promesa general.
+     *
+     * El ejemplo era V4 Flash y pasó a ser V4.1 Flash el 21 de septiembre de
+     * 2026, cuando DeepSeek retiró el primero de su API. Sin API, sus únicas
+     * puertas son los pesos y el equipo donde se ejecutan, así que la licencia
+     * sí cubre el producto entero y el matiz sobraría: lo que esta prueba
+     * vigila necesita un modelo que además venda una API.
      */
-    await page.goto('/comparar?t=deepseek-v4-flash,gemma-4');
+    await page.goto('/comparar?t=deepseek-v4-1-flash,gemma-4');
     await mostrarTodas(page);
     const matiz = page.locator('.compare-matiz', { hasText: 'pesos descargables' }).first();
     await expect(matiz).toBeVisible();

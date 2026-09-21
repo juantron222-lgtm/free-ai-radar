@@ -299,7 +299,7 @@
     "verification": "verified",
     "status": "archived",
     "unconfirmed": [
-      "REEMPLAZADA POR /noticias/cohere-north-small-translate: importación automática con el titular en inglés, las citas cortadas y el slug formado con el dominio. El texto se conserva tal como se publicó."
+      "REEMPLAZADA POR /noticias/cohere-north-small-translate: importación automática con el titular en inglés, las citas cortadas y el slug formado con el dominio. Esta entrada existe para que el slug viejo no vuelva a publicarse desde Supabase; el texto que llegó a la web se conserva en la fila de newsroom_published de Production, no aquí."
     ],
     "frontPage": false
   },
@@ -650,7 +650,7 @@
     "officialUrl": "https://runway.com/research/introducing-gwm-worlds-2",
     "publishedAt": "2026-09-03",
     "unconfirmed": [
-      "REEMPLAZADA POR /noticias/runway-gwm-worlds-2: el slug lo formó el automatismo con el dominio de la fuente. El texto se conserva tal como se publicó."
+      "REEMPLAZADA POR /noticias/runway-gwm-worlds-2: el slug lo formó el automatismo con el dominio de la fuente. Esta entrada existe para que el slug viejo no vuelva a publicarse; el titular y el texto que llegaron a la web («Runway Research | Introducing GWM Worlds 2») se conservan en el historial de git y, si existe, en la fila de Supabase."
     ],
     "availability": "preview",
     "relatedTools": [],

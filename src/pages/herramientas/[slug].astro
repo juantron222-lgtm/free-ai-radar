@@ -98,12 +98,25 @@ const facts = [
  * que alguien busca y no la que tiene. El título ya contesta.
  */
 const sinPlanGratuito = tool.freeModel === 'paid_only';
-const title = sinPlanGratuito
-  ? `${tool.name}: no tiene plan gratuito. Qué ofrece y alternativas`
-  : `${tool.name}: ¿es gratis de verdad? Análisis y límites reales`;
-const description = sinPlanGratuito
-  ? `${tool.tagline} No tiene plan gratuito: ${tool.freePlan.summary}`
-  : `${tool.tagline} Analizamos su plan gratuito: ${tool.freePlan.summary}`;
+/*
+ * Y una retirada tampoco se anuncia como si siguiera ahí.
+ *
+ * El título es lo que ve quien llega desde un buscador escribiendo el nombre,
+ * y es donde peor sienta enterarse tarde: «¿es gratis de verdad?» de algo que
+ * su fabricante ya no sirve manda a alguien a leer una ficha entera para
+ * descubrir en la primera línea que perdió el viaje.
+ */
+const retirada = tool.verification === 'discontinued';
+const title = retirada
+  ? `${tool.name}: retirada por su fabricante. Qué la sustituye`
+  : sinPlanGratuito
+    ? `${tool.name}: no tiene plan gratuito. Qué ofrece y alternativas`
+    : `${tool.name}: ¿es gratis de verdad? Análisis y límites reales`;
+const description = retirada
+  ? `${tool.tagline} ${tool.freePlan.summary}`
+  : sinPlanGratuito
+    ? `${tool.tagline} No tiene plan gratuito: ${tool.freePlan.summary}`
+    : `${tool.tagline} Analizamos su plan gratuito: ${tool.freePlan.summary}`;
 
 /*
  * El estado de la ficha, que es lo que puede decir de sí misma.

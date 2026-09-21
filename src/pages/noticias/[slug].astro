@@ -61,7 +61,14 @@ const FREE_PLAN_LABEL = {
  * dato no cambia; sólo cómo se lee.
  */
 const TIPO_DE_FUENTE: Record<NewsSourceKind, string> = {
-  official: 'anuncio oficial',
+  /*
+   * «Página oficial», no «anuncio oficial».
+   *
+   * `official` significa «publicado por quien lo cuenta, en su dominio», y eso
+   * incluye el análisis de Accomplish sobre el sandbox de Codex, que no es un
+   * anuncio ni lo firma el fabricante del producto.
+   */
+  official: 'página oficial',
   'release-notes': 'notas de versión',
   pricing: 'página de precios',
   docs: 'documentación',
@@ -182,9 +189,17 @@ const AVAILABILITY_CHIP: Record<AvailabilityTone, string> = {
               <li><ToolCard tool={tool} variant="compact" /></li>
             ))}
           </ul>
+          {/*
+            Aquí decía «Pulsa "Avisarme" en cualquiera de estas fichas».
+
+            Ese botón no existe: se retiró en esta misma fase, con el resto de
+            promesas de funciones que no habíamos construido. Mandar a alguien
+            a buscarlo es peor que no decir nada, porque además de no avisarle
+            le hace pensar que se ha perdido algo.
+          */}
           <p class="detail-hint">
-            Pulsa «Avisarme» en cualquiera de estas fichas y te escribimos cuando su plan gratuito
-            cambie otra vez.
+            Cada ficha lleva la fecha en que comprobamos su plan gratuito y la página oficial de
+            donde salió, para que puedas repetir la comprobación.
           </p>
         </section>
       )}
