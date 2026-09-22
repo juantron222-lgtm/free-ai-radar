@@ -71,39 +71,58 @@ function read(path) {
  */
 function merge(seed, approved) {
   const bySlug = new Map(seed.map((item) => [item.slug, item]));
+  const origen = new Map(seed.map((item) => [item.slug, 'semilla']));
   let added = 0;
-  const rechazadas = [];
 
   for (const item of approved) {
     if (bySlug.has(item.slug)) continue;
+    bySlug.set(item.slug, item);
+    origen.set(item.slug, 'supabase');
+    added += 1;
+  }
+
+  /*
+   * La puerta de legibilidad sobre el conjunto fundido, y ésta es la que
+   * faltaba.
+   *
+   * `canApprove` la aplica en la mesa, pero este paso es otra puerta de
+   * entrada al sitio: una fila aprobada antes de que la puerta existiera —o
+   * aprobada en otra máquina, o escrita directamente en la base— llegaba al
+   * build sin pasar por el repositorio y sin que nadie la mirase.
+   *
+   * Pasó de verdad. El 15 y el 16 de septiembre de 2026 salieron así una guía
+   * de Together y un reportaje de cliente del blog de NVIDIA, las dos con el
+   * titular en inglés y «queda pendiente la revisión editorial» puesto, y no
+   * estaban en ninguna rama: ni la auditoría ni la fusión las vieron, porque
+   * las dos miraban el repositorio.
+   *
+   * Se pasa después de fundir, no sobre cada origen por separado, porque lo
+   * que decide qué ve un lector es el conjunto final. Las archivadas quedan
+   * fuera: no se publican, y su texto se conserva precisamente porque es el
+   * que salió —pasarles la puerta sería exigirle a un registro histórico que
+   * esté bien escrito.
+   */
+  const rechazadas = [];
+  for (const [slug, item] of bySlug) {
+    if (item.status !== 'published') continue;
+    const legible = checkReaderReady(item);
+    if (legible.ok) continue;
+
+    rechazadas.push({ slug, motivos: legible.reasons, origen: origen.get(slug) });
 
     /*
-     * La puerta de legibilidad también aquí, y ésta es la que faltaba.
+     * De Supabase se cae; de la semilla, no.
      *
-     * `canApprove` la aplica en la mesa, pero este paso es otra puerta de
-     * entrada al sitio: funde la semilla con `newsroom_published`, así que una
-     * fila aprobada antes de que la puerta existiera —o aprobada en otra
-     * máquina, o desde la propia base— llegaba al build sin pasar por el
-     * repositorio y sin que nadie la mirase.
-     *
-     * Pasó de verdad. El 15 y el 16 de septiembre de 2026 salieron así una
-     * guía de Together y un reportaje de cliente del blog de NVIDIA, las dos
-     * con el titular en inglés y «queda pendiente la revisión editorial»
-     * puesto, y no estaban en ninguna rama: ni la auditoría ni la fusión las
-     * vieron, porque las dos miraban el repositorio.
-     *
-     * No rompe el build: lo que no pasa se queda fuera y se nombra. Un build
-     * rojo por una fila vieja dejaría el sitio sin desplegar lo demás, que es
-     * peor que publicar una noticia de menos diciéndolo.
+     * Una fila de la base no la ha revisado nadie en un diff, así que se queda
+     * fuera del sitio. Una entrada de la semilla sí, y descartarla en silencio
+     * borraría trabajo revisado por un falso positivo de una expresión
+     * regular: se avisa a gritos y sale igual. Que no haya ninguna lo vigila
+     * `tests/unit/newsroom.test.ts`, donde sí es un fallo.
      */
-    const legible = checkReaderReady(item);
-    if (!legible.ok) {
-      rechazadas.push({ slug: item.slug, motivos: legible.reasons });
-      continue;
+    if (origen.get(slug) === 'supabase') {
+      bySlug.delete(slug);
+      added -= 1;
     }
-
-    bySlug.set(item.slug, item);
-    added += 1;
   }
 
   const items = [...bySlug.values()].sort(
@@ -212,13 +231,13 @@ async function main() {
    * descubre hasta semanas después.
    */
   if (rechazadas.length) {
-    console.log(`\n  ${rechazadas.length} de Supabase no pasan la puerta de legibilidad:`);
+    console.log(`\n  ${rechazadas.length} no pasan la puerta de legibilidad:`);
     for (const r of rechazadas) {
-      console.log(`    · ${r.slug}`);
+      console.log(`    · ${r.slug} (${r.origen}) — ${r.origen === 'supabase' ? 'fuera del sitio' : 'SALE IGUAL: está en la semilla'}`);
       for (const m of r.motivos) console.log(`        ${m}`);
     }
-    console.log('    Se quedan fuera del sitio. Para retirarlas del todo, añádelas a la');
-    console.log('    semilla con "status": "archived" y un 301 desde su URL.');
+    console.log('    Para retirar una del todo, añádela a la semilla con "status":');
+    console.log('    "archived", su texto original y un 301 desde su URL.');
   }
 
   if (dryRun) {

@@ -552,6 +552,13 @@ describe('la fusión con Supabase también pasa por la puerta', () => {
     );
     expect(fuente).toMatch(/from '\.\/draft\/legible\.mjs'/);
     expect(fuente, 'la puerta tiene que aplicarse en la fusión').toMatch(/checkReaderReady\(item\)/);
+    /*
+     * Sobre el conjunto fundido, no sobre cada origen por separado: lo que
+     * decide qué ve un lector es el resultado, no de dónde vino cada pieza.
+     */
+    expect(fuente, 'se recorre el mapa ya fundido').toMatch(/for \(const \[slug, item\] of bySlug\)/);
+    expect(fuente, 'las archivadas no pasan por la puerta').toMatch(/item\.status !== 'published'/);
+    expect(fuente, 'lo de Supabase que no pasa se cae').toMatch(/bySlug\.delete\(slug\)/);
   });
 
   it('las dos huérfanas están archivadas en la semilla, con su texto', () => {
