@@ -99,6 +99,24 @@ export default defineConfig({
       status: 301,
       destination: '/noticias/runway-gwm-worlds-2',
     },
+    /*
+     * Dos que vivían sólo en Supabase y no estaban en ninguna rama.
+     *
+     * `prebuild` funde la semilla con `newsroom_published`, así que salieron
+     * en cada build sin pasar por el repositorio: la guía de Together y un
+     * reportaje de cliente del blog de NVIDIA, las dos con el texto del
+     * generador puesto. La de NVIDIA además publicaba, como cita de
+     * disponibilidad de un reportaje sobre un hospital infantil, una frase
+     * de otro artículo del mismo blog sobre un portátil de Perplexity.
+     */
+    '/noticias/together-ai-migrating-from-closed-to-open-source-models-together': {
+      status: 301,
+      destination: '/noticias',
+    },
+    '/noticias/blogs-nvidia-com-heart-of-the-matter-how-a-major-children-s-hospital-uses-open-s': {
+      status: 301,
+      destination: '/noticias',
+    },
   },
   vite: {
     plugins: [tailwindcss()],

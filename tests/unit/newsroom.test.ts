@@ -504,3 +504,67 @@ describe('la autopublicación está pausada', () => {
     expect(fuente, 'el motivo tiene que estar escrito al lado').toMatch(/cierre editorial/i);
   });
 });
+
+describe('la fusión con Supabase también pasa por la puerta', () => {
+  /*
+   * El agujero que faltaba, y que costó dos piezas publicadas.
+   *
+   * `prebuild` ejecuta `newsroom-sync.mjs`, que funde la semilla con
+   * `newsroom_published`. Una fila aprobada antes de que la puerta existiera
+   * —o desde otra máquina, o desde la propia base— llegaba al build sin pasar
+   * por el repositorio: ni la auditoría ni una fusión de ramas podían verla,
+   * porque las dos miran el repositorio.
+   *
+   * El 15 y el 16 de septiembre de 2026 salieron así una guía de Together y un
+   * reportaje de cliente del blog de NVIDIA, las dos con el titular en inglés
+   * y «queda pendiente la revisión editorial» puesto.
+   */
+  it('una fila de Supabase con el texto de la máquina no entra', () => {
+    /*
+     * Sobre la función pura, no sobre el script: `newsroom-sync.mjs` se
+     * ejecuta —tiene un `main()` al final— así que importarlo desde una prueba
+     * lanzaría una sincronización de verdad. Lo que se comprueba aquí es la
+     * regla; que el script la llame lo comprueba la prueba siguiente.
+     */
+    const fila = {
+      slug: 'blogs-nvidia-com-heart-of-the-matter-how-a-major-children-s-hospital',
+      title: 'Heart of the Matter: How a Major Children’s Hospital Uses Open Source NVIDIA AI',
+      summary: 'blogs.nvidia.com publicó esto el 2026-09-15, según la fecha que declara su propia página.',
+      impact: 'Verificado leyendo la página del fabricante; queda pendiente la revisión editorial.',
+    };
+    const veredicto = checkReaderReady(fila);
+    expect(veredicto.ok).toBe(false);
+    expect(veredicto.reasons.length).toBeGreaterThanOrEqual(3);
+  });
+
+  it('la puerta es la misma función en el dominio y en el script', async () => {
+    /*
+     * Importada de `scripts/draft/legible.mjs` en los dos sitios. Tenerla dos
+     * veces sería tenerla distinta algún día, y la diferencia la descubriría
+     * un lector.
+     */
+    const compartida = await import('../../scripts/draft/legible.mjs');
+    expect(compartida.checkReaderReady).toBe(checkReaderReady);
+
+    const fuente = readFileSync(
+      new URL('../../scripts/newsroom-sync.mjs', import.meta.url),
+      'utf8'
+    );
+    expect(fuente).toMatch(/from '\.\/draft\/legible\.mjs'/);
+    expect(fuente, 'la puerta tiene que aplicarse en la fusión').toMatch(/checkReaderReady\(item\)/);
+  });
+
+  it('las dos huérfanas están archivadas en la semilla, con su texto', () => {
+    const huerfanas = [
+      'together-ai-migrating-from-closed-to-open-source-models-together',
+      'blogs-nvidia-com-heart-of-the-matter-how-a-major-children-s-hospital-uses-open-s',
+    ];
+    for (const slug of huerfanas) {
+      const item = (rawNews as unknown as Array<Record<string, string>>).find((n) => n.slug === slug);
+      expect(item, `${slug} no está en la semilla: volvería a publicarse desde Supabase`).toBeDefined();
+      expect(item!.status, slug).toBe('archived');
+      expect(item!.summary, `${slug} perdió el texto que se publicó`).toBeTruthy();
+      expect(checkReaderReady(item!).ok, `${slug} debería seguir marcada`).toBe(false);
+    }
+  });
+});

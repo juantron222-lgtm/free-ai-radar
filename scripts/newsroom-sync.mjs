@@ -42,6 +42,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { verificarEsquema, imprimirInforme } from './newsroom-schema.mjs';
+import { checkReaderReady } from './draft/legible.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SEED = resolve(ROOT, 'src/data/news/news.json');
@@ -71,9 +72,36 @@ function read(path) {
 function merge(seed, approved) {
   const bySlug = new Map(seed.map((item) => [item.slug, item]));
   let added = 0;
+  const rechazadas = [];
 
   for (const item of approved) {
     if (bySlug.has(item.slug)) continue;
+
+    /*
+     * La puerta de legibilidad también aquí, y ésta es la que faltaba.
+     *
+     * `canApprove` la aplica en la mesa, pero este paso es otra puerta de
+     * entrada al sitio: funde la semilla con `newsroom_published`, así que una
+     * fila aprobada antes de que la puerta existiera —o aprobada en otra
+     * máquina, o desde la propia base— llegaba al build sin pasar por el
+     * repositorio y sin que nadie la mirase.
+     *
+     * Pasó de verdad. El 15 y el 16 de septiembre de 2026 salieron así una
+     * guía de Together y un reportaje de cliente del blog de NVIDIA, las dos
+     * con el titular en inglés y «queda pendiente la revisión editorial»
+     * puesto, y no estaban en ninguna rama: ni la auditoría ni la fusión las
+     * vieron, porque las dos miraban el repositorio.
+     *
+     * No rompe el build: lo que no pasa se queda fuera y se nombra. Un build
+     * rojo por una fila vieja dejaría el sitio sin desplegar lo demás, que es
+     * peor que publicar una noticia de menos diciéndolo.
+     */
+    const legible = checkReaderReady(item);
+    if (!legible.ok) {
+      rechazadas.push({ slug: item.slug, motivos: legible.reasons });
+      continue;
+    }
+
     bySlug.set(item.slug, item);
     added += 1;
   }
@@ -82,7 +110,7 @@ function merge(seed, approved) {
     (a, b) => b.publishedAt.localeCompare(a.publishedAt) || a.slug.localeCompare(b.slug)
   );
 
-  return { items, added };
+  return { items, added, rechazadas };
 }
 
 async function fetchApproved() {
@@ -167,7 +195,7 @@ async function main() {
     }
   }
 
-  const { items, added } = merge(seed, approved);
+  const { items, added, rechazadas } = merge(seed, approved);
 
   console.log('Newsroom sync');
   console.log('─────────────');
@@ -175,6 +203,23 @@ async function main() {
   console.log(`  Semilla:    ${seed.length}`);
   console.log(`  Aprobadas:  ${approved.length} (${added} no estaban en la semilla)`);
   console.log(`  Total:      ${items.length}`);
+
+  /*
+   * Lo rechazado se nombra, no se calla.
+   *
+   * Una fila que se queda fuera sin decirlo es la misma clase de fallo que
+   * esto viene a arreglar: algo que cambia lo que ve un lector y que nadie
+   * descubre hasta semanas después.
+   */
+  if (rechazadas.length) {
+    console.log(`\n  ${rechazadas.length} de Supabase no pasan la puerta de legibilidad:`);
+    for (const r of rechazadas) {
+      console.log(`    · ${r.slug}`);
+      for (const m of r.motivos) console.log(`        ${m}`);
+    }
+    console.log('    Se quedan fuera del sitio. Para retirarlas del todo, añádelas a la');
+    console.log('    semilla con "status": "archived" y un 301 desde su URL.');
+  }
 
   if (dryRun) {
     console.log('  --dry-run: no se ha escrito nada.');
