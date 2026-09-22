@@ -164,19 +164,107 @@ publicación:
 
 | Comprobación | Resultado |
 |---|---|
-| Vitest (unidad e integración) | PENDIENTE |
+| Vitest (unidad e integración) | 1500 / 1500 |
 | Lint (`--max-warnings=0`) | 0 avisos |
 | Tipos (`astro check`) | 0 errores |
 | Build de producción en local | Correcto |
-| E2E Chromium | PENDIENTE |
-| E2E Firefox | PENDIENTE |
-| E2E WebKit | PENDIENTE |
-| E2E móvil (Pixel 7) | PENDIENTE |
-| E2E móvil Safari (iPhone 14) | PENDIENTE |
-| E2E escritorio | PENDIENTE |
+| E2E Chromium | 231 / 231 |
+| E2E Firefox | 221 / 221 (10 omitidas por diseño: no emula viewport móvil) |
+| E2E WebKit | 231 / 231 |
+| E2E móvil (Pixel 7) | 231 / 231 |
+| E2E móvil Safari (iPhone 14) | 231 / 231 |
+| E2E escritorio | 231 / 231 |
+| Rastreo completo (consola, red, canónicos, títulos, h1, 404, sitemap, RSS) | Verde en los seis |
+| CSP de producción sobre las rutas principales | Verde |
 
-## 3. Datos publicados que cambian
+**Un falso positivo, y de dónde salía.** La primera pasada de Chromium falló una prueba de inicio de
+sesión. La causa estaba en su propio registro: seis errores de `[vite] An error happened during full
+reload · Failed to load url astro:server-app.js` en el instante exacto de la prueba. El servidor de
+desarrollo se estaba recargando porque yo estaba editando ficheros del repositorio mientras corría la
+suite. Repetida sin tocar nada: **231 / 231 y cero errores de Vite**. La misma prueba pasa en los
+otros cinco motores.
 
-## 4. Qué hago si dices que sí
+**Inspección manual en navegador** (servidor local, consola y red leídas en cada página): portada,
+catálogo con búsqueda por tarea, /noticias con el filtro de categorías, la pieza nueva de Accomplish,
+la ficha retirada de DeepSeek, la de V4.1 Flash, la de Pika, el comparador de tres, privacidad y
+derechos. Sin errores de consola ni peticiones propias fallidas. Los tres 301 nuevos comprobados uno
+a uno. A 375 px, ninguna de las nueve páginas revisadas se desborda. Probado el cartel de cookies y
+el modo oscuro sobre el aviso de retirada.
 
-## 5. Lo que sigue pendiente de ti
+**Tres defectos que encontró esa inspección, y que no encontró ninguna prueba:**
+
+1. Cada noticia decía «Pulsa **Avisarme** en cualquiera de estas fichas y te escribimos cuando su
+   plan gratuito cambie otra vez». Ese botón se retiró en esta misma fase, con el resto de promesas
+   de funciones inexistentes. Corregido.
+2. El tipo de fuente se leía **«anuncio oficial»** debajo de cada enlace. El análisis de Accomplish
+   no es un anuncio ni lo firma el fabricante de Codex. Ahora dice «página oficial».
+3. El título de la ficha retirada seguía preguntando **«¿es gratis de verdad?»**. Es lo primero que
+   ve quien llega desde un buscador. Ahora dice «retirada por su fabricante, qué la sustituye».
+
+**No comprobado:** sesión registrada y de administrador a mano (sí las cubren las e2e de cuenta),
+zoom al 200 %, y contraste medido con herramienta.
+
+## 3. Catálogo, antes y después
+
+| | `main` (lo desplegado) | Rama |
+|---|---|---|
+| Fichas | 94 | 95 |
+| Evidencias con fuente | 183 | 265 |
+| · citadas (`stated`) | 163 | 207 |
+| · «el fabricante no lo publica» | 8 | 58 |
+| · **deducciones** | **12** | **0** |
+| Tarjeta: no la piden | 37 | 41 |
+| Uso comercial: sí / no / sin dato | 15 / 9 / 67 | 17 / 11 / 64 |
+| Marca de agua: sí / no / sin dato | 2 / 15 / 77 | 5 / 16 / 74 |
+| Fichas con logo | 34 | 84 |
+| Noticias publicadas | 26 | 28 |
+
+## 4. Datos publicados que cambian, y puedes vetar
+
+Lo que Production dice hoy y la rama dice distinto. Todo lleva cita oficial.
+
+### 4.1 Del informe del 17 (sin cambios)
+
+Copilot, Claude y Perplexity a «uso comercial: no», ChatGPT / Runway / HeyGen a «sí», ComfyUI y SD
+WebUI dejan de «requerir NVIDIA», Ollama sí tiene app, los precios en hora valle de DeepSeek V4 Pro,
+Suno sin la equivalencia en canciones, LM Studio con límites y Hugging Face Spaces con cuota.
+La tabla completa está en el §4 de aquel informe.
+
+### 4.2 Nuevo del 21
+
+| Ficha | Production dice | La rama dice | Fuente |
+|---|---|---|---|
+| **Pika Labs** | 80 créditos de vídeo/mes, a 480p | **Sin capa gratuita**: «0 credits / month · packs only» | pika.art/pricing |
+| **Pika Labs** | Marca de agua: **sí** (deducido) | Marca de agua: **no** · «Included: No watermark» | pika.art/pricing |
+| **DeepSeek V4 Flash** | Verificada, con precios de API | **Retirada** · precios sólo en el historial | api-docs.deepseek.com |
+| **Kokoro** | Uso comercial: sí | **Sin comprobar** (Apache-2.0 no lo dice) | github.com/hexgrad/kokoro |
+| **Lovable** | Uso comercial: sí | **Sin comprobar** | lovable.dev/terms |
+| **Whisper** | Sin tarjeta y sin registro | **Sin comprobar** los dos | github.com/openai/whisper |
+| *(nueva)* DeepSeek V4.1 Flash | — | Ficha nueva, pendiente de revisión | huggingface.co · api-docs |
+
+En Noticias, además de lo ya listado: GPT-6 Astra cambia de fecha (9 → **3 de septiembre**), la
+Agents API pasa de «Disponible» a **beta pública**, Suno pasa a marcar que afecta al plan gratuito, y
+Ollama ×2 y Mistral Medium 3.5 pierden una etiqueta de plan gratuito que no tenía fuente.
+
+## 5. Qué hago si dices que sí
+
+1. Sincronizo con `main` desde el worktree de `main`: merge, push y despliegue a Production.
+2. Verifico www.freeairadar.com: portada, búsqueda, una ficha, el comparador, /noticias, los tres
+   301 nuevos y el móvil.
+3. Si algo falla, revierto al deployment actual.
+
+No toco Supabase. Las filas de Cohere, Together y Runway se quedan donde están: la semilla gana por
+slug, así que la web enseñará lo de la rama y esas filas quedan como historial.
+
+## 6. Lo que sigue dependiendo de ti
+
+1. **Los datos del titular legal** —nombre, NIF, domicilio—. Se rellenan en
+   `src/lib/legal/titular.ts`: cambiar `null` por el dato basta y las páginas no se tocan. Hoy se ven
+   como «Pendiente · lo aporta el titular».
+2. **El slug de NVIDIA**, si prefieres cambiarlo. Es una línea.
+3. **Los doce valores decididos sin evidencia** (§1.2). Dime si los bajo a «Sin comprobar» o si abro
+   sus licencias una por una, que es lo que recomiendo.
+4. **Las cuatro mejoras de /noticias que he aplazado** (§1.4): secciones, pastillas, «seguir leyendo»
+   y las categorías que faltan. Todas tocan el contrato de datos.
+5. **La contradicción de DeepSeek** entre su anuncio y su tabla de precios sobre V4 Pro (§1.1).
+6. **Hailuo AI** sigue con la página que no se deja leer, desde el informe anterior.
