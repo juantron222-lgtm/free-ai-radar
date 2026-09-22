@@ -217,7 +217,15 @@ zoom al 200 %, y contraste medido con herramienta.
 | Uso comercial: sí / no / sin dato | 15 / 9 / 67 | 17 / 11 / 64 |
 | Marca de agua: sí / no / sin dato | 2 / 15 / 77 | 5 / 16 / 74 |
 | Fichas con logo | 34 | 84 |
-| Noticias publicadas | 26 | 28 |
+| Noticias publicadas | 31 | 31 |
+
+**`main` se movió dos veces mientras trabajaba.** La autopublicación sacó tres noticias el 20 de
+septiembre y otras tres a las 23:43 del 21: Qwen-Image-2.1, el acuerdo de Anthropic con Accenture y
+la candidata a versión 1 de `tokenizers`. Ya estaban en Production, así que las he integrado para no
+hacerlas desaparecer al publicar. **Las seis pasan la puerta de legibilidad nueva**, lo que dice algo
+bueno del automatismo: lo que fallaba no era su lectura de las fuentes, era que nadie miraba si el
+texto seguía siendo el de la máquina. La pausa entra en vigor con esta publicación, así que son las
+últimas que salen solas.
 
 ## 4. Datos publicados que cambian, y puedes vetar
 
