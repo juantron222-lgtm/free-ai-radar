@@ -1,5 +1,108 @@
 [
   {
+    "id": "news-2026-09-21-hugging-face-tokenizers-v1",
+    "slug": "hugging-face-tokenizers-v1",
+    "title": "Hugging Face publica la candidata a versión 1 de tokenizers, mucho más rápida y con los mismos identificadores",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Hugging Face publicó el 21 de septiembre las mediciones de la versión 1 de tokenizers, la biblioteca abierta que convierte el texto en identificadores antes de que el modelo lo procese. Según sus pruebas, la v1 es más rápida que la 0.23 «a menudo por decenas de veces» y escala al 76 % de lo lineal repartida entre ocho procesos. La mejora viene de sustituir el motor de expresiones regulares por un separador escrito a mano, añadir una caché de palabras repetidas y usar un bucle de fusión que no toca el asignador de memoria.",
+    "impact": "Para quien ya la usa, lo importante es que la salida no cambia: la v1 produce exactamente los mismos identificadores que la biblioteca publicada y se llama igual, así que actualizar altera los tiempos y no los resultados. Hugging Face sitúa el problema en que tokenizar puede dejar la GPU esperando a la CPU cuando se entrena con conjuntos enormes o se atienden muchas peticiones a la vez. De momento es una candidata a versión en crates.io; falta cubrir más familias de modelos antes de la 1.0.0.",
+    "category": "local-open-source",
+    "eventType": "preview-beta",
+    "availability": "preview",
+    "publishedAt": "2026-09-21",
+    "checkedAt": "2026-09-21",
+    "officialUrl": "https://huggingface.co/blog/tokenizers-v1",
+    "sources": [
+      {
+        "url": "https://huggingface.co/blog/tokenizers-v1",
+        "kind": "official",
+        "label": "tokenizers v1: encode, decode and scaling, measured",
+        "checkedAt": "2026-09-21",
+        "publisher": "huggingface.co/blog"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-20-qwen-image-2-1",
+    "slug": "qwen-image-2-1",
+    "title": "Qwen abre los pesos de Qwen-Image-2.1, que genera imágenes transparentes, pero prohíbe el uso comercial",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Qwen publicó el 20 de septiembre los pesos de Qwen-Image-2.1, un modelo único para generar y editar imágenes con 7.000 millones de parámetros en su componente visual. Genera imágenes normales o transparentes en RGBA a partir de texto, edita capas transparentes y extrae sujetos de una fotografía, todo en el mismo modelo. Admite hasta diez imágenes de referencia y ediciones locales marcadas con círculos, anotaciones o máscaras. Los pesos están en Hugging Face y ModelScope, y ComfyUI y Diffusers lo admiten desde el primer día.",
+    "impact": "Lo que decide para quién sirve está en la licencia. Los pesos se descargan, pero el Acuerdo de Licencia de Investigación de Qwen, fechado también el 20 de septiembre, limita su uso a fines exclusivamente no comerciales y define «no comercial» como investigación o evaluación. Para cualquier uso comercial hay que pedir una licencia aparte a la compañía. Así que se puede descargar, estudiar y modificar en local, pero no vender lo que salga de ahí sin un permiso firmado: abierto para probar, cerrado para facturar.",
+    "category": "imagen",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-09-20",
+    "checkedAt": "2026-09-21",
+    "officialUrl": "https://huggingface.co/Qwen/Qwen-Image-2.1",
+    "sources": [
+      {
+        "url": "https://huggingface.co/Qwen/Qwen-Image-2.1",
+        "kind": "model-card",
+        "label": "Qwen-Image-2.1 en Hugging Face",
+        "checkedAt": "2026-09-21",
+        "publisher": "huggingface.co/Qwen"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/QwenLM/Qwen-Image-2.1/main/README.md",
+        "kind": "repo",
+        "label": "Repositorio oficial de Qwen-Image-2.1",
+        "checkedAt": "2026-09-21",
+        "publisher": "raw.githubusercontent.com/QwenLM"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/QwenLM/Qwen-Image-2.1/main/LICENSE",
+        "kind": "repo",
+        "label": "Qwen Research License Agreement",
+        "checkedAt": "2026-09-21",
+        "publisher": "raw.githubusercontent.com/QwenLM"
+      }
+    ],
+    "relatedTools": [
+      "comfyui"
+    ],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-18-anthropic-accenture-evaluadores-integrados",
+    "slug": "anthropic-accenture-evaluadores-integrados",
+    "title": "Anthropic ficha a Accenture como evaluador integrado y cada una promete invertir al menos 1.000 millones",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Anthropic anunció el 18 de septiembre un acuerdo con Accenture para la evaluación independiente de sus modelos de frontera, que presenta como el primer paso del compromiso formulado por su consejero delegado en el ensayo «We Must Pace the Frontier». Lo dirigirá Faculty, la filial de IA de Accenture, e incluirá evaluar los modelos, atacarlos en pruebas de equipo rojo, hacer análisis de alineamiento y poner a prueba sus salvaguardas. Cada una de las dos empresas espera invertir al menos 1.000 millones de dólares en cinco años.",
+    "impact": "La diferencia con los evaluadores externos de hoy es el acceso: los integrados trabajan dentro de la empresa con permisos comparables a los de un empleado, ven cómo se entrena un modelo, siguen las decisiones sobre cómo se construye y hablan con la plantilla. Anthropic admite que la figura es nueva, que no hay normas sobre a qué información deben acceder ni cómo deben informar, y que tampoco hay un sistema para financiarla; propone que a la larga salga de fondos comunes o públicos. Y subraya que esto no reduce su responsabilidad.",
+    "category": "modelo-lenguaje",
+    "eventType": "anuncio",
+    "availability": "unknown",
+    "publishedAt": "2026-09-18",
+    "checkedAt": "2026-09-21",
+    "officialUrl": "https://www.anthropic.com/news/accenture-embedded-evaluation",
+    "sources": [
+      {
+        "url": "https://www.anthropic.com/news/accenture-embedded-evaluation",
+        "kind": "official",
+        "label": "Partnering with Accenture on embedded evaluation",
+        "checkedAt": "2026-09-21",
+        "publisher": "anthropic.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-09-17-anthropic-metricas-ritmo-ia",
     "slug": "anthropic-metricas-ritmo-ia",
     "title": "Anthropic publica tres métricas sobre su propio desarrollo: Claude ya «lidera» el 26 % de su investigación en IA",
