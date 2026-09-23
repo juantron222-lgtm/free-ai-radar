@@ -19,6 +19,7 @@ import {
   CREDIT_RESET_LABEL,
   HOSTING_LABEL,
   PLATFORM_LABEL,
+  TAREA_DE_CATEGORIA,
   getCategory,
   getFreeModel,
 } from '@lib/domain/taxonomy';
@@ -126,6 +127,27 @@ const description = retirada
  * hay y el estado va arriba, con lo que falta nombrado.
  */
 const verificacion = verificacionDe(tool);
+
+/*
+ * El índice de la ficha: sólo lo que esta ficha tiene.
+ *
+ * Mismas condiciones que las secciones de abajo, para que ningún enlace lleve
+ * a una sección que no se ha pintado. «Responsable de la revisión» no entra:
+ * es la firma, no algo que alguien venga a buscar.
+ */
+const indice = [
+  { id: 'decision-title', texto: 'Lo que decide', hay: true },
+  { id: 'free-title', texto: 'Qué dan gratis', hay: true },
+  { id: 'about-title', texto: 'Qué es', hay: Boolean(tool.descriptionLong) },
+  { id: 'uses-title', texto: 'Para qué se usa', hay: tool.useCases.length > 0 },
+  { id: 'proscons-title', texto: 'Ventajas e inconvenientes', hay: tool.pros.length > 0 || tool.cons.length > 0 },
+  { id: 'fit-title', texto: 'Para quién sirve', hay: true },
+  { id: 'privacy-title', texto: 'Privacidad', hay: true },
+  { id: 'alt-title', texto: 'Alternativas', hay: alternatives.length > 0 || tool.alternativeNames.length > 0 },
+  { id: 'changelog-title', texto: 'Historial', hay: tool.changelog.length > 0 },
+  { id: 'sources-title', texto: 'Fuentes', hay: true },
+  { id: 'reportar', texto: 'Avisar de un error', hay: true },
+].filter((e) => e.hay);
 
 /*
  * Lo que decide, calculado con las mismas funciones que la portada y el catálogo.
@@ -475,8 +497,16 @@ const compararHref = compararCon.length
                         que no la escribió nadie. La categoría se nombra como
                         está escrita y la frase se construye alrededor.
                       */}
-                      {tool.freeModel !== 'paid_only' && tool.freeModel !== 'unknown' && (
-                        <li>Quieres trabajar con {category.name} y no quieres pagar por adelantado.</li>
+                      {/*
+                        Y luego, con su verbo.
+
+                        Nombrarla tal cual seguía sonando a plantilla —«Quieres
+                        trabajar con Imagen IA»—, porque el nombre de una
+                        categoría es una etiqueta. Cada una tiene ahora su
+                        tarea escrita en `TAREA_DE_CATEGORIA`.
+                      */}
+                      {tool.freeModel !== 'paid_only' && tool.freeModel !== 'unknown' && TAREA_DE_CATEGORIA[category.slug] && (
+                        <li>{TAREA_DE_CATEGORIA[category.slug]} sin pagar por adelantado.</li>
                       )}
                       {tool.freePlan.requiresCreditCard === 'no' && <li>No quieres dar la tarjeta sólo para probar.</li>}
                       {tool.freePlan.commercialUse === 'yes' && <li>Vas a usar el resultado en un trabajo que se cobra.</li>}
@@ -674,6 +704,34 @@ const compararHref = compararCon.length
         <AffiliatePlacement slot="tool_detail_sidebar" toolSlug={tool.slug} />
       </div>
 
+      {/*
+        El índice, en el hueco que quedaba vacío.
+
+        En escritorio la ficha era una columna de 56 rem pegada a la izquierda
+        y, a su derecha, un tercio de pantalla en blanco a lo largo de más de
+        cinco mil píxeles de página. Ahí va lo que hace falta mientras se lee:
+        a dónde saltar —los límites, las alternativas, la privacidad— y el
+        botón para ir a la herramienta, que de otro modo se queda arriba.
+
+        Sin JavaScript: son enlaces a anclas que ya existían. En móvil y
+        tableta no aparece; ahí no sobra ancho y un índice arriba empujaría
+        hacia abajo lo que decide.
+      */}
+      <aside class="ficha-indice" aria-labelledby="indice-title">
+        <div class="ficha-indice-pegado">
+          <h2 id="indice-title" class="ficha-indice-titulo">En esta ficha</h2>
+          <nav aria-labelledby="indice-title">
+            <ol class="ficha-indice-lista">
+              {indice.map((entrada) => (
+                <li><a href={`#${entrada.id}`}>{entrada.texto}</a></li>
+              ))}
+            </ol>
+          </nav>
+          <div class="ficha-indice-accion">
+            <OutboundButton tool={tool} />
+          </div>
+        </div>
+      </aside>
     </div>
   </article>
 
@@ -880,6 +938,87 @@ const compararHref = compararCon.length
     min-width: 0;
     display: grid;
     gap: var(--space-l);
+  }
+
+  /*
+   * Las anclas no se esconden bajo la cabecera.
+   *
+   * La cabecera es fija, así que un salto a «#sources-title» dejaba el
+   * título tapado y el lector empezaba a leer a media sección. Pasaba ya con
+   * el «Ver fuentes» de arriba; con un índice entero habría pasado en cada
+   * enlace.
+   */
+  .tool-main :global([id$='-title']),
+  .tool-main :global(#reportar) {
+    scroll-margin-block-start: 5.5rem;
+  }
+
+  /* Índice: fuera por defecto, dentro cuando sobra ancho (mobile-first). */
+  .ficha-indice {
+    display: none;
+  }
+
+  @media (min-width: 80rem) {
+    .tool-body {
+      max-width: none;
+      grid-template-columns: minmax(0, 56rem) 15rem;
+      justify-content: start;
+      column-gap: var(--space-xl);
+    }
+
+    .ficha-indice {
+      display: block;
+    }
+  }
+
+  .ficha-indice-pegado {
+    position: sticky;
+    top: 5.5rem;
+    display: grid;
+    gap: var(--space-s);
+    padding-block-start: var(--space-2xs);
+  }
+
+  .ficha-indice-titulo {
+    margin: 0;
+    font-size: 0.75rem;
+    font-weight: 650;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .ficha-indice-lista {
+    display: grid;
+    gap: 0.125rem;
+    margin: 0;
+    padding: 0 0 0 var(--space-2xs);
+    list-style: none;
+    border-inline-start: 1px solid var(--line);
+  }
+
+  .ficha-indice-lista a {
+    display: block;
+    padding: 0.3rem 0.5rem;
+    border-radius: var(--radius-s);
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    text-decoration: none;
+  }
+
+  .ficha-indice-lista a:hover {
+    background: var(--surface-sunken);
+    color: var(--ink-strong);
+  }
+
+  .ficha-indice-lista a:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 1px;
+  }
+
+  .ficha-indice-accion :global(.btn) {
+    width: 100%;
+    justify-content: center;
   }
 
   .tool-section h2 {

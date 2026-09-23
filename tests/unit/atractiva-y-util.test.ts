@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { getAllTools } from '@lib/data/catalog';
 import { VERTICALES, carasDe } from '@lib/data/home';
 import { freeAccessLabel } from '@lib/data/category-page';
+import { CATEGORIES, TAREA_DE_CATEGORIA } from '@lib/domain/taxonomy';
 import { DEFAULT_SORT, SORT_OPTIONS, nivelDeAcceso, sortTools } from '@lib/search/filters';
 import registro from '@/data/logos.json';
 
@@ -124,5 +125,29 @@ describe('el catálogo no mezcla idiomas en sus etiquetas', () => {
     const freemium = tools.filter((t) => t.freeModel === 'freemium');
     expect(freemium.length).toBeGreaterThan(0);
     for (const tool of freemium) expect(freeAccessLabel(tool).kind).toBe('Plan gratuito');
+  });
+});
+
+describe('«Encaja si…» dice la tarea, no la etiqueta', () => {
+  it('cada categoría tiene su frase, y ninguna repite el nombre de la etiqueta', () => {
+    /*
+     * La ficha escribía «Quieres trabajar con Imagen IA». Una categoría sin
+     * frase se queda sin esa línea en vez de inventarse una, así que una
+     * categoría nueva olvidada aquí sería una línea que desaparece en silencio.
+     */
+    for (const categoria of CATEGORIES) {
+      const frase = TAREA_DE_CATEGORIA[categoria.slug];
+      expect(frase, `${categoria.slug} sin frase`).toBeTruthy();
+      expect(frase!, categoria.slug).toMatch(/^Quieres /);
+      expect(frase!, `${categoria.slug} copia la etiqueta`).not.toContain(categoria.name);
+    }
+  });
+
+  it('la ficha ya no pega el nombre de la categoría en la frase', () => {
+    const ficha = readFileSync(
+      new URL('../../src/pages/herramientas/[slug].astro', import.meta.url),
+      'utf8'
+    );
+    expect(ficha).not.toMatch(/Quieres trabajar con \{category\.name\}/);
   });
 });

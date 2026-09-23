@@ -289,6 +289,36 @@ test.describe('ficha de herramienta', () => {
     expect(combined).not.toContain('aggregateRating');
     expect(combined).not.toContain('ratingValue');
   });
+
+  test.describe('el índice «En esta ficha»', () => {
+    test('en escritorio, cada enlace lleva a una sección que existe', async ({ page }) => {
+      /*
+       * La lista se construye con las mismas condiciones que las secciones;
+       * esto comprueba que siguen siendo las mismas. Un índice con un enlace
+       * a una sección que no se pintó es un botón que no hace nada.
+       */
+      await page.setViewportSize({ width: 1440, height: 900 });
+      for (const ruta of ['/herramientas/chatgpt', '/herramientas/ollama', '/herramientas/deepseek-v4-flash']) {
+        await page.goto(ruta);
+        const indice = page.locator('.ficha-indice');
+        await expect(indice, ruta).toBeVisible();
+        const destinos = await indice.locator('ol a').evaluateAll((as) =>
+          as.map((a) => (a as HTMLAnchorElement).getAttribute('href')!.slice(1))
+        );
+        expect(destinos.length, ruta).toBeGreaterThanOrEqual(5);
+        for (const id of destinos) {
+          await expect(page.locator(`[id="${id}"]`), `${ruta} → #${id}`).toHaveCount(1);
+        }
+      }
+    });
+
+    test('en móvil no aparece, ni duplica el botón de salida', async ({ page }) => {
+      await page.setViewportSize({ width: 375, height: 812 });
+      await page.goto('/herramientas/chatgpt');
+      await expect(page.locator('.ficha-indice')).toBeHidden();
+      await expect(page.locator('[data-outbound]:visible')).toHaveCount(1);
+    });
+  });
 });
 
 test.describe('comparador', () => {

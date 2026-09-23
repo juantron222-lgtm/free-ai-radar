@@ -268,14 +268,25 @@ const description =
     }
   }
 
+  /*
+   * Compacta en móvil, y medida.
+   *
+   * Con los logos debajo, cada puerta pasó de 56 a 91 px y en un 375×812 la
+   * última fila acababa 44 px por debajo de donde empieza la barra de cookies
+   * de la primera visita: justo lo que `home.spec.ts` vigila, que las seis
+   * puertas se vean enteras antes de decidir nada. En estrecho se aprieta el
+   * relleno, la interlínea y los logos (22 px); a partir de 40 rem vuelve el
+   * tamaño holgado. Sigue por encima de los 44 px de objetivo táctil.
+   */
   .hero-vertical {
     display: flex;
     flex-direction: column;
     align-items: stretch;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 0.25rem;
     min-height: 56px;
-    padding: 0.75rem 1rem;
+    padding: 0.5rem 0.875rem;
+    line-height: 1.2;
     border: 1px solid var(--line-strong);
     border-radius: var(--radius-l);
     background: var(--surface);
@@ -305,6 +316,32 @@ const description =
     align-items: center;
     justify-content: space-between;
     gap: 0.5rem;
+  }
+
+  .hero-vertical :global(.pila) {
+    min-height: 22px;
+  }
+
+  .hero-vertical :global(.pila .tool-logo) {
+    width: 22px;
+    height: 22px;
+  }
+
+  @media (min-width: 40rem) {
+    .hero-vertical {
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      line-height: inherit;
+    }
+
+    .hero-vertical :global(.pila) {
+      min-height: 28px;
+    }
+
+    .hero-vertical :global(.pila .tool-logo) {
+      width: 28px;
+      height: 28px;
+    }
   }
 
   .hero-vertical-flecha {

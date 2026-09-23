@@ -196,6 +196,36 @@ export function resolveCategory(input: string): CategoryDef | undefined {
 
 export const CATEGORY_SLUGS = CATEGORIES.map((c) => c.slug);
 
+/**
+ * La tarea de cada categoría, dicha como la diría una persona.
+ *
+ * La ficha escribía «Quieres trabajar con {nombre de la categoría}», y el
+ * nombre de una categoría es una etiqueta, no un complemento: salía «Quieres
+ * trabajar con Imagen IA», «con Chat y asistentes», «con Escritura». Cada
+ * categoría necesita su propio verbo. Si mañana se añade una sin frase, la
+ * ficha se queda sin esa línea en vez de inventarse una.
+ */
+export const TAREA_DE_CATEGORIA: Readonly<Record<string, string>> = {
+  imagen: 'Quieres generar o editar imágenes',
+  video: 'Quieres generar vídeo',
+  voz: 'Quieres generar o transformar voz',
+  musica: 'Quieres crear música',
+  codigo: 'Quieres programar con ayuda de la IA',
+  'chat-asistentes': 'Quieres un asistente con el que conversar',
+  agentes: 'Quieres delegar tareas en un agente',
+  automatizacion: 'Quieres automatizar tareas repetitivas',
+  productividad: 'Quieres ganar tiempo en el trabajo diario',
+  diseno: 'Quieres diseñar',
+  escritura: 'Quieres escribir o redactar con ayuda de la IA',
+  marketing: 'Quieres preparar contenido de marketing',
+  modelos: 'Quieres usar un modelo de IA',
+  'modelos-open-source': 'Quieres un modelo abierto que puedas descargar',
+  'herramientas-locales': 'Quieres ejecutar IA en tu propio equipo',
+  apis: 'Quieres integrar IA en tu producto',
+  investigacion: 'Quieres investigar o documentarte',
+  educacion: 'Quieres aprender o enseñar',
+};
+
 // ---------------------------------------------------------------------------
 // Free-tier model
 // ---------------------------------------------------------------------------
