@@ -1,5 +1,106 @@
 [
   {
+    "id": "news-2026-09-22-gpt-6-sol-y-luna",
+    "slug": "gpt-6-sol-y-luna",
+    "title": "OpenAI presenta GPT-6 Sol y Luna, con el mismo contexto que Astra y una fracción de su precio",
+    "author": "Redacción de Free AI Radar",
+    "summary": "OpenAI presentó el 22 de septiembre GPT-6 Sol y GPT-6 Luna, dos modelos que, según la compañía, llevan la inteligencia de frontera al trabajo diario con distintos equilibrios entre capacidad y coste. Su documentación describe Sol para programación compleja y flujos con agentes, y Luna como el más eficiente para tareas concretas de gran volumen. Los dos comparten una ventana de contexto de 1,05 millones de tokens y 128.000 de salida máxima, admiten texto e imagen, y se usan desde la API de Respuestas y los SDK oficiales.",
+    "impact": "La diferencia está en el precio. Sol cuesta 2 dólares por millón de tokens de entrada y 10 de salida; Luna, 0,10 y 0,50; el buque insignia, Astra, 10 y 50. Es decir, el mismo contexto de un millón largo de tokens sale cien veces más barato en entrada con Luna que con Astra, lo que cambia qué trabajos masivos salen a cuenta. Con letra pequeña para Europa: según la página de precios, la residencia de datos en la UE sólo está disponible con procesamiento estándar, y esos puntos de acceso regionales cuestan un 10 % más.",
+    "category": "modelo-lenguaje",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-09-22",
+    "checkedAt": "2026-09-23",
+    "officialUrl": "https://openai.com/index/introducing-gpt-6-sol-and-luna",
+    "sources": [
+      {
+        "url": "https://openai.com/news/rss.xml",
+        "kind": "official",
+        "label": "OpenAI News, canal oficial",
+        "checkedAt": "2026-09-23",
+        "publisher": "openai.com"
+      },
+      {
+        "url": "https://developers.openai.com/api/docs/models",
+        "kind": "docs",
+        "label": "Documentación oficial: modelos",
+        "checkedAt": "2026-09-23",
+        "publisher": "developers.openai.com"
+      },
+      {
+        "url": "https://developers.openai.com/api/docs/pricing",
+        "kind": "pricing",
+        "label": "Documentación oficial: precios",
+        "checkedAt": "2026-09-23",
+        "publisher": "developers.openai.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-22-openrouter-batch-api",
+    "slug": "openrouter-batch-api",
+    "title": "OpenRouter abre una API por lotes que cuesta la mitad y funciona ya en más de setenta modelos",
+    "author": "Redacción de Free AI Radar",
+    "summary": "OpenRouter presentó el 22 de septiembre una API por lotes para trabajos que no necesitan respuesta inmediata. Al enviar un lote, el proveedor elige en qué momento de una ventana de 24 horas lo procesa y, a cambio, suele cobrar el 50 % de su precio normal por token, a veces menos. Funciona ya en más de setenta modelos. Según la compañía, en dos semanas de pruebas se completaron más de 230.000 lotes, con una mediana de siete minutos y el 90 % terminado en menos de una hora.",
+    "impact": "Sirve para el trabajo que puede esperar: etiquetar un corpus, rellenar embeddings, puntuar un conjunto de evaluación o pasar el mismo prompt por miles de filas. El descuento se aplica al precio por token y varía según el modelo, así que conviene mirarlo antes de contar con la mitad exacta. Quedan fuera el audio, el vídeo y su propio complemento de búsqueda web, que se cobra a tarifa normal; las imágenes y los ficheros deben ser URL públicas, y lo enviado se guarda 30 días o hasta que se borre el lote.",
+    "category": "precios",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-09-22",
+    "checkedAt": "2026-09-23",
+    "officialUrl": "https://openrouter.ai/blog/announcements/batch-api/",
+    "sources": [
+      {
+        "url": "https://openrouter.ai/blog/announcements/batch-api/",
+        "kind": "official",
+        "label": "Batch API: half-price inference by bundling requests",
+        "checkedAt": "2026-09-23",
+        "publisher": "openrouter.ai"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-22-transformers-gguf-llama-cpp",
+    "slug": "transformers-gguf-llama-cpp",
+    "title": "Transformers ejecuta ya las cuantizaciones GGUF de llama.cpp, con la ruta rápida limitada a Apple Silicon",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Hugging Face publicó el 22 de septiembre el soporte para ejecutar modelos en formato GGUF dentro de transformers, el formato que desarrolló el equipo de llama.cpp y que se usa para inferencia local. Basta elegir un GGUF del Hub, cargarlo con from_pretrained indicando el fichero y generar en la propia máquina, sin configuración adicional. El mismo fichero sirve con transformers serve, que expone una API compatible con la de OpenAI. Por ahora hay que instalar transformers desde su rama principal, no desde una versión publicada.",
+    "impact": "Para quien ya tiene GGUF descargados, esto ahorra mantener dos pilas: los mismos ficheros que mueven Ollama, LM Studio o Jan a través del motor de llama.cpp valen ahora dentro de Python y PyTorch. Los límites los pone el propio anuncio: el objetivo inicial es una sola conversación interactiva en Apple Silicon y la ruta empaquetada funciona sólo con MPS, así que fuera de ahí el cargador descomprime el modelo y gasta más memoria. Su referencia de rendimiento sigue siendo llama.cpp.",
+    "category": "local-open-source",
+    "eventType": "actualizacion",
+    "availability": "preview",
+    "publishedAt": "2026-09-22",
+    "checkedAt": "2026-09-23",
+    "officialUrl": "https://huggingface.co/blog/transformers-llama-cpp-quants",
+    "sources": [
+      {
+        "url": "https://huggingface.co/blog/transformers-llama-cpp-quants",
+        "kind": "official",
+        "label": "Transformers now runs llama.cpp quants",
+        "checkedAt": "2026-09-23",
+        "publisher": "huggingface.co/blog"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-09-21-hugging-face-tokenizers-v1",
     "slug": "hugging-face-tokenizers-v1",
     "title": "Hugging Face publica la candidata a versión 1 de tokenizers, mucho más rápida y con los mismos identificadores",

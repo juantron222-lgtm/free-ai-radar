@@ -1,5 +1,106 @@
 [
   {
+    "id": "news-2026-09-22-gpt-6-sol-y-luna",
+    "slug": "gpt-6-sol-y-luna",
+    "title": "OpenAI presenta GPT-6 Sol y Luna, con el mismo contexto que Astra y una fracción de su precio",
+    "author": "Redacción de Free AI Radar",
+    "summary": "OpenAI presentó el 22 de septiembre GPT-6 Sol y GPT-6 Luna, dos modelos que, según la compañía, llevan la inteligencia de frontera al trabajo diario con distintos equilibrios entre capacidad y coste. Su documentación describe Sol para programación compleja y flujos con agentes, y Luna como el más eficiente para tareas concretas de gran volumen. Los dos comparten una ventana de contexto de 1,05 millones de tokens y 128.000 de salida máxima, admiten texto e imagen, y se usan desde la API de Respuestas y los SDK oficiales.",
+    "impact": "La diferencia está en el precio. Sol cuesta 2 dólares por millón de tokens de entrada y 10 de salida; Luna, 0,10 y 0,50; el buque insignia, Astra, 10 y 50. Es decir, el mismo contexto de un millón largo de tokens sale cien veces más barato en entrada con Luna que con Astra, lo que cambia qué trabajos masivos salen a cuenta. Con letra pequeña para Europa: según la página de precios, la residencia de datos en la UE sólo está disponible con procesamiento estándar, y esos puntos de acceso regionales cuestan un 10 % más.",
+    "category": "modelo-lenguaje",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-09-22",
+    "checkedAt": "2026-09-23",
+    "officialUrl": "https://openai.com/index/introducing-gpt-6-sol-and-luna",
+    "sources": [
+      {
+        "url": "https://openai.com/news/rss.xml",
+        "kind": "official",
+        "label": "OpenAI News, canal oficial",
+        "checkedAt": "2026-09-23",
+        "publisher": "openai.com"
+      },
+      {
+        "url": "https://developers.openai.com/api/docs/models",
+        "kind": "docs",
+        "label": "Documentación oficial: modelos",
+        "checkedAt": "2026-09-23",
+        "publisher": "developers.openai.com"
+      },
+      {
+        "url": "https://developers.openai.com/api/docs/pricing",
+        "kind": "pricing",
+        "label": "Documentación oficial: precios",
+        "checkedAt": "2026-09-23",
+        "publisher": "developers.openai.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-22-openrouter-batch-api",
+    "slug": "openrouter-batch-api",
+    "title": "OpenRouter abre una API por lotes que cuesta la mitad y funciona ya en más de setenta modelos",
+    "author": "Redacción de Free AI Radar",
+    "summary": "OpenRouter presentó el 22 de septiembre una API por lotes para trabajos que no necesitan respuesta inmediata. Al enviar un lote, el proveedor elige en qué momento de una ventana de 24 horas lo procesa y, a cambio, suele cobrar el 50 % de su precio normal por token, a veces menos. Funciona ya en más de setenta modelos. Según la compañía, en dos semanas de pruebas se completaron más de 230.000 lotes, con una mediana de siete minutos y el 90 % terminado en menos de una hora.",
+    "impact": "Sirve para el trabajo que puede esperar: etiquetar un corpus, rellenar embeddings, puntuar un conjunto de evaluación o pasar el mismo prompt por miles de filas. El descuento se aplica al precio por token y varía según el modelo, así que conviene mirarlo antes de contar con la mitad exacta. Quedan fuera el audio, el vídeo y su propio complemento de búsqueda web, que se cobra a tarifa normal; las imágenes y los ficheros deben ser URL públicas, y lo enviado se guarda 30 días o hasta que se borre el lote.",
+    "category": "precios",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-09-22",
+    "checkedAt": "2026-09-23",
+    "officialUrl": "https://openrouter.ai/blog/announcements/batch-api/",
+    "sources": [
+      {
+        "url": "https://openrouter.ai/blog/announcements/batch-api/",
+        "kind": "official",
+        "label": "Batch API: half-price inference by bundling requests",
+        "checkedAt": "2026-09-23",
+        "publisher": "openrouter.ai"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-22-transformers-gguf-llama-cpp",
+    "slug": "transformers-gguf-llama-cpp",
+    "title": "Transformers ejecuta ya las cuantizaciones GGUF de llama.cpp, con la ruta rápida limitada a Apple Silicon",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Hugging Face publicó el 22 de septiembre el soporte para ejecutar modelos en formato GGUF dentro de transformers, el formato que desarrolló el equipo de llama.cpp y que se usa para inferencia local. Basta elegir un GGUF del Hub, cargarlo con from_pretrained indicando el fichero y generar en la propia máquina, sin configuración adicional. El mismo fichero sirve con transformers serve, que expone una API compatible con la de OpenAI. Por ahora hay que instalar transformers desde su rama principal, no desde una versión publicada.",
+    "impact": "Para quien ya tiene GGUF descargados, esto ahorra mantener dos pilas: los mismos ficheros que mueven Ollama, LM Studio o Jan a través del motor de llama.cpp valen ahora dentro de Python y PyTorch. Los límites los pone el propio anuncio: el objetivo inicial es una sola conversación interactiva en Apple Silicon y la ruta empaquetada funciona sólo con MPS, así que fuera de ahí el cargador descomprime el modelo y gasta más memoria. Su referencia de rendimiento sigue siendo llama.cpp.",
+    "category": "local-open-source",
+    "eventType": "actualizacion",
+    "availability": "preview",
+    "publishedAt": "2026-09-22",
+    "checkedAt": "2026-09-23",
+    "officialUrl": "https://huggingface.co/blog/transformers-llama-cpp-quants",
+    "sources": [
+      {
+        "url": "https://huggingface.co/blog/transformers-llama-cpp-quants",
+        "kind": "official",
+        "label": "Transformers now runs llama.cpp quants",
+        "checkedAt": "2026-09-23",
+        "publisher": "huggingface.co/blog"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-09-21-hugging-face-tokenizers-v1",
     "slug": "hugging-face-tokenizers-v1",
     "title": "Hugging Face publica la candidata a versión 1 de tokenizers, mucho más rápida y con los mismos identificadores",
@@ -168,6 +269,109 @@
     "frontPage": true
   },
   {
+    "id": "news-2026-09-16-together-ai-migrating-from-closed-to-open-source-models-together",
+    "slug": "together-ai-migrating-from-closed-to-open-source-models-together",
+    "title": "Migrating from closed to open source models, Together",
+    "author": "Redacción de Free AI Radar",
+    "summary": "together.ai publicó esto el 2026-09-16, según la fecha que declara su propia página. Sobre la disponibilidad, el anuncio dice: «⚡ On-demand B200s now available on Together GPU Clusters →.».",
+    "impact": "La página no menciona ninguna capa gratuita, ni para confirmarla ni para descartarla, así que no podemos decir qué cambia para quien no paga. Sobre pesos y licencia: «Migrating from closed to open source models, Together .». Verificado leyendo la página del fabricante; queda pendiente la revisión editorial.",
+    "category": "local-open-source",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-09-16",
+    "checkedAt": "2026-09-17",
+    "officialUrl": "https://together.ai/blog/migrating-from-closed-to-open-source-models",
+    "sources": [
+      {
+        "url": "https://together.ai/blog/migrating-from-closed-to-open-source-models",
+        "kind": "official",
+        "label": "Migrating from closed to open source models, Together",
+        "checkedAt": "2026-09-17",
+        "publisher": "together.ai"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "archived",
+    "unconfirmed": [
+      "RETIRADA DE PUBLICACIÓN: guía de Together AI, no una noticia, y la misma clase de importación automática que la otra suya que ya se retiró: titular en inglés sin traducir, slug formado con el dominio, la disponibilidad tomada de una barra promocional de GPU y una cita que sólo repite el titular. El texto se conserva tal como se publicó, para que el historial enseñe qué salió."
+    ],
+    "frontPage": false
+  },
+  {
+    "id": "news-2026-09-15-accomplish-sandbox-codex",
+    "slug": "accomplish-sandbox-codex",
+    "title": "Accomplish describe dos formas de salir del sandbox de Codex, una de ellas desde el modo de sólo lectura",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Accomplish publicó el 15 de septiembre dos fallos que permitían escapar del sandbox de OpenAI Codex. Dice haberlos comunicado a OpenAI el 12 de agosto y que «both were fixed inside of eight days». El primero, Overpatch, está en la CLI de código abierto: la herramienta de parches concede permiso de escritura a la carpeta padre de cada ruta del parche, así que nombrar /tmp abre la raíz del disco. El segundo, Heapjack, afecta a la herramienta de JavaScript que instala Codex Desktop.",
+    "impact": "Lo llamativo de Heapjack es dónde ocurre: en modo de sólo lectura, el sandbox más estricto de Codex, donde el agente en principio no puede escribir nada. Según Accomplish, el código no fiable lee el token que separa lo fiable de lo que no de la memoria que comparten, y acaba ejecutando órdenes fuera del sandbox sin que Codex pida permiso. Describe el resultado así: abrir un repositorio clonado y hacerle una pregunta basta para que quien lo escribió ejecute lo que quiera. OpenAI no ha publicado nada sobre el caso.",
+    "category": "programacion",
+    "eventType": "anuncio",
+    "availability": "unknown",
+    "publishedAt": "2026-09-15",
+    "checkedAt": "2026-09-21",
+    "officialUrl": "https://www.accomplish.ai/blog/escaping-the-openai-codex-sandbox-twice/",
+    "sources": [
+      {
+        "url": "https://www.accomplish.ai/blog/escaping-the-openai-codex-sandbox-twice/",
+        "kind": "official",
+        "label": "Escaping the OpenAI Codex sandbox, twice (Accomplish)",
+        "checkedAt": "2026-09-21",
+        "publisher": "accomplish.ai"
+      },
+      {
+        "url": "https://www.accomplish.ai/blog",
+        "kind": "official",
+        "label": "Blog de Accomplish, con la fecha de cada artículo",
+        "checkedAt": "2026-09-21",
+        "publisher": "accomplish.ai"
+      }
+    ],
+    "relatedTools": [
+      "codex"
+    ],
+    "affectsFreePlan": "no",
+    "verification": "partial",
+    "status": "published",
+    "unconfirmed": [
+      "OpenAI no ha publicado ningún aviso sobre estos dos fallos. Que existieran, que se comunicaran el 12 de agosto de 2026 y que quedaran corregidos en ocho días es lo que afirma Accomplish, no algo que OpenAI haya confirmado.",
+      "Accomplish no publica en qué versión de Codex se corrigió cada uno, así que no se puede decir desde cuál se está a salvo."
+    ],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-15-blogs-nvidia-com-heart-of-the-matter-how-a-major-childre",
+    "slug": "blogs-nvidia-com-heart-of-the-matter-how-a-major-children-s-hospital-uses-open-s",
+    "title": "Heart of the Matter: How a Major Children’s Hospital Uses Open Source NVIDIA AI for Cardiac Care",
+    "author": "Redacción de Free AI Radar",
+    "summary": "blogs.nvidia.com publicó esto el 2026-09-15, según la fecha que declara su propia página. Sobre la disponibilidad, el anuncio dice: «Perplexity Portable Computer Is Now Available on Windows, Powered by NVIDIA RTX As local models become more capable, AI agents can handle more work directly on a PC while keeping sensitive information on the device.».",
+    "impact": "Sobre el acceso sin pagar, la página afirma: «SlicerHeart’s tools are free to use and build on.». Sobre pesos y licencia: «Heart of the Matter: How a Major Children’s Hospital Uses Open Source NVIDIA AI for Cardiac Care.». Verificado leyendo la página del fabricante; queda pendiente la revisión editorial.",
+    "category": "local-open-source",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-09-15",
+    "checkedAt": "2026-09-16",
+    "officialUrl": "https://blogs.nvidia.com/blog/childrens-hospital-open-source-ai-cardiac-care",
+    "sources": [
+      {
+        "url": "https://blogs.nvidia.com/blog/childrens-hospital-open-source-ai-cardiac-care",
+        "kind": "official",
+        "label": "Heart of the Matter: How a Major Children’s Hospital Uses Open Source NVIDIA AI for Cardiac Care",
+        "checkedAt": "2026-09-16",
+        "publisher": "blogs.nvidia.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "archived",
+    "unconfirmed": [
+      "RETIRADA DE PUBLICACIÓN: reportaje de cliente del blog de NVIDIA, no una noticia de producto. Además, la cita de disponibilidad que publicaba no es de este artículo: pertenece a otro del mismo blog, sobre un portátil de Perplexity en Windows, que el extractor tomó de un bloque lateral. Y marcaba «afecta al plan gratuito» a partir de una frase sobre SlicerHeart, que es software de terceros y no un plan. El texto se conserva tal como se publicó."
+    ],
+    "frontPage": false
+  },
+  {
     "id": "news-2026-09-15-gemini-3-8-live",
     "slug": "gemini-3-8-live",
     "title": "Google lanza Gemini 3.8 Live, dos modelos de voz que cambian de idioma a mitad de conversación",
@@ -328,6 +532,66 @@
     "relatedTools": [
       "devin"
     ],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-10-cohere-com-introducing-north-small-translate-a-leading-sovereign-open-weig",
+    "slug": "cohere-com-introducing-north-small-translate-a-leading-sovereign-open-weight-mac",
+    "title": "Cohere publica North Small Translate, un modelo de traducción con pesos abiertos para uso no comercial",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Cohere presentó el 10 de septiembre North Small Translate, su primer modelo de traducción de la familia North, con soporte para más de 50 idiomas. Es un modelo de mezcla de expertos de 218.000 millones de parámetros, de los que activa 25.000 millones. Sus pesos se pueden descargar en Hugging Face con licencia CC BY-NC 4.0, para investigación y uso no comercial; el uso comercial exige licencia, y las empresas también pueden usarlo a través de Language Weaver, de RWS.",
+    "impact": "Ejecutarlo en local exige hardware de centro de datos: Cohere indica como mínimo una GPU B200 o dos H100 con cuantización W4A4. También ofrece una demo en Hugging Face. Según las pruebas de la propia Cohere, que usan GPT-5.6 Sol como juez, obtiene 83,6 puntos en WMT26 y supera a DeepL y a Google Translate; son resultados de la empresa, no de un evaluador independiente.",
+    "category": "local-open-source",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-09-10",
+    "checkedAt": "2026-09-16",
+    "officialUrl": "https://cohere.com/blog/north-small-translate",
+    "sources": [
+      {
+        "url": "https://cohere.com/blog/north-small-translate",
+        "kind": "official",
+        "label": "Introducing North Small Translate: A leading sovereign open-weight machine translation model",
+        "checkedAt": "2026-09-16",
+        "publisher": "cohere.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "archived",
+    "unconfirmed": [
+      "REEMPLAZADA POR /noticias/cohere-north-small-translate: importación automática con el titular en inglés, las citas cortadas y el slug formado con el dominio. Esta entrada existe para que el slug viejo no vuelva a publicarse desde Supabase; el texto que llegó a la web se conserva en la fila de newsroom_published de Production, no aquí."
+    ],
+    "frontPage": false
+  },
+  {
+    "id": "news-2026-09-10-cohere-north-small-translate",
+    "slug": "cohere-north-small-translate",
+    "title": "Cohere publica North Small Translate, un modelo de traducción con pesos abiertos para uso no comercial",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Cohere presentó el 10 de septiembre North Small Translate, su primer modelo de traducción de la familia North, con soporte para más de 50 idiomas. Es un modelo de mezcla de expertos de 218.000 millones de parámetros, de los que activa 25.000 millones. Sus pesos se pueden descargar en Hugging Face con licencia CC BY-NC 4.0, para investigación y uso no comercial; el uso comercial exige licencia, y las empresas también pueden usarlo a través de Language Weaver, de RWS.",
+    "impact": "Ejecutarlo en local exige hardware de centro de datos: Cohere indica como mínimo una GPU B200 o dos H100 con cuantización W4A4. También ofrece una demo en Hugging Face. Según las pruebas de la propia Cohere, que usan GPT-5.6 Sol como juez, obtiene 83,6 puntos en WMT26 y supera a DeepL y a Google Translate; son resultados de la empresa, no de un evaluador independiente.",
+    "category": "local-open-source",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-09-10",
+    "checkedAt": "2026-09-16",
+    "officialUrl": "https://cohere.com/blog/north-small-translate",
+    "sources": [
+      {
+        "url": "https://cohere.com/blog/north-small-translate",
+        "kind": "official",
+        "label": "Introducing North Small Translate: A leading sovereign open-weight machine translation model",
+        "checkedAt": "2026-09-16",
+        "publisher": "cohere.com"
+      }
+    ],
+    "relatedTools": [],
     "affectsFreePlan": "unverified",
     "verification": "verified",
     "status": "published",
@@ -530,6 +794,37 @@
     "frontPage": true
   },
   {
+    "id": "news-2026-09-09-together-ai-the-open-source-ai-stack",
+    "slug": "together-ai-the-open-source-ai-stack",
+    "title": "The Open Source AI Stack",
+    "author": "Redacción de Free AI Radar",
+    "summary": "together.ai publicó esto el 2026-09-09, según la fecha que declara su propia página. Sobre la disponibilidad, el anuncio dice: «⚡ On-demand B200s now available on Together GPU Clusters →.».",
+    "impact": "La página no menciona ninguna capa gratuita, ni para confirmarla ni para descartarla, así que no podemos decir qué cambia para quien no paga. Sobre pesos y licencia: «The Open Source AI Stack .». Verificado leyendo la página del fabricante; queda pendiente la revisión editorial.",
+    "category": "local-open-source",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-09-09",
+    "checkedAt": "2026-09-10",
+    "officialUrl": "https://together.ai/blog/the-open-source-ai-stack",
+    "sources": [
+      {
+        "url": "https://together.ai/blog/the-open-source-ai-stack",
+        "kind": "official",
+        "label": "The Open Source AI Stack",
+        "checkedAt": "2026-09-10",
+        "publisher": "together.ai"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "archived",
+    "unconfirmed": [
+      "RETIRADA DE PUBLICACIÓN: guía de Together AI, no una noticia; importada automáticamente con la disponibilidad tomada de una barra promocional. El texto se conserva tal como se publicó, para que el historial enseñe qué salió."
+    ],
+    "frontPage": false
+  },
+  {
     "id": "news-2026-09-03-nvidia-compra-hugging-face",
     "slug": "nvidia-compra-hugging-face",
     "title": "NVIDIA acuerda comprar Hugging Face por 12.930 millones de dólares",
@@ -593,6 +888,41 @@
     "status": "published",
     "unconfirmed": [],
     "frontPage": true
+  },
+  {
+    "id": "news-2026-09-03-runway-com-runway-research-introducing-gwm-worlds-2",
+    "slug": "runway-com-runway-research-introducing-gwm-worlds-2",
+    "title": "Runway presenta GWM Worlds 2, un modelo que genera mundos interactivos con vídeo y audio en tiempo real",
+    "author": "Redacción de Free AI Radar",
+    "impact": "Runway lo presenta como un avance de investigación, no como un producto: la página no explica cómo probarlo, remite a un formulario de contacto y no menciona precio ni capa gratuita. La propia empresa reconoce sus límites: la generación en tiempo real sacrifica calidad por velocidad, los giros de cámara muy rápidos degradan detalles y geometría, y la memoria a largo plazo es imperfecta. Entre los usos que plantea están los juegos, las experiencias interactivas y los entornos simulados para evaluar y entrenar agentes.",
+    "status": "archived",
+    "sources": [
+      {
+        "url": "https://runway.com/research/introducing-gwm-worlds-2",
+        "kind": "official",
+        "label": "Runway Research | Introducing GWM Worlds 2",
+        "checkedAt": "2026-09-16",
+        "publisher": "runway.com"
+      }
+    ],
+    "summary": "Runway presentó el 3 de septiembre GWM Worlds 2, un avance de investigación de su modelo de mundos: genera en tiempo real vídeo continuo a 720p y 24 fotogramas por segundo, con audio a 48.000 Hz, y responde a lo que hace el usuario mientras explora. Amplía GWM Worlds, que la empresa mostró en diciembre, con audio generado y más control sobre los personajes y la escena, que se dirigen con instrucciones de texto y movimientos de cámara.",
+    "category": "video",
+    "checkedAt": "2026-09-16",
+    "eventType": "preview-beta",
+    "freeAccess": {
+      "model": "unknown",
+      "creditReset": "unknown"
+    },
+    "officialUrl": "https://runway.com/research/introducing-gwm-worlds-2",
+    "publishedAt": "2026-09-03",
+    "unconfirmed": [
+      "REEMPLAZADA POR /noticias/runway-gwm-worlds-2: el slug lo formó el automatismo con el dominio de la fuente. Esta entrada existe para que el slug viejo no vuelva a publicarse; el titular y el texto que llegaron a la web («Runway Research | Introducing GWM Worlds 2») se conservan en el historial de git y, si existe, en la fila de Supabase."
+    ],
+    "availability": "preview",
+    "relatedTools": [],
+    "verification": "verified",
+    "affectsFreePlan": "unverified",
+    "frontPage": false
   },
   {
     "id": "news-2026-09-03-runway-gwm-worlds-2",
@@ -976,234 +1306,5 @@
     "status": "published",
     "author": "Redacción de Free AI Radar",
     "unconfirmed": []
-  },
-  {
-    "id": "news-2026-09-10-cohere-north-small-translate",
-    "slug": "cohere-north-small-translate",
-    "title": "Cohere publica North Small Translate, un modelo de traducción con pesos abiertos para uso no comercial",
-    "author": "Redacción de Free AI Radar",
-    "summary": "Cohere presentó el 10 de septiembre North Small Translate, su primer modelo de traducción de la familia North, con soporte para más de 50 idiomas. Es un modelo de mezcla de expertos de 218.000 millones de parámetros, de los que activa 25.000 millones. Sus pesos se pueden descargar en Hugging Face con licencia CC BY-NC 4.0, para investigación y uso no comercial; el uso comercial exige licencia, y las empresas también pueden usarlo a través de Language Weaver, de RWS.",
-    "impact": "Ejecutarlo en local exige hardware de centro de datos: Cohere indica como mínimo una GPU B200 o dos H100 con cuantización W4A4. También ofrece una demo en Hugging Face. Según las pruebas de la propia Cohere, que usan GPT-5.6 Sol como juez, obtiene 83,6 puntos en WMT26 y supera a DeepL y a Google Translate; son resultados de la empresa, no de un evaluador independiente.",
-    "category": "local-open-source",
-    "eventType": "lanzamiento",
-    "availability": "available",
-    "publishedAt": "2026-09-10",
-    "checkedAt": "2026-09-16",
-    "officialUrl": "https://cohere.com/blog/north-small-translate",
-    "sources": [
-      {
-        "url": "https://cohere.com/blog/north-small-translate",
-        "kind": "official",
-        "label": "Introducing North Small Translate: A leading sovereign open-weight machine translation model",
-        "checkedAt": "2026-09-16",
-        "publisher": "cohere.com"
-      }
-    ],
-    "relatedTools": [],
-    "affectsFreePlan": "unverified",
-    "verification": "verified",
-    "status": "published",
-    "unconfirmed": [],
-    "frontPage": true
-  },
-  {
-    "id": "news-2026-09-09-together-ai-the-open-source-ai-stack",
-    "slug": "together-ai-the-open-source-ai-stack",
-    "title": "The Open Source AI Stack",
-    "author": "Redacción de Free AI Radar",
-    "summary": "together.ai publicó esto el 2026-09-09, según la fecha que declara su propia página. Sobre la disponibilidad, el anuncio dice: «⚡ On-demand B200s now available on Together GPU Clusters →.».",
-    "impact": "La página no menciona ninguna capa gratuita, ni para confirmarla ni para descartarla, así que no podemos decir qué cambia para quien no paga. Sobre pesos y licencia: «The Open Source AI Stack .». Verificado leyendo la página del fabricante; queda pendiente la revisión editorial.",
-    "category": "local-open-source",
-    "eventType": "lanzamiento",
-    "availability": "available",
-    "publishedAt": "2026-09-09",
-    "checkedAt": "2026-09-10",
-    "officialUrl": "https://together.ai/blog/the-open-source-ai-stack",
-    "sources": [
-      {
-        "url": "https://together.ai/blog/the-open-source-ai-stack",
-        "kind": "official",
-        "label": "The Open Source AI Stack",
-        "checkedAt": "2026-09-10",
-        "publisher": "together.ai"
-      }
-    ],
-    "relatedTools": [],
-    "affectsFreePlan": "unverified",
-    "verification": "verified",
-    "status": "archived",
-    "unconfirmed": [
-      "RETIRADA DE PUBLICACIÓN: guía de Together AI, no una noticia; importada automáticamente con la disponibilidad tomada de una barra promocional. El texto se conserva tal como se publicó, para que el historial enseñe qué salió."
-    ],
-    "frontPage": false
-  },
-  {
-    "id": "news-2026-09-10-cohere-com-introducing-north-small-translate-a-leading-sovereign-open-weig",
-    "slug": "cohere-com-introducing-north-small-translate-a-leading-sovereign-open-weight-mac",
-    "title": "Cohere publica North Small Translate, un modelo de traducción con pesos abiertos para uso no comercial",
-    "author": "Redacción de Free AI Radar",
-    "summary": "Cohere presentó el 10 de septiembre North Small Translate, su primer modelo de traducción de la familia North, con soporte para más de 50 idiomas. Es un modelo de mezcla de expertos de 218.000 millones de parámetros, de los que activa 25.000 millones. Sus pesos se pueden descargar en Hugging Face con licencia CC BY-NC 4.0, para investigación y uso no comercial; el uso comercial exige licencia, y las empresas también pueden usarlo a través de Language Weaver, de RWS.",
-    "impact": "Ejecutarlo en local exige hardware de centro de datos: Cohere indica como mínimo una GPU B200 o dos H100 con cuantización W4A4. También ofrece una demo en Hugging Face. Según las pruebas de la propia Cohere, que usan GPT-5.6 Sol como juez, obtiene 83,6 puntos en WMT26 y supera a DeepL y a Google Translate; son resultados de la empresa, no de un evaluador independiente.",
-    "category": "local-open-source",
-    "eventType": "lanzamiento",
-    "availability": "available",
-    "publishedAt": "2026-09-10",
-    "checkedAt": "2026-09-16",
-    "officialUrl": "https://cohere.com/blog/north-small-translate",
-    "sources": [
-      {
-        "url": "https://cohere.com/blog/north-small-translate",
-        "kind": "official",
-        "label": "Introducing North Small Translate: A leading sovereign open-weight machine translation model",
-        "checkedAt": "2026-09-16",
-        "publisher": "cohere.com"
-      }
-    ],
-    "relatedTools": [],
-    "affectsFreePlan": "unverified",
-    "verification": "verified",
-    "status": "archived",
-    "unconfirmed": [
-      "REEMPLAZADA POR /noticias/cohere-north-small-translate: importación automática con el titular en inglés, las citas cortadas y el slug formado con el dominio. Esta entrada existe para que el slug viejo no vuelva a publicarse desde Supabase; el texto que llegó a la web se conserva en la fila de newsroom_published de Production, no aquí."
-    ],
-    "frontPage": false
-  },
-  {
-    "id": "news-2026-09-03-runway-com-runway-research-introducing-gwm-worlds-2",
-    "slug": "runway-com-runway-research-introducing-gwm-worlds-2",
-    "title": "Runway presenta GWM Worlds 2, un modelo que genera mundos interactivos con vídeo y audio en tiempo real",
-    "author": "Redacción de Free AI Radar",
-    "impact": "Runway lo presenta como un avance de investigación, no como un producto: la página no explica cómo probarlo, remite a un formulario de contacto y no menciona precio ni capa gratuita. La propia empresa reconoce sus límites: la generación en tiempo real sacrifica calidad por velocidad, los giros de cámara muy rápidos degradan detalles y geometría, y la memoria a largo plazo es imperfecta. Entre los usos que plantea están los juegos, las experiencias interactivas y los entornos simulados para evaluar y entrenar agentes.",
-    "status": "archived",
-    "sources": [
-      {
-        "url": "https://runway.com/research/introducing-gwm-worlds-2",
-        "kind": "official",
-        "label": "Runway Research | Introducing GWM Worlds 2",
-        "checkedAt": "2026-09-16",
-        "publisher": "runway.com"
-      }
-    ],
-    "summary": "Runway presentó el 3 de septiembre GWM Worlds 2, un avance de investigación de su modelo de mundos: genera en tiempo real vídeo continuo a 720p y 24 fotogramas por segundo, con audio a 48.000 Hz, y responde a lo que hace el usuario mientras explora. Amplía GWM Worlds, que la empresa mostró en diciembre, con audio generado y más control sobre los personajes y la escena, que se dirigen con instrucciones de texto y movimientos de cámara.",
-    "category": "video",
-    "checkedAt": "2026-09-16",
-    "eventType": "preview-beta",
-    "freeAccess": {
-      "model": "unknown",
-      "creditReset": "unknown"
-    },
-    "officialUrl": "https://runway.com/research/introducing-gwm-worlds-2",
-    "publishedAt": "2026-09-03",
-    "unconfirmed": [
-      "REEMPLAZADA POR /noticias/runway-gwm-worlds-2: el slug lo formó el automatismo con el dominio de la fuente. Esta entrada existe para que el slug viejo no vuelva a publicarse; el titular y el texto que llegaron a la web («Runway Research | Introducing GWM Worlds 2») se conservan en el historial de git y, si existe, en la fila de Supabase."
-    ],
-    "availability": "preview",
-    "relatedTools": [],
-    "verification": "verified",
-    "affectsFreePlan": "unverified",
-    "frontPage": false
-  },
-  {
-    "id": "news-2026-09-15-accomplish-sandbox-codex",
-    "slug": "accomplish-sandbox-codex",
-    "title": "Accomplish describe dos formas de salir del sandbox de Codex, una de ellas desde el modo de sólo lectura",
-    "author": "Redacción de Free AI Radar",
-    "summary": "Accomplish publicó el 15 de septiembre dos fallos que permitían escapar del sandbox de OpenAI Codex. Dice haberlos comunicado a OpenAI el 12 de agosto y que «both were fixed inside of eight days». El primero, Overpatch, está en la CLI de código abierto: la herramienta de parches concede permiso de escritura a la carpeta padre de cada ruta del parche, así que nombrar /tmp abre la raíz del disco. El segundo, Heapjack, afecta a la herramienta de JavaScript que instala Codex Desktop.",
-    "impact": "Lo llamativo de Heapjack es dónde ocurre: en modo de sólo lectura, el sandbox más estricto de Codex, donde el agente en principio no puede escribir nada. Según Accomplish, el código no fiable lee el token que separa lo fiable de lo que no de la memoria que comparten, y acaba ejecutando órdenes fuera del sandbox sin que Codex pida permiso. Describe el resultado así: abrir un repositorio clonado y hacerle una pregunta basta para que quien lo escribió ejecute lo que quiera. OpenAI no ha publicado nada sobre el caso.",
-    "category": "programacion",
-    "eventType": "anuncio",
-    "availability": "unknown",
-    "publishedAt": "2026-09-15",
-    "checkedAt": "2026-09-21",
-    "officialUrl": "https://www.accomplish.ai/blog/escaping-the-openai-codex-sandbox-twice/",
-    "sources": [
-      {
-        "url": "https://www.accomplish.ai/blog/escaping-the-openai-codex-sandbox-twice/",
-        "kind": "official",
-        "label": "Escaping the OpenAI Codex sandbox, twice (Accomplish)",
-        "checkedAt": "2026-09-21",
-        "publisher": "accomplish.ai"
-      },
-      {
-        "url": "https://www.accomplish.ai/blog",
-        "kind": "official",
-        "label": "Blog de Accomplish, con la fecha de cada artículo",
-        "checkedAt": "2026-09-21",
-        "publisher": "accomplish.ai"
-      }
-    ],
-    "relatedTools": [
-      "codex"
-    ],
-    "affectsFreePlan": "no",
-    "verification": "partial",
-    "status": "published",
-    "unconfirmed": [
-      "OpenAI no ha publicado ningún aviso sobre estos dos fallos. Que existieran, que se comunicaran el 12 de agosto de 2026 y que quedaran corregidos en ocho días es lo que afirma Accomplish, no algo que OpenAI haya confirmado.",
-      "Accomplish no publica en qué versión de Codex se corrigió cada uno, así que no se puede decir desde cuál se está a salvo."
-    ],
-    "frontPage": true
-  },
-  {
-    "id": "news-2026-09-16-together-ai-migrating-from-closed-to-open-source-models-together",
-    "slug": "together-ai-migrating-from-closed-to-open-source-models-together",
-    "title": "Migrating from closed to open source models, Together",
-    "author": "Redacción de Free AI Radar",
-    "summary": "together.ai publicó esto el 2026-09-16, según la fecha que declara su propia página. Sobre la disponibilidad, el anuncio dice: «⚡ On-demand B200s now available on Together GPU Clusters →.».",
-    "impact": "La página no menciona ninguna capa gratuita, ni para confirmarla ni para descartarla, así que no podemos decir qué cambia para quien no paga. Sobre pesos y licencia: «Migrating from closed to open source models, Together .». Verificado leyendo la página del fabricante; queda pendiente la revisión editorial.",
-    "category": "local-open-source",
-    "eventType": "lanzamiento",
-    "availability": "available",
-    "publishedAt": "2026-09-16",
-    "checkedAt": "2026-09-17",
-    "officialUrl": "https://together.ai/blog/migrating-from-closed-to-open-source-models",
-    "sources": [
-      {
-        "url": "https://together.ai/blog/migrating-from-closed-to-open-source-models",
-        "kind": "official",
-        "label": "Migrating from closed to open source models, Together",
-        "checkedAt": "2026-09-17",
-        "publisher": "together.ai"
-      }
-    ],
-    "relatedTools": [],
-    "affectsFreePlan": "unverified",
-    "verification": "verified",
-    "status": "archived",
-    "unconfirmed": [
-      "RETIRADA DE PUBLICACIÓN: guía de Together AI, no una noticia, y la misma clase de importación automática que la otra suya que ya se retiró: titular en inglés sin traducir, slug formado con el dominio, la disponibilidad tomada de una barra promocional de GPU y una cita que sólo repite el titular. El texto se conserva tal como se publicó, para que el historial enseñe qué salió."
-    ],
-    "frontPage": false
-  },
-  {
-    "id": "news-2026-09-15-blogs-nvidia-com-heart-of-the-matter-how-a-major-childre",
-    "slug": "blogs-nvidia-com-heart-of-the-matter-how-a-major-children-s-hospital-uses-open-s",
-    "title": "Heart of the Matter: How a Major Children’s Hospital Uses Open Source NVIDIA AI for Cardiac Care",
-    "author": "Redacción de Free AI Radar",
-    "summary": "blogs.nvidia.com publicó esto el 2026-09-15, según la fecha que declara su propia página. Sobre la disponibilidad, el anuncio dice: «Perplexity Portable Computer Is Now Available on Windows, Powered by NVIDIA RTX As local models become more capable, AI agents can handle more work directly on a PC while keeping sensitive information on the device.».",
-    "impact": "Sobre el acceso sin pagar, la página afirma: «SlicerHeart’s tools are free to use and build on.». Sobre pesos y licencia: «Heart of the Matter: How a Major Children’s Hospital Uses Open Source NVIDIA AI for Cardiac Care.». Verificado leyendo la página del fabricante; queda pendiente la revisión editorial.",
-    "category": "local-open-source",
-    "eventType": "lanzamiento",
-    "availability": "available",
-    "publishedAt": "2026-09-15",
-    "checkedAt": "2026-09-16",
-    "officialUrl": "https://blogs.nvidia.com/blog/childrens-hospital-open-source-ai-cardiac-care",
-    "sources": [
-      {
-        "url": "https://blogs.nvidia.com/blog/childrens-hospital-open-source-ai-cardiac-care",
-        "kind": "official",
-        "label": "Heart of the Matter: How a Major Children’s Hospital Uses Open Source NVIDIA AI for Cardiac Care",
-        "checkedAt": "2026-09-16",
-        "publisher": "blogs.nvidia.com"
-      }
-    ],
-    "relatedTools": [],
-    "affectsFreePlan": "unverified",
-    "verification": "verified",
-    "status": "archived",
-    "unconfirmed": [
-      "RETIRADA DE PUBLICACIÓN: reportaje de cliente del blog de NVIDIA, no una noticia de producto. Además, la cita de disponibilidad que publicaba no es de este artículo: pertenece a otro del mismo blog, sobre un portátil de Perplexity en Windows, que el extractor tomó de un bloque lateral. Y marcaba «afecta al plan gratuito» a partir de una frase sobre SlicerHeart, que es software de terceros y no un plan. El texto se conserva tal como se publicó."
-    ],
-    "frontPage": false
   }
 ]
