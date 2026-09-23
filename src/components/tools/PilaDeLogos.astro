@@ -1,0 +1,91 @@
+---
+import type { Tool } from '@lib/domain/tool';
+import ToolLogo from './ToolLogo.astro';
+import registro from '@/data/logos.json';
+
+interface Props {
+  tools: readonly Tool[];
+  /**
+   * Si los nombres van también en texto oculto.
+   *
+   * Sí cuando la pila es la única pista de qué hay detrás —las puertas de la
+   * portada—; no cuando al lado ya se leen los nombres, porque un lector de
+   * pantalla los oiría dos veces.
+   */
+  nombrarOculto?: boolean;
+}
+
+const { tools, nombrarOculto = false } = Astro.props;
+
+/*
+ * Sólo logos de verdad.
+ *
+ * Un monograma distingue dos tarjetas seguidas, que es para lo que existe;
+ * pero en una pila de tres no reconoce nada, y una fila de iniciales se lee
+ * como un defecto. Si una herramienta no tiene logo, no entra en la pila.
+ */
+const conLogo = tools.filter(
+  (t) => t.logo || (registro as Record<string, { ruta?: string }>)[t.slug]?.ruta
+);
+
+const nombres = conLogo.map((t) => t.name);
+
+/*
+ * «Krea e Ideogram», no «Krea y Ideogram».
+ *
+ * La conjunción cambia delante del sonido /i/ —«i» o «hi», salvo cuando va
+ * seguido de vocal, como en «hierro»—. Es el tipo de detalle que un lector de
+ * pantalla pronuncia en voz alta y que delata un texto armado por una máquina.
+ */
+const conjuncion = (siguiente: string) => (/^h?i(?![aeiouáéó])/i.test(siguiente) ? 'e' : 'y');
+const enumeracion =
+  nombres.length <= 1
+    ? (nombres[0] ?? '')
+    : `${nombres.slice(0, -1).join(', ')} ${conjuncion(nombres.at(-1)!)} ${nombres.at(-1)}`;
+---
+
+{/*
+  Caras que se reconocen sin leer.
+
+  Cada una pisa 6 px de la anterior y lleva un anillo del color de la tarjeta,
+  para que el solape se lea como tres objetos y no como una mancha. La primera
+  va encima porque es la que va antes en el orden del catálogo. La altura es
+  fija —la del logo pequeño— para que nada salte mientras llegan las imágenes.
+*/}
+{conLogo.length > 0 && (
+  <span class="pila">
+    {conLogo.map((tool) => (
+      <ToolLogo tool={tool} size="sm" />
+    ))}
+    {nombrarOculto && <span class="sr-only">, por ejemplo {enumeracion}</span>}
+  </span>
+)}
+
+<style>
+  .pila {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+  }
+
+  .pila :global(.tool-logo) {
+    position: relative;
+    box-shadow: 0 0 0 2px var(--surface);
+  }
+
+  .pila :global(.tool-logo:nth-child(1)) {
+    z-index: 4;
+  }
+
+  .pila :global(.tool-logo:nth-child(2)) {
+    z-index: 3;
+  }
+
+  .pila :global(.tool-logo:nth-child(3)) {
+    z-index: 2;
+  }
+
+  .pila :global(.tool-logo + .tool-logo) {
+    margin-inline-start: -6px;
+  }
+</style>

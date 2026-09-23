@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { getAllTools } from '@lib/data/catalog';
-import { DEFAULT_SORT, SORT_OPTIONS, sortTools } from '@lib/search/filters';
+import { DEFAULT_SORT, SORT_OPTIONS, nivelDeAcceso, sortTools } from '@lib/search/filters';
 
 /**
  * La nota sobre 100 no vuelve por la puerta de atrás.
@@ -104,7 +104,45 @@ describe('el orden del explorador', () => {
   });
 
   it('el orden por defecto es un hecho comprobable, no un juicio', () => {
-    expect(DEFAULT_SORT).toBe('verified');
+    /*
+     * Era «revisadas hace menos», que es un hecho pero un hecho de
+     * mantenimiento: tras la última revisión el catálogo abría con un modelo
+     * retirado y una herramienta sin plan gratuito. Ahora es «gratis y
+     * comprobadas primero», que sigue sin ser una nota: cada posición se
+     * explica con tres campos de la ficha —qué da gratis, cuántas condiciones
+     * están confirmadas y cuándo se revisó— y nada más.
+     */
+    expect(DEFAULT_SORT).toBe('useful');
+
+    const tools = getAllTools();
+    const orden = sortTools([...tools], 'useful');
+    const niveles = orden.map(nivelDeAcceso);
+    expect([...niveles].sort((a, b) => a - b), 'los escalones van en orden').toEqual(niveles);
+
+    // Lo retirado, lo último; lo que no tiene plan gratuito, justo antes.
+    expect(orden.at(-1)!.verification).toBe('discontinued');
+    const primeraDePago = orden.findIndex((t) => t.freeModel === 'paid_only');
+    const ultimaGratis = orden.findLastIndex((t) => nivelDeAcceso(t) === 0);
+    expect(ultimaGratis).toBeLessThan(primeraDePago);
+
+    // La primera fila no es ni retirada, ni de pago, ni una incógnita.
+    for (const tool of orden.slice(0, 4)) {
+      expect(nivelDeAcceso(tool), tool.slug).toBe(0);
+    }
+  });
+
+  it('el orden por defecto no desempata por la nota', () => {
+    /*
+     * Dos fichas con el mismo escalón, las mismas condiciones confirmadas y la
+     * misma fecha tienen que quedar por nombre, digan lo que digan sus notas.
+     */
+    const base = getAllTools()[0]!;
+    const gemelas = [
+      { ...base, name: 'Zeta', scoreTotal: 99 },
+      { ...base, name: 'Alfa', scoreTotal: 1 },
+    ];
+    const orden = sortTools(gemelas, 'useful');
+    expect(orden.map((t) => t.name)).toEqual(['Alfa', 'Zeta']);
   });
 
   it('ningún orden desempata por la nota', () => {

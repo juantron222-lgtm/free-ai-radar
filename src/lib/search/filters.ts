@@ -22,11 +22,15 @@ export interface FilterableTool {
   freshness: Freshness;
   detectedAt: string;
   lastVerifiedAt: string;
+  /** Sólo lo lee el orden por defecto, para mandar al final lo retirado. */
+  verification: 'verified' | 'partially_verified' | 'pending_review' | 'outdated' | 'discontinued';
   freePlan: {
     requiresCreditCard: TriState;
     requiresSignup: TriState;
     hasWatermark: TriState;
     commercialUse: TriState;
+    /** `one_off` no es acceso gratuito recurrente: el orden lo separa. */
+    creditReset?: string;
   };
 }
 
@@ -76,10 +80,18 @@ export interface FilterState {
   sort: SortKey;
 }
 
-export type SortKey = 'recent' | 'verified' | 'name';
+export type SortKey = 'useful' | 'recent' | 'verified' | 'name';
 
-/** El orden con el que se ve el catálogo la primera vez. */
-export const DEFAULT_SORT: SortKey = 'verified';
+/**
+ * El orden con el que se ve el catálogo la primera vez.
+ *
+ * Era «Revisadas hace menos», que es un orden de mantenimiento: le dice al
+ * equipo qué tocó ayer, no al lector qué le sirve. Tras la última revisión el
+ * catálogo abría con un modelo retirado, otro sin comprobar y una herramienta
+ * sin plan gratuito — la peor primera fila posible para una web que se llama
+ * «qué IA es gratis de verdad».
+ */
+export const DEFAULT_SORT: SortKey = 'useful';
 
 /*
  * Cuatro formas de ordenar, y ninguna insinúa una nota.
@@ -87,12 +99,68 @@ export const DEFAULT_SORT: SortKey = 'verified';
  * Aquí estaba «Mejor puntuación» como opción por defecto, junto a un filtro de
  * puntuación mínima. La nota sobre 100 se había retirado de la vista y seguía
  * siendo el orden con el que todo el mundo veía el catálogo por primera vez.
+ *
+ * «Gratis y fáciles de empezar primero» tampoco es una nota: son tres hechos
+ * de la ficha en orden —qué da gratis, cuánto cuesta empezar y cuántas
+ * condiciones están confirmadas— y la etiqueta nombra los dos que deciden.
+ * Ver `nivelDeAcceso` y `sortTools`.
  */
 export const SORT_OPTIONS: ReadonlyArray<{ key: SortKey; label: string }> = [
+  { key: 'useful', label: 'Gratis y fáciles de empezar primero' },
   { key: 'verified', label: 'Revisadas hace menos' },
   { key: 'recent', label: 'Añadidas hace menos' },
   { key: 'name', label: 'Alfabético' },
 ];
+
+/**
+ * Cuánto acceso gratuito da, en cinco escalones. Menos es antes.
+ *
+ *   0  Gratis de forma continuada: plan gratuito, créditos que vuelven,
+ *      código abierto o ejecución en tu equipo.
+ *   1  Para probar: créditos que no vuelven, prueba temporal o demo.
+ *   2  Todavía no sabemos qué da gratis.
+ *   3  Sin plan gratuito.
+ *   4  Retirada por su fabricante.
+ *
+ * Cada escalón sale de un campo de la ficha, no de un juicio: por eso el orden
+ * se puede explicar en una frase y comprobar abriendo cualquier ficha.
+ */
+export function nivelDeAcceso(tool: FilterableTool): number {
+  if (tool.verification === 'discontinued') return 4;
+  switch (tool.freeModel) {
+    case 'free_real':
+    case 'open_source':
+    case 'local':
+    case 'freemium':
+      return 0;
+    case 'credits':
+      return tool.freePlan.creditReset === 'one_off' ? 1 : 0;
+    case 'trial':
+    case 'demo':
+      return 1;
+    case 'paid_only':
+      return 3;
+    default:
+      return 2;
+  }
+}
+
+/**
+ * Cuánto cuesta empezar, en el orden en que se sube la cuesta.
+ *
+ * Sin esto, «gratis» metía en el mismo escalón a ChatGPT y a un modelo de
+ * 1,6 billones de parámetros que exige un centro de datos: los dos son
+ * gratuitos, y sólo uno lo puede usar quien llega. Con el orden por
+ * confirmaciones, la primera fila del catálogo eran siete modelos de pesos
+ * abiertos. Ahora primero va lo que se abre y se usa.
+ */
+const ESFUERZO: Record<string, number> = { instant: 0, signup: 1, install: 2, technical: 3 };
+
+/** Cuántas de las tres condiciones que deciden tenemos confirmadas. */
+function hechosConfirmados(tool: FilterableTool): number {
+  const { requiresCreditCard, requiresSignup, commercialUse } = tool.freePlan;
+  return [requiresCreditCard, requiresSignup, commercialUse].filter((v) => v !== 'unverified').length;
+}
 
 export const EMPTY_FILTERS: FilterState = {
   q: '',
@@ -246,9 +314,24 @@ export function sortTools<T extends FilterableTool>(tools: T[], sort: SortKey): 
         (a, b) => b.detectedAt.localeCompare(a.detectedAt) || a.name.localeCompare(b.name, 'es')
       );
     case 'verified':
-    default:
       return sorted.sort(
         (a, b) => b.lastVerifiedAt.localeCompare(a.lastVerifiedAt) || a.name.localeCompare(b.name, 'es')
+      );
+    case 'useful':
+    default:
+      /*
+       * Primero cuánto dan gratis; luego cuánto cuesta empezar; dentro de eso,
+       * cuánto sabemos; y sólo después, lo reciente. Una herramienta gratuita
+       * con sus tres condiciones confirmadas va delante de otra igual de
+       * gratuita con dos huecos, porque a la primera se puede ir sin sorpresas.
+       */
+      return sorted.sort(
+        (a, b) =>
+          nivelDeAcceso(a) - nivelDeAcceso(b) ||
+          (ESFUERZO[a.startEffort] ?? 4) - (ESFUERZO[b.startEffort] ?? 4) ||
+          hechosConfirmados(b) - hechosConfirmados(a) ||
+          b.lastVerifiedAt.localeCompare(a.lastVerifiedAt) ||
+          a.name.localeCompare(b.name, 'es')
       );
   }
 }

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import CabeceraPagina from '@components/site/CabeceraPagina.astro';
+import PilaDeLogos from '@components/tools/PilaDeLogos.astro';
 import { getAllTools, getTool } from '@lib/data/catalog';
 import { agruparFilas, filasDe } from '@lib/data/comparador';
 import { parecidas } from '@lib/data/afinidad';
@@ -293,7 +294,16 @@ const FILTROS_VERTICAL = [
           <ul class="compare-useful-list">
             {utiles.map((c) => (
               <li class="compare-useful-item">
+                {/*
+                  Las caras de lo que se compara.
+
+                  Diez tarjetas de texto seguidas obligaban a leer los diez
+                  títulos para encontrar la de ElevenLabs. Los logos se
+                  reconocen de un vistazo; los nombres siguen debajo, así que
+                  la pila no se repite en texto oculto.
+                */}
                 <a class="compare-useful-link" href={urlDe(c)}>
+                  <PilaDeLogos tools={c.slugs.map((s) => getTool(s)).filter((t) => t !== undefined)} />
                   <span class="compare-useful-name">{c.titulo}</span>
                   <span class="compare-useful-tools">
                     {c.slugs.map((s) => getTool(s)?.name ?? s).join(' · ')}
@@ -624,7 +634,13 @@ const FILTROS_VERTICAL = [
   .compare-useful-link {
     text-decoration: none;
     display: grid;
+    justify-items: start;
     gap: 0.15rem;
+  }
+
+  /* La pila va encima del título, con un poco de aire: se ve antes que se lee. */
+  .compare-useful-link :global(.pila) {
+    margin-block-end: 0.35rem;
   }
 
   .compare-useful-name {

@@ -155,7 +155,15 @@ export function freeAccessLabel(tool: Tool): FreeAccessLabel {
     return { kind: 'Créditos', amount, amountFallback: 'No publican cada cuánto vuelven', tone: 'neutral' };
   }
 
-  return { kind: 'Free tier', amount, amountFallback: unpublished, tone: 'neutral' };
+  /*
+   * «Plan gratuito», no «Free tier».
+   *
+   * Era la única etiqueta del catálogo en inglés, y salía en diecisiete fichas
+   * —Copilot, Cursor, Gemini, Descript…— justo en la columna que un lector
+   * usa para decidir. Una web en español que dice «Free tier» junto a
+   * «Créditos mensuales» se lee como una traducción a medias.
+   */
+  return { kind: 'Plan gratuito', amount, amountFallback: unpublished, tone: 'neutral' };
 }
 
 /**

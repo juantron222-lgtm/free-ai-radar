@@ -2,6 +2,7 @@ import type { Tool } from '@lib/domain/tool';
 import { getAllTools } from './catalog';
 import { usableFreeNow } from './category-page';
 import { verificacionDe } from '@lib/domain/verification';
+import { DEFAULT_SORT, nivelDeAcceso, sortTools } from '@lib/search/filters';
 
 /**
  * Qué enseña la portada, y por qué esa y no otra.
@@ -117,6 +118,52 @@ export function sinRepetir(
   const out: Tool[] = [];
   for (const tool of candidatas) {
     if (out.length >= limite) break;
+    if (usadas.has(tool.slug)) continue;
+    usadas.add(tool.slug);
+    out.push(tool);
+  }
+  return out;
+}
+
+/**
+ * Tres caras conocidas para cada puerta de la primera pantalla.
+ *
+ * Las seis puertas de la portada eran seis palabras en un recuadro. En un
+ * móvil ocupan la primera pantalla entera y no enseñan ni una sola
+ * herramienta: quien llega ve «Imagen», «Vídeo», «Audio» y tiene que fiarse
+ * de que detrás hay algo que conoce. Tres logos le dicen que sí sin leer nada,
+ * que es lo que la primera pantalla puede pedir.
+ *
+ * Cuáles, sin juicio: las primeras de la vertical en el mismo orden por
+ * defecto del catálogo —gratis y comprobadas primero— que tengan un logo de
+ * verdad. Un monograma no reconoce nada, así que no cuenta; y una herramienta
+ * retirada o de pago nunca llega hasta aquí, porque el orden las manda al
+ * final.
+ *
+ * Dos reglas más, las dos por lo mismo: que cada puerta enseñe algo distinto.
+ * Primero van las que tienen esa vertical como categoría principal —Krea es
+ * sobre todo imagen, aunque también haga vídeo—, y una cara que ya salió en
+ * otra puerta no se repite. Con las dos, Agentes y Código dejaban de enseñar
+ * los mismos Cursor y Copilot, y Vídeo dejaba de parecerse a Imagen.
+ */
+export function carasDe(
+  tools: readonly Tool[],
+  slugs: readonly string[],
+  tieneLogo: (tool: Tool) => boolean,
+  usadas: Set<string> = new Set(),
+  cuantas = 3
+): Tool[] {
+  const principal = (t: Tool) => (slugs.includes(t.categorySlug) ? 0 : 1);
+  const ordenadas = sortTools(
+    tools.filter((t) => enVertical(t, slugs) && nivelDeAcceso(t) === 0 && tieneLogo(t)),
+    DEFAULT_SORT
+  );
+  // `sort` es estable: dentro de cada grupo se conserva el orden por defecto.
+  ordenadas.sort((a, b) => principal(a) - principal(b));
+
+  const out: Tool[] = [];
+  for (const tool of ordenadas) {
+    if (out.length >= cuantas) break;
     if (usadas.has(tool.slug)) continue;
     usadas.add(tool.slug);
     out.push(tool);

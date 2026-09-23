@@ -62,11 +62,13 @@ export function buildClientIndex(
     freshness: tool.freshness,
     detectedAt: tool.detectedAt,
     lastVerifiedAt: tool.lastVerifiedAt,
+    verification: tool.verification,
     freePlan: {
       requiresCreditCard: tool.freePlan.requiresCreditCard,
       requiresSignup: tool.freePlan.requiresSignup,
       hasWatermark: tool.freePlan.hasWatermark,
       commercialUse: tool.freePlan.commercialUse,
+      creditReset: tool.freePlan.creditReset,
     },
     f: [
       normalize(tool.name),

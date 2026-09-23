@@ -4,6 +4,7 @@ import FilterPanel from './FilterPanel.astro';
 import ToolCard from '@components/tools/ToolCard.astro';
 import CompareTray from '@components/tools/CompareTray.astro';
 import { buildClientIndex } from '@lib/search/client-index';
+import { DEFAULT_SORT, sortTools } from '@lib/search/filters';
 import { getCategory } from '@lib/domain/taxonomy';
 import { ROUTES } from '@lib/nav';
 
@@ -14,7 +15,18 @@ interface Props {
   heading?: string;
 }
 
-const { tools, lockedCategory, heading } = Astro.props;
+const { tools: entrada, lockedCategory, heading } = Astro.props;
+
+/*
+ * El HTML sale ya en el orden por defecto.
+ *
+ * Antes el servidor pintaba el catálogo en su orden de almacén y el script lo
+ * reordenaba al cargar: quien llegaba sin JavaScript —o con una conexión
+ * lenta— veía un orden y un instante después otro, con las tarjetas saltando
+ * de sitio. Ordenar aquí con la misma función que usa el cliente hace que el
+ * primer pintado ya sea el definitivo.
+ */
+const tools = sortTools([...entrada], DEFAULT_SORT);
 const index = buildClientIndex(tools, (slug) => getCategory(slug)?.name ?? slug);
 
 /** Las seis, con el nombre que usa la navegación. */

@@ -7,7 +7,9 @@ import FranjaConfianza from '@components/home/FranjaConfianza.astro';
 import CompareTray from '@components/tools/CompareTray.astro';
 import NewsletterForm from '@components/marketing/NewsletterForm.astro';
 import { getAllTools, getCatalogStats } from '@lib/data/catalog';
-import { destacadas } from '@lib/data/home';
+import { VERTICALES, carasDe, destacadas } from '@lib/data/home';
+import PilaDeLogos from '@components/tools/PilaDeLogos.astro';
+import registroDeLogos from '@/data/logos.json';
 import { conteosDeDecision, recomendadas } from '@lib/data/portada';
 import { getLatestNews } from '@lib/data/news';
 import { itemListSchema } from '@lib/seo/structured-data';
@@ -57,9 +59,15 @@ const opciones = tools.map((t) => ({ slug: t.slug, name: t.name }));
  * construir—, no el de la navegación, así que se fija aquí por ruta.
  */
 const ORDEN_HERO = ['/imagen', '/video', '/audio', ROUTES.agents, ROUTES.models, '/codigo'];
-const verticalesHero = ORDEN_HERO.map((href) => VERTICALS.find((v) => v.href === href)).filter(
-  (v): v is (typeof VERTICALS)[number] => v !== undefined
-);
+const tieneLogo = (t: (typeof tools)[number]) =>
+  Boolean(t.logo || (registroDeLogos as Record<string, { ruta?: string }>)[t.slug]?.ruta);
+const carasUsadas = new Set<string>();
+const verticalesHero = ORDEN_HERO.map((href) => VERTICALS.find((v) => v.href === href))
+  .filter((v): v is (typeof VERTICALS)[number] => v !== undefined)
+  .map((v) => {
+    const slugs = VERTICALES.find((x) => x.ruta === v.href)?.slugs ?? [];
+    return { ...v, caras: carasDe(tools, slugs, tieneLogo, carasUsadas) };
+  });
 
 /*
  * Con qué dos herramientas viene puesto el comparador.
@@ -101,11 +109,22 @@ const description =
 
       <nav class="hero-verticales" aria-label="Elegir por clase de IA">
         <ul>
+          {/*
+            Los logos son decorativos para la vista y no para el oído.
+
+            Llevan `alt=""` —el nombre del enlace sigue siendo «Imagen»— y los
+            tres nombres van en texto oculto a continuación, para que quien usa
+            un lector de pantalla reciba la misma pista que quien los ve:
+            «Imagen, por ejemplo Clipdrop, Krea e Ideogram».
+          */}
           {verticalesHero.map((vertical) => (
             <li>
               <a class="hero-vertical" href={vertical.href}>
-                <span>{vertical.label}</span>
-                <span class="hero-vertical-flecha" aria-hidden="true">→</span>
+                <span class="hero-vertical-cabeza">
+                  <span>{vertical.label}</span>
+                  <span class="hero-vertical-flecha" aria-hidden="true">→</span>
+                </span>
+                <PilaDeLogos tools={vertical.caras} nombrarOculto />
               </a>
             </li>
           ))}
@@ -215,8 +234,13 @@ const description =
    * Seis botones, no seis enlaces.
    *
    * Tienen que parecer lo que son —la respuesta a la pregunta de arriba— y
-   * poder pulsarse con el pulgar: 56 px de alto, 2×3 en un móvil de 375 px y
-   * una fila en escritorio. Sin descripción ni cifra debajo: aquí sólo se elige.
+   * poder pulsarse con el pulgar: 2×3 en un móvil de 375 px y una fila en
+   * escritorio. Sin descripción ni cifra debajo: aquí sólo se elige.
+   *
+   * Tres logos sí. No son texto que haya que leer, son caras que se reconocen,
+   * y eso es exactamente lo que ayuda a elegir: quien busca «algo como
+   * ElevenLabs» encuentra la puerta sin saber que se llama Audio. Se apilan
+   * solapados para que quepan en la mitad de un móvil sin estrujar la palabra.
    */
   .hero-verticales {
     width: 100%;
@@ -246,8 +270,9 @@ const description =
 
   .hero-vertical {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
     gap: 0.5rem;
     min-height: 56px;
     padding: 0.75rem 1rem;
@@ -275,10 +300,18 @@ const description =
     outline-offset: 2px;
   }
 
+  .hero-vertical-cabeza {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
   .hero-vertical-flecha {
     color: var(--ink-muted);
     font-weight: 500;
   }
+
 
   .hero-vertical:hover .hero-vertical-flecha {
     color: inherit;
