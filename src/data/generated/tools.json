@@ -434,6 +434,170 @@
     "access": {}
   },
   {
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {
+      "trainsOnUserData": "no"
+    },
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-09-24",
+    "skillLevel": "beginner",
+    "access": {},
+    "licences": {},
+    "slug": "bing-image-creator",
+    "name": "Bing Image Creator",
+    "kind": "app",
+    "verification": "partially_verified",
+    "categorySlug": "imagen",
+    "officialUrl": "https://www.bing.com/images/create",
+    "pricingUrl": "https://www.bing.com/images/create/help",
+    "hosting": "cloud",
+    "openSource": "no",
+    "platforms": [
+      "web",
+      "ios",
+      "android"
+    ],
+    "freeModel": "free_real",
+    "tagline": "Gratis con una cuenta de Microsoft: 15 creaciones rápidas al día y, después, a velocidad normal.",
+    "descriptionShort": "El generador de imágenes de Microsoft, dentro de Bing. Usa sus propios modelos, MAI-Image-2.5-Flash y MAI-Image-2e, y también edita imágenes que subas. Es gratuito con una cuenta personal de Microsoft.",
+    "verdict": "De los pocos que dicen con todas las letras cuánto dan y qué pasa cuando se acaba: quince rápidas al día y, después, sigue gratis a velocidad estándar hasta 200 peticiones diarias. La marca visible es opcional y no usa lo que subes para entrenar. Lo que no publica en su ayuda es qué puedes hacer comercialmente con el resultado.",
+    "freePlan": {
+      "requiresSignup": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "no",
+      "commercialUse": "unverified",
+      "creditReset": "daily",
+      "verifiedAt": "2026-09-24",
+      "summary": "Gratis para cualquiera con una cuenta personal de Microsoft. Cada día da 15 creaciones rápidas; cuando se agotan se sigue creando gratis a velocidad estándar, más lenta, hasta 200 peticiones cada 24 horas. Las cuentas de trabajo o de centro educativo (Entra ID) no pueden usarlo.",
+      "limits": [
+        "15 creaciones rápidas al día, que se renuevan al día siguiente",
+        "Después, sin coste a velocidad estándar",
+        "Hasta 200 peticiones cada 24 horas, ediciones incluidas",
+        "Exige cuenta personal de Microsoft; no sirven las de trabajo o centro educativo",
+        "El vídeo sólo se crea desde la app móvil de Bing"
+      ],
+      "creditsAmount": "15 creaciones rápidas al día"
+    },
+    "capabilities": [
+      "text-to-image",
+      "image-editing"
+    ],
+    "startEffort": "signup",
+    "startEffortReason": "Pide iniciar sesión con una cuenta personal de Microsoft antes de crear.",
+    "scores": {
+      "freeReal": 9,
+      "usefulness": 7,
+      "ease": 9,
+      "transparency": 8,
+      "creatorValue": 6
+    },
+    "sources": [
+      {
+        "url": "https://www.bing.com/images/create",
+        "label": "Web oficial",
+        "kind": "official",
+        "publisher": "bing.com",
+        "checkedAt": "2026-09-24"
+      },
+      {
+        "url": "https://www.bing.com/images/create/help",
+        "label": "Preguntas frecuentes oficiales",
+        "kind": "docs",
+        "publisher": "bing.com",
+        "checkedAt": "2026-09-24"
+      }
+    ],
+    "evidence": [
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://www.bing.com/images/create/help",
+        "sourceKind": "help",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "Every day, you'll get a total of 15 free fast image creations with Bing Image Creator's fastest speed. If you use up your 15 fast free image creations, they'll replenish the next day! You can keep enjoying the Bing Image Creator's fast creation experience by using Microsoft Rewards points or you can continue creating for free at our standard speed if you don't mind waiting."
+      },
+      {
+        "field": "freePlan.requiresSignup",
+        "outcome": "stated",
+        "sourceUrl": "https://www.bing.com/images/create/help",
+        "sourceKind": "help",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "Bing Image Creator is a fantastic tool that's free for everyone with a Microsoft Account (MSA)! Sign up for a new Microsoft Account or sign into your existing Microsoft Account, then you're ready to start creating amazing images."
+      },
+      {
+        "field": "freePlan.creditReset",
+        "outcome": "stated",
+        "sourceUrl": "https://www.bing.com/images/create/help",
+        "sourceKind": "help",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "If you use up your 15 fast free image creations, they'll replenish the next day!"
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "stated",
+        "sourceUrl": "https://www.bing.com/images/create/help",
+        "sourceKind": "help",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "If you'd like to make it easier for others to recognize that an image was created with AI, you can choose to add a visible watermark to your Bing Image Creator images.",
+        "basis": "La marca visible es una opción que activa quien crea, no algo que el servicio añada por su cuenta."
+      },
+      {
+        "field": "privacy.trainsOnUserData",
+        "outcome": "stated",
+        "sourceUrl": "https://www.bing.com/images/create/help",
+        "sourceKind": "help",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "We may use images uploaded to generally improve our image processing services, but we will not use them to train models or personalize your Bing Image Creator experience."
+      },
+      {
+        "field": "capabilities",
+        "outcome": "stated",
+        "sourceUrl": "https://www.bing.com/images/create/help",
+        "sourceKind": "help",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "Bing Image Creator is a cutting-edge, AI-powered tool that transforms your words and uploaded images into stunning visuals. Whether you're looking to create realistic images or artistic masterpieces, this free feature is perfect for quick and easy image creation or image editing."
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://www.bing.com/images/create/help",
+        "sourceKind": "help",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "lookedFor": "Si el alta o el uso gratuito piden tarjeta. La ayuda sólo exige una cuenta personal de Microsoft y no menciona ningún medio de pago."
+      }
+    ],
+    "id": "tool_bing-image-creator",
+    "nextReviewAt": "2026-12-23",
+    "lastVerifiedAt": "2026-09-24",
+    "updatedAt": "2026-09-24"
+  },
+  {
     "id": "tool_bolt-new",
     "slug": "bolt-new",
     "name": "Bolt.new",
@@ -574,6 +738,260 @@
     "licences": {},
     "access": {},
     "productType": "app-builder"
+  },
+  {
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-09-24",
+    "skillLevel": "advanced",
+    "access": {},
+    "licences": {},
+    "slug": "browser-use",
+    "name": "Browser Use",
+    "kind": "framework",
+    "productType": "library",
+    "verification": "partially_verified",
+    "categorySlug": "agentes",
+    "officialUrl": "https://browser-use.com/",
+    "repoUrl": "https://github.com/browser-use/browser-use",
+    "hosting": "local",
+    "openSource": "yes",
+    "licence": "MIT",
+    "platforms": [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "freeModel": "open_source",
+    "tagline": "La biblioteca para que un agente use el navegador como una persona. MIT, y de las más usadas.",
+    "descriptionShort": "Biblioteca de Python que permite a un modelo de IA manejar un navegador: abrir páginas, hacer clic, rellenar formularios. Código abierto con licencia MIT; el coste es el del modelo que conectes.",
+    "verdict": "Si hay que automatizar una web que no tiene API, es de lo primero que se prueba, y su licencia MIT permite usarlo en un producto. No es una aplicación: hay que programar.",
+    "freePlan": {
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "yes",
+      "creditReset": "none",
+      "verifiedAt": "2026-09-24",
+      "summary": "Biblioteca con licencia MIT. Sin cuotas propias: se instala y se ejecuta en tu equipo. El coste es el del modelo que se conecte.",
+      "limits": [
+        "Licencia MIT",
+        "Necesita un modelo: de pago por API o local",
+        "Hay que programar en Python"
+      ]
+    },
+    "capabilities": [
+      "web-browsing",
+      "computer-use",
+      "tool-use"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Es una biblioteca de Python: se programa, no se abre.",
+    "scores": {
+      "freeReal": 9,
+      "usefulness": 8,
+      "ease": 3,
+      "transparency": 9,
+      "creatorValue": 7
+    },
+    "sources": [
+      {
+        "url": "https://github.com/browser-use/browser-use",
+        "label": "Repositorio oficial",
+        "kind": "repo",
+        "publisher": "github.com",
+        "checkedAt": "2026-09-24"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/browser-use/browser-use/main/LICENSE",
+        "label": "Licencia oficial",
+        "kind": "repo",
+        "publisher": "raw.githubusercontent.com",
+        "checkedAt": "2026-09-24"
+      }
+    ],
+    "evidence": [
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://raw.githubusercontent.com/browser-use/browser-use/main/LICENSE",
+        "sourceKind": "licence",
+        "scope": "local",
+        "checkedAt": "2026-09-24",
+        "quote": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software"
+      },
+      {
+        "field": "openSource",
+        "outcome": "stated",
+        "sourceUrl": "https://raw.githubusercontent.com/browser-use/browser-use/main/LICENSE",
+        "sourceKind": "licence",
+        "scope": "local",
+        "checkedAt": "2026-09-24",
+        "quote": "MIT License"
+      },
+      {
+        "field": "capabilities",
+        "outcome": "stated",
+        "sourceUrl": "https://github.com/browser-use/browser-use",
+        "sourceKind": "repo",
+        "scope": "local",
+        "checkedAt": "2026-09-24",
+        "quote": "Agents that use the browser."
+      }
+    ],
+    "id": "tool_browser-use",
+    "nextReviewAt": "2026-12-23",
+    "lastVerifiedAt": "2026-09-24",
+    "updatedAt": "2026-09-24"
+  },
+  {
+    "secondaryCategories": [
+      "imagen"
+    ],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-09-24",
+    "skillLevel": "beginner",
+    "access": {},
+    "licences": {},
+    "slug": "canva",
+    "name": "Canva",
+    "kind": "app",
+    "verification": "partially_verified",
+    "categorySlug": "diseno",
+    "officialUrl": "https://www.canva.com/ai-image-generator/",
+    "pricingUrl": "https://www.canva.com/pricing/",
+    "hosting": "cloud",
+    "openSource": "no",
+    "platforms": [
+      "web",
+      "windows",
+      "macos",
+      "ios",
+      "android"
+    ],
+    "freeModel": "freemium",
+    "tagline": "El editor de diseño con generador de imágenes: hasta 20 usos de IA en el plan gratuito.",
+    "descriptionShort": "Editor de diseño en el navegador con plantillas, fotos y un generador de imágenes a partir de texto integrado. El plan Free cuesta 0 € y trae hasta 20 usos de sus herramientas de IA.",
+    "verdict": "Su condición de uso es de las más claras del sector: lo que generes se puede usar para cualquier fin, también comercial, siempre que respetes sus términos. Lo que no dice es cada cuánto vuelven esos 20 usos de IA del plan gratuito, y eso es justo lo que decide si llega para trabajar.",
+    "freePlan": {
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "yes",
+      "creditReset": "unknown",
+      "verifiedAt": "2026-09-24",
+      "summary": "Plan Free a 0 € para una persona: editor, más de 1,6 millones de plantillas, 5 GB de almacenamiento y hasta 20 usos de IA Standard o Premium. La página no dice si esos usos se renuevan ni cada cuánto. Pro cuesta 110 € al año.",
+      "limits": [
+        "Hasta 20 usos de IA Standard o Premium; no publica cada cuánto se renuevan",
+        "1,6 millones de plantillas gratuitas y 5 GB de almacenamiento",
+        "1 kit de marca, sólo 3 colores",
+        "Plan de pago más barato: Pro, 110 € al año"
+      ],
+      "creditsAmount": "Hasta 20 usos de IA"
+    },
+    "capabilities": [
+      "text-to-image",
+      "image-editing",
+      "background-removal"
+    ],
+    "startEffort": "signup",
+    "startEffortReason": "El plan gratuito se activa creando una cuenta.",
+    "scores": {
+      "freeReal": 6,
+      "usefulness": 8,
+      "ease": 9,
+      "transparency": 6,
+      "creatorValue": 7
+    },
+    "sources": [
+      {
+        "url": "https://www.canva.com/pricing/",
+        "label": "Página oficial de precios",
+        "kind": "pricing",
+        "publisher": "canva.com",
+        "checkedAt": "2026-09-24"
+      },
+      {
+        "url": "https://www.canva.com/ai-image-generator/",
+        "label": "Generador de imágenes: web oficial y preguntas frecuentes",
+        "kind": "official",
+        "publisher": "canva.com",
+        "checkedAt": "2026-09-24"
+      }
+    ],
+    "evidence": [
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://www.canva.com/pricing/",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "Free — Design anything and bring your ideas to life. No cost, just creativity. €0 /year for one person · 1.6M+ templates to start fast · 5GB of cloud storage · AI usage: Up to 20 Standard or Premium AI uses"
+      },
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://www.canva.com/ai-image-generator/",
+        "sourceKind": "official",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "Yes, you can use the images generated by our AI image generators for any purpose, including personal or commercial projects, as long as you follow our AI Product Terms and Terms of Use."
+      },
+      {
+        "field": "freePlan.creditReset",
+        "outcome": "not_published",
+        "sourceUrl": "https://www.canva.com/pricing/",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "lookedFor": "Cada cuánto vuelven los usos de IA del plan Free. La tabla dice «Up to 20 Standard or Premium AI uses» y su nota explica cómo se consumen, pero no el periodo."
+      }
+    ],
+    "id": "tool_canva",
+    "nextReviewAt": "2026-12-23",
+    "lastVerifiedAt": "2026-09-24",
+    "updatedAt": "2026-09-24"
   },
   {
     "skillLevel": "beginner",
@@ -3984,6 +4402,244 @@
     "access": {}
   },
   {
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-09-24",
+    "skillLevel": "intermediate",
+    "access": {},
+    "licences": {},
+    "slug": "flowise",
+    "name": "Flowise",
+    "kind": "framework",
+    "productType": "platform",
+    "verification": "pending_review",
+    "categorySlug": "agentes",
+    "officialUrl": "https://flowiseai.com/",
+    "repoUrl": "https://github.com/FlowiseAI/Flowise",
+    "hosting": "local",
+    "openSource": "partial",
+    "licence": "Apache-2.0 y licencia comercial en la parte enterprise",
+    "platforms": [
+      "linux",
+      "macos",
+      "windows",
+      "docker"
+    ],
+    "freeModel": "open_source",
+    "tagline": "Construye agentes de IA de forma visual. Casi todo es abierto; la parte enterprise, no.",
+    "descriptionShort": "Herramienta visual para montar agentes de IA con bloques. Se instala en tu equipo o servidor. La mayor parte del código es abierto, pero el directorio enterprise y algunos archivos van con licencia comercial.",
+    "verdict": "Muy parecido a Langflow y con una comunidad enorme. La diferencia está en la licencia: una parte del código es comercial, así que conviene leerla antes de construir un producto encima.",
+    "freePlan": {
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-09-24",
+      "summary": "Se instala en tu equipo o servidor sin cuotas propias. La mayor parte del código es abierto; el directorio enterprise y los archivos con aviso de copyright explícito tienen licencia comercial.",
+      "limits": [
+        "Parte del código con licencia comercial (enterprise)",
+        "Se instala en tu equipo o servidor",
+        "Necesita un modelo: de pago por API o local"
+      ]
+    },
+    "capabilities": [
+      "workflow-automation",
+      "tool-use",
+      "multi-agent"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Se instala con Node o Docker y hay que conectarle un modelo.",
+    "scores": {
+      "freeReal": 8,
+      "usefulness": 8,
+      "ease": 5,
+      "transparency": 7,
+      "creatorValue": 6
+    },
+    "sources": [
+      {
+        "url": "https://github.com/FlowiseAI/Flowise",
+        "label": "Repositorio oficial",
+        "kind": "repo",
+        "publisher": "github.com",
+        "checkedAt": "2026-09-24"
+      },
+      {
+        "url": "https://github.com/FlowiseAI/Flowise/blob/main/LICENSE.md",
+        "label": "Licencia oficial",
+        "kind": "repo",
+        "publisher": "github.com",
+        "checkedAt": "2026-09-24"
+      }
+    ],
+    "evidence": [
+      {
+        "field": "openSource",
+        "outcome": "stated",
+        "sourceUrl": "https://github.com/FlowiseAI/Flowise/blob/main/LICENSE.md",
+        "sourceKind": "licence",
+        "scope": "local",
+        "checkedAt": "2026-09-24",
+        "quote": "Portions of this software are licensed as follows: All content that resides under https://github.com/FlowiseAI/Flowise/tree/main/packages/server/src/enterprise directory and files with explicit copyright notice such as IdentityManager.ts are licensed under Commercial License."
+      },
+      {
+        "field": "capabilities",
+        "outcome": "stated",
+        "sourceUrl": "https://github.com/FlowiseAI/Flowise",
+        "sourceKind": "repo",
+        "scope": "local",
+        "checkedAt": "2026-09-24",
+        "quote": "Build AI Agents, Visually"
+      }
+    ],
+    "id": "tool_flowise",
+    "nextReviewAt": "2026-12-23",
+    "lastVerifiedAt": "2026-09-24",
+    "updatedAt": "2026-09-24"
+  },
+  {
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-09-24",
+    "skillLevel": "intermediate",
+    "access": {
+      "weights": "yes"
+    },
+    "licences": {
+      "weights": "Apache-2.0"
+    },
+    "slug": "flux-1-schnell",
+    "name": "FLUX.1 [schnell]",
+    "kind": "model",
+    "verification": "partially_verified",
+    "categorySlug": "imagen",
+    "officialUrl": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
+    "repoUrl": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
+    "hosting": "local",
+    "openSource": "yes",
+    "licence": "Apache-2.0",
+    "platforms": [
+      "linux",
+      "windows",
+      "macos"
+    ],
+    "freeModel": "open_source",
+    "tagline": "Pesos abiertos con Apache 2.0 y uso comercial dicho por su autor: imágenes en uno a cuatro pasos.",
+    "descriptionShort": "Modelo de texto a imagen de Black Forest Labs, de 12.000 millones de parámetros, que genera en sólo uno a cuatro pasos. Los pesos se descargan de Hugging Face con licencia Apache 2.0 y funcionan en ComfyUI y Diffusers.",
+    "verdict": "La versión rápida y abierta de FLUX, y su ficha oficial dice sin rodeos que sirve para uso personal, científico y comercial. Lo que cuesta es el equipo: son 12.000 millones de parámetros y hace falta una GPU con memoria de sobra, o un servicio que lo ejecute por ti.",
+    "freePlan": {
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "yes",
+      "creditReset": "none",
+      "verifiedAt": "2026-09-24",
+      "summary": "Pesos descargables con licencia Apache 2.0. Sin cuotas: se ejecuta en tu equipo, en ComfyUI o con Diffusers. La propia ficha del modelo dice que se puede usar con fines personales, científicos y comerciales.",
+      "limits": [
+        "Pesos con licencia Apache 2.0",
+        "12.000 millones de parámetros",
+        "Genera en 1 a 4 pasos",
+        "Se ejecuta en tu equipo: exige GPU"
+      ]
+    },
+    "capabilities": [
+      "text-to-image",
+      "model-download"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Hay que descargar los pesos y ejecutarlos con ComfyUI o Diffusers, con GPU.",
+    "scores": {
+      "freeReal": 9,
+      "usefulness": 7,
+      "ease": 3,
+      "transparency": 9,
+      "creatorValue": 8
+    },
+    "sources": [
+      {
+        "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
+        "label": "Ficha oficial del modelo",
+        "kind": "repo",
+        "publisher": "huggingface.co",
+        "checkedAt": "2026-09-24"
+      }
+    ],
+    "evidence": [
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
+        "sourceKind": "repo",
+        "scope": "weights",
+        "checkedAt": "2026-09-24",
+        "quote": "Released under the apache-2.0 licence, the model can be used for personal, scientific, and commercial purposes."
+      },
+      {
+        "field": "openSource",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
+        "sourceKind": "repo",
+        "scope": "weights",
+        "checkedAt": "2026-09-24",
+        "quote": "License: apache-2.0"
+      },
+      {
+        "field": "capabilities",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
+        "sourceKind": "repo",
+        "scope": "weights",
+        "checkedAt": "2026-09-24",
+        "quote": "FLUX.1 [schnell] is a 12 billion parameter rectified flow transformer capable of generating images from text descriptions. … can generate high-quality images in only 1 to 4 steps."
+      }
+    ],
+    "id": "tool_flux-1-schnell",
+    "nextReviewAt": "2026-12-23",
+    "lastVerifiedAt": "2026-09-24",
+    "updatedAt": "2026-09-24"
+  },
+  {
     "id": "tool_fooocus",
     "slug": "fooocus",
     "name": "Fooocus",
@@ -5146,6 +5802,139 @@
     "access": {}
   },
   {
+    "secondaryCategories": [
+      "imagen"
+    ],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-09-24",
+    "skillLevel": "beginner",
+    "access": {},
+    "licences": {},
+    "slug": "google-flow",
+    "name": "Google Flow",
+    "kind": "app",
+    "verification": "partially_verified",
+    "categorySlug": "video",
+    "officialUrl": "https://flow.google.com/",
+    "pricingUrl": "https://flow.google.com/about",
+    "hosting": "cloud",
+    "openSource": "no",
+    "platforms": [
+      "web"
+    ],
+    "freeModel": "credits",
+    "tagline": "50 créditos al día sin pagar, con Veo 3.1 para vídeo y Nano Banana Pro para imagen.",
+    "descriptionShort": "La herramienta de Google para crear vídeo e imagen con sus modelos: Veo 3.1 para vídeo con audio nativo y Nano Banana Pro para imagen. Texto a vídeo, fotogramas a vídeo, extensión y edición de vídeo, personajes y avatares.",
+    "verdict": "Un plan gratuito con cantidad y frecuencia publicadas —50 créditos al día— y con el mejor modelo de vídeo de Google dentro, que no es lo habitual. Lo que no dice su página es cuántos vídeos salen de esos créditos ni qué se puede hacer comercialmente con ellos.",
+    "freePlan": {
+      "requiresSignup": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "daily",
+      "verifiedAt": "2026-09-24",
+      "summary": "Plan gratuito con 50 créditos diarios de Google Flow, con acceso a Veo 3.1, Nano Banana Pro y Gemini Omni Flash, texto a vídeo, fotogramas a vídeo, extensión y edición de vídeo y escalado de imagen a 2K. El plan de pago más barato, Google AI Plus, cuesta 4,99 $ al mes y suma 200 créditos mensuales.",
+      "limits": [
+        "50 créditos de Google Flow al día",
+        "Veo 3.1, Nano Banana Pro y Gemini Omni Flash",
+        "Escalado de imagen hasta 2K",
+        "La página no dice cuántos vídeos salen de 50 créditos",
+        "Plan de pago más barato: Google AI Plus, 4,99 $/mes"
+      ],
+      "creditsAmount": "50 créditos al día"
+    },
+    "capabilities": [
+      "text-to-video",
+      "image-to-video",
+      "video-extend",
+      "video-editing",
+      "native-audio",
+      "text-to-image",
+      "upscaling",
+      "avatar-video"
+    ],
+    "startEffort": "signup",
+    "startEffortReason": "Se entra con una cuenta de Google, sin suscripción.",
+    "scores": {
+      "freeReal": 8,
+      "usefulness": 8,
+      "ease": 8,
+      "transparency": 7,
+      "creatorValue": 7
+    },
+    "sources": [
+      {
+        "url": "https://flow.google.com/about",
+        "label": "Web oficial con los planes",
+        "kind": "pricing",
+        "publisher": "flow.google.com",
+        "checkedAt": "2026-09-24"
+      }
+    ],
+    "evidence": [
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://flow.google.com/about",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "Try Google Flow free of charge or upgrade to one of our plans below. Free of Charge — Included Features: 50 daily Google Flow credits · Gemini Omni Flash · Nano Banana Pro · Veo 3.1"
+      },
+      {
+        "field": "freePlan.creditReset",
+        "outcome": "stated",
+        "sourceUrl": "https://flow.google.com/about",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "50 daily Google Flow credits"
+      },
+      {
+        "field": "capabilities",
+        "outcome": "stated",
+        "sourceUrl": "https://flow.google.com/about",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "Text to Video · Frames to Video · Ingredients to Video · Video Extension · Video-to-video editing · Scenebuilder · 2K image upscaling · Characters · Avatars"
+      },
+      {
+        "field": "freePlan.requiresSignup",
+        "outcome": "stated",
+        "sourceUrl": "https://flow.google.com/about",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "Try Google Flow with a Google Account Without a Google AI Subscription · Free of Charge"
+      }
+    ],
+    "id": "tool_google-flow",
+    "nextReviewAt": "2026-12-23",
+    "lastVerifiedAt": "2026-09-24",
+    "updatedAt": "2026-09-24"
+  },
+  {
     "id": "tool_google-gemini",
     "slug": "google-gemini",
     "name": "Google Gemini",
@@ -5454,6 +6243,145 @@
     "nextReviewAt": "2026-11-18",
     "lastVerifiedAt": "2026-08-29",
     "updatedAt": "2026-08-20"
+  },
+  {
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-09-24",
+    "skillLevel": "intermediate",
+    "access": {
+      "weights": "yes"
+    },
+    "licences": {
+      "weights": "Apache-2.0"
+    },
+    "slug": "gpt-oss",
+    "name": "gpt-oss",
+    "kind": "model",
+    "verification": "partially_verified",
+    "categorySlug": "modelos",
+    "officialUrl": "https://huggingface.co/openai/gpt-oss-120b",
+    "repoUrl": "https://huggingface.co/openai/gpt-oss-120b",
+    "hosting": "local",
+    "openSource": "yes",
+    "licence": "Apache-2.0",
+    "platforms": [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "freeModel": "open_source",
+    "tagline": "Los modelos de pesos abiertos de OpenAI: el pequeño cabe en 16 GB, y la licencia permite venderlo.",
+    "descriptionShort": "Los dos modelos de pesos abiertos de OpenAI: gpt-oss-120b, de 117.000 millones de parámetros, que cabe en una GPU de 80 GB, y gpt-oss-20b, de 21.000 millones, que funciona con 16 GB de memoria. Razonamiento configurable y licencia Apache 2.0.",
+    "verdict": "El pequeño es de los pocos modelos serios que corren en un ordenador de sobremesa bien equipado, y la ficha oficial dice sin ambigüedad que la licencia sirve para desplegarlo comercialmente.",
+    "freePlan": {
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "yes",
+      "creditReset": "none",
+      "verifiedAt": "2026-09-24",
+      "summary": "Pesos descargables con licencia Apache 2.0, que la propia ficha presenta como apta para despliegue comercial. gpt-oss-20b funciona con 16 GB de memoria; gpt-oss-120b, en una GPU de 80 GB.",
+      "limits": [
+        "Pesos con licencia Apache 2.0",
+        "gpt-oss-20b: 21.000 millones de parámetros, 3.600 activos; funciona con 16 GB",
+        "gpt-oss-120b: 117.000 millones, 5.100 activos; una GPU de 80 GB",
+        "Esfuerzo de razonamiento configurable: bajo, medio o alto"
+      ]
+    },
+    "capabilities": [
+      "text-generation",
+      "reasoning",
+      "tool-use",
+      "model-download"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Hay que descargar los pesos y ejecutarlos con Transformers, vLLM, Ollama o LM Studio.",
+    "scores": {
+      "freeReal": 9,
+      "usefulness": 8,
+      "ease": 4,
+      "transparency": 9,
+      "creatorValue": 8
+    },
+    "sources": [
+      {
+        "url": "https://huggingface.co/openai/gpt-oss-120b",
+        "label": "Ficha oficial de gpt-oss-120b",
+        "kind": "repo",
+        "publisher": "huggingface.co",
+        "checkedAt": "2026-09-24"
+      },
+      {
+        "url": "https://huggingface.co/openai/gpt-oss-20b",
+        "label": "Ficha oficial de gpt-oss-20b",
+        "kind": "repo",
+        "publisher": "huggingface.co",
+        "checkedAt": "2026-09-24"
+      }
+    ],
+    "evidence": [
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/openai/gpt-oss-120b",
+        "sourceKind": "repo",
+        "scope": "weights",
+        "checkedAt": "2026-09-24",
+        "quote": "Permissive Apache 2.0 license: Build freely without copyleft restrictions or patent risk—ideal for experimentation, customization, and commercial deployment."
+      },
+      {
+        "field": "openSource",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/openai/gpt-oss-120b",
+        "sourceKind": "repo",
+        "scope": "weights",
+        "checkedAt": "2026-09-24",
+        "quote": "License: apache-2.0"
+      },
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/openai/gpt-oss-120b",
+        "sourceKind": "repo",
+        "scope": "weights",
+        "checkedAt": "2026-09-24",
+        "quote": "gpt-oss-120b — for production, general purpose, high reasoning use cases that fit into a single 80GB GPU (like NVIDIA H100 or AMD MI300X) (117B parameters with 5.1B active parameters) · gpt-oss-20b — for lower latency, and local or specialized use cases (21B parameters with 3.6B active parameters)"
+      },
+      {
+        "field": "capabilities",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/openai/gpt-oss-120b",
+        "sourceKind": "repo",
+        "scope": "weights",
+        "checkedAt": "2026-09-24",
+        "quote": "Welcome to the gpt-oss series, OpenAI’s open-weight models designed for powerful reasoning, agentic tasks, and versatile developer use cases."
+      }
+    ],
+    "id": "tool_gpt-oss",
+    "nextReviewAt": "2026-12-23",
+    "lastVerifiedAt": "2026-09-24",
+    "updatedAt": "2026-09-24"
   },
   {
     "skillLevel": "beginner",
@@ -6832,6 +7760,252 @@
     "updatedAt": "2026-08-21"
   },
   {
+    "secondaryCategories": [
+      "agentes"
+    ],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-09-24",
+    "skillLevel": "beginner",
+    "access": {},
+    "licences": {},
+    "slug": "jules",
+    "name": "Jules",
+    "kind": "agent",
+    "productType": "agent",
+    "verification": "pending_review",
+    "categorySlug": "codigo",
+    "officialUrl": "https://jules.google/",
+    "hosting": "cloud",
+    "openSource": "no",
+    "platforms": [
+      "web"
+    ],
+    "freeModel": "credits",
+    "tagline": "El agente de código de Google: 15 tareas al día y 3 a la vez, con Gemini 2.5 Pro.",
+    "descriptionShort": "Agente de programación de Google que trabaja por su cuenta sobre un repositorio de GitHub y entrega los cambios como pull request. El plan de entrada da 15 tareas al día.",
+    "verdict": "Cantidad y frecuencia publicadas, que para un agente es raro: quince tareas diarias, tres en paralelo. El plan de entrada usa Gemini 2.5 Pro; los modelos más nuevos quedan para los de pago.",
+    "freePlan": {
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "daily",
+      "verifiedAt": "2026-09-24",
+      "summary": "Plan de entrada: 15 tareas al día y 3 simultáneas, con Gemini 2.5 Pro. Los planes Pro y Ultra suben a 100 y 300 tareas diarias y dan acceso a Gemini 3 Pro.",
+      "limits": [
+        "15 tareas al día",
+        "3 tareas simultáneas",
+        "Con Gemini 2.5 Pro; Gemini 3 Pro es de pago"
+      ],
+      "creditsAmount": "15 tareas al día"
+    },
+    "capabilities": [
+      "code-generation",
+      "repository-editing"
+    ],
+    "startEffort": "signup",
+    "startEffortReason": "Hace falta una cuenta de Google y conectar un repositorio de GitHub.",
+    "scores": {
+      "freeReal": 7,
+      "usefulness": 8,
+      "ease": 7,
+      "transparency": 7,
+      "creatorValue": 6
+    },
+    "sources": [
+      {
+        "url": "https://jules.google/",
+        "label": "Web oficial con los planes",
+        "kind": "official",
+        "publisher": "jules.google",
+        "checkedAt": "2026-09-24"
+      }
+    ],
+    "evidence": [
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://jules.google/",
+        "sourceKind": "official",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "Jules · Get started with real coding tasks. · 15 tasks per day · 3 concurrent tasks · Powered by Gemini 2.5 Pro"
+      },
+      {
+        "field": "freePlan.creditReset",
+        "outcome": "stated",
+        "sourceUrl": "https://jules.google/",
+        "sourceKind": "official",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "15 tasks per day"
+      },
+      {
+        "field": "capabilities",
+        "outcome": "stated",
+        "sourceUrl": "https://jules.google/",
+        "sourceKind": "official",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "Jules creates a PR of the changes. Approve the PR, merge it to your branch, and publish it on GitHub."
+      }
+    ],
+    "id": "tool_jules",
+    "nextReviewAt": "2026-12-23",
+    "lastVerifiedAt": "2026-09-24",
+    "updatedAt": "2026-09-24"
+  },
+  {
+    "secondaryCategories": [
+      "agentes"
+    ],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-09-24",
+    "skillLevel": "intermediate",
+    "access": {},
+    "licences": {},
+    "slug": "kilo-code",
+    "name": "Kilo Code",
+    "kind": "agent",
+    "productType": "agent",
+    "verification": "partially_verified",
+    "categorySlug": "codigo",
+    "officialUrl": "https://kilo.ai/",
+    "pricingUrl": "https://kilo.ai/pricing",
+    "repoUrl": "https://github.com/Kilo-Org/kilocode",
+    "hosting": "hybrid",
+    "openSource": "yes",
+    "licence": "MIT",
+    "platforms": [
+      "extension",
+      "cli"
+    ],
+    "freeModel": "open_source",
+    "tagline": "Agente de código abierto para VS Code, JetBrains y terminal: gratis, y los modelos se pagan aparte o se usan gratis.",
+    "descriptionShort": "Asistente agéntico de programación de código abierto, con extensiones para VS Code y JetBrains y una CLI. La herramienta es gratuita; los modelos se pagan aparte, se usan con tus claves, en local o con los gratuitos de su pasarela. Anaconda lo ha comprado.",
+    "verdict": "Separa con claridad las dos cosas que otros mezclan: la herramienta es gratis y abierta, y la inferencia es otra cuenta. Con «Auto Free» o con modelos locales se puede usar sin pagar nada, a cambio de la calidad de esos modelos.",
+    "freePlan": {
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "yes",
+      "creditReset": "none",
+      "verifiedAt": "2026-09-24",
+      "summary": "Plan Free y de código abierto (MIT) para desarrolladores individuales. La inferencia se paga aparte, pero se puede usar sin plan de pago: con modelos gratuitos a través de su pasarela, con modelos locales o con tus propias claves.",
+      "limits": [
+        "La herramienta es gratuita y MIT",
+        "La inferencia se factura aparte",
+        "«Auto Free» dirige a modelos gratuitos donde los hay",
+        "También con modelos locales o con tus claves"
+      ]
+    },
+    "capabilities": [
+      "code-generation",
+      "repository-editing",
+      "terminal",
+      "tool-use"
+    ],
+    "startEffort": "install",
+    "startEffortReason": "Se instala como extensión del editor o como CLI.",
+    "scores": {
+      "freeReal": 8,
+      "usefulness": 8,
+      "ease": 6,
+      "transparency": 8,
+      "creatorValue": 7
+    },
+    "sources": [
+      {
+        "url": "https://kilo.ai/pricing",
+        "label": "Página oficial de precios",
+        "kind": "pricing",
+        "publisher": "kilo.ai",
+        "checkedAt": "2026-09-24"
+      },
+      {
+        "url": "https://github.com/Kilo-Org/kilocode",
+        "label": "Repositorio oficial",
+        "kind": "repo",
+        "publisher": "github.com",
+        "checkedAt": "2026-09-24"
+      }
+    ],
+    "evidence": [
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://kilo.ai/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "Free & Open Source · For every developer building with AI · Free · Usage is billed separately · Open source VS Code, JetBrains & CLI extensions · Auto Free routes to free models through Kilo Gateway where available"
+      },
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://raw.githubusercontent.com/Kilo-Org/kilocode/main/LICENSE",
+        "sourceKind": "licence",
+        "scope": "local",
+        "checkedAt": "2026-09-24",
+        "quote": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software",
+        "basis": "Es la licencia del código de las extensiones y la CLI; los modelos que se conecten tienen sus propias condiciones."
+      },
+      {
+        "field": "openSource",
+        "outcome": "stated",
+        "sourceUrl": "https://raw.githubusercontent.com/Kilo-Org/kilocode/main/LICENSE",
+        "sourceKind": "licence",
+        "scope": "local",
+        "checkedAt": "2026-09-24",
+        "quote": "MIT License"
+      }
+    ],
+    "id": "tool_kilo-code",
+    "nextReviewAt": "2026-12-23",
+    "lastVerifiedAt": "2026-09-24",
+    "updatedAt": "2026-09-24"
+  },
+  {
     "skillLevel": "beginner",
     "secondaryCategories": [],
     "tags": [],
@@ -7376,6 +8550,236 @@
     "access": {}
   },
   {
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-09-24",
+    "skillLevel": "beginner",
+    "access": {},
+    "licences": {},
+    "slug": "lalal-ai",
+    "name": "LALAL.AI",
+    "kind": "app",
+    "verification": "partially_verified",
+    "categorySlug": "musica",
+    "officialUrl": "https://www.lalal.ai/",
+    "pricingUrl": "https://www.lalal.ai/pricing/",
+    "hosting": "cloud",
+    "openSource": "no",
+    "platforms": [
+      "web"
+    ],
+    "freeModel": "credits",
+    "tagline": "Separa voz e instrumentos de una canción: 10 minutos gratis, sin tarjeta.",
+    "descriptionShort": "Separa una canción en pistas —voz, batería, bajo, instrumentos— y limpia audio. Su plan Starter es gratuito y no pide tarjeta, con 10 minutos de proceso.",
+    "verdict": "Sirve exactamente para lo que dice su propia página: comprobar la calidad antes de pagar. Diez minutos dan para un par de canciones, y no dice si se renuevan.",
+    "freePlan": {
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "no",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "unknown",
+      "verifiedAt": "2026-09-24",
+      "summary": "Plan Starter a 0 €, «siempre gratis» y sin tarjeta: 10 minutos de proceso, vistas previas del resultado y archivos de hasta 200 MB. La página no dice si esos minutos se renuevan.",
+      "limits": [
+        "10 minutos de proceso; no publica si se renuevan",
+        "Vistas previas del resultado",
+        "Archivos de hasta 200 MB"
+      ],
+      "creditsAmount": "10 minutos"
+    },
+    "capabilities": [
+      "audio-editing"
+    ],
+    "startEffort": "signup",
+    "startEffortReason": "El plan gratuito se activa con una cuenta.",
+    "scores": {
+      "freeReal": 4,
+      "usefulness": 7,
+      "ease": 9,
+      "transparency": 7,
+      "creatorValue": 5
+    },
+    "sources": [
+      {
+        "url": "https://www.lalal.ai/pricing/",
+        "label": "Página oficial de precios",
+        "kind": "pricing",
+        "publisher": "lalal.ai",
+        "checkedAt": "2026-09-24"
+      }
+    ],
+    "evidence": [
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://www.lalal.ai/pricing/",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "Starter · €0 · Always free · Get Free · Try out our service. · No credit card needed. · 10 Minutes · Free Result Previews · 200MB Upload File Limit"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "stated",
+        "sourceUrl": "https://www.lalal.ai/pricing/",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "No credit card needed."
+      }
+    ],
+    "id": "tool_lalal-ai",
+    "nextReviewAt": "2026-12-23",
+    "lastVerifiedAt": "2026-09-24",
+    "updatedAt": "2026-09-24"
+  },
+  {
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-09-24",
+    "skillLevel": "intermediate",
+    "access": {},
+    "licences": {},
+    "slug": "langflow",
+    "name": "Langflow",
+    "kind": "framework",
+    "productType": "platform",
+    "verification": "partially_verified",
+    "categorySlug": "agentes",
+    "officialUrl": "https://www.langflow.org/",
+    "repoUrl": "https://github.com/langflow-ai/langflow",
+    "hosting": "local",
+    "openSource": "yes",
+    "licence": "MIT",
+    "platforms": [
+      "linux",
+      "macos",
+      "windows",
+      "docker"
+    ],
+    "freeModel": "open_source",
+    "tagline": "Construye agentes y flujos de IA arrastrando bloques. Código abierto con licencia MIT.",
+    "descriptionShort": "Herramienta visual para montar agentes y flujos de IA conectando bloques, y desplegarlos. Se instala en tu equipo o en un servidor; código abierto con licencia MIT.",
+    "verdict": "Para quien quiere agentes sin escribir todo el código: el lienzo visual baja mucho la barrera. Hay que instalarlo y conectarle un modelo, y a partir de ahí no cobra nada.",
+    "freePlan": {
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "yes",
+      "creditReset": "none",
+      "verifiedAt": "2026-09-24",
+      "summary": "Código abierto con licencia MIT: se instala en tu equipo o servidor sin cuotas propias. El coste es el de los modelos que se conecten.",
+      "limits": [
+        "Licencia MIT",
+        "Se instala en tu equipo o servidor",
+        "Necesita un modelo: de pago por API o local"
+      ]
+    },
+    "capabilities": [
+      "workflow-automation",
+      "tool-use",
+      "multi-agent"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Se instala con Python o Docker y hay que conectarle un modelo.",
+    "scores": {
+      "freeReal": 9,
+      "usefulness": 8,
+      "ease": 5,
+      "transparency": 9,
+      "creatorValue": 7
+    },
+    "sources": [
+      {
+        "url": "https://github.com/langflow-ai/langflow",
+        "label": "Repositorio oficial",
+        "kind": "repo",
+        "publisher": "github.com",
+        "checkedAt": "2026-09-24"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/langflow-ai/langflow/main/LICENSE",
+        "label": "Licencia oficial",
+        "kind": "repo",
+        "publisher": "raw.githubusercontent.com",
+        "checkedAt": "2026-09-24"
+      }
+    ],
+    "evidence": [
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://raw.githubusercontent.com/langflow-ai/langflow/main/LICENSE",
+        "sourceKind": "licence",
+        "scope": "local",
+        "checkedAt": "2026-09-24",
+        "quote": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software"
+      },
+      {
+        "field": "openSource",
+        "outcome": "stated",
+        "sourceUrl": "https://raw.githubusercontent.com/langflow-ai/langflow/main/LICENSE",
+        "sourceKind": "licence",
+        "scope": "local",
+        "checkedAt": "2026-09-24",
+        "quote": "MIT License"
+      },
+      {
+        "field": "capabilities",
+        "outcome": "stated",
+        "sourceUrl": "https://github.com/langflow-ai/langflow",
+        "sourceKind": "repo",
+        "scope": "local",
+        "checkedAt": "2026-09-24",
+        "quote": "Langflow is a powerful tool for building and deploying AI-powered agents and workflows."
+      }
+    ],
+    "id": "tool_langflow",
+    "nextReviewAt": "2026-12-23",
+    "lastVerifiedAt": "2026-09-24",
+    "updatedAt": "2026-09-24"
+  },
+  {
     "skillLevel": "beginner",
     "secondaryCategories": [
       "apis"
@@ -7679,6 +9083,115 @@
     "startEffortReason": "Hay que crear cuenta y elegir plan —aunque sea el de 0 $— antes de generar.",
     "licences": {},
     "access": {}
+  },
+  {
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-09-24",
+    "skillLevel": "advanced",
+    "access": {},
+    "licences": {},
+    "slug": "letta",
+    "name": "Letta",
+    "kind": "framework",
+    "productType": "library",
+    "verification": "pending_review",
+    "categorySlug": "agentes",
+    "officialUrl": "https://www.letta.com/",
+    "repoUrl": "https://github.com/letta-ai/letta",
+    "hosting": "local",
+    "openSource": "yes",
+    "licence": "Apache-2.0",
+    "platforms": [
+      "linux",
+      "macos",
+      "windows",
+      "docker"
+    ],
+    "freeModel": "open_source",
+    "tagline": "Agentes con memoria que aprenden de una conversación a la siguiente. Apache 2.0.",
+    "descriptionShort": "Plataforma de código abierto para crear agentes con estado y memoria, que recuerdan y mejoran con el tiempo. Tiene SDK para aplicaciones TypeScript. Licencia Apache 2.0.",
+    "verdict": "Resuelve lo que casi todos los agentes olvidan, literalmente: la memoria entre sesiones. Es infraestructura para desarrolladores, no una app.",
+    "freePlan": {
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-09-24",
+      "summary": "Código abierto con licencia Apache 2.0: se instala en tu equipo o servidor sin cuotas propias. El coste es el del modelo que se conecte.",
+      "limits": [
+        "Licencia Apache 2.0",
+        "Se instala en tu equipo o servidor",
+        "Necesita un modelo: de pago por API o local"
+      ]
+    },
+    "capabilities": [
+      "memory",
+      "tool-use"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Se instala como servidor y se programa contra su SDK.",
+    "scores": {
+      "freeReal": 9,
+      "usefulness": 7,
+      "ease": 4,
+      "transparency": 9,
+      "creatorValue": 6
+    },
+    "sources": [
+      {
+        "url": "https://github.com/letta-ai/letta",
+        "label": "Repositorio oficial",
+        "kind": "repo",
+        "publisher": "github.com",
+        "checkedAt": "2026-09-24"
+      }
+    ],
+    "evidence": [
+      {
+        "field": "openSource",
+        "outcome": "stated",
+        "sourceUrl": "https://github.com/letta-ai/letta",
+        "sourceKind": "repo",
+        "scope": "local",
+        "checkedAt": "2026-09-24",
+        "quote": "Apache-2.0 license"
+      },
+      {
+        "field": "capabilities",
+        "outcome": "stated",
+        "sourceUrl": "https://github.com/letta-ai/letta",
+        "sourceKind": "repo",
+        "scope": "local",
+        "checkedAt": "2026-09-24",
+        "quote": "Build stateful agents with memory that can learn and improve over time."
+      }
+    ],
+    "id": "tool_letta",
+    "nextReviewAt": "2026-12-23",
+    "lastVerifiedAt": "2026-09-24",
+    "updatedAt": "2026-09-24"
   },
   {
     "skillLevel": "beginner",
@@ -9291,6 +10804,225 @@
     "access": {}
   },
   {
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-09-24",
+    "skillLevel": "beginner",
+    "access": {},
+    "licences": {},
+    "slug": "moises",
+    "name": "Moises",
+    "kind": "app",
+    "verification": "pending_review",
+    "categorySlug": "musica",
+    "officialUrl": "https://moises.ai/",
+    "hosting": "cloud",
+    "openSource": "no",
+    "platforms": [
+      "web",
+      "ios",
+      "android"
+    ],
+    "freeModel": "freemium",
+    "tagline": "Separa pistas y practica con tus canciones: plan gratuito con subidas limitadas cada mes.",
+    "descriptionShort": "App para músicos: separa voz e instrumentos, cambia el tono y el tempo y permite grabar y editar en sesiones compartidas desde el navegador. Tiene un plan gratuito con un número limitado de subidas al mes.",
+    "verdict": "Dice dos cosas que importan: que el plan gratuito se renueva cada mes y que sólo entrena sus modelos con material licenciado. Lo que no dice es cuántas subidas son, que es justo lo que decide si basta.",
+    "freePlan": {
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "monthly",
+      "verifiedAt": "2026-09-24",
+      "summary": "Plan gratuito con un número limitado de subidas al mes y parte de las funciones; la cantidad no se publica. Para todas las funciones y subidas ilimitadas hay que pagar.",
+      "limits": [
+        "Subidas limitadas cada mes; la cantidad no se publica",
+        "Sólo parte de las funciones"
+      ]
+    },
+    "capabilities": [
+      "audio-editing"
+    ],
+    "startEffort": "signup",
+    "startEffortReason": "Hay que crear una cuenta para subir canciones.",
+    "scores": {
+      "freeReal": 5,
+      "usefulness": 7,
+      "ease": 8,
+      "transparency": 5,
+      "creatorValue": 6
+    },
+    "sources": [
+      {
+        "url": "https://moises.ai/",
+        "label": "Web oficial y preguntas frecuentes",
+        "kind": "official",
+        "publisher": "moises.ai",
+        "checkedAt": "2026-09-24"
+      }
+    ],
+    "evidence": [
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://moises.ai/",
+        "sourceKind": "official",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "Moises offers a free tier that provides a limited number of uploads each month, with access to a select set of features."
+      },
+      {
+        "field": "freePlan.creditReset",
+        "outcome": "stated",
+        "sourceUrl": "https://moises.ai/",
+        "sourceKind": "official",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "a limited number of uploads each month"
+      }
+    ],
+    "id": "tool_moises",
+    "nextReviewAt": "2026-12-23",
+    "lastVerifiedAt": "2026-09-24",
+    "updatedAt": "2026-09-24"
+  },
+  {
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-09-24",
+    "skillLevel": "beginner",
+    "access": {},
+    "licences": {},
+    "slug": "murf-ai",
+    "name": "Murf AI",
+    "kind": "app",
+    "verification": "partially_verified",
+    "categorySlug": "voz",
+    "officialUrl": "https://murf.ai/",
+    "pricingUrl": "https://murf.ai/pricing",
+    "hosting": "cloud",
+    "openSource": "no",
+    "platforms": [
+      "web",
+      "api"
+    ],
+    "freeModel": "credits",
+    "tagline": "Texto a voz con 150 voces: su API da 10 $ de crédito al mes, sin tarjeta.",
+    "descriptionShort": "Generador de voz a partir de texto, con más de 150 voces en más de 35 idiomas, y doblaje. Su oferta gratuita publicada es la de la API: 10 $ de crédito cada mes, sin tarjeta.",
+    "verdict": "Lo gratuito está bien descrito para quien programa: crédito mensual y sin tarjeta. Para quien sólo quiere el estudio web, la página de precios no publica un plan gratuito con cantidades.",
+    "freePlan": {
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "no",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "monthly",
+      "verifiedAt": "2026-09-24",
+      "summary": "Prueba gratuita de la API: 10 $ de crédito cada mes, sin tarjeta, con acceso a todos los puntos de la API y más de 150 voces en más de 35 idiomas. La página de precios no publica un plan gratuito equivalente para el estudio web.",
+      "limits": [
+        "API: 10 $ de crédito gratis cada mes",
+        "Más de 150 voces en más de 35 idiomas",
+        "El estudio web no publica cantidades gratuitas"
+      ],
+      "creditsAmount": "10 $ de crédito al mes (API)"
+    },
+    "capabilities": [
+      "text-to-speech",
+      "dubbing",
+      "api"
+    ],
+    "startEffort": "signup",
+    "startEffortReason": "La prueba de la API se activa con una cuenta.",
+    "scores": {
+      "freeReal": 5,
+      "usefulness": 7,
+      "ease": 7,
+      "transparency": 6,
+      "creatorValue": 6
+    },
+    "sources": [
+      {
+        "url": "https://murf.ai/pricing",
+        "label": "Página oficial de precios",
+        "kind": "pricing",
+        "publisher": "murf.ai",
+        "checkedAt": "2026-09-24"
+      }
+    ],
+    "evidence": [
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://murf.ai/pricing",
+        "sourceKind": "pricing",
+        "scope": "api",
+        "checkedAt": "2026-09-24",
+        "quote": "Free Trial · Get access to all API endpoints. Explore, build, and test without barriers · No credit card required · $10 FREE, every month · 150+ voices in 35+ languages and styles"
+      },
+      {
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "stated",
+        "sourceUrl": "https://murf.ai/pricing",
+        "sourceKind": "pricing",
+        "scope": "api",
+        "checkedAt": "2026-09-24",
+        "quote": "No credit card required"
+      },
+      {
+        "field": "freePlan.creditReset",
+        "outcome": "stated",
+        "sourceUrl": "https://murf.ai/pricing",
+        "sourceKind": "pricing",
+        "scope": "api",
+        "checkedAt": "2026-09-24",
+        "quote": "$10 FREE, every month"
+      }
+    ],
+    "id": "tool_murf-ai",
+    "nextReviewAt": "2026-12-23",
+    "lastVerifiedAt": "2026-09-24",
+    "updatedAt": "2026-09-24"
+  },
+  {
     "skillLevel": "beginner",
     "secondaryCategories": [
       "agentes",
@@ -9777,6 +11509,238 @@
     "updatedAt": "2026-08-19",
     "access": {},
     "productType": "agent"
+  },
+  {
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-09-24",
+    "skillLevel": "beginner",
+    "access": {},
+    "licences": {},
+    "slug": "opusclip",
+    "name": "OpusClip",
+    "kind": "app",
+    "verification": "partially_verified",
+    "categorySlug": "video",
+    "officialUrl": "https://www.opus.pro/",
+    "pricingUrl": "https://www.opus.pro/pricing",
+    "hosting": "cloud",
+    "openSource": "no",
+    "platforms": [
+      "web"
+    ],
+    "freeModel": "credits",
+    "tagline": "Corta vídeos largos en clips para redes: 60 créditos al mes gratis, con marca de agua.",
+    "descriptionShort": "Convierte un vídeo largo —un pódcast, una charla, un directo— en clips cortos para redes, con subtítulos automáticos y una puntuación de viralidad. Tiene un plan gratuito para siempre.",
+    "verdict": "Su tabla es transparente con lo que importa: 60 créditos al mes, clips hasta 1080p, y con marca de agua y sin edición en el plan gratuito. Sirve para probar el resultado; para publicar limpio hay que pagar.",
+    "freePlan": {
+      "requiresSignup": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "yes",
+      "commercialUse": "unverified",
+      "creditReset": "monthly",
+      "verifiedAt": "2026-09-24",
+      "summary": "Plan Free «para siempre» a 0 $: 60 créditos al mes, clips hasta 1080p y subtítulos automáticos. Los clips llevan marca de agua y no se pueden editar. El plan de pago más barato es Starter, 15 $ al mes con 150 créditos.",
+      "limits": [
+        "60 créditos al mes",
+        "Clips hasta 1080p",
+        "Con marca de agua",
+        "Sin edición",
+        "Plan de pago más barato: Starter, 15 $/mes con 150 créditos"
+      ],
+      "creditsAmount": "60 créditos al mes"
+    },
+    "capabilities": [
+      "video-editing"
+    ],
+    "startEffort": "signup",
+    "startEffortReason": "El plan gratuito se activa creando una cuenta.",
+    "scores": {
+      "freeReal": 6,
+      "usefulness": 7,
+      "ease": 9,
+      "transparency": 9,
+      "creatorValue": 5
+    },
+    "sources": [
+      {
+        "url": "https://www.opus.pro/pricing",
+        "label": "Página oficial de precios",
+        "kind": "pricing",
+        "publisher": "opus.pro",
+        "checkedAt": "2026-09-24"
+      }
+    ],
+    "evidence": [
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://www.opus.pro/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "Free · Free forever · $0 USD/mo · Create an account · 60 credits per month · Up to 1080p rendered clips · AI captions with emoji and keyword highlighter · Has watermark · No editing"
+      },
+      {
+        "field": "freePlan.hasWatermark",
+        "outcome": "stated",
+        "sourceUrl": "https://www.opus.pro/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "Has watermark",
+        "basis": "Es una fila de la columna del plan Free."
+      },
+      {
+        "field": "freePlan.requiresSignup",
+        "outcome": "stated",
+        "sourceUrl": "https://www.opus.pro/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "Free · $0 USD/mo · Create an account"
+      },
+      {
+        "field": "freePlan.creditReset",
+        "outcome": "stated",
+        "sourceUrl": "https://www.opus.pro/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "60 credits per month"
+      }
+    ],
+    "id": "tool_opusclip",
+    "nextReviewAt": "2026-12-23",
+    "lastVerifiedAt": "2026-09-24",
+    "updatedAt": "2026-09-24"
+  },
+  {
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-09-24",
+    "skillLevel": "beginner",
+    "access": {},
+    "licences": {},
+    "slug": "otter",
+    "name": "Otter.ai",
+    "kind": "app",
+    "verification": "partially_verified",
+    "categorySlug": "voz",
+    "officialUrl": "https://otter.ai/",
+    "pricingUrl": "https://otter.ai/pricing",
+    "hosting": "cloud",
+    "openSource": "no",
+    "platforms": [
+      "web",
+      "ios",
+      "android"
+    ],
+    "freeModel": "freemium",
+    "tagline": "Transcribe reuniones gratis: 300 minutos al mes, hasta 30 por conversación.",
+    "descriptionShort": "Asistente que graba y transcribe reuniones y conversaciones, y resume lo dicho. Tiene un plan Basic gratuito para siempre, en la web y en las apps de iOS y Android.",
+    "verdict": "Publica la cantidad y la frecuencia: 300 minutos al mes, sin acumular. El límite que más se nota es otro, 30 minutos por conversación, que corta cualquier reunión larga a la mitad.",
+    "freePlan": {
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "monthly",
+      "verifiedAt": "2026-09-24",
+      "summary": "Plan Basic gratuito para siempre: 300 minutos de transcripción al mes, sin acumular, hasta 30 minutos por conversación y 300 minutos de archivos importados. Apps de iOS y Android incluidas. Pro cuesta 8,33 $ por usuario al mes en anual.",
+      "limits": [
+        "300 minutos de transcripción al mes, sin acumular",
+        "Hasta 30 minutos por conversación",
+        "300 minutos al mes de archivos importados",
+        "Plan de pago más barato: Pro, 8,33 $/usuario/mes en anual"
+      ],
+      "creditsAmount": "300 minutos al mes"
+    },
+    "capabilities": [
+      "transcription"
+    ],
+    "startEffort": "signup",
+    "startEffortReason": "Hay que crear una cuenta para grabar y guardar las transcripciones.",
+    "scores": {
+      "freeReal": 7,
+      "usefulness": 8,
+      "ease": 9,
+      "transparency": 8,
+      "creatorValue": 6
+    },
+    "sources": [
+      {
+        "url": "https://otter.ai/pricing",
+        "label": "Página oficial de precios",
+        "kind": "pricing",
+        "publisher": "otter.ai",
+        "checkedAt": "2026-09-24"
+      }
+    ],
+    "evidence": [
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://otter.ai/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "Basic · Free forever · 300 monthly transcription minutes · Meeting & recording transcription monthly limit (no rollover): 300 minutes per user · Max transcription time per conversation: 30 minutes"
+      },
+      {
+        "field": "freePlan.creditReset",
+        "outcome": "stated",
+        "sourceUrl": "https://otter.ai/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "Meeting & recording transcription monthly limit (no rollover)"
+      }
+    ],
+    "id": "tool_otter",
+    "nextReviewAt": "2026-12-23",
+    "lastVerifiedAt": "2026-09-24",
+    "updatedAt": "2026-09-24"
   },
   {
     "id": "tool_perplexity-ai",
@@ -10655,6 +12619,127 @@
     "startEffortReason": "Requiere cuenta: los créditos y su renovación van asociados al usuario.",
     "licences": {},
     "access": {}
+  },
+  {
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-09-24",
+    "skillLevel": "intermediate",
+    "access": {
+      "weights": "yes"
+    },
+    "licences": {
+      "weights": "Qwen Research License (no comercial)"
+    },
+    "slug": "qwen-image-2-1",
+    "name": "Qwen-Image-2.1",
+    "kind": "model",
+    "verification": "partially_verified",
+    "categorySlug": "imagen",
+    "officialUrl": "https://huggingface.co/Qwen/Qwen-Image-2.1",
+    "repoUrl": "https://huggingface.co/Qwen/Qwen-Image-2.1",
+    "hosting": "local",
+    "openSource": "weights",
+    "licence": "Qwen Research License",
+    "platforms": [
+      "linux",
+      "windows",
+      "macos"
+    ],
+    "freeModel": "open_source",
+    "tagline": "Genera y edita imágenes, también transparentes, con pesos descargables sólo para investigación.",
+    "descriptionShort": "Modelo de Qwen que genera y edita imágenes en un solo modelo, con 7.000 millones de parámetros en su parte visual. Crea imágenes normales o transparentes en RGBA, edita capas transparentes y recorta sujetos de una foto.",
+    "verdict": "La transparencia nativa es rara y útil para pegatinas, iconos o montajes. Pero la licencia manda: los pesos se descargan, y su Acuerdo de Licencia de Investigación prohíbe cualquier uso comercial sin una licencia aparte. Abierto para probar; cerrado para facturar.",
+    "freePlan": {
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "no",
+      "creditReset": "none",
+      "verifiedAt": "2026-09-24",
+      "summary": "Pesos descargables en Hugging Face bajo el Acuerdo de Licencia de Investigación de Qwen, que limita el uso a investigación o evaluación. Para cualquier uso comercial hay que pedir una licencia aparte.",
+      "limits": [
+        "Licencia de investigación: sólo uso no comercial",
+        "7.000 millones de parámetros en el componente visual",
+        "Imágenes normales o transparentes (RGBA)",
+        "Se ejecuta en tu equipo: exige GPU"
+      ]
+    },
+    "capabilities": [
+      "text-to-image",
+      "image-editing",
+      "background-removal",
+      "model-download"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Hay que descargar los pesos y ejecutarlos con Diffusers o ComfyUI, con GPU.",
+    "scores": {
+      "freeReal": 6,
+      "usefulness": 7,
+      "ease": 3,
+      "transparency": 9,
+      "creatorValue": 4
+    },
+    "sources": [
+      {
+        "url": "https://huggingface.co/Qwen/Qwen-Image-2.1",
+        "label": "Ficha oficial del modelo",
+        "kind": "repo",
+        "publisher": "huggingface.co",
+        "checkedAt": "2026-09-24"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/QwenLM/Qwen-Image-2.1/main/LICENSE",
+        "label": "Licencia oficial",
+        "kind": "repo",
+        "publisher": "raw.githubusercontent.com",
+        "checkedAt": "2026-09-24"
+      }
+    ],
+    "evidence": [
+      {
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://raw.githubusercontent.com/QwenLM/Qwen-Image-2.1/main/LICENSE",
+        "sourceKind": "licence",
+        "scope": "weights",
+        "checkedAt": "2026-09-24",
+        "quote": "You shall not use the Materials for any commercial purpose without obtaining a separate commercial license from us."
+      },
+      {
+        "field": "capabilities",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/Qwen/Qwen-Image-2.1",
+        "sourceKind": "repo",
+        "scope": "weights",
+        "checkedAt": "2026-09-24",
+        "quote": "Native Transparency, Unified Creation and Editing — Generate regular or transparent (RGBA) images from text, edit transparent layers, and extract subjects from photographs—all in one model."
+      }
+    ],
+    "id": "tool_qwen-image-2-1",
+    "nextReviewAt": "2026-12-23",
+    "lastVerifiedAt": "2026-09-24",
+    "updatedAt": "2026-09-24"
   },
   {
     "skillLevel": "beginner",
@@ -11618,6 +13703,114 @@
     "access": {}
   },
   {
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-09-24",
+    "skillLevel": "advanced",
+    "access": {},
+    "licences": {},
+    "slug": "smolagents",
+    "name": "smolagents",
+    "kind": "framework",
+    "productType": "library",
+    "verification": "pending_review",
+    "categorySlug": "agentes",
+    "officialUrl": "https://github.com/huggingface/smolagents",
+    "repoUrl": "https://github.com/huggingface/smolagents",
+    "hosting": "local",
+    "openSource": "yes",
+    "licence": "Apache-2.0",
+    "platforms": [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "freeModel": "open_source",
+    "tagline": "La biblioteca mínima de Hugging Face para agentes que piensan en código.",
+    "descriptionShort": "Biblioteca de Python de Hugging Face para crear agentes en pocas líneas. Sus agentes escriben sus acciones como código en vez de como llamadas a herramientas. Código abierto con licencia Apache 2.0.",
+    "verdict": "Pequeña a propósito: se lee entera en una tarde y se entiende qué hace el agente, que es justo lo que falta en los marcos grandes. Hay que programar.",
+    "freePlan": {
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-09-24",
+      "summary": "Biblioteca con licencia Apache 2.0, sin cuotas propias. El coste es el del modelo que se conecte.",
+      "limits": [
+        "Licencia Apache 2.0",
+        "Necesita un modelo: de pago por API o local",
+        "Hay que programar en Python"
+      ]
+    },
+    "capabilities": [
+      "tool-use",
+      "code-execution"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Es una biblioteca de Python: se programa, no se abre.",
+    "scores": {
+      "freeReal": 9,
+      "usefulness": 7,
+      "ease": 4,
+      "transparency": 9,
+      "creatorValue": 6
+    },
+    "sources": [
+      {
+        "url": "https://github.com/huggingface/smolagents",
+        "label": "Repositorio oficial",
+        "kind": "repo",
+        "publisher": "github.com",
+        "checkedAt": "2026-09-24"
+      }
+    ],
+    "evidence": [
+      {
+        "field": "openSource",
+        "outcome": "stated",
+        "sourceUrl": "https://github.com/huggingface/smolagents",
+        "sourceKind": "repo",
+        "scope": "local",
+        "checkedAt": "2026-09-24",
+        "quote": "Apache-2.0 license"
+      },
+      {
+        "field": "capabilities",
+        "outcome": "stated",
+        "sourceUrl": "https://github.com/huggingface/smolagents",
+        "sourceKind": "repo",
+        "scope": "local",
+        "checkedAt": "2026-09-24",
+        "quote": "smolagents is a library that enables you to run powerful agents in a few lines of code."
+      }
+    ],
+    "id": "tool_smolagents",
+    "nextReviewAt": "2026-12-23",
+    "lastVerifiedAt": "2026-09-24",
+    "updatedAt": "2026-09-24"
+  },
+  {
     "id": "tool_stable-diffusion-webui",
     "slug": "stable-diffusion-webui",
     "name": "Stable Diffusion WebUI (AUTOMATIC1111)",
@@ -12176,6 +14369,225 @@
     "access": {}
   },
   {
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-09-24",
+    "skillLevel": "beginner",
+    "access": {},
+    "licences": {},
+    "slug": "trae",
+    "name": "Trae",
+    "kind": "app",
+    "productType": "ide",
+    "verification": "pending_review",
+    "categorySlug": "codigo",
+    "officialUrl": "https://www.trae.ai/",
+    "pricingUrl": "https://www.trae.ai/pricing",
+    "hosting": "local",
+    "openSource": "no",
+    "platforms": [
+      "macos",
+      "windows"
+    ],
+    "freeModel": "freemium",
+    "tagline": "Editor con agente de IA con plan gratuito: sólo modo automático y uso limitado.",
+    "descriptionShort": "Editor de código con agente de IA integrado. Tiene un plan Free a 0 $ que sólo permite el modo automático, con un uso básico mensual limitado que no cuantifica.",
+    "verdict": "Hay plan gratuito de verdad, pero su tabla sólo dice «uso limitado» donde los de pago dicen cuánto: no se puede saber si llega para un día de trabajo sin probarlo.",
+    "freePlan": {
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "monthly",
+      "verifiedAt": "2026-09-24",
+      "summary": "Plan Free a 0 $: sólo el modo automático, con un uso básico mensual limitado que la tabla no cuantifica. Pro cuesta 20 $ al mes.",
+      "limits": [
+        "Sólo modo automático",
+        "Uso básico mensual limitado; la cantidad no se publica",
+        "Plan de pago más barato: Pro, 20 $/mes"
+      ]
+    },
+    "capabilities": [
+      "code-generation",
+      "repository-editing"
+    ],
+    "startEffort": "install",
+    "startEffortReason": "Se descarga e instala el editor.",
+    "scores": {
+      "freeReal": 5,
+      "usefulness": 7,
+      "ease": 7,
+      "transparency": 4,
+      "creatorValue": 6
+    },
+    "sources": [
+      {
+        "url": "https://www.trae.ai/pricing",
+        "label": "Página oficial de precios",
+        "kind": "pricing",
+        "publisher": "trae.ai",
+        "checkedAt": "2026-09-24"
+      }
+    ],
+    "evidence": [
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://www.trae.ai/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "Free · $0 · Start for free · Auto mode only · Monthly Basic Usage: Limited usage"
+      },
+      {
+        "field": "freePlan.creditReset",
+        "outcome": "stated",
+        "sourceUrl": "https://www.trae.ai/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "Monthly Basic Usage"
+      }
+    ],
+    "id": "tool_trae",
+    "nextReviewAt": "2026-12-23",
+    "lastVerifiedAt": "2026-09-24",
+    "updatedAt": "2026-09-24"
+  },
+  {
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-09-24",
+    "skillLevel": "beginner",
+    "access": {},
+    "licences": {},
+    "slug": "turboscribe",
+    "name": "TurboScribe",
+    "kind": "app",
+    "verification": "partially_verified",
+    "categorySlug": "voz",
+    "officialUrl": "https://turboscribe.ai/",
+    "pricingUrl": "https://turboscribe.ai/pricing",
+    "hosting": "cloud",
+    "openSource": "no",
+    "platforms": [
+      "web"
+    ],
+    "freeModel": "free_real",
+    "tagline": "Tres transcripciones gratis al día, de hasta 30 minutos cada una.",
+    "descriptionShort": "Transcribe archivos de audio y vídeo en el navegador. Su plan gratuito permite tres archivos al día, de hasta 30 minutos cada uno, con menos prioridad que los de pago.",
+    "verdict": "Cuenta lo que da en tres líneas y lo que da es útil: tres archivos al día de hasta media hora es suficiente para entrevistas o notas de voz. El precio es la espera: los archivos gratuitos van con menor prioridad.",
+    "freePlan": {
+      "requiresSignup": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "daily",
+      "verifiedAt": "2026-09-24",
+      "summary": "Plan gratuito: tres transcripciones al día, cada archivo de hasta 30 minutos, de uno en uno y con menor prioridad. Se entra con una dirección de correo.",
+      "limits": [
+        "3 transcripciones al día",
+        "Cada archivo, hasta 30 minutos; uno cada vez",
+        "Menor prioridad: se espera más"
+      ],
+      "creditsAmount": "3 transcripciones al día"
+    },
+    "capabilities": [
+      "transcription"
+    ],
+    "startEffort": "signup",
+    "startEffortReason": "Hay que registrarse con un correo electrónico.",
+    "scores": {
+      "freeReal": 8,
+      "usefulness": 7,
+      "ease": 9,
+      "transparency": 8,
+      "creatorValue": 6
+    },
+    "sources": [
+      {
+        "url": "https://turboscribe.ai/pricing",
+        "label": "Página oficial de precios",
+        "kind": "pricing",
+        "publisher": "turboscribe.ai",
+        "checkedAt": "2026-09-24"
+      }
+    ],
+    "evidence": [
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://turboscribe.ai/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "TurboScribe Free · 100% Free · 3 Transcripts Daily · Transcribe 3 files for free every day. · 30 Minute Uploads · Each file can be up to 30 minutes long. Upload 1 file at a time. · Lower Priority · Wait longer before your files are transcribed."
+      },
+      {
+        "field": "freePlan.creditReset",
+        "outcome": "stated",
+        "sourceUrl": "https://turboscribe.ai/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "Transcribe 3 files for free every day."
+      },
+      {
+        "field": "freePlan.requiresSignup",
+        "outcome": "stated",
+        "sourceUrl": "https://turboscribe.ai/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "Start Transcribing for Free · Sign up with email address"
+      }
+    ],
+    "id": "tool_turboscribe",
+    "nextReviewAt": "2026-12-23",
+    "lastVerifiedAt": "2026-09-24",
+    "updatedAt": "2026-09-24"
+  },
+  {
     "id": "tool_v0-by-vercel",
     "slug": "v0-by-vercel",
     "name": "v0 by Vercel",
@@ -12329,6 +14741,118 @@
     "licences": {},
     "access": {},
     "productType": "app-builder"
+  },
+  {
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-09-24",
+    "skillLevel": "beginner",
+    "access": {},
+    "licences": {},
+    "slug": "vidu",
+    "name": "Vidu",
+    "kind": "app",
+    "verification": "pending_review",
+    "categorySlug": "video",
+    "officialUrl": "https://www.vidu.com/",
+    "pricingUrl": "https://www.vidu.com/pricing",
+    "hosting": "cloud",
+    "openSource": "no",
+    "platforms": [
+      "web"
+    ],
+    "freeModel": "credits",
+    "tagline": "Créditos por registrarte y por entrar cada día; la cantidad no se publica.",
+    "descriptionShort": "Generador de vídeo a partir de texto o de imágenes. Sin suscripción se consigue con créditos: unos de prueba al registrarse y otros por iniciar sesión cada día.",
+    "verdict": "Hay acceso sin pagar, y se renueva a diario, pero la página de precios no dice cuántos créditos da ni cuánto vídeo sale de ellos. Hasta que lo publique, no se puede saber si da para algo más que probar.",
+    "freePlan": {
+      "requiresSignup": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "daily",
+      "verifiedAt": "2026-09-24",
+      "summary": "Sin suscripción, Vidu da créditos de prueba al registrarse y créditos por iniciar sesión cada día. La página no publica cuántos ni cuánto vídeo sale de ellos.",
+      "limits": [
+        "Créditos de prueba al registrarse",
+        "Créditos por iniciar sesión cada día; la cantidad no se publica"
+      ]
+    },
+    "capabilities": [
+      "text-to-video",
+      "image-to-video"
+    ],
+    "startEffort": "signup",
+    "startEffortReason": "Los créditos van asociados a una cuenta.",
+    "scores": {
+      "freeReal": 5,
+      "usefulness": 6,
+      "ease": 8,
+      "transparency": 4,
+      "creatorValue": 5
+    },
+    "sources": [
+      {
+        "url": "https://www.vidu.com/pricing",
+        "label": "Página oficial de precios",
+        "kind": "pricing",
+        "publisher": "vidu.com",
+        "checkedAt": "2026-09-24"
+      }
+    ],
+    "evidence": [
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://www.vidu.com/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "How to Get Credits? 1. Sign-up Bonus: New users receive trial credits upon registering for Vidu. … 3. Daily Login: Earn credits by logging in every day."
+      },
+      {
+        "field": "freePlan.creditReset",
+        "outcome": "stated",
+        "sourceUrl": "https://www.vidu.com/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "Daily Login: Earn credits by logging in every day."
+      },
+      {
+        "field": "freePlan.requiresSignup",
+        "outcome": "stated",
+        "sourceUrl": "https://www.vidu.com/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "Sign-up Bonus: New users receive trial credits upon registering for Vidu."
+      }
+    ],
+    "id": "tool_vidu",
+    "nextReviewAt": "2026-12-23",
+    "lastVerifiedAt": "2026-09-24",
+    "updatedAt": "2026-09-24"
   },
   {
     "secondaryCategories": [
@@ -12692,5 +15216,123 @@
     "lastVerifiedAt": "2026-08-19",
     "updatedAt": "2026-08-19",
     "access": {}
+  },
+  {
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-09-24",
+    "skillLevel": "intermediate",
+    "access": {},
+    "licences": {},
+    "slug": "zed",
+    "name": "Zed",
+    "kind": "app",
+    "productType": "ide",
+    "verification": "partially_verified",
+    "categorySlug": "codigo",
+    "officialUrl": "https://zed.dev/",
+    "pricingUrl": "https://zed.dev/pricing",
+    "repoUrl": "https://github.com/zed-industries/zed",
+    "hosting": "local",
+    "openSource": "yes",
+    "licence": "GPL-3.0",
+    "platforms": [
+      "macos",
+      "linux",
+      "windows"
+    ],
+    "freeModel": "free_real",
+    "tagline": "Editor de código gratis para siempre, con 2.000 predicciones y uso ilimitado con tus propias claves.",
+    "descriptionShort": "Editor de código de código abierto, muy rápido y con colaboración en directo. El plan Personal es gratuito para siempre: 2.000 predicciones de edición aceptadas y uso ilimitado de la IA con tus propias claves o con agentes externos como Claude Agent o Codex CLI.",
+    "verdict": "La forma más honesta de ofrecer IA gratis en un editor: te da un cupo de predicciones y, a partir de ahí, puedes usar tus propias claves sin límite. Y si no quieres IA, se desactiva entera y sigue siendo un editor rapidísimo.",
+    "freePlan": {
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-09-24",
+      "summary": "Plan Personal a 0 $, «gratis para siempre»: el editor completo, 2.000 predicciones de edición aceptadas y uso ilimitado con tus propias claves de API o con agentes externos. Pro cuesta 10 $ al mes y tiene prueba de 14 días sin tarjeta.",
+      "limits": [
+        "2.000 predicciones de edición aceptadas",
+        "Uso ilimitado con tus propias claves o con agentes externos",
+        "Las funciones de IA se pueden desactivar",
+        "Plan de pago más barato: Pro, 10 $/mes"
+      ],
+      "creditsAmount": "2.000 predicciones aceptadas"
+    },
+    "capabilities": [
+      "code-generation",
+      "tool-use"
+    ],
+    "startEffort": "install",
+    "startEffortReason": "Se descarga e instala el editor; la IA gratuita se activa con una cuenta o con tus claves.",
+    "scores": {
+      "freeReal": 8,
+      "usefulness": 8,
+      "ease": 7,
+      "transparency": 9,
+      "creatorValue": 7
+    },
+    "sources": [
+      {
+        "url": "https://zed.dev/pricing",
+        "label": "Página oficial de precios",
+        "kind": "pricing",
+        "publisher": "zed.dev",
+        "checkedAt": "2026-09-24"
+      },
+      {
+        "url": "https://github.com/zed-industries/zed",
+        "label": "Repositorio oficial",
+        "kind": "repo",
+        "publisher": "github.com",
+        "checkedAt": "2026-09-24"
+      }
+    ],
+    "evidence": [
+      {
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://zed.dev/pricing",
+        "sourceKind": "pricing",
+        "scope": "product",
+        "checkedAt": "2026-09-24",
+        "quote": "PERSONAL · $0 · forever · The next-generation code editor. Free forever. · 2,000 accepted edit predictions · Unlimited use with your API keys or external agents like Claude Agent, Codex CLI, and more"
+      },
+      {
+        "field": "openSource",
+        "outcome": "stated",
+        "sourceUrl": "https://raw.githubusercontent.com/zed-industries/zed/main/LICENSE-GPL",
+        "sourceKind": "licence",
+        "scope": "local",
+        "checkedAt": "2026-09-24",
+        "quote": "The GNU General Public License is a free, copyleft license for software and other kinds of works."
+      }
+    ],
+    "id": "tool_zed",
+    "nextReviewAt": "2026-12-23",
+    "lastVerifiedAt": "2026-09-24",
+    "updatedAt": "2026-09-24"
   }
 ]

@@ -47,6 +47,19 @@ const hidden = decisions.filter((d) => !d.shown);
 
 /** Los tipos que hoy tienen catálogo suficiente para llevar título propio. */
 const TIPOS: Array<{ id: string; type: CodeType; titulo: string; lede: string }> = [
+  /*
+   * Los editores tienen bloque desde que hay tres.
+   *
+   * Con sólo Cursor el editor se quedaba como filtro, y estaba bien: un bloque
+   * de una tarjeta no es un bloque. Con Zed y Trae ya son tres, y «¿qué editor
+   * con IA uso?» es de las preguntas más repetidas de esta vertical.
+   */
+  {
+    id: 'editores',
+    type: 'ide',
+    titulo: 'Editores con IA',
+    lede: 'Un editor completo con la IA dentro: autocompletado, chat y agentes sin salir de él. Sustituyen al que usas, así que se instalan en tu equipo.',
+  },
   {
     id: 'agentes',
     type: 'agent',

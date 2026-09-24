@@ -500,12 +500,26 @@ function informe() {
 const LADO_MINIMO = 64;
 const FORJAS = new Set(['github.com', 'huggingface.co']);
 
+/*
+ * Las que pasan las comprobaciones automáticas y aun así no sirven.
+ *
+ * El tamaño y el formato se miden; que se reconozca, no. El icono oficial de
+ * Google Flow mide más de 64 px y en la ficha se ve como un rectángulo oscuro
+ * borroso: técnicamente válido y útil para nadie. Para éstas, las iniciales.
+ * Cada entrada lleva su motivo, para poder revisarla.
+ */
+const SIN_LOGO_FIABLE = new Map([
+  ['google-flow', 'el icono oficial se ve como un rectángulo oscuro borroso; no identifica la marca'],
+]);
+
 async function completar() {
   const { chromium } = await import('playwright');
   mkdirSync(DESTINO, { recursive: true });
   const registro = existsSync(REGISTRO) ? JSON.parse(readFileSync(REGISTRO, 'utf8')) : {};
   const soloEstos = new Set(process.argv.slice(3));
-  const faltan = tools.filter((t) => !registro[t.slug] && (!soloEstos.size || soloEstos.has(t.slug)));
+  const faltan = tools.filter(
+    (t) => !registro[t.slug] && !SIN_LOGO_FIABLE.has(t.slug) && (!soloEstos.size || soloEstos.has(t.slug))
+  );
   const sinLogo = [];
 
   const navegador = await chromium.launch();
@@ -580,6 +594,15 @@ async function completar() {
      * que viven en el mismo dominio —la documentación de Midjourney, la tabla de
      * precios de Zapier—. Nunca una página de otro dominio.
      */
+    /*
+     * Si la web oficial es la página de un repositorio, aquí no hay nada que
+     * buscar: la portada de su dominio es la de la forja, y su icono es el de
+     * GitHub o el de Hugging Face, no el del proyecto. Pasó con smolagents,
+     * que acabó con el octocat genérico de GitHub como logo. Para esas fichas
+     * deciden las puertas de la organización.
+     */
+    if (esPaginaDeForja(tool.officialUrl)) return { motivo: 'la web oficial es una forja' };
+
     const oficial = new URL(tool.officialUrl);
     const etiquetas = oficial.hostname.split('.');
     const paginas = [

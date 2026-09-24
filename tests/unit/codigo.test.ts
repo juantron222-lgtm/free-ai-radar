@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { getAllTools } from '@lib/data/catalog';
 import { decideFilters, freeAccessLabel, usableFreeNow } from '@lib/data/category-page';
@@ -122,8 +123,17 @@ describe('bloques', () => {
     expect(facilesParaEmpezar(codigo).length).toBeGreaterThanOrEqual(MIN_BLOQUE);
   });
 
-  it('el editor no llega a bloque y se queda como filtro', () => {
-    expect(byType(codigo, 'ide').length).toBeLessThan(MIN_BLOQUE);
+  it('los editores tienen bloque en cuanto llegan a tres', () => {
+    /*
+     * Esta prueba decía lo contrario —que el editor no llegaba a bloque y se
+     * quedaba como filtro— y era cierto con sólo Cursor. Con Zed y Trae hay
+     * tres, y la página les da su bloque. Lo que se fija aquí es la regla, no
+     * el recuento: si un día vuelven a ser menos de tres, el bloque se va solo.
+     */
+    const editores = byType(codigo, 'ide');
+    expect(editores.length).toBeGreaterThanOrEqual(MIN_BLOQUE);
+    const pagina = readFileSync(new URL('../../src/pages/codigo.astro', import.meta.url), 'utf8');
+    expect(pagina).toMatch(/type: 'ide',\s*titulo: 'Editores con IA'/);
     expect(byType(codigo, 'review').length).toBe(0);
   });
 
