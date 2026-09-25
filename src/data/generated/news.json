@@ -1,5 +1,106 @@
 [
   {
+    "id": "news-2026-09-24-gemini-3-8-live-avatar",
+    "slug": "gemini-3-8-live-avatar",
+    "title": "Google añade avatares en tiempo real a Gemini 3.8 Live, por ahora sólo dentro de Gemini Enterprise",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Google DeepMind presentó el 24 de septiembre Gemini 3.8 Live con Live Avatar, que añade presencia visual casi en tiempo real a sus modelos de diálogo en directo. La función combina generación de vídeo casi en tiempo real con voz, de forma que el sistema escucha, ve y habla a la vez, y llega apoyada en el lanzamiento de Gemini 3.8 Live de la semana anterior. Desde ese mismo día está disponible en Gemini Enterprise, y los desarrolladores pueden generar un avatar a partir de una imagen de referencia conservando el parecido o la identidad de marca.",
+    "impact": "El alcance es lo que conviene mirar: está en Gemini Enterprise y crear avatares propios sólo se abre por lista de permitidos, así que no es algo que el público pueda probar hoy. Google afirma haberlo construido con salvaguardas para respetar la identidad y sostiene que todo lo que generan sus productos lleva la marca de agua SynthID. Llega un día después de que Meta presentara sus propios avatares en tiempo real para Muse: dos de los mayores laboratorios han elegido la misma semana para ponerle cara a la voz.",
+    "category": "modelo-multimodal",
+    "eventType": "lanzamiento",
+    "availability": "limited",
+    "publishedAt": "2026-09-24",
+    "checkedAt": "2026-09-25",
+    "officialUrl": "https://deepmind.google/blog/introducing-gemini-38-live-with-live-avatar/",
+    "sources": [
+      {
+        "url": "https://deepmind.google/blog/introducing-gemini-38-live-with-live-avatar/",
+        "kind": "official",
+        "label": "Introducing Gemini 3.8 Live with Live Avatar",
+        "checkedAt": "2026-09-25",
+        "publisher": "deepmind.google"
+      },
+      {
+        "url": "https://deepmind.google/blog/rss.xml",
+        "kind": "official",
+        "label": "Google DeepMind News, canal oficial",
+        "checkedAt": "2026-09-25",
+        "publisher": "deepmind.google"
+      },
+      {
+        "url": "https://www.meta.com/blog/meta-connect-2026-everything-we-announced/",
+        "kind": "official",
+        "label": "Everything We Announced at Meta Connect 2026",
+        "checkedAt": "2026-09-25",
+        "publisher": "meta.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-23-google-private-ai-compute-memoria",
+    "slug": "google-private-ai-compute-memoria",
+    "title": "Google anuncia memoria en servidor para su IA privada, con las claves guardadas sólo en el dispositivo",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Google publicó el 23 de septiembre cómo llevará memoria privada en servidor a Private AI Compute, la plataforma con la que procesa peticiones de IA fuera del dispositivo. La describe como una capa de memoria persistente que funcionaría como una caja fuerte digital en la nube: los datos quedan sellados en almacenamiento cifrado y las claves para abrirlos se guardan en exclusiva en los dispositivos del usuario. Cuando el modelo necesita consultarlos, un canal cifrado de extremo a extremo conecta el dispositivo con un entorno aislado.",
+    "impact": "Dentro de ese enclave seguro los datos se descifran en memoria aislada sólo para atender la petición, se guarda el contexto nuevo y se vuelve a cifrar de inmediato. Google sostiene que la combinación de enclaves por hardware, canales cifrados y bases por usuario con claves derivadas del dispositivo deja los datos inaccesibles para cualquiera, incluida la propia compañía. Conviene leer los tiempos: el texto explica lo que hará, no algo que ya se pueda activar, y lo que está en juego es la memoria continua entre dispositivos sin renunciar a la privacidad.",
+    "category": "privacidad-licencias",
+    "eventType": "anuncio",
+    "availability": "unknown",
+    "publishedAt": "2026-09-23",
+    "checkedAt": "2026-09-25",
+    "officialUrl": "https://deepmind.google/blog/advancing-private-ai-compute-with-secure-server-side-memory/",
+    "sources": [
+      {
+        "url": "https://deepmind.google/blog/advancing-private-ai-compute-with-secure-server-side-memory/",
+        "kind": "official",
+        "label": "Advancing Private AI Compute with secure, server-side memory",
+        "checkedAt": "2026-09-25",
+        "publisher": "deepmind.google"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-23-meta-connect-2026-muse",
+    "slug": "meta-connect-2026-muse",
+    "title": "Meta lleva su agente Muse al escritorio y a las gafas: ya maneja cualquier aplicación del Mac",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Meta publicó el 23 de septiembre el resumen de Connect 2026, centrado en Muse, su agente personal. El uso del ordenador ya está disponible en Muse para Mac: con permiso del usuario, el agente maneja cualquier aplicación y sigue trabajando aunque uno se levante. Anunció además un modo de voz para conversaciones largas en el que Muse trabaja de fondo mientras se habla, la posibilidad de diseñar su voz describiéndola, avatares interactivos bajo el nombre Muse Realtime Avatar y una dirección de correo propia para el agente.",
+    "impact": "Conviene separar lo que ya funciona de lo que está anunciado. Muse en las gafas de IA, activado al decir el nombre del agente, llegará «en los próximos meses»; del colgante Muse Charm, pensado para hablar con Muse desde el bolsillo, Meta dice que contará más a finales de año. El hardware lo completan sus primeras gafas de audio, con sonido de oído abierto, y unas Meta VR Glasses. La compañía calcula que a final de año habrá más de cien estilos de gafas con IA: el agente es la excusa para vender montura.",
+    "category": "agentes",
+    "eventType": "actualizacion",
+    "availability": "available",
+    "publishedAt": "2026-09-23",
+    "checkedAt": "2026-09-25",
+    "officialUrl": "https://www.meta.com/blog/meta-connect-2026-everything-we-announced/",
+    "sources": [
+      {
+        "url": "https://www.meta.com/blog/meta-connect-2026-everything-we-announced/",
+        "kind": "official",
+        "label": "Everything We Announced at Meta Connect 2026",
+        "checkedAt": "2026-09-25",
+        "publisher": "meta.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-09-22-gpt-6-sol-y-luna",
     "slug": "gpt-6-sol-y-luna",
     "title": "OpenAI presenta GPT-6 Sol y Luna, con el mismo contexto que Astra y una fracción de su precio",
