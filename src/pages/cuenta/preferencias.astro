@@ -4,6 +4,7 @@ import { getUserData } from '@lib/data/user-data';
 import { getPopulatedCategories } from '@lib/data/catalog';
 import { CSRF_FIELD } from '@lib/security/csrf';
 import { MIN_PASSWORD_LENGTH } from '@lib/auth/password';
+import { boletinEnMarcha } from '@lib/boletin';
 
 export const prerender = false;
 
@@ -49,6 +50,17 @@ const categories = getPopulatedCategories();
 
     <section class="card prefs-card" aria-labelledby="email-title">
       <h2 id="email-title" class="prefs-title">Correos</h2>
+      {/*
+        Lo que se elige aquí se guarda, pero hoy no sale ningún correo de los
+        que se describen: no hay envío programado. Se dice una vez, arriba, en
+        vez de dejar que «un correo por semana» se lea como un hecho.
+      */}
+      {!boletinEnMarcha() && (
+        <p class="prefs-lede">
+          Todavía no enviamos ningún correo periódico. Guardamos lo que elijas aquí para cuando
+          empecemos.
+        </p>
+      )}
       <form method="post" action="/api/account/preferences" class="prefs-form" data-prefs-ajax>
         <input type="hidden" name={CSRF_FIELD} value={Astro.locals.csrfToken} />
         <input type="hidden" name="scope" value="all" />
@@ -57,7 +69,7 @@ const categories = getPopulatedCategories();
           <input type="checkbox" name="weeklyDigest" checked={data.preferences.weeklyDigest} />
           <span>
             <strong>Resumen semanal</strong>
-            <span class="hint">Qué ha cambiado y qué merece la pena. Un correo por semana.</span>
+            <span class="hint">Qué ha cambiado y qué merece la pena, una vez por semana.</span>
           </span>
         </label>
 

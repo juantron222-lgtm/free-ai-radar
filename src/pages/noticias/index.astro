@@ -272,21 +272,15 @@ void itemListSchema;
       </>
     )}
 
-    <section class="panel" aria-labelledby="cta-title">
-      <div class="news-section-head">
-        <h2 id="cta-title" class="panel-titulo">No vuelvas a enterarte tarde</h2>
-        <p class="panel-entradilla">
-          Los planes gratuitos cambian sin avisar. Puedes seguir una herramienta concreta desde su
-          ficha, o recibir el resumen semanal con lo que ha cambiado.
-        </p>
-      </div>
-      <div class="news-cta-actions">
-        <a href={ROUTES.tools} class="btn btn-secondary btn-sm">Seguir una herramienta</a>
-        <a href={ROUTES.pricing} class="btn btn-ghost btn-sm">Avisos inmediatos con Pro</a>
-        <a href="/rss.xml" class="btn btn-ghost btn-sm">RSS</a>
-      </div>
-    </section>
+    {/*
+      Un solo bloque para seguir los cambios, y que diga lo que hay.
 
+      Aquí había otro encima que ofrecía «seguir una herramienta desde su
+      ficha» —la propia página de alertas dice que todavía no se puede—,
+      «avisos inmediatos con Pro» —Pro no existe— y el resumen semanal, que
+      nada envía. Lo que sí existe, el RSS, lo ofrece el bloque del boletín
+      mientras el boletín no exista.
+    */}
     <NewsletterForm source="noticias" />
 
     <p class="news-method">
@@ -443,12 +437,6 @@ void itemListSchema;
     margin: 0.1rem 0 0;
     font-size: 0.875rem;
     color: var(--ink-muted);
-  }
-
-  .news-cta-actions {
-    display: flex;
-    gap: var(--space-2xs);
-    flex-wrap: wrap;
   }
 
   .news-empty {

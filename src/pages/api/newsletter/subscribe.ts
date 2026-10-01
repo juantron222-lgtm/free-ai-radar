@@ -8,6 +8,7 @@ import { newsletterConfirmEmail } from '@lib/email/templates';
 import { CATEGORY_SLUGS } from '@lib/domain/taxonomy';
 import { runtimeUrl } from '@lib/runtime-origin';
 import { logger } from '@lib/observability/logger';
+import { BOLETIN_NO_DISPONIBLE, boletinEnMarcha } from '@lib/boletin';
 
 export const prerender = false;
 
@@ -27,6 +28,18 @@ const SAME_ANSWER =
   'Casi está. Te hemos enviado un correo para confirmar la suscripción — hasta que lo abras no te escribiremos.';
 
 export const POST: APIRoute = async (context) => {
+  /*
+   * Sin boletín, sin dirección.
+   *
+   * Antes de todo lo demás: mientras nada envíe el boletín, guardar el correo
+   * de alguien es recoger un dato personal para un fin que no se cumple, y
+   * contestarle «te hemos enviado un correo» es falso. Se dice lo que hay.
+   */
+  if (!boletinEnMarcha()) {
+    logger.info('newsletter.subscribe.inactive');
+    return json({ ok: false, message: BOLETIN_NO_DISPONIBLE }, 503);
+  }
+
   const check = await guard(context, { rateLimit: 'newsletter', honeypot: 'website' });
   if (!check.ok) return check.response!;
   if (check.trapped) return json({ ok: true, message: SAME_ANSWER });

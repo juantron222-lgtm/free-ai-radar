@@ -1,5 +1,6 @@
 ---
 import { getPopulatedCategories } from '@lib/data/catalog';
+import { boletinEnMarcha } from '@lib/boletin';
 import { ROUTES } from '@lib/nav';
 
 interface Props {
@@ -10,9 +11,39 @@ interface Props {
 const { variant = 'panel', source = 'web' } = Astro.props;
 const categories = getPopulatedCategories().slice(0, 8);
 const formId = `newsletter-${Math.random().toString(36).slice(2, 8)}`;
+const clase = `newsletter ${variant === 'inline' ? 'newsletter-inline' : 'card newsletter-panel'}`;
+
+/*
+ * Sin boletín, el bloque dice dónde están los cambios y no pide el correo.
+ *
+ * Prometía «un correo a la semana» y nada lo enviaba (ver `lib/boletin.ts`).
+ * Lo que sí existe es Noticias y su RSS, así que eso es lo que se ofrece. El
+ * formulario sigue aquí entero: vuelve solo el día que el envío exista.
+ */
+const enMarcha = boletinEnMarcha();
 ---
 
-<section class={`newsletter ${variant === 'inline' ? 'newsletter-inline' : 'card newsletter-panel'}`} aria-labelledby={`${formId}-title`}>
+{!enMarcha ? (
+  <section class={`${clase} newsletter-pendiente`} aria-labelledby={`${formId}-title`}>
+    <div class="newsletter-copy">
+      <p class="eyebrow">Seguir los cambios</p>
+      <h2 id={`${formId}-title`} class="newsletter-title">
+        Cuando un plan gratuito cambia, lo publicamos en Noticias
+      </h2>
+      <p class="newsletter-lede">
+        Todavía no enviamos boletín por correo, así que no te pedimos el tuyo. Si quieres que los
+        cambios te lleguen solos, el RSS de Noticias te los trae.
+      </p>
+    </div>
+    <div class="newsletter-salidas">
+      {source !== 'noticias' && (
+        <a href={ROUTES.news} class="btn btn-secondary">Ver las noticias</a>
+      )}
+      <a href="/rss.xml" class="btn btn-ghost">Seguir por RSS</a>
+    </div>
+  </section>
+) : (
+<section class={clase} aria-labelledby={`${formId}-title`}>
   <div class="newsletter-copy">
     <p class="eyebrow">Boletín semanal</p>
     <h2 id={`${formId}-title`} class="newsletter-title">
@@ -90,6 +121,7 @@ const formId = `newsletter-${Math.random().toString(36).slice(2, 8)}`;
     <p class="newsletter-result" role="status" data-newsletter-result hidden></p>
   </form>
 </section>
+)}
 
 <style>
   .newsletter-panel {
@@ -101,6 +133,19 @@ const formId = `newsletter-${Math.random().toString(36).slice(2, 8)}`;
   .newsletter-inline {
     display: grid;
     gap: var(--space-s);
+  }
+
+  .newsletter-salidas {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2xs);
+  }
+
+  @media (min-width: 56rem) {
+    .newsletter-pendiente .newsletter-salidas {
+      align-self: center;
+    }
   }
 
   .newsletter-inline .newsletter-title {
