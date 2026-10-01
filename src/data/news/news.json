@@ -1,5 +1,121 @@
 [
   {
+    "id": "news-2026-09-30-gemini-4-argon",
+    "slug": "gemini-4-argon",
+    "title": "Google lanza Gemini 4 Argon sólo para defensores de ciberseguridad, y al abrirlo empezará por quien paga",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Google anunció el 30 de septiembre Gemini 4 Argon, su nuevo modelo de frontera, que está llegando a un grupo de defensores de ciberseguridad de confianza a través de su programa Fairwind. Todavía no está disponible para desarrolladores, empresas ni consumidores: la compañía dice que irá ampliando el acceso poco a poco y que participa en el proceso voluntario del Gobierno de Estados Unidos para dar acceso a los modelos antes de publicarlos. El límite de tokens de salida sube a un millón, frente a los 64.000 anteriores.",
+    "impact": "El precio ya está puesto: durante el periodo de introducción, 2 dólares por millón de tokens de entrada y 10 por millón de salida, y después 4 y 20, con la entrada en caché un 95 % más barata. Cuando se abra, el reparto empezará por los clientes de pago de la API y los suscriptores de Google AI Ultra, y el anuncio no menciona ningún acceso gratuito. Hay además una decisión que conviene leer dos veces: a los defensores de confianza y a sus propios equipos Google les entregará Argon sin las barreras de ciberseguridad, para que puedan usarlo a plena capacidad.",
+    "category": "modelo-lenguaje",
+    "eventType": "lanzamiento",
+    "availability": "limited",
+    "publishedAt": "2026-09-30",
+    "checkedAt": "2026-10-01",
+    "officialUrl": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
+    "sources": [
+      {
+        "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
+        "kind": "official",
+        "label": "Gemini 4 Argon: our next era of frontier intelligence",
+        "checkedAt": "2026-10-01",
+        "publisher": "blog.google"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-30-gemini-skills-sustituyen-gems",
+    "slug": "gemini-skills-sustituyen-gems",
+    "title": "Gemini estrena «skills» y jubila los Gems: en las cuentas personales dejan de funcionar a partir de noviembre",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Google empezó a repartir el 30 de septiembre las «skills» en el chat de Gemini a escala global: instrucciones guardadas que se reutilizan escribiendo una barra y su nombre en la barra de la petición. Ya estaban en Gemini Spark y vienen a sustituir a los Gems. Se pueden combinar varias a la vez, Gemini puede construirlas a partir de las conversaciones y ejecutarlas al detectar una petición que encaje, y desde ese día pueden incluir ficheros de referencia: documentos de texto, PDF o imágenes.",
+    "impact": "La fecha importa más que la novedad. Google retirará el soporte de los Gems a partir de noviembre en las cuentas personales, en marzo de 2027 para clientes de empresa y sin ánimo de lucro de Workspace y en junio de 2027 para los de educación; dice que los migrará a skills automáticamente cuando desaparezcan. Con el mismo plazo de noviembre cierra Opal, su experimento para construir mini aplicaciones, y los Gems de Google Labs, que ésos no se migran. En una nota añade que las skills están en todos los niveles de suscripción de Google AI y, por ahora, sólo para mayores de 18 años.",
+    "category": "agentes",
+    "eventType": "actualizacion",
+    "availability": "available",
+    "publishedAt": "2026-09-30",
+    "checkedAt": "2026-10-01",
+    "officialUrl": "https://blog.google/products-and-platforms/products/gemini/automate-tasks-with-skills/",
+    "sources": [
+      {
+        "url": "https://blog.google/products-and-platforms/products/gemini/automate-tasks-with-skills/",
+        "kind": "official",
+        "label": "Let skills in Gemini tackle your most repetitive tasks",
+        "checkedAt": "2026-10-01",
+        "publisher": "blog.google"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-30-open-tts-leaderboard",
+    "slug": "open-tts-leaderboard",
+    "title": "Hugging Face abre una clasificación de voz sintética medida con métricas objetivas, no con votos",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Hugging Face publicó el 30 de septiembre el Open TTS Leaderboard, una clasificación de modelos de voz sintética centrada en el código abierto y en varios idiomas. Cuenta que en su Hub hay ya más de 8.000 modelos de este tipo y sostiene que la evaluación no ha seguido ese ritmo: sigue fragmentada y sin estandarizar. En vez de recoger votos mide con métricas objetivas: inteligibilidad por tasa de error transcribiendo con Qwen3 ASR, velocidad en una GPU H200 y parecido de voz entre el audio generado y el de referencia.",
+    "impact": "El argumento de fondo es de representación: sostienen que las arenas de votos no pueden seguir el ritmo de los lanzamientos, y ahí los modelos abiertos salen poco: a 30 de septiembre sólo 16 de los 92 modelos de Artificial Analysis tienen pesos abiertos. Con métricas objetivas, dicen, evaluar un modelo baja de un par de semanas a un par de horas. El límite lo ponen ellos: esto no sustituye la clasificación por preferencia humana, porque ninguna de esas métricas mide la naturalidad, la expresividad ni lo que prefiere quien escucha. Para eso hay una pestaña donde escuchar los audios.",
+    "category": "audio",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-09-30",
+    "checkedAt": "2026-10-01",
+    "officialUrl": "https://huggingface.co/blog/open-tts-leaderboard",
+    "sources": [
+      {
+        "url": "https://huggingface.co/blog/open-tts-leaderboard",
+        "kind": "official",
+        "label": "Open TTS Leaderboard: Scalable Evaluation for Multilingual Text-to-Speech and Voice Cloning",
+        "checkedAt": "2026-10-01",
+        "publisher": "huggingface.co/blog"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-29-ollama-modelos-decision",
+    "slug": "ollama-modelos-decision",
+    "title": "Ollama estrena modelos de decisión que responden en la propia máquina, y uno de los tres es de código abierto",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Ollama añadió el 29 de septiembre soporte para modelos de decisión, basados en la API Jev de TypeSafe. Está disponible desde la versión 0.35 mediante un endpoint nuevo, /v1/systemone: se le envía un texto como estado junto a un conjunto de preguntas con nombre y un modelo que corre en la propia máquina las responde todas en una sola petición. Lo presenta como decisiones rápidas y con tipos, sin coste adicional y con menos latencia al ejecutarlo en local, con tres modelos disponibles el mismo día.",
+    "impact": "De los tres, nimble es de código abierto, tiene 9.000 millones de parámetros y lo ha hecho Bespoke Labs; tev1 y tev1:0.8b son experimentales de Together AI, de 4.000 y 800 millones. Ollama los propone para clasificar tickets, encaminar peticiones entre modelos y moderar contenido, tareas en las que la decisión tiene que llegar rápida más que brillante. Su propia medida: Nimble 9B promedió 91 milisegundos por decisión en un M5 Max. La comparativa que enseña no es suya, sino de Bespoke Labs, sobre 13 conjuntos públicos con etiquetas humanas y 3.880 decisiones.",
+    "category": "local-open-source",
+    "eventType": "actualizacion",
+    "availability": "available",
+    "publishedAt": "2026-09-29",
+    "checkedAt": "2026-10-01",
+    "officialUrl": "https://ollama.com/blog/ollama-now-supports-jev-style-decision-models",
+    "sources": [
+      {
+        "url": "https://ollama.com/blog/ollama-now-supports-jev-style-decision-models",
+        "kind": "official",
+        "label": "Ollama now supports Jev-style decision models",
+        "checkedAt": "2026-10-01",
+        "publisher": "ollama.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-09-24-gemini-3-8-live-avatar",
     "slug": "gemini-3-8-live-avatar",
     "title": "Google añade avatares en tiempo real a Gemini 3.8 Live, por ahora sólo dentro de Gemini Enterprise",

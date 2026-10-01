@@ -550,3 +550,11 @@ espera de la misma decisión:
   ya se orquestan con agentes.
 - `gemini-app-windows` en `modelo-multimodal`: es el lanzamiento de una
   aplicación de escritorio, no el de un modelo.
+
+Y el 1 de octubre, por lo mismo:
+
+- `gemini-skills-sustituyen-gems` en `agentes`: lo que se lanza son instrucciones
+  guardadas y reutilizables dentro de un chat. Encaja con `agentes` sólo porque
+  Gemini puede ejecutarlas por su cuenta al reconocer una petición; lo que la
+  noticia cuenta de verdad es un cambio de producto y la retirada de los Gems.
+  Si Web V2 crea una categoría para asistentes o productividad, ésta se mueve.
