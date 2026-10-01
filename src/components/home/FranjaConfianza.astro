@@ -57,29 +57,45 @@ const { recuento } = Astro.props;
 </aside>
 
 <style>
+  /*
+   * Cifras grandes, entre dos filetes.
+   *
+   * Era una píldora gris con números a 18 px, y se leía como un pie de página.
+   * Son las cifras que sostienen la promesa de la portada —cuántas hemos
+   * revisado y en qué estado está cada una—, así que se dicen al tamaño de
+   * una cifra, sin caja alrededor: el filete basta para separarlas.
+   */
   .franja {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-2xs) var(--space-m);
-    padding: var(--space-s) var(--space-m);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-l);
-    background: var(--surface-sunken);
+    display: grid;
+    gap: var(--space-s);
+    padding-block: var(--space-m);
+    border-block: 1px solid var(--line);
   }
 
   .franja-cifras {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2xs) var(--space-m);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-m) var(--space-s);
     margin: 0;
+  }
+
+  @media (min-width: 40rem) {
+    .franja-cifras {
+      grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+      gap: var(--space-s);
+    }
+
+    .franja-cifras div + div {
+      padding-inline-start: var(--space-s);
+      border-inline-start: 1px solid var(--line);
+    }
   }
 
   .franja-cifras div {
     display: flex;
-    align-items: baseline;
-    gap: 0.4rem;
+    flex-direction: column;
+    gap: 0.35rem;
+    min-width: 0;
   }
 
   .franja-cifras dt {
@@ -91,8 +107,11 @@ const { recuento } = Astro.props;
   .franja-cifras dd {
     order: 1;
     margin: 0;
-    font-size: 1.125rem;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 1.55rem + 1.8vw, 3rem);
     font-weight: 650;
+    line-height: 1;
+    letter-spacing: -0.04em;
     color: var(--ink-strong);
   }
 

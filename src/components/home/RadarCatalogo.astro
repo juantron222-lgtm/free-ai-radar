@@ -1,0 +1,400 @@
+---
+import { ANILLOS, MARGEN, RADIO, arco, radioEn, type AnilloId, type Radar } from '@lib/data/radar';
+
+interface Props {
+  radar: Radar;
+}
+
+const { radar } = Astro.props;
+
+/*
+ * El radar se dibuja en tres capas apiladas: el fondo (zona gratuita, anillos
+ * y radios), el barrido y, encima, los puntos y los nombres. El barrido va en
+ * medio porque es un degradado cónico de CSS —SVG no los tiene— y tiene que
+ * pasar por debajo de los puntos sin taparlos.
+ */
+const LADO = RADIO + MARGEN;
+const caja = `${-LADO} ${-LADO} ${2 * LADO} ${2 * LADO}`;
+const insetBarrido = `${((MARGEN / (2 * LADO)) * 100).toFixed(3)}%`;
+
+const HUECO = ANILLOS[0]!.desde;
+const bordes = ANILLOS.map((a) => a.hasta);
+
+/*
+ * Los nombres van escritos sobre el borde, como en la esfera de un
+ * instrumento. En la mitad de abajo el arco se recorre al revés para que no
+ * queden cabeza abajo, y la línea base se aleja un poco más, porque ahí el
+ * texto crece hacia dentro.
+ */
+const rotulos = radar.sectores.map((s) => {
+  const medio = (s.desde + s.hasta) / 2;
+  const abajo = Math.sin((medio * Math.PI) / 180) > 0.05;
+  return {
+    id: s.id,
+    texto: s.etiqueta.toLocaleUpperCase('es'),
+    trazado: arco(abajo ? RADIO + 20 : RADIO + 9, s.desde, s.hasta, abajo),
+  };
+});
+
+const LEYENDA: Record<AnilloId, string> = {
+  web: 'Gratis, desde el navegador',
+  instalar: 'Gratis si la instalas o la montas tú',
+  prueba: 'Sólo de prueba, o sin comprobar',
+  pago: 'De pago',
+};
+
+const plural = (n: number, uno: string, varios: string) => `${n} ${n === 1 ? uno : varios}`;
+
+/*
+ * Lo que hay en cada sector, dicho con palabras.
+ *
+ * Sirve dos veces: como descripción del dibujo para quien no lo ve, y como la
+ * línea que aparece debajo del radar mientras se señala una puerta.
+ *
+ * Siempre «como clase principal». La página de Imagen cuenta 22 porque mete
+ * también a quien hace imagen además de otra cosa; el radar pone cada ficha
+ * una sola vez y le salen 21. Las dos cifras son ciertas, y puestas una al
+ * lado de la otra sin decir qué cuenta cada una parecerían un error. Por eso
+ * la línea de la puerta no lleva el total: lleva el reparto.
+ */
+const DETALLE: Record<AnilloId, [string, string]> = {
+  web: ['gratis desde el navegador', 'gratis desde el navegador'],
+  instalar: ['gratis si la instalas o montas tú', 'gratis si las instalas o montas tú'],
+  prueba: ['de prueba o sin comprobar', 'de prueba o sin comprobar'],
+  pago: ['de pago', 'de pago'],
+};
+const enumera = (partes: string[]) =>
+  partes.length <= 1 ? (partes[0] ?? '') : `${partes.slice(0, -1).join(', ')} y ${partes.at(-1)}`;
+const detalles = radar.sectores.map((s) => {
+  const total = ANILLOS.reduce((n, a) => n + s.recuento[a.id], 0);
+  const partes = ANILLOS.filter((a) => s.recuento[a.id] > 0).map(
+    (a) => `${s.recuento[a.id]} ${DETALLE[a.id][s.recuento[a.id] === 1 ? 0 : 1]}`
+  );
+  return { id: s.id, etiqueta: s.etiqueta, cuantas: plural(total, 'herramienta', 'herramientas'), texto: enumera(partes) };
+});
+const resumenSector = detalles.map((d) => `Con ${d.etiqueta} como clase principal, ${d.cuantas}: ${d.texto}.`).join(' ');
+
+---
+
+<figure class="radar">
+  <div class="radar-lienzo">
+    <svg class="radar-capa radar-fondo" viewBox={caja} aria-hidden="true" focusable="false">
+      <circle class="radar-zona" r={ANILLOS[0]!.hasta} />
+      {bordes.map((r, i) => <circle class:list={['radar-anillo', { 'radar-anillo-borde': i === bordes.length - 1 }]} r={r} />)}
+      {radar.sectores.map((s) => {
+        const l = radioEn(s.desde, HUECO, RADIO);
+        return <line class="radar-radio" x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2} />;
+      })}
+      <circle class="radar-centro" r="3" />
+    </svg>
+
+    <div class="radar-capa radar-barrido" style={`inset: ${insetBarrido}`} aria-hidden="true"></div>
+
+    <svg class="radar-capa radar-frente" viewBox={caja} role="img" aria-labelledby="radar-titulo radar-desc">
+      <title id="radar-titulo">El catálogo en un radar: {radar.total} herramientas por clase y por lo que cuesta usarlas</title>
+      <desc id="radar-desc">{resumenSector}</desc>
+      <defs>
+        {rotulos.map((r) => <path id={`radar-arco-${r.id}`} d={r.trazado} />)}
+      </defs>
+      {radar.sectores.map((s) => (
+        <g class="radar-sector" data-sector={s.id}>
+          <text class="radar-rotulo">
+            <textPath href={`#radar-arco-${s.id}`} startOffset="50%">{rotulos.find((r) => r.id === s.id)!.texto}</textPath>
+          </text>
+          {s.puntos.map((p) => (
+            <circle
+              class:list={['radar-punto', `radar-punto-${p.anillo}`]}
+              cx={p.x}
+              cy={p.y}
+              r={p.anillo === 'web' ? 5 : 4.25}
+              style={`--vuelta: ${p.vuelta}`}
+            >
+              <title>{p.nombre}</title>
+            </circle>
+          ))}
+        </g>
+      ))}
+    </svg>
+  </div>
+
+  <figcaption class="radar-pie">
+    {/*
+      La lectura general y la de cada sector ocupan la misma celda: la hero
+      enseña una u otra según qué puerta se señale, y como la celda mide lo que
+      la más larga, la leyenda de debajo no salta.
+    */}
+    <div class="radar-lecturas">
+      <p class="radar-lectura">
+        Cada punto es una herramienta, en su clase principal. Cuanto más cerca del centro, antes la
+        usas sin pagar.
+      </p>
+      {detalles
+        .filter((d) => d.id !== 'otras')
+        .map((d) => (
+          <p class="radar-foco" data-sector={d.id} aria-hidden="true">
+            <strong>{d.etiqueta}</strong> como clase principal: {d.texto}.
+          </p>
+        ))}
+    </div>
+    <ul class="radar-leyenda">
+      {ANILLOS.map((a) => (
+        <li>
+          <svg class="radar-muestra" viewBox="-6 -6 12 12" aria-hidden="true" focusable="false">
+            <circle class:list={['radar-punto-muestra', `radar-punto-${a.id}`]} r="4.25" />
+          </svg>
+          <span class="radar-cifra tnum">{radar.recuento[a.id]}</span>
+          <span class="radar-anillo-nombre">{LEYENDA[a.id]}</span>
+        </li>
+      ))}
+    </ul>
+    {radar.retiradas > 0 && (
+      <p class="radar-fuera">
+        Sin contar {plural(radar.retiradas, 'retirada, que ya no se puede usar', 'retiradas, que ya no se pueden usar')}.
+      </p>
+    )}
+  </figcaption>
+</figure>
+
+<style>
+  .radar {
+    /* Lo que tarda el barrido en dar la vuelta; los puntos se encienden a su paso. */
+    --radar-vuelta: 2.6s;
+
+    display: grid;
+    gap: var(--space-s);
+    width: 100%;
+    max-width: 30rem;
+    margin: 0;
+    justify-self: center;
+  }
+
+  /*
+   * Recortado, por el barrido.
+   *
+   * Es una caja cuadrada con las esquinas redondeadas, y al girar sus esquinas
+   * salen del lienzo: Firefox y Safari las cuentan para el desplazamiento y a
+   * 375 px la portada se movía de lado mientras daba la vuelta. Nada del radar
+   * dibuja fuera del lienzo —los nombres van dentro del margen—, así que
+   * recortar no quita nada.
+   */
+  .radar-lienzo {
+    position: relative;
+    aspect-ratio: 1;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .radar-capa {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  /* --- Fondo --- */
+
+  .radar-zona {
+    fill: var(--signal-soft);
+  }
+
+  .radar-anillo {
+    fill: none;
+    stroke: var(--line);
+    stroke-width: 1;
+    stroke-dasharray: 2 4;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .radar-anillo-borde {
+    stroke: var(--line-strong);
+    stroke-dasharray: none;
+  }
+
+  .radar-radio {
+    stroke: var(--line);
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .radar-centro {
+    fill: var(--signal);
+  }
+
+  /* --- Barrido: una vuelta al cargar, y se apaga --- */
+
+  .radar-barrido {
+    position: absolute;
+    width: auto;
+    height: auto;
+    border-radius: 50%;
+    background: conic-gradient(
+      from 0turn,
+      transparent 0turn 0.78turn,
+      var(--signal-line) 0.998turn,
+      var(--signal) 0.998turn 1turn
+    );
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* --- Frente --- */
+
+  .radar-rotulo {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    fill: var(--ink-muted);
+    transition: fill 160ms ease;
+  }
+
+  @media (min-width: 62rem) {
+    .radar-rotulo {
+      font-size: 12.5px;
+    }
+  }
+
+  .radar-sector {
+    transition: opacity 200ms ease;
+  }
+
+  .radar-punto {
+    pointer-events: all;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 140ms ease;
+  }
+
+  .radar-punto-web {
+    fill: var(--signal);
+  }
+
+  .radar-punto-instalar {
+    fill: var(--paper);
+    stroke: var(--signal);
+    stroke-width: 1.75;
+  }
+
+  .radar-punto-prueba {
+    fill: var(--paper);
+    stroke: var(--ink-subtle);
+    stroke-width: 1.5;
+  }
+
+  .radar-punto-pago {
+    fill: var(--ink-subtle);
+  }
+
+  @media (hover: hover) {
+    .radar-punto:hover {
+      transform: scale(1.7);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .radar-barrido {
+      animation: radar-vuelta var(--radar-vuelta) linear 0.25s 1 both;
+    }
+
+    .radar-punto {
+      animation: radar-aparece 520ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
+      animation-delay: calc(0.25s + var(--vuelta) * var(--radar-vuelta));
+    }
+  }
+
+  @keyframes radar-vuelta {
+    0% {
+      opacity: 1;
+      transform: rotate(0turn);
+    }
+
+    88% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+      transform: rotate(1turn);
+    }
+  }
+
+  @keyframes radar-aparece {
+    from {
+      opacity: 0;
+      scale: 0.2;
+    }
+
+    to {
+      opacity: 1;
+      scale: 1;
+    }
+  }
+
+  /* --- Pie --- */
+
+  .radar-pie {
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .radar-lecturas {
+    display: grid;
+  }
+
+  .radar-lectura,
+  .radar-foco {
+    grid-area: 1 / 1;
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+
+  .radar-foco {
+    visibility: hidden;
+  }
+
+  .radar-foco strong {
+    color: var(--signal-strong);
+    font-weight: 650;
+  }
+
+  .radar-leyenda {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.35rem var(--space-s);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .radar-leyenda li {
+    display: grid;
+    grid-template-columns: 12px 2.25ch minmax(0, 1fr);
+    align-items: baseline;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    line-height: 1.35;
+    color: var(--ink-muted);
+  }
+
+  .radar-muestra {
+    width: 12px;
+    height: 12px;
+    align-self: center;
+    overflow: visible;
+  }
+
+  .radar-cifra {
+    color: var(--ink-strong);
+    font-weight: 650;
+    text-align: end;
+  }
+
+  .radar-fuera {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+  }
+</style>

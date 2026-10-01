@@ -103,6 +103,25 @@ const formId = `newsletter-${Math.random().toString(36).slice(2, 8)}`;
     gap: var(--space-s);
   }
 
+  .newsletter-inline .newsletter-title {
+    font-weight: 650;
+    letter-spacing: -0.025em;
+  }
+
+  /*
+   * En la portada, texto a un lado y formulario al otro.
+   *
+   * Apilados a lo ancho de la página, el campo de correo medía 1.100 px para
+   * un texto de veinte caracteres.
+   */
+  @media (min-width: 56rem) {
+    .newsletter-inline {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+  }
+
   .newsletter-title {
     font-size: clamp(1.25rem, 1.1rem + 0.8vw, 1.6rem);
     margin-block: 0.15rem var(--space-2xs);

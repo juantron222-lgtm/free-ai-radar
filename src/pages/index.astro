@@ -4,6 +4,7 @@ import PuertaBuscar from '@components/home/PuertaBuscar.astro';
 import PuertaActualidad from '@components/home/PuertaActualidad.astro';
 import PuertaComparar from '@components/home/PuertaComparar.astro';
 import FranjaConfianza from '@components/home/FranjaConfianza.astro';
+import RadarCatalogo from '@components/home/RadarCatalogo.astro';
 import CompareTray from '@components/tools/CompareTray.astro';
 import NewsletterForm from '@components/marketing/NewsletterForm.astro';
 import { getAllTools, getCatalogStats } from '@lib/data/catalog';
@@ -12,6 +13,7 @@ import PilaDeLogos from '@components/tools/PilaDeLogos.astro';
 import registroDeLogos from '@/data/logos.json';
 import { conteosDeDecision, recomendadas } from '@lib/data/portada';
 import { getLatestNews } from '@lib/data/news';
+import { radarDe } from '@lib/data/radar';
 import { itemListSchema } from '@lib/seo/structured-data';
 import { recuentoVerificacion } from '@lib/domain/verification';
 import { ROUTES, VERTICALS } from '@lib/nav';
@@ -66,8 +68,18 @@ const verticalesHero = ORDEN_HERO.map((href) => VERTICALS.find((v) => v.href ===
   .filter((v): v is (typeof VERTICALS)[number] => v !== undefined)
   .map((v) => {
     const slugs = VERTICALES.find((x) => x.ruta === v.href)?.slugs ?? [];
-    return { ...v, caras: carasDe(tools, slugs, tieneLogo, carasUsadas) };
+    return { ...v, sector: v.href.slice(1), caras: carasDe(tools, slugs, tieneLogo, carasUsadas) };
   });
+
+/*
+ * El catálogo entero, al lado de la pregunta.
+ *
+ * Las seis puertas dicen qué clases hay; el radar enseña cuánto hay en cada
+ * una y cuánto cuesta usarlo. Va después del buscador en el orden del
+ * documento, así que en un móvil no empuja las puertas por debajo del aviso
+ * de cookies; en escritorio se sienta a su derecha.
+ */
+const radar = radarDe(tools);
 
 /*
  * Con qué dos herramientas viene puesto el comparador.
@@ -91,60 +103,64 @@ const description =
 >
   <section class="hero" aria-labelledby="hero-titulo">
     <div class="page hero-inner">
-      <h1 id="hero-titulo" class="hero-title">¿Qué clase de IA estás buscando?</h1>
+      <div class="hero-texto">
+        <h1 id="hero-titulo" class="hero-title">¿Qué clase de IA estás buscando?</h1>
 
-      {/*
-        Una línea, no un párrafo.
+        {/*
+          Una línea, no un párrafo.
 
-        La portada no decía en ninguna parte qué la diferencia de las listas de
-        «las 50 mejores IA»: que cada dato sale de la página oficial del
-        fabricante y que lo que no publica se dice. Va aquí porque es donde se
-        decide si merece la pena quedarse, y es una línea porque el trabajo de
-        la primera pantalla es que elijas, no que leas.
-      */}
-      <p class="hero-diferencial">
-        Comprobamos en la web de cada fabricante qué da gratis: si pide tarjeta, con qué límites y si
-        puedes usarlo para trabajar. Lo que no publica, lo decimos.
-      </p>
+          La portada no decía en ninguna parte qué la diferencia de las listas de
+          «las 50 mejores IA»: que cada dato sale de la página oficial del
+          fabricante y que lo que no publica se dice. Va aquí porque es donde se
+          decide si merece la pena quedarse, y es una línea porque el trabajo de
+          la primera pantalla es que elijas, no que leas.
+        */}
+        <p class="hero-diferencial">
+          Comprobamos en la web de cada fabricante qué da gratis: si pide tarjeta, con qué límites y si
+          puedes usarlo para trabajar. Lo que no publica, lo decimos.
+        </p>
 
-      <nav class="hero-verticales" aria-label="Elegir por clase de IA">
-        <ul>
-          {/*
-            Los logos son decorativos para la vista y no para el oído.
+        <nav class="hero-verticales" aria-label="Elegir por clase de IA">
+          <ul>
+            {/*
+              Los logos son decorativos para la vista y no para el oído.
 
-            Llevan `alt=""` —el nombre del enlace sigue siendo «Imagen»— y los
-            tres nombres van en texto oculto a continuación, para que quien usa
-            un lector de pantalla reciba la misma pista que quien los ve:
-            «Imagen, por ejemplo Clipdrop, Krea e Ideogram».
-          */}
-          {verticalesHero.map((vertical) => (
-            <li>
-              <a class="hero-vertical" href={vertical.href}>
-                <span class="hero-vertical-cabeza">
-                  <span>{vertical.label}</span>
-                  <span class="hero-vertical-flecha" aria-hidden="true">→</span>
-                </span>
-                <PilaDeLogos tools={vertical.caras} nombrarOculto />
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
+              Llevan `alt=""` —el nombre del enlace sigue siendo «Imagen»— y los
+              tres nombres van en texto oculto a continuación, para que quien usa
+              un lector de pantalla reciba la misma pista que quien los ve:
+              «Imagen, por ejemplo Clipdrop, Krea e Ideogram».
+            */}
+            {verticalesHero.map((vertical) => (
+              <li>
+                <a class="hero-vertical" href={vertical.href} data-sector={vertical.sector}>
+                  <span class="hero-vertical-cabeza">
+                    <span>{vertical.label}</span>
+                    <span class="hero-vertical-flecha" aria-hidden="true">→</span>
+                  </span>
+                  <PilaDeLogos tools={vertical.caras} nombrarOculto />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-      <form class="hero-buscar" role="search" action={ROUTES.tools} method="get">
-        <label class="hero-buscar-intro" for="hero-q">¿Buscas algo concreto?</label>
-        <div class="hero-buscar-campo">
-          <input
-            type="search"
-            id="hero-q"
-            name="q"
-            class="input"
-            placeholder="Quitar fondo, transcribir audio, generar vídeo…"
-            autocomplete="off"
-          />
-          <button type="submit" class="btn btn-primary">Buscar</button>
-        </div>
-      </form>
+        <form class="hero-buscar" role="search" action={ROUTES.tools} method="get">
+          <label class="hero-buscar-intro" for="hero-q">¿Buscas algo concreto?</label>
+          <div class="hero-buscar-campo">
+            <input
+              type="search"
+              id="hero-q"
+              name="q"
+              class="input"
+              placeholder="Quitar fondo, transcribir audio, generar vídeo…"
+              autocomplete="off"
+            />
+            <button type="submit" class="btn btn-primary">Buscar</button>
+          </div>
+        </form>
+      </div>
+
+      <RadarCatalogo radar={radar} />
     </div>
   </section>
 
@@ -195,37 +211,62 @@ const description =
 <style>
   .hero {
     border-block-end: 1px solid var(--line);
-    background: linear-gradient(to bottom, var(--surface-sunken), transparent 85%);
-    padding-block: var(--space-m);
+    background: linear-gradient(to bottom, var(--surface-sunken), var(--paper) 75%);
+    padding-block: var(--space-m) var(--space-l);
   }
 
   @media (min-width: 48rem) {
     .hero {
-      padding-block: var(--space-xl) var(--space-l);
+      padding-block: var(--space-xl);
     }
   }
 
+  @media (min-width: 62rem) {
+    .hero {
+      padding-block: var(--space-2xl) var(--space-xl);
+    }
+  }
+
+  /*
+   * Dos columnas en escritorio: la pregunta a la izquierda, el radar a la
+   * derecha. En móvil, una detrás de otra y en ese orden, que es el del
+   * documento: primero se elige, después se mira.
+   */
   .hero-inner {
     display: grid;
-    justify-items: center;
+    gap: var(--space-xl);
+  }
+
+  @media (min-width: 62rem) {
+    .hero-inner {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      align-items: center;
+      gap: var(--space-xl);
+    }
+  }
+
+  .hero-texto {
+    display: grid;
+    align-content: start;
     gap: var(--space-m);
-    text-align: center;
+    min-width: 0;
   }
 
   .hero-title {
     margin: 0;
-    max-width: 18ch;
-    font-size: clamp(2rem, 1.1rem + 4.2vw, 4rem);
-    line-height: 1.04;
-    letter-spacing: -0.035em;
+    max-width: 16ch;
+    font-size: clamp(2.125rem, 1.15rem + 4.4vw, 4.25rem);
+    font-weight: 650;
+    line-height: 1;
+    letter-spacing: -0.045em;
     text-wrap: balance;
   }
 
   .hero-diferencial {
     margin: 0;
-    max-width: 52ch;
+    max-width: 48ch;
     color: var(--ink-muted);
-    font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+    font-size: clamp(1rem, 0.95rem + 0.3vw, 1.1875rem);
     line-height: 1.5;
     text-wrap: pretty;
   }
@@ -234,8 +275,8 @@ const description =
    * Seis botones, no seis enlaces.
    *
    * Tienen que parecer lo que son —la respuesta a la pregunta de arriba— y
-   * poder pulsarse con el pulgar: 2×3 en un móvil de 375 px y una fila en
-   * escritorio. Sin descripción ni cifra debajo: aquí sólo se elige.
+   * poder pulsarse con el pulgar: 2×3 en un móvil de 375 px y 3×2 en cuanto
+   * cabe. Sin descripción ni cifra debajo: aquí sólo se elige.
    *
    * Tres logos sí. No son texto que haya que leer, son caras que se reconocen,
    * y eso es exactamente lo que ayuda a elegir: quien busca «algo como
@@ -244,7 +285,6 @@ const description =
    */
   .hero-verticales {
     width: 100%;
-    max-width: 68rem;
   }
 
   .hero-verticales ul {
@@ -259,12 +299,6 @@ const description =
   @media (min-width: 40rem) {
     .hero-verticales ul {
       grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-  }
-
-  @media (min-width: 62rem) {
-    .hero-verticales ul {
-      grid-template-columns: repeat(6, minmax(0, 1fr));
     }
   }
 
@@ -287,23 +321,32 @@ const description =
     min-height: 56px;
     padding: 0.5rem 0.875rem;
     line-height: 1.2;
-    border: 1px solid var(--line-strong);
+    border: 1px solid var(--line);
     border-radius: var(--radius-l);
     background: var(--surface);
+    box-shadow: var(--shadow-s);
     color: var(--ink-strong);
     font-size: 1.125rem;
     font-weight: 650;
+    letter-spacing: -0.01em;
     text-decoration: none;
     transition:
-      border-color 140ms ease,
-      color 140ms ease,
-      box-shadow 140ms ease;
+      border-color 160ms ease,
+      color 160ms ease,
+      box-shadow 160ms ease,
+      transform 160ms ease;
   }
 
   .hero-vertical:hover {
     border-color: var(--signal);
     color: var(--signal-strong);
     box-shadow: var(--shadow-m);
+  }
+
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .hero-vertical:hover {
+      transform: translateY(-2px);
+    }
   }
 
   .hero-vertical:focus-visible {
@@ -329,8 +372,8 @@ const description =
 
   @media (min-width: 40rem) {
     .hero-vertical {
-      gap: 0.5rem;
-      padding: 0.75rem 1rem;
+      gap: 0.625rem;
+      padding: 0.875rem 1rem;
       line-height: inherit;
     }
 
@@ -345,21 +388,71 @@ const description =
   }
 
   .hero-vertical-flecha {
-    color: var(--ink-muted);
+    color: var(--ink-subtle);
     font-weight: 500;
+    transition: transform 160ms ease;
   }
-
 
   .hero-vertical:hover .hero-vertical-flecha {
     color: inherit;
   }
 
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .hero-vertical:hover .hero-vertical-flecha {
+      transform: translateX(3px);
+    }
+  }
+
+  /*
+   * Señalar una puerta ilumina su sector del radar.
+   *
+   * Sin JavaScript: la hero sabe qué puerta está bajo el puntero o tiene el
+   * foco, y apaga los otros sectores. Enseña, antes de pulsar, cuánto hay
+   * detrás de esa puerta y qué parte se usa gratis. Donde `:has` no exista,
+   * el radar se queda como está.
+   *
+   * Todo dentro de `(hover: hover)`: en una pantalla táctil el «hover» se
+   * queda pegado después de tocar, y la línea del sector acabaría encima de
+   * la general. Allí no hay nada que señalar antes de pulsar.
+   */
+  @media (hover: hover) {
+    .hero-inner:has(.hero-vertical:is(:hover, :focus-visible)) :global(.radar-sector) {
+      opacity: 0.14;
+    }
+
+    .hero-inner:has(.hero-vertical[data-sector='imagen']:is(:hover, :focus-visible)) :global(.radar-sector[data-sector='imagen']),
+    .hero-inner:has(.hero-vertical[data-sector='video']:is(:hover, :focus-visible)) :global(.radar-sector[data-sector='video']),
+    .hero-inner:has(.hero-vertical[data-sector='audio']:is(:hover, :focus-visible)) :global(.radar-sector[data-sector='audio']),
+    .hero-inner:has(.hero-vertical[data-sector='agentes']:is(:hover, :focus-visible)) :global(.radar-sector[data-sector='agentes']),
+    .hero-inner:has(.hero-vertical[data-sector='modelos']:is(:hover, :focus-visible)) :global(.radar-sector[data-sector='modelos']),
+    .hero-inner:has(.hero-vertical[data-sector='codigo']:is(:hover, :focus-visible)) :global(.radar-sector[data-sector='codigo']) {
+      opacity: 1;
+    }
+
+    .hero-inner:has(.hero-vertical:is(:hover, :focus-visible)) :global(.radar-sector .radar-rotulo) {
+      fill: var(--signal-strong);
+    }
+
+    /* Y debajo del radar, lo que hay en ese sector, con sus cifras. */
+    .hero-inner:has(.hero-vertical:is(:hover, :focus-visible)) :global(.radar-lectura) {
+      visibility: hidden;
+    }
+
+    .hero-inner:has(.hero-vertical[data-sector='imagen']:is(:hover, :focus-visible)) :global(.radar-foco[data-sector='imagen']),
+    .hero-inner:has(.hero-vertical[data-sector='video']:is(:hover, :focus-visible)) :global(.radar-foco[data-sector='video']),
+    .hero-inner:has(.hero-vertical[data-sector='audio']:is(:hover, :focus-visible)) :global(.radar-foco[data-sector='audio']),
+    .hero-inner:has(.hero-vertical[data-sector='agentes']:is(:hover, :focus-visible)) :global(.radar-foco[data-sector='agentes']),
+    .hero-inner:has(.hero-vertical[data-sector='modelos']:is(:hover, :focus-visible)) :global(.radar-foco[data-sector='modelos']),
+    .hero-inner:has(.hero-vertical[data-sector='codigo']:is(:hover, :focus-visible)) :global(.radar-foco[data-sector='codigo']) {
+      visibility: visible;
+    }
+  }
+
   .hero-buscar {
     display: grid;
-    justify-items: center;
     gap: 0.4rem;
     width: 100%;
-    max-width: 40rem;
+    max-width: 36rem;
   }
 
   .hero-buscar-intro {
@@ -371,7 +464,6 @@ const description =
     display: flex;
     gap: var(--space-3xs);
     width: 100%;
-    text-align: start;
   }
 
   .hero-buscar-campo .input {
