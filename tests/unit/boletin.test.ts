@@ -125,3 +125,18 @@ describe('ninguna página promete el correo semanal', () => {
     expect(preferencias).toContain('Todavía no enviamos ningún correo periódico');
   });
 });
+
+describe('sin boletín, las páginas legales no describen un tratamiento que no existe', () => {
+  it('privacidad y derechos sólo hablan del boletín cuando se envía', () => {
+    const privacidad = readFileSync(join(ROOT, 'src/pages/legal/privacidad.astro'), 'utf8');
+    expect(privacidad).toMatch(/\{boletinEnMarcha\(\) && \(\s*<tr>\s*<th scope="row">Correo del boletín/);
+    const derechos = readFileSync(join(ROOT, 'src/pages/legal/derechos.astro'), 'utf8');
+    expect(derechos).toMatch(/\{boletinEnMarcha\(\) \? \(/);
+    expect(derechos).toContain('no enviamos boletín, así que no hay');
+  });
+
+  it('el endpoint temporal de limpieza ya no existe', () => {
+    expect(fuentes.some(({ rel }) => rel.startsWith('src/pages/api/mantenimiento/'))).toBe(false);
+    expect(fuentes.some(({ texto }) => texto.includes('borrarSuscripcionesPendientes'))).toBe(false);
+  });
+});

@@ -432,38 +432,6 @@ export async function listContactMessages(limit = 100): Promise<BandejaContacto>
   };
 }
 
-/**
- * Borra las suscripciones que se quedaron pendientes con el formulario falso.
- *
- * TEMPORAL. Hasta el 1 de octubre de 2026 el formulario del boletín guardaba
- * cada dirección como `pending` y no enviaba la confirmación, así que ninguna
- * podía llegar a confirmarse. Juan autorizó borrarlas —sólo esas—. Se borra
- * únicamente `status = 'pending'`, y sólo si siguen siendo exactamente las
- * que se contaron antes: nada confirmado, ninguna baja, ningún otro dato.
- */
-export async function borrarSuscripcionesPendientes(
-  esperadas: number
-): Promise<{ ok: boolean; borradas: number; motivo?: string }> {
-  const supabaseClient = db();
-  if (!supabaseClient) return { ok: false, borradas: 0, motivo: 'sin base de datos' };
-
-  const { count, error: errorCuenta } = await supabaseClient
-    .from('newsletter_subscriptions')
-    .select('id', { count: 'exact', head: true })
-    .eq('status', 'pending');
-  if (errorCuenta) return { ok: false, borradas: 0, motivo: 'no se pudo contar' };
-  if ((count ?? 0) !== esperadas) {
-    return { ok: false, borradas: 0, motivo: `hay ${count ?? 0}, no ${esperadas}` };
-  }
-
-  const { error, count: borradas } = await supabaseClient
-    .from('newsletter_subscriptions')
-    .delete({ count: 'exact' })
-    .eq('status', 'pending');
-  if (error) return { ok: false, borradas: 0, motivo: 'no se pudo borrar' };
-  return { ok: true, borradas: borradas ?? 0 };
-}
-
 export async function pendingCounts(): Promise<{ corrections: number; submissions: number }> {
   const supabaseClient = db();
 

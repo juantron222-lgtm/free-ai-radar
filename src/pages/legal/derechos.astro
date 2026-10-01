@@ -45,11 +45,22 @@ const crumbs = [
     sobrevive a un borrado, y decirlo sin adornos vale más que una lista de
     obligaciones mercantiles que hoy no nos aplican.
   */}
-  <p>
-    Se conserva únicamente lo que la ley obliga a conservar: la prueba de consentimiento del boletín
-    durante tres años, para poder demostrar que la baja se atendió. No hay facturas que guardar,
-    porque no se cobra nada.
-  </p>
+  {/*
+    Y sin boletín tampoco hay prueba de consentimiento que guardar: el 1 de
+    octubre de 2026 se comprobó que producción no tenía ni una suscripción.
+  */}
+  {boletinEnMarcha() ? (
+    <p>
+      Se conserva únicamente lo que la ley obliga a conservar: la prueba de consentimiento del
+      boletín durante tres años, para poder demostrar que la baja se atendió. No hay facturas que
+      guardar, porque no se cobra nada.
+    </p>
+  ) : (
+    <p>
+      Hoy no se conserva nada después de un borrado: no enviamos boletín, así que no hay
+      consentimientos que guardar, ni facturas, porque no se cobra nada.
+    </p>
+  )}
 
   <h2>Oposición y limitación</h2>
   <p>

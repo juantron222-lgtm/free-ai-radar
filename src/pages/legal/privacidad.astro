@@ -5,6 +5,7 @@ import { ROUTES } from '@lib/nav';
 import { SITE } from '@lib/seo/site';
 import DatoTitular from '@components/legal/DatoTitular.astro';
 import EnlaceContacto from '@components/site/EnlaceContacto.astro';
+import { boletinEnMarcha } from '@lib/boletin';
 
 const crumbs = [
   { name: 'Inicio', path: ROUTES.home },
@@ -75,12 +76,19 @@ const processors = [
         <td>Ejecución del contrato</td>
         <td>Hasta que elimines la cuenta</td>
       </tr>
-      <tr>
-        <th scope="row">Correo del boletín + prueba de consentimiento</th>
-        <td>Enviarte el boletín que has pedido</td>
-        <td>Consentimiento (art. 6.1.a)</td>
-        <td>Hasta la baja + 3 años de la prueba de consentimiento</td>
-      </tr>
+      {/*
+        Como la fila de facturación: sin boletín no hay tratamiento que
+        describir. El 1 de octubre de 2026 producción no tenía ni una
+        suscripción; la fila vuelve el día que el boletín se envíe.
+      */}
+      {boletinEnMarcha() && (
+        <tr>
+          <th scope="row">Correo del boletín + prueba de consentimiento</th>
+          <td>Enviarte el boletín que has pedido</td>
+          <td>Consentimiento (art. 6.1.a)</td>
+          <td>Hasta la baja + 3 años de la prueba de consentimiento</td>
+        </tr>
+      )}
       {/*
         Desde el 1 de octubre de 2026 el formulario de contacto guarda lo que
         se le escribe (antes lo perdía), así que el tratamiento existe y se
