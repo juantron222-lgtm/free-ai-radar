@@ -1,5 +1,92 @@
 [
   {
+    "id": "news-2026-10-01-comfy-agent",
+    "slug": "comfy-agent",
+    "title": "ComfyUI estrena un agente que monta y arregla los flujos de trabajo, en beta y de momento sólo en su nube",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Comfy presentó el 1 de octubre Comfy Agent, un agente que vive dentro de ComfyUI: se le describe lo que se quiere y él construye, ejecuta e itera los flujos de trabajo a la vista del usuario. Está disponible para todo el mundo en Comfy Cloud y llegará a Comfy Desktop en unas semanas. Trabaja sobre el mismo lienzo mientras el usuario edita, admite skills públicas o privadas y hasta cinco conversaciones en paralelo, y la compañía insiste en que todos los controles de ComfyUI siguen ahí, nodo por nodo.",
+    "impact": "Las condiciones importan tanto como la función. Está en beta, se prueba gratis y consume los créditos de Comfy que uno ya tenga, así que lo gratis son unas primeras conversaciones, no el uso continuado; se entra iniciando sesión en cloud.comfy.org y abriendo el panel del agente. Y lo que todavía no existe es justo la parte que interesa a quien trabaja en su propia máquina: dicen que Comfy en local será plenamente agéntico más adelante, con el GPU, los modelos y los nodos de cada uno, y que están trabajando en nodos construidos por el propio agente.",
+    "category": "agentes",
+    "eventType": "preview-beta",
+    "availability": "preview",
+    "publishedAt": "2026-10-01",
+    "checkedAt": "2026-10-01",
+    "officialUrl": "https://blog.comfy.org/p/comfy-agent-the-first-agent-for-craft",
+    "sources": [
+      {
+        "url": "https://blog.comfy.org/p/comfy-agent-the-first-agent-for-craft",
+        "kind": "official",
+        "label": "Comfy Agent: The First Agent for Craft",
+        "checkedAt": "2026-10-01",
+        "publisher": "comfy.org"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-01-olmo-core-3",
+    "slug": "olmo-core-3",
+    "title": "Ai2 abre Olmo-core 3, la infraestructura con la que entrena sus propios modelos de mezcla de expertos",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Ai2 publicó el 1 de octubre Olmo-core 3, una revisión de su marco para desarrollar modelos de lenguaje con un sistema de entrenamiento de mezcla de expertos rediseñado y abierto. Está pensado para escalar ese entrenamiento hasta el rango del billón de parámetros sin perder eficiencia, y es una de las piezas con las que construirán la próxima generación de Olmo. Dice que es completamente abierto: investigadores y desarrolladores pueden usarlo para entrenar sus propios modelos, adaptarlo a otro hardware y experimentar con el enrutado y el paralelismo.",
+    "impact": "El problema que dice atacar es de acceso: entrenar modelos grandes cuesta tanto cómputo que, sostiene Ai2, deja el desarrollo avanzado fuera del alcance de muchos académicos y laboratorios pequeños. Sus cifras, medidas por ellos: al pasar de 8 a 128 expertos manteniendo cuatro por token, la capacidad total subió de 4.600 a 47.000 millones de parámetros y el rendimiento cayó menos de un 5 %; con ocho B300, un modelo de 47.000 millones procesó 52.000 tokens por segundo y GPU frente a 19.400 antes. Y la letra pequeña: las pruebas del billón usaron enrutado aleatorio, no un modelo entrenado.",
+    "category": "local-open-source",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-01",
+    "checkedAt": "2026-10-01",
+    "officialUrl": "https://allenai.org/blog/olmocore3",
+    "sources": [
+      {
+        "url": "https://allenai.org/blog/olmocore3",
+        "kind": "official",
+        "label": "Introducing Olmo-core 3: Open, scalable training infrastructure for large MoEs",
+        "checkedAt": "2026-10-01",
+        "publisher": "allenai.org"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-30-claude-sonnet-4-5-retirada",
+    "slug": "claude-sonnet-4-5-retirada",
+    "title": "Anthropic pone fecha al final de Claude Sonnet 4.5: sale de la API el 30 de noviembre",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Anthropic anunció el 30 de septiembre la retirada de Claude Sonnet 4.5, con salida de su API fijada para el 30 de noviembre de 2026, y recomienda migrar a Claude Sonnet 5.5. Ese modelo se había lanzado dos días antes y está en la API de Claude, en Amazon Bedrock, en la plataforma de Claude en AWS, en Google Cloud y en Microsoft Foundry. La migración no es gratis en trabajo: la propia nota avisa de que el código escrito para Claude Sonnet 5 puede romperse de cinco maneras al pasar a la 5.5.",
+    "impact": "Las cinco están enumeradas, y conviene repasarlas antes de noviembre: para desactivar el pensamiento previo hay que enviar otro valor en lugar de «disabled»; forzar el uso de herramientas devuelve un error 400; los bloques de pensamiento quedan atados al modelo y a la conversación; en la API de Claude y en Google Cloud ya no se acepta la herramienta anterior de uso del ordenador; y la herramienta de asesoramiento rechaza como asesores a Opus 4.8, Opus 4.7 y Sonnet 5. Y un cambio de aislamiento: los bloques de pensamiento de 5.5 sólo valen en la cuenta que los produjo o en una vinculada.",
+    "category": "modelo-lenguaje",
+    "eventType": "retirada",
+    "availability": "deprecated",
+    "publishedAt": "2026-09-30",
+    "checkedAt": "2026-10-01",
+    "officialUrl": "https://platform.claude.com/docs/en/release-notes/overview#september-30-2026",
+    "sources": [
+      {
+        "url": "https://platform.claude.com/docs/en/release-notes/overview",
+        "kind": "release-notes",
+        "label": "Claude Platform release notes, 28 y 30 de septiembre de 2026",
+        "checkedAt": "2026-10-01",
+        "publisher": "claude.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-09-30-gemini-4-argon",
     "slug": "gemini-4-argon",
     "title": "Google lanza Gemini 4 Argon sólo para defensores de ciberseguridad, y al abrirlo empezará por quien paga",
@@ -106,6 +193,35 @@
         "label": "Ollama now supports Jev-style decision models",
         "checkedAt": "2026-10-01",
         "publisher": "ollama.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-09-25-copilot-home-code-autopilot",
+    "slug": "copilot-home-code-autopilot",
+    "title": "Microsoft rehace Copilot con Home, Code y Autopilot, y ninguno de los tres se puede usar todavía",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Microsoft presentó el 25 de septiembre un Copilot reconstruido con tres capacidades nuevas. Home es el punto de partida, donde se juntan el chat y Cowork, el modo para delegar una tarea que se ejecuta de principio a fin y devuelve un resultado terminado. Code permite describir en lenguaje natural una aplicación, un panel o una automatización y que Copilot elija el enfoque y la construya, con la misma tecnología que GitHub Copilot por debajo. Y Autopilot, que antes se llamaba Scout, trabaja sin esperar instrucciones.",
+    "impact": "Ninguna de las tres se puede usar hoy, y el calendario está escalonado: Home y Code empiezan a repartirse «en las próximas semanas» dentro del programa Frontier, y Autopilot pasa a preview privada a finales de mes. De Code añaden que llegará a Frontier a final de mes, con disponibilidad amplia después, y a preview para suscriptores de Microsoft 365 Premium y Pro «más adelante este año». Lo que sí está en preview es Copilot Managed Runtime, la infraestructura que ejecuta ese código dentro del entorno de la empresa. Autopilot vive en el tenant con identidad, memoria y ordenador propios.",
+    "category": "agentes",
+    "eventType": "anuncio",
+    "availability": "announced",
+    "publishedAt": "2026-09-25",
+    "checkedAt": "2026-10-01",
+    "officialUrl": "https://blogs.microsoft.com/blog/2026/09/25/introducing-the-new-copilot-with-home-code-and-autopilot/",
+    "sources": [
+      {
+        "url": "https://blogs.microsoft.com/blog/2026/09/25/introducing-the-new-copilot-with-home-code-and-autopilot/",
+        "kind": "official",
+        "label": "Introducing the new Copilot with Home, Code and Autopilot",
+        "checkedAt": "2026-10-01",
+        "publisher": "microsoft.com"
       }
     ],
     "relatedTools": [],
