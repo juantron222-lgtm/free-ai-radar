@@ -3,6 +3,7 @@ import ArticleLayout from '@layouts/ArticleLayout.astro';
 import { ROUTES } from '@lib/nav';
 import { SITE } from '@lib/seo/site';
 import DatoTitular from '@components/legal/DatoTitular.astro';
+import EnlaceContacto from '@components/site/EnlaceContacto.astro';
 
 const crumbs = [
   { name: 'Inicio', path: ROUTES.home },
@@ -31,7 +32,7 @@ const crumbs = [
     <div><dt>NIF</dt><dd><DatoTitular campo="nif" /></dd></div>
     <div><dt>Domicilio</dt><dd><DatoTitular campo="domicilio" /></dd></div>
     <div><dt>Inscripción registral</dt><dd><DatoTitular campo="registro" /></dd></div>
-    <div><dt>Contacto</dt><dd><a href={`mailto:${SITE.email}`}>{SITE.email}</a></dd></div>
+    <div><dt>Contacto</dt><dd><EnlaceContacto /></dd></div>
   </dl>
 
   <h2>1. Objeto</h2>
@@ -81,8 +82,8 @@ const crumbs = [
     justificación (art. 102 del texto refundido de la Ley General para la Defensa de los
     Consumidores y Usuarios). Al tratarse de un contenido digital de acceso inmediato, al contratar
     se te pide reconocer que el servicio comienza de inmediato; aun así, si desistes dentro del
-    plazo devolvemos la parte proporcional no consumida. Escríbenos a
-    <a href={`mailto:${SITE.email}`}> {SITE.email}</a>.
+    plazo devolvemos la parte proporcional no consumida.
+    <EnlaceContacto forma="escribenos" />.
   </p>
 
   <h2>5. Propiedad intelectual</h2>

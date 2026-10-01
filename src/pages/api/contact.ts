@@ -15,7 +15,14 @@ const ContactSchema = z.object({
   message: z.string().trim().min(20, 'Cuéntanos un poco más.').max(2000),
 });
 
-const THANKS = 'Mensaje recibido. Te respondemos a ese correo, normalmente en un par de días.';
+const THANKS = 'Mensaje recibido. Te contestamos a ese correo.';
+
+/*
+ * Si no se ha guardado, se dice. Antes la página contestaba «Mensaje recibido»
+ * pasara lo que pasara, y en producción el mensaje no llegaba a ninguna parte.
+ */
+const NOT_SAVED =
+  'No hemos podido guardar tu mensaje. Vuelve a intentarlo dentro de un rato; no se ha perdido nada de lo que escribiste en esta página.';
 
 function escapeHtml(value: string): string {
   return value
@@ -40,7 +47,9 @@ export const POST: APIRoute = async (context) => {
 
   if (!parsed.success) return validationResponse(parsed.error);
 
-  await addContactMessage(parsed.data);
+  if (!(await addContactMessage(parsed.data))) {
+    return json({ ok: false, message: NOT_SAVED }, 503);
+  }
 
   // The visitor's address goes in Reply-To, never in From: sending as them
   // would fail SPF/DKIM and get the whole domain classified as a spoofer.

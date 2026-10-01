@@ -17,6 +17,24 @@ export const SITE = {
   social: [] as string[],
 } as const;
 
+/**
+ * Si `SITE.email` recibe correo. PENDIENTE DE CONFIGURAR.
+ *
+ * El 1 de octubre de 2026 el dominio no tenía registros MX: lo que se enviaba
+ * a hola@ no llegaba a ninguna parte, y seis páginas —entre ellas la de
+ * ejercer tus derechos— lo daban como la vía de contacto. Mientras esto valga
+ * `false`, esas páginas mandan al formulario de contacto y la dirección no se
+ * publica en ningún sitio, tampoco en los datos estructurados.
+ *
+ * Se pone a `true` cuando el reenvío esté configurado y un correo de prueba
+ * enviado a hola@ haya llegado de verdad al buzón de destino. No antes.
+ */
+const BUZON_CONFIGURADO = false as boolean;
+
+export function correoOperativo(): boolean {
+  return BUZON_CONFIGURADO;
+}
+
 export function absoluteUrl(path: string): string {
   if (/^https?:\/\//i.test(path)) return path;
   return `${SITE_URL}${path.startsWith('/') ? path : `/${path}`}`;

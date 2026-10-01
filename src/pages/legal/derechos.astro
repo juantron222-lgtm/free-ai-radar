@@ -1,7 +1,8 @@
 ---
 import ArticleLayout from '@layouts/ArticleLayout.astro';
 import { ROUTES } from '@lib/nav';
-import { SITE } from '@lib/seo/site';
+import { boletinEnMarcha } from '@lib/boletin';
+import EnlaceContacto from '@components/site/EnlaceContacto.astro';
 
 const crumbs = [
   { name: 'Inicio', path: ROUTES.home },
@@ -52,14 +53,16 @@ const crumbs = [
 
   <h2>Oposición y limitación</h2>
   <p>
-    Escríbenos a <a href={`mailto:${SITE.email}`}>{SITE.email}</a> indicando qué tratamiento quieres
-    limitar. Respondemos en un máximo de 30 días.
+    <EnlaceContacto forma="escribenos" /> indicando qué tratamiento quieres limitar. Respondemos en un máximo de 30 días.
   </p>
 
   <h2>Retirar el consentimiento</h2>
   <ul>
     <li><strong>Cookies:</strong> <button type="button" class="link-button" data-open-consent>abrir preferencias</button>. Retirar un permiso borra las cookies asociadas de inmediato.</li>
-    <li><strong>Boletín:</strong> enlace de baja con un clic en cualquier correo, sin entrar en la cuenta.</li>
+    {/* Sin boletín no hay correos de los que darse de baja: ver `lib/boletin.ts`. */}
+    {boletinEnMarcha() && (
+      <li><strong>Boletín:</strong> enlace de baja con un clic en cualquier correo, sin entrar en la cuenta.</li>
+    )}
     <li><strong>Avisos:</strong> desde <a href={ROUTES.alerts}>Alertas</a>.</li>
   </ul>
 

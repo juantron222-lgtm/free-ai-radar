@@ -1,0 +1,158 @@
+---
+import AdminLayout from '@layouts/AdminLayout.astro';
+import { listContactMessages } from '@lib/data/inbox';
+import { temaDeContacto } from '@lib/contacto';
+
+export const prerender = false;
+
+/*
+ * Lo que llega por el formulario de contacto.
+ *
+ * Sólo un administrador. El middleware ya contesta 404 a quien no es del
+ * equipo; esta página además se niega con un editor, como la de auditoría,
+ * porque cada mensaje lleva el nombre y el correo de quien lo escribió. Se
+ * leen con el service role en el servidor; la tabla no tiene ninguna política
+ * para el navegador.
+ *
+ * No hay mensajes anteriores al 1 de octubre de 2026 que recuperar: hasta
+ * entonces el formulario no guardaba nada en producción.
+ */
+if (Astro.locals.user?.role !== 'admin') {
+  return new Response('No encontrado', { status: 404 });
+}
+
+const bandeja = await listContactMessages(200);
+const { mensajes } = bandeja;
+---
+
+<AdminLayout
+  title="Contacto"
+  heading="Mensajes de contacto"
+  lede="Lo que llega por el formulario de contacto, del más reciente al más antiguo. Se contesta desde tu correo, a la dirección que dejó cada persona."
+>
+  {!bandeja.disponible ? (
+    <div class="aviso" role="status">
+      <p>
+        <strong>Todavía no se pueden guardar mensajes.</strong> La tabla
+        <code>contact_messages</code> no existe en esta base de datos, o no se ha podido leer.
+      </p>
+      <p>
+        Se crea pegando <code>supabase/migrations/0016_contact_messages.sql</code> en el editor SQL
+        de Supabase. Mientras falte, el formulario le dice a quien escribe que no se ha podido
+        guardar, en vez de fingir que lo ha recibido.
+      </p>
+    </div>
+  ) : mensajes.length === 0 ? (
+    <p class="vacio">
+      Todavía no ha llegado ningún mensaje. Aparecerán aquí en cuanto alguien use el formulario de
+      contacto.
+    </p>
+  ) : (
+    <>
+      <p class="resumen">
+        <strong class="tnum">{mensajes.length}</strong>
+        {mensajes.length === 1 ? ' mensaje' : ' mensajes'}{mensajes.length === 200 && ' (los 200 más recientes)'}.
+      </p>
+      <ul class="mensajes">
+        {mensajes.map((m) => (
+          <li class="mensaje">
+            <div class="mensaje-cabeza">
+              <span class="chip">{temaDeContacto(m.subject)}</span>
+              <time datetime={m.createdAt} class="mensaje-fecha tnum">
+                {new Date(m.createdAt).toLocaleString('es-ES', { timeZone: 'Europe/Madrid' })}
+              </time>
+            </div>
+            <p class="mensaje-quien">
+              <strong>{m.name}</strong>
+              {' · '}
+              <a href={`mailto:${m.email}`}>{m.email}</a>
+            </p>
+            <p class="mensaje-texto">{m.message}</p>
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
+</AdminLayout>
+
+<style>
+  .aviso {
+    padding: var(--space-s);
+    border: 1px solid var(--warn-line);
+    border-radius: var(--radius-l);
+    background: var(--warn-soft);
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .aviso p {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--ink);
+  }
+
+  .resumen {
+    margin: 0 0 var(--space-s);
+    font-size: 0.9375rem;
+    color: var(--ink-muted);
+  }
+
+  .vacio {
+    color: var(--ink-subtle);
+  }
+
+  .mensajes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .mensaje {
+    padding: var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface);
+  }
+
+  .mensaje-cabeza {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    flex-wrap: wrap;
+  }
+
+  .mensaje-fecha {
+    margin-inline-start: auto;
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+  }
+
+  .mensaje-quien {
+    margin: var(--space-2xs) 0 0.2rem;
+    font-size: 0.9375rem;
+    color: var(--ink);
+    overflow-wrap: anywhere;
+  }
+
+  .mensaje-quien a {
+    color: var(--info);
+  }
+
+  .mensaje-texto {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--ink);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--surface);
+    padding: 0.1em 0.35em;
+    border-radius: var(--radius-s);
+  }
+</style>

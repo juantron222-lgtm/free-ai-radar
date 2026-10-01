@@ -1,0 +1,36 @@
+---
+import { ROUTES } from '@lib/nav';
+import { SITE, correoOperativo } from '@lib/seo/site';
+
+interface Props {
+  /**
+   * `enlace`: sólo el enlace, para una celda o una lista.
+   * `escribenos`: la frase entera, «Escríbenos a …» o «Escríbenos desde …».
+   */
+  forma?: 'enlace' | 'escribenos';
+}
+
+const { forma = 'enlace' } = Astro.props;
+
+/*
+ * Por dónde se escribe, dicho en un solo sitio.
+ *
+ * Seis páginas daban hola@ como vía de contacto mientras el dominio no podía
+ * recibir correo. Mientras `correoOperativo()` diga que no, todas mandan al
+ * formulario; el día que diga que sí, vuelve la dirección sin tocar ninguna.
+ */
+const operativo = correoOperativo();
+const correo = `mailto:${SITE.email}`;
+---
+
+{forma === 'escribenos' ? (
+  operativo ? (
+    <>Escríbenos a <a href={correo}>{SITE.email}</a></>
+  ) : (
+    <>Escríbenos desde el <a href={ROUTES.contact}>formulario de contacto</a></>
+  )
+) : operativo ? (
+  <a href={correo}>{SITE.email}</a>
+) : (
+  <a href={ROUTES.contact}>Formulario de contacto</a>
+)}

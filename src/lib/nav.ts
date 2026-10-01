@@ -247,6 +247,7 @@ export const ADMIN_NAV: readonly NavItem[] = [
   { label: 'Herramientas', href: '/admin/herramientas' },
   { label: 'Pendientes', href: '/admin/pendientes' },
   { label: 'Correcciones', href: '/admin/correcciones' },
+  { label: 'Contacto', href: '/admin/contacto' },
   { label: 'Desactualizadas', href: '/admin/desactualizadas' },
   { label: 'Enlaces', href: '/admin/enlaces' },
   { label: 'Newsletter', href: '/admin/newsletter' },

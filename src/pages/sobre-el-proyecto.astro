@@ -3,7 +3,7 @@ import ArticleLayout from '@layouts/ArticleLayout.astro';
 import { getAllTools, getCatalogStats } from '@lib/data/catalog';
 import { estadoComercial } from '@lib/data/affiliate';
 import { ROUTES } from '@lib/nav';
-import { SITE } from '@lib/seo/site';
+import { SITE, correoOperativo } from '@lib/seo/site';
 
 const stats = getCatalogStats();
 
@@ -105,9 +105,12 @@ const crumbs = [
 
   <h2>Contacto</h2>
   <p>
-    Desde <a href={ROUTES.contact}>la página de contacto</a> o escribiendo a
-    {' '}<a href={`mailto:${SITE.email}`}>{SITE.email}</a>. Las correcciones tienen prioridad sobre
-    todo lo demás.
+    Desde <a href={ROUTES.contact}>la página de contacto</a>
+    {correoOperativo() && (
+      <>
+        {' '}o escribiendo a <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+      </>
+    )}. Las correcciones tienen prioridad sobre todo lo demás.
   </p>
 </ArticleLayout>
 

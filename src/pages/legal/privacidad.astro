@@ -4,6 +4,7 @@ import { supabase, stripe, email as emailConfig, analytics } from '@lib/config';
 import { ROUTES } from '@lib/nav';
 import { SITE } from '@lib/seo/site';
 import DatoTitular from '@components/legal/DatoTitular.astro';
+import EnlaceContacto from '@components/site/EnlaceContacto.astro';
 
 const crumbs = [
   { name: 'Inicio', path: ROUTES.home },
@@ -46,7 +47,7 @@ const processors = [
     <div><dt>NIF</dt><dd><DatoTitular campo="nif" /></dd></div>
     <div><dt>Domicilio</dt><dd><DatoTitular campo="domicilio" /></dd></div>
     <div><dt>Delegado de protección de datos</dt><dd><DatoTitular campo="dpo" /></dd></div>
-    <div><dt>Contacto para asuntos de datos</dt><dd><a href={`mailto:${SITE.email}`}>{SITE.email}</a></dd></div>
+    <div><dt>Contacto para asuntos de datos</dt><dd><EnlaceContacto /></dd></div>
   </dl>
 
   <h2>Qué datos tratamos y por qué</h2>
@@ -79,6 +80,19 @@ const processors = [
         <td>Enviarte el boletín que has pedido</td>
         <td>Consentimiento (art. 6.1.a)</td>
         <td>Hasta la baja + 3 años de la prueba de consentimiento</td>
+      </tr>
+      {/*
+        Desde el 1 de octubre de 2026 el formulario de contacto guarda lo que
+        se le escribe (antes lo perdía), así que el tratamiento existe y se
+        dice. El plazo es un criterio y no una cifra porque ningún proceso
+        borra estos mensajes solo: prometer «12 meses» sería prometer algo
+        que nada cumple.
+      */}
+      <tr>
+        <th scope="row">Nombre, correo y mensaje del formulario de contacto</th>
+        <td>Leer lo que nos escribes y contestarte</td>
+        <td>Interés legítimo en atender tu mensaje (art. 6.1.f)</td>
+        <td>Mientras haga falta para atenderte; puedes pedir que lo borremos antes</td>
       </tr>
       {/*
         Aquí había una fila de «Datos de facturación · Cobrar la suscripción».
@@ -145,7 +159,7 @@ const processors = [
     <li><strong>Acceso y portabilidad.</strong> Descarga inmediata desde <a href={ROUTES.settings}>Preferencias</a>, en JSON.</li>
     <li><strong>Rectificación.</strong> Editable desde la propia cuenta.</li>
     <li><strong>Supresión.</strong> Botón de eliminar cuenta en Preferencias. Es inmediato y definitivo.</li>
-    <li><strong>Oposición y limitación.</strong> Escríbenos a <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</li>
+    <li><strong>Oposición y limitación.</strong> <EnlaceContacto forma="escribenos" />.</li>
     <li><strong>Retirar el consentimiento.</strong> En cualquier momento, sin afectar a lo anterior: <button type="button" class="link-button" data-open-consent>preferencias de cookies</button>.</li>
   </ul>
   <p>

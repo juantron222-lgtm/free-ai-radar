@@ -1,21 +1,15 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { ROUTES } from '@lib/nav';
-import { SITE } from '@lib/seo/site';
+import { SITE, correoOperativo } from '@lib/seo/site';
+import { TEMAS_CONTACTO } from '@lib/contacto';
 
 const crumbs = [
   { name: 'Inicio', path: ROUTES.home },
   { name: 'Contacto', path: ROUTES.contact },
 ];
 
-const TOPICS = [
-  { value: 'correccion', label: 'Corregir un dato de una ficha' },
-  { value: 'herramienta', label: 'Proponer una herramienta' },
-  { value: 'publicidad', label: 'Publicidad o patrocinio' },
-  { value: 'datos', label: 'Privacidad y mis datos' },
-  { value: 'facturacion', label: 'Suscripción o facturación' },
-  { value: 'otro', label: 'Otra cosa' },
-];
+const TOPICS = TEMAS_CONTACTO;
 ---
 
 <BaseLayout
@@ -32,10 +26,13 @@ const TOPICS = [
         el contexto ya asociado.
       </p>
       <ul class="contact-direct">
-        <li>
-          <strong>Correo directo</strong>
-          <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
-        </li>
+        {/* Sólo cuando hola@ recibe de verdad: ver `correoOperativo()`. */}
+        {correoOperativo() && (
+          <li>
+            <strong>Correo directo</strong>
+            <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          </li>
+        )}
         <li>
           <strong>Proponer una herramienta</strong>
           <a href={ROUTES.submit}>Formulario de envío</a>

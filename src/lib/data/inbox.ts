@@ -359,17 +359,109 @@ export async function addSubmission(
   return !error;
 }
 
+/**
+ * Guarda un mensaje del formulario de contacto.
+ *
+ * Antes no se guardaba: en producción se convertía en un correo a hola@ que no
+ * salía —no hay clave de envío— y que tampoco habría llegado —el dominio no
+ * tenía MX—, y la página contestaba «Mensaje recibido». Ahora se guarda en
+ * `contact_messages` (migración 0016) y se lee en /admin/contacto. Si la tabla
+ * no existe todavía, devuelve `false` y el formulario lo dice: perder el
+ * mensaje en silencio es lo que había.
+ */
 export async function addContactMessage(
   input: Omit<ContactMessage, 'id' | 'createdAt'>
 ): Promise<boolean> {
-  // Contact is not a database concern in either mode: it becomes an email to
-  // the editorial address, plus a local copy in development.
-  if (!isProduction) {
+  const supabaseClient = db();
+
+  if (!supabaseClient) {
+    if (isProduction) return false;
     const inbox = await readLocal();
     inbox.contact.push({ ...input, id: randomUUID(), createdAt: new Date().toISOString() });
     await writeLocal(inbox);
+    return true;
   }
-  return true;
+
+  const { error } = await supabaseClient.from('contact_messages').insert({
+    name: input.name,
+    email: input.email,
+    subject: input.subject,
+    message: input.message,
+  });
+
+  if (error) logger.error('contact.insert_failed', { error: error.message, code: error.code });
+  return !error;
+}
+
+export interface BandejaContacto {
+  /** `false` si la tabla no existe todavía o no se pudo leer: la página lo dice. */
+  disponible: boolean;
+  mensajes: ContactMessage[];
+}
+
+export async function listContactMessages(limit = 100): Promise<BandejaContacto> {
+  const supabaseClient = db();
+
+  if (!supabaseClient) {
+    if (isProduction) return { disponible: false, mensajes: [] };
+    const inbox = await readLocal();
+    return { disponible: true, mensajes: inbox.contact.slice(-limit).reverse() };
+  }
+
+  const { data, error } = await supabaseClient
+    .from('contact_messages')
+    .select('id, name, email, subject, message, created_at')
+    .order('created_at', { ascending: false })
+    .limit(limit);
+
+  if (error) {
+    logger.error('contact.list_failed', { error: error.message, code: error.code });
+    return { disponible: false, mensajes: [] };
+  }
+
+  return {
+    disponible: true,
+    mensajes: (data ?? []).map((row) => ({
+      id: row['id'] as string,
+      name: row['name'] as string,
+      email: row['email'] as string,
+      subject: row['subject'] as string,
+      message: row['message'] as string,
+      createdAt: row['created_at'] as string,
+    })),
+  };
+}
+
+/**
+ * Borra las suscripciones que se quedaron pendientes con el formulario falso.
+ *
+ * TEMPORAL. Hasta el 1 de octubre de 2026 el formulario del boletín guardaba
+ * cada dirección como `pending` y no enviaba la confirmación, así que ninguna
+ * podía llegar a confirmarse. Juan autorizó borrarlas —sólo esas—. Se borra
+ * únicamente `status = 'pending'`, y sólo si siguen siendo exactamente las
+ * que se contaron antes: nada confirmado, ninguna baja, ningún otro dato.
+ */
+export async function borrarSuscripcionesPendientes(
+  esperadas: number
+): Promise<{ ok: boolean; borradas: number; motivo?: string }> {
+  const supabaseClient = db();
+  if (!supabaseClient) return { ok: false, borradas: 0, motivo: 'sin base de datos' };
+
+  const { count, error: errorCuenta } = await supabaseClient
+    .from('newsletter_subscriptions')
+    .select('id', { count: 'exact', head: true })
+    .eq('status', 'pending');
+  if (errorCuenta) return { ok: false, borradas: 0, motivo: 'no se pudo contar' };
+  if ((count ?? 0) !== esperadas) {
+    return { ok: false, borradas: 0, motivo: `hay ${count ?? 0}, no ${esperadas}` };
+  }
+
+  const { error, count: borradas } = await supabaseClient
+    .from('newsletter_subscriptions')
+    .delete({ count: 'exact' })
+    .eq('status', 'pending');
+  if (error) return { ok: false, borradas: 0, motivo: 'no se pudo borrar' };
+  return { ok: true, borradas: borradas ?? 0 };
 }
 
 export async function pendingCounts(): Promise<{ corrections: number; submissions: number }> {

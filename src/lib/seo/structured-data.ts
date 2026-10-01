@@ -1,5 +1,5 @@
 import type { Tool } from '@lib/domain/tool';
-import { absoluteUrl, SITE, SITE_URL } from './site';
+import { absoluteUrl, correoOperativo, SITE, SITE_URL } from './site';
 import { getCategory, PLATFORM_LABEL } from '@lib/domain/taxonomy';
 
 /**
@@ -29,8 +29,9 @@ export function organizationSchema(): JsonLd {
       height: 512,
     },
     description: SITE.description,
-    email: SITE.email,
   };
+  // La dirección sólo se publica cuando recibe: ver `correoOperativo()`.
+  if (correoOperativo()) schema['email'] = SITE.email;
   if (SITE.social.length) schema['sameAs'] = SITE.social;
   return schema;
 }
