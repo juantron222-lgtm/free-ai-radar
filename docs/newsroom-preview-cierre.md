@@ -558,3 +558,18 @@ Y el 1 de octubre, por lo mismo:
   Gemini puede ejecutarlas por su cuenta al reconocer una petición; lo que la
   noticia cuenta de verdad es un cambio de producto y la retirada de los Gems.
   Si Web V2 crea una categoría para asistentes o productividad, ésta se mueve.
+
+### Y una que la taxonomía impide publicar
+
+El 1 de octubre, con la deuda ya anotada cinco veces, apareció el primer caso
+en que la etiqueta no es mala sino que **no existe**: «Introducing SynthID Bio»
+(30 de septiembre, deepmind.google), que marca con agua proteínas diseñadas por
+IA de modo que la marca sobreviva a la síntesis física de la molécula. Está
+comprobada, con sus citas y su fecha, y se quedó sin publicar porque ninguna de
+las trece categorías habla de biología ni de bioseguridad, y forzarla a
+`privacidad-licencias` diría de la noticia algo que no es.
+
+La diferencia con las cinco anteriores importa para decidir: aquéllas llevan una
+etiqueta discutible y se leen bien de todas formas; ésta no llegó al lector. Es
+el argumento más fuerte de que la taxonomía de /noticias tiene que decidirse
+entera, y no ampliarse noticia a noticia.
