@@ -1,5 +1,92 @@
 [
   {
+    "id": "news-2026-10-02-astabrief-8b",
+    "slug": "astabrief-8b",
+    "title": "Ai2 abre AstaBrief 8B, un modelo pequeño que redacta informes científicos con sus citas",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Ai2 publicó el 2 de octubre AstaBrief 8B, un modelo que convierte una pregunta de investigación y extractos de literatura recuperada en un informe con citas. Ya funciona dentro de Asta, su plataforma científica, como modo rápido junto a un modo de razonamiento basado en Claude, y además abren el modelo y los datos de entrenamiento para que otros los estudien y reproduzcan. Partieron de Qwen3-8B y pusieron el esfuerzo en los datos posteriores al entrenamiento y en el andamiaje que arma el informe.",
+    "impact": "Lo práctico es que se puede descargar: dicen que los pesos abiertos permiten a una institución ejecutarlo en su propia infraestructura, que es lo que hace falta cuando la pregunta revela trabajo sensible o sin publicar, y publican un flujo de ejemplo para sacar informes de los PDF propios. Sus tiempos, medidos en la tubería completa de Asta: 51,1 segundos de media por informe en modo rápido frente a 178,5 del modo de razonamiento. Y su propia advertencia: casi todo el entrenamiento y la evaluación se completaron en 2025, y no han repetido la evaluación contra los modelos punteros de hoy.",
+    "category": "local-open-source",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-02",
+    "checkedAt": "2026-10-03",
+    "officialUrl": "https://allenai.org/blog/astabrief",
+    "sources": [
+      {
+        "url": "https://allenai.org/blog/astabrief",
+        "kind": "official",
+        "label": "Open-sourcing AstaBrief, the fast report-generation model in Asta",
+        "checkedAt": "2026-10-03",
+        "publisher": "allenai.org"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-02-dgx-spark-64gb",
+    "slug": "dgx-spark-64gb",
+    "title": "NVIDIA pone a la venta el 23 de octubre un DGX Spark de 64 GB, y no dice a qué precio",
+    "author": "Redacción de Free AI Radar",
+    "summary": "NVIDIA anunció el 2 de octubre una configuración de 64 GB de memoria unificada para el DGX Spark, su ordenador compacto para ejecutar IA en local. Llegará el 23 de octubre de la mano de Acer, ASUS, Dell, Gigabyte, HP y MSI, con DGX OS y su pila de software lista desde el primer día. Mantiene el chip GB10 Grace Blackwell y el mismo software que el modelo de 128 GB, y la compañía sostiene que admite modelos de hasta 100.000 millones de parámetros ejecutados enteramente en el aparato.",
+    "impact": "La frase que conviene mirar con lupa es la del precio: dicen que la nueva configuración mantiene la plataforma en «un precio accesible», y no dan ninguna cifra. De lo que sí se puede comprobar en la página: llega con Ollama, vLLM y PyTorch con CUDA soportados desde el principio, dos unidades se agrupan con su asistente de clúster sin configuración extra y, en su propia prueba con Qwen 3.8 27B, dos sistemas de 64 GB agrupados rindieron hasta 1,7 veces más que uno solo. Del soporte de Blender dicen que el instalador descargable llegará más adelante.",
+    "category": "local-open-source",
+    "eventType": "anuncio",
+    "availability": "announced",
+    "publishedAt": "2026-10-02",
+    "checkedAt": "2026-10-03",
+    "officialUrl": "https://blogs.nvidia.com/blog/local-ai-dgx-spark-64gb-sync/",
+    "sources": [
+      {
+        "url": "https://blogs.nvidia.com/blog/local-ai-dgx-spark-64gb-sync/",
+        "kind": "official",
+        "label": "NVIDIA DGX Spark 64GB Gives Developers More Ways to Build and Scale Local AI",
+        "checkedAt": "2026-10-03",
+        "publisher": "nvidia.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-02-openrouter-router-benchmarks",
+    "slug": "openrouter-router-benchmarks",
+    "title": "OpenRouter compara los enrutadores de modelos y enumera cuándo salen peor que usar un modelo a secas",
+    "author": "Redacción de Free AI Radar",
+    "summary": "OpenRouter publicó el 2 de octubre una página de comparativas para los enrutadores de modelos, los servicios que deciden a qué modelo va cada petición. Pasó cada uno por un conjunto de pruebas de dominios variados para puntuarlo en calidad, velocidad y coste, y enseña al lado modelos individuales como referencia. Resume los tres resultados en un Router Index de 0 a 10 que por defecto pesa la calidad un 60 %, el tiempo por tarea un 20 % y el coste otro 20 %, con un deslizador para cambiar esos pesos.",
+    "impact": "Lo que distingue a la página es que enumera cuándo enrutar sale mal, y admite que puede salir peor que usar un solo modelo: cambiar de modelo encarece la petición mientras se reconstruye la caché de entrada, el enrutador no suele tener información suficiente para juzgar la complejidad mirando el prompt, y cuanto más se procesa la decisión más latencia se añade. El tamaño del hueco que justifica todo esto, con su ejemplo: entre DeepSeek v4 Flash y GPT-6 Astra el precio medio por token se multiplica por más de 48. Avisan de que la comparativa representa tareas generales, no la tuya.",
+    "category": "precios",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-02",
+    "checkedAt": "2026-10-03",
+    "officialUrl": "https://openrouter.ai/blog/announcements/model-router-benchmarks/",
+    "sources": [
+      {
+        "url": "https://openrouter.ai/blog/announcements/model-router-benchmarks/",
+        "kind": "official",
+        "label": "Model Router Benchmarks",
+        "checkedAt": "2026-10-03",
+        "publisher": "openrouter.ai"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-10-01-comfy-agent",
     "slug": "comfy-agent",
     "title": "ComfyUI estrena un agente que monta y arregla los flujos de trabajo, en beta y de momento sólo en su nube",
@@ -19,6 +106,35 @@
         "label": "Comfy Agent: The First Agent for Craft",
         "checkedAt": "2026-10-01",
         "publisher": "comfy.org"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-01-gemini-guided-vision",
+    "slug": "gemini-guided-vision",
+    "title": "Gemini Live estrena Guided Vision, que describe el entorno por voz, y llega a Android 9 o posterior",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Google lanzó el 1 de octubre Guided Vision en Gemini Live para los dispositivos Android compatibles: al compartir la cámara, Gemini describe el entorno por voz y, si el encuadre no le sirve, pide girar despacio a la derecha, inclinar hacia abajo o echarse atrás. Está dirigido a personas ciegas o con baja visión y se construyó junto a esa comunidad: para entrenarlo se asociaron con Aira, con decenas de miles de horas de interpretación visual, y más de 1.000 miembros de su red de probadores ayudaron a afinar el modelo.",
+    "impact": "La salvedad la pone Google y conviene leerla entera: es una utilidad de asistencia que puede equivocarse, no es un dispositivo médico, ni una ayuda a la movilidad, ni un sustituto del bastón blanco, y no está pensada para navegar, guiar un desplazamiento seguro ni detectar obstáculos. Funciona en Android 9 o posterior, en las regiones e idiomas donde ya funciona Gemini Live, y se abre desde los ajustes del perfil, con un atajo de accesibilidad o desde el menú de TalkBack con tres dedos. Admite varios idiomas, afinados con comunidades de India, Brasil, Singapur, Indonesia y Japón.",
+    "category": "modelo-multimodal",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-01",
+    "checkedAt": "2026-10-03",
+    "officialUrl": "https://blog.google/innovation-and-ai/products/gemini-app/guided-vision-gemini-live/",
+    "sources": [
+      {
+        "url": "https://blog.google/innovation-and-ai/products/gemini-app/guided-vision-gemini-live/",
+        "kind": "official",
+        "label": "Guided Vision in Gemini Live: built for accessibility",
+        "checkedAt": "2026-10-03",
+        "publisher": "blog.google"
       }
     ],
     "relatedTools": [],
