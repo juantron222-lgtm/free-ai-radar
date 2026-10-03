@@ -573,3 +573,15 @@ La diferencia con las cinco anteriores importa para decidir: aquéllas llevan un
 etiqueta discutible y se leen bien de todas formas; ésta no llegó al lector. Es
 el argumento más fuerte de que la taxonomía de /noticias tiene que decidirse
 entera, y no ampliarse noticia a noticia.
+
+### El hueco del hardware, otra vez
+
+El 3 de octubre entró `dgx-spark-64gb` en `local-open-source`. Es hardware —un
+ordenador de NVIDIA— y esa categoría describe software que se ejecuta en la
+propia máquina, así que la etiqueta vuelve a ser la menos mala y no la correcta.
+Se eligió ésa, y no `modelo-lenguaje` como en `positron-ronda-875-millones`,
+porque al menos coincide en el asunto que le importa al lector: ejecutar modelos
+sin pasar por la nube, con Ollama y vLLM soportados de fábrica.
+
+Es la segunda noticia de hardware del radar y la segunda etiqueta forzada por lo
+mismo, que es el punto 2 de lo que Web V2 tiene que decidir.
