@@ -1,5 +1,63 @@
 [
   {
+    "id": "news-2026-10-03-thinkingbox",
+    "slug": "thinkingbox-agentes-base-de-datos",
+    "title": "Microsoft publica una prueba que juzga a los agentes por lo que dejan en la base de datos, no por lo que dicen",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Microsoft y Hugging Face publicaron el 3 de octubre ThinkingBox, una prueba que califica a los agentes por los registros que dejan detrás, no por las frases que generan, y que pregunta además si pueden repetirlo veinte veces seguidas. Cubre 507 flujos de trabajo empresariales con estado, cada uno ejecutado 20 veces contra distintos modelos, y puntúa el estado final del sistema y los efectos secundarios. Cada repetición arranca desde un sistema limpio idéntico, y está disponible a través de Hugging Face.",
+    "impact": "El dato que justifica el enfoque: de 121.680 intentos válidos sobre 12 modelos, 79.853 fallaron las comprobaciones, y de esos fallos el 67,24 % terminó limpiamente, llamó a una herramienta que cambiaba el estado y no devolvió ningún error. Dicho de otro modo: dos de cada tres fallos parecían un éxito. Encontraron valores equivocados en el 77,61 % y efectos de más en el 43,30 %. El código va con licencia MIT y los datos con CDLA-Permissive-2.0, y ellos mismos avisan de que cada tarea pública es una reconstrucción sintética y los clientes no son reales.",
+    "category": "agentes",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-03",
+    "checkedAt": "2026-10-04",
+    "officialUrl": "https://huggingface.co/blog/microsoft/thinkingbox",
+    "sources": [
+      {
+        "url": "https://huggingface.co/blog/microsoft/thinkingbox",
+        "kind": "official",
+        "label": "The Agent Said It Was Done. The Database Disagreed.",
+        "checkedAt": "2026-10-04",
+        "publisher": "huggingface.co/blog"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-02-federado-enclaves-seguros",
+    "slug": "aprendizaje-federado-enclaves-seguros",
+    "title": "Google rehace su aprendizaje federado sobre enclaves verificables, y Gboard ya lo está usando",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Google Research anunció el 2 de octubre una generación nueva de su sistema de aprendizaje federado, la técnica que introdujo en 2017 para entrenar modelos sobre datos descentralizados que no salen del dispositivo. La monta sobre entornos de ejecución confiables para dar garantías de anonimización verificables y auditables, y mueve parte del cómputo al servidor para ganar velocidad, precisión y cobertura de dispositivos. Gboard ya lo ha adoptado y, según Google, gana bastante en tiempos de cómputo.",
+    "impact": "La diferencia con confiar sin más es que la lógica de esos enclaves es verificable a distancia: un tercero puede comprobar qué se ejecuta, y el estado interno no se puede observar ni alterar. El dispositivo cifra los ejemplos antes de subirlos y preautoriza qué cómputos pueden tocarlos, esa política tiene que publicarse en un registro público de transparencia, y el gestor de claves sólo descifra para cargas que encajen con ella. Google pone el límite: todo sujeto a las limitaciones de los enclaves de hoy. No hay nada que activar: vive dentro de sus propios productos.",
+    "category": "privacidad-licencias",
+    "eventType": "lanzamiento",
+    "availability": "limited",
+    "publishedAt": "2026-10-02",
+    "checkedAt": "2026-10-04",
+    "officialUrl": "https://research.google/blog/toward-provably-private-learning-from-federated-data/",
+    "sources": [
+      {
+        "url": "https://research.google/blog/toward-provably-private-learning-from-federated-data/",
+        "kind": "official",
+        "label": "Toward provably private learning from federated data",
+        "checkedAt": "2026-10-04",
+        "publisher": "research.google"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-10-02-astabrief-8b",
     "slug": "astabrief-8b",
     "title": "Ai2 abre AstaBrief 8B, un modelo pequeño que redacta informes científicos con sus citas",
@@ -145,6 +203,35 @@
     "frontPage": true
   },
   {
+    "id": "news-2026-10-01-llamaindex-extract-v2-5",
+    "slug": "llamaindex-extract-v2-5",
+    "title": "LlamaIndex sube la precisión de su extractor de documentos y dice que sin tocar el precio por página",
+    "author": "Redacción de Free AI Radar",
+    "summary": "LlamaIndex publicó el 1 de octubre Extract v2.5, una generación nueva de sus agentes de extracción de documentos por esquema. Trae mejoras de precisión en los tres niveles y más capacidad de anclar los valores en su fuente en los dos más altos, Agentic y Agentic Plus. Dice que llegan sin subir el precio por página. Por debajo hay un andamiaje de agente nuevo, hecho a propósito para extraer de documentos e inspirado, cuentan, en los agentes de programación.",
+    "impact": "Sus cifras son de ExtractBench, que es su propia prueba: el nivel económico sube de 87,1 a 93,9 de valor F1 y supera al Agentic anterior; Agentic pasa de 89,8 a 95,8 y supera al Agentic Plus anterior; y Agentic Plus llega a 96,4 desde 95,1. El cambio de fondo es que han bajado a los niveles baratos el andamiaje que antes sólo tenía el más caro. Añaden además extracción nativa de hojas de cálculo, donde el agente trabaja con las celdas del libro y no con una versión aplanada, y dicen haber probado tareas de hasta 3.200 campos.",
+    "category": "agentes",
+    "eventType": "actualizacion",
+    "availability": "available",
+    "publishedAt": "2026-10-01",
+    "checkedAt": "2026-10-04",
+    "officialUrl": "https://www.llamaindex.ai/blog/introducing-extract-v2-5",
+    "sources": [
+      {
+        "url": "https://www.llamaindex.ai/blog/introducing-extract-v2-5",
+        "kind": "official",
+        "label": "Introducing Extract v2.5",
+        "checkedAt": "2026-10-04",
+        "publisher": "llamaindex.ai"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-10-01-olmo-core-3",
     "slug": "olmo-core-3",
     "title": "Ai2 abre Olmo-core 3, la infraestructura con la que entrena sus propios modelos de mezcla de expertos",
@@ -164,6 +251,35 @@
         "label": "Introducing Olmo-core 3: Open, scalable training infrastructure for large MoEs",
         "checkedAt": "2026-10-01",
         "publisher": "allenai.org"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-01-suno-speech-beta",
+    "slug": "suno-speech-beta",
+    "title": "Suno abre a todos la beta de Speech, que genera la voz y la música en una sola pista",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Suno abrió el 1 de octubre la beta de Speech a toda su comunidad, después de un mes de pruebas con un grupo pequeño de usuarios. Sirve para crear audio hablado con música original de fondo: se escribe una idea, un poema o un texto propio y se describe la voz y el estilo musical que se quiere. Va integrado dentro de Suno, sin herramienta aparte. La compañía lo presenta como el primer modelo de audio que genera voz y música juntas en una sola pista, afirmación que es suya.",
+    "impact": "Lo interesante es que marcan ellos mismos el terreno: dicen que beta significa beta de verdad, que de vez en cuando los acentos británicos se van a Australia y vuelven, y que las pausas dramáticas pueden salir muy dramáticas. Lo plantean como una extensión de lo que la gente ya hace ahí —canciones de cumpleaños, bodas, chistes internos— y cuentan que en sus propias pruebas acabaron haciendo meditaciones, poemas, charlas de ánimo y cuentos para dormir. De precios y de qué entra en el plan gratuito, el anuncio no dice nada.",
+    "category": "audio",
+    "eventType": "preview-beta",
+    "availability": "preview",
+    "publishedAt": "2026-10-01",
+    "checkedAt": "2026-10-04",
+    "officialUrl": "https://suno.com/blog/introducing-speech-beta",
+    "sources": [
+      {
+        "url": "https://suno.com/blog/introducing-speech-beta",
+        "kind": "official",
+        "label": "Introducing Speech (beta)",
+        "checkedAt": "2026-10-04",
+        "publisher": "suno.com"
       }
     ],
     "relatedTools": [],
