@@ -1,5 +1,63 @@
 [
   {
+    "id": "news-2026-10-05-cohere-north-2",
+    "slug": "cohere-north-2",
+    "title": "Cohere lanza North 2, su plataforma de agentes para empresas, y sólo se entra hablando con comercial",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Cohere presentó el 5 de octubre North 2, la versión nueva de su plataforma de agentes para empresas, que describe como su mayor actualización hasta ahora. El núcleo es un sistema de orquestación rediseñado para automatizaciones de varios pasos, con capacidades reutilizables que llama skills, bibliotecas de conocimiento compartido, memoria que conserva el contexto entre sesiones y la opción de prototipar documentos o aplicaciones desde el propio chat. Es agnóstica de modelo: admite los de Cohere o los que traiga el cliente.",
+    "impact": "Lo que vende no es inteligencia, es control: se despliega en la nube, en las instalaciones del cliente o completamente aislada de la red, y su panel de administración añade controles de coste, límites de peticiones, cuotas por usuario y topes para toda la organización. Las políticas de autonomía limitan qué puede hacer cada agente y cuándo debe pedir permiso a una persona. Entre los conectores nuevos están Slack, SharePoint, OneDrive, Outlook, Jira, Linear, Notion y GitHub. No hay manera de probarlo por cuenta propia: la página acaba pidiendo que contactes con comercial.",
+    "category": "plataforma-agentes",
+    "eventType": "lanzamiento",
+    "availability": "limited",
+    "publishedAt": "2026-10-05",
+    "checkedAt": "2026-10-05",
+    "officialUrl": "https://cohere.com/blog/introducing-north-2",
+    "sources": [
+      {
+        "url": "https://cohere.com/blog/introducing-north-2",
+        "kind": "official",
+        "label": "North 2: Enterprise AI without compromises",
+        "checkedAt": "2026-10-05",
+        "publisher": "cohere.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-05-openrouter-sandbox-codigo",
+    "slug": "openrouter-ejecucion-codigo-sandbox",
+    "title": "OpenRouter tiene en beta dos herramientas que ejecutan el código del modelo en su propio sandbox",
+    "author": "Redacción de Free AI Radar",
+    "summary": "OpenRouter publicó el 5 de octubre una comparación de las herramientas que ejecutan código en el servidor del proveedor, y dentro documenta las suyas: openrouter:shell, que corre órdenes para cualquier modelo en sus APIs Responses y Messages, y openrouter:bash, limitada a Messages. Las dos están en beta. El funcionamiento es que el modelo decide cuándo necesita ejecutar algo y el proveedor lo corre en su propio contenedor aislado, devolviendo la salida dentro de la misma petición, sin que haya que montar ni parchear nada.",
+    "impact": "El precio está publicado, que es lo que suele faltar en estos anuncios: el tiempo de sandbox se cobra a 0,0001 dólares por segundo, con un mínimo de 30 segundos cuando el contenedor es nuevo o estaba dormido. El contenedor queda atado a la cuenta, sin salida a la red por defecto y con topes de tiempo y de tamaño de salida por cada orden. Y acaban diciendo cuándo no usarlo: si hace falta una imagen base propia, trabajo con GPU o una sesión de horas, sigue conviniendo un sandbox gestionado por uno mismo. OpenAI, Anthropic y Google sólo ejecutan código para sus propios modelos.",
+    "category": "agentes",
+    "eventType": "preview-beta",
+    "availability": "preview",
+    "publishedAt": "2026-10-05",
+    "checkedAt": "2026-10-05",
+    "officialUrl": "https://openrouter.ai/blog/insights/server-side-code-execution-tools-for-ai-agents-compared/",
+    "sources": [
+      {
+        "url": "https://openrouter.ai/blog/insights/server-side-code-execution-tools-for-ai-agents-compared/",
+        "kind": "official",
+        "label": "Server-Side Code Execution Tools for AI Agents, Compared",
+        "checkedAt": "2026-10-05",
+        "publisher": "openrouter.ai"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-10-03-thinkingbox",
     "slug": "thinkingbox-agentes-base-de-datos",
     "title": "Microsoft publica una prueba que juzga a los agentes por lo que dejan en la base de datos, no por lo que dicen",
