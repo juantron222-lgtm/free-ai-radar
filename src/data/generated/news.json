@@ -1,5 +1,121 @@
 [
   {
+    "id": "news-2026-10-07-haiku-5-5-precios",
+    "slug": "claude-haiku-5-5-precios",
+    "title": "Anthropic baja precios: Haiku 5.5 cuesta un 75 % menos y la caché de Sonnet 5.5 se queda a la mitad",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Anthropic publicó el 7 de octubre Claude Haiku 5.5 y con él una rebaja en toda su gama. Dice que su modelo pequeño cuesta de media un 75 % menos que Haiku 4.5, y su tabla lo pone a 0,10 dólares por millón de tokens de entrada y 0,50 de salida, frente a 1 y 5 del anterior. El mismo día baja un 50 % la lectura de caché de Sonnet 5.5, de 0,20 a 0,10 dólares por millón, lo que según la compañía abarata en torno a un 20 % el trabajo agéntico.",
+    "impact": "La letra pequeña está en el tramo: esos precios valen para peticiones de hasta 100.000 tokens, y por encima se multiplican por cinco, a 0,50 de entrada y 2,50 de salida. Anthropic sostiene que ese tramo corto cubría alrededor del 90 % de las peticiones que recibía el Haiku anterior. Es además el primer modelo de su clase con ajuste de esfuerzo, para elegir entre coste e inteligencia, y está ya en todas las plataformas, incluidas AWS, Google Cloud y Azure. Para los suscriptores Max y Team añaden un crédito mensual de API.",
+    "category": "precios",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-07",
+    "checkedAt": "2026-10-08",
+    "officialUrl": "https://www.anthropic.com/claude-haiku-5-5",
+    "sources": [
+      {
+        "url": "https://www.anthropic.com/claude-haiku-5-5",
+        "kind": "official",
+        "label": "Introducing Claude Haiku 5.5",
+        "checkedAt": "2026-10-08",
+        "publisher": "anthropic.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-07-elevenlabs-openrouter",
+    "slug": "elevenlabs-en-openrouter",
+    "title": "ElevenLabs llega a OpenRouter con once modelos de voz, y hasta el 19 de octubre a mitad de precio",
+    "author": "Redacción de Free AI Radar",
+    "summary": "OpenRouter anunció el 7 de octubre que los modelos de ElevenLabs ya están en su plataforma: nueve de texto a voz y dos de voz a texto. Lo práctico es que no hace falta contratar un plan aparte de ElevenLabs — se llama a dos endpoints de OpenRouter con la misma clave de API que ya se use para los modelos de lenguaje. Entre ellos están Eleven v4 para narración y personajes, v4 Turbo para respuestas habladas en directo y Scribe v2 para transcribir con etiquetas de hablante.",
+    "impact": "Hay una rebaja con fecha de caducidad, así que conviene mirar el calendario: todos los modelos de ElevenLabs están a mitad del precio de catálogo de OpenRouter, para todos sus clientes, hasta el 19 de octubre a las ocho de la mañana del Pacífico. Después, el cobro va por caracteres y en dos tramos: v4, v3 y Multilingual v2 pagan la tarifa completa, mientras v4 Turbo, v3 Conversational, Flash y Turbo pagan la mitad. Los topes por petición cambian mucho entre modelos, de 5.000 caracteres en v3 a 40.000 en Flash v2.5.",
+    "category": "audio",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-07",
+    "checkedAt": "2026-10-08",
+    "officialUrl": "https://openrouter.ai/blog/announcements/elevenlabs-on-openrouter/",
+    "sources": [
+      {
+        "url": "https://openrouter.ai/blog/announcements/elevenlabs-on-openrouter/",
+        "kind": "official",
+        "label": "ElevenLabs is now on OpenRouter",
+        "checkedAt": "2026-10-08",
+        "publisher": "openrouter.ai"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-06-embeddinggemma-2",
+    "slug": "embeddinggemma-2",
+    "title": "Google publica EmbeddingGemma 2 con licencia Apache 2.0, y cabe en un móvil con 191 MB de memoria",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Google DeepMind publicó el 6 de octubre EmbeddingGemma 2, un modelo de incrustaciones que amplía el anterior más allá del texto para unificar código, imágenes, vídeo y audio en un mismo espacio. Está construido sobre la arquitectura Gemma 4, sale con licencia Apache 2.0 y tiene 740 millones de parámetros, pensado para ejecutarse en el propio dispositivo. Es modular: 270 millones bastan para trabajar sólo con texto, y los codificadores de visión y audio se añaden aparte, 170 y 300 millones más.",
+    "impact": "Las cifras que importan para montarlo en un teléfono: con cuantización dicen que necesita unos 191 MB de RAM activa para los pesos de texto y unos 567 MB para el modelo completo en un Pixel 11 Pro. La ventana de contexto sube a 8.000 tokens, cuatro veces la anterior, lo que da para 5,5 minutos de audio, 29 imágenes o 58 fotogramas de vídeo. Y los vectores se pueden recortar de 768 dimensiones a 128, con hasta seis veces menos almacenamiento. Generar las incrustaciones en local es lo que permite buscar sin conexión y sin sacar los datos del aparato.",
+    "category": "local-open-source",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-06",
+    "checkedAt": "2026-10-08",
+    "officialUrl": "https://deepmind.google/blog/embeddinggemma-2-an-open-lightweight-multimodal-embedding-model/",
+    "sources": [
+      {
+        "url": "https://deepmind.google/blog/embeddinggemma-2-an-open-lightweight-multimodal-embedding-model/",
+        "kind": "official",
+        "label": "EmbeddingGemma 2: an open, lightweight multimodal embedding model",
+        "checkedAt": "2026-10-08",
+        "publisher": "deepmind.google"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-06-mistral-large-4",
+    "slug": "mistral-large-4",
+    "title": "Mistral abre la vista previa de Large 4, de un billón de parámetros, pero los pesos no llegan hasta fin de mes",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Mistral lanzó el 6 de octubre la vista previa pública de Mistral Large 4, un modelo multimodal nativo de un billón de parámetros con 52.000 millones activos. Se puede probar ya por la API en Mistral Studio, pero los pesos no se publican hasta final de mes. Hasta entonces lo somete a pruebas de intrusión con responsables de ciberseguridad, socios autorizados y autoridades estatales, que acceden al mismo modelo con menos moderación y más capacidades de ciberseguridad.",
+    "impact": "Lo entrenaron desde cero en 3.800 GPU NVIDIA Grace Blackwell en sus propios centros de datos europeos, y la vista previa se sirve en esa misma infraestructura. El argumento de fondo merece atención: Mistral sostiene que los filtros de los modelos cerrados bloquean trabajo legítimo de seguridad, porque defender software empieza por demostrar que un fallo es real. Y lo acompaña de un ejemplo: en una prueba que pide reproducir una vulnerabilidad y parchearla dice sacar un 82 %, mientras varios modelos cerrados puntúan casi cero al negarse a la tarea.",
+    "category": "modelo-lenguaje",
+    "eventType": "preview-beta",
+    "availability": "preview",
+    "publishedAt": "2026-10-06",
+    "checkedAt": "2026-10-08",
+    "officialUrl": "https://mistral.ai/news/mistral-large-4/",
+    "sources": [
+      {
+        "url": "https://mistral.ai/news/mistral-large-4/",
+        "kind": "official",
+        "label": "Introducing Mistral Large 4",
+        "checkedAt": "2026-10-08",
+        "publisher": "mistral.ai"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-10-05-cohere-north-2",
     "slug": "cohere-north-2",
     "title": "Cohere lanza North 2, su plataforma de agentes para empresas, y sólo se entra hablando con comercial",
