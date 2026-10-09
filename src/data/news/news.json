@@ -1,5 +1,121 @@
 [
   {
+    "id": "news-2026-10-08-anthropic-politica-uso-2026",
+    "slug": "anthropic-politica-uso-2026",
+    "title": "Anthropic reescribe su política de uso, en vigor el 12 de noviembre, y añade un límite al maltrato a sus modelos",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Anthropic publicó el 8 de octubre la versión nueva de su política de uso, que entra en vigor el 12 de noviembre. Dice que la mayoría de los cambios aclaran reglas que ya existían, ahora que Claude hace trabajos más largos e independientes, y que se apoya en los patrones de abuso vistos el último año en operaciones de influencia, desarrollo de armas y vigilancia. Junta en una sección nueva sobre campañas engañosas lo que antes estaba repartido entre elecciones, fraude, privacidad y desinformación.",
+    "impact": "Los cambios concretos van en dos direcciones. Aprieta en armas, donde aclara que la prohibición abarca el software y los componentes que las hacen funcionar y armar drones, y en vigilancia, donde prohíbe decidir a quién investigar, detener o acusar. Pero también afloja: retira la prohibición general de segmentar voto y campaña, porque cubría trabajo cívico legítimo. Y añade algo poco común en estas políticas, el maltrato sostenido y gratuito a sus propios modelos, aclarando que no cuentan la frustración normal, los temas creativos oscuros ni las pruebas.",
+    "category": "privacidad-licencias",
+    "eventType": "anuncio",
+    "availability": "announced",
+    "publishedAt": "2026-10-08",
+    "checkedAt": "2026-10-09",
+    "officialUrl": "https://www.anthropic.com/news/2026-usage-policy-update",
+    "sources": [
+      {
+        "url": "https://www.anthropic.com/news/2026-usage-policy-update",
+        "kind": "official",
+        "label": "2026 Usage Policy update",
+        "checkedAt": "2026-10-09",
+        "publisher": "anthropic.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-08-comfystreamer-h3",
+    "slug": "comfystreamer-h3-video-una-gpu",
+    "title": "Un nodo abierto de ComfyUI genera vídeo al ritmo de su reproducción con una sola GPU de consumo",
+    "author": "Redacción de Free AI Radar",
+    "summary": "ComfyUI contó el 8 de octubre cómo ha conseguido que MiniMax H3 siga el ritmo de la reproducción con una sola GPU: 15 segundos de vídeo en 15 segundos o menos, a 448 por 256, en una RTX 5090 de 32 GB. El nodo, ComfyStreamerH3, está publicado como código abierto en GitHub. El punto de partida es el coste: sostiene que mantener estos modelos funcionando sin parar puede costar más de 6.000 dólares al día, lo que los deja fuera del alcance de cualquiera.",
+    "impact": "Lo interesante es el apilado de recortes: cuatro pasos de muestreo, atención dispersa que mira de verdad sólo el 20 % de los bloques, un codificador de texto más pequeño que gasta 4,5 GB en lugar de 15,7, un punto de control podado en INT8 y cálculo en cuatro bits para parte de la red. Con todo ello la memoria necesaria baja de 80 GB a menos de 30. El autor es honesto por partida doble: dice que los clips tienen aristas y defectos, y que él mismo no entiende algunas de las optimizaciones que su agente encontró en otros proyectos.",
+    "category": "local-open-source",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-08",
+    "checkedAt": "2026-10-09",
+    "officialUrl": "https://blog.comfy.org/p/how-i-generated-live-video-with-minimax",
+    "sources": [
+      {
+        "url": "https://blog.comfy.org/p/how-i-generated-live-video-with-minimax",
+        "kind": "official",
+        "label": "How I Generated Live Video with MiniMax H3 on a Single GPU",
+        "checkedAt": "2026-10-09",
+        "publisher": "comfy.org"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-08-luma-claude-motion",
+    "slug": "luma-claude-motion",
+    "title": "Las animaciones de Claude Motion se abren ya en Luma para convertirlas en vídeo y reencuadrarlas",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Luma anunció el 8 de octubre que las animaciones de Claude Motion se abren directamente en su herramienta, conectando las dos mediante MCP. Claude Motion parte de una petición y escribe código que anima texto, gráficas, formas e imágenes, y se reproduce como un vídeo corto; Luma recoge ese movimiento y lo convierte en el fichero de vídeo final con sus modelos Ray y Uni. Según Luma, Claude Motion está en beta y sólo en los planes Team y Enterprise de Claude.",
+    "impact": "Lo que se gana es el acabado y el formato: dentro de Luma se puede cambiar el aspecto manteniendo el movimiento, reencuadrar a 9:16, 1:1, 4:3 o 21:9, o pedirle al agente versiones adicionales. El camino práctico es añadir el conector de Luma en Claude, y la animación aparece allí como vídeo para seguir trabajando donde se dejó. Conviene fijarse en quién afirma qué: el anuncio es de Luma, y es Luma quien sitúa Claude Motion en beta y en esos dos planes de pago.",
+    "category": "video",
+    "eventType": "lanzamiento",
+    "availability": "limited",
+    "publishedAt": "2026-10-08",
+    "checkedAt": "2026-10-09",
+    "officialUrl": "https://lumalabs.ai/news/Luma-Claude-Motion-Launch-Partnership",
+    "sources": [
+      {
+        "url": "https://lumalabs.ai/news/Luma-Claude-Motion-Launch-Partnership",
+        "kind": "official",
+        "label": "Start in Claude Motion. Finish it in Luma.",
+        "checkedAt": "2026-10-09",
+        "publisher": "lumalabs.ai"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-08-midjourney-modo-pensante",
+    "slug": "midjourney-modo-pensante",
+    "title": "Midjourney prueba un «modo pensante» para generar imágenes, por ahora sólo en su web alfa",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Midjourney anunció el 8 de octubre que está probando un «modo pensante» para generar imágenes en su web alfa, alpha.midjourney.com, y pide opiniones. Se ejecuta desde la ficha de un trabajo ya hecho, pulsando «Rerun (Thinking)» en la esquina inferior derecha. Dice que en sus pruebas mejora la precisión al seguir la petición, la tipografía y la coherencia de la imagen, y pide ayuda para averiguar dónde ayuda, dónde no y qué problemas aparecen.",
+    "impact": "Es un ensayo y no un lanzamiento, y la propia compañía lo deja claro: habla de que en el futuro podría ofrecerlo de forma amplia como modo pensante, o como una manera de añadir más razonamiento a un trabajo ya terminado. Dos cosas útiles para quien quiera probarlo: está sólo en la web alfa, no en la web normal ni en Discord, y recogen los ejemplos y las quejas en su canal de ideas. Que mejore la tipografía y la coherencia es, por ahora, lo que Midjourney dice de sus propias pruebas.",
+    "category": "imagen",
+    "eventType": "preview-beta",
+    "availability": "preview",
+    "publishedAt": "2026-10-08",
+    "checkedAt": "2026-10-09",
+    "officialUrl": "https://updates.midjourney.com/testing-thinking-mode/",
+    "sources": [
+      {
+        "url": "https://updates.midjourney.com/testing-thinking-mode/",
+        "kind": "official",
+        "label": "Testing Thinking Mode",
+        "checkedAt": "2026-10-09",
+        "publisher": "midjourney.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-10-07-haiku-5-5-precios",
     "slug": "claude-haiku-5-5-precios",
     "title": "Anthropic baja precios: Haiku 5.5 cuesta un 75 % menos y la caché de Sonnet 5.5 se queda a la mitad",
