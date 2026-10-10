@@ -1,0 +1,278 @@
+---
+import AdminLayout from '@layouts/AdminLayout.astro';
+import { getTool } from '@lib/data/catalog';
+import { totalesPor, usoReciente } from '@lib/data/uso';
+import { ROUTES } from '@lib/nav';
+
+export const prerender = false;
+
+/*
+ * Si la web sirve, contado.
+ *
+ * Sólo administradores: las búsquedas son texto que alguien escribió, y aunque
+ * se descartan las que parecen datos personales, no es algo para enseñar a
+ * cualquiera del equipo.
+ */
+if (Astro.locals.user?.role !== 'admin') {
+  return new Response('No encontrado', { status: 404 });
+}
+
+const DIAS = 30;
+const uso = await usoReciente(DIAS);
+const { filas } = uso;
+
+const salidas = totalesPor(filas, 'salida');
+const precios = new Map(totalesPor(filas, 'precios').map((x) => [x.clave, x.cuenta]));
+const vacias = totalesPor(filas, 'busqueda_vacia');
+const conResultados = totalesPor(filas, 'busqueda');
+const filtros = totalesPor(filas, 'filtro');
+const comparaciones = totalesPor(filas, 'comparar');
+
+const suma = (xs: Array<{ cuenta: number }>) => xs.reduce((s, x) => s + x.cuenta, 0);
+const totales = {
+  salidas: suma(salidas),
+  precios: suma([...precios.values()].map((cuenta) => ({ cuenta }))),
+  busquedas: suma(conResultados),
+  vacias: suma(vacias),
+  comparaciones: suma(comparaciones),
+};
+
+const porDia = new Map<string, { salidas: number; busquedas: number }>();
+for (const f of filas) {
+  const d = porDia.get(f.dia) ?? { salidas: 0, busquedas: 0 };
+  if (f.evento === 'salida' || f.evento === 'precios') d.salidas += f.cuenta;
+  if (f.evento === 'busqueda' || f.evento === 'busqueda_vacia') d.busquedas += f.cuenta;
+  porDia.set(f.dia, d);
+}
+const dias = [...porDia.entries()].sort((a, b) => b[0].localeCompare(a[0])).slice(0, 14);
+const nombre = (slug: string) => getTool(slug)?.name ?? slug;
+const fecha = (dia: string) =>
+  new Date(`${dia}T12:00:00Z`).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', timeZone: 'UTC' });
+---
+
+<AdminLayout
+  title="Uso"
+  heading="¿Sirve la web?"
+  lede={`Lo que la gente hace aquí, en los últimos ${DIAS} días: a qué herramientas va, qué busca y qué no encuentra.`}
+>
+  {!uso.disponible ? (
+    <div class="aviso" role="status">
+      <p>
+        <strong>Todavía no hay contadores.</strong> La tabla <code>uso_diario</code> no existe en
+        esta base de datos, o no se ha podido leer. Se crea pegando
+        <code>supabase/migrations/0017_uso_diario.sql</code> en el editor SQL de Supabase.
+      </p>
+      <p>Fuera de producción esta página no lee nada: en un Preview o en local no se cuenta.</p>
+    </div>
+  ) : (
+    <>
+      <dl class="cifras">
+        <div><dt>Salidas a la web oficial</dt><dd class="tnum">{totales.salidas}</dd></div>
+        <div><dt>A su página de precios</dt><dd class="tnum">{totales.precios}</dd></div>
+        <div><dt>Búsquedas con resultados</dt><dd class="tnum">{totales.busquedas}</dd></div>
+        <div><dt>Búsquedas sin resultados</dt><dd class="tnum">{totales.vacias}</dd></div>
+        <div><dt>Comparaciones</dt><dd class="tnum">{totales.comparaciones}</dd></div>
+      </dl>
+
+      <section aria-labelledby="vacias-t">
+        <h2 id="vacias-t">Lo que buscan y no encuentran</h2>
+        <p class="nota">Lo más útil de esta página: cada fila es algo que alguien vino a buscar y el catálogo no le dio.</p>
+        {vacias.length === 0 ? <p class="vacio">Ninguna todavía.</p> : (
+          <ol class="lista">{vacias.slice(0, 40).map((x) => <li><span>{x.clave}</span><span class="tnum">{x.cuenta}</span></li>)}</ol>
+        )}
+      </section>
+
+      <section aria-labelledby="salidas-t">
+        <h2 id="salidas-t">Herramientas a las que más se va</h2>
+        {salidas.length === 0 ? <p class="vacio">Ninguna salida todavía.</p> : (
+          <table class="tabla">
+            <thead><tr><th scope="col">Herramienta</th><th scope="col">Web oficial</th><th scope="col">Precios</th></tr></thead>
+            <tbody>
+              {salidas.slice(0, 30).map((x) => (
+                <tr>
+                  <th scope="row"><a href={ROUTES.tool(x.clave)}>{nombre(x.clave)}</a></th>
+                  <td class="tnum">{x.cuenta}</td>
+                  <td class="tnum">{precios.get(x.clave) ?? 0}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </section>
+
+      <div class="dos">
+        <section aria-labelledby="busquedas-t">
+          <h2 id="busquedas-t">Búsquedas con resultados</h2>
+          {conResultados.length === 0 ? <p class="vacio">Ninguna todavía.</p> : (
+            <ol class="lista">{conResultados.slice(0, 30).map((x) => <li><span>{x.clave}</span><span class="tnum">{x.cuenta}</span></li>)}</ol>
+          )}
+        </section>
+        <section aria-labelledby="filtros-t">
+          <h2 id="filtros-t">Filtros</h2>
+          {filtros.length === 0 ? <p class="vacio">Ninguno todavía.</p> : (
+            <ol class="lista">{filtros.slice(0, 30).map((x) => <li><span><code>{x.clave}</code></span><span class="tnum">{x.cuenta}</span></li>)}</ol>
+          )}
+        </section>
+      </div>
+
+      <div class="dos">
+        <section aria-labelledby="comparar-t">
+          <h2 id="comparar-t">Comparaciones</h2>
+          {comparaciones.length === 0 ? <p class="vacio">Ninguna todavía.</p> : (
+            <ol class="lista">{comparaciones.slice(0, 20).map((x) => <li><span>{x.clave.split('|').map(nombre).join(' · ')}</span><span class="tnum">{x.cuenta}</span></li>)}</ol>
+          )}
+        </section>
+        <section aria-labelledby="dias-t">
+          <h2 id="dias-t">Por día</h2>
+          {dias.length === 0 ? <p class="vacio">Sin datos.</p> : (
+            <table class="tabla">
+              <thead><tr><th scope="col">Día</th><th scope="col">Salidas</th><th scope="col">Búsquedas</th></tr></thead>
+              <tbody>{dias.map(([dia, d]) => <tr><th scope="row">{fecha(dia)}</th><td class="tnum">{d.salidas}</td><td class="tnum">{d.busquedas}</td></tr>)}</tbody>
+            </table>
+          )}
+        </section>
+      </div>
+    </>
+  )}
+
+  <section class="como" aria-labelledby="como-t">
+    <h2 id="como-t">Qué cuenta y qué no</h2>
+    <ul>
+      <li><strong>Salidas y precios:</strong> cada clic en «Ir a…» o «Ver su página de precios» de una ficha, de cualquiera. Pasan por <code>/ir/&lt;herramienta&gt;</code>, que suma uno y redirige; no se guarda nada en el navegador.</li>
+      <li><strong>Búsquedas, filtros y comparaciones:</strong> sólo de quien aceptó «Analítica» en el aviso de cookies, como promete ese aviso. Son menos de las que hay.</li>
+      <li>Sólo totales por día: ni IP, ni cookie, ni quién. Las búsquedas que parecen un correo, un enlace o un número largo no se guardan. Se borra solo lo que pasa de 14 meses.</li>
+      <li>Ni los Preview, ni el desarrollo local, ni las pruebas automáticas cuentan.</li>
+    </ul>
+  </section>
+</AdminLayout>
+
+<style>
+  .aviso {
+    padding: var(--space-s);
+    border: 1px solid var(--warn-line);
+    border-radius: var(--radius-l);
+    background: var(--warn-soft);
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .aviso p {
+    margin: 0;
+  }
+
+  .cifras {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: var(--space-s);
+    margin: 0 0 var(--space-l);
+  }
+
+  .cifras div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface);
+  }
+
+  .cifras dt {
+    order: 2;
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+  }
+
+  .cifras dd {
+    order: 1;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 650;
+    letter-spacing: -0.03em;
+    color: var(--ink-strong);
+  }
+
+  section {
+    margin-block-end: var(--space-l);
+  }
+
+  h2 {
+    font-size: 1.0625rem;
+    margin-block-end: var(--space-2xs);
+  }
+
+  .nota,
+  .vacio {
+    margin: 0 0 var(--space-2xs);
+    font-size: 0.875rem;
+    color: var(--ink-subtle);
+  }
+
+  .lista {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .lista li {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-s);
+    padding: 0.35rem 0.5rem;
+    border-block-end: 1px solid var(--line);
+    font-size: 0.9375rem;
+    overflow-wrap: anywhere;
+  }
+
+  .tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+
+  .tabla th,
+  .tabla td {
+    padding: 0.4rem 0.5rem;
+    border-block-end: 1px solid var(--line);
+    text-align: start;
+  }
+
+  .tabla td {
+    text-align: end;
+  }
+
+  .dos {
+    display: grid;
+    gap: var(--space-l);
+  }
+
+  @media (min-width: 56rem) {
+    .dos {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .como {
+    padding: var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface-sunken);
+  }
+
+  .como ul {
+    margin: 0;
+    padding-inline-start: 1.2em;
+    display: grid;
+    gap: 0.35rem;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+</style>

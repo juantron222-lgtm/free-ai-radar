@@ -207,6 +207,7 @@ const FILTROS_VERTICAL = [
             class:list={['data-table', 'compare-table', { 'solo-diferencias': soloDiferencias }]}
             id="compare-table"
             role="table"
+            data-comparacion={tools.map((t) => t.slug).join('|')}
           >
             <caption class="sr-only">
               Comparativa de {tools.map((t) => t.name).join(', ')}
@@ -850,6 +851,16 @@ const FILTROS_VERTICAL = [
 </style>
 
 <script>
+  import { medir } from '@lib/client/uso';
+
+  /*
+   * Una comparación vista se cuenta una vez, y sólo con permiso de
+   * «Analítica» (ver lib/client/uso). Cuáles se comparan dice qué dudas tiene
+   * la gente y qué fichas habría que poner una al lado de la otra.
+   */
+  const comparacion = document.getElementById('compare-table')?.dataset['comparacion'];
+  if (comparacion) medir('comparar', comparacion);
+
   const MAX = 4;
   const picks = Array.from(document.querySelectorAll<HTMLInputElement>('[data-compare-pick]'));
   const submits = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-compare-submit]'));

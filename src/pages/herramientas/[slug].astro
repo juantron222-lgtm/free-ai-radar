@@ -30,6 +30,7 @@ import { selloDe, verificacionDe } from '@lib/domain/verification';
 import { esfuerzoDe } from '@lib/domain/esfuerzo';
 import { freeAccessLabel } from '@lib/data/category-page';
 import { filaDe } from '@lib/data/portada';
+import { descripcionDeFicha } from '@lib/seo/ficha';
 
 export function getStaticPaths() {
   return getAllTools().map((tool) => ({ params: { slug: tool.slug }, props: { tool } }));
@@ -113,11 +114,8 @@ const title = retirada
   : sinPlanGratuito
     ? `${tool.name}: no tiene plan gratuito. Qué ofrece y alternativas`
     : `${tool.name}: ¿es gratis de verdad? Análisis y límites reales`;
-const description = retirada
-  ? `${tool.tagline} ${tool.freePlan.summary}`
-  : sinPlanGratuito
-    ? `${tool.tagline} No tiene plan gratuito: ${tool.freePlan.summary}`
-    : `${tool.tagline} Analizamos su plan gratuito: ${tool.freePlan.summary}`;
+// La descripción que sale en el buscador: la respuesta primero (ver seo/ficha.ts).
+const description = descripcionDeFicha(tool);
 
 /*
  * El estado de la ficha, que es lo que puede decir de sí misma.

@@ -111,10 +111,25 @@ const processors = [
         que proteger— y sí hace dudar del resto, que sí es cierto. Cuando haya
         cobro, la fila vuelve antes de que se cobre el primer euro.
       */}
+      {/*
+        Dos contadores distintos, con dos bases distintas, y cada uno dice la
+        suya. Las salidas se cuentan en el servidor al pasar por /ir/<slug>:
+        no se guarda ni se lee nada en tu navegador y la fila sólo dice
+        cuántas veces al día se fue a cada herramienta. Las búsquedas, en
+        cambio, el aviso de cookies promete pedirlas, y se piden.
+        El plazo de 14 meses lo cumple la propia función que suma
+        (migración 0017): al contar, borra lo que pasa de ese plazo.
+      */}
       <tr>
-        <th scope="row">Métricas agregadas de uso</th>
-        <td>Saber qué contenido merece mantenerse</td>
-        <td>Consentimiento</td>
+        <th scope="row">Clics hacia la web oficial de cada herramienta (sólo cuántos, por día)</th>
+        <td>Saber si la web te sirve para encontrar una herramienta</td>
+        <td>Interés legítimo (art. 6.1.f); no identifica a nadie</td>
+        <td>14 meses</td>
+      </tr>
+      <tr>
+        <th scope="row">Búsquedas, filtros y comparaciones (totales por día, sin IP ni identificador)</th>
+        <td>Saber qué se busca y qué falta en el catálogo</td>
+        <td>Consentimiento («Analítica» en el aviso de cookies)</td>
         <td>14 meses</td>
       </tr>
       <tr>

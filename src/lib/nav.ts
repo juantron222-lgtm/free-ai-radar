@@ -22,6 +22,8 @@ export const ROUTES = {
   home: '/',
   tools: '/herramientas',
   tool: (slug: string) => `/herramientas/${slug}`,
+  /** Salida contada a la web oficial (o a su página de precios): ver `pages/ir/[slug].ts`. */
+  salida: (slug: string, precios = false) => `/ir/${slug}${precios ? '?a=precios' : ''}`,
   categories: '/categorias',
   /**
    * Imagen tiene página propia mientras se prueba la arquitectura por intención.
@@ -244,6 +246,7 @@ export const ACCOUNT_NAV: readonly NavItem[] = [
 
 export const ADMIN_NAV: readonly NavItem[] = [
   { label: 'Panel', href: '/admin' },
+  { label: 'Uso', href: '/admin/uso' },
   { label: 'Herramientas', href: '/admin/herramientas' },
   { label: 'Pendientes', href: '/admin/pendientes' },
   { label: 'Correcciones', href: '/admin/correcciones' },

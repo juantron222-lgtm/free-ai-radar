@@ -21,6 +21,7 @@ const EXCLUDED = [
   '/admin', // noindex, requires a session, and mutating
   '/cuenta', // per-user state
   '/api/', // not HTML
+  '/ir/', // counted redirects out to each manufacturer's site
   '/sin-conexion', // only meaningful from the service worker
 ];
 

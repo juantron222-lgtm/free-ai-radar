@@ -35,6 +35,8 @@ export const RATE_LIMITS = {
   submission: { limit: 4, windowSeconds: 3600 },
   contact: { limit: 4, windowSeconds: 3600 },
   api: { limit: 120, windowSeconds: 60 },
+  /** Contadores de uso: un clic o una búsqueda por segundo de media es ya mucho para una persona. */
+  uso: { limit: 60, windowSeconds: 60 },
   checkout: { limit: 10, windowSeconds: 600 },
 } as const satisfies Record<string, RateLimitRule>;
 
