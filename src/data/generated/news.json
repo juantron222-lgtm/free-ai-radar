@@ -1,5 +1,41 @@
 [
   {
+    "id": "news-2026-10-09-claude-flujos-dinamicos",
+    "slug": "claude-flujos-dinamicos",
+    "title": "Un agente de Claude puede escribir su propio flujo y repartir el trabajo entre varios agentes por fases",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Anthropic anotó el 9 de octubre en las notas de versión de su plataforma que los agentes gestionados pueden usar flujos de trabajo dinámicos, en beta y tras una cabecera concreta. Su documentación lo explica así: el agente escribe un flujo, un programa que ejecuta muchos agentes por fases y combina sus resultados, y el servidor lo lanza en segundo plano como una sola tirada que se puede seguir. El flujo define él mismo los agentes o los elige de una lista que se le dé.",
+    "impact": "Lo plantean para el trabajo que no cabe en un agente solo: tareas con muchas piezas, trabajo en paralelo o algo largo que debería acabar antes, y citan auditorías, migraciones, investigación a fondo y verificaciones cruzadas. El aviso de coste lo dan ellos: cada agente de una tirada gasta tokens, así que recomiendan fijar un presupuesto de sesión. Y hay dos límites que conviene saber antes de diseñar nada: la delegación baja un solo nivel, y una sesión no puede tener más de 25 hilos hijos a la vez, contando los inactivos.",
+    "category": "plataforma-agentes",
+    "eventType": "preview-beta",
+    "availability": "preview",
+    "publishedAt": "2026-10-09",
+    "checkedAt": "2026-10-10",
+    "officialUrl": "https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration",
+    "sources": [
+      {
+        "url": "https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration",
+        "kind": "docs",
+        "label": "Multiagent orchestration: dynamic workflows",
+        "checkedAt": "2026-10-10",
+        "publisher": "claude.com"
+      },
+      {
+        "url": "https://platform.claude.com/docs/en/release-notes/overview",
+        "kind": "release-notes",
+        "label": "Claude Platform release notes, 9 de octubre de 2026",
+        "checkedAt": "2026-10-10",
+        "publisher": "claude.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-10-08-anthropic-politica-uso-2026",
     "slug": "anthropic-politica-uso-2026",
     "title": "Anthropic reescribe su política de uso, en vigor el 12 de noviembre, y añade un límite al maltrato a sus modelos",
@@ -116,6 +152,42 @@
     "frontPage": true
   },
   {
+    "id": "news-2026-10-07-haiku-5-5-migracion",
+    "slug": "claude-haiku-5-5-migracion",
+    "title": "Migrar a Claude Haiku 5.5 rompe código, y Anthropic publica la lista de lo que hay que cambiar",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Anthropic avisó el 7 de octubre de que el código escrito para Claude Haiku 4.5 puede romperse en 5.5, y su guía de migración lo detalla punto por punto. Enviar el pensamiento con un presupuesto de tokens devuelve un error 400 y hay que pasarlo al modo adaptativo. Hay que quitar de las peticiones los parámetros temperature, top_p y top_k. Y si los mensajes acababan con un turno del asistente para que el modelo siguiera, ahora tienen que acabar con un turno de usuario.",
+    "impact": "El resto de la lista importa igual. Quien use control del ordenador debe cambiar la herramienta antigua, y el conjunto nuevo no es el mismo en la API de Claude y Google Cloud que en Amazon Bedrock, donde encima hace falta una cabecera beta. En Bedrock no hay salidas estructuradas para este modelo. El nivel de prioridad tampoco está soportado, así que quien lo tuviera en 4.5 debe planificar la capacidad aparte. Y dos avisos de fondo: hay que recontar los prompts porque el mismo texto cuenta más tokens, y un rechazo del clasificador de seguridad no tiene respaldo en el servidor.",
+    "category": "programacion",
+    "eventType": "actualizacion",
+    "availability": "available",
+    "publishedAt": "2026-10-07",
+    "checkedAt": "2026-10-10",
+    "officialUrl": "https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide",
+    "sources": [
+      {
+        "url": "https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide",
+        "kind": "docs",
+        "label": "Claude Haiku 5.5 migration guide",
+        "checkedAt": "2026-10-10",
+        "publisher": "claude.com"
+      },
+      {
+        "url": "https://platform.claude.com/docs/en/release-notes/overview",
+        "kind": "release-notes",
+        "label": "Claude Platform release notes, 7 de octubre de 2026",
+        "checkedAt": "2026-10-10",
+        "publisher": "claude.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-10-07-haiku-5-5-precios",
     "slug": "claude-haiku-5-5-precios",
     "title": "Anthropic baja precios: Haiku 5.5 cuesta un 75 % menos y la caché de Sonnet 5.5 se queda a la mitad",
@@ -222,6 +294,35 @@
         "label": "Introducing Mistral Large 4",
         "checkedAt": "2026-10-08",
         "publisher": "mistral.ai"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-06-tiny-aya-l2-thinker",
+    "slug": "tiny-aya-l2-thinker",
+    "title": "Cohere publica un modelo de 3.350 millones que razona en el idioma de la pregunta, no en inglés",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Cohere Labs publicó el 6 de octubre una investigación sobre algo que afecta a cualquiera que no hable inglés: los modelos de razonamiento contestan en tu idioma, pero piensan en inglés, así que la traza del razonamiento queda fuera del alcance de quien no lo lee. Su modelo, Tiny Aya L2-Thinker, de 3.350 millones de parámetros, razona en el idioma de la pregunta más del 93 % de las veces en 60 idiomas, y publican los pesos junto a los datos de razonamiento multilingüe.",
+    "impact": "Por qué importa más allá de la comodidad: si no puedes leer el razonamiento, no puedes verificar cada paso ni localizar dónde se torció la respuesta. Cohere añade que parte del conocimiento, como el contexto cultural y los matices de la lengua, se expresa mejor en su idioma de origen, y pone un ejemplo: preguntado en hindi qué augura buena suerte, el modelo razonando en hindi acierta, y pensando en inglés da una respuesta con sesgo occidental. La receta es mezcla de datos, no un modelo por idioma.",
+    "category": "modelo-lenguaje",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-06",
+    "checkedAt": "2026-10-10",
+    "officialUrl": "https://cohere.com/blog/building-multilingual-bridges",
+    "sources": [
+      {
+        "url": "https://cohere.com/blog/building-multilingual-bridges",
+        "kind": "official",
+        "label": "Multilingual Bridges: How Data Mixing Unlocks In-Language Reasoning",
+        "checkedAt": "2026-10-10",
+        "publisher": "cohere.com"
       }
     ],
     "relatedTools": [],
