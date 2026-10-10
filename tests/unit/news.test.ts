@@ -743,3 +743,17 @@ describe('hydration', () => {
     expect(hydrateNews(makeItem({ eventType: 'lanzamiento', availability: 'available' })).isNotYetUsable).toBe(false);
   });
 });
+
+describe('la portada de noticias', () => {
+  it('ya no destaca «Lo que cambia si no pagas» antes de la lista', () => {
+    /*
+     * Lo quitó Juan el 10 de octubre de 2026. Las noticias que afectan al
+     * plan gratuito siguen en «Todas las noticias», con su etiqueta, y su
+     * cifra sigue en la cabecera.
+     */
+    const pagina = readFileSync('src/pages/noticias/index.astro', 'utf-8').replace(/\{\/\*[\s\S]*?\*\/\}/g, '');
+    expect(pagina).not.toContain('Lo que cambia si no pagas');
+    expect(pagina).not.toContain('getFreePlanNews');
+    expect(pagina).toContain('afectan al plan gratuito');
+  });
+});
