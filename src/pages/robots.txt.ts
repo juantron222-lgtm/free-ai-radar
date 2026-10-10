@@ -18,6 +18,8 @@ Disallow: /admin
 Disallow: /cuenta
 Disallow: /api/
 Disallow: /boletin/
+# Salidas contadas a la web de cada fabricante: redirigen fuera.
+Disallow: /ir/
 
 # Parámetros que sólo generan duplicados del mismo listado
 Disallow: /*?q=

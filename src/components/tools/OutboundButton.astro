@@ -7,12 +7,19 @@ interface Props {
 }
 const { tool } = Astro.props;
 const isAffiliate = tool.affiliation.isAffiliate;
+
+/*
+ * Los dos enlaces pasan por /ir/<slug>, que cuenta el clic en el servidor y
+ * redirige al mismo destino de siempre. Es la única forma de saber si la web
+ * sirve —si alguien encontró una herramienta y fue a usarla— sin guardar ni
+ * leer nada en el navegador.
+ */
 ---
 
 <div class="outbound">
   <a
     class="btn btn-primary outbound-link"
-    href={tool.outboundUrl}
+    href={ROUTES.salida(tool.slug)}
     target="_blank"
     rel={isAffiliate ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
     data-outbound={tool.slug}
@@ -38,7 +45,7 @@ const isAffiliate = tool.affiliation.isAffiliate;
   )}
 
   {tool.pricingUrl && (
-    <a class="outbound-secondary" href={tool.pricingUrl} target="_blank" rel="nofollow noopener">
+    <a class="outbound-secondary" href={ROUTES.salida(tool.slug, true)} target="_blank" rel="nofollow noopener">
       Ver su página de precios
     </a>
   )}

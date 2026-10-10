@@ -292,6 +292,8 @@ const VERTICALES_VISIBLES = [
   } from '@lib/search/filters';
   import { docsFromIndex, type ClientIndexEntry } from '@lib/search/client-index';
   import { searchWithIntents } from '@lib/search/index';
+  import { medir, medirBusqueda } from '@lib/client/uso';
+  import { paresDeFiltro } from '@lib/uso';
 
   const root = document.getElementById('explorer');
   const form = document.getElementById('filter-form') as HTMLFormElement | null;
@@ -427,7 +429,7 @@ const VERTICALES_VISIBLES = [
     return null;
   }
 
-  function render(state: FilterState, options: { pushUrl?: boolean } = {}) {
+  function render(state: FilterState, options: { pushUrl?: boolean; medirYa?: boolean } = {}) {
     let matched = applyFilters(entries, state);
 
     let intents: string[] = [];
@@ -512,6 +514,14 @@ const VERTICALES_VISIBLES = [
 
     const query = serializeFilters(state);
     const url = query ? `${location.pathname}?${query}` : location.pathname;
+
+    /*
+     * Lo que se mide, sólo con permiso de «Analítica» (ver lib/client/uso):
+     * la búsqueda cuando deja de cambiar, con cuántos resultados dio, y cada
+     * filtro la primera vez que se aplica en esta visita.
+     */
+    if (state.q) medirBusqueda(state.q, matched.length, options.medirYa ?? false);
+    for (const par of paresDeFiltro(query)) medir('filtro', par);
     if (options.pushUrl) history.pushState({}, '', url);
     else history.replaceState({}, '', url);
 
@@ -689,7 +699,7 @@ const VERTICALES_VISIBLES = [
     event.preventDefault();
     closeSuggestions();
     rememberSearch(searchInput.value);
-    commit(readStateFromForm());
+    render(readStateFromForm(), { pushUrl: true, medirYa: true });
   });
 
   searchInput.addEventListener('input', () => {
@@ -764,7 +774,8 @@ const VERTICALES_VISIBLES = [
   writeStateToForm(initial);
   searchClear.hidden = !initial.q;
   if (countActiveFilters(initial) > (initial.q ? 1 : 0)) moreDetails.open = true;
-  render(initial);
+  // Llega con su búsqueda puesta (desde la portada, por ejemplo): se cuenta ya.
+  render(initial, { medirYa: true });
 </script>
 
 <style is:global>
