@@ -7,7 +7,6 @@ import {
   getAllNews,
   getNewsStats,
   getPopulatedNewsCategories,
-  getFreePlanNews,
   getPortada,
 } from '@lib/data/news';
 import { getCatalogChanges } from '@lib/data/catalog';
@@ -28,7 +27,6 @@ const news = getAllNews();
 const { destacadas, archivo } = getPortada();
 const stats = getNewsStats();
 const categories = getPopulatedNewsCategories();
-const freePlanNews = getFreePlanNews();
 
 /*
  * Historial, no actualidad.
@@ -148,37 +146,13 @@ void itemListSchema;
           ))}
         </nav>
 
-        {freePlanNews.length > 0 && (
-          <section class="panel news-highlight" data-news-section aria-labelledby="free-title">
-            <div class="news-section-head">
-              <h2 id="free-title" class="panel-titulo">Lo que cambia si no pagas</h2>
-              {/*
-                Dos cifras distintas que antes eran la misma, y por eso se
-                contradecían: el bloque prometía «lo que cambia» y podía abrir
-                con algo de hace cuatro meses. Ahora éste enseña lo reciente y
-                dice cuántas hay en total, con el enlace al archivo.
-              */}
-              <p class="panel-entradilla">
-                {freePlanNews.length === 1
-                  ? 'Esta noticia de los últimos 45 días afecta directamente a lo que puedes hacer sin pagar.'
-                  : `Estas ${freePlanNews.length} noticias de los últimos 45 días afectan directamente a lo que puedes hacer sin pagar.`}
-                {stats.affectingFreePlan > freePlanNews.length && (
-                  <>
-                    {' '}En total hay {stats.affectingFreePlan}, contando el
-                    <a href="#archivo"> archivo</a>.
-                  </>
-                )}
-              </p>
-            </div>
-            <ul class="grid-cards news-grid">
-              {freePlanNews.map((item) => (
-                <li data-news-item data-category={item.category}>
-                  <NewsCard item={item} headingLevel="h3" featured />
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
+        {/*
+          Aquí iba «Lo que cambia si no pagas»: las noticias de los últimos 45
+          días que afectan al plan gratuito, destacadas antes de la lista. Lo
+          quitó Juan el 10 de octubre de 2026. Esas noticias siguen en «Todas
+          las noticias», con su etiqueta «Afecta al plan gratuito», y la cifra
+          de cuántas hay sigue en la cabecera.
+        */}
 
         <section class="news-section" data-news-section aria-labelledby="all-title">
           <h2 id="all-title" class="seccion-titulo">Todas las noticias</h2>
@@ -325,18 +299,6 @@ void itemListSchema;
     display: flex;
     gap: 0.4rem;
     padding-block-end: 0.25rem;
-  }
-
-  /*
-   * El bloque del plan gratuito, destacado sin pintarlo de verde.
-   *
-   * Era un recuadro verde con tarjetas blancas dentro: el color de «disponible»
-   * usado como fondo de sección, encima de pastillas que usan ese mismo verde
-   * para decir otra cosa. Ahora es un panel del sistema sobre fondo hundido,
-   * que separa el bloque sin prestarle significado a un color.
-   */
-  .news-highlight {
-    background: var(--surface-sunken);
   }
 
   .news-grid {
