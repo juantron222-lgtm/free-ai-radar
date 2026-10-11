@@ -1352,7 +1352,7 @@
       "hasWatermark": "unverified",
       "commercialUse": "no",
       "creditReset": "none",
-      "verifiedAt": "2026-07-08"
+      "verifiedAt": "2026-10-11"
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -1467,7 +1467,7 @@
         "sourceUrl": "https://support.claude.com/en/articles/8114491-getting-started-with-claude",
         "sourceKind": "docs",
         "scope": "product",
-        "checkedAt": "2026-08-30",
+        "checkedAt": "2026-10-11",
         "quote": "While using the free Claude plan, there is a session-based usage limit that will reset every five hours. […] the number of messages you can send will vary based on demand, and we may impose other types of usage limits to ensure fair access to all users."
       },
       {
@@ -4526,6 +4526,20 @@
         "Capa gratuita disponible; su cantidad no se publica",
         "De pago: 0,75 $/M entrada · 3,75 $/M salida (hasta 31/12/2026)",
         "Desde el 1/1/2027: 1,50 $/M entrada · 7,50 $/M salida"
+      ],
+      "includedCapabilities": [
+        {
+          "capability": "text-generation",
+          "condition": "capa gratuita de la API, sin cifras publicadas",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "api",
+            "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
+            "sourceKind": "pricing",
+            "quote": "Gemini 3.8 Flash · gemini-3.8-flash · Our most intelligent Flash model […] · Free Tier · Input price: Free of charge · Output price (including thinking tokens): Free of charge"
+          }
+        }
       ]
     },
     "access": {
@@ -5581,6 +5595,7 @@
     "freePlan": {
       "summary": "El plan gratuito de la app Gemini (0 €/mes) incluye generación y edición de imágenes, con la advertencia de que «se pueden aplicar límites de uso». El centro de ayuda confirma que existe una cuota diaria de imágenes, pero Google no publica la cifra. Distinto de la API: en ai.google.dev todos los modelos de imagen figuran como «Not available» en la capa gratuita.",
       "limits": [
+        "Modelo del plan sin coste el 11 de octubre de 2026: 3.5 Flash-Lite",
         "Generación y edición de imágenes incluidas en el plan gratuito de la app",
         "La marca visible se puede desactivar en Ajustes → Media Watermark, salvo en India, Corea del Sur y Vietnam; la marca invisible SynthID y las credenciales C2PA van siempre",
         "Existe una cuota diaria de imágenes; Google no publica la cantidad",
@@ -5593,7 +5608,7 @@
       "hasWatermark": "no",
       "commercialUse": "unverified",
       "creditReset": "daily",
-      "verifiedAt": "2026-08-13",
+      "verifiedAt": "2026-10-11",
       "includedCapabilities": [
         {
           "capability": "text-to-image",
@@ -5605,6 +5620,42 @@
             "sourceUrl": "https://gemini.google/overview/image-generation/",
             "sourceKind": "official",
             "quote": "Bring your wildest ideas to life at the speed and quality you need with Nano Banana. Available for free. Upgrade to a Google AI Plan to unlock Nano Banana 2.1, our most advanced image model with enhanced quality, reasoning, and visual design."
+          }
+        },
+        {
+          "capability": "text-generation",
+          "condition": "con 3.5 Flash-Lite",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://gemini.google/subscriptions/",
+            "sourceKind": "pricing",
+            "quote": "Sin coste · Recibe ayuda en tu día a día de la IA de Google con tus tareas del trabajo, los estudios o la casa. · €0 EUR/mes con una cuenta de Google · Aplicación Gemini · […] Acceso a 3.5 Flash-Lite · Generación y edición de imágenes · Deep Research · Gemini Live · Canvas · Gems"
+          }
+        },
+        {
+          "capability": "image-editing",
+          "condition": "cuota diaria sin cifra publicada",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://gemini.google/subscriptions/",
+            "sourceKind": "pricing",
+            "quote": "Sin coste · Recibe ayuda en tu día a día de la IA de Google con tus tareas del trabajo, los estudios o la casa. · €0 EUR/mes con una cuenta de Google · Aplicación Gemini · […] Acceso a 3.5 Flash-Lite · Generación y edición de imágenes · Deep Research · Gemini Live · Canvas · Gems"
+          }
+        },
+        {
+          "capability": "research",
+          "condition": "Deep Research, con límites",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://gemini.google/subscriptions/",
+            "sourceKind": "pricing",
+            "quote": "Sin coste · Recibe ayuda en tu día a día de la IA de Google con tus tareas del trabajo, los estudios o la casa. · €0 EUR/mes con una cuenta de Google · Aplicación Gemini · […] Acceso a 3.5 Flash-Lite · Generación y edición de imágenes · Deep Research · Gemini Live · Canvas · Gems"
           }
         }
       ],
@@ -5779,13 +5830,13 @@
         "scope": "cloud"
       },
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
-        "sourceUrl": "https://support.google.com/gemini/answer/15719111",
-        "sourceKind": "help",
-        "checkedAt": "2026-08-20",
-        "quote": "In Gemini Apps, there are limits for: Daily research requests [...] Google AI Pro and Google AI Ultra users get higher limits for how many research reports they can create.",
-        "scope": "cloud"
+        "sourceUrl": "https://gemini.google/subscriptions/",
+        "sourceKind": "pricing",
+        "quote": "Sin coste · Recibe ayuda en tu día a día de la IA de Google con tus tareas del trabajo, los estudios o la casa. · €0 EUR/mes con una cuenta de Google · Aplicación Gemini · […] Acceso a 3.5 Flash-Lite · Generación y edición de imágenes · Deep Research · Gemini Live · Canvas · Gems"
       },
       {
         "checkedAt": "2026-10-11",
@@ -6751,7 +6802,21 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-09-16"
+      "verifiedAt": "2026-10-11",
+      "includedCapabilities": [
+        {
+          "capability": "model-hosting",
+          "condition": "CPU Basic y ZeroGPU, con cuota",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://huggingface.co/pricing",
+            "sourceKind": "pricing",
+            "quote": "[Tabla de hardware de Spaces: NAME · CPU · MEMORY · ACCELERATOR · VRAM · HOURLY PRICE] CPU Basic · 2 vCPU · 16 GB · - · - · FREE · […] ZeroGPU · dynamic · dynamic · Nvidia RTX Pro 6000 Blackwell · up to 96 GB · FREE"
+          }
+        }
+      ]
     },
     "openSource": "yes",
     "hosting": "cloud",
@@ -6858,7 +6923,7 @@
         "sourceKind": "pricing",
         "scope": "product",
         "quote": "On-demand GPU hardware. Starting at $0. · CPU Basic 2 vCPU 16 GB - - FREE · ZeroGPU dynamic dynamic Nvidia RTX Pro 6000 Blackwell up to 96 GB FREE · Nvidia T4 - small 4 vCPU 15 GB Nvidia T4 16 GB $0.40 · 8× ZeroGPU quota and highest queue priority",
-        "checkedAt": "2026-09-16"
+        "checkedAt": "2026-10-11"
       },
       {
         "checkedAt": "2026-10-11",
@@ -9224,7 +9289,21 @@
       "commercialUse": "unverified",
       "creditsAmount": "300 créditos/día",
       "creditReset": "daily",
-      "verifiedAt": "2026-08-19"
+      "verifiedAt": "2026-08-19",
+      "includedCapabilities": [
+        {
+          "capability": "tool-use",
+          "condition": "300 créditos al día, una tarea a la vez",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://help.manus.im/en/articles/11711111-what-is-the-current-membership-pricing-for-manus",
+            "sourceKind": "help",
+            "quote": "[Free Plan Price: $0/month] Access to Chat Mode and Manus 2.0 Lite in Agent Mode. Features: Daily Refresh Credits: 300 credits provided daily for quickly answering simple questions. Concurrent Tasks: Supports 1 concurrent task."
+          }
+        }
+      ]
     },
     "capabilities": [
       "web-browsing",
@@ -10142,7 +10221,21 @@
       "hasWatermark": "no",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-19"
+      "verifiedAt": "2026-10-11",
+      "includedCapabilities": [
+        {
+          "capability": "workflow-automation",
+          "condition": "autoalojado, bajo Sustainable Use License",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://n8n.io/pricing/",
+            "sourceKind": "pricing",
+            "quote": "Community Edition · A standard, self-hosted version of n8n is available on GitHub."
+          }
+        }
+      ]
     },
     "capabilities": [
       "workflow-automation",
@@ -10181,7 +10274,7 @@
         "outcome": "stated",
         "sourceUrl": "https://n8n.io/pricing/",
         "sourceKind": "pricing",
-        "checkedAt": "2026-08-19",
+        "checkedAt": "2026-10-11",
         "quote": "A standard, self-hosted version of n8n is available on GitHub · No credit card is required for Starter and Pro trials · A credit card is only required for the Business plan free trial. [Starter: 20 €/mes anual, 2.5K ejecuciones.]",
         "scope": "product"
       },
@@ -10603,7 +10696,33 @@
       "hasWatermark": "unverified",
       "commercialUse": "no",
       "creditReset": "none",
-      "verifiedAt": "2026-08-13"
+      "verifiedAt": "2026-10-11",
+      "includedCapabilities": [
+        {
+          "capability": "web-browsing",
+          "condition": "búsquedas básicas prácticamente ilimitadas",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://www.perplexity.ai/help-center/en/articles/11187416-which-perplexity-subscription-plan-is-right-for-you.html",
+            "sourceKind": "help",
+            "quote": "What do I get with the Free (Standard) plan? Search history access · Practically unlimited basic searches · Very limited amount of Pro Searches · We pick the best model to use for your query · Basic file uploads (limited) · No access to advanced AI models, image generation, or premium support."
+          }
+        },
+        {
+          "capability": "text-generation",
+          "condition": "el modelo lo elige Perplexity; sin modelos avanzados",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://www.perplexity.ai/help-center/en/articles/11187416-which-perplexity-subscription-plan-is-right-for-you.html",
+            "sourceKind": "help",
+            "quote": "What do I get with the Free (Standard) plan? Search history access · Practically unlimited basic searches · Very limited amount of Pro Searches · We pick the best model to use for your query · Basic file uploads (limited) · No access to advanced AI models, image generation, or premium support."
+          }
+        }
+      ]
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -10710,7 +10829,7 @@
         "outcome": "stated",
         "sourceUrl": "https://www.perplexity.ai/help-center/en/articles/11187416-which-perplexity-subscription-plan-is-right-for-you.html",
         "sourceKind": "help",
-        "checkedAt": "2026-08-13",
+        "checkedAt": "2026-10-11",
         "quote": "What do I get with the Free (Standard) plan? Search history access · Practically unlimited basic searches · Very limited amount of Pro Searches · Basic file uploads (limited) · No access to advanced AI models, image generation, or premium support.",
         "scope": "cloud"
       },
@@ -11951,7 +12070,7 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "unknown",
-      "verifiedAt": "2026-08-13"
+      "verifiedAt": "2026-10-11"
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -12047,7 +12166,7 @@
         "outcome": "stated",
         "sourceUrl": "https://replicate.com/docs/topics/billing",
         "sourceKind": "docs",
-        "checkedAt": "2026-08-13",
+        "checkedAt": "2026-10-11",
         "quote": "Free limits — You can run select models on Replicate for free, but after a bit you’ll be asked to set up billing. Some features are only available to customers with billing set up.",
         "scope": "cloud"
       }
@@ -13553,7 +13672,33 @@
       "commercialUse": "unverified",
       "creditsAmount": "400 actividades/mes",
       "creditReset": "monthly",
-      "verifiedAt": "2026-08-19"
+      "verifiedAt": "2026-10-11",
+      "includedCapabilities": [
+        {
+          "capability": "tool-use",
+          "condition": "400 actividades de agente al mes",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://zapier.com/pricing#agents",
+            "sourceKind": "pricing",
+            "quote": "Agents Free · Free · Try it free · 400 activities per month · […] Interact with your agents in the Chrome Extension"
+          }
+        },
+        {
+          "capability": "workflow-automation",
+          "condition": "100 tareas al mes, Zaps de dos pasos",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://zapier.com/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · Free forever · $0 /month · Start automating with AI. Zaps, Tables, and Forms included (100 tasks per month). · Key features: Zapier automation platform · Unlimited Zaps, Tables, and Forms · Two-step Zaps"
+          }
+        }
+      ]
     },
     "capabilities": [
       "integrations",
@@ -13587,13 +13732,13 @@
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
-        "sourceUrl": "https://zapier.com/pricing",
+        "sourceUrl": "https://zapier.com/pricing#agents",
         "sourceKind": "pricing",
-        "checkedAt": "2026-08-19",
-        "quote": "Free — 100 tasks per month · Basic access to AI products (Agents, Chatbots, MCP) · Two-step Zap workflows · [Agents: Free 400/mo activities]. Professional: $19.99/month billed annually, 750 tasks/month.",
-        "scope": "cloud"
+        "quote": "Free · Free forever · $0 /month · Start automating with AI. Zaps, Tables, and Forms included (100 tasks per month). · Two-step Zaps · Agents Free · Free · Try it free · 400 activities per month · […] Interact with your agents in the Chrome Extension"
       },
       {
         "field": "capabilities",
