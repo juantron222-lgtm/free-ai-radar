@@ -5375,7 +5375,7 @@
     ],
     "freeModel": "freemium",
     "tagline": "La gama con capa gratuita de API. La Pro no la tiene.",
-    "descriptionShort": "La gama rápida de Google, hoy en su versión 3.7: «built for complex coding, agentic workflows, and reliable multi-step execution». Su tabla de precios marca «Free Tier: Available» para todas las versiones de Flash, cosa que no ocurre con Pro.",
+    "descriptionShort": "La gama rápida de Google, hoy en su versión 3.8: «Our most intelligent Flash model, engineered for long-horizon software engineering, autonomous agents, and complex enterprise workflows». Su tabla de precios marca «Free of charge» en la capa gratuita para las Flash actuales, cosa que no ocurre con todos los modelos.",
     "verdict": "Es el sitio por el que se entra a Gemini sin pagar, y la diferencia con Pro no es de calidad sino de acceso: una tiene capa gratuita y la otra dice «Not available» en la misma tabla.",
     "freePlan": {
       "requiresSignup": "yes",
@@ -5383,11 +5383,11 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "unknown",
-      "verifiedAt": "2026-08-24",
-      "summary": "La tabla oficial marca «Free Tier: Available» para Gemini 3.7 Flash, 3.6 Flash, 3.5 Flash y las Flash-Lite. La capa gratuita se describe como «Limited access to certain models. Free input & output tokens. Google AI Studio access», sin publicar cifras. En pago: 0,75 $ por millón de entrada y 3,75 $ de salida hasta el 31/12/2026.",
+      "verifiedAt": "2026-10-11",
+      "summary": "La tabla oficial marca «Free of charge» en la capa gratuita para Gemini 3.8 Flash, 3.6 Flash, 3.5 Flash-Lite y 3.1 Flash-Lite. La capa gratuita se describe como «Limited access to certain models. Free input & output tokens. Google AI Studio access», sin publicar cifras. En pago, 3.8 Flash cuesta 0,75 $ por millón de entrada y 3,75 $ de salida hasta el 31/12/2026.",
       "limits": [
-        "Capa gratuita disponible; su cantidad no se publica",
-        "De pago: 0,75 $/M entrada · 3,75 $/M salida (hasta 31/12/2026)",
+        "Capa gratuita disponible para las Flash actuales (3.8, 3.6, 3.5 Flash-Lite y 3.1 Flash-Lite); su cantidad no se publica",
+        "De pago (3.8 Flash): 0,75 $/M entrada · 3,75 $/M salida (hasta 31/12/2026)",
         "Desde el 1/1/2027: 1,50 $/M entrada · 7,50 $/M salida"
       ],
       "includedCapabilities": [
@@ -5455,13 +5455,13 @@
         "scope": "api"
       },
       {
+        "checkedAt": "2026-10-11",
+        "scope": "api",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
         "sourceKind": "pricing",
-        "scope": "api",
-        "checkedAt": "2026-08-24",
-        "quote": "Free of charge […] $0.75 through December 31, 2026. $1.50 starting January 1, 2027 (input, per 1M tokens)"
+        "quote": "Free · For developers and small projects getting started with the Gemini API. · Limited access to certain models · Free input & output tokens · Google AI Studio access · […] Gemini 3.8 Flash · Input price: Free of charge · $0.75 through December 31, 2026. $1.50 starting January 1, 2027. · Output price (including thinking tokens): Free of charge · $3.75 through December 31, 2026. $7.50 starting January 1, 2027."
       },
       {
         "checkedAt": "2026-10-11",
@@ -5936,13 +5936,13 @@
       "web"
     ],
     "freeModel": "credits",
-    "tagline": "Cien créditos al día para un agente que parte el encargo en pasos.",
-    "descriptionShort": "Super Agent divide una petición en pasos, elige las herramientas y las ejecuta en una caja de arena con navegador y sistema de ficheros propios. El plan gratuito da 100 créditos al día.",
-    "verdict": "De los pocos agentes de propósito general con una cifra gratuita diaria publicada. Lo que documenta su centro de ayuda es el comportamiento entero, no la palabra.",
+    "tagline": "Cien créditos al día para un agente que parte el encargo en pasos, hasta un tope de por vida que no publican.",
+    "descriptionShort": "Super Agent divide una petición en pasos, elige las herramientas y las ejecuta en una caja de arena con navegador y sistema de ficheros propios. El plan gratuito da 100 créditos al día, pero sólo hasta agotar un cupo de por vida cuya cifra Genspark no publica.",
+    "verdict": "Publica una cifra diaria, pero ya no es una cuota que se renueve para siempre: las cuentas gratuitas tienen un cupo de por vida, sin cifra, y al agotarlo la recarga se detiene.",
     "freePlan": {
-      "summary": "Plan gratuito con 100 créditos al día, concedidos automáticamente. Los créditos no se acumulan. El plan Plus empieza en 10.000 créditos al mes; su precio no se publica en el centro de ayuda.",
+      "summary": "Plan gratuito con 100 créditos al día hasta agotar un cupo de por vida que Genspark no cuantifica; después la recarga diaria se detiene y sólo queda el saldo que tengas. Los créditos no se acumulan. El plan Plus empieza en 10.000 créditos al mes; su precio no se publica en el centro de ayuda.",
       "limits": [
-        "100 créditos al día",
+        "100 créditos al día, hasta agotar un cupo de por vida cuya cifra no publican; después la recarga diaria se detiene",
         "Los créditos no se acumulan de un periodo al siguiente",
         "Chat e imágenes sin coste de créditos sólo en los planes de pago"
       ],
@@ -5952,7 +5952,7 @@
       "commercialUse": "unverified",
       "creditsAmount": "100 créditos/día",
       "creditReset": "daily",
-      "verifiedAt": "2026-08-20"
+      "verifiedAt": "2026-10-11"
     },
     "capabilities": [
       "tool-use",
@@ -6002,13 +6002,13 @@
         "scope": "cloud"
       },
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://www.genspark.ai/helpcenter/credits-guide",
         "sourceKind": "help",
-        "checkedAt": "2026-08-20",
-        "quote": "100 credits/day, automatically. [...] Credits don’t carry over.",
-        "scope": "cloud"
+        "quote": "Free · 100 credits/day, Free accounts have a lifetime allowance of free credits. Once your account has used its lifetime allowance, the daily free refill stops — your current balance stays and keeps working until it runs out."
       },
       {
         "checkedAt": "2026-10-11",
@@ -11112,11 +11112,11 @@
     "descriptionShort": "Agente general que recibe un encargo y lo ejecuta en un entorno aislado: su documentación lo describe como un ordenador virtual con acceso a internet, sistema de ficheros persistente y capacidad de instalar software. El plan gratuito da 300 créditos que se renuevan cada día a medianoche UTC.",
     "verdict": "De los pocos agentes generales con una capa gratuita que se renueva de verdad, y con la letra pequeña donde importa: una tarea a la vez y sólo el modelo Lite.",
     "freePlan": {
-      "summary": "Plan gratuito de 0 $/mes con 300 créditos diarios que se reinician a medianoche UTC y no se acumulan. Da acceso al modo Chat y a Manus 1.6 Lite en modo Agente, una tarea simultánea y dos tareas programadas. El plan de pago más barato es Pro, desde 20 $/mes con 4.000 créditos mensuales.",
+      "summary": "Plan gratuito de 0 $/mes con 300 créditos diarios que se reinician a medianoche UTC y no se acumulan. Da acceso al modo Chat y a Manus 2.0 Lite en modo Agente, una tarea simultánea y dos tareas programadas. El plan de pago más barato es Pro, desde 20 $/mes con 4.000 créditos mensuales.",
       "limits": [
         "300 créditos al día, reiniciados a medianoche UTC",
         "Los créditos diarios no se acumulan: lo que sobra desaparece",
-        "Sólo Manus 1.6 Lite en modo Agente",
+        "Sólo Manus 2.0 Lite en modo Agente",
         "1 tarea simultánea · 2 tareas programadas",
         "Plan de pago más barato: Pro, desde 20 $/mes (4.000 créditos/mes)"
       ],
@@ -11126,7 +11126,7 @@
       "commercialUse": "unverified",
       "creditsAmount": "300 créditos/día",
       "creditReset": "daily",
-      "verifiedAt": "2026-08-19",
+      "verifiedAt": "2026-10-11",
       "includedCapabilities": [
         {
           "capability": "tool-use",
@@ -11196,13 +11196,13 @@
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://help.manus.im/en/articles/11711111-what-is-the-current-membership-pricing-for-manus",
-        "sourceKind": "pricing",
-        "checkedAt": "2026-08-19",
-        "quote": "Free — $0/month · Access to Chat Mode and Manus 1.6 Lite in Agent Mode · 300 credits provided daily · Supports 1 concurrent task · Supports 2 scheduled tasks. [Y en el artículo de créditos: «The daily credit balance resets to 300 at midnight Coordinated Universal Time (UTC)» y «Daily refresh credits will not be added to your main credit balance».]",
-        "scope": "cloud"
+        "sourceKind": "help",
+        "quote": "[Free Plan Price: $0/month] Access to Chat Mode and Manus 2.0 Lite in Agent Mode. Features: Daily Refresh Credits: 300 credits provided daily for quickly answering simple questions. Concurrent Tasks: Supports 1 concurrent task. Scheduled Automations: Supports 2 Scheduled Automations."
       },
       {
         "field": "capabilities",
