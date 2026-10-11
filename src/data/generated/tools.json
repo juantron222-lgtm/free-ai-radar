@@ -4684,14 +4684,32 @@
       "summary": "Existe un plan gratuito con «generaciones mensuales» cuya cantidad no se publica. La web afirma que el plan gratuito es sólo para uso personal: monetizar contenido o usar las voces comercialmente exige un plan de pago.",
       "limits": [
         "Sólo uso personal: monetizar exige plan de pago",
-        "La cantidad de generaciones mensuales no se publica"
+        "8.000 créditos al mes (hasta 7 minutos de audio)",
+        "Hasta 500 caracteres por generación",
+        "3 huecos de voz públicos",
+        "La clonación mejorada (Enhanced voice cloning) es de pago"
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "commercialUse": "no",
-      "creditReset": "unknown",
-      "verifiedAt": "2026-08-18"
+      "creditReset": "monthly",
+      "verifiedAt": "2026-10-11",
+      "creditsAmount": "8.000 créditos/mes (≈7 min)",
+      "includedCapabilities": [
+        {
+          "capability": "text-to-speech",
+          "condition": "8.000 créditos al mes, hasta 7 minutos",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://fish.audio/plan/",
+            "sourceKind": "pricing",
+            "quote": "Free Tier · $0 /mo · No credit card needed · 8,000 credits monthly · Up to 7 minutes generation · Up to 500 characters per generation · 3 public voice slots · Standard generation speed · [tachado] Enhanced voice cloning · [tachado] Commercial use"
+          }
+        }
+      ]
     },
     "capabilities": [
       "text-to-speech",
@@ -4720,18 +4738,18 @@
         "url": "https://fish.audio/plan/",
         "label": "Página oficial de precios",
         "kind": "pricing",
-        "checkedAt": "2026-09-15"
+        "checkedAt": "2026-10-11"
       }
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
-        "sourceUrl": "https://fish.audio/",
-        "sourceKind": "official",
-        "checkedAt": "2026-08-18",
-        "quote": "Fish Audio's free plan is for personal use only. To monetize content or use voices commercially (YouTube, podcasts, business), upgrade to our paid plans for full commercial rights.",
-        "scope": "cloud"
+        "sourceUrl": "https://fish.audio/plan/",
+        "sourceKind": "pricing",
+        "quote": "Free Tier · $0 /mo · No credit card needed · 8,000 credits monthly · Up to 7 minutes generation · Up to 500 characters per generation · 3 public voice slots · Standard generation speed · [tachado] Enhanced voice cloning · [tachado] Commercial use"
       },
       {
         "field": "capabilities",
@@ -15107,11 +15125,12 @@
       "summary": "Plan gratuito con 50 créditos que se renuevan cada día y el modelo v6-mini. Sin uso comercial, sin descargas mensuales de canciones y sin compra de créditos adicionales. El plan de pago más barato es Pro, 8 $/mes.",
       "limits": [
         "50 créditos al día",
-        "Modelo gratuito: v6-mini",
+        "Sólo sus modelos gratuitos y funciones estándar",
         "Uso comercial NO permitido",
         "Sin descargas mensuales de canciones",
-        "Sin compra de créditos adicionales",
-        "Plan de pago más barato: Pro, 8 $/mes"
+        "Subidas de audio de hasta 8 minutos; cola de creación compartida",
+        "Sin separación de pistas ni compra de créditos adicionales",
+        "Plan de pago más barato: Pro, 7,20 €/mes en facturación anual"
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "no",
@@ -15119,7 +15138,21 @@
       "commercialUse": "no",
       "creditsAmount": "50 créditos/día",
       "creditReset": "daily",
-      "verifiedAt": "2026-09-16"
+      "verifiedAt": "2026-10-11",
+      "includedCapabilities": [
+        {
+          "capability": "text-to-music",
+          "condition": "50 créditos al día, sin descargas mensuales",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://suno.com/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · Our starter plan. · 0 € /month · Access to our free models · 50 credits per day · Standard features only · Upload up to 8 min of audio · Shared creation queue · No monthly song downloads · No commercial rights · No add-on credit purchases · No stem separation"
+          }
+        }
+      ]
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -15195,13 +15228,13 @@
     "updatedAt": "2026-08-18",
     "evidence": [
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://suno.com/pricing",
         "sourceKind": "pricing",
-        "scope": "product",
-        "quote": "50 credits per day · Best free model (v6-mini) · No monthly song downloads · No commercial rights · No add-on credit purchases · $8 /month",
-        "checkedAt": "2026-09-16"
+        "quote": "Free · Our starter plan. · 0 € /month · Access to our free models · 50 credits per day · Standard features only · Upload up to 8 min of audio · Shared creation queue · No monthly song downloads · No commercial rights · No add-on credit purchases · No stem separation"
       },
       {
         "checkedAt": "2026-10-11",
