@@ -674,12 +674,13 @@
     ],
     "freeModel": "credits",
     "tagline": "Veinte mil créditos al mes, con la equivalencia en minutos publicada.",
-    "descriptionShort": "Plataforma de voz en tiempo real con texto a voz (Sonic), transcripción (Ink) y clonación instantánea o profesional. Su plan gratuito da 20.000 créditos al mes, que su propia tabla equipara a unos 27 minutos de audio.",
+    "descriptionShort": "Plataforma de voz en tiempo real con texto a voz (Sonic), transcripción (Ink) y clonación instantánea o profesional. Su plan gratuito da 20.000 créditos al mes, que su propia tabla equipara a unos 27 minutos de audio; clonar voz y el uso comercial empiezan en Pro.",
     "verdict": "De las pocas que publican a cuántos minutos equivalen sus créditos, que es justo lo que hace falta para saber si alcanzan. Orientada a agentes de voz y a integrarse por API.",
     "freePlan": {
-      "summary": "Plan gratuito con 20.000 créditos al mes, que la tabla oficial equipara a unos 27 minutos de audio generado. Incluye texto a voz y transcripción, un espacio de agente con ocho llamadas simultáneas. El plan de pago más barato es Pro, 5 $/mes con 100.000 créditos.",
+      "summary": "Plan gratuito con 20.000 créditos al mes, que la tabla oficial equipara a unos 27 minutos de audio generado. Incluye texto a voz y transcripción, un espacio de agente con ocho llamadas simultáneas. Clonar voz y el uso comercial empiezan en Pro, el plan de pago más barato: 5 $/mes con 100.000 créditos.",
       "limits": [
         "20.000 créditos al mes (≈27 minutos según su tabla)",
+        "Clonar voz y la licencia comercial empiezan en Pro",
         "1 espacio de agente, 8 llamadas simultáneas",
         "Plan de pago más barato: Pro, 5 $/mes (100.000 créditos, ≈133 minutos)"
       ],
@@ -689,7 +690,36 @@
       "commercialUse": "no",
       "creditsAmount": "20.000 créditos/mes (≈27 min)",
       "creditReset": "monthly",
-      "verifiedAt": "2026-08-18"
+      "verifiedAt": "2026-10-11",
+      "excludedCapabilities": [
+        "voice-clone"
+      ],
+      "includedCapabilities": [
+        {
+          "capability": "text-to-speech",
+          "condition": "20.000 créditos al mes",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://cartesia.ai/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · $0 /mo · 20K credits / month · $1 prepaid agents / month · Text to Speech · Speech to Text · Pro · $5 /mo · 100K credits / month · Everything in Free, plus · Commercial use license · Instant voice cloning"
+          }
+        },
+        {
+          "capability": "transcription",
+          "condition": "20.000 créditos al mes",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://cartesia.ai/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · $0 /mo · 20K credits / month · $1 prepaid agents / month · Text to Speech · Speech to Text · Pro · $5 /mo · 100K credits / month · Everything in Free, plus · Commercial use license · Instant voice cloning"
+          }
+        }
+      ]
     },
     "capabilities": [
       "text-to-speech",
@@ -775,6 +805,15 @@
         "sourceKind": "terms",
         "quote": "We hereby permit you to use the Services for your personal, non-commercial use only (unless commercial use is expressly permitted by your subscription tier)",
         "basis": "Su página de precios añade «Commercial use license» a partir de Pro («Everything in Free, plus · Commercial use license · Instant voice cloning»); el plan Free no lo incluye."
+      },
+      {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
+        "field": "freePlan.excludedCapabilities",
+        "outcome": "stated",
+        "sourceUrl": "https://cartesia.ai/pricing",
+        "sourceKind": "pricing",
+        "quote": "Free · $0 /mo · 20K credits / month · $1 prepaid agents / month · Text to Speech · Speech to Text · Pro · $5 /mo · 100K credits / month · Everything in Free, plus · Commercial use license · Instant voice cloning"
       }
     ],
     "auditNotes": "La equivalencia en minutos se recoge porque la publica la propia tabla. Si no la publicara, se habrían dejado los créditos a secas.",

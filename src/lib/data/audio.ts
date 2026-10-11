@@ -133,6 +133,16 @@ export function localControl(tools: readonly Tool[]): { install: Tool[]; technic
  */
 export const MIN_BLOQUE = 3;
 
+/**
+ * «Clonar una voz» se levanta con dos.
+ *
+ * El 11 de octubre de 2026 Cartesia resultó cobrar la clonación («Pro ·
+ * Everything in Free, plus · […] Instant voice cloning») y el bloque se quedó
+ * con dos fichas cuyo plan gratuito no la excluye. Juan: «mejor dos correctas que inventar
+ * una tercera». El resto de bloques mantiene el mínimo de tres.
+ */
+export const MIN_BLOQUE_CLONAR = 2;
+
 // ---------------------------------------------------------------------------
 // Filtros de Audio
 // ---------------------------------------------------------------------------

@@ -6,6 +6,7 @@ import {
   AUDIO_SLUGS,
   CANDIDATE_FILTERS,
   MIN_BLOQUE,
+  MIN_BLOQUE_CLONAR,
   audioCapabilityCount,
   audioTools,
   freeNow,
@@ -93,9 +94,17 @@ describe('bloques por intención', () => {
   });
 
   it('las intenciones con catálogo sí lo tienen', () => {
-    for (const capacidad of ['text-to-music', 'text-to-speech', 'voice-clone', 'transcription'] as const) {
+    for (const capacidad of ['text-to-music', 'text-to-speech', 'transcription'] as const) {
       expect(withCapability(audio, capacidad).length, capacidad).toBeGreaterThanOrEqual(MIN_BLOQUE);
     }
+    // Clonar se levanta con dos desde que Cartesia resultó cobrarla (11 oct 2026).
+    expect(withCapability(audio, 'voice-clone').length).toBeGreaterThanOrEqual(MIN_BLOQUE_CLONAR);
+  });
+
+  it('clonar no recomienda a quien cobra la clonación', () => {
+    const slugs = withCapability(audio, 'voice-clone').map((t) => t.slug);
+    expect(slugs).not.toContain('cartesia');
+    expect(slugs).not.toContain('elevenlabs');
   });
 });
 

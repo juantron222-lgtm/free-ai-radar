@@ -11,6 +11,7 @@ import {
   AUDIO_CAPABILITIES,
   CANDIDATE_FILTERS,
   MIN_BLOQUE,
+  MIN_BLOQUE_CLONAR,
   audioTools,
   freeNow,
   localControl,
@@ -84,6 +85,7 @@ const declarados = [
     id: 'clonar',
     titulo: 'Clonar una voz',
     lista: clonar,
+    minimo: MIN_BLOQUE_CLONAR,
     lede: 'Reproducir una voz concreta a partir de una muestra. Comprueba siempre de quién es la voz y qué permite el plan.',
     motivo: () => 'Reproduce una voz a partir de una muestra.',
   },
@@ -101,7 +103,7 @@ const declarados = [
     lede: 'Modelos que se ejecutan en tu máquina, sin cuotas ni cuenta. Aquí la licencia de los pesos manda sobre la del código, y no siempre coinciden.',
     motivo: (tool: Tool) => `Se ejecuta en tu equipo; licencia ${tool.licence ?? 'sin comprobar'}.`,
   },
-].filter((b) => b.lista.length >= MIN_BLOQUE);
+].filter((b) => b.lista.length >= ('minimo' in b ? b.minimo : MIN_BLOQUE));
 
 const bloques = repartirBloques(declarados);
 
