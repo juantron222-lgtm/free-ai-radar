@@ -1045,22 +1045,28 @@ describe('ninguna evidencia se queda escondida detrás de otra', () => {
 
   it('la contradicción de Clipdrop conserva sus dos citas, cada una en su campo', () => {
     /*
-     * Su página de precios dice «Text to image: unlimited» y su producto
-     * responde que es de Pro. Las dos frases son suyas y las dos hacen falta:
-     * con una sola, la ficha parecería un error nuestro en vez de la
-     * contradicción que es.
+     * En agosto su página de precios decía «Text to image: unlimited» y su
+     * producto respondía que era de Pro. Las dos frases eran suyas y las dos
+     * hacían falta: con una sola, la ficha habría parecido un error nuestro
+     * en vez de la contradicción que era.
+     *
+     * El 11 de octubre de 2026 la página ya tacha «Text to image» en el plan
+     * gratuito: la contradicción se resolvió del lado del producto. La cita
+     * de precios es la de hoy, la del producto sigue siendo la que excluye, y
+     * la ficha cuenta las dos etapas para que nadie lea el «unlimited» de
+     * agosto como un error nuestro.
      */
     const clipdrop = tools.find((t) => t.slug === 'clipdrop')!;
     const publicado = evidenciaDe(clipdrop, 'freePlan.limits');
     const enProducto = evidenciaDe(clipdrop, 'freePlan.excludedCapabilities');
 
-    expect(citaDe(publicado!)).toMatch(/Text to image: unlimited/);
+    expect(citaDe(publicado!)).toMatch(/\[tachado\] Text to image/);
     expect(publicado!.sourceUrl).toBe('https://clipdrop.co/pricing');
     expect(citaDe(enProducto!)).toMatch(/exclusively for Pro users/);
     expect(enProducto!.sourceUrl).toBe('https://clipdrop.co/text-to-image');
 
-    // Y el lector la ve sin abrir la evidencia: está en los límites.
-    expect(clipdrop.freePlan.limits.join(' ')).toMatch(/unlimited/);
+    // Y el lector ve las dos etapas sin abrir la evidencia: están en los límites.
+    expect(clipdrop.freePlan.limits.join(' ')).toMatch(/En agosto .*«unlimited».*hoy lo tacha/);
     expect(clipdrop.freePlan.summary).toMatch(/exclusiva de Pro/);
   });
 });

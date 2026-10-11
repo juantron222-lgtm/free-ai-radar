@@ -25,6 +25,13 @@
         "kind": "official",
         "publisher": "adobe.com",
         "checkedAt": "2026-08-12"
+      },
+      {
+        "url": "https://www.adobe.com/products/firefly/plans.html",
+        "label": "Página oficial de planes",
+        "kind": "pricing",
+        "publisher": "adobe.com",
+        "checkedAt": "2026-10-11"
       }
     ],
     "pros": [],
@@ -53,14 +60,30 @@
     "freePlan": {
       "summary": "Adobe documenta un plan gratuito con generaciones diarias para probar Firefly. No publica la cantidad en esa página, así que no la afirmamos.",
       "limits": [
-        "Generaciones diarias, cantidad no publicada en la página oficial"
+        "Generaciones diarias de imagen, vídeo y audio, sin plan; la cantidad no se publica",
+        "Se renuevan cada día",
+        "Con modelos como Nano Banana y Luma Ray3.14"
       ],
       "requiresSignup": "unverified",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "daily",
-      "verifiedAt": "2026-08-12"
+      "verifiedAt": "2026-10-11",
+      "includedCapabilities": [
+        {
+          "capability": "text-to-image",
+          "condition": "generaciones diarias, sin cifra publicada",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://www.adobe.com/products/firefly/plans.html",
+            "sourceKind": "pricing",
+            "quote": "You don't need a plan to get free daily generations across image, video, and audio, with access to popular models like Nano Banana and Luma Ray3.14. Limits refresh every day, so you can keep exploring, experimenting, and creating."
+          }
+        }
+      ]
     },
     "scores": {
       "freeReal": 7,
@@ -72,13 +95,13 @@
     "verdict": "La frecuencia está documentada y la cantidad no. Se registra lo primero y se calla lo segundo.",
     "evidence": [
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
-        "sourceUrl": "https://www.adobe.com/products/firefly.html",
-        "sourceKind": "official",
-        "checkedAt": "2026-08-12",
-        "quote": "Is Adobe Firefly free to use? Yes, Adobe has a free plan that provides users with free daily generations to try Adobe Firefly",
-        "scope": "cloud"
+        "sourceUrl": "https://www.adobe.com/products/firefly/plans.html",
+        "sourceKind": "pricing",
+        "quote": "You don't need a plan to get free daily generations across image, video, and audio, with access to popular models like Nano Banana and Luma Ray3.14. Limits refresh every day, so you can keep exploring, experimenting, and creating."
       },
       {
         "field": "capabilities",
@@ -88,6 +111,15 @@
         "checkedAt": "2026-08-12",
         "quote": "range of aesthetic styles and capabilities across text-to-image, text-to-video, and image-to-video workflows, · Generate and edit images, video, audio, and designs using top AI models from Adobe,",
         "scope": "cloud"
+      },
+      {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://www.adobe.com/products/firefly/plans.html",
+        "sourceKind": "pricing",
+        "lookedFor": "Si el plan gratuito pide tarjeta. La página de planes, con sus preguntas frecuentes, no lo dice."
       }
     ],
     "descriptionLong": "",
@@ -756,8 +788,8 @@
     "id": "tool_chatgpt",
     "slug": "chatgpt",
     "name": "ChatGPT",
-    "tagline": "Plan gratuito con cuenta obligatoria y límites de mensajes que el fabricante no publica.",
-    "descriptionShort": "El asistente de OpenAI en el navegador y en móvil. Su plan gratuito incluye conversación, visión, generación de imágenes, navegación web y análisis de archivos, con cuenta obligatoria. El 30 de agosto de 2026 servía GPT-5.6 Luna por defecto, y OpenAI cambia esa asignación sin aviso.",
+    "tagline": "Plan gratuito con cuenta obligatoria: texto ilimitado y el resto de herramientas limitadas sin cifra.",
+    "descriptionShort": "El asistente de OpenAI en el navegador y en móvil. Su plan gratuito da chat de texto ilimitado —sujeto a medidas contra el abuso— y un uso limitado, sin cifra publicada, de imágenes, voz, investigación profunda, archivos y Codex. Exige cuenta. El 11 de octubre de 2026 servía GPT-6, y OpenAI cambia esa asignación sin aviso.",
     "descriptionLong": "ChatGPT es el asistente de OpenAI. El plan gratuito da conversación con capacidades de texto y visión, generación de imágenes, navegación web, análisis de archivos y GPTs, además de la conversación por voz en la aplicación móvil. Hace falta crear una cuenta. El 30 de agosto de 2026, el modelo asignado por defecto era GPT-5.6 Luna, sin acceso a GPT-5.6 Sol. Esa asignación la decide OpenAI y ha cambiado varias veces, así que la fecha forma parte del dato.",
     "kind": "app",
     "verification": "partially_verified",
@@ -775,12 +807,11 @@
     ],
     "freeModel": "free_real",
     "freePlan": {
-      "summary": "Plan gratuito con conversación, visión, generación de imágenes, navegación web y análisis de archivos. Exige crear cuenta. El 30 de agosto de 2026 el modelo por defecto era GPT-5.6 Luna, sin acceso a Sol. Los límites de mensajes existen y el fabricante no publica la cifra; la generación de imágenes y las demás herramientas tienen su propio límite, tampoco publicado.",
+      "summary": "Plan gratuito con chat de texto ilimitado, sujeto a medidas contra el abuso, y un uso limitado de imágenes, voz, investigación profunda, memoria, archivos subidos y Codex; OpenAI no publica cuánto. Exige crear cuenta. El 11 de octubre de 2026 el modelo era GPT-6.",
       "limits": [
         "Hay que crear cuenta",
-        "Modelo por defecto el 30 de agosto de 2026: GPT-5.6 Luna. Sin acceso a GPT-5.6 Sol",
-        "Generación de imágenes: incluida, con un límite propio que no se publica",
-        "Límite de mensajes: existe, y el fabricante no publica cuánto",
+        "Modelo por defecto el 11 de octubre de 2026: GPT-6, con chat de texto ilimitado sujeto a medidas contra el abuso",
+        "Imágenes, voz, investigación profunda, memoria, archivos subidos y Codex: limitados, sin cifra publicada",
         "La asignación de modelo la decide OpenAI y cambia sin aviso",
         "No es código abierto ni se ejecuta en local"
       ],
@@ -789,7 +820,81 @@
       "hasWatermark": "unverified",
       "commercialUse": "yes",
       "creditReset": "none",
-      "verifiedAt": "2026-07-08"
+      "verifiedAt": "2026-10-11",
+      "includedCapabilities": [
+        {
+          "capability": "text-generation",
+          "condition": "ilimitado con GPT-6, sujeto a medidas contra el abuso",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://chatgpt.com/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · Best for trying out ChatGPT · Unlimited text chats with GPT-6 · Limited messages with uploads · Limited image creation · Limited voice chats · Limited deep research · Limited memory and context · Limited Codex access · Limited ChatGPT Work access on desktop · […] Unlimited text chats subject to abuse guardrails."
+          }
+        },
+        {
+          "capability": "text-to-image",
+          "condition": "limitado, sin cifra publicada",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://chatgpt.com/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · Best for trying out ChatGPT · Unlimited text chats with GPT-6 · Limited messages with uploads · Limited image creation · Limited voice chats · Limited deep research · Limited memory and context · Limited Codex access · Limited ChatGPT Work access on desktop · […] Unlimited text chats subject to abuse guardrails."
+          }
+        },
+        {
+          "capability": "research",
+          "condition": "limitado, sin cifra publicada",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://chatgpt.com/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · Best for trying out ChatGPT · Unlimited text chats with GPT-6 · Limited messages with uploads · Limited image creation · Limited voice chats · Limited deep research · Limited memory and context · Limited Codex access · Limited ChatGPT Work access on desktop · […] Unlimited text chats subject to abuse guardrails."
+          }
+        },
+        {
+          "capability": "memory",
+          "condition": "limitado, sin cifra publicada",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://chatgpt.com/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · Best for trying out ChatGPT · Unlimited text chats with GPT-6 · Limited messages with uploads · Limited image creation · Limited voice chats · Limited deep research · Limited memory and context · Limited Codex access · Limited ChatGPT Work access on desktop · […] Unlimited text chats subject to abuse guardrails."
+          }
+        },
+        {
+          "capability": "audio-input",
+          "condition": "limitado, sin cifra publicada",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://chatgpt.com/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · Best for trying out ChatGPT · Unlimited text chats with GPT-6 · Limited messages with uploads · Limited image creation · Limited voice chats · Limited deep research · Limited memory and context · Limited Codex access · Limited ChatGPT Work access on desktop · […] Unlimited text chats subject to abuse guardrails."
+          }
+        },
+        {
+          "capability": "code-generation",
+          "condition": "limitado, sin cifra publicada",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://chatgpt.com/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · Best for trying out ChatGPT · Unlimited text chats with GPT-6 · Limited messages with uploads · Limited image creation · Limited voice chats · Limited deep research · Limited memory and context · Limited Codex access · Limited ChatGPT Work access on desktop · […] Unlimited text chats subject to abuse guardrails."
+          }
+        }
+      ]
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -840,7 +945,7 @@
         "url": "https://chatgpt.com/pricing",
         "label": "Página oficial de precios",
         "kind": "pricing",
-        "checkedAt": "2026-09-15"
+        "checkedAt": "2026-10-11"
       }
     ],
     "scores": {
@@ -850,7 +955,7 @@
       "transparency": 6,
       "creatorValue": 7
     },
-    "verdict": "El plan gratuito da para trabajar a diario, y su límite real —cuántos mensajes— es justo lo que OpenAI no publica. Eso es lo que hay que saber antes de apoyarse en él.",
+    "verdict": "Para conversar da de sobra: el texto es ilimitado. Lo que OpenAI no publica es cuánto aguantan las imágenes, la voz, los archivos y la investigación profunda, y eso es lo que conviene saber antes de apoyarse en él.",
     "pros": [],
     "cons": [
       "El límite de mensajes no está publicado: no se sabe de antemano si alcanza",
@@ -897,13 +1002,13 @@
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
-        "sourceUrl": "https://help.openai.com/en/articles/20001354-gpt-56-in-chatgpt",
-        "sourceKind": "docs",
-        "scope": "product",
-        "checkedAt": "2026-08-30",
-        "quote": "Free and Go users do not have access to GPT-5.6 Sol, and their default model is GPT-5.6 Luna, which also powers Think."
+        "sourceUrl": "https://chatgpt.com/pricing",
+        "sourceKind": "pricing",
+        "quote": "Free · Best for trying out ChatGPT · Unlimited text chats with GPT-6 · Limited messages with uploads · Limited image creation · Limited voice chats · Limited deep research · Limited memory and context · Limited Codex access · Limited ChatGPT Work access on desktop · […] Unlimited text chats subject to abuse guardrails."
       },
       {
         "field": "capabilities",
@@ -1935,14 +2040,14 @@
     "slug": "clipdrop",
     "name": "Clipdrop",
     "tagline": "Edición de imagen con cuotas gratuitas que se renuevan cada 24 horas. Generar imágenes es de pago.",
-    "descriptionShort": "Suite de imagen en el navegador. Su plan gratuito cubre las herramientas de edición —quitar fondo, escalar, limpiar, reiluminar, quitar texto— con cuotas por herramienta que se renuevan cada 24 horas. La generación de texto a imagen no entra: al intentarlo, la propia interfaz responde que es exclusiva de Pro.",
+    "descriptionShort": "Suite de imagen en el navegador. Su plan gratuito cubre las herramientas de edición —quitar fondo, escalar, limpiar, reiluminar, quitar texto— con cuotas por herramienta que se renuevan cada 24 horas. La generación de texto a imagen no entra: su página de precios la tacha hoy en el plan gratuito, y la propia interfaz responde que es exclusiva de Pro.",
     "officialUrl": "https://clipdrop.co/",
     "pricingUrl": "https://clipdrop.co/pricing",
     "freeModel": "credits",
     "freePlan": {
-      "summary": "El plan gratuito cubre las herramientas de edición con cuotas diarias —quitar fondo, escalar, limpiar, reiluminar y quitar texto—. Con la generación de imágenes hay un problema: su página de precios la anuncia como ilimitada en el plan gratuito y el producto responde que es exclusiva de Pro. Publicamos las dos cosas porque las dos son suyas, pero la que decide lo que puedes hacer es la segunda.",
+      "summary": "El plan gratuito cubre las herramientas de edición con cuotas diarias —quitar fondo, escalar, limpiar, reiluminar y quitar texto—. La generación de imágenes y Uncrop no entran: su página de precios, que en agosto anunciaba la generación como ilimitada en el plan gratuito, hoy la tacha, y el producto responde que es exclusiva de Pro.",
       "limits": [
-        "Su página de precios anuncia «Text to image: unlimited» en el plan gratuito, pero el producto no deja generar: responde que es exclusivo de Pro",
+        "Generar imágenes: exclusivo de Pro. En agosto su página de precios lo anunciaba «unlimited» en el plan gratuito aunque el producto no dejaba; hoy lo tacha, junto con Uncrop y Replace Background",
         "Quitar fondo: 20 cada 24 h",
         "Escalado x2: 20 cada 24 h",
         "Limpiar: 20 cada 24 h",
@@ -1955,9 +2060,47 @@
       "commercialUse": "unverified",
       "creditReset": "daily",
       "creditsAmount": "20/24h por herramienta",
-      "verifiedAt": "2026-08-26",
+      "verifiedAt": "2026-10-11",
       "excludedCapabilities": [
         "text-to-image"
+      ],
+      "includedCapabilities": [
+        {
+          "capability": "background-removal",
+          "condition": "20 cada 24 horas",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://clipdrop.co/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · 0 € · Start for free · [tachado] Text to image · [tachado] Uncrop · Background Removal · 20/24h · Image Upscaler x2 · 20/24h · Cleanup · 20/24h · Relight · 20/24h · Text Remover · 50/24h · [tachado] Replace Background"
+          }
+        },
+        {
+          "capability": "upscaling",
+          "condition": "x2, 20 cada 24 horas",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://clipdrop.co/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · 0 € · Start for free · [tachado] Text to image · [tachado] Uncrop · Background Removal · 20/24h · Image Upscaler x2 · 20/24h · Cleanup · 20/24h · Relight · 20/24h · Text Remover · 50/24h · [tachado] Replace Background"
+          }
+        },
+        {
+          "capability": "inpainting",
+          "condition": "Cleanup, 20 cada 24 horas",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://clipdrop.co/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · 0 € · Start for free · [tachado] Text to image · [tachado] Uncrop · Background Removal · 20/24h · Image Upscaler x2 · 20/24h · Cleanup · 20/24h · Relight · 20/24h · Text Remover · 50/24h · [tachado] Replace Background"
+          }
+        }
       ]
     },
     "scores": {
@@ -1967,7 +2110,7 @@
       "transparency": 8,
       "creatorValue": 7
     },
-    "verdict": "Cuotas diarias documentadas herramienta por herramienta, que es justo lo que un catálogo de acceso gratuito debe poder decir. Con una contradicción que conviene saber antes de entrar: su web promete generación de imágenes ilimitada y su producto no la da.",
+    "verdict": "Cuotas diarias documentadas herramienta por herramienta, que es justo lo que un catálogo de acceso gratuito debe poder decir. Generar imágenes es de Pro: su página lo prometía ilimitado en agosto y hoy lo tacha, como ya respondía el producto.",
     "evidence": [
       {
         "field": "capabilities",
@@ -2006,13 +2149,13 @@
         "quote": "Image generation is for Pro — Generate images exclusively for Pro users"
       },
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://clipdrop.co/pricing",
         "sourceKind": "pricing",
-        "scope": "product",
-        "checkedAt": "2026-08-24",
-        "quote": "Free 0 — Text to image: unlimited · Uncrop: unlimited · Background Removal: 20/24h · Image Upscaler x2: 20/24h · Cleanup: 20/24h · Relight: 20/24h · Text Remover: 50/24h"
+        "quote": "Free · 0 € · Start for free · [tachado] Text to image · [tachado] Uncrop · Background Removal · 20/24h · Image Upscaler x2 · 20/24h · Cleanup · 20/24h · Relight · 20/24h · Text Remover · 50/24h · [tachado] Replace Background"
       }
     ],
     "descriptionLong": "",
@@ -5268,7 +5411,21 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "daily",
-      "verifiedAt": "2026-08-13"
+      "verifiedAt": "2026-08-13",
+      "includedCapabilities": [
+        {
+          "capability": "text-to-image",
+          "condition": "con Nano Banana; Nano Banana 2.1 es de pago",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://gemini.google/overview/image-generation/",
+            "sourceKind": "official",
+            "quote": "Bring your wildest ideas to life at the speed and quality you need with Nano Banana. Available for free. Upgrade to a Google AI Plan to unlock Nano Banana 2.1, our most advanced image model with enhanced quality, reasoning, and visual design."
+          }
+        }
+      ]
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -5337,6 +5494,13 @@
         "label": "Página oficial de precios",
         "kind": "pricing",
         "checkedAt": "2026-09-15"
+      },
+      {
+        "url": "https://gemini.google/overview/image-generation/",
+        "label": "Web oficial: generación de imágenes",
+        "kind": "official",
+        "publisher": "gemini.google",
+        "checkedAt": "2026-10-11"
       }
     ],
     "scores": {
@@ -7783,7 +7947,57 @@
       "commercialUse": "yes",
       "creditsAmount": "150 Fast Tokens/día",
       "creditReset": "daily",
-      "verifiedAt": "2026-08-26"
+      "verifiedAt": "2026-10-11",
+      "includedCapabilities": [
+        {
+          "capability": "text-to-image",
+          "condition": "150 Fast Tokens al día",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "cloud",
+            "sourceUrl": "https://intercom.help/leonardo-ai/en/articles/8044018-commercial-usage",
+            "sourceKind": "help",
+            "quote": "As a free plan user, Jason wants to create a design for his T-shirt business. Jason can use free tools such as the AI Generations tool to create new concepts. […] Jason can click on another image on the public feed for his concept and Remix, Upscale, Create Video or Use as Guide to create more imagery."
+          }
+        },
+        {
+          "capability": "image-to-image",
+          "condition": "150 Fast Tokens al día",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "cloud",
+            "sourceUrl": "https://intercom.help/leonardo-ai/en/articles/8044018-commercial-usage",
+            "sourceKind": "help",
+            "quote": "As a free plan user, Jason wants to create a design for his T-shirt business. Jason can use free tools such as the AI Generations tool to create new concepts. […] Jason can click on another image on the public feed for his concept and Remix, Upscale, Create Video or Use as Guide to create more imagery."
+          }
+        },
+        {
+          "capability": "upscaling",
+          "condition": "150 Fast Tokens al día",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "cloud",
+            "sourceUrl": "https://intercom.help/leonardo-ai/en/articles/8044018-commercial-usage",
+            "sourceKind": "help",
+            "quote": "As a free plan user, Jason wants to create a design for his T-shirt business. Jason can use free tools such as the AI Generations tool to create new concepts. […] Jason can click on another image on the public feed for his concept and Remix, Upscale, Create Video or Use as Guide to create more imagery."
+          }
+        },
+        {
+          "capability": "image-to-video",
+          "condition": "150 Fast Tokens al día",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "cloud",
+            "sourceUrl": "https://intercom.help/leonardo-ai/en/articles/8044018-commercial-usage",
+            "sourceKind": "help",
+            "quote": "As a free plan user, Jason wants to create a design for his T-shirt business. Jason can use free tools such as the AI Generations tool to create new concepts. […] Jason can click on another image on the public feed for his concept and Remix, Upscale, Create Video or Use as Guide to create more imagery."
+          }
+        }
+      ]
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -7914,7 +8128,7 @@
         "sourceUrl": "https://leonardo.ai/pricing/",
         "sourceKind": "pricing",
         "scope": "cloud",
-        "checkedAt": "2026-08-13",
+        "checkedAt": "2026-10-11",
         "quote": "FREE $0 /month […] Fast Tokens 150 / day · Token Bank 150 · Creations access Public · Quality settings Basic · Personal collections 1"
       },
       {
@@ -10771,7 +10985,57 @@
       "hasWatermark": "no",
       "commercialUse": "unverified",
       "creditReset": "unknown",
-      "verifiedAt": "2026-09-16"
+      "verifiedAt": "2026-10-11",
+      "includedCapabilities": [
+        {
+          "capability": "background-removal",
+          "condition": "limitado, sin cifra publicada",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://www.pixelcut.ai/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · $0 · Limited Background Removal · Limited Upscale · Free export without watermark"
+          }
+        },
+        {
+          "capability": "upscaling",
+          "condition": "limitado, sin cifra publicada",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://www.pixelcut.ai/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · $0 · Limited Background Removal · Limited Upscale · Free export without watermark"
+          }
+        },
+        {
+          "capability": "outpainting",
+          "condition": "limitado, sin cifra publicada",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://www.pixelcut.ai/pricing",
+            "sourceKind": "pricing",
+            "quote": "[Tabla «What's included in your plan»: Free · Pro · Business] Expand Image — Limited · 300/day · Up to 1200/day"
+          }
+        },
+        {
+          "capability": "image-editing",
+          "condition": "limitado, sin cifra publicada",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://www.pixelcut.ai/pricing",
+            "sourceKind": "pricing",
+            "quote": "[Tabla «What's included in your plan»: Free · Pro · Business] Generative Fill — Limited · 300/day · Up to 1200/day"
+          }
+        }
+      ]
     },
     "scores": {
       "freeReal": 7,
@@ -10816,7 +11080,7 @@
         "sourceKind": "pricing",
         "scope": "product",
         "quote": "Limited Background Removal · Limited Upscale · Free export without watermark",
-        "checkedAt": "2026-09-16"
+        "checkedAt": "2026-10-11"
       },
       {
         "checkedAt": "2026-10-11",
@@ -11299,15 +11563,35 @@
     "freePlan": {
       "summary": "Hay plan gratuito, pero las imágenes generadas en él son propiedad de Recraft, se muestran públicamente en la galería de la comunidad y no llevan licencia de uso comercial.",
       "limits": [
+        "3 generaciones por estilo al día",
+        "Hasta 2 imágenes por generación y 3 imágenes subidas al día",
+        "Sólo modelos de Recraft, sin generación en paralelo",
+        "Herramientas de edición básicas; las avanzadas (paletas propias, varita mágica, escalado creativo) son de pago",
         "Las imágenes del plan gratuito son propiedad de Recraft",
-        "Visibles públicamente en la galería"
+        "Visibles públicamente en la galería",
+        "Plan de pago más barato: Basic, 10 $/mes en anual (1.000 créditos al mes)"
       ],
       "requiresSignup": "unverified",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "no",
-      "creditReset": "unknown",
-      "verifiedAt": "2026-09-16"
+      "creditReset": "daily",
+      "verifiedAt": "2026-10-11",
+      "creditsAmount": "3 generaciones por estilo al día",
+      "includedCapabilities": [
+        {
+          "capability": "text-to-image",
+          "condition": "3 generaciones por estilo al día, sólo con modelos de Recraft",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://www.recraft.ai/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · For exploring AI features at a basic level. Personal use only. · $0 · Limited free credits · What's included: · 3 generations per style per day · 3 image uploads daily · Up to 2 images per generation · Basic editing tools · Style Library and custom style creation · All images are public · No commercial use · No parallel generation · Recraft models only"
+          }
+        }
+      ]
     },
     "scores": {
       "freeReal": 5,
@@ -11355,13 +11639,13 @@
         "lookedFor": "Si el plan gratuito pone marca de agua. Ni la página del plan gratuito de su documentación ni la de precios la mencionan."
       },
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://www.recraft.ai/pricing",
         "sourceKind": "pricing",
-        "scope": "product",
-        "quote": "Images generated on the Free plan are owned by Recraft. They are publicly visible in the community gallery and are not licensed for commercial use.",
-        "checkedAt": "2026-09-16"
+        "quote": "Free · For exploring AI features at a basic level. Personal use only. · $0 · Limited free credits · What's included: · 3 generations per style per day · 3 image uploads daily · Up to 2 images per generation · Basic editing tools · Style Library and custom style creation · All images are public · No commercial use · No parallel generation · Recraft models only"
       }
     ],
     "descriptionLong": "",
@@ -13292,7 +13576,21 @@
         "Exige cuenta personal de Microsoft; no sirven las de trabajo o centro educativo",
         "El vídeo sólo se crea desde la app móvil de Bing"
       ],
-      "creditsAmount": "15 creaciones rápidas al día"
+      "creditsAmount": "15 creaciones rápidas al día",
+      "includedCapabilities": [
+        {
+          "capability": "text-to-image",
+          "condition": "15 creaciones rápidas al día; después, a velocidad estándar",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://www.bing.com/images/create/help",
+            "sourceKind": "help",
+            "quote": "Every day, you'll get a total of 15 free fast image creations with Bing Image Creator's fastest speed."
+          }
+        }
+      ]
     },
     "capabilities": [
       "text-to-image",
@@ -13449,15 +13747,33 @@
       "hasWatermark": "unverified",
       "commercialUse": "yes",
       "creditReset": "unknown",
-      "verifiedAt": "2026-09-24",
+      "verifiedAt": "2026-10-11",
       "summary": "Plan Free a 0 € para una persona: editor, más de 1,6 millones de plantillas, 5 GB de almacenamiento y hasta 20 usos de IA Standard o Premium. La página no dice si esos usos se renuevan ni cada cuánto. Pro cuesta 110 € al año.",
       "limits": [
         "Hasta 20 usos de IA Standard o Premium; no publica cada cuánto se renuevan",
+        "Quitar fondos, Edición Mágica, Expansión Mágica y Captura Mágica: no incluidos en Gratis",
         "1,6 millones de plantillas gratuitas y 5 GB de almacenamiento",
         "1 kit de marca, sólo 3 colores",
         "Plan de pago más barato: Pro, 110 € al año"
       ],
-      "creditsAmount": "Hasta 20 usos de IA"
+      "creditsAmount": "Hasta 20 usos de IA",
+      "excludedCapabilities": [
+        "background-removal"
+      ],
+      "includedCapabilities": [
+        {
+          "capability": "text-to-image",
+          "condition": "hasta 20 usos de IA, compartidos con las demás herramientas",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://www.canva.com/es_es/precios/",
+            "sourceKind": "pricing",
+            "quote": "[Tabla «Comparar las funciones», «Herramientas con IA (cuota compartida)»] Crea una imagen con Canva IA (IA estándar) — Gratis: Acceso limitado a la IA · Según las funciones que uses: Hasta 20 usos de la IA estándar o premium^"
+          }
+        }
+      ]
     },
     "capabilities": [
       "text-to-image",
@@ -13487,6 +13803,13 @@
         "kind": "official",
         "publisher": "canva.com",
         "checkedAt": "2026-09-24"
+      },
+      {
+        "url": "https://www.canva.com/es_es/precios/",
+        "label": "Página oficial de precios (España)",
+        "kind": "pricing",
+        "publisher": "canva.com",
+        "checkedAt": "2026-10-11"
       }
     ],
     "evidence": [
@@ -13534,6 +13857,15 @@
         "sourceUrl": "https://www.canva.com/es_es/precios/",
         "sourceKind": "pricing",
         "lookedFor": "Si lo que genera la IA en Canva Gratis lleva marca de agua. Ni la tabla de precios, ni la página del generador de imágenes, ni las condiciones de uso lo dicen."
+      },
+      {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
+        "field": "freePlan.excludedCapabilities",
+        "outcome": "stated",
+        "sourceUrl": "https://www.canva.com/es_es/precios/",
+        "sourceKind": "pricing",
+        "quote": "[Tabla «Comparar las funciones»: Gratis · Pro · Business · Enterprise] Quitafondos para fotos (también a gran escala) · Eliminación de fondos de las imágenes, de una en una o en lote — No incluido · Incluido · Incluido · Incluido"
       }
     ],
     "id": "tool_canva",
