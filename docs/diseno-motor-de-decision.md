@@ -19,7 +19,8 @@ preguntas fuera de las tareas que el catálogo sabe reconocer.
 
 **¿Hace falta un LLM?** No para decidir. Todo lo que decide ya existe como dato:
 tareas → capacidades (`search/intents.ts`, 14 tareas desde que «Generar o clonar una voz» se partió en dos), qué incluye el plan
-gratuito (`capabilities` − `freePlan.excludedCapabilities`), condiciones
+gratuito (`freePlan.includedCapabilities`, cada una con su cita, frente a
+`freePlan.excludedCapabilities`; lo que no está en ninguna es «no sabemos»), condiciones
 (tarjeta, registro, uso comercial, marca de agua, privacidad), dónde se usa
 (`hosting`, `platforms`, `startEffort`), nivel de acceso (`nivelDeAcceso`) y
 evidencias por campo. Un LLM sólo tendría sentido *más tarde* y sólo como
@@ -52,8 +53,13 @@ compartir y, más adelante, convertir en página de tarea (§6).
 ## 3. El algoritmo (determinista, sin puntuación)
 
 1. **Hace la tarea, y gratis.** Candidatas = fichas no retiradas cuyas
-   `capabilities` cubren la tarea **y** cuyo plan gratuito no la excluye
-   (`excludedCapabilities`). Las de pago que la hacen van aparte («Si pagas»).
+   `capabilities` cubren la tarea. Que el plan gratuito la incluya es otro
+   hecho de tres estados, como las exigencias: *incluida* sólo con una entrada
+   en `includedCapabilities` (con su cita); *excluida* con una en
+   `excludedCapabilities`; y si no está en ninguna de las dos, *no sabemos*.
+   Que una capacidad no figure entre las exclusiones no significa que esté
+   incluida (Juan, 11 de octubre de 2026). Las excluidas van a «Si pagas»;
+   las de «no sabemos», a «Posibles, sin confirmar».
 2. **Cada exigencia, con tres resultados posibles**, nunca dos:
    - *cumple* — el hecho está comprobado y es el pedido;
    - *no cumple* — está comprobado y es el contrario → **descartada, con el motivo**;
@@ -116,7 +122,15 @@ revisión de las 432 líneas de `freePlan.limits` que pase a
 `excludedCapabilities` lo que el fabricante declara excluido, con su cita.
 
 Orden de la campaña de verificación: las tareas que más se busquen (contador) y,
-dentro de cada una, las exigencias más marcadas.
+dentro de cada una, las exigencias más marcadas. Sin datos del contador todavía,
+la campaña del 11 de octubre se repartió entre las 14 tareas por relevancia, en
+el orden que pidió Juan: tarjeta, uso comercial, marca de agua y límites.
+
+**Marca de agua = lo que se ve o se oye.** La exigencia `sinMarcaDeAgua` se
+contesta con `hasWatermark`, que sólo registra marcas visibles o audibles. Las
+técnicas (SynthID, credenciales C2PA, marcas inaudibles) van en
+`freePlan.provenanceSignals` y la respuesta las enseña aparte, como información
+de procedencia, sin convertirlas en un «lleva marca».
 
 ## 6. Páginas por tarea (prioridad de adquisición), sin generar todavía
 
