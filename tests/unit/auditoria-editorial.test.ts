@@ -293,12 +293,21 @@ describe('las cifras huérfanas se retiran, no se maquillan', () => {
     expect(entrada?.summary).toMatch(/modo agente/);
   });
 
-  it('Ideogram ya no publica los diez créditos que su tabla retiró', () => {
+  it('Ideogram publica la cantidad que su documentación cita, y no la que su tabla retiró', () => {
+    /*
+     * Primero retiró los diez créditos de su tabla («Weekly for eligible
+     * accounts») y la ficha dejó de publicar cantidad. El 11 de octubre de
+     * 2026 su documentación da 30 a la semana a quien entra con Google, Apple
+     * o Microsoft, y su página de precios avisa de que la cantidad puede
+     * variar: la ficha dice las dos cosas, con la cita de la primera.
+     */
     const ideogram = tools.find((t) => t.slug === 'ideogram')!;
-    expect(ideogram.freePlan.creditsAmount).toBeUndefined();
+    expect(ideogram.freePlan.creditsAmount).toBe('30 créditos/semana');
+    expect(citaDe(evidenciaDe(ideogram, 'freePlan.limits')!)).toMatch(/30 credits each week/);
     const texto = `${ideogram.tagline} ${ideogram.descriptionShort} ${ideogram.freePlan.summary} ${ideogram.freePlan.limits.join(' ')}`;
     expect(texto).not.toMatch(/10 créditos lentos|diez créditos lentos/i);
-    expect(texto, 'debe decir a quién se los dan').toMatch(/cuentas elegibles/i);
+    expect(texto, 'debe decir a quién se los dan').toMatch(/Google, Apple o Microsoft/);
+    expect(texto, 'y que puede variar').toMatch(/puede variar/);
   });
 
   it('Cursor no arrastra en contras la cifra que su resumen niega', () => {

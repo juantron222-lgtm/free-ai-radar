@@ -3968,12 +3968,13 @@
     ],
     "freeModel": "credits",
     "freePlan": {
-      "summary": "Plan gratuito con 10.000 créditos al mes que se reinician al empezar cada ciclo de facturación y que se comparten entre todos sus productos: los mismos créditos sirven para texto a voz, transcripción, efectos de sonido, diseño de voz o música. Incluye tres proyectos de Studio. La clonación de voz no está incluida y la licencia comercial empieza en Starter.",
+      "summary": "Plan gratuito con 10.000 créditos al mes que se reinician al empezar cada ciclo de facturación y que se comparten entre todos sus productos: los mismos créditos sirven para texto a voz, transcripción, efectos de sonido, diseño de voz o música. Incluye tres proyectos de Studio y el doblaje, con una marca de agua que no se puede quitar. La clonación de voz no está incluida y la licencia comercial empieza en Starter.",
       "limits": [
         "10.000 créditos al mes, compartidos entre todos sus productos",
         "Licencia comercial NO incluida: empieza en Starter",
         "Clonación de voz: no incluida en el plan gratuito; empieza en Starter",
         "3 proyectos en Studio",
+        "Doblaje: incluido, con marca de agua que no se puede quitar",
         "Plan de pago más barato: Starter, 6 $/mes (30.000 créditos)"
       ],
       "requiresSignup": "yes",
@@ -3985,6 +3986,64 @@
       "verifiedAt": "2026-08-24",
       "excludedCapabilities": [
         "voice-clone"
+      ],
+      "includedCapabilities": [
+        {
+          "capability": "text-to-speech",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://elevenlabs.io/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · $0 per month · Build for free · Text to Speech · Speech to Text · Sound Effects · Voice Design · Music · Productions · Image · 3 Projects in Studio · 10k credits per month"
+          }
+        },
+        {
+          "capability": "transcription",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://elevenlabs.io/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · $0 per month · Build for free · Text to Speech · Speech to Text · Sound Effects · Voice Design · Music · Productions · Image · 3 Projects in Studio · 10k credits per month"
+          }
+        },
+        {
+          "capability": "sound-effects",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://elevenlabs.io/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · $0 per month · Build for free · Text to Speech · Speech to Text · Sound Effects · Voice Design · Music · Productions · Image · 3 Projects in Studio · 10k credits per month"
+          }
+        },
+        {
+          "capability": "text-to-music",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://elevenlabs.io/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · $0 per month · Build for free · Text to Speech · Speech to Text · Sound Effects · Voice Design · Music · Productions · Image · 3 Projects in Studio · 10k credits per month"
+          }
+        },
+        {
+          "capability": "dubbing",
+          "condition": "con marca de agua que no se puede quitar",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://elevenlabs.io/docs/help-center/product/dubbing/on-which-plans-can-i-use-dubbing",
+            "sourceKind": "help",
+            "quote": "Dubbing is available on all our plans, including the free plan. Dubs generated on free plans are automatically watermarked, with no option to remove this."
+          }
+        }
       ]
     },
     "openSource": "no",
@@ -4014,7 +4073,7 @@
         "label": "Página oficial de precios",
         "kind": "pricing",
         "publisher": "elevenlabs.io",
-        "checkedAt": "2026-08-18"
+        "checkedAt": "2026-10-11"
       },
       {
         "url": "https://elevenlabs.io/terms-of-use",
@@ -4022,6 +4081,13 @@
         "kind": "docs",
         "publisher": "elevenlabs.io",
         "checkedAt": "2026-08-24"
+      },
+      {
+        "url": "https://elevenlabs.io/docs/help-center/product/dubbing/on-which-plans-can-i-use-dubbing",
+        "label": "Centro de ayuda: en qué planes se puede doblar",
+        "kind": "docs",
+        "publisher": "elevenlabs.io",
+        "checkedAt": "2026-10-11"
       }
     ],
     "scores": {
@@ -4079,15 +4145,6 @@
         "scope": "product",
         "checkedAt": "2026-08-24",
         "quote": "Credits reset monthly on the subscription anniversary date. Unused credits do not roll over for the Free tier."
-      },
-      {
-        "field": "freePlan.hasWatermark",
-        "outcome": "not_published",
-        "sourceUrl": "https://elevenlabs.io/terms-of-use",
-        "sourceKind": "terms",
-        "scope": "product",
-        "checkedAt": "2026-08-24",
-        "lookedFor": "Si el audio del plan gratuito lleva marca o exige atribución. Las condiciones no imponen ninguna atribución, y ni ellas ni la página de precios mencionan marca alguna."
       },
       {
         "field": "freePlan.commercialUse",
@@ -7432,30 +7489,68 @@
     ],
     "skillLevel": "beginner",
     "freeModel": "credits",
-    "tagline": "Créditos lentos semanales para cuentas elegibles, y casi toda la edición fuera.",
-    "descriptionShort": "Generador de imagen conocido por escribir texto legible dentro de la imagen. Su plan gratuito da créditos lentos semanales para cuentas elegibles —la tabla no dice cuántos— y deja fuera la referencia de estilo, la de personaje, el relleno, la ampliación y el escalado.",
-    "verdict": "La cantidad y la frecuencia están publicadas, que ya es más de lo que ofrece casi nadie. Lo que hay que mirar es la otra tabla: en el plan gratuito quedan fuera seis de las funciones de edición, y las imágenes se publican en la comunidad por defecto.",
+    "tagline": "30 créditos a la semana si entras con Google, Apple o Microsoft; escalar y parte de la edición, de pago.",
+    "descriptionShort": "Generador de imagen conocido por escribir texto legible dentro de la imagen. Su plan gratuito da 30 créditos a la semana a quien entra con Google, Apple o Microsoft —con correo y contraseña, ninguno—; todo lo que generas es público, y escalar, Extend y Select area son de pago.",
+    "verdict": "Publica la cantidad, pero sólo para quien entra con Google, Apple o Microsoft: con correo y contraseña no hay créditos gratis. Cada imagen con sus modelos actuales gasta de 3 a 10 de esos 30 créditos semanales, todo lo que generas es público, y escalar, Extend y Select area son de pago.",
     "freePlan": {
-      "summary": "Plan gratuito de 0 $ con créditos lentos semanales para cuentas elegibles: la tabla no publica la cantidad. Una generación en ejecución o en cola, y dos lienzos. La referencia de estilo, la de personaje, Magic Fill y Extend constan como no incluidos; descargar a tamaño escalado requiere plan de pago, y quitar el fondo cuesta 1 crédito. Por defecto todas las imágenes se publican en la comunidad.",
+      "summary": "Plan gratuito de 0 $ con 30 créditos a la semana si entras con Google, Apple o Microsoft —su página de precios avisa de que la cantidad puede variar—; las cuentas creadas con correo y contraseña no reciben créditos gratis. Cada generación gasta créditos —de 3 a 10 por imagen con Ideogram 4.5 o 4.0, según la calidad— y, al agotarlos, toca esperar a los de la semana siguiente o comprar más. Una generación en ejecución o en cola, y todo lo que generas es público. Quitar el fondo cuesta 1 crédito; escalar, y en Studio Extend, Select area (antes Magic Fill) y Remix, requieren plan de pago.",
       "limits": [
-        "Créditos lentos semanales para cuentas elegibles: la cantidad no se publica",
-        "Sin créditos prioritarios",
+        "30 créditos a la semana si entras con Google, Apple o Microsoft (su página de precios avisa de que la cantidad puede variar); con correo y contraseña, ninguno",
+        "Una imagen con Ideogram 4.5 o 4.0, sin imágenes de origen, gasta de 3 a 10 créditos según la calidad",
+        "Cada generación gasta créditos: al agotarlos, toca esperar a los de la semana siguiente o comprar más",
         "1 generación en ejecución o en cola",
-        "2 lienzos",
-        "Sin referencia de estilo ni de personaje",
-        "Sin Magic Fill ni Extend; descargar a tamaño escalado requiere plan de pago",
+        "Todo lo que generas es público: la generación privada es de pago",
         "Quitar el fondo: disponible, por 1 crédito",
-        "Las imágenes se publican en la comunidad por defecto",
-        "Plan de pago más barato: Plus, 20 $/mes (15 $/mes en anual)"
+        "De pago: escalar, y en Studio Extend, Select area (antes Magic Fill) y Remix",
+        "Sin plan de pago, se descarga en JPEG a tamaño original; en PNG, sólo las imágenes transparentes y a 1K",
+        "Vídeo y modelos premium de otros proveedores: sólo con plan de pago o créditos comprados",
+        "Plan de pago más barato: Plus, 20 $/mes (15 $/mes en anual), 2.400 créditos al mes"
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "yes",
       "creditReset": "weekly",
-      "verifiedAt": "2026-08-24",
+      "verifiedAt": "2026-10-11",
       "excludedCapabilities": [
         "upscaling"
+      ],
+      "creditsAmount": "30 créditos/semana",
+      "includedCapabilities": [
+        {
+          "capability": "text-to-image",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://docs.ideogram.ai/create/models",
+            "sourceKind": "docs",
+            "quote": "Every plan, free included, can use Auto and all Ideogram models."
+          }
+        },
+        {
+          "capability": "image-to-image",
+          "condition": "6 créditos por imagen",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://docs.ideogram.ai/edit/remix",
+            "sourceKind": "docs",
+            "quote": "[Tabla «You can remix in two places»] Remix app — Plan: Any plan (6 credits per image) · Remix in Studio — Plan: Paid plan"
+          }
+        },
+        {
+          "capability": "background-removal",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://docs.ideogram.ai/create/transparent-backgrounds",
+            "sourceKind": "docs",
+            "quote": "[Tabla: Way · Best when · Plan] Remove BG afterwards · You already have the image · Free and paid"
+          }
+        }
       ]
     },
     "capabilities": [
@@ -7492,14 +7587,56 @@
         "label": "Página oficial de precios",
         "kind": "pricing",
         "publisher": "ideogram.ai",
-        "checkedAt": "2026-08-13"
+        "checkedAt": "2026-10-11"
       },
       {
         "url": "https://ideogram.ai/legal/tos",
         "label": "Condiciones oficiales",
         "kind": "docs",
         "publisher": "ideogram.ai",
-        "checkedAt": "2026-08-24"
+        "checkedAt": "2026-10-11"
+      },
+      {
+        "url": "https://docs.ideogram.ai/plans-and-billing/available-plans",
+        "label": "Documentación: planes y créditos",
+        "kind": "docs",
+        "publisher": "docs.ideogram.ai",
+        "checkedAt": "2026-10-11"
+      },
+      {
+        "url": "https://docs.ideogram.ai/get-started/signup-and-registration",
+        "label": "Documentación: alta y créditos gratuitos",
+        "kind": "docs",
+        "publisher": "docs.ideogram.ai",
+        "checkedAt": "2026-10-11"
+      },
+      {
+        "url": "https://docs.ideogram.ai/edit/upscale",
+        "label": "Documentación: escalar",
+        "kind": "docs",
+        "publisher": "docs.ideogram.ai",
+        "checkedAt": "2026-10-11"
+      },
+      {
+        "url": "https://docs.ideogram.ai/create/transparent-backgrounds",
+        "label": "Documentación: fondos transparentes",
+        "kind": "docs",
+        "publisher": "docs.ideogram.ai",
+        "checkedAt": "2026-10-11"
+      },
+      {
+        "url": "https://docs.ideogram.ai/create/models",
+        "label": "Documentación: modelos",
+        "kind": "docs",
+        "publisher": "docs.ideogram.ai",
+        "checkedAt": "2026-10-11"
+      },
+      {
+        "url": "https://docs.ideogram.ai/edit/remix",
+        "label": "Documentación: Remix",
+        "kind": "docs",
+        "publisher": "docs.ideogram.ai",
+        "checkedAt": "2026-10-11"
       }
     ],
     "evidence": [
@@ -7513,54 +7650,63 @@
         "scope": "cloud"
       },
       {
+        "checkedAt": "2026-10-11",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
         "sourceUrl": "https://ideogram.ai/legal/tos",
         "sourceKind": "terms",
         "scope": "product",
-        "checkedAt": "2026-08-24",
         "quote": "We do not claim any ownership rights in your User Input or User Output, and we do not restrict your ability to use User Output for your own purposes (including for commercial purposes)."
       },
       {
+        "checkedAt": "2026-10-11",
         "field": "freePlan.hasWatermark",
         "outcome": "not_published",
         "sourceUrl": "https://ideogram.ai/legal/tos",
         "sourceKind": "terms",
         "scope": "product",
-        "checkedAt": "2026-08-24",
-        "lookedFor": "Si el plan gratuito estampa una marca. Las condiciones sólo prohíben retirar las marcas que existan («Remove any watermarks included on any User Output»), sin decir si el plan gratuito las pone. Ni la documentación de planes ni las preguntas frecuentes lo mencionan."
+        "lookedFor": "Si el plan gratuito estampa una marca. Las condiciones sólo prohíben retirar las marcas que existan («remove any watermarks included on any User Output»), sin decir si el plan gratuito las pone; ninguna de las 77 páginas de su documentación ni la de precios menciona marca de agua."
       },
       {
+        "checkedAt": "2026-10-11",
         "field": "freePlan.limits",
         "outcome": "stated",
-        "sourceUrl": "https://ideogram.ai/pricing",
-        "sourceKind": "pricing",
+        "sourceUrl": "https://docs.ideogram.ai/plans-and-billing/available-plans",
+        "sourceKind": "docs",
         "scope": "product",
-        "checkedAt": "2026-08-29",
-        "quote": "Free — Slow credits: Weekly for eligible accounts · Priority credits: Not included"
+        "quote": "Free accounts get 30 credits each week if they sign in with Google, Apple or Microsoft. Accounts created with an email and password don't get free credits; they can buy credits or subscribe."
       },
       {
+        "checkedAt": "2026-10-11",
         "field": "freePlan.requiresCreditCard",
         "outcome": "not_published",
-        "sourceUrl": "https://ideogram.ai/pricing",
-        "sourceKind": "pricing",
-        "checkedAt": "2026-09-15",
+        "sourceUrl": "https://docs.ideogram.ai/get-started/signup-and-registration",
+        "sourceKind": "docs",
         "scope": "product",
-        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios sólo habla de tarjeta para actualizar el pago de un plan ya contratado."
+        "lookedFor": "Si el alta o el plan gratuito piden tarjeta. La página de alta describe el registro con Google, Apple, Microsoft o correo y el paso «Skip for now to stay on the free plan» sin mencionar tarjeta; la de precios y la de compra de créditos sólo la piden para pagar un plan o comprar créditos."
       },
       {
+        "checkedAt": "2026-10-11",
         "field": "freePlan.excludedCapabilities",
         "outcome": "stated",
-        "checkedAt": "2026-10-11",
+        "sourceUrl": "https://docs.ideogram.ai/edit/upscale",
+        "sourceKind": "docs",
         "scope": "product",
-        "sourceUrl": "https://docs.ideogram.ai/help/frequently-asked-questions",
-        "sourceKind": "help",
-        "quote": "PNG needs a paid plan. Without one (including pay as you go), you can download JPEG at the original size, and transparent images as PNG at 1K. Upscale sizes need a paid plan and cost credits."
+        "quote": "[Tabla: Upscale app · Studio layer · Upscale & download] The Upscale app needs a paid plan or bought credits. The other two need a paid plan. Without a plan, buy credits and use the Upscale app."
+      },
+      {
+        "checkedAt": "2026-10-11",
+        "field": "freePlan.creditReset",
+        "outcome": "stated",
+        "sourceUrl": "https://docs.ideogram.ai/plans-and-billing/available-plans",
+        "sourceKind": "docs",
+        "scope": "product",
+        "quote": "[Tabla: Plan · Monthly billing · Yearly billing · Credits each month] Free · $0 · $0 · 30 a week (see Free plan)"
       }
     ],
-    "auditNotes": "Las capacidades describen la herramienta completa; en el plan gratuito seis de ellas constan como no incluidas y así figura en los límites. Marca de agua y tarjeta no aparecen en ninguna página oficial.",
-    "nextReviewAt": "2026-11-22",
-    "lastVerifiedAt": "2026-08-29",
+    "auditNotes": "Revisión completa el 11 de octubre de 2026 contra su documentación de planes (verificada por ellos el 1 de octubre) y su página de precios. La página de precios dice que la cantidad puede variar, y que editar con IA y usar imagen de referencia piden créditos prioritarios, que el plan gratuito no tiene; su documentación los da por disponibles en cualquier plan. Por esa contradicción la ficha no afirma si el plan gratuito incluye editar con IA ni usar imágenes de referencia. Marca de agua y tarjeta no aparecen en ninguna página oficial.",
+    "nextReviewAt": "2026-11-10",
+    "lastVerifiedAt": "2026-10-11",
     "updatedAt": "2026-08-13",
     "licences": {},
     "access": {}

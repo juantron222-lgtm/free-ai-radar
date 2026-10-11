@@ -256,16 +256,39 @@ const compararHref = compararCon.length
                   no incluye, dicho en la misma pastilla. Este bloque decide
                   si te sirve sin pagar: «Clonación de voz» a secas, encima de
                   «Acceso gratuito», se leía como gratis.
+
+                  Y al revés: sólo se dice «gratis» de lo que el fabricante
+                  dice que su plan gratuito incluye, con la fuente enlazada.
+                  Lo que no está en ninguna de las dos listas va a secas,
+                  porque no lo sabemos.
                 */}
-                {tool.capabilities.map((capacidad) =>
-                  tool.freePlan.excludedCapabilities.includes(capacidad) ? (
-                    <li class="de-pago">
-                      {CAPABILITY_LABEL[capacidad]} <span class="de-pago-nota">(sólo de pago)</span>
-                    </li>
-                  ) : (
-                    <li>{CAPABILITY_LABEL[capacidad]}</li>
-                  )
-                )}
+                {tool.capabilities.map((capacidad) => {
+                  if (tool.freePlan.excludedCapabilities.includes(capacidad)) {
+                    return (
+                      <li class="de-pago">
+                        {CAPABILITY_LABEL[capacidad]} <span class="de-pago-nota">(sólo de pago)</span>
+                      </li>
+                    );
+                  }
+                  const incluida = tool.freePlan.includedCapabilities.find((i) => i.capability === capacidad);
+                  if (incluida) {
+                    return (
+                      <li class="gratis">
+                        {CAPABILITY_LABEL[capacidad]}{' '}
+                        <a
+                          class="gratis-nota"
+                          href={incluida.evidence.sourceUrl}
+                          rel="nofollow noopener"
+                          target="_blank"
+                          title={`Según ${new URL(incluida.evidence.sourceUrl).hostname.replace(/^www\./, '')}, comprobado el ${fmtDate(incluida.evidence.checkedAt)}`}
+                        >
+                          (gratis{incluida.condition ? `, ${incluida.condition}` : ''})
+                        </a>
+                      </li>
+                    );
+                  }
+                  return <li>{CAPABILITY_LABEL[capacidad]}</li>;
+                })}
               </ul>
             </div>
           )}
@@ -872,6 +895,11 @@ const compararHref = compararCon.length
 
   .de-pago-nota {
     color: var(--ink-subtle);
+  }
+
+  .gratis-nota {
+    color: var(--ink-muted);
+    text-decoration-color: var(--line);
   }
 
   .decision-datos {

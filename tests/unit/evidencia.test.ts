@@ -391,6 +391,7 @@ describe('un regalo de bienvenida no es una cuota', () => {
         commercialUse: 'unverified',
         creditReset: 'one_off',
         excludedCapabilities: [],
+        includedCapabilities: [],
         verifiedAt: '2026-08-24',
       },
     });
@@ -473,6 +474,7 @@ describe('lo desconocido no entra en un filtro positivo', () => {
         commercialUse: 'unverified',
         creditReset: 'none',
         excludedCapabilities: [],
+        includedCapabilities: [],
         verifiedAt: '2026-08-24',
       },
       evidence: [
@@ -519,6 +521,7 @@ describe('la marca de agua sólo cuenta donde tiene sentido', () => {
         commercialUse: 'yes',
         creditReset: 'none',
         excludedCapabilities: [],
+        includedCapabilities: [],
         verifiedAt: '2026-08-24',
       },
     });
@@ -536,6 +539,7 @@ describe('la ficha cuenta los dos huecos por separado', () => {
     commercialUse: 'unverified' as const,
     creditReset: 'none' as const,
     excludedCapabilities: [],
+    includedCapabilities: [],
     verifiedAt: '2026-08-24',
   };
 
@@ -805,6 +809,7 @@ describe('el sustituto de un filtro testimonial', () => {
         commercialUse: 'yes',
         creditReset: 'none',
         excludedCapabilities: [],
+        includedCapabilities: [],
         verifiedAt: '2026-08-24',
       },
       evidence: [
@@ -877,6 +882,7 @@ describe('un filtro sobre un hecho con alcance dice qué promete', () => {
         commercialUse: 'yes',
         creditReset: 'none',
         excludedCapabilities: [],
+        includedCapabilities: [],
         verifiedAt: '2026-09-21',
       },
       evidence: [
@@ -950,6 +956,7 @@ describe('lo que el producto hace y lo que te deja hacer gratis', () => {
         commercialUse: 'unverified',
         creditReset: 'none',
         excludedCapabilities: ['text-to-image'],
+        includedCapabilities: [],
         verifiedAt: '2026-08-26',
       },
     });
@@ -1094,6 +1101,7 @@ describe('una cadencia publicada no puede leerse como una cadencia oculta', () =
           commercialUse: 'unverified',
           creditReset: cadencia,
           excludedCapabilities: [],
+          includedCapabilities: [],
           verifiedAt: '2026-08-26',
         },
       });

@@ -78,6 +78,23 @@ export const FreePlan = z.object({
    * apuntar sospechas: es para lo que el fabricante declara excluido.
    */
   excludedCapabilities: z.array(z.enum(CAPABILITIES)).default([]),
+  /**
+   * Capacidades que el fabricante dice que el plan gratuito **sí** incluye,
+   * cada una con su cita.
+   *
+   * Es la otra mitad de `excludedCapabilities`, y no se deduce de ella: que
+   * una capacidad no figure entre las exclusiones conocidas no significa que
+   * esté incluida gratis. Sin confirmación sigue siendo desconocida (decisión
+   * de Juan, 11 de octubre de 2026). El motor de decisión distingue así tres
+   * respuestas —incluida, excluida, no sabemos— en vez de dos.
+   *
+   * Cada entrada lleva su propia evidencia porque cada capacidad suele estar
+   * en una página distinta, y un campo con dos fuentes esconde una (ver
+   * «ninguna evidencia se queda escondida detrás de otra»). `condition` es la
+   * condición que el fabricante le pone en el plan gratuito, en castellano
+   * («con marca de agua que no se puede quitar»), y sale de la misma cita.
+   */
+  includedCapabilities: z.lazy(() => z.array(IncludedCapability)).default([]),
   /** Date the free plan itself was last confirmed against the vendor's page. */
   verifiedAt: IsoDate,
 });
@@ -233,6 +250,19 @@ export const FieldEvidence = z.discriminatedUnion('outcome', [
   NotPublishedEvidence,
 ]);
 export type FieldEvidence = z.infer<typeof FieldEvidence>;
+
+/**
+ * Una capacidad que el plan gratuito incluye, con la frase que lo dice.
+ *
+ * Sólo `stated`: «incluido gratis» es justo lo que no se puede suponer, así
+ * que no admite derivaciones ni silencios. Si no hay frase, no hay entrada.
+ */
+export const IncludedCapability = z.object({
+  capability: z.enum(CAPABILITIES),
+  condition: z.string().min(1).optional(),
+  evidence: StatedEvidence.omit({ field: true }),
+});
+export type IncludedCapability = z.infer<typeof IncludedCapability>;
 
 export const ToolChange = z.object({
   date: IsoDate,

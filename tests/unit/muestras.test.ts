@@ -328,11 +328,13 @@ describe('la captura de interfaz es evidencia auxiliar, no una condición', () =
      * Después ocurrió lo tercero: Ideogram dejó de publicar la cifra —su tabla
      * dice ahora «Weekly for eligible accounts»— y el 10 se retiró por eso, no
      * por nuestra captura. Lo que esta prueba vigila sigue siendo lo mismo: que
-     * el 12 que vimos no haya ascendido a cantidad publicada. La ficha no
-     * publica ninguna, que es la verdad.
+     * el 12 que vimos no haya ascendido a cantidad publicada.
+     *
+     * El 11 de octubre de 2026 su documentación volvió a dar una cifra, 30 a
+     * la semana, y la ficha la publica con esa cita. Ni el 10 ni el 12.
      */
     const ficha = tools.find((t) => t.slug === 'ideogram')!;
-    expect(ficha.freePlan.creditsAmount, 'la ficha no debe publicar una cantidad').toBeUndefined();
+    expect(ficha.freePlan.creditsAmount, 'sólo la cantidad documentada').toBe('30 créditos/semana');
     expect(JSON.stringify(ficha.freePlan.limits), 'el 12 observado no puede colarse como cuota').not.toMatch(
       /12 créditos/
     );
