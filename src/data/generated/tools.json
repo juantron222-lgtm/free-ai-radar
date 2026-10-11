@@ -1002,6 +1002,15 @@
         "sourceUrl": "https://www.canva.com/es_es/precios/",
         "sourceKind": "pricing",
         "lookedFor": "Si Canva Gratis pide tarjeta. La página de precios, con sus preguntas frecuentes, y las condiciones de uso sólo hablan del método de pago al contratar o al acabar una prueba; no dicen si el plan gratuito lo pide."
+      },
+      {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
+        "field": "freePlan.hasWatermark",
+        "outcome": "not_published",
+        "sourceUrl": "https://www.canva.com/es_es/precios/",
+        "sourceKind": "pricing",
+        "lookedFor": "Si lo que genera la IA en Canva Gratis lleva marca de agua. Ni la tabla de precios, ni la página del generador de imágenes, ni las condiciones de uso lo dicen."
       }
     ],
     "id": "tool_canva",
@@ -1134,13 +1143,13 @@
         "lookedFor": "Si el plan gratuito pide tarjeta. La página de precios, la de su documentación y las condiciones sólo hablan de datos de pago para los servicios de pago."
       },
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.hasWatermark",
         "outcome": "not_published",
         "sourceUrl": "https://cartesia.ai/pricing",
         "sourceKind": "pricing",
-        "scope": "product",
-        "checkedAt": "2026-09-16",
-        "lookedFor": "Si el audio del plan gratuito lleva marca de agua. La página de precios no lo menciona."
+        "lookedFor": "Si el audio del plan gratuito lleva marca. Ni la página de precios, ni la de su documentación, ni las condiciones la mencionan."
       },
       {
         "checkedAt": "2026-10-11",
@@ -2389,13 +2398,13 @@
         "lookedFor": "Si el plan gratuito pide tarjeta. Ni la página de precios ni la portada lo mencionan."
       },
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.hasWatermark",
         "outcome": "not_published",
         "sourceUrl": "https://clipdrop.co/pricing",
         "sourceKind": "pricing",
-        "scope": "product",
-        "checkedAt": "2026-08-24",
-        "lookedFor": "Si el resultado del plan gratuito sale con marca. La página de precios no lo menciona."
+        "lookedFor": "Si el plan gratuito pone marca de agua. Ni la página de precios ni la portada la mencionan."
       },
       {
         "field": "freePlan.excludedCapabilities",
@@ -4503,13 +4512,13 @@
         "quote": "Free plan users can only use generated content for personal, non-commercial projects."
       },
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.hasWatermark",
         "outcome": "not_published",
         "sourceUrl": "https://fish.audio/plan/",
         "sourceKind": "pricing",
-        "scope": "product",
-        "checkedAt": "2026-09-16",
-        "lookedFor": "Si el audio del plan gratuito lleva marca de agua. La página de planes no lo menciona."
+        "lookedFor": "Si el audio del plan gratuito lleva marca. Ni la página de planes ni la portada la mencionan."
       }
     ],
     "auditNotes": "Publica modelos abiertos (Fish Speech), pero `openSource` se queda en `unverified`: no se leyó el identificador de licencia del repositorio en esta comprobación.",
@@ -7015,6 +7024,15 @@
         "sourceUrl": "https://hailuoai.video/",
         "sourceKind": "official",
         "lookedFor": "Si el plan gratuito pide tarjeta. Ni la portada («New users receive free credits») ni las condiciones lo mencionan; la página de suscripción redirige a la portada."
+      },
+      {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
+        "field": "freePlan.hasWatermark",
+        "outcome": "not_published",
+        "sourceUrl": "https://hailuoai.video/doc/terms-of-service.html",
+        "sourceKind": "terms",
+        "lookedFor": "Si el plan gratuito pone una marca de agua visible. Las condiciones prohíben quitar «any watermark, metadata, label, or other notice applied by the Company to identify content as AI-generated», sin decir qué marca pone el plan gratuito."
       }
     ],
     "auditNotes": "Cola de verificación manual: los términos del plan gratuito exigen crear cuenta para verlos. «Download MiniMax Design and Get 3,000 Free Credits» es una promoción y no se registra como acceso gratuito permanente.",
@@ -8516,7 +8534,7 @@
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
-      "hasWatermark": "unverified",
+      "hasWatermark": "yes",
       "commercialUse": "no",
       "creditReset": "unknown",
       "verifiedAt": "2026-08-15"
@@ -8595,13 +8613,14 @@
         "lookedFor": "Si el plan gratuito pide tarjeta. La página de planes no lo menciona."
       },
       {
-        "field": "freePlan.hasWatermark",
-        "outcome": "not_published",
-        "sourceUrl": "https://kling.ai/app/membership/membership-plan",
-        "sourceKind": "pricing",
+        "checkedAt": "2026-10-11",
         "scope": "product",
-        "checkedAt": "2026-09-16",
-        "lookedFor": "Si lo que genera el plan gratuito lleva marca de agua. La página de membresías sólo enumera la retirada de la marca como ventaja de los planes de pago, sin decir qué pasa en el gratuito."
+        "field": "freePlan.hasWatermark",
+        "outcome": "stated",
+        "sourceUrl": "https://kling.ai/docs/user-policy",
+        "sourceKind": "terms",
+        "quote": "You acknowledge that, without our written permission, when you use, distribute or disseminate the AI function to generate content, you shall label the Output interface with the brand and logo involved (including but not limited to \"Kling AI\", […])",
+        "basis": "Su página de planes da «Brand watermark removal» sólo a los planes de pago (Standard, Pro, Premier)."
       },
       {
         "checkedAt": "2026-10-11",
@@ -9418,13 +9437,13 @@
         "lookedFor": "Si el plan gratuito pide tarjeta. Ni la página de precios ni las preguntas frecuentes de precios y planes de su documentación lo mencionan."
       },
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.hasWatermark",
         "outcome": "not_published",
-        "sourceUrl": "https://intercom.help/leonardo-ai/en/articles/11027827-generating-video-on-leonardo-ai",
-        "sourceKind": "help",
-        "scope": "product",
-        "checkedAt": "2026-09-16",
-        "lookedFor": "Si las imágenes del plan gratuito llevan marca de agua. El centro de ayuda sólo dice que generar vídeo sin marca exige un plan de pago; de las imágenes no dice nada."
+        "sourceUrl": "https://leonardo.ai/pricing",
+        "sourceKind": "pricing",
+        "lookedFor": "Si el plan gratuito pone marca de agua. Ni la página de precios ni las preguntas frecuentes de precios y planes de su documentación la mencionan."
       }
     ],
     "startEffortReason": "Hay que crear cuenta y elegir plan —aunque sea el de 0 $— antes de generar.",
@@ -11396,6 +11415,15 @@
         "scope": "api",
         "checkedAt": "2026-09-24",
         "quote": "$10 FREE, every month"
+      },
+      {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
+        "field": "freePlan.hasWatermark",
+        "outcome": "not_published",
+        "sourceUrl": "https://murf.ai/pricing",
+        "sourceKind": "pricing",
+        "lookedFor": "Si el audio gratuito lleva marca. Ni la página de precios ni las condiciones la mencionan."
       }
     ],
     "id": "tool_murf-ai",
@@ -12823,13 +12851,13 @@
     "verdict": "Una de las pocas donde «sin marca de agua» está escrito por el fabricante en el propio plan gratuito.",
     "evidence": [
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.hasWatermark",
         "outcome": "stated",
         "sourceUrl": "https://www.pixelcut.ai/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-08-12",
-        "quote": "Free $0 per month Continue Limited Background Removal Limited Upscale Free export without watermark",
-        "scope": "cloud"
+        "quote": "Free · $0 · Limited Background Removal · Limited Upscale · Free export without watermark"
       },
       {
         "field": "capabilities",
@@ -13507,13 +13535,13 @@
         "lookedFor": "Si el plan gratuito pide tarjeta. Ni la página del plan gratuito de su documentación ni la de precios lo dicen; la de precios sólo enumera los métodos de pago aceptados para pagar."
       },
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.hasWatermark",
         "outcome": "not_published",
         "sourceUrl": "https://www.recraft.ai/docs/plans-and-billing/free-plan",
         "sourceKind": "docs",
-        "scope": "product",
-        "checkedAt": "2026-09-16",
-        "lookedFor": "Si las imágenes del plan gratuito llevan marca de agua. La documentación del plan Free sólo dice que son públicas; la página de precios tampoco lo menciona."
+        "lookedFor": "Si el plan gratuito pone marca de agua. Ni la página del plan gratuito de su documentación ni la de precios la mencionan."
       },
       {
         "field": "freePlan.limits",
@@ -13968,7 +13996,7 @@
         "sourceUrl": "https://help.runwayml.com/hc/en-us/articles/50404627334547-Free-plan-details",
         "sourceKind": "help",
         "scope": "product",
-        "checkedAt": "2026-09-16",
+        "checkedAt": "2026-10-11",
         "quote": "All videos generated on a Free plan feature a Runway watermark."
       },
       {
@@ -14624,13 +14652,13 @@
         "basis": "En la lista del Free Plan."
       },
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.hasWatermark",
         "outcome": "not_published",
-        "sourceUrl": "https://suno.com/pricing",
-        "sourceKind": "pricing",
-        "scope": "product",
-        "checkedAt": "2026-09-16",
-        "lookedFor": "Si las canciones del plan gratuito llevan marca de agua. La página de precios no lo menciona."
+        "sourceUrl": "https://suno.com/terms",
+        "sourceKind": "terms",
+        "lookedFor": "Si el plan gratuito pone marca de agua. Las condiciones sólo se reservan el derecho de añadir «a fingerprint, watermark, or metadata indicating the applicable service tier», sin decir si lo hacen; la página de precios no lo menciona."
       }
     ],
     "startEffort": "signup",
@@ -14727,7 +14755,7 @@
         "label": "Página oficial de precios",
         "kind": "pricing",
         "publisher": "synthesia.io",
-        "checkedAt": "2026-08-15"
+        "checkedAt": "2026-10-11"
       },
       {
         "url": "https://help.synthesia.io/en/articles/9564635-how-do-i-remove-the-synthesia-watermark",
@@ -14765,14 +14793,13 @@
         "quote": "Yes, our Basic plan is free, with no credit card required."
       },
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.hasWatermark",
         "outcome": "stated",
-        "sourceUrl": "https://help.synthesia.io/en/articles/9564635-how-do-i-remove-the-synthesia-watermark",
-        "sourceKind": "help",
-        "scope": "product",
-        "checkedAt": "2026-09-16",
-        "quote": "The Synthesia logo (watermark) will appear on all videos created with your account.",
-        "basis": "Es la respuesta del apartado «If you are on the Basic Plan:»; Basic es el plan gratuito."
+        "sourceUrl": "https://www.synthesia.io/pricing",
+        "sourceKind": "pricing",
+        "quote": "Basic · €0 per month · 500 CREDITS / MONTH · […] Videos carry a Synthesia watermark"
       }
     ],
     "nextReviewAt": "2026-11-13",
@@ -15311,6 +15338,15 @@
         "sourceUrl": "https://www.vidu.com/terms",
         "sourceKind": "terms",
         "quote": "Vidu grants you a limited, non-exclusive, non-transferable, non-sublicensable, and revocable license to access and use Vidu and Vidu Content for personal, non-commercial purposes, for paid users, this license extends to commercial use."
+      },
+      {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
+        "field": "freePlan.hasWatermark",
+        "outcome": "not_published",
+        "sourceUrl": "https://www.vidu.com/pricing",
+        "sourceKind": "pricing",
+        "lookedFor": "Si el plan Free pone marca de agua. La página de precios ofrece «Download without watermark» en los planes de pago y no dice nada de la marca en el Free; las condiciones sólo prohíben quitar las marcas «associated with the Services»."
       }
     ],
     "id": "tool_vidu",
