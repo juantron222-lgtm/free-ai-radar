@@ -6289,7 +6289,7 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "daily",
-      "verifiedAt": "2026-09-24",
+      "verifiedAt": "2026-10-11",
       "summary": "Plan gratuito con 50 créditos diarios de Google Flow, con acceso a Veo 3.1, Nano Banana Pro y Gemini Omni Flash, texto a vídeo, fotogramas a vídeo, extensión y edición de vídeo y escalado de imagen a 2K. El plan de pago más barato, Google AI Plus, cuesta 4,99 $ al mes y suma 200 créditos mensuales.",
       "limits": [
         "50 créditos de Google Flow al día",
@@ -6298,7 +6298,69 @@
         "La página no dice cuántos vídeos salen de 50 créditos",
         "Plan de pago más barato: Google AI Plus, 4,99 $/mes"
       ],
-      "creditsAmount": "50 créditos al día"
+      "creditsAmount": "50 créditos al día",
+      "includedCapabilities": [
+        {
+          "capability": "text-to-video",
+          "condition": "50 créditos al día",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://flow.google.com/about",
+            "sourceKind": "pricing",
+            "quote": "Free of Charge · Included Features: · 50 daily Google Flow credits · Gemini Omni Flash · Nano Banana Pro · Veo 3.1 · Google Flow Tools (Usage only) · Agent · Text to Video · Frames to Video · Ingredients to Video · Video Extension · Video-to-video editing · Scenebuilder"
+          }
+        },
+        {
+          "capability": "image-to-video",
+          "condition": "50 créditos al día (Frames to Video)",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://flow.google.com/about",
+            "sourceKind": "pricing",
+            "quote": "Free of Charge · Included Features: · 50 daily Google Flow credits · Gemini Omni Flash · Nano Banana Pro · Veo 3.1 · Google Flow Tools (Usage only) · Agent · Text to Video · Frames to Video · Ingredients to Video · Video Extension · Video-to-video editing · Scenebuilder"
+          }
+        },
+        {
+          "capability": "video-extend",
+          "condition": "50 créditos al día",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://flow.google.com/about",
+            "sourceKind": "pricing",
+            "quote": "Free of Charge · Included Features: · 50 daily Google Flow credits · Gemini Omni Flash · Nano Banana Pro · Veo 3.1 · Google Flow Tools (Usage only) · Agent · Text to Video · Frames to Video · Ingredients to Video · Video Extension · Video-to-video editing · Scenebuilder"
+          }
+        },
+        {
+          "capability": "video-editing",
+          "condition": "50 créditos al día (Video-to-video editing)",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://flow.google.com/about",
+            "sourceKind": "pricing",
+            "quote": "Free of Charge · Included Features: · 50 daily Google Flow credits · Gemini Omni Flash · Nano Banana Pro · Veo 3.1 · Google Flow Tools (Usage only) · Agent · Text to Video · Frames to Video · Ingredients to Video · Video Extension · Video-to-video editing · Scenebuilder"
+          }
+        },
+        {
+          "capability": "text-to-image",
+          "condition": "50 créditos al día, con Nano Banana Pro",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://flow.google.com/about",
+            "sourceKind": "pricing",
+            "quote": "Free of Charge · Included Features: · 50 daily Google Flow credits · Gemini Omni Flash · Nano Banana Pro · Veo 3.1 · Google Flow Tools (Usage only) · Agent · Text to Video · Frames to Video · Ingredients to Video · Video Extension · Video-to-video editing · Scenebuilder"
+          }
+        }
+      ]
     },
     "capabilities": [
       "text-to-video",
@@ -6335,7 +6397,7 @@
         "sourceUrl": "https://flow.google.com/about",
         "sourceKind": "pricing",
         "scope": "product",
-        "checkedAt": "2026-09-24",
+        "checkedAt": "2026-10-11",
         "quote": "Try Google Flow free of charge or upgrade to one of our plans below. Free of Charge — Included Features: 50 daily Google Flow credits · Gemini Omni Flash · Nano Banana Pro · Veo 3.1"
       },
       {
@@ -7386,6 +7448,7 @@
       "limits": [
         "3 vídeos al mes",
         "Hasta 1 minuto por vídeo",
+        "Más de 500 avatares de catálogo y 1 avatar propio",
         "La eliminación de marca de agua es de pago",
         "Plan de pago más barato: Creator, 29 $/mes (600 créditos)"
       ],
@@ -7395,7 +7458,21 @@
       "commercialUse": "yes",
       "creditsAmount": "3 vídeos/mes",
       "creditReset": "monthly",
-      "verifiedAt": "2026-08-15"
+      "verifiedAt": "2026-10-11",
+      "includedCapabilities": [
+        {
+          "capability": "avatar-video",
+          "condition": "3 vídeos al mes, de hasta 1 minuto",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://www.heygen.com/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · $0/mo · […] Video Generation: · 3 videos per month · Videos up to 1 min · Access to Avatar IV · Standard video processing · 500+ Stock Video Avatars · Features you'll love: · 1 Custom Video Avatar · 30+ languages"
+          }
+        }
+      ]
     },
     "capabilities": [
       "avatar-video",
@@ -7441,13 +7518,13 @@
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://www.heygen.com/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-08-15",
-        "quote": "3 videos per month · Videos up to 1 min · Avatar IV access · 500+ stock digital twins",
-        "scope": "cloud"
+        "quote": "Free · $0/mo · […] Video Generation: · 3 videos per month · Videos up to 1 min · Access to Avatar IV · Standard video processing · 500+ Stock Video Avatars · Features you'll love: · 1 Custom Video Avatar · 30+ languages"
       },
       {
         "field": "capabilities",
@@ -11741,23 +11818,38 @@
       "api"
     ],
     "freeModel": "credits",
-    "tagline": "Texto a voz con 150 voces: su API da 10 $ de crédito al mes, sin tarjeta.",
-    "descriptionShort": "Generador de voz a partir de texto, con más de 150 voces en más de 35 idiomas, y doblaje. Su oferta gratuita publicada es la de la API: 10 $ de crédito cada mes, sin tarjeta.",
-    "verdict": "Lo gratuito está bien descrito para quien programa: crédito mensual y sin tarjeta. Para quien sólo quiere el estudio web, la página de precios no publica un plan gratuito con cantidades.",
+    "tagline": "Texto a voz con 150 voces: su API tiene una prueba gratuita de 10 $, sin tarjeta.",
+    "descriptionShort": "Generador de voz a partir de texto, con más de 150 voces en más de 35 idiomas, y doblaje. Su oferta gratuita publicada es la de la API: una prueba con 10 $ para llamadas, sin tarjeta; la página ya no dice que se renueve cada mes.",
+    "verdict": "Para quien programa hay una prueba de 10 $ sin tarjeta, pero su página ya no promete que vuelva cada mes. Para quien sólo quiere el estudio web, la página de precios no publica un plan gratuito con cantidades.",
     "freePlan": {
       "requiresSignup": "unverified",
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
-      "creditReset": "monthly",
-      "verifiedAt": "2026-09-24",
-      "summary": "Prueba gratuita de la API: 10 $ de crédito cada mes, sin tarjeta, con acceso a todos los puntos de la API y más de 150 voces en más de 35 idiomas. La página de precios no publica un plan gratuito equivalente para el estudio web.",
+      "creditReset": "unknown",
+      "verifiedAt": "2026-10-11",
+      "summary": "Prueba gratuita de la API: 10 $ para llamadas, sin tarjeta, con acceso a todos los puntos de la API, más de 150 voces en más de 35 idiomas y 5 peticiones simultáneas. La página ya no dice que ese crédito se renueve cada mes. No publica un plan gratuito equivalente para el estudio web.",
       "limits": [
-        "API: 10 $ de crédito gratis cada mes",
+        "API: prueba gratuita con 10 $ para llamadas; la página ya no dice que se renueven cada mes",
         "Más de 150 voces en más de 35 idiomas",
+        "5 peticiones simultáneas",
         "El estudio web no publica cantidades gratuitas"
       ],
-      "creditsAmount": "10 $ de crédito al mes (API)"
+      "creditsAmount": "10 $ de prueba (API)",
+      "includedCapabilities": [
+        {
+          "capability": "text-to-speech",
+          "condition": "prueba de 10 $ en la API",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "api",
+            "sourceUrl": "https://murf.ai/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free Trial · Get access to all API endpoints. Explore, build, and test without barriers · Get Started · No credit card required · $10 FREE for API calls · 150+ voices in 35+ languages and styles · 5 concurrent requests"
+          }
+        }
+      ]
     },
     "capabilities": [
       "text-to-speech",
@@ -11784,13 +11876,13 @@
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-11",
+        "scope": "api",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://murf.ai/pricing",
         "sourceKind": "pricing",
-        "scope": "api",
-        "checkedAt": "2026-09-24",
-        "quote": "Free Trial · Get access to all API endpoints. Explore, build, and test without barriers · No credit card required · $10 FREE, every month · 150+ voices in 35+ languages and styles"
+        "quote": "Free Trial · Get access to all API endpoints. Explore, build, and test without barriers · Get Started · No credit card required · $10 FREE for API calls · 150+ voices in 35+ languages and styles · 5 concurrent requests"
       },
       {
         "field": "freePlan.requiresCreditCard",
@@ -14369,7 +14461,7 @@
       "commercialUse": "yes",
       "creditsAmount": "125 créditos (una vez)",
       "creditReset": "one_off",
-      "verifiedAt": "2026-08-15"
+      "verifiedAt": "2026-10-11"
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -14465,7 +14557,7 @@
         "outcome": "stated",
         "sourceUrl": "https://runway.com/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-08-15",
+        "checkedAt": "2026-10-11",
         "quote": "125 one-time credits to explore Runway’s AI tools",
         "scope": "cloud"
       },
@@ -15188,24 +15280,36 @@
     ],
     "freeModel": "credits",
     "tagline": "Diez minutos de vídeo con avatar al mes, con el logotipo puesto.",
-    "descriptionShort": "Vídeo corporativo con avatares, doblaje y sincronía labial. El plan gratuito da 1.200 créditos al mes —hasta diez minutos de vídeo— con nueve avatares y el logotipo de Synthesia, que sólo se quita pagando.",
+    "descriptionShort": "Vídeo corporativo con avatares, doblaje y sincronía labial. El plan gratuito da 500 créditos al mes —hasta diez minutos de vídeo o de doblaje— con el logotipo de Synthesia, que sólo se quita pagando.",
     "verdict": "Diez minutos al mes es de los planes gratuitos más generosos en vídeo con avatar, siempre que el logotipo no sea un problema. Si el vídeo es para un cliente, lo es.",
     "freePlan": {
-      "summary": "Plan gratuito con 1.200 créditos al mes, equivalentes a un máximo de diez minutos de vídeo. Incluye 9 avatares, un editor con tres invitados y 25 recursos generados. La retirada del logotipo figura entre las características de pago. El plan más barato es Starter, 18 $/mes en anual.",
+      "summary": "Plan gratuito Basic con 500 créditos al mes, suficientes para un máximo de diez minutos de vídeo o de doblaje, avatares de catálogo y el creador de avatares. Los vídeos llevan la marca de agua de Synthesia; quitarla es de pago. El plan más barato es Starter, 16 €/mes en facturación anual.",
       "limits": [
-        "1.200 créditos al mes (hasta 10 minutos de vídeo)",
-        "9 avatares",
-        "25 recursos generados con IA",
-        "La retirada del logotipo de Synthesia es de pago",
-        "Plan de pago más barato: Starter, 18 $/mes en anual"
+        "500 créditos al mes (hasta 10 minutos de vídeo o de doblaje)",
+        "Los vídeos llevan la marca de agua de Synthesia; quitarla es de pago",
+        "Plan de pago más barato: Starter, 16 €/mes en facturación anual"
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "no",
       "hasWatermark": "yes",
       "commercialUse": "unverified",
-      "creditsAmount": "1.200 créditos/mes (≈10 min de vídeo)",
+      "creditsAmount": "500 créditos/mes (≈10 min de vídeo)",
       "creditReset": "monthly",
-      "verifiedAt": "2026-08-15"
+      "verifiedAt": "2026-10-11",
+      "includedCapabilities": [
+        {
+          "capability": "avatar-video",
+          "condition": "500 créditos al mes, hasta 10 minutos de vídeo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://www.synthesia.io/",
+            "sourceKind": "official",
+            "quote": "Yes, our Basic plan is free, with no credit card required. You can choose from our stock avatars, give them any outfit or scene you like, or design your own with Avatar Builder. Then you can generate videos in 140+ languages. You get 500 credits a month, enough for up to 10 minutes of video or 10 minutes of AI Dubbing."
+          }
+        }
+      ]
     },
     "capabilities": [
       "avatar-video",
@@ -15245,13 +15349,13 @@
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://www.synthesia.io/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-08-15",
-        "quote": "Includes 1,200 credits/mo · up to 10 minutes of video/month · 9 AI avatars · 25 AI-generated video assets",
-        "scope": "cloud"
+        "quote": "Basic · €0 per month · 500 CREDITS / MONTH · Get started · Free allowance · […] Videos carry a Synthesia watermark · […] Starter · €16 per month [billed yearly]"
       },
       {
         "field": "capabilities",
@@ -15764,11 +15868,13 @@
       "hasWatermark": "unverified",
       "commercialUse": "no",
       "creditReset": "daily",
-      "verifiedAt": "2026-09-24",
+      "verifiedAt": "2026-10-11",
       "summary": "Sin suscripción, Vidu da créditos de prueba al registrarse y créditos por iniciar sesión cada día. La página no publica cuántos ni cuánto vídeo sale de ellos.",
       "limits": [
         "Créditos de prueba al registrarse",
-        "Créditos por iniciar sesión cada día; la cantidad no se publica"
+        "Créditos por iniciar sesión cada día; la cantidad no se publica",
+        "Modelo Q4 a 540P: 4 créditos por segundo de vídeo",
+        "10 referencias al mes"
       ]
     },
     "capabilities": [
@@ -15802,13 +15908,13 @@
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://www.vidu.com/pricing",
         "sourceKind": "pricing",
-        "scope": "product",
-        "checkedAt": "2026-09-24",
-        "quote": "How to Get Credits? 1. Sign-up Bonus: New users receive trial credits upon registering for Vidu. … 3. Daily Login: Earn credits by logging in every day."
+        "quote": "Free · $0 / month · Q4 model usage: 540P 4 credits/sec · 10 references/month · […] How to Get Credits? 1. Sign-up Bonus: New users receive trial credits upon registering for Vidu. […] 3. Daily Login: Earn credits by logging in every day."
       },
       {
         "field": "freePlan.creditReset",
