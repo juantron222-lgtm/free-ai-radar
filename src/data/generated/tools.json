@@ -11411,21 +11411,20 @@
     ],
     "freeModel": "open_source",
     "tagline": "Un modelo grande, multimodal y con pesos Apache 2.0.",
-    "descriptionShort": "La gama grande de Mistral, listada en su documentación entre los modelos abiertos con licencia Apache 2.0 y descrita como multimodal general. Se puede descargar o consumir en su plataforma, que da 10 $ mensuales en créditos de API en el plan gratuito.",
+    "descriptionShort": "La gama grande de Mistral, listada en su documentación entre los modelos abiertos con licencia Apache 2.0 y descrita como multimodal general. Se puede descargar o usar en su plataforma, cuyo plan gratuito da acceso limitado a Vibe y a Mistral Studio.",
     "verdict": "Que un modelo de esta talla esté en la columna «Open» con Apache 2.0 sigue siendo poco común. Y el plan gratuito de la plataforma da créditos de verdad, con renovación mensual.",
     "freePlan": {
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "yes",
-      "creditsAmount": "10 $/mes en créditos de API",
-      "creditReset": "monthly",
-      "verifiedAt": "2026-08-20",
-      "summary": "Los pesos son Apache 2.0. Además, el plan gratuito de la plataforma incluye 10 $ al mes en créditos de API para probar los modelos en Studio.",
+      "creditReset": "unknown",
+      "verifiedAt": "2026-10-11",
+      "summary": "Los pesos de Mistral Large 3 son Apache 2.0, y su ficha oficial permite el uso comercial. El plan gratuito de la plataforma da acceso limitado a Vibe y a Mistral Studio; su página de precios ya no publica créditos de API gratuitos.",
       "limits": [
         "Pesos: Apache 2.0",
         "Uso comercial de los pesos (Mistral Large 3, versión 2512): permitido según su ficha oficial; las preguntas frecuentes de precios de Mistral dicen en cambio que los despliegues comerciales de modelos abiertos «require a Mistral license»",
-        "Plan gratuito de la plataforma: 10 $/mes en créditos de API",
+        "Plan gratuito de la plataforma: acceso limitado a Vibe y a Mistral Studio; la página de precios ya no publica créditos de API gratuitos",
         "Plan de pago más barato: Pro, 14,99 $/mes"
       ]
     },
@@ -11477,13 +11476,13 @@
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://mistral.ai/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-08-20",
-        "quote": "Free — Test Mistral models in Studio · $10 /mo in API credits",
-        "scope": "product"
+        "quote": "Does Mistral have a free plan? Yes, Mistral’s Free plan provides limited access to Vibe, including our latest models, chat, search, creation, and Vibe for code for agentic coding in your terminal. On the Free plan, you also get access to Mistral Studio."
       },
       {
         "field": "capabilities",
