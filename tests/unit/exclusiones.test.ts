@@ -162,6 +162,27 @@ describe('lo que se comprobó el 11 de octubre de 2026', () => {
     expect(publicado).toContain('Quitar el fondo: disponible, por 1 crédito');
   });
 
+  it('Claude: la app declara lo que hace su plan gratuito, con cita', () => {
+    /*
+     * Sólo declaraba «API», así que no salía al buscar un modelo de lenguaje.
+     * Su página de precios lista en Free el chat, la búsqueda web, ejecutar
+     * código, la memoria y las conexiones.
+     */
+    const t = ficha('claude');
+    const incluidas = t.freePlan.includedCapabilities.map((i) => i.capability);
+    expect(t.capabilities).toContain('text-generation');
+    expect(incluidas).toEqual(expect.arrayContaining(['text-generation', 'web-browsing', 'code-execution', 'memory', 'integrations']));
+  });
+
+  it('API de Gemini: en Europa la capa gratuita no usa tus datos para mejorar productos', () => {
+    const t = ficha('gemini-3-flash');
+    expect(t.privacy.trainsOnUserData).toBe('partial');
+    expect(t.privacy.gdprNotes).toMatch(/Espacio Económico Europeo/);
+    const ev = t.evidence.find((e) => e.field === 'privacy.trainsOnUserData');
+    expect(ev?.outcome === 'stated' && ev.quote).toMatch(/European Economic Area/);
+    expect(t.freePlan.limits.join(' ')).toMatch(/exigen usar el nivel de pago/);
+  });
+
   it('Ideogram: el plan gratuito de hoy, no el de agosto', () => {
     /*
      * Revisión completa autorizada por Juan. Su documentación (verificada por

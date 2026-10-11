@@ -619,6 +619,14 @@ const compararHref = compararCon.length
                   <th scope="row">¿Se entrena con lo que subes?</th>
                   <td>{etiquetaDeHecho(tool, 'privacy.trainsOnUserData', tool.privacy.trainsOnUserData)}</td>
                 </tr>
+                {/*
+                  La salvedad europea, cuando la hay. Un «Parcial» a secas no
+                  dice a quién le toca cada mitad, y el lector de este sitio
+                  está casi siempre en la mitad europea.
+                */}
+                {tool.privacy.gdprNotes && (
+                  <tr><th scope="row">En la UE, Suiza y Reino Unido</th><td>{tool.privacy.gdprNotes}</td></tr>
+                )}
                 <tr>
                   <th scope="row">¿Puedes desactivarlo sin pagar?</th>
                   <td>{TRI_STATE_LABEL[tool.privacy.optOutAvailable]}</td>
