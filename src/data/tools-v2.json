@@ -788,8 +788,8 @@
     "id": "tool_chatgpt",
     "slug": "chatgpt",
     "name": "ChatGPT",
-    "tagline": "Plan gratuito con cuenta obligatoria: texto ilimitado y el resto de herramientas limitadas sin cifra.",
-    "descriptionShort": "El asistente de OpenAI en el navegador y en móvil. Su plan gratuito da chat de texto ilimitado —sujeto a medidas contra el abuso— y un uso limitado, sin cifra publicada, de imágenes, voz, investigación profunda, archivos y Codex. Exige cuenta. El 11 de octubre de 2026 servía GPT-6, y OpenAI cambia esa asignación sin aviso.",
+    "tagline": "Plan gratuito con cuenta obligatoria: conversaciones de texto cotidianas ilimitadas; el resto de herramientas, con límites que no publica.",
+    "descriptionShort": "El asistente de OpenAI en el navegador y en móvil. Su plan gratuito da conversaciones de texto cotidianas ilimitadas —sujetas a medidas contra el abuso— y límites propios, sin cifra publicada, para archivos, imágenes, voz y otras herramientas. Exige cuenta. El 11 de octubre de 2026 servía GPT-5.6 Luna por defecto, y OpenAI cambia esa asignación sin aviso.",
     "descriptionLong": "ChatGPT es el asistente de OpenAI. El plan gratuito da conversación con capacidades de texto y visión, generación de imágenes, navegación web, análisis de archivos y GPTs, además de la conversación por voz en la aplicación móvil. Hace falta crear una cuenta. El 30 de agosto de 2026, el modelo asignado por defecto era GPT-5.6 Luna, sin acceso a GPT-5.6 Sol. Esa asignación la decide OpenAI y ha cambiado varias veces, así que la fecha forma parte del dato.",
     "kind": "app",
     "verification": "partially_verified",
@@ -807,11 +807,12 @@
     ],
     "freeModel": "free_real",
     "freePlan": {
-      "summary": "Plan gratuito con chat de texto ilimitado, sujeto a medidas contra el abuso, y un uso limitado de imágenes, voz, investigación profunda, memoria, archivos subidos y Codex; OpenAI no publica cuánto. Exige crear cuenta. El 11 de octubre de 2026 el modelo era GPT-6.",
+      "summary": "Plan gratuito con conversaciones de texto cotidianas ilimitadas, sujetas a medidas contra el abuso. Archivos subidos, imágenes, voz, análisis de datos y otras herramientas tienen cada uno su límite, que OpenAI no publica. Exige crear cuenta. El 11 de octubre de 2026 el modelo por defecto era GPT-5.6 Luna.",
       "limits": [
         "Hay que crear cuenta",
-        "Modelo por defecto el 11 de octubre de 2026: GPT-6, con chat de texto ilimitado sujeto a medidas contra el abuso",
-        "Imágenes, voz, investigación profunda, memoria, archivos subidos y Codex: limitados, sin cifra publicada",
+        "Modelo por defecto el 11 de octubre de 2026: GPT-5.6 Luna; GPT-6 se está desplegando sólo en planes de pago, aunque la página de precios lo nombre en el gratuito",
+        "Conversaciones de texto cotidianas ilimitadas, sujetas a medidas contra el abuso",
+        "Archivos subidos, imágenes, voz, análisis de datos y otras herramientas: cada uno con su límite, sin cifra publicada",
         "La asignación de modelo la decide OpenAI y cambia sin aviso",
         "No es código abierto ni se ejecuta en local"
       ],
@@ -824,74 +825,74 @@
       "includedCapabilities": [
         {
           "capability": "text-generation",
-          "condition": "ilimitado con GPT-6, sujeto a medidas contra el abuso",
+          "condition": "conversaciones de texto cotidianas ilimitadas, sujetas a medidas contra el abuso",
           "evidence": {
             "outcome": "stated",
             "checkedAt": "2026-10-11",
             "scope": "product",
-            "sourceUrl": "https://chatgpt.com/pricing",
-            "sourceKind": "pricing",
-            "quote": "Free · Best for trying out ChatGPT · Unlimited text chats with GPT-6 · Limited messages with uploads · Limited image creation · Limited voice chats · Limited deep research · Limited memory and context · Limited Codex access · Limited ChatGPT Work access on desktop · […] Unlimited text chats subject to abuse guardrails."
+            "sourceUrl": "https://help.openai.com/en/articles/9275245-chatgpt-free-tier-faq",
+            "sourceKind": "help",
+            "quote": "Free users have unlimited everyday text chats, subject to abuse-prevention safeguards. File uploads, image generation, voice, data analysis, and other tools have separate usage limits. ChatGPT will notify you when you reach an applicable limit."
           }
         },
         {
           "capability": "text-to-image",
-          "condition": "limitado, sin cifra publicada",
+          "condition": "con su propio límite, sin cifra publicada",
           "evidence": {
             "outcome": "stated",
             "checkedAt": "2026-10-11",
             "scope": "product",
-            "sourceUrl": "https://chatgpt.com/pricing",
-            "sourceKind": "pricing",
-            "quote": "Free · Best for trying out ChatGPT · Unlimited text chats with GPT-6 · Limited messages with uploads · Limited image creation · Limited voice chats · Limited deep research · Limited memory and context · Limited Codex access · Limited ChatGPT Work access on desktop · […] Unlimited text chats subject to abuse guardrails."
-          }
-        },
-        {
-          "capability": "research",
-          "condition": "limitado, sin cifra publicada",
-          "evidence": {
-            "outcome": "stated",
-            "checkedAt": "2026-10-11",
-            "scope": "product",
-            "sourceUrl": "https://chatgpt.com/pricing",
-            "sourceKind": "pricing",
-            "quote": "Free · Best for trying out ChatGPT · Unlimited text chats with GPT-6 · Limited messages with uploads · Limited image creation · Limited voice chats · Limited deep research · Limited memory and context · Limited Codex access · Limited ChatGPT Work access on desktop · […] Unlimited text chats subject to abuse guardrails."
-          }
-        },
-        {
-          "capability": "memory",
-          "condition": "limitado, sin cifra publicada",
-          "evidence": {
-            "outcome": "stated",
-            "checkedAt": "2026-10-11",
-            "scope": "product",
-            "sourceUrl": "https://chatgpt.com/pricing",
-            "sourceKind": "pricing",
-            "quote": "Free · Best for trying out ChatGPT · Unlimited text chats with GPT-6 · Limited messages with uploads · Limited image creation · Limited voice chats · Limited deep research · Limited memory and context · Limited Codex access · Limited ChatGPT Work access on desktop · […] Unlimited text chats subject to abuse guardrails."
+            "sourceUrl": "https://help.openai.com/en/articles/9275245-chatgpt-free-tier-faq",
+            "sourceKind": "help",
+            "quote": "Free users have unlimited everyday text chats, subject to abuse-prevention safeguards. File uploads, image generation, voice, data analysis, and other tools have separate usage limits. ChatGPT will notify you when you reach an applicable limit."
           }
         },
         {
           "capability": "audio-input",
-          "condition": "limitado, sin cifra publicada",
+          "condition": "voz, con su propio límite, sin cifra publicada",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://help.openai.com/en/articles/9275245-chatgpt-free-tier-faq",
+            "sourceKind": "help",
+            "quote": "Free users have unlimited everyday text chats, subject to abuse-prevention safeguards. File uploads, image generation, voice, data analysis, and other tools have separate usage limits. ChatGPT will notify you when you reach an applicable limit."
+          }
+        },
+        {
+          "capability": "research",
+          "condition": "limitada, sin cifra publicada",
           "evidence": {
             "outcome": "stated",
             "checkedAt": "2026-10-11",
             "scope": "product",
             "sourceUrl": "https://chatgpt.com/pricing",
             "sourceKind": "pricing",
-            "quote": "Free · Best for trying out ChatGPT · Unlimited text chats with GPT-6 · Limited messages with uploads · Limited image creation · Limited voice chats · Limited deep research · Limited memory and context · Limited Codex access · Limited ChatGPT Work access on desktop · […] Unlimited text chats subject to abuse guardrails."
+            "quote": "Free · Best for trying out ChatGPT · […] Limited deep research · Limited memory and context · Limited Codex access"
+          }
+        },
+        {
+          "capability": "memory",
+          "condition": "limitada, sin cifra publicada",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://chatgpt.com/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · Best for trying out ChatGPT · […] Limited deep research · Limited memory and context · Limited Codex access"
           }
         },
         {
           "capability": "code-generation",
-          "condition": "limitado, sin cifra publicada",
+          "condition": "acceso limitado a Codex, sin cifra publicada",
           "evidence": {
             "outcome": "stated",
             "checkedAt": "2026-10-11",
             "scope": "product",
             "sourceUrl": "https://chatgpt.com/pricing",
             "sourceKind": "pricing",
-            "quote": "Free · Best for trying out ChatGPT · Unlimited text chats with GPT-6 · Limited messages with uploads · Limited image creation · Limited voice chats · Limited deep research · Limited memory and context · Limited Codex access · Limited ChatGPT Work access on desktop · […] Unlimited text chats subject to abuse guardrails."
+            "quote": "Free · Best for trying out ChatGPT · […] Limited deep research · Limited memory and context · Limited Codex access"
           }
         }
       ]
@@ -946,6 +947,20 @@
         "label": "Página oficial de precios",
         "kind": "pricing",
         "checkedAt": "2026-10-11"
+      },
+      {
+        "url": "https://help.openai.com/en/articles/9275245-chatgpt-free-tier-faq",
+        "label": "Centro de ayuda: plan gratuito",
+        "kind": "docs",
+        "publisher": "help.openai.com",
+        "checkedAt": "2026-10-11"
+      },
+      {
+        "url": "https://help.openai.com/en/articles/20001354-gpt-6-and-other-models-in-chatgpt",
+        "label": "Centro de ayuda: modelos en ChatGPT",
+        "kind": "docs",
+        "publisher": "help.openai.com",
+        "checkedAt": "2026-10-11"
       }
     ],
     "scores": {
@@ -955,7 +970,7 @@
       "transparency": 6,
       "creatorValue": 7
     },
-    "verdict": "Para conversar da de sobra: el texto es ilimitado. Lo que OpenAI no publica es cuánto aguantan las imágenes, la voz, los archivos y la investigación profunda, y eso es lo que conviene saber antes de apoyarse en él.",
+    "verdict": "Para conversar a diario da de sobra: el texto cotidiano es ilimitado. Lo que OpenAI no publica es cuánto aguantan las imágenes, la voz y los archivos. Y ojo con la página de precios: nombra GPT-6 en el plan gratuito, cuando su ayuda dice que los usuarios gratuitos reciben GPT-5.6 Luna.",
     "pros": [],
     "cons": [
       "El límite de mensajes no está publicado: no se sabe de antemano si alcanza",
@@ -1006,9 +1021,9 @@
         "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
-        "sourceUrl": "https://chatgpt.com/pricing",
-        "sourceKind": "pricing",
-        "quote": "Free · Best for trying out ChatGPT · Unlimited text chats with GPT-6 · Limited messages with uploads · Limited image creation · Limited voice chats · Limited deep research · Limited memory and context · Limited Codex access · Limited ChatGPT Work access on desktop · […] Unlimited text chats subject to abuse guardrails."
+        "sourceUrl": "https://help.openai.com/en/articles/9275245-chatgpt-free-tier-faq",
+        "sourceKind": "help",
+        "quote": "Free users have unlimited everyday text chats, subject to abuse-prevention safeguards. File uploads, image generation, voice, data analysis, and other tools have separate usage limits. ChatGPT will notify you when you reach an applicable limit."
       },
       {
         "field": "capabilities",
@@ -4597,7 +4612,14 @@
     "notFor": [],
     "alternatives": [],
     "alternativeNames": [],
-    "changelog": [],
+    "changelog": [
+      {
+        "date": "2026-06-18",
+        "kind": "free_plan_reduced",
+        "summary": "Google retiró el acceso con cuenta personal de Google («Login with Google») a Gemini CLI, que daba 60 peticiones por minuto y 1.000 al día gratis, y remite a Antigravity.",
+        "sourceUrl": "https://developers.google.com/gemini-code-assist/docs/deprecations/code-assist-individuals"
+      }
+    ],
     "affiliation": {
       "isAffiliate": false
     },
@@ -4625,23 +4647,23 @@
       "windows"
     ],
     "freeModel": "free_real",
-    "tagline": "Mil peticiones al día con una cuenta personal de Google.",
-    "descriptionShort": "Agente de terminal de Google, con código Apache 2.0. Ejecuta órdenes del sistema, opera sobre ficheros, busca en la web con anclaje en Google Search y se amplía con servidores MCP. Con una cuenta personal de Google da 60 peticiones por minuto y 1.000 al día.",
-    "verdict": "La cifra gratuita más clara de toda la vertical, y publicada en el propio repositorio. Si vives en la terminal, es el punto de partida obvio.",
+    "tagline": "Agente de terminal de Google: sin el acceso gratuito con cuenta personal desde junio de 2026; sigue con una clave de la API.",
+    "descriptionShort": "Agente de terminal de Google, con código Apache 2.0. Ejecuta órdenes del sistema, opera sobre ficheros, busca en la web con anclaje en Google Search y se amplía con servidores MCP. Desde el 18 de junio de 2026 ya no admite entrar con una cuenta personal de Google; funciona con una clave de la API de Gemini.",
+    "verdict": "Era la cifra gratuita más clara de la vertical, y Google la retiró en junio sin que el repositorio lo diga todavía. Sigue siendo usable con el nivel gratuito de la API, pero ya no hay una cuota publicada en la que apoyarse.",
     "freePlan": {
-      "summary": "Código publicado con licencia Apache 2.0. Autenticándose con una cuenta personal de Google se obtienen 60 peticiones por minuto y 1.000 peticiones al día sin coste.",
+      "summary": "Código publicado con licencia Apache 2.0. El acceso gratuito con cuenta personal de Google, que daba 1.000 peticiones al día, terminó el 18 de junio de 2026. Hoy se usa con una clave de la API de Gemini, dentro de su nivel gratuito, cuya cuota diaria Google no publica en su documentación de límites.",
       "limits": [
-        "60 peticiones por minuto",
-        "1.000 peticiones al día con cuenta personal de Google",
+        "Desde el 18 de junio de 2026 ya no se puede entrar con una cuenta personal de Google: Google retiró ese acceso gratuito y remite a Antigravity",
+        "Sigue funcionando con una clave de la API de Gemini, dentro del nivel gratuito de la API; la documentación oficial de límites no publica cuántas peticiones da",
+        "Su README todavía anuncia las 1.000 peticiones al día con cuenta de Google; la página de Google que lo retira es posterior y manda",
         "Código con licencia Apache 2.0"
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "no",
       "hasWatermark": "no",
       "commercialUse": "unverified",
-      "creditsAmount": "1.000 peticiones/día",
       "creditReset": "daily",
-      "verifiedAt": "2026-08-19"
+      "verifiedAt": "2026-10-11"
     },
     "capabilities": [
       "terminal",
@@ -4650,7 +4672,7 @@
       "repository-editing"
     ],
     "startEffort": "install",
-    "startEffortReason": "Se instala en la terminal y se autentica con una cuenta de Google.",
+    "startEffortReason": "Se instala en la terminal y necesita una clave de la API de Gemini (o un proyecto de Vertex AI).",
     "scores": {
       "freeReal": 9,
       "usefulness": 8,
@@ -4665,17 +4687,24 @@
         "kind": "repo",
         "publisher": "github.com",
         "checkedAt": "2026-08-19"
+      },
+      {
+        "url": "https://developers.google.com/gemini-code-assist/docs/deprecations/code-assist-individuals",
+        "label": "Google: retirada de Gemini Code Assist para cuentas personales",
+        "kind": "docs",
+        "publisher": "developers.google.com",
+        "checkedAt": "2026-10-11"
       }
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
-        "sourceUrl": "https://github.com/google-gemini/gemini-cli",
-        "sourceKind": "repo",
-        "checkedAt": "2026-08-19",
-        "quote": "60 requests/min and 1,000 requests/day with personal Google account · Apache License 2.0",
-        "scope": "local"
+        "sourceUrl": "https://developers.google.com/gemini-code-assist/docs/deprecations/code-assist-individuals",
+        "sourceKind": "docs",
+        "quote": "Starting June 18, 2026, Gemini Code Assist IDE extensions stopped serving requests for the Gemini Code Assist for individuals, Google AI Pro, and Google AI Ultra tiers. This also applies to usage of Gemini CLI. As part of the deprecation, you can no longer use the Login with Google option to access the IDE extensions or Gemini CLI."
       },
       {
         "field": "capabilities",
@@ -4697,8 +4726,8 @@
       }
     ],
     "auditNotes": "`memory` no se marca: el repositorio documenta «conversation checkpointing to save and resume complex sessions», que es reanudar una sesión, no recordar entre sesiones distintas.",
-    "nextReviewAt": "2026-11-17",
-    "lastVerifiedAt": "2026-08-19",
+    "nextReviewAt": "2026-11-10",
+    "lastVerifiedAt": "2026-10-11",
     "updatedAt": "2026-08-19",
     "access": {},
     "productType": "cli"
@@ -9558,6 +9587,7 @@
       "summary": "Los pesos son Apache 2.0. Además, el plan gratuito de la plataforma incluye 10 $ al mes en créditos de API para probar los modelos en Studio.",
       "limits": [
         "Pesos: Apache 2.0",
+        "Uso comercial de los pesos (Mistral Large 3, versión 2512): permitido según su ficha oficial; las preguntas frecuentes de precios de Mistral dicen en cambio que los despliegues comerciales de modelos abiertos «require a Mistral license»",
         "Plan gratuito de la plataforma: 10 $/mes en créditos de API",
         "Plan de pago más barato: Pro, 14,99 $/mes"
       ]
@@ -9599,6 +9629,13 @@
         "kind": "pricing",
         "publisher": "mistral.ai",
         "checkedAt": "2026-08-20"
+      },
+      {
+        "url": "https://huggingface.co/mistralai/Mistral-Large-3-675B-Instruct-2512",
+        "label": "Ficha oficial del modelo en Hugging Face",
+        "kind": "repo",
+        "publisher": "huggingface.co",
+        "checkedAt": "2026-10-11"
       }
     ],
     "evidence": [
@@ -9628,13 +9665,23 @@
         "sourceUrl": "https://docs.mistral.ai/admin/billing-usage/subscriptions",
         "sourceKind": "docs",
         "lookedFor": "Si el uso gratuito de la API pide tarjeta. Su documentación dice que «Free mode is the default state for new accounts», sin decir si hace falta tarjeta; la página de precios tampoco."
+      },
+      {
+        "checkedAt": "2026-10-11",
+        "scope": "weights",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/mistralai/Mistral-Large-3-675B-Instruct-2512",
+        "sourceKind": "repo",
+        "quote": "Apache 2.0 License: Open-source license allowing usage and modification for both commercial and non-commercial purposes."
       }
     ],
     "slug": "mistral-large",
     "id": "tool_mistral-large",
     "nextReviewAt": "2026-11-18",
     "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-08-20"
+    "updatedAt": "2026-08-20",
+    "auditNotes": "Uso comercial comprobado el 11 de octubre de 2026 para los pesos de Mistral Large 3 (675B, versión 2512) en su ficha de Hugging Face. La página de precios de Mistral dice en sus preguntas frecuentes, sin nombrar este modelo, que los modelos abiertos son Apache 2.0 «for research/individual use» y que los despliegues comerciales requieren una licencia de Mistral: contradice la licencia y la ficha del modelo, y la ficha lo cuenta en vez de elegir. El uso por API se rige por las condiciones de la plataforma, no por la licencia de los pesos."
   },
   {
     "skillLevel": "beginner",
@@ -12872,8 +12919,8 @@
     "id": "tool_v0-by-vercel",
     "slug": "v0-by-vercel",
     "name": "v0 by Vercel",
-    "tagline": "Cinco dólares en créditos una sola vez al darte de alta, y siete mensajes al día.",
-    "descriptionShort": "Genera interfaces y aplicaciones web desde una descripción, con vista previa y despliegue en Vercel. Las cuentas nuevas reciben cinco dólares en créditos una sola vez, que no se renuevan, y un límite de siete mensajes al día.",
+    "tagline": "Cinco dólares en créditos al mes y siete mensajes al día.",
+    "descriptionShort": "Genera interfaces y aplicaciones web desde una descripción, con vista previa y despliegue en Vercel. Su plan gratuito incluye cinco dólares mensuales en créditos y un límite de siete mensajes al día.",
     "descriptionLong": "v0 by Vercel es un generador de UI que convierte descripciones de texto en componentes React completos con Tailwind CSS y shadcn/ui. Generas código limpio, responsive y listo para copiar y pegar en tu proyecto Next.js. Ideal para desarrolladores frontend que quieren prototipar rápido o generar componentes complejos sin escribirlos manualmente. El plan gratuito permite varias generaciones al día.",
     "kind": "agent",
     "verification": "verified",
@@ -12889,11 +12936,11 @@
       "Aprendizaje de patrones de diseño con Tailwind",
       "Creación de landing pages y dashboards"
     ],
-    "freeModel": "credits",
+    "freeModel": "freemium",
     "freePlan": {
-      "summary": "Plan gratuito con cinco dólares en créditos una sola vez para las cuentas nuevas —las cuentas gratuitas anteriores conservan sus cinco dólares al mes— y un límite de siete mensajes al día. El plan de pago más barato es Plus, 30 $ al mes por usuario.",
+      "summary": "Plan gratuito con cinco dólares en créditos mensuales incluidos y un límite de siete mensajes al día. El plan de pago más barato es Plus, 30 $ al mes por usuario.",
       "limits": [
-        "Cuentas nuevas: 5 $ en créditos una sola vez, que no se renuevan; las cuentas gratuitas anteriores conservan sus 5 $ al mes",
+        "5 $ en créditos incluidos al mes",
         "7 mensajes al día",
         "Plan de pago más barato: Plus, 30 $/mes por usuario"
       ],
@@ -12901,23 +12948,9 @@
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
-      "creditsAmount": "5 $ una sola vez (cuentas nuevas) · 7 mensajes/día",
-      "creditReset": "one_off",
-      "verifiedAt": "2026-10-11",
-      "includedCapabilities": [
-        {
-          "capability": "code-generation",
-          "condition": "5 $ en créditos una sola vez y 7 mensajes al día",
-          "evidence": {
-            "outcome": "stated",
-            "checkedAt": "2026-10-11",
-            "scope": "product",
-            "sourceUrl": "https://v0.app/pricing",
-            "sourceKind": "pricing",
-            "quote": "Free · $0 /month · Includes · $5 in one-time credits for new users · Deploy apps to Vercel · Edit visually with Design Mode · Sync with GitHub · 7 message/day limit"
-          }
-        }
-      ]
+      "creditsAmount": "5 $/mes en créditos · 7 mensajes/día",
+      "creditReset": "monthly",
+      "verifiedAt": "2026-08-24"
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -12939,7 +12972,7 @@
         "label": "Precios oficiales",
         "kind": "pricing",
         "publisher": "v0.app",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-08-21"
       },
       {
         "url": "https://v0.app/docs/pricing",
@@ -12956,7 +12989,7 @@
       "transparency": 5,
       "creatorValue": 7
     },
-    "verdict": "El límite diario frena antes que los créditos: siete mensajes se gastan en una tarde de pruebas. Y a las cuentas nuevas los cinco dólares se les dan una sola vez; ya no vuelven cada mes.",
+    "verdict": "Los dos límites conviven y el que primero te frena es el diario: siete mensajes se gastan en una tarde de pruebas aunque queden créditos.",
     "pros": [],
     "cons": [
       "Generaciones diarias limitadas en plan gratuito",
@@ -12998,13 +13031,13 @@
     ],
     "evidence": [
       {
-        "checkedAt": "2026-10-11",
-        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://v0.app/docs/pricing",
         "sourceKind": "docs",
-        "quote": "New users who sign up under the one-time Free credit offer receive $5 once per user in each personal or team account. Existing Free users keep their $5 monthly allowance. […] A one-time allowance does not renew. · Daily Message Limit: Free 7 messages"
+        "scope": "product",
+        "checkedAt": "2026-08-24",
+        "quote": "Free plan: $5 monthly credits · Daily Message Limit: 7 messages. Each plan includes a monthly credit allowance."
       },
       {
         "field": "freePlan.creditReset",

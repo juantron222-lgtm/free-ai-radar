@@ -214,10 +214,18 @@ describe('la verificación de agentes', () => {
     expect(tool.freePlan.creditReset).toBe('one_off');
   });
 
-  it('Gemini CLI publica su cuota y su licencia', () => {
+  it('Gemini CLI ya no promete la cuota de la cuenta personal de Google', () => {
+    /*
+     * Su README sigue anunciando 1.000 peticiones al día con cuenta personal
+     * de Google, pero Google retiró ese acceso el 18 de junio de 2026
+     * («you can no longer use the Login with Google option to access […]
+     * Gemini CLI»). Corregido el 11 de octubre con autorización de Juan.
+     */
     const tool = bySlug.get('gemini-cli')!;
     expect(tool.licence).toBe('Apache-2.0');
-    expect(tool.freePlan.creditsAmount).toBe('1.000 peticiones/día');
+    expect(tool.freePlan.creditsAmount).toBeUndefined();
+    expect(tool.freePlan.summary).not.toMatch(/^.*se obtienen .*1\.000/);
+    expect(tool.changelog.some((c) => c.date === '2026-06-18' && c.kind === 'free_plan_reduced')).toBe(true);
   });
 
   /*

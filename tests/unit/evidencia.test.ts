@@ -659,7 +659,7 @@ describe('los hechos volátiles confirmados en esta cohorte llevan fuente', () =
       field === 'freePlan.commercialUse' ? tool.freePlan.commercialUse : tool.privacy.trainsOnUserData;
 
     /*
-     * Once valores vienen decididos de antes de que existiera el registro de
+     * Diez valores vienen decididos de antes de que existiera el registro de
      * evidencias, casi todos licencias de pesos abiertos. No se tocan aquí:
      * la decisión del 21 de septiembre era sobre las veintiuna deducciones, y
      * bajarlos a «Sin comprobar» sin leer sus licencias tiraría información
@@ -674,7 +674,6 @@ describe('los hechos volátiles confirmados en esta cohorte llevan fuente', () =
       'glm-5·freePlan.commercialUse',
       'llama-4·freePlan.commercialUse',
       'ministral·freePlan.commercialUse',
-      'mistral-large·freePlan.commercialUse',
       'mistral-small·freePlan.commercialUse',
       'phi-4·freePlan.commercialUse',
       'qwen3-27b·freePlan.commercialUse',
