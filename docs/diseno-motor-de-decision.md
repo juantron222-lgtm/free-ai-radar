@@ -18,7 +18,7 @@ no tenga comprobado (un dato `unverified` nunca se convierte en sí ni en no), n
 preguntas fuera de las tareas que el catálogo sabe reconocer.
 
 **¿Hace falta un LLM?** No para decidir. Todo lo que decide ya existe como dato:
-tareas → capacidades (`search/intents.ts`, 13 tareas), qué incluye el plan
+tareas → capacidades (`search/intents.ts`, 14 tareas desde que «Generar o clonar una voz» se partió en dos), qué incluye el plan
 gratuito (`capabilities` − `freePlan.excludedCapabilities`), condiciones
 (tarjeta, registro, uso comercial, marca de agua, privacidad), dónde se usa
 (`hosting`, `platforms`, `startEffort`), nivel de acceso (`nivelDeAcceso`) y

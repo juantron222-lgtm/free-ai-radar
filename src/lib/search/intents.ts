@@ -146,10 +146,25 @@ export const INTENCIONES: readonly Intencion[] = [
     capacidades: ['text-to-music'],
     ruta: '/audio#musica',
   },
+  /*
+   * Generar una voz y clonar la tuya son dos tareas, no una.
+   *
+   * Iban juntas, y una intención se cumple con cualquiera de sus capacidades:
+   * «clonar voz» devolvía ElevenLabs entre las gratuitas porque genera voz
+   * gratis, aunque clonar sea de Starter (freePlan.excludedCapabilities,
+   * comprobado el 11 de octubre de 2026). Separadas, quien quiere clonar ve
+   * primero lo que clona gratis.
+   */
   {
-    etiqueta: 'Generar o clonar una voz',
-    frases: ['generar voz', 'texto a voz', 'clonar voz', 'locucion', 'narracion', 'tts'],
-    capacidades: ['text-to-speech', 'voice-clone'],
+    etiqueta: 'Generar una voz',
+    frases: ['generar voz', 'texto a voz', 'locucion', 'narracion', 'voz en off', 'tts'],
+    capacidades: ['text-to-speech'],
+    ruta: '/audio#voz',
+  },
+  {
+    etiqueta: 'Clonar una voz',
+    frases: ['clonar voz', 'clonacion voz', 'copiar voz', 'voice clone', 'voice cloning'],
+    capacidades: ['voice-clone'],
     ruta: '/audio#voz',
   },
   {

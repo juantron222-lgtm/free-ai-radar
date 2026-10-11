@@ -3403,11 +3403,11 @@
     ],
     "freeModel": "credits",
     "freePlan": {
-      "summary": "Plan gratuito con 10.000 créditos al mes que se reinician al empezar cada ciclo de facturación y que se comparten entre todos sus productos: los mismos créditos sirven para texto a voz, transcripción, efectos de sonido, diseño de voz o música. Incluye tres proyectos de Studio. La clonación de voz y el doblaje no están incluidos, y la licencia comercial empieza en Starter.",
+      "summary": "Plan gratuito con 10.000 créditos al mes que se reinician al empezar cada ciclo de facturación y que se comparten entre todos sus productos: los mismos créditos sirven para texto a voz, transcripción, efectos de sonido, diseño de voz o música. Incluye tres proyectos de Studio. La clonación de voz no está incluida y la licencia comercial empieza en Starter.",
       "limits": [
         "10.000 créditos al mes, compartidos entre todos sus productos",
         "Licencia comercial NO incluida: empieza en Starter",
-        "Clonación de voz y doblaje: no incluidos en el plan gratuito",
+        "Clonación de voz: no incluida en el plan gratuito; empieza en Starter",
         "3 proyectos en Studio",
         "Plan de pago más barato: Starter, 6 $/mes (30.000 créditos)"
       ],
@@ -3417,7 +3417,10 @@
       "commercialUse": "no",
       "creditsAmount": "10.000 créditos/mes",
       "creditReset": "monthly",
-      "verifiedAt": "2026-08-24"
+      "verifiedAt": "2026-08-24",
+      "excludedCapabilities": [
+        "voice-clone"
+      ]
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -3542,6 +3545,15 @@
         "checkedAt": "2026-09-15",
         "scope": "product",
         "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
+      },
+      {
+        "field": "freePlan.excludedCapabilities",
+        "outcome": "stated",
+        "checkedAt": "2026-10-11",
+        "scope": "product",
+        "sourceUrl": "https://elevenlabs.io/pricing",
+        "sourceKind": "pricing",
+        "quote": "Starter … Everything in free, plus · Commercial License · Instant Voice Cloning · 20 Projects in Studio · Music commercial use · Dubbing Studio · Image & Video"
       }
     ],
     "startEffort": "signup",
@@ -5559,7 +5571,11 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "unknown",
-      "verifiedAt": "2026-08-13"
+      "verifiedAt": "2026-08-13",
+      "excludedCapabilities": [
+        "text-to-video",
+        "image-to-video"
+      ]
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -5654,6 +5670,15 @@
         "checkedAt": "2026-08-12",
         "quote": "Imagine Overview Image Generation Image Editing Multi-Image Editing Video Generation Image-to-Video Reference-to-Video",
         "scope": "cloud"
+      },
+      {
+        "field": "freePlan.excludedCapabilities",
+        "outcome": "stated",
+        "checkedAt": "2026-10-11",
+        "scope": "product",
+        "sourceUrl": "https://x.ai/pricing",
+        "sourceKind": "pricing",
+        "quote": "[Tabla «Compare features across plans»: «Video generation» lleva el icono «minus» en la columna Free y la marca en las otras seis; «Image generation (Imagine)» lleva la marca en las siete.]"
       }
     ],
     "auditNotes": "La tarjeta de SuperGrok anuncia «Image and video generation», lo que sugiere que ninguna de las dos está en el plan gratuito; la tabla comparativa dice lo contrario para imagen. Se toma la tabla, que es donde xAI declara plan por plan. Filas de control usadas: SSO y RBAC, marcadas sólo en Enterprise.",
@@ -6346,14 +6371,15 @@
     "descriptionShort": "Generador de imagen conocido por escribir texto legible dentro de la imagen. Su plan gratuito da créditos lentos semanales para cuentas elegibles —la tabla no dice cuántos— y deja fuera la referencia de estilo, la de personaje, el relleno, la ampliación y el escalado.",
     "verdict": "La cantidad y la frecuencia están publicadas, que ya es más de lo que ofrece casi nadie. Lo que hay que mirar es la otra tabla: en el plan gratuito quedan fuera seis de las funciones de edición, y las imágenes se publican en la comunidad por defecto.",
     "freePlan": {
-      "summary": "Plan gratuito de 0 $ con créditos lentos semanales para cuentas elegibles: la tabla no publica la cantidad. Una generación en ejecución o en cola, y dos lienzos. La referencia de estilo, la de personaje, Magic Fill, Extend, el escalado y el recorte de fondo constan como no incluidos. Por defecto todas las imágenes se publican en la comunidad.",
+      "summary": "Plan gratuito de 0 $ con créditos lentos semanales para cuentas elegibles: la tabla no publica la cantidad. Una generación en ejecución o en cola, y dos lienzos. La referencia de estilo, la de personaje, Magic Fill y Extend constan como no incluidos; descargar a tamaño escalado requiere plan de pago, y quitar el fondo cuesta 1 crédito. Por defecto todas las imágenes se publican en la comunidad.",
       "limits": [
         "Créditos lentos semanales para cuentas elegibles: la cantidad no se publica",
         "Sin créditos prioritarios",
         "1 generación en ejecución o en cola",
         "2 lienzos",
         "Sin referencia de estilo ni de personaje",
-        "Sin Magic Fill, Extend, escalado ni recorte de fondo",
+        "Sin Magic Fill ni Extend; descargar a tamaño escalado requiere plan de pago",
+        "Quitar el fondo: disponible, por 1 crédito",
         "Las imágenes se publican en la comunidad por defecto",
         "Plan de pago más barato: Plus, 20 $/mes (15 $/mes en anual)"
       ],
@@ -6362,7 +6388,10 @@
       "hasWatermark": "unverified",
       "commercialUse": "yes",
       "creditReset": "weekly",
-      "verifiedAt": "2026-08-24"
+      "verifiedAt": "2026-08-24",
+      "excludedCapabilities": [
+        "upscaling"
+      ]
     },
     "capabilities": [
       "text-to-image",
@@ -6453,6 +6482,15 @@
         "checkedAt": "2026-09-15",
         "scope": "product",
         "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios sólo habla de tarjeta para actualizar el pago de un plan ya contratado."
+      },
+      {
+        "field": "freePlan.excludedCapabilities",
+        "outcome": "stated",
+        "checkedAt": "2026-10-11",
+        "scope": "product",
+        "sourceUrl": "https://docs.ideogram.ai/help/frequently-asked-questions",
+        "sourceKind": "help",
+        "quote": "PNG needs a paid plan. Without one (including pay as you go), you can download JPEG at the original size, and transparent images as PNG at 1K. Upscale sizes need a paid plan and cost credits."
       }
     ],
     "auditNotes": "Las capacidades describen la herramienta completa; en el plan gratuito seis de ellas constan como no incluidas y así figura en los límites. Marca de agua y tarjeta no aparecen en ninguna página oficial.",

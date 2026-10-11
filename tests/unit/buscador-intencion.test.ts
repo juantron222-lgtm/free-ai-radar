@@ -157,10 +157,20 @@ describe('los hechos estructurados mandan sobre el texto', () => {
     expect(resultado.length).toBeGreaterThan(0);
     for (const tool of resultado) {
       expect(tool.freePlan.requiresCreditCard, tool.name).toBe('no');
-      const hablaOClona =
-        tool.capabilities.includes('text-to-speech') || tool.capabilities.includes('voice-clone');
-      expect(hablaOClona, tool.name).toBe(true);
+      // Desde que generar y clonar son dos intenciones, clonar exige clonar.
+      expect(tool.capabilities, tool.name).toContain('voice-clone');
     }
+  });
+
+  it('«clonar voz» no pone arriba lo que sólo genera voz gratis', () => {
+    /*
+     * ElevenLabs clona, pero no en su plan gratuito: tiene que salir debajo,
+     * con las que lo hacen pagando, y no entre las gratuitas.
+     */
+    const hits = buscar('clonar voz');
+    const eleven = hits.find((h) => h.slug === 'elevenlabs');
+    expect(eleven, 'ElevenLabs debe aparecer: el producto sí clona').toBeTruthy();
+    expect(eleven!.acceso).not.toBe('gratis');
   });
 });
 

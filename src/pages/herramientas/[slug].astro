@@ -251,7 +251,21 @@ const compararHref = compararCon.length
             <div class="decision-hace">
               <p class="decision-etiqueta">Qué hace</p>
               <ul class="decision-capacidades">
-                {tool.capabilities.map((capacidad) => <li>{CAPABILITY_LABEL[capacidad]}</li>)}
+                {/*
+                  Lo que el producto hace, y lo que de eso el plan gratuito
+                  no incluye, dicho en la misma pastilla. Este bloque decide
+                  si te sirve sin pagar: «Clonación de voz» a secas, encima de
+                  «Acceso gratuito», se leía como gratis.
+                */}
+                {tool.capabilities.map((capacidad) =>
+                  tool.freePlan.excludedCapabilities.includes(capacidad) ? (
+                    <li class="de-pago">
+                      {CAPABILITY_LABEL[capacidad]} <span class="de-pago-nota">(sólo de pago)</span>
+                    </li>
+                  ) : (
+                    <li>{CAPABILITY_LABEL[capacidad]}</li>
+                  )
+                )}
               </ul>
             </div>
           )}
@@ -849,6 +863,15 @@ const compararHref = compararCon.length
     background: var(--paper);
     font-size: 0.8125rem;
     color: var(--ink);
+  }
+
+  .decision-capacidades li.de-pago {
+    border-style: dashed;
+    color: var(--ink-muted);
+  }
+
+  .de-pago-nota {
+    color: var(--ink-subtle);
   }
 
   .decision-datos {

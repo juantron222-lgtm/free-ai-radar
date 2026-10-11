@@ -168,10 +168,18 @@ describe('empezar no promete lo que el registro desmiente', () => {
      * listar como capacidad lo que su plan gratuito excluye, ni prometer entrar
      * sin cuenta si la pide.
      */
+    /*
+     * Esta prueba exigía que esas seis no tuvieran ninguna capacidad excluida.
+     * Era la forma de no prometer de más mientras el campo estaba vacío; el 11
+     * de octubre de 2026 se rellenó con citas oficiales (ElevenLabs no clona
+     * voces gratis; Ideogram no escala gratis), y lo que hay que vigilar ya no
+     * es que la lista esté vacía, sino que la ficha diga cuáles son de pago.
+     */
+    const ficha = codigo('src/pages/herramientas/[slug].astro');
+    expect(ficha).toMatch(/tool\.freePlan\.excludedCapabilities\.includes\(capacidad\)/);
+    expect(ficha).toContain('(sólo de pago)');
     for (const slug of ['ideogram', 'pika-labs', 'elevenlabs', 'github-copilot', 'genspark', 'gemini-3-flash']) {
       const tool = tools.find((t) => t.slug === slug)!;
-      const deMas = tool.freePlan.excludedCapabilities.filter((c) => tool.capabilities.includes(c));
-      expect(deMas, `${slug} enseña capacidades de pago`).toEqual([]);
       if (tool.freePlan.requiresSignup !== 'no') {
         expect(esfuerzoDe(tool).label, slug).not.toBe(START_EFFORT_LABEL.instant);
       }
