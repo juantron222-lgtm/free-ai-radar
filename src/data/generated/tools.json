@@ -624,6 +624,8 @@
       "limits": [
         "300.000 tokens al día",
         "1.000.000 de tokens al mes",
+        "Las webs que publicas llevan la marca de Bolt",
+        "Alojamiento incluido, hasta 333.000 peticiones web",
         "Plan de pago más barato: Pro, 25 $/mes"
       ],
       "requiresSignup": "yes",
@@ -632,7 +634,21 @@
       "commercialUse": "yes",
       "creditsAmount": "300.000 tokens/día (1M/mes)",
       "creditReset": "daily",
-      "verifiedAt": "2026-08-21"
+      "verifiedAt": "2026-10-11",
+      "includedCapabilities": [
+        {
+          "capability": "code-generation",
+          "condition": "300.000 tokens al día, 1 millón al mes",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://bolt.new/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · $0 · You get: · Public and private projects · 300K tokens daily limit · 1M tokens per month · Bolt branding on websites · 10MB file upload limit · Website hosting · Up to 333k web requests · Unlimited databases"
+          }
+        }
+      ]
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -653,7 +669,7 @@
         "label": "Precios oficiales",
         "kind": "pricing",
         "publisher": "bolt.new",
-        "checkedAt": "2026-08-21"
+        "checkedAt": "2026-10-11"
       },
       {
         "url": "https://stackblitz.com/terms-of-service",
@@ -714,13 +730,13 @@
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://bolt.new/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-08-21",
-        "quote": "300K tokens daily limit · 1M tokens per month · Pro: $25 per month billed monthly",
-        "scope": "cloud"
+        "quote": "Free · $0 · You get: · Public and private projects · 300K tokens daily limit · 1M tokens per month · Bolt branding on websites · 10MB file upload limit · Website hosting · Up to 333k web requests · Unlimited databases"
       },
       {
         "checkedAt": "2026-10-11",
@@ -2493,6 +2509,7 @@
       "limits": [
         "Incluido en ChatGPT Free: la cantidad no se publica",
         "Descrito para tareas de programación rápidas",
+        "Modelo: GPT-6 Luna a velocidad estándar en la app de escritorio, según se vaya desplegando",
         "Plan de pago más barato: Go, 8 $/mes",
         "Plus: 20 $/mes · Pro: desde 100 $/mes"
       ],
@@ -2501,7 +2518,21 @@
       "hasWatermark": "no",
       "commercialUse": "yes",
       "creditReset": "unknown",
-      "verifiedAt": "2026-08-19"
+      "verifiedAt": "2026-10-11",
+      "includedCapabilities": [
+        {
+          "capability": "repository-editing",
+          "condition": "para tareas rápidas; la cantidad no se publica",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://learn.chatgpt.com/docs/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · Explore Codex capabilities on quick coding tasks. · $0 /month · GPT-6 Luna at Standard speed in the desktop app, subject to rollout"
+          }
+        }
+      ]
     },
     "capabilities": [
       "terminal",
@@ -2554,7 +2585,7 @@
         "outcome": "stated",
         "sourceUrl": "https://learn.chatgpt.com/docs/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-08-19",
+        "checkedAt": "2026-10-11",
         "quote": "ChatGPT Work and Codex are included in your ChatGPT Free, Go, Plus, Pro, Business, Edu, or Enterprise plan · Free — $0/month: Explore Codex capabilities on quick coding tasks · Go — $8/month: Use Codex for lightweight coding tasks.",
         "scope": "cloud"
       },
@@ -3000,7 +3031,21 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "unknown",
-      "verifiedAt": "2026-08-21"
+      "verifiedAt": "2026-10-11",
+      "includedCapabilities": [
+        {
+          "capability": "repository-editing",
+          "condition": "peticiones de agente limitadas, sin cifra publicada",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://cursor.com/pricing",
+            "sourceKind": "pricing",
+            "quote": "Hobby · For the tinkerer · Free · Includes: ✓ No credit card required · ✓ Limited Agent requests · ✓ Access to Composer"
+          }
+        }
+      ]
     },
     "openSource": "no",
     "hosting": "hybrid",
@@ -3075,7 +3120,7 @@
         "outcome": "stated",
         "sourceUrl": "https://cursor.com/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-08-21",
+        "checkedAt": "2026-10-11",
         "quote": "Hobby — No credit card required · Limited Agent requests · Access to Composer. Individual: $20 / mo.",
         "scope": "product"
       },
@@ -3627,7 +3672,21 @@
       "commercialUse": "unverified",
       "creditsAmount": "60 min de transcripción/mes",
       "creditReset": "monthly",
-      "verifiedAt": "2026-08-15"
+      "verifiedAt": "2026-08-15",
+      "includedCapabilities": [
+        {
+          "capability": "transcription",
+          "condition": "60 minutos de medios al mes",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://www.descript.com/pricing",
+            "sourceKind": "pricing",
+            "quote": "[Tabla de planes: Free · Hobbyist · Creator · Business] Media minutes (per editor): 60 minutes (1 hr) / month · […] Transcription · Multi-language transcription: 25 languages · 25 languages · 25 languages · 25 languages"
+          }
+        }
+      ]
     },
     "capabilities": [
       "video-editing",
@@ -5654,7 +5713,33 @@
       "commercialUse": "unverified",
       "creditsAmount": "2.000 completados/mes",
       "creditReset": "monthly",
-      "verifiedAt": "2026-09-16"
+      "verifiedAt": "2026-09-16",
+      "includedCapabilities": [
+        {
+          "capability": "code-generation",
+          "condition": "2.000 completados al mes",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://docs.github.com/en/copilot/about-github-copilot/plans-for-github-copilot",
+            "sourceKind": "docs",
+            "quote": "Limited to 2000 completions per month on Copilot Free."
+          }
+        },
+        {
+          "capability": "repository-editing",
+          "condition": "gasta créditos de IA; la cantidad no se publica",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://docs.github.com/en/copilot/about-github-copilot/plans-for-github-copilot",
+            "sourceKind": "docs",
+            "quote": "[Tabla «Agents»] Agent mode — Copilot Free: Included"
+          }
+        }
+      ]
     },
     "capabilities": [
       "code-generation",
@@ -5678,7 +5763,7 @@
         "label": "Planes oficiales",
         "kind": "docs",
         "publisher": "github.com",
-        "checkedAt": "2026-08-21"
+        "checkedAt": "2026-10-11"
       },
       {
         "url": "https://github.com/features/copilot/plans",
@@ -8140,14 +8225,40 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "daily",
-      "verifiedAt": "2026-09-24",
+      "verifiedAt": "2026-10-11",
       "summary": "Plan de entrada: 15 tareas al día y 3 simultáneas, con Gemini 2.5 Pro. Los planes Pro y Ultra suben a 100 y 300 tareas diarias y dan acceso a Gemini 3 Pro.",
       "limits": [
         "15 tareas al día",
         "3 tareas simultáneas",
         "Con Gemini 2.5 Pro; Gemini 3 Pro es de pago"
       ],
-      "creditsAmount": "15 tareas al día"
+      "creditsAmount": "15 tareas al día",
+      "includedCapabilities": [
+        {
+          "capability": "code-generation",
+          "condition": "15 tareas al día, 3 a la vez",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://jules.google/",
+            "sourceKind": "official",
+            "quote": "Get started with real coding tasks. · 15 tasks per day · 3 concurrent tasks · Powered by Gemini 2.5 Pro"
+          }
+        },
+        {
+          "capability": "repository-editing",
+          "condition": "15 tareas al día, 3 a la vez",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://jules.google/",
+            "sourceKind": "official",
+            "quote": "Get started with real coding tasks. · 15 tasks per day · 3 concurrent tasks · Powered by Gemini 2.5 Pro"
+          }
+        }
+      ]
     },
     "capabilities": [
       "code-generation",
@@ -8178,7 +8289,7 @@
         "sourceUrl": "https://jules.google/",
         "sourceKind": "official",
         "scope": "product",
-        "checkedAt": "2026-09-24",
+        "checkedAt": "2026-10-11",
         "quote": "Jules · Get started with real coding tasks. · 15 tasks per day · 3 concurrent tasks · Powered by Gemini 2.5 Pro"
       },
       {
@@ -9982,7 +10093,21 @@
       "commercialUse": "yes",
       "creditsAmount": "5 créditos/día (tope de 30/mes)",
       "creditReset": "daily",
-      "verifiedAt": "2026-08-24"
+      "verifiedAt": "2026-10-11",
+      "includedCapabilities": [
+        {
+          "capability": "code-generation",
+          "condition": "5 créditos de construcción al día, hasta 30 al mes",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://docs.lovable.dev/introduction/credits-and-usage",
+            "sourceKind": "docs",
+            "quote": "[Tabla «Included usage-specific grants by plan»] Free · Daily chat allowance: Included · Daily build credits: 5 per day, up to 30 per month · Monthly Cloud grant: 20 credits per month · Monthly AI grant: 4 credits per month"
+          }
+        }
+      ]
     },
     "capabilities": [
       "code-generation",
@@ -10032,17 +10157,24 @@
         "kind": "docs",
         "publisher": "docs.lovable.dev",
         "checkedAt": "2026-10-11"
+      },
+      {
+        "url": "https://docs.lovable.dev/introduction/credits-and-usage",
+        "label": "Documentación: créditos y uso",
+        "kind": "docs",
+        "publisher": "docs.lovable.dev",
+        "checkedAt": "2026-10-11"
       }
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
-        "sourceUrl": "https://docs.lovable.dev/user-guides/messaging-limits",
+        "sourceUrl": "https://docs.lovable.dev/introduction/credits-and-usage",
         "sourceKind": "docs",
-        "scope": "product",
-        "checkedAt": "2026-08-24",
-        "quote": "Free: 5 per day, up to 30 per month […] Unused usage-specific grants do not roll over."
+        "quote": "[Tabla «Included usage-specific grants by plan»] Free · Daily chat allowance: Included · Daily build credits: 5 per day, up to 30 per month · Monthly Cloud grant: 20 credits per month · Monthly AI grant: 4 credits per month"
       },
       {
         "field": "freePlan.creditReset",
@@ -12095,15 +12227,30 @@
       "hasWatermark": "unverified",
       "commercialUse": "no",
       "creditReset": "monthly",
-      "verifiedAt": "2026-09-24",
+      "verifiedAt": "2026-10-11",
       "summary": "Plan Basic gratuito para siempre: 300 minutos de transcripción al mes, sin acumular, hasta 30 minutos por conversación y 300 minutos de archivos importados. Apps de iOS y Android incluidas. Pro cuesta 8,33 $ por usuario al mes en anual.",
       "limits": [
         "300 minutos de transcripción al mes, sin acumular",
         "Hasta 30 minutos por conversación",
         "300 minutos al mes de archivos importados",
+        "Sólo 3 archivos de audio o vídeo importados en toda la vida de la cuenta",
         "Plan de pago más barato: Pro, 8,33 $/usuario/mes en anual"
       ],
-      "creditsAmount": "300 minutos al mes"
+      "creditsAmount": "300 minutos al mes",
+      "includedCapabilities": [
+        {
+          "capability": "transcription",
+          "condition": "300 minutos al mes",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://otter.ai/pricing",
+            "sourceKind": "pricing",
+            "quote": "Basic · For those who want to give it a try · Free · […] 3 lifetime audio/video file imports · Live transcription · […] 300 monthly transcription minutes"
+          }
+        }
+      ]
     },
     "capabilities": [
       "transcription"
@@ -12135,13 +12282,13 @@
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://otter.ai/pricing",
         "sourceKind": "pricing",
-        "scope": "product",
-        "checkedAt": "2026-09-24",
-        "quote": "Basic · Free forever · 300 monthly transcription minutes · Meeting & recording transcription monthly limit (no rollover): 300 minutes per user · Max transcription time per conversation: 30 minutes"
+        "quote": "Basic · For those who want to give it a try · Free · […] 3 lifetime audio/video file imports · Live transcription · […] 300 monthly transcription minutes"
       },
       {
         "field": "freePlan.creditReset",
@@ -14964,14 +15111,28 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "daily",
-      "verifiedAt": "2026-09-24",
+      "verifiedAt": "2026-10-11",
       "summary": "Plan gratuito: tres transcripciones al día, cada archivo de hasta 30 minutos, de uno en uno y con menor prioridad. Se entra con una dirección de correo.",
       "limits": [
         "3 transcripciones al día",
         "Cada archivo, hasta 30 minutos; uno cada vez",
         "Menor prioridad: se espera más"
       ],
-      "creditsAmount": "3 transcripciones al día"
+      "creditsAmount": "3 transcripciones al día",
+      "includedCapabilities": [
+        {
+          "capability": "transcription",
+          "condition": "3 archivos al día, de hasta 30 minutos",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://turboscribe.ai/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · 100% Free · 3 Transcripts Daily · Transcribe 3 files for free every day. · 30 Minute Uploads · Each file can be up to 30 minutes long. Upload 1 file at a time."
+          }
+        }
+      ]
     },
     "capabilities": [
       "transcription"
@@ -15008,7 +15169,7 @@
         "sourceUrl": "https://turboscribe.ai/pricing",
         "sourceKind": "pricing",
         "scope": "product",
-        "checkedAt": "2026-09-24",
+        "checkedAt": "2026-10-11",
         "quote": "TurboScribe Free · 100% Free · 3 Transcripts Daily · Transcribe 3 files for free every day. · 30 Minute Uploads · Each file can be up to 30 minutes long. Upload 1 file at a time. · Lower Priority · Wait longer before your files are transcribed."
       },
       {
@@ -15057,8 +15218,8 @@
     "id": "tool_v0-by-vercel",
     "slug": "v0-by-vercel",
     "name": "v0 by Vercel",
-    "tagline": "Cinco dólares en créditos al mes y siete mensajes al día.",
-    "descriptionShort": "Genera interfaces y aplicaciones web desde una descripción, con vista previa y despliegue en Vercel. Su plan gratuito incluye cinco dólares mensuales en créditos y un límite de siete mensajes al día.",
+    "tagline": "Cinco dólares en créditos una sola vez al darte de alta, y siete mensajes al día.",
+    "descriptionShort": "Genera interfaces y aplicaciones web desde una descripción, con vista previa y despliegue en Vercel. Las cuentas nuevas reciben cinco dólares en créditos una sola vez, que no se renuevan, y un límite de siete mensajes al día.",
     "descriptionLong": "v0 by Vercel es un generador de UI que convierte descripciones de texto en componentes React completos con Tailwind CSS y shadcn/ui. Generas código limpio, responsive y listo para copiar y pegar en tu proyecto Next.js. Ideal para desarrolladores frontend que quieren prototipar rápido o generar componentes complejos sin escribirlos manualmente. El plan gratuito permite varias generaciones al día.",
     "kind": "agent",
     "verification": "verified",
@@ -15074,11 +15235,11 @@
       "Aprendizaje de patrones de diseño con Tailwind",
       "Creación de landing pages y dashboards"
     ],
-    "freeModel": "freemium",
+    "freeModel": "credits",
     "freePlan": {
-      "summary": "Plan gratuito con cinco dólares en créditos mensuales incluidos y un límite de siete mensajes al día. El plan de pago más barato es Plus, 30 $ al mes por usuario.",
+      "summary": "Plan gratuito con cinco dólares en créditos una sola vez para las cuentas nuevas —las cuentas gratuitas anteriores conservan sus cinco dólares al mes— y un límite de siete mensajes al día. El plan de pago más barato es Plus, 30 $ al mes por usuario.",
       "limits": [
-        "5 $ en créditos incluidos al mes",
+        "Cuentas nuevas: 5 $ en créditos una sola vez, que no se renuevan; las cuentas gratuitas anteriores conservan sus 5 $ al mes",
         "7 mensajes al día",
         "Plan de pago más barato: Plus, 30 $/mes por usuario"
       ],
@@ -15086,9 +15247,23 @@
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
-      "creditsAmount": "5 $/mes en créditos · 7 mensajes/día",
-      "creditReset": "monthly",
-      "verifiedAt": "2026-08-24"
+      "creditsAmount": "5 $ una sola vez (cuentas nuevas) · 7 mensajes/día",
+      "creditReset": "one_off",
+      "verifiedAt": "2026-10-11",
+      "includedCapabilities": [
+        {
+          "capability": "code-generation",
+          "condition": "5 $ en créditos una sola vez y 7 mensajes al día",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-11",
+            "scope": "product",
+            "sourceUrl": "https://v0.app/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · $0 /month · Includes · $5 in one-time credits for new users · Deploy apps to Vercel · Edit visually with Design Mode · Sync with GitHub · 7 message/day limit"
+          }
+        }
+      ]
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -15110,7 +15285,7 @@
         "label": "Precios oficiales",
         "kind": "pricing",
         "publisher": "v0.app",
-        "checkedAt": "2026-08-21"
+        "checkedAt": "2026-10-11"
       },
       {
         "url": "https://v0.app/docs/pricing",
@@ -15127,7 +15302,7 @@
       "transparency": 5,
       "creatorValue": 7
     },
-    "verdict": "Los dos límites conviven y el que primero te frena es el diario: siete mensajes se gastan en una tarde de pruebas aunque queden créditos.",
+    "verdict": "El límite diario frena antes que los créditos: siete mensajes se gastan en una tarde de pruebas. Y a las cuentas nuevas los cinco dólares se les dan una sola vez; ya no vuelven cada mes.",
     "pros": [],
     "cons": [
       "Generaciones diarias limitadas en plan gratuito",
@@ -15167,13 +15342,13 @@
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-11",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://v0.app/docs/pricing",
         "sourceKind": "docs",
-        "scope": "product",
-        "checkedAt": "2026-08-24",
-        "quote": "Free plan: $5 monthly credits · Daily Message Limit: 7 messages. Each plan includes a monthly credit allowance."
+        "quote": "New users who sign up under the one-time Free credit offer receive $5 once per user in each personal or team account. Existing Free users keep their $5 monthly allowance. […] A one-time allowance does not renew. · Daily Message Limit: Free 7 messages"
       },
       {
         "field": "freePlan.creditReset",
