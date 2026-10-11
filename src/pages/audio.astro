@@ -103,7 +103,7 @@ const declarados = [
     lede: 'Modelos que se ejecutan en tu máquina, sin cuotas ni cuenta. Aquí la licencia de los pesos manda sobre la del código, y no siempre coinciden.',
     motivo: (tool: Tool) => `Se ejecuta en tu equipo; licencia ${tool.licence ?? 'sin comprobar'}.`,
   },
-].filter((b) => b.lista.length >= ('minimo' in b ? b.minimo : MIN_BLOQUE));
+].filter((b) => b.lista.length >= (b.minimo ?? MIN_BLOQUE));
 
 const bloques = repartirBloques(declarados);
 

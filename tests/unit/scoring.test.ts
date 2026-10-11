@@ -28,6 +28,7 @@ const cleanPlan = {
   creditReset: 'none',
   excludedCapabilities: [],
   includedCapabilities: [],
+  provenanceSignals: [],
 } as const;
 
 describe('pesos de la puntuación', () => {
@@ -245,6 +246,7 @@ describe('deriveTags', () => {
         creditReset: 'none',
         excludedCapabilities: [],
         includedCapabilities: [],
+        provenanceSignals: [],
         verifiedAt: '2026-07-01',
       },
     });

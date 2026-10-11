@@ -392,6 +392,7 @@ describe('un regalo de bienvenida no es una cuota', () => {
         creditReset: 'one_off',
         excludedCapabilities: [],
         includedCapabilities: [],
+        provenanceSignals: [],
         verifiedAt: '2026-08-24',
       },
     });
@@ -475,6 +476,7 @@ describe('lo desconocido no entra en un filtro positivo', () => {
         creditReset: 'none',
         excludedCapabilities: [],
         includedCapabilities: [],
+        provenanceSignals: [],
         verifiedAt: '2026-08-24',
       },
       evidence: [
@@ -522,6 +524,7 @@ describe('la marca de agua sólo cuenta donde tiene sentido', () => {
         creditReset: 'none',
         excludedCapabilities: [],
         includedCapabilities: [],
+        provenanceSignals: [],
         verifiedAt: '2026-08-24',
       },
     });
@@ -540,6 +543,7 @@ describe('la ficha cuenta los dos huecos por separado', () => {
     creditReset: 'none' as const,
     excludedCapabilities: [],
     includedCapabilities: [],
+    provenanceSignals: [],
     verifiedAt: '2026-08-24',
   };
 
@@ -808,6 +812,7 @@ describe('el sustituto de un filtro testimonial', () => {
         creditReset: 'none',
         excludedCapabilities: [],
         includedCapabilities: [],
+        provenanceSignals: [],
         verifiedAt: '2026-08-24',
       },
       evidence: [
@@ -881,6 +886,7 @@ describe('un filtro sobre un hecho con alcance dice qué promete', () => {
         creditReset: 'none',
         excludedCapabilities: [],
         includedCapabilities: [],
+        provenanceSignals: [],
         verifiedAt: '2026-09-21',
       },
       evidence: [
@@ -955,6 +961,7 @@ describe('lo que el producto hace y lo que te deja hacer gratis', () => {
         creditReset: 'none',
         excludedCapabilities: ['text-to-image'],
         includedCapabilities: [],
+        provenanceSignals: [],
         verifiedAt: '2026-08-26',
       },
     });
@@ -1106,6 +1113,7 @@ describe('una cadencia publicada no puede leerse como una cadencia oculta', () =
           creditReset: cadencia,
           excludedCapabilities: [],
           includedCapabilities: [],
+          provenanceSignals: [],
           verifiedAt: '2026-08-26',
         },
       });

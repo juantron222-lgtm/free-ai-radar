@@ -24,6 +24,7 @@ import {
   getFreeModel,
 } from '@lib/domain/taxonomy';
 import { OPENNESS_LABEL, TRI_STATE_LABEL } from '@lib/domain/primitives';
+import { PROVENANCE_LABEL } from '@lib/domain/tool';
 import { etiquetaDeHecho } from '@lib/domain/evidencia';
 import { ROUTES, categoryLabel, ubicacionDe } from '@lib/nav';
 import { selloDe, verificacionDe } from '@lib/domain/verification';
@@ -61,6 +62,14 @@ const facts = [
   { label: '¿Pide tarjeta?', value: etiquetaDeHecho(tool, 'freePlan.requiresCreditCard', tool.freePlan.requiresCreditCard), good: tool.freePlan.requiresCreditCard === 'no' },
   { label: '¿Hay que registrarse?', value: etiquetaDeHecho(tool, 'freePlan.requiresSignup', tool.freePlan.requiresSignup), good: tool.freePlan.requiresSignup === 'no' },
   { label: '¿Marca de agua?', value: etiquetaDeHecho(tool, 'freePlan.hasWatermark', tool.freePlan.hasWatermark), good: tool.freePlan.hasWatermark === 'no' },
+  /*
+   * Las marcas que no se ven, aparte. Un «Sí» en la fila de arriba por llevar
+   * SynthID dejaría pensar que hay un logotipo encima; meterlas en un «No»
+   * escondería que el archivo lleva una firma que un programa reconoce.
+   */
+  ...(tool.freePlan.provenanceSignals.length > 0
+    ? [{ label: 'Marcas técnicas de procedencia', value: tool.freePlan.provenanceSignals.map((p) => PROVENANCE_LABEL[p.signal]).join(' · '), good: false }]
+    : []),
   { label: '¿Uso comercial?', value: etiquetaDeHecho(tool, 'freePlan.commercialUse', tool.freePlan.commercialUse), good: tool.freePlan.commercialUse === 'yes' },
   { label: '¿Código abierto?', value: OPENNESS_LABEL[tool.openSource], good: tool.openSource === 'yes' },
   { label: 'Dónde se ejecuta', value: HOSTING_LABEL[tool.hosting], good: tool.hosting !== 'cloud' },

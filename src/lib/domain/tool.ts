@@ -56,6 +56,7 @@ export const FreePlan = z.object({
   limits: z.array(z.string()).default([]),
   requiresSignup: TriState.default('unverified'),
   requiresCreditCard: TriState.default('unverified'),
+  /** Marca que se ve o se oye en el resultado. Las técnicas (SynthID, C2PA) van en `provenanceSignals`. */
   hasWatermark: TriState.default('unverified'),
   commercialUse: TriState.default('unverified'),
   creditsAmount: z.string().optional(),
@@ -95,6 +96,11 @@ export const FreePlan = z.object({
    * («con marca de agua que no se puede quitar»), y sale de la misma cita.
    */
   includedCapabilities: z.lazy(() => z.array(IncludedCapability)).default([]),
+  /**
+   * Marcas que no se ven ni se oyen (SynthID, C2PA…). `hasWatermark` habla
+   * sólo de las que sí; ver `ProvenanceSignal`.
+   */
+  provenanceSignals: z.lazy(() => z.array(ProvenanceSignal)).default([]),
   /** Date the free plan itself was last confirmed against the vendor's page. */
   verifiedAt: IsoDate,
 });
@@ -263,6 +269,30 @@ export const IncludedCapability = z.object({
   evidence: StatedEvidence.omit({ field: true }),
 });
 export type IncludedCapability = z.infer<typeof IncludedCapability>;
+
+/**
+ * Marcas técnicas de procedencia: las que no se ven ni se oyen.
+ *
+ * `hasWatermark` responde a lo que importa al usar el resultado: si lleva un
+ * logotipo o una marca que se ve o se oye. SynthID, las credenciales C2PA o
+ * la marca inaudible de un audio son otra cosa —información que lee un
+ * programa— y meterlas en el mismo «sí» haría que un generador sin logotipo
+ * pareciera marcar sus imágenes (decisión de Juan, 11 de octubre de 2026).
+ * Se registran aquí, cada una con su cita, y la ficha las enseña aparte.
+ */
+export const PROVENANCE_SIGNALS = ['synthid', 'c2pa', 'audio-watermark', 'text-watermark'] as const;
+export type ProvenanceSignalKind = (typeof PROVENANCE_SIGNALS)[number];
+export const PROVENANCE_LABEL: Record<ProvenanceSignalKind, string> = {
+  synthid: 'SynthID, marca invisible en la imagen o el vídeo',
+  c2pa: 'Credenciales de contenido (C2PA) en los metadatos',
+  'audio-watermark': 'Marca inaudible en el audio',
+  'text-watermark': 'Marca invisible en el texto',
+};
+export const ProvenanceSignal = z.object({
+  signal: z.enum(PROVENANCE_SIGNALS),
+  evidence: StatedEvidence.omit({ field: true }),
+});
+export type ProvenanceSignal = z.infer<typeof ProvenanceSignal>;
 
 export const ToolChange = z.object({
   date: IsoDate,

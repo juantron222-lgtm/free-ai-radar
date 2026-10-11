@@ -77,6 +77,44 @@ describe('lo incluido gratis también se cita, y no se deduce de lo excluido', (
   });
 });
 
+describe('las marcas que no se ven van aparte de la marca de agua', () => {
+  /*
+   * Juan, 11 de octubre de 2026: SynthID y las credenciales C2PA son
+   * información de procedencia, no un logotipo sobre el resultado. Se
+   * registran en `provenanceSignals` y `hasWatermark` habla sólo de lo que se
+   * ve o se oye.
+   */
+  const invisible = /SynthID|C2PA|Content Credentials|inaudible|invisible/i;
+
+  it('ningún «sí» de marca de agua se apoya en una marca invisible', () => {
+    for (const tool of tools) {
+      if (tool.freePlan.hasWatermark !== 'yes') continue;
+      const ev = tool.evidence.find((e) => e.field === 'freePlan.hasWatermark');
+      if (ev?.outcome !== 'stated') continue;
+      expect(ev.quote, tool.slug).not.toMatch(invisible);
+    }
+  });
+
+  it('cada marca técnica trae su frase, de una fuente oficial', () => {
+    const con = tools.filter((t) => t.freePlan.provenanceSignals.length > 0);
+    expect(con.length).toBeGreaterThan(0);
+    for (const tool of con) {
+      const vistas = tool.freePlan.provenanceSignals.map((p) => p.signal);
+      expect(new Set(vistas).size, `${tool.slug} repite una señal`).toBe(vistas.length);
+      for (const p of tool.freePlan.provenanceSignals) {
+        expect(p.evidence.outcome, `${tool.slug} · ${p.signal}`).toBe('stated');
+        expect(['pricing', 'docs', 'help', 'terms', 'official'], tool.slug).toContain(p.evidence.sourceKind);
+      }
+    }
+  });
+
+  it('Gemini: la marca visible se puede quitar; SynthID no', () => {
+    const t = ficha('google-gemini');
+    expect(t.freePlan.hasWatermark).toBe('no');
+    expect(t.freePlan.provenanceSignals.map((p) => p.signal)).toEqual(expect.arrayContaining(['synthid', 'c2pa']));
+  });
+});
+
 describe('lo que se comprobó el 11 de octubre de 2026', () => {
   it('ElevenLabs: la clonación de voz es de pago; el doblaje, no', () => {
     /*
