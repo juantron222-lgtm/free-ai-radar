@@ -725,11 +725,11 @@
     "descriptionShort": "Plataforma de voz en tiempo real con texto a voz (Sonic), transcripción (Ink) y clonación instantánea o profesional. Su plan gratuito da 20.000 créditos al mes, que su propia tabla equipara a unos 27 minutos de audio; clonar voz y el uso comercial empiezan en Pro.",
     "verdict": "De las pocas que publican a cuántos minutos equivalen sus créditos, que es justo lo que hace falta para saber si alcanzan. Orientada a agentes de voz y a integrarse por API.",
     "freePlan": {
-      "summary": "Plan gratuito con 20.000 créditos al mes, que la tabla oficial equipara a unos 27 minutos de audio generado. Incluye texto a voz y transcripción, un espacio de agente con ocho llamadas simultáneas. Clonar voz y el uso comercial empiezan en Pro, el plan de pago más barato: 5 $/mes con 100.000 créditos.",
+      "summary": "Plan gratuito con 20.000 créditos al mes, que la tabla oficial equipara a unos 27 minutos de audio generado. Incluye texto a voz y transcripción, 1 $ al mes en agentes prepagados y ocho llamadas simultáneas. Clonar voz y el uso comercial empiezan en Pro, el plan de pago más barato: 5 $/mes con 100.000 créditos.",
       "limits": [
         "20.000 créditos al mes (≈27 minutos según su tabla)",
         "Clonar voz y la licencia comercial empiezan en Pro",
-        "1 espacio de agente, 8 llamadas simultáneas",
+        "1 $ al mes en agentes prepagados; 8 llamadas y 2 peticiones simultáneas",
         "Plan de pago más barato: Pro, 5 $/mes (100.000 créditos, ≈133 minutos)"
       ],
       "requiresSignup": "yes",
@@ -738,7 +738,7 @@
       "commercialUse": "no",
       "creditsAmount": "20.000 créditos/mes (≈27 min)",
       "creditReset": "monthly",
-      "verifiedAt": "2026-10-11",
+      "verifiedAt": "2026-10-12",
       "excludedCapabilities": [
         "voice-clone"
       ],
@@ -809,13 +809,13 @@
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-12",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://cartesia.ai/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-08-18",
-        "quote": "Free — 20K credits / month · Text to Speech and Speech to Text · approximately 27 minutes of generated audio monthly · 1 agent slot with 8 concurrent calls",
-        "scope": "cloud"
+        "quote": "Free · $0 /mo · 20K credits / month · $1 prepaid agents / month · Text to Speech · Speech to Text · […] [Tabla: Free · Pro · Startup · Scale · Enterprise] Minutes included monthly: ~27 · ~133 · ~1,667 · ~10,667 · Custom · Concurrent requests: 2 · 3 · 5 · 15 · Custom · Concurrent calls: 8 · 12 · 20 · 60 · Custom"
       },
       {
         "field": "capabilities",
@@ -11706,7 +11706,7 @@
       "summary": "Plan gratuito activo con hasta diez imágenes cada tres horas y tres generaciones mensuales en los modelos premium. La licencia comercial se concede también en el plan gratuito.",
       "limits": [
         "Hasta 10 imágenes cada 3 horas",
-        "3 generaciones al mes en los modelos Nano Banana, GPT Image 2 y Seedream",
+        "3 generaciones al mes entre Muse Image, Nano Banana, GPT Image 2, GPT Image 2.5 y Seedream",
         "Uso comercial: licencia mundial y libre de derechos",
         "Generación más lenta en horas punta y espera al agotar el límite"
       ],
@@ -11737,13 +11737,13 @@
         "scope": "cloud"
       },
       {
+        "checkedAt": "2026-10-12",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://playgroundai.com/design/pricing",
-        "sourceKind": "official",
-        "scope": "product",
-        "checkedAt": "2026-08-26",
-        "quote": "Free — Limited image generation: Create up to 10 images every 3 hours · Limited model access: 3 monthly generations across Nano Banana, GPT Image 2, and Seedream · Commercial use: World-wide, royalty free license · Limitations: Slower generation during peak hours. Waiting period after limits are reached."
+        "sourceKind": "pricing",
+        "quote": "Free · Create up to 10 images every 3 hours · 3 monthly generations across Muse Image, Nano Banana, GPT Image 2, GPT Image 2.5, and Seedream"
       },
       {
         "field": "freePlan.commercialUse",
