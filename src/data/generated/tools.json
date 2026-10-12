@@ -11573,7 +11573,7 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-15"
+      "verifiedAt": "2026-10-12"
     },
     "capabilities": [
       "text-to-video",
@@ -11597,17 +11597,24 @@
         "kind": "pricing",
         "publisher": "lumalabs.ai",
         "checkedAt": "2026-08-15"
+      },
+      {
+        "url": "https://lumalabs.ai/pricing",
+        "label": "Página oficial de precios",
+        "kind": "pricing",
+        "publisher": "lumalabs.ai",
+        "checkedAt": "2026-10-12"
       }
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-12",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
-        "sourceUrl": "https://lumalabs.ai/",
-        "sourceKind": "official",
-        "checkedAt": "2026-08-15",
-        "quote": "Plans & Pricing — Individual plans: Plus $30/month · 10,000 credits · Luma and third-party image and video models · Commercial use. [Ningún plan gratuito en la tabla.]",
-        "scope": "cloud"
+        "sourceUrl": "https://lumalabs.ai/pricing",
+        "sourceKind": "pricing",
+        "quote": "Plans & Pricing · Individual plans · Plus · $30/month · Start Now · 10,000 credits · Luma and third-party image and video models · Edit access for guest collaborators · Commercial use [Ningún plan gratuito ni prueba en la página]"
       },
       {
         "field": "capabilities",
@@ -14197,7 +14204,7 @@
       "hasWatermark": "no",
       "commercialUse": "no",
       "creditReset": "none",
-      "verifiedAt": "2026-09-21"
+      "verifiedAt": "2026-10-12"
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -14289,7 +14296,7 @@
         "sourceUrl": "https://pika.art/pricing",
         "sourceKind": "pricing",
         "scope": "product",
-        "checkedAt": "2026-09-21",
+        "checkedAt": "2026-10-12",
         "quote": "Free 0 credits / month · packs only — Included: All models · Included: 2 video · 2 image + audio in parallel · Included: No watermark · Not included: Commercial license · Not included: Priority queue · Not included: Early access to new models"
       },
       {
