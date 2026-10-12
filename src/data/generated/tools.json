@@ -207,7 +207,21 @@
       "hasWatermark": "no",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-19"
+      "verifiedAt": "2026-08-19",
+      "includedCapabilities": [
+        {
+          "capability": "repository-editing",
+          "condition": "en tu equipo; necesita un modelo, de pago por API o local",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/Aider-AI/aider",
+            "sourceKind": "repo",
+            "quote": "Aider lets you pair program with LLMs to start a new project or build on your existing codebase."
+          }
+        }
+      ]
     },
     "capabilities": [
       "repository-editing",
@@ -450,7 +464,21 @@
       "hasWatermark": "unverified",
       "commercialUse": "no",
       "creditReset": "none",
-      "verifiedAt": "2026-08-18"
+      "verifiedAt": "2026-08-18",
+      "includedCapabilities": [
+        {
+          "capability": "text-to-music",
+          "condition": "pesos descargables, en tu equipo; pesos sólo para uso no comercial",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/facebookresearch/audiocraft",
+            "sourceKind": "repo",
+            "quote": "MusicGen: A state-of-the-art controllable text-to-music model."
+          }
+        }
+      ]
     },
     "capabilities": [
       "text-to-music",
@@ -502,6 +530,16 @@
         "scope": "local",
         "checkedAt": "2026-09-16",
         "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice. Menciona AudioSeal, un modelo aparte para marcar audio, pero no que lo generado lo lleve."
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "weights",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+        "sourceKind": "licence",
+        "quote": "NonCommercial — You may not use the material for commercial purposes.",
+        "basis": "Su README oficial: «The models weights in this repository are released under the CC-BY-NC 4.0 license»."
       }
     ],
     "nextReviewAt": "2026-11-16",
@@ -2643,7 +2681,21 @@
       "hasWatermark": "no",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-19"
+      "verifiedAt": "2026-08-19",
+      "includedCapabilities": [
+        {
+          "capability": "repository-editing",
+          "condition": "en tu equipo; necesita un modelo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/cline/cline",
+            "sourceKind": "repo",
+            "quote": "The open source coding agent in your IDE, terminal, & desktop."
+          }
+        }
+      ]
     },
     "capabilities": [
       "repository-editing",
@@ -3188,7 +3240,21 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-09-16"
+      "verifiedAt": "2026-09-16",
+      "includedCapabilities": [
+        {
+          "capability": "text-to-image",
+          "condition": "en tu equipo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/Comfy-Org/ComfyUI",
+            "sourceKind": "repo",
+            "quote": "Its powerful and modular node graph interface empowers creatives to generate images, videos, 3D models, audio, and more"
+          }
+        }
+      ]
     },
     "openSource": "yes",
     "hosting": "local",
@@ -3369,9 +3435,35 @@
       "requiresSignup": "no",
       "requiresCreditCard": "no",
       "hasWatermark": "no",
-      "commercialUse": "unverified",
+      "commercialUse": "yes",
       "creditReset": "none",
-      "verifiedAt": "2026-08-19"
+      "verifiedAt": "2026-08-19",
+      "includedCapabilities": [
+        {
+          "capability": "multi-agent",
+          "condition": "biblioteca de código abierto; necesita un modelo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/crewAIInc/crewAI",
+            "sourceKind": "repo",
+            "quote": "CrewAI Crews: Optimize for autonomy and collaborative intelligence with role-based AI agents. · CrewAI Flows: Build event-driven automations"
+          }
+        },
+        {
+          "capability": "workflow-automation",
+          "condition": "biblioteca de código abierto; necesita un modelo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/crewAIInc/crewAI",
+            "sourceKind": "repo",
+            "quote": "CrewAI Crews: Optimize for autonomy and collaborative intelligence with role-based AI agents. · CrewAI Flows: Build event-driven automations"
+          }
+        }
+      ]
     },
     "capabilities": [
       "multi-agent",
@@ -3394,6 +3486,13 @@
         "kind": "repo",
         "publisher": "github.com",
         "checkedAt": "2026-08-19"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/crewAIInc/crewAI/main/LICENSE",
+        "label": "Licencia oficial (MIT)",
+        "kind": "repo",
+        "publisher": "raw.githubusercontent.com",
+        "checkedAt": "2026-10-12"
       }
     ],
     "evidence": [
@@ -3405,6 +3504,15 @@
         "checkedAt": "2026-08-19",
         "quote": "Framework for orchestrating role-playing, autonomous AI agents… empowers agents to work together seamlessly, tackling complex tasks · Crews: role-based teams that handle dynamic task delegation · Flows: precise, event-driven control over complex automations · License: MIT.",
         "scope": "local"
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "local",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://raw.githubusercontent.com/crewAIInc/crewAI/main/LICENSE",
+        "sourceKind": "licence",
+        "quote": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software"
       }
     ],
     "nextReviewAt": "2026-11-17",
@@ -3643,6 +3751,32 @@
         "Contexto de 1M de tokens · salida máxima de 384K",
         "API en hora valle: 0,15 $/M de entrada sin caché · 0,60 $/M de salida",
         "API en hora punta: 0,30 $/M de entrada sin caché · 1,20 $/M de salida"
+      ],
+      "includedCapabilities": [
+        {
+          "capability": "text-generation",
+          "condition": "pesos descargables, en tu equipo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "weights",
+            "sourceUrl": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash",
+            "sourceKind": "repo",
+            "quote": "We introduce DeepSeek-V4.1-Flash, a multimodal Mixture-of-Experts (MoE) model […] The model natively processes images and text, and generates text autoregressively."
+          }
+        },
+        {
+          "capability": "vision",
+          "condition": "pesos descargables, en tu equipo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "weights",
+            "sourceUrl": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash",
+            "sourceKind": "repo",
+            "quote": "We introduce DeepSeek-V4.1-Flash, a multimodal Mixture-of-Experts (MoE) model […] The model natively processes images and text, and generates text autoregressively."
+          }
+        }
       ]
     },
     "access": {
@@ -3992,6 +4126,13 @@
         "label": "Fuente oficial",
         "kind": "pricing",
         "checkedAt": "2026-09-16"
+      },
+      {
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813/blob/main/LICENSE",
+        "label": "Licencia oficial de los pesos (MIT)",
+        "kind": "repo",
+        "publisher": "huggingface.co",
+        "checkedAt": "2026-10-12"
       }
     ],
     "evidence": [
@@ -4022,6 +4163,15 @@
         "quote": "CONTEXT LENGTH 1M · MAX OUTPUT MAXIMUM: 384K · OFF-PEAK $0.15 $0.66 · PEAK $0.3 $1.32 · OFF-PEAK $0.6 $1.98 · PEAK $1.2 $3.96 · In response to user demand, we have decided to continue providing API services for DeepSeek V4 Pro after September 14, 2026, with the billing method remaining unchanged.",
         "basis": "Columna deepseek-v4-pro: la segunda cifra de cada fila de precios. La licencia MIT se cita aparte, en la evidencia de código abierto.",
         "checkedAt": "2026-09-16"
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "weights",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813/blob/main/LICENSE",
+        "sourceKind": "licence",
+        "quote": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software"
       }
     ],
     "slug": "deepseek-v4-pro",
@@ -5361,7 +5511,21 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-09-16"
+      "verifiedAt": "2026-09-16",
+      "includedCapabilities": [
+        {
+          "capability": "text-to-image",
+          "condition": "en tu equipo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/lllyasviel/Fooocus",
+            "sourceKind": "repo",
+            "quote": "Fooocus is an image generating software (based on Gradio). […] The software is offline, open source, and free"
+          }
+        }
+      ]
     },
     "openSource": "yes",
     "hosting": "local",
@@ -5933,6 +6097,20 @@
         "E2B (2.300M efectivos) y E4B (4.500M): contexto de 128k",
         "12B, 26B A4B y 31B: contexto de 256k",
         "Audio de entrada sólo en E2B, E4B y 12B"
+      ],
+      "includedCapabilities": [
+        {
+          "capability": "text-generation",
+          "condition": "pesos descargables, en tu equipo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "weights",
+            "sourceUrl": "https://ai.google.dev/gemma/docs/core/model_card_4",
+            "sourceKind": "repo",
+            "quote": "Gemma 4 is well-suited for tasks like text generation, coding, and reasoning."
+          }
+        }
       ]
     },
     "openSource": "yes",
@@ -6457,6 +6635,13 @@
         "kind": "repo",
         "publisher": "huggingface.co",
         "checkedAt": "2026-08-20"
+      },
+      {
+        "url": "https://huggingface.co/zai-org/GLM-5.2/blob/main/LICENSE",
+        "label": "Licencia oficial de los pesos (MIT)",
+        "kind": "repo",
+        "publisher": "huggingface.co",
+        "checkedAt": "2026-10-12"
       }
     ],
     "evidence": [
@@ -6477,6 +6662,15 @@
         "checkedAt": "2026-08-20",
         "quote": "Solid 1M-token context that stably sustains long-horizon work · Advanced Coding with Flexible Effort · agentic tasks (MCP-Atlas: 76.8, Tool-Decathlon: 48.2)",
         "scope": "local"
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "weights",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/zai-org/GLM-5.2/blob/main/LICENSE",
+        "sourceKind": "licence",
+        "quote": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software"
       }
     ],
     "slug": "glm-5",
@@ -7281,6 +7475,32 @@
         "gpt-oss-20b: 21.000 millones de parámetros, 3.600 activos; funciona con 16 GB",
         "gpt-oss-120b: 117.000 millones, 5.100 activos; una GPU de 80 GB",
         "Esfuerzo de razonamiento configurable: bajo, medio o alto"
+      ],
+      "includedCapabilities": [
+        {
+          "capability": "text-generation",
+          "condition": "pesos descargables, en tu equipo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "weights",
+            "sourceUrl": "https://huggingface.co/openai/gpt-oss-120b",
+            "sourceKind": "repo",
+            "quote": "Welcome to the gpt-oss series, OpenAI’s open-weight models designed for powerful reasoning, agentic tasks, and versatile developer use cases."
+          }
+        },
+        {
+          "capability": "reasoning",
+          "condition": "pesos descargables, en tu equipo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "weights",
+            "sourceUrl": "https://huggingface.co/openai/gpt-oss-120b",
+            "sourceKind": "repo",
+            "quote": "Welcome to the gpt-oss series, OpenAI’s open-weight models designed for powerful reasoning, agentic tasks, and versatile developer use cases."
+          }
+        }
       ]
     },
     "capabilities": [
@@ -7417,7 +7637,21 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-20"
+      "verifiedAt": "2026-08-20",
+      "includedCapabilities": [
+        {
+          "capability": "research",
+          "condition": "código abierto; necesita un modelo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/assafelovic/gpt-researcher",
+            "sourceKind": "repo",
+            "quote": "GPT Researcher the first open deep research agent designed for both web and local research on any given task."
+          }
+        }
+      ]
     },
     "capabilities": [
       "research",
@@ -8736,7 +8970,7 @@
       "requiresSignup": "no",
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
-      "commercialUse": "unverified",
+      "commercialUse": "yes",
       "creditReset": "none",
       "verifiedAt": "2026-08-12"
     },
@@ -8775,6 +9009,15 @@
         "scope": "local",
         "checkedAt": "2026-09-16",
         "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice."
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "local",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://github.com/invoke-ai/InvokeAI",
+        "sourceKind": "repo",
+        "quote": "Free to use under a commercially-friendly license"
       }
     ],
     "descriptionLong": "",
@@ -9135,6 +9378,32 @@
         "La inferencia se factura aparte",
         "«Auto Free» dirige a modelos gratuitos donde los hay",
         "También con modelos locales o con tus claves"
+      ],
+      "includedCapabilities": [
+        {
+          "capability": "code-generation",
+          "condition": "pagas al proveedor del modelo, sin recargo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/Kilo-Org/kilocode",
+            "sourceKind": "repo",
+            "quote": "The open source coding agent for building with AI in VS Code, JetBrains, or the CLI."
+          }
+        },
+        {
+          "capability": "repository-editing",
+          "condition": "pagas al proveedor del modelo, sin recargo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/Kilo-Org/kilocode",
+            "sourceKind": "repo",
+            "quote": "The open source coding agent for building with AI in VS Code, JetBrains, or the CLI."
+          }
+        }
       ]
     },
     "capabilities": [
@@ -9551,7 +9820,21 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-24"
+      "verifiedAt": "2026-08-24",
+      "includedCapabilities": [
+        {
+          "capability": "text-to-speech",
+          "condition": "pesos descargables, en tu equipo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/hexgrad/kokoro",
+            "sourceKind": "repo",
+            "quote": "Kokoro is an open-weight TTS model with 82 million parameters."
+          }
+        }
+      ]
     },
     "capabilities": [
       "text-to-speech",
@@ -9929,6 +10212,20 @@
         "Licencia MIT",
         "Se instala en tu equipo o servidor",
         "Necesita un modelo: de pago por API o local"
+      ],
+      "includedCapabilities": [
+        {
+          "capability": "workflow-automation",
+          "condition": "autoalojado; necesita un modelo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/langflow-ai/langflow",
+            "sourceKind": "repo",
+            "quote": "Langflow is a powerful platform for building and deploying AI-powered agents and workflows."
+          }
+        }
       ]
     },
     "capabilities": [
@@ -10054,7 +10351,7 @@
       "requiresSignup": "no",
       "requiresCreditCard": "no",
       "hasWatermark": "no",
-      "commercialUse": "unverified",
+      "commercialUse": "yes",
       "creditReset": "none",
       "verifiedAt": "2026-08-19"
     },
@@ -10084,6 +10381,13 @@
         "kind": "docs",
         "publisher": "docs.langchain.com",
         "checkedAt": "2026-08-19"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/langchain-ai/langgraph/main/LICENSE",
+        "label": "Licencia oficial (MIT)",
+        "kind": "repo",
+        "publisher": "raw.githubusercontent.com",
+        "checkedAt": "2026-10-12"
       }
     ],
     "evidence": [
@@ -10095,6 +10399,15 @@
         "checkedAt": "2026-08-19",
         "quote": "Create stateful agents with both short-term working memory for ongoing reasoning and long-term memory across sessions · Incorporate human oversight by inspecting and modifying agent state at any point · Build agents that persist through failures and can run for extended periods, resuming from where they left off.",
         "scope": "local"
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "local",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://raw.githubusercontent.com/langchain-ai/langgraph/main/LICENSE",
+        "sourceKind": "licence",
+        "quote": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software"
       }
     ],
     "auditNotes": "Sólo `memory`. La documentación se describe como orquestación y no documenta expresamente ni llamada a herramientas ni sistemas multiagente en su página general; marcarlos sería suponer.",
@@ -10410,6 +10723,20 @@
         "Licencia Apache 2.0",
         "Se instala en tu equipo o servidor",
         "Necesita un modelo: de pago por API o local"
+      ],
+      "includedCapabilities": [
+        {
+          "capability": "memory",
+          "condition": "código abierto; necesita un modelo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/letta-ai/letta",
+            "sourceKind": "repo",
+            "quote": "Build stateful agents with memory that can learn and improve over time."
+          }
+        }
       ]
     },
     "capabilities": [
@@ -10567,6 +10894,15 @@
         "checkedAt": "2026-08-20",
         "quote": "Context Length: 10 million tokens · Input: Multilingual text and images · Output: Multilingual text and code · Active 17B / Total 109B",
         "scope": "local"
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "weights",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct",
+        "sourceKind": "licence",
+        "quote": "2. Additional Commercial Terms. If, on the Llama 4 version release date, the monthly active users of the products or services made available by or for Licensee, or Licensee’s affiliates, is greater than 700 million monthly active users in the preceding calendar month, you must request a license from Meta"
       }
     ],
     "auditNotes": "La ficha del modelo no se actualiza desde mayo de 2025, quince meses antes de esta comprobación. Es el dato que más envejece de esta vertical y por eso está escrito aquí.",
@@ -10774,9 +11110,35 @@
       "requiresSignup": "no",
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
-      "commercialUse": "unverified",
+      "commercialUse": "yes",
       "creditReset": "none",
-      "verifiedAt": "2026-08-20"
+      "verifiedAt": "2026-08-20",
+      "includedCapabilities": [
+        {
+          "capability": "research",
+          "condition": "en tu equipo, con un modelo local",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/langchain-ai/local-deep-researcher",
+            "sourceKind": "repo",
+            "quote": "Local Deep Researcher is a fully local web research assistant that uses any LLM hosted by Ollama or LMStudio."
+          }
+        },
+        {
+          "capability": "web-browsing",
+          "condition": "en tu equipo, con un modelo local",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/langchain-ai/local-deep-researcher",
+            "sourceKind": "repo",
+            "quote": "Local Deep Researcher is a fully local web research assistant that uses any LLM hosted by Ollama or LMStudio."
+          }
+        }
+      ]
     },
     "capabilities": [
       "research",
@@ -10798,6 +11160,13 @@
         "kind": "repo",
         "publisher": "github.com",
         "checkedAt": "2026-08-20"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/langchain-ai/local-deep-researcher/main/LICENSE",
+        "label": "Licencia oficial (MIT)",
+        "kind": "repo",
+        "publisher": "raw.githubusercontent.com",
+        "checkedAt": "2026-10-12"
       }
     ],
     "evidence": [
@@ -10818,6 +11187,15 @@
         "checkedAt": "2026-08-20",
         "quote": "MIT License. Copyright (c) 2025 Lance Martin",
         "scope": "local"
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "local",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://raw.githubusercontent.com/langchain-ai/local-deep-researcher/main/LICENSE",
+        "sourceKind": "licence",
+        "quote": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software"
       }
     ],
     "nextReviewAt": "2026-11-18",
@@ -11458,9 +11836,35 @@
       "requiresSignup": "no",
       "requiresCreditCard": "no",
       "hasWatermark": "no",
-      "commercialUse": "unverified",
+      "commercialUse": "yes",
       "creditReset": "none",
-      "verifiedAt": "2026-08-19"
+      "verifiedAt": "2026-08-19",
+      "includedCapabilities": [
+        {
+          "capability": "multi-agent",
+          "condition": "biblioteca de código abierto; necesita un modelo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/microsoft/agent-framework",
+            "sourceKind": "repo",
+            "quote": "Microsoft Agent Framework (MAF) is an open, multi-language framework for building production-grade AI agents and multi-agent workflows in .NET and Python."
+          }
+        },
+        {
+          "capability": "workflow-automation",
+          "condition": "biblioteca de código abierto; necesita un modelo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/microsoft/agent-framework",
+            "sourceKind": "repo",
+            "quote": "Microsoft Agent Framework (MAF) is an open, multi-language framework for building production-grade AI agents and multi-agent workflows in .NET and Python."
+          }
+        }
+      ]
     },
     "capabilities": [
       "multi-agent",
@@ -11490,6 +11894,13 @@
         "kind": "repo",
         "publisher": "github.com",
         "checkedAt": "2026-08-19"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/microsoft/agent-framework/main/LICENSE",
+        "label": "Licencia oficial (MIT)",
+        "kind": "repo",
+        "publisher": "raw.githubusercontent.com",
+        "checkedAt": "2026-10-12"
       }
     ],
     "evidence": [
@@ -11510,6 +11921,15 @@
         "checkedAt": "2026-08-19",
         "quote": "AutoGen is in maintenance mode and will not receive new features. Microsoft Agent Framework (MAF) is the enterprise-ready successor to AutoGen.",
         "scope": "local"
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "local",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://raw.githubusercontent.com/microsoft/agent-framework/main/LICENSE",
+        "sourceKind": "licence",
+        "quote": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software"
       }
     ],
     "nextReviewAt": "2026-11-17",
@@ -11734,6 +12154,32 @@
         "Pesos: Apache 2.0 en los tres tamaños",
         "3B, 8B y 14B de parámetros",
         "Entrada de texto e imagen"
+      ],
+      "includedCapabilities": [
+        {
+          "capability": "text-generation",
+          "condition": "pesos descargables, en tu equipo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "weights",
+            "sourceUrl": "https://huggingface.co/mistralai/Ministral-3-14B-Instruct-2512",
+            "sourceKind": "repo",
+            "quote": "A powerful and efficient language model with vision capabilities."
+          }
+        },
+        {
+          "capability": "vision",
+          "condition": "pesos descargables, en tu equipo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "weights",
+            "sourceUrl": "https://huggingface.co/mistralai/Ministral-3-14B-Instruct-2512",
+            "sourceKind": "repo",
+            "quote": "A powerful and efficient language model with vision capabilities."
+          }
+        }
       ]
     },
     "access": {
@@ -11765,6 +12211,13 @@
         "kind": "docs",
         "publisher": "mistral.ai",
         "checkedAt": "2026-08-20"
+      },
+      {
+        "url": "https://huggingface.co/mistralai/Ministral-3-14B-Instruct-2512",
+        "label": "Ficha oficial del modelo en Hugging Face",
+        "kind": "repo",
+        "publisher": "huggingface.co",
+        "checkedAt": "2026-10-12"
       }
     ],
     "evidence": [
@@ -11776,6 +12229,15 @@
         "checkedAt": "2026-08-20",
         "quote": "Ministral 3 14B (Apache 2.0) — Text and vision · Ministral 3 8B (Apache 2.0) — Text and vision · Ministral 3 3B (Apache 2.0) — Text and vision",
         "scope": "product"
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "weights",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/mistralai/Ministral-3-14B-Instruct-2512",
+        "sourceKind": "repo",
+        "quote": "Apache 2.0 License: Open-source license allowing usage and modification for both commercial and non-commercial purposes."
       }
     ],
     "slug": "ministral",
@@ -11993,6 +12455,32 @@
       "limits": [
         "Pesos: Apache 2.0",
         "Híbrido de instrucción, razonamiento y código"
+      ],
+      "includedCapabilities": [
+        {
+          "capability": "text-generation",
+          "condition": "pesos descargables, en tu equipo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "weights",
+            "sourceUrl": "https://huggingface.co/mistralai/Mistral-Small-4-119B-2603",
+            "sourceKind": "repo",
+            "quote": "Mistral Small 4 is a powerful hybrid model capable of acting as both a general instruction model and a reasoning model."
+          }
+        },
+        {
+          "capability": "reasoning",
+          "condition": "pesos descargables, en tu equipo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "weights",
+            "sourceUrl": "https://huggingface.co/mistralai/Mistral-Small-4-119B-2603",
+            "sourceKind": "repo",
+            "quote": "Mistral Small 4 is a powerful hybrid model capable of acting as both a general instruction model and a reasoning model."
+          }
+        }
       ]
     },
     "access": {
@@ -12024,6 +12512,13 @@
         "kind": "docs",
         "publisher": "mistral.ai",
         "checkedAt": "2026-08-20"
+      },
+      {
+        "url": "https://huggingface.co/mistralai/Mistral-Small-4-119B-2603",
+        "label": "Ficha oficial del modelo en Hugging Face",
+        "kind": "repo",
+        "publisher": "huggingface.co",
+        "checkedAt": "2026-10-12"
       }
     ],
     "evidence": [
@@ -12035,6 +12530,15 @@
         "checkedAt": "2026-08-20",
         "quote": "Mistral Small 4 (Apache 2.0) — Hybrid instruct/reasoning/coding",
         "scope": "product"
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "weights",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/mistralai/Mistral-Small-4-119B-2603",
+        "sourceKind": "repo",
+        "quote": "Apache 2.0 License: Open-source license for both commercial and non-commercial use."
       }
     ],
     "slug": "mistral-small",
@@ -12100,7 +12604,21 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-15"
+      "verifiedAt": "2026-08-15",
+      "includedCapabilities": [
+        {
+          "capability": "text-to-video",
+          "condition": "pesos descargables, en tu equipo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/genmoai/mochi",
+            "sourceKind": "repo",
+            "quote": "Mochi 1 preview is an open state-of-the-art video generation model with high-fidelity motion and strong prompt adherence"
+          }
+        }
+      ]
     },
     "capabilities": [
       "text-to-video",
@@ -12584,7 +13102,7 @@
       "requiresSignup": "no",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
-      "commercialUse": "unverified",
+      "commercialUse": "yes",
       "creditReset": "none",
       "verifiedAt": "2026-09-16"
     },
@@ -12630,6 +13148,13 @@
         "label": "Fuente oficial",
         "kind": "pricing",
         "checkedAt": "2026-09-16"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/ollama/ollama/main/LICENSE",
+        "label": "Licencia oficial (MIT)",
+        "kind": "repo",
+        "publisher": "raw.githubusercontent.com",
+        "checkedAt": "2026-10-12"
       }
     ],
     "scores": {
@@ -12700,6 +13225,15 @@
         "quote": "Running models on your own hardware is always unlimited. · Free accounts include a starter amount of usage for a smaller set of starter models.",
         "basis": "La app con interfaz está en el blog oficial, «Ollama’s new app is now available for macOS and Windows.» (30 de julio de 2025), anotado en el historial de la ficha.",
         "checkedAt": "2026-09-16"
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "local",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://raw.githubusercontent.com/ollama/ollama/main/LICENSE",
+        "sourceKind": "licence",
+        "quote": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software"
       }
     ],
     "startEffortReason": "Instalador propio y una sola orden para descargar un modelo.",
@@ -12764,9 +13298,23 @@
       "requiresSignup": "no",
       "requiresCreditCard": "no",
       "hasWatermark": "no",
-      "commercialUse": "unverified",
+      "commercialUse": "yes",
       "creditReset": "none",
-      "verifiedAt": "2026-08-19"
+      "verifiedAt": "2026-08-19",
+      "includedCapabilities": [
+        {
+          "capability": "multi-agent",
+          "condition": "biblioteca de código abierto; necesita un modelo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/openai/openai-agents-python",
+            "sourceKind": "repo",
+            "quote": "The OpenAI Agents SDK is a lightweight yet powerful framework for building multi-agent workflows."
+          }
+        }
+      ]
     },
     "capabilities": [
       "multi-agent",
@@ -12790,6 +13338,13 @@
         "kind": "repo",
         "publisher": "github.com",
         "checkedAt": "2026-08-19"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/openai/openai-agents-python/main/LICENSE",
+        "label": "Licencia oficial (MIT)",
+        "kind": "repo",
+        "publisher": "raw.githubusercontent.com",
+        "checkedAt": "2026-10-12"
       }
     ],
     "evidence": [
@@ -12801,6 +13356,15 @@
         "checkedAt": "2026-08-19",
         "quote": "The OpenAI Agents SDK is a lightweight yet powerful framework for building multi-agent workflows · It is provider-agnostic, supporting the OpenAI Responses and Chat Completions APIs, as well as 100+ other LLMs · Tools: Functions, MCP, and hosted tool integrations · Sandbox agents: preconfigured for container-based long-horizon work · Sessions: automatic conversation history management · MIT license.",
         "scope": "local"
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "local",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://raw.githubusercontent.com/openai/openai-agents-python/main/LICENSE",
+        "sourceKind": "licence",
+        "quote": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software"
       }
     ],
     "auditNotes": "`memory` viene de «Sessions: automatic conversation history management», que es historial gestionado, no memoria permanente. Es la lectura más estrecha que sostiene la cita.",
@@ -12871,9 +13435,23 @@
       "requiresSignup": "no",
       "requiresCreditCard": "no",
       "hasWatermark": "no",
-      "commercialUse": "unverified",
+      "commercialUse": "yes",
       "creditReset": "none",
-      "verifiedAt": "2026-08-19"
+      "verifiedAt": "2026-08-19",
+      "includedCapabilities": [
+        {
+          "capability": "repository-editing",
+          "condition": "autoalojado; necesita un modelo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/All-Hands-AI/OpenHands",
+            "sourceKind": "repo",
+            "quote": "The self-hosted developer control center for coding agents and automations."
+          }
+        }
+      ]
     },
     "capabilities": [
       "repository-editing",
@@ -12898,6 +13476,13 @@
         "kind": "repo",
         "publisher": "github.com",
         "checkedAt": "2026-08-19"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/All-Hands-AI/OpenHands/main/LICENSE",
+        "label": "Licencia oficial (MIT)",
+        "kind": "repo",
+        "publisher": "raw.githubusercontent.com",
+        "checkedAt": "2026-10-12"
       }
     ],
     "evidence": [
@@ -12909,6 +13494,15 @@
         "checkedAt": "2026-08-19",
         "quote": "The self-hosted developer control center for coding agents and automations · run agents like OpenHands, Claude Code, Codex, or Gemini across local, remote, and cloud backends · Docker containers with sandbox isolation · MIT license.",
         "scope": "local"
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "local",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://raw.githubusercontent.com/All-Hands-AI/OpenHands/main/LICENSE",
+        "sourceKind": "licence",
+        "quote": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software"
       }
     ],
     "auditNotes": "`multi-agent` se marca porque orquesta agentes distintos en varios servidores, no porque reparta subtareas dentro de uno. `web-browsing` no se marca: el repositorio no lo documenta.",
@@ -13503,6 +14097,13 @@
         "kind": "repo",
         "publisher": "huggingface.co",
         "checkedAt": "2026-08-20"
+      },
+      {
+        "url": "https://huggingface.co/microsoft/phi-4/blob/main/LICENSE",
+        "label": "Licencia oficial de los pesos (MIT)",
+        "kind": "repo",
+        "publisher": "huggingface.co",
+        "checkedAt": "2026-10-12"
       }
     ],
     "evidence": [
@@ -13523,6 +14124,15 @@
         "checkedAt": "2026-08-20",
         "quote": "memory/compute constrained environments · latency bound scenarios · reasoning and logic · MATH: 80.4, GPQA: 56.1, HumanEval: 82.6",
         "scope": "local"
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "weights",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/microsoft/phi-4/blob/main/LICENSE",
+        "sourceKind": "licence",
+        "quote": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software"
       }
     ],
     "slug": "phi-4",
@@ -13722,7 +14332,7 @@
       "requiresSignup": "no",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
-      "commercialUse": "unverified",
+      "commercialUse": "yes",
       "creditReset": "none",
       "verifiedAt": "2026-09-16"
     },
@@ -13767,6 +14377,13 @@
         "label": "Fuente oficial",
         "kind": "docs",
         "checkedAt": "2026-09-16"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/pinokiocomputer/pinokio/main/LICENSE",
+        "label": "Licencia oficial (MIT)",
+        "kind": "repo",
+        "publisher": "raw.githubusercontent.com",
+        "checkedAt": "2026-10-12"
       }
     ],
     "scores": {
@@ -13827,6 +14444,15 @@
         "scope": "product",
         "lookedFor": "Límites de uso y requisitos de hardware de la aplicación. La web oficial enumera apps instalables, algunas con requisitos propios, pero no publica ninguno para Pinokio en sí.",
         "checkedAt": "2026-09-16"
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "local",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://raw.githubusercontent.com/pinokiocomputer/pinokio/main/LICENSE",
+        "sourceKind": "licence",
+        "quote": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software"
       }
     ],
     "startEffortReason": "Instalador de escritorio que se encarga de las dependencias de cada aplicación.",
@@ -14234,6 +14860,32 @@
         "7.000 millones de parámetros en el componente visual",
         "Imágenes normales o transparentes (RGBA)",
         "Se ejecuta en tu equipo: exige GPU"
+      ],
+      "includedCapabilities": [
+        {
+          "capability": "text-to-image",
+          "condition": "pesos descargables, en tu equipo; sólo uso no comercial",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "weights",
+            "sourceUrl": "https://huggingface.co/Qwen/Qwen-Image-2.1",
+            "sourceKind": "repo",
+            "quote": "a unified text-to-image generation and image editing model in the Qwen family"
+          }
+        },
+        {
+          "capability": "image-editing",
+          "condition": "pesos descargables, en tu equipo; sólo uso no comercial",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "weights",
+            "sourceUrl": "https://huggingface.co/Qwen/Qwen-Image-2.1",
+            "sourceKind": "repo",
+            "quote": "a unified text-to-image generation and image editing model in the Qwen family"
+          }
+        }
       ]
     },
     "capabilities": [
@@ -14352,6 +15004,32 @@
         "27.000 millones de parámetros",
         "Contexto nativo de 262.144 tokens, extensible a 1.000.000",
         "Entrada de texto, imagen y vídeo"
+      ],
+      "includedCapabilities": [
+        {
+          "capability": "text-generation",
+          "condition": "pesos descargables, en tu equipo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "weights",
+            "sourceUrl": "https://huggingface.co/Qwen/Qwen3.8-27B",
+            "sourceKind": "repo",
+            "quote": "Qwen3.8 delivers substantial gains across coding, professional work, research, and long-horizon agentic tasks."
+          }
+        },
+        {
+          "capability": "code-generation",
+          "condition": "pesos descargables, en tu equipo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "weights",
+            "sourceUrl": "https://huggingface.co/Qwen/Qwen3.8-27B",
+            "sourceKind": "repo",
+            "quote": "Qwen3.8 delivers substantial gains across coding, professional work, research, and long-horizon agentic tasks."
+          }
+        }
       ]
     },
     "access": {
@@ -15218,7 +15896,33 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-12"
+      "verifiedAt": "2026-08-12",
+      "includedCapabilities": [
+        {
+          "capability": "text-to-image",
+          "condition": "en tu equipo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/vladmandic/sdnext",
+            "sourceKind": "repo",
+            "quote": "SD.Next is a state-of-the-art, open-source server application and web interface (WebUI) for AI image and video generation […] Create, refine, caption, upscale and process images and videos"
+          }
+        },
+        {
+          "capability": "upscaling",
+          "condition": "en tu equipo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/vladmandic/sdnext",
+            "sourceKind": "repo",
+            "quote": "SD.Next is a state-of-the-art, open-source server application and web interface (WebUI) for AI image and video generation […] Create, refine, caption, upscale and process images and videos"
+          }
+        }
+      ]
     },
     "scores": {
       "freeReal": 10,
@@ -15415,7 +16119,69 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-09-16"
+      "verifiedAt": "2026-09-16",
+      "includedCapabilities": [
+        {
+          "capability": "text-to-image",
+          "condition": "en tu equipo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
+            "sourceKind": "repo",
+            "quote": "A web interface for Stable Diffusion […] Original txt2img and img2img modes · Outpainting · Inpainting · Stable Diffusion Upscale"
+          }
+        },
+        {
+          "capability": "image-to-image",
+          "condition": "en tu equipo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
+            "sourceKind": "repo",
+            "quote": "A web interface for Stable Diffusion […] Original txt2img and img2img modes · Outpainting · Inpainting · Stable Diffusion Upscale"
+          }
+        },
+        {
+          "capability": "inpainting",
+          "condition": "en tu equipo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
+            "sourceKind": "repo",
+            "quote": "A web interface for Stable Diffusion […] Original txt2img and img2img modes · Outpainting · Inpainting · Stable Diffusion Upscale"
+          }
+        },
+        {
+          "capability": "outpainting",
+          "condition": "en tu equipo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
+            "sourceKind": "repo",
+            "quote": "A web interface for Stable Diffusion […] Original txt2img and img2img modes · Outpainting · Inpainting · Stable Diffusion Upscale"
+          }
+        },
+        {
+          "capability": "upscaling",
+          "condition": "en tu equipo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
+            "sourceKind": "repo",
+            "quote": "A web interface for Stable Diffusion […] Original txt2img and img2img modes · Outpainting · Inpainting · Stable Diffusion Upscale"
+          }
+        }
+      ]
     },
     "openSource": "yes",
     "hosting": "local",
@@ -15587,9 +16353,23 @@
       "requiresSignup": "unverified",
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
-      "commercialUse": "unverified",
+      "commercialUse": "yes",
       "creditReset": "none",
-      "verifiedAt": "2026-08-20"
+      "verifiedAt": "2026-08-20",
+      "includedCapabilities": [
+        {
+          "capability": "research",
+          "condition": "código abierto; necesita un modelo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/stanford-oval/storm",
+            "sourceKind": "repo",
+            "quote": "STORM is a LLM system that writes Wikipedia-like articles from scratch based on Internet search."
+          }
+        }
+      ]
     },
     "capabilities": [
       "research",
@@ -15611,6 +16391,13 @@
         "kind": "repo",
         "publisher": "github.com",
         "checkedAt": "2026-08-20"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/stanford-oval/storm/main/LICENSE",
+        "label": "Licencia oficial (MIT)",
+        "kind": "repo",
+        "publisher": "raw.githubusercontent.com",
+        "checkedAt": "2026-10-12"
       }
     ],
     "evidence": [
@@ -15631,6 +16418,15 @@
         "checkedAt": "2026-08-20",
         "quote": "MIT License. Copyright (c) 2024 Stanford Open Virtual Assistant Lab",
         "scope": "local"
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "local",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://raw.githubusercontent.com/stanford-oval/storm/main/LICENSE",
+        "sourceKind": "licence",
+        "quote": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software"
       }
     ],
     "auditNotes": "La licencia MIT es la del código; el README menciona CC BY-SA aparte por el contenido de Wikipedia que usa su conjunto de datos. `requiresSignup` se queda sin afirmar: no comprobé si la vista previa pide cuenta.",
@@ -16616,7 +17412,33 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-15"
+      "verifiedAt": "2026-08-15",
+      "includedCapabilities": [
+        {
+          "capability": "text-to-video",
+          "condition": "pesos descargables, en tu equipo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/Wan-Video/Wan2.2",
+            "sourceKind": "repo",
+            "quote": "This model supports both text-to-video and image-to-video generation at 720P resolution with 24fps"
+          }
+        },
+        {
+          "capability": "image-to-video",
+          "condition": "pesos descargables, en tu equipo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/Wan-Video/Wan2.2",
+            "sourceKind": "repo",
+            "quote": "This model supports both text-to-video and image-to-video generation at 720P resolution with 24fps"
+          }
+        }
+      ]
     },
     "capabilities": [
       "text-to-video",
@@ -16742,7 +17564,21 @@
       "hasWatermark": "unverified",
       "commercialUse": "yes",
       "creditReset": "none",
-      "verifiedAt": "2026-08-24"
+      "verifiedAt": "2026-08-24",
+      "includedCapabilities": [
+        {
+          "capability": "transcription",
+          "condition": "en tu equipo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/openai/whisper",
+            "sourceKind": "repo",
+            "quote": "Whisper is a general-purpose speech recognition model. […] a multitasking model that can perform multilingual speech recognition, speech translation, and language identification."
+          }
+        }
+      ]
     },
     "capabilities": [
       "transcription",
