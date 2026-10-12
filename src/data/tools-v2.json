@@ -12380,22 +12380,23 @@
       "web"
     ],
     "freeModel": "credits",
-    "tagline": "Créditos de agente cada día y una aplicación publicada.",
-    "descriptionShort": "Agente que construye aplicaciones completas desde una descripción: escribe el código, monta la infraestructura y prueba el resultado. El plan Starter da créditos de agente diarios y permite publicar un proyecto.",
-    "verdict": "La vía más corta que existe entre una idea y algo desplegado, sin instalar nada. Los créditos diarios son modestos, pero se renuevan.",
+    "tagline": "Uso gratuito cada día y una aplicación publicada.",
+    "descriptionShort": "Agente que construye aplicaciones completas desde una descripción: escribe el código, monta la infraestructura y prueba el resultado. El plan Starter da uso gratuito cada día y permite publicar un proyecto.",
+    "verdict": "La vía más corta que existe entre una idea y algo desplegado, sin instalar nada. El uso diario gratuito es modesto y no publican cuánto, pero se renueva.",
     "freePlan": {
-      "summary": "Plan Starter gratuito con créditos de agente diarios. Incluye base de datos integrada, creación de diapositivas, vídeos y animaciones, y permite publicar hasta 1 proyecto, con opción de despliegue privado o protegido por contraseña. El plan de pago más barato es Core, 20 $/mes con facturación anual (25 $ al mes suelto) e incluye 25 $ de créditos mensuales.",
+      "summary": "Plan Starter gratuito con uso diario gratuito, cuya cantidad no se publica. Incluye base de datos integrada, crear desde diapositivas hasta aplicaciones, una tarea en segundo plano a la vez, y permite publicar 1 proyecto. El plan de pago más barato es Core, 20 $/mes (18 $/mes con facturación anual).",
       "limits": [
-        "Créditos de agente diarios: la cantidad no se publica",
+        "Uso diario gratuito; la cantidad no se publica",
         "Hasta 1 proyecto publicado",
-        "Despliegue privado o protegido con contraseña",
-        "Plan de pago más barato: Core, 20 $/mes anual (25 $/mes suelto)"
+        "Una tarea en segundo plano a la vez",
+        "Base de datos incluida",
+        "Plan de pago más barato: Core, 20 $/mes (18 $/mes en anual)"
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
-      "creditsAmount": "Créditos de agente diarios",
+      "creditsAmount": "Uso diario gratuito",
       "creditReset": "daily",
       "verifiedAt": "2026-10-12"
     },
@@ -12445,13 +12446,13 @@
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-12",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
-        "sourceUrl": "https://replit.com/pricing",
-        "sourceKind": "pricing",
-        "checkedAt": "2026-08-19",
-        "quote": "Starter — For exploring what’s possible: Free daily Agent credits · Built-in database for full-stack apps · Create slides, videos, animations · Publish up to 1 project · Publish private or password-protected deployments.",
-        "scope": "cloud"
+        "sourceUrl": "https://replit.com/",
+        "sourceKind": "official",
+        "quote": "Starter · $0 · For exploring what's possible with our new generative tools. · Explore what's possible: · Free daily usage · Create anything from slides to apps · Built-in database · Publish 1 live project · Run one background task at a time · Start for free · Replit Core · $20 · $18 · per month · billed annually"
       },
       {
         "field": "capabilities",
