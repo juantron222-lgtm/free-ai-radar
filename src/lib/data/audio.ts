@@ -91,7 +91,13 @@ export function freeNow(tools: readonly Tool[]): Tool[] {
     else if (t.freeModel === 'freemium') score += 35;
     else score += 20;
 
-    if (t.freePlan.commercialUse === 'yes') score += 8;
+    /*
+     * Lo que deja usar el resultado para trabajar va siempre delante de lo que
+     * lo prohíbe, no sólo «un poco» delante: hasta el 12 de octubre de 2026
+     * ninguna gratuita de audio lo permitía y bastaba con unos puntos, pero
+     * Moises sí lo permite y una cuota diaria de Suno le ganaba igual.
+     */
+    if (t.freePlan.commercialUse === 'yes') score += 100;
     else if (t.freePlan.commercialUse === 'no') score -= 10;
 
     if (t.startEffort === 'instant') score += 12;

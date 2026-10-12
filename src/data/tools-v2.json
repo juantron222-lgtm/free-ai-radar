@@ -307,7 +307,33 @@
       "commercialUse": "unverified",
       "creditsAmount": "50 peticiones agénticas/mes",
       "creditReset": "monthly",
-      "verifiedAt": "2026-08-21"
+      "verifiedAt": "2026-10-12",
+      "includedCapabilities": [
+        {
+          "capability": "code-generation",
+          "condition": "50 peticiones agénticas al mes",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "product",
+            "sourceUrl": "https://aws.amazon.com/q/developer/pricing/",
+            "sourceKind": "pricing",
+            "quote": "[Tabla: Free · Pro] Included agentic requests (Q&A chat, agentic coding) · 50 agentic requests per month · Included (with limits) · Amazon Q Developer transformation capability for Java upgrades · 1,000 lines of code per month"
+          }
+        },
+        {
+          "capability": "repository-editing",
+          "condition": "50 peticiones agénticas al mes",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "product",
+            "sourceUrl": "https://aws.amazon.com/q/developer/pricing/",
+            "sourceKind": "pricing",
+            "quote": "[Tabla: Free · Pro] Included agentic requests (Q&A chat, agentic coding) · 50 agentic requests per month · Included (with limits) · Amazon Q Developer transformation capability for Java upgrades · 1,000 lines of code per month"
+          }
+        }
+      ]
     },
     "capabilities": [
       "code-generation",
@@ -343,13 +369,22 @@
         "scope": "cloud"
       },
       {
+        "checkedAt": "2026-10-12",
+        "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "not_published",
         "sourceUrl": "https://aws.amazon.com/q/developer/pricing/",
         "sourceKind": "pricing",
-        "checkedAt": "2026-09-15",
+        "lookedFor": "Si el nivel gratuito pide tarjeta. Ni la página de precios ni la de producto lo dicen."
+      },
+      {
+        "checkedAt": "2026-10-12",
         "scope": "product",
-        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página dice que el Free Tier se usa con AWS Builder ID o con un usuario IAM, pero no si piden tarjeta."
+        "field": "freePlan.commercialUse",
+        "outcome": "not_published",
+        "sourceUrl": "https://aws.amazon.com/service-terms/",
+        "sourceKind": "terms",
+        "lookedFor": "Si el nivel gratuito permite usar comercialmente el código generado. Las condiciones de servicio de AWS no dicen nada de uso comercial de lo que genera Amazon Q Developer."
       }
     ],
     "slug": "amazon-q-developer",
@@ -2595,7 +2630,7 @@
       "commercialUse": "unverified",
       "creditReset": "one_off",
       "creditsAmount": "5 free runs",
-      "verifiedAt": "2026-08-12"
+      "verifiedAt": "2026-10-12"
     },
     "scores": {
       "freeReal": 6,
@@ -2620,7 +2655,7 @@
         "outcome": "stated",
         "sourceUrl": "https://www.comfy.org/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-08-12",
+        "checkedAt": "2026-10-12",
         "quote": "no credit card required",
         "scope": "cloud"
       },
@@ -3600,7 +3635,21 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "unknown",
-      "verifiedAt": "2026-08-19"
+      "verifiedAt": "2026-10-12",
+      "includedCapabilities": [
+        {
+          "capability": "repository-editing",
+          "condition": "uso limitado, sin cifra publicada",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "product",
+            "sourceUrl": "https://docs.devin.ai/admin/billing/self-serve",
+            "sourceKind": "docs",
+            "quote": "Free · Individuals trying Devin · Free · 1 · […] Limited Devin usage"
+          }
+        }
+      ]
     },
     "capabilities": [
       "terminal",
@@ -3673,13 +3722,13 @@
         "scope": "cloud"
       },
       {
+        "checkedAt": "2026-10-12",
+        "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "not_published",
-        "sourceUrl": "https://devin.ai/pricing",
-        "sourceKind": "pricing",
-        "checkedAt": "2026-09-15",
-        "scope": "product",
-        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
+        "sourceUrl": "https://docs.devin.ai/admin/billing/self-serve",
+        "sourceKind": "docs",
+        "lookedFor": "Si el plan Free pide tarjeta. Ni la página de precios ni la documentación de facturación lo dicen."
       }
     ],
     "auditNotes": "La documentación afirma «if you can do it in three hours, Devin can most likely do it». Es una promesa de alcance, no un dato comprobable, y no se recoge como capacidad. Plataformas corregidas el 13 de septiembre de 2026: la documentación de Devin CLI la describe como «a local command-line coding agent» e indica cómo instalarla en macOS, Linux/WSL y Windows. Ya aparecía en las notas de versión de abril de 2026, así que era una omisión de la ficha y no un cambio del fabricante, y por eso no va al changelog. Devin Desktop no se añade por separado: ninguna página oficial consultada declara explícitamente en qué sistemas se instala. SWE-2, el modelo presentado el 10 de septiembre, no altera ningún campo de la ficha. Planes y precios comprobados el 13 de septiembre, sin cambios.",
@@ -3754,7 +3803,21 @@
       "commercialUse": "unverified",
       "creditsAmount": "200 créditos de mensaje",
       "creditReset": "one_off",
-      "verifiedAt": "2026-08-19"
+      "verifiedAt": "2026-10-12",
+      "includedCapabilities": [
+        {
+          "capability": "workflow-automation",
+          "condition": "200 créditos de mensaje, una sola vez",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "product",
+            "sourceUrl": "https://dify.ai/pricing",
+            "sourceKind": "pricing",
+            "quote": "Sandbox · For trying out Dify's core features. · Free · Start for Free · 200 message credits · 1 Team Workspace · 1 Team Member · 5 Apps"
+          }
+        }
+      ]
     },
     "capabilities": [
       "workflow-automation",
@@ -3804,6 +3867,24 @@
         "checkedAt": "2026-08-19",
         "quote": "Dify is an open-source LLM app development platform… combines AI workflow, RAG pipeline, agent capabilities, model management, observability features · You can define agents based on LLM Function Calling or ReAct, and add pre-built or custom tools · This repository is licensed under the Dify Open Source License, based on Apache 2.0 with additional conditions.",
         "scope": "local"
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "product",
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://dify.ai/pricing",
+        "sourceKind": "pricing",
+        "lookedFor": "Si el plan Sandbox pide tarjeta. Ni la página de precios ni las condiciones lo mencionan."
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "product",
+        "field": "freePlan.commercialUse",
+        "outcome": "not_published",
+        "sourceUrl": "https://dify.ai/legal/terms-of-service",
+        "sourceKind": "terms",
+        "lookedFor": "Si el plan Sandbox permite uso comercial. Las condiciones no hablan de uso comercial de lo que produce; la página de precios describe la edición Community autoalojada como «for […] non-commercial projects», que es otro producto."
       }
     ],
     "auditNotes": "El Sandbox se registra como `credits` + `one_off` y no como `freemium`: la página no publica renovación, y sin renovación no hay capa permanente.",
@@ -6413,7 +6494,7 @@
         "scope": "product",
         "sourceUrl": "https://x.ai/pricing",
         "sourceKind": "pricing",
-        "quote": "[Tabla «Compare features across plans»: «Video generation» lleva el icono «minus» en la columna Free y la marca en las otras seis; «Image generation (Imagine)» lleva la marca en las siete.]"
+        "quote": "[Tabla «Compare features across plans»: «Video generation» lleva el icono de signo menos en la columna Free y la marca en las otras seis; «Image generation (Imagine)» lleva la marca en las siete.]"
       }
     ],
     "auditNotes": "La tarjeta de SuperGrok anuncia «Image and video generation», lo que sugiere que ninguna de las dos está en el plan gratuito; la tabla comparativa dice lo contrario para imagen. Se toma la tabla, que es donde xAI declara plan por plan. Filas de control usadas: SSO y RBAC, marcadas sólo en Enterprise.",
@@ -6756,7 +6837,7 @@
       "hasWatermark": "yes",
       "commercialUse": "unverified",
       "creditReset": "unknown",
-      "verifiedAt": "2026-08-15"
+      "verifiedAt": "2026-10-12"
     },
     "capabilities": [
       "text-to-video",
@@ -6816,22 +6897,22 @@
         "scope": "cloud"
       },
       {
+        "checkedAt": "2026-10-12",
+        "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "not_published",
         "sourceUrl": "https://higgsfield.ai/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-09-15",
-        "scope": "product",
-        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
+        "lookedFor": "Si el plan gratuito pide tarjeta. La página de precios no lo menciona."
       },
       {
+        "checkedAt": "2026-10-12",
+        "scope": "product",
         "field": "freePlan.hasWatermark",
         "outcome": "stated",
         "sourceUrl": "https://higgsfield.ai/creator-hub/help-center/credits/watermark-and-how-to-remove",
         "sourceKind": "help",
-        "scope": "product",
-        "checkedAt": "2026-09-16",
-        "quote": "On a free account, every generation carries a Higgsfield watermark."
+        "quote": "The watermark depends on your account type, not on the model, the credits used, or the output quality. On a free account, every generation carries a Higgsfield watermark. On any paid plan, generations come without a watermark."
       }
     ],
     "auditNotes": "Nota de contexto, no de catálogo: esta misma plataforma se descartó como fuente de Newsroom porque publica listículos de posicionamiento. Eso descalifica su blog como fuente, no al producto como herramienta.",
@@ -7556,7 +7637,7 @@
       "commercialUse": "unverified",
       "creditsAmount": "3 créditos/30 días",
       "creditReset": "monthly",
-      "verifiedAt": "2026-08-21"
+      "verifiedAt": "2026-10-12"
     },
     "capabilities": [
       "code-generation"
@@ -7596,13 +7677,22 @@
         "scope": "cloud"
       },
       {
+        "checkedAt": "2026-10-12",
+        "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "not_published",
         "sourceUrl": "https://www.jetbrains.com/legal/docs/terms/jetbrains-ai-service/",
         "sourceKind": "terms",
-        "checkedAt": "2026-09-15",
+        "lookedFor": "Si el nivel AI Free permite usar comercialmente lo generado. Las condiciones del servicio de IA no hablan de uso comercial."
+      },
+      {
+        "checkedAt": "2026-10-12",
         "scope": "product",
-        "lookedFor": "Permiso de uso comercial de lo que genera JetBrains AI. Las condiciones dicen que tus entradas y tus datos son tuyos, pero no dicen nada del uso comercial de las respuestas."
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://www.jetbrains.com/help/ai-assistant/licensing-and-subscriptions.html",
+        "sourceKind": "docs",
+        "lookedFor": "Si el nivel AI Free pide tarjeta. Su documentación de licencias no lo menciona."
       }
     ],
     "auditNotes": "El precio del plan de pago se queda fuera: la misma página muestra dos cifras distintas para AI Pro (10 $ y 20 $) y no hay forma de saber cuál está vigente. Publicar una de las dos sería elegir al azar.",
@@ -11621,12 +11711,12 @@
         "Generación más lenta en horas punta y espera al agotar el límite"
       ],
       "requiresSignup": "unverified",
-      "requiresCreditCard": "unverified",
+      "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "commercialUse": "yes",
       "creditReset": "intraday",
       "creditsAmount": "10 imágenes cada 3 horas",
-      "verifiedAt": "2026-08-26"
+      "verifiedAt": "2026-10-12"
     },
     "scores": {
       "freeReal": 8,
@@ -11661,7 +11751,7 @@
         "sourceUrl": "https://playgroundai.com/design/pricing",
         "sourceKind": "official",
         "scope": "product",
-        "checkedAt": "2026-08-26",
+        "checkedAt": "2026-10-12",
         "quote": "Commercial use — World-wide, royalty free license"
       },
       {
@@ -11674,22 +11764,22 @@
         "quote": "Limited image generation — Create up to 10 images every 3 hours"
       },
       {
-        "field": "freePlan.requiresCreditCard",
-        "outcome": "not_published",
-        "sourceUrl": "https://playgroundai.com/design/pricing",
-        "sourceKind": "pricing",
-        "checkedAt": "2026-09-15",
+        "checkedAt": "2026-10-12",
         "scope": "product",
-        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página sólo dice que aceptan tarjetas de crédito y débito para pagar."
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "stated",
+        "sourceUrl": "https://playground.com/",
+        "sourceKind": "official",
+        "quote": "You've seen what it can do. Now go make something real. […] Free to start · No credit card"
       },
       {
+        "checkedAt": "2026-10-12",
+        "scope": "product",
         "field": "freePlan.hasWatermark",
         "outcome": "not_published",
         "sourceUrl": "https://playgroundai.com/design/pricing",
         "sourceKind": "pricing",
-        "scope": "product",
-        "checkedAt": "2026-09-16",
-        "lookedFor": "Si lo que genera el plan gratuito lleva marca de agua. La página de precios no lo menciona."
+        "lookedFor": "Si el plan gratuito pone marca de agua. Ni la página de precios ni las condiciones la mencionan."
       }
     ],
     "descriptionLong": "",
@@ -12302,12 +12392,12 @@
         "Plan de pago más barato: Core, 20 $/mes anual (25 $/mes suelto)"
       ],
       "requiresSignup": "yes",
-      "requiresCreditCard": "unverified",
+      "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditsAmount": "Créditos de agente diarios",
       "creditReset": "daily",
-      "verifiedAt": "2026-08-19"
+      "verifiedAt": "2026-10-12"
     },
     "capabilities": [
       "code-execution",
@@ -12373,13 +12463,13 @@
         "scope": "cloud"
       },
       {
-        "field": "freePlan.requiresCreditCard",
-        "outcome": "not_published",
-        "sourceUrl": "https://replit.com/pricing",
-        "sourceKind": "pricing",
-        "checkedAt": "2026-09-15",
+        "checkedAt": "2026-10-12",
         "scope": "product",
-        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios no lo menciona."
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "stated",
+        "sourceUrl": "https://replit.com/",
+        "sourceKind": "official",
+        "quote": "Join millions of builders who use Replit to bring their ideas to life. Start for free — no credit card required."
       },
       {
         "field": "freePlan.commercialUse",
@@ -14860,15 +14950,16 @@
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "yes",
-      "commercialUse": "unverified",
+      "commercialUse": "no",
       "creditReset": "monthly",
-      "verifiedAt": "2026-09-24",
+      "verifiedAt": "2026-10-12",
       "summary": "Plan Free «para siempre» a 0 $: 60 créditos al mes, clips hasta 1080p y subtítulos automáticos. Los clips llevan marca de agua y no se pueden editar. El plan de pago más barato es Starter, 15 $ al mes con 150 créditos.",
       "limits": [
         "60 créditos al mes",
         "Clips hasta 1080p",
         "Con marca de agua",
         "Sin edición",
+        "Los clips dejan de poder exportarse a los 3 días",
         "Plan de pago más barato: Starter, 15 $/mes con 150 créditos"
       ],
       "creditsAmount": "60 créditos al mes"
@@ -14896,23 +14987,22 @@
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-12",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://www.opus.pro/pricing",
         "sourceKind": "pricing",
-        "scope": "product",
-        "checkedAt": "2026-09-24",
-        "quote": "Free · Free forever · $0 USD/mo · Create an account · 60 credits per month · Up to 1080p rendered clips · AI captions with emoji and keyword highlighter · Has watermark · No editing"
+        "quote": "Free forever · $0 USD/mo · Create an account · 60 credits per month · Up to 1080p rendered clips · Auto reframe · AI captions with emoji and keyword highlighter · Has watermark · No editing · After 3 days, the clips will no longer be exportable"
       },
       {
+        "checkedAt": "2026-10-12",
+        "scope": "product",
         "field": "freePlan.hasWatermark",
         "outcome": "stated",
         "sourceUrl": "https://www.opus.pro/pricing",
         "sourceKind": "pricing",
-        "scope": "product",
-        "checkedAt": "2026-09-24",
-        "quote": "Has watermark",
-        "basis": "Es una fila de la columna del plan Free."
+        "quote": "Free forever · $0 USD/mo · Create an account · 60 credits per month · Up to 1080p rendered clips · Auto reframe · AI captions with emoji and keyword highlighter · Has watermark · No editing · After 3 days, the clips will no longer be exportable"
       },
       {
         "field": "freePlan.requiresSignup",
@@ -14931,6 +15021,24 @@
         "scope": "product",
         "checkedAt": "2026-09-24",
         "quote": "60 credits per month"
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "product",
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://www.opus.pro/pricing",
+        "sourceKind": "pricing",
+        "lookedFor": "Si el plan gratuito pide tarjeta. La página de precios sólo dice «No credit card required» de las pruebas de los planes de pago; del plan Free no lo dice."
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "product",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://www.opus.pro/terms-of-service",
+        "sourceKind": "terms",
+        "quote": "You will only use the Services for your own internal, personal, non-commercial use, and not on behalf of or for the benefit of any third party […] Notwithstanding the foregoing, if you are a user of Paid Services, you are licensed to use the Services for commercial uses"
       }
     ],
     "id": "tool_opusclip",
@@ -15434,7 +15542,7 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "unknown",
-      "verifiedAt": "2026-09-24",
+      "verifiedAt": "2026-10-12",
       "summary": "Plan Starter a 0 €, «siempre gratis» y sin tarjeta: 10 minutos de proceso, vistas previas del resultado y archivos de hasta 200 MB. La página no dice si esos minutos se renuevan.",
       "limits": [
         "10 minutos de proceso; no publica si se renuevan",
@@ -15480,7 +15588,7 @@
         "sourceUrl": "https://www.lalal.ai/pricing/",
         "sourceKind": "pricing",
         "scope": "product",
-        "checkedAt": "2026-09-24",
+        "checkedAt": "2026-10-12",
         "quote": "No credit card needed."
       }
     ],
@@ -15677,9 +15785,9 @@
       "requiresSignup": "unverified",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
-      "commercialUse": "unverified",
+      "commercialUse": "yes",
       "creditReset": "monthly",
-      "verifiedAt": "2026-09-24",
+      "verifiedAt": "2026-10-12",
       "summary": "Plan gratuito con un número limitado de subidas al mes y parte de las funciones; la cantidad no se publica. Para todas las funciones y subidas ilimitadas hay que pagar.",
       "limits": [
         "Subidas limitadas cada mes; la cantidad no se publica",
@@ -15725,6 +15833,24 @@
         "scope": "product",
         "checkedAt": "2026-09-24",
         "quote": "a limited number of uploads each month"
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "product",
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://moises.ai/terms/",
+        "sourceKind": "terms",
+        "lookedFor": "Si el plan gratuito pide tarjeta. Las condiciones sólo hablan de tarjeta para pagar funciones de pago; la portada no lo dice."
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "product",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://moises.ai/terms/",
+        "sourceKind": "terms",
+        "quote": "For clarity, this personal-use limitation does not prohibit you from using or distributing Output commercially, subject to Section 11.2 (Ownership and Limitations), any applicable feature-specific restrictions in these Terms, and any third-party rights."
       }
     ],
     "id": "tool_moises",
@@ -15784,9 +15910,9 @@
       "requiresSignup": "unverified",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
-      "commercialUse": "unverified",
+      "commercialUse": "no",
       "creditReset": "none",
-      "verifiedAt": "2026-09-24",
+      "verifiedAt": "2026-10-12",
       "summary": "Plan Personal a 0 $, «gratis para siempre»: el editor completo, 2.000 predicciones de edición aceptadas y uso ilimitado con tus propias claves de API o con agentes externos. Pro cuesta 10 $ al mes y tiene prueba de 14 días sin tarjeta.",
       "limits": [
         "2.000 predicciones de edición aceptadas",
@@ -15794,7 +15920,21 @@
         "Las funciones de IA se pueden desactivar",
         "Plan de pago más barato: Pro, 10 $/mes"
       ],
-      "creditsAmount": "2.000 predicciones aceptadas"
+      "creditsAmount": "2.000 predicciones aceptadas",
+      "includedCapabilities": [
+        {
+          "capability": "code-generation",
+          "condition": "2.000 predicciones de edición aceptadas; sin límite con tus propias claves",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "product",
+            "sourceUrl": "https://zed.dev/pricing",
+            "sourceKind": "pricing",
+            "quote": "PERSONAL · $0 · forever · The next-generation code editor. Free forever. · 2,000 accepted edit predictions · Unlimited use with your API keys or external agents like Claude Agent, Codex CLI, and more"
+          }
+        }
+      ]
     },
     "capabilities": [
       "code-generation",
@@ -15843,6 +15983,24 @@
         "scope": "local",
         "checkedAt": "2026-09-24",
         "quote": "The GNU General Public License is a free, copyleft license for software and other kinds of works."
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "product",
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://zed.dev/pricing",
+        "sourceKind": "pricing",
+        "lookedFor": "Si el plan Personal pide tarjeta. La página de precios sólo dice que la prueba de Pro no la pide («No credit card is required»); del plan gratuito no dice nada."
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "cloud",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://zed.dev/terms",
+        "sourceKind": "terms",
+        "quote": "Customer may access and use the Service only for Customer’s internal business purposes or for individuals, for personal non-commercial purposes"
       }
     ],
     "id": "tool_zed",
@@ -15901,12 +16059,27 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "monthly",
-      "verifiedAt": "2026-09-24",
+      "verifiedAt": "2026-10-12",
       "summary": "Plan Free a 0 $: sólo el modo automático, con un uso básico mensual limitado que la tabla no cuantifica. Pro cuesta 20 $ al mes.",
       "limits": [
         "Sólo modo automático",
-        "Uso básico mensual limitado; la cantidad no se publica",
+        "Uso limitado; la cantidad no se publica",
+        "Autocompletado limitado",
         "Plan de pago más barato: Pro, 20 $/mes"
+      ],
+      "includedCapabilities": [
+        {
+          "capability": "code-generation",
+          "condition": "autocompletado limitado, sin cifra publicada",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "product",
+            "sourceUrl": "https://www.trae.ai/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · $0 · Start for free · Auto mode only · Limited usage · Limited Autocomplete"
+          }
+        }
       ]
     },
     "capabilities": [
@@ -15933,13 +16106,13 @@
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-12",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://www.trae.ai/pricing",
         "sourceKind": "pricing",
-        "scope": "product",
-        "checkedAt": "2026-09-24",
-        "quote": "Free · $0 · Start for free · Auto mode only · Monthly Basic Usage: Limited usage"
+        "quote": "Free · $0 · Start for free · Auto mode only · Limited usage · Limited Autocomplete"
       },
       {
         "field": "freePlan.creditReset",
@@ -15949,6 +16122,24 @@
         "scope": "product",
         "checkedAt": "2026-09-24",
         "quote": "Monthly Basic Usage"
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "product",
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://www.trae.ai/pricing",
+        "sourceKind": "pricing",
+        "lookedFor": "Si el plan gratuito pide tarjeta. Ni la página de precios ni las condiciones lo mencionan."
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "product",
+        "field": "freePlan.commercialUse",
+        "outcome": "not_published",
+        "sourceUrl": "https://www.trae.ai/terms-of-service",
+        "sourceKind": "terms",
+        "lookedFor": "Si el plan gratuito permite uso comercial de lo generado. Las condiciones no hablan de uso comercial."
       }
     ],
     "id": "tool_trae",
