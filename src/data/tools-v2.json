@@ -2367,13 +2367,13 @@
         "lookedFor": "Si el plan gratuito pone marca de agua. Ni la página de precios ni la portada la mencionan."
       },
       {
+        "checkedAt": "2026-10-12",
+        "scope": "web",
         "field": "freePlan.excludedCapabilities",
         "outcome": "stated",
         "sourceUrl": "https://clipdrop.co/text-to-image",
         "sourceKind": "official",
-        "scope": "web",
-        "checkedAt": "2026-08-26",
-        "quote": "Image generation is for Pro — Generate images exclusively for Pro users"
+        "quote": "Generate images exclusively for Pro users"
       },
       {
         "checkedAt": "2026-10-11",
@@ -3459,7 +3459,7 @@
       "commercialUse": "unverified",
       "creditsAmount": "60 min de transcripción/mes",
       "creditReset": "monthly",
-      "verifiedAt": "2026-08-15",
+      "verifiedAt": "2026-10-12",
       "includedCapabilities": [
         {
           "capability": "transcription",
@@ -3519,13 +3519,13 @@
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-12",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://www.descript.com/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-08-15",
-        "quote": "60 minutes (1 hr) / month transcription · 720p export · unlimited projects · dynamic captions · 100 one-time AI credits",
-        "scope": "cloud"
+        "quote": "[Tabla de planes: Free · Hobbyist · Creator · Business] Media minutes (per editor): 60 minutes (1 hr) / month · 600 minutes (10 hrs) / month […] AI credits (per editor): 100 (one-time) · 400 / month · 800 / month · 1500 / month […] Video export (local) resolution: 720p · 1080p · 4k · 4k"
       },
       {
         "field": "capabilities",
@@ -4000,11 +4000,11 @@
           "signal": "audio-watermark",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-10-12",
             "scope": "product",
-            "sourceUrl": "https://elevenlabs.io/docs/help-center/legal/audio-detector/what-is-watermarking-and-why-is-eleven-labs-using-it",
+            "sourceUrl": "https://elevenlabs.io/docs/help-center/legal/audio-detector/can-i-hear-the-watermark",
             "sourceKind": "help",
-            "quote": "ElevenLabs embeds watermarks into audio we generate to make it easier for anyone to verify whether a piece of audio originated from our platform. […] Can I hear the watermark? No. The watermark is completely inaudible."
+            "quote": "No. The watermark is completely inaudible. It hides a pattern of sound at frequencies that are masked by the existing audio, making it imperceptible to the human ear."
           }
         }
       ]
@@ -4112,22 +4112,22 @@
         "quote": "10k credits per month"
       },
       {
+        "checkedAt": "2026-10-12",
+        "scope": "product",
         "field": "freePlan.creditReset",
         "outcome": "stated",
         "sourceUrl": "https://elevenlabs.io/pricing",
         "sourceKind": "pricing",
-        "scope": "product",
-        "checkedAt": "2026-08-24",
-        "quote": "Credits reset monthly on the subscription anniversary date. Unused credits do not roll over for the Free tier."
+        "quote": "Your credit allowance resets at the start of each billing cycle, which begins on the day you subscribed. […] Rollover does not apply to the Free plan."
       },
       {
+        "checkedAt": "2026-10-12",
+        "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
         "sourceUrl": "https://elevenlabs.io/terms-of-use",
         "sourceKind": "terms",
-        "scope": "product",
-        "checkedAt": "2026-08-24",
-        "quote": "if you access or use our Services free of charge (such a user, a 'Free User'), you may only use the Services for non-commercial purposes; if you access or use our Services through a paid subscription plan (such a user, a 'Paid User'), you may use the Services for commercial purposes."
+        "quote": "if you access or use our Services free of charge (such a user, a “Free User”), you may only use the Services for non-commercial purposes"
       },
       {
         "checkedAt": "2026-10-11",
@@ -7816,13 +7816,13 @@
         "scope": "local"
       },
       {
+        "checkedAt": "2026-10-12",
+        "scope": "weights",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
         "sourceUrl": "https://huggingface.co/moonshotai/Kimi-K3/blob/main/LICENSE",
         "sourceKind": "repo",
-        "scope": "weights",
-        "checkedAt": "2026-08-29",
-        "quote": "more than 100 million monthly active users, or more than 20 million US dollars […] in monthly revenue, 'Kimi K3' must be prominently displayed on the user interface […] operates a Model as a Service business, and the aggregate revenue […] exceeds 20 million US dollars […] over any consecutive 12 months, the Licensee must enter into a separate agreement with Moonshot AI"
+        "quote": "more than 100 million monthly active users, or more than 20 million US dollars […] in monthly revenue, \"Kimi K3\" must be prominently displayed on the user interface […] operates a Model as a Service business, and the aggregate revenue […] exceeds 20 million US dollars […] over any consecutive 12 months, the Licensee must enter into a separate agreement with Moonshot AI"
       }
     ],
     "slug": "kimi-k2",
@@ -11770,7 +11770,7 @@
         "outcome": "stated",
         "sourceUrl": "https://playground.com/",
         "sourceKind": "official",
-        "quote": "You've seen what it can do. Now go make something real. […] Free to start · No credit card"
+        "quote": "Phone wallpaper · Card · Nano Banana Pro · Free to start · No credit card · Print-ready in days"
       },
       {
         "checkedAt": "2026-10-12",
@@ -12028,13 +12028,13 @@
         "scope": "local"
       },
       {
+        "checkedAt": "2026-10-12",
+        "scope": "weights",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
         "sourceUrl": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B/blob/main/LICENSE",
         "sourceKind": "repo",
-        "scope": "weights",
-        "checkedAt": "2026-08-29",
-        "quote": "respective model name must be prominently displayed on the user interface […] Model as a Service or AI Work Assistant business generates over $50M aggregate revenue in any 12-month period shall obtain a separate license from Qwen before Using the Software"
+        "quote": "respective model name must be prominently displayed on the user interface of such product or service; and, 2. If the licensee or any of its affiliates conducts a Model as a Service or AI Work Assistant business, and the aggregate revenue of the licensee and its affiliates exceeds US$50,000,000 (or the equivalent amount in any other currencies) during any consecutive twelve (12) months, the licensee shall obtain a separate license from Qwen before Using the Software or its derivative works for any commercial purpose."
       }
     ],
     "auditNotes": "El uso comercial se queda sin afirmar: la licencia «qwen3.8-max» no es una plantilla conocida y no se leyó su texto completo en esta comprobación.",
@@ -15714,13 +15714,13 @@
         "quote": "No credit card required"
       },
       {
+        "checkedAt": "2026-10-12",
+        "scope": "api",
         "field": "freePlan.creditReset",
-        "outcome": "stated",
+        "outcome": "not_published",
         "sourceUrl": "https://murf.ai/pricing",
         "sourceKind": "pricing",
-        "scope": "api",
-        "checkedAt": "2026-09-24",
-        "quote": "$10 FREE, every month"
+        "lookedFor": "Si los 10 $ de prueba de la API se renuevan. La página de precios decía en septiembre «$10 FREE, every month»; hoy dice «$10 FREE for API calls», sin cadencia."
       },
       {
         "checkedAt": "2026-10-11",

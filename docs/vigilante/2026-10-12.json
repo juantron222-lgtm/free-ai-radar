@@ -1,0 +1,4074 @@
+{
+  "resumen": {
+    "fecha": "2026-10-12",
+    "citas": 373,
+    "paginas": 208,
+    "intactas": 271,
+    "parciales": 62,
+    "desaparecidas": 20,
+    "noLeidas": 20
+  },
+  "resultados": [
+    {
+      "slug": "adobe-firefly",
+      "nombre": "Adobe Firefly",
+      "campo": "freePlan.limits",
+      "url": "https://www.adobe.com/products/firefly/plans.html",
+      "comprobada": "2026-10-11",
+      "cita": "You don't need a plan to get free daily generations across image, video, and audio, with access to popular models like Nano Banana and Luma Ray3.14. Limits refresh every day, so you can keep exploring, experimenting, and creating.",
+      "estado": "no-leida",
+      "motivo": "HTTP 403",
+      "faltan": []
+    },
+    {
+      "slug": "adobe-firefly",
+      "nombre": "Adobe Firefly",
+      "campo": "capabilities",
+      "url": "https://www.adobe.com/products/firefly.html",
+      "comprobada": "2026-08-12",
+      "cita": "range of aesthetic styles and capabilities across text-to-image, text-to-video, and image-to-video workflows, · Generate and edit images, video, audio, and designs using top AI models from Adobe,",
+      "estado": "no-leida",
+      "motivo": "HTTP 403",
+      "faltan": []
+    },
+    {
+      "slug": "adobe-firefly",
+      "nombre": "Adobe Firefly",
+      "campo": "incluida: text-to-image",
+      "url": "https://www.adobe.com/products/firefly/plans.html",
+      "comprobada": "2026-10-11",
+      "cita": "You don't need a plan to get free daily generations across image, video, and audio, with access to popular models like Nano Banana and Luma Ray3.14. Limits refresh every day, so you can keep exploring, experimenting, and creating.",
+      "estado": "no-leida",
+      "motivo": "HTTP 403",
+      "faltan": []
+    },
+    {
+      "slug": "adobe-firefly",
+      "nombre": "Adobe Firefly",
+      "campo": "procedencia: c2pa",
+      "url": "https://www.adobe.com/products/firefly/plans.html",
+      "comprobada": "2026-10-11",
+      "cita": "Adobe Firefly models are trained on licensed content and public domain content where copyright has expired, and Adobe automatically attaches Content Credentials for transparency.",
+      "estado": "no-leida",
+      "motivo": "HTTP 403",
+      "faltan": []
+    },
+    {
+      "slug": "aider",
+      "nombre": "Aider",
+      "campo": "capabilities",
+      "url": "https://github.com/Aider-AI/aider",
+      "comprobada": "2026-08-19",
+      "cita": "Aider lets you pair program with LLMs to start a new project or build on your existing codebase · Aider automatically commits changes with sensible commit messages · [ejecuta pruebas y linters y corrige los problemas detectados] · Apache-2.0.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "amazon-q-developer",
+      "nombre": "Amazon Q Developer",
+      "campo": "freePlan.limits",
+      "url": "https://aws.amazon.com/q/developer/pricing/",
+      "comprobada": "2026-08-21",
+      "cita": "Free Tier: 50 agentic requests per month · 1,000 lines of code per month · Suppress public code suggestions. Pro: $19 per month per user.",
+      "estado": "parcial",
+      "faltan": [
+        "$19 per month per user"
+      ]
+    },
+    {
+      "slug": "amazon-q-developer",
+      "nombre": "Amazon Q Developer",
+      "campo": "incluida: code-generation",
+      "url": "https://aws.amazon.com/q/developer/pricing/",
+      "comprobada": "2026-10-12",
+      "cita": "[Tabla: Free · Pro] Included agentic requests (Q&A chat, agentic coding) · 50 agentic requests per month · Included (with limits) · Amazon Q Developer transformation capability for Java upgrades · 1,000 lines of code per month",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "amazon-q-developer",
+      "nombre": "Amazon Q Developer",
+      "campo": "incluida: repository-editing",
+      "url": "https://aws.amazon.com/q/developer/pricing/",
+      "comprobada": "2026-10-12",
+      "cita": "[Tabla: Free · Pro] Included agentic requests (Q&A chat, agentic coding) · 50 agentic requests per month · Included (with limits) · Amazon Q Developer transformation capability for Java upgrades · 1,000 lines of code per month",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "audiocraft",
+      "nombre": "AudioCraft (MusicGen)",
+      "campo": "freePlan.limits",
+      "url": "https://github.com/facebookresearch/audiocraft",
+      "comprobada": "2026-08-18",
+      "cita": "The code in this repository is released under the MIT license as found in the LICENSE file. The models weights in this repository are released under the CC-BY-NC 4.0 license as found in the LICENSE_weights file.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "audiocraft",
+      "nombre": "AudioCraft (MusicGen)",
+      "campo": "capabilities",
+      "url": "https://github.com/facebookresearch/audiocraft",
+      "comprobada": "2026-08-18",
+      "cita": "MusicGen: A controllable text-to-music generation system · AudioGen: A text-to-sound synthesis model · MAGNeT · JASCO, conditioned on chords, melodies and drum tracks",
+      "estado": "parcial",
+      "faltan": [
+        "a controllable text-to-music generation system",
+        "a text-to-sound synthesis model",
+        "jasco, conditioned on chords, melodies and drum tracks"
+      ]
+    },
+    {
+      "slug": "bolt-new",
+      "nombre": "Bolt.new",
+      "campo": "freePlan.limits",
+      "url": "https://bolt.new/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · $0 · You get: · Public and private projects · 300K tokens daily limit · 1M tokens per month · Bolt branding on websites · 10MB file upload limit · Website hosting · Up to 333k web requests · Unlimited databases",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "bolt-new",
+      "nombre": "Bolt.new",
+      "campo": "freePlan.commercialUse",
+      "url": "https://support.bolt.new/account-and-subscription/corporate-commercial",
+      "comprobada": "2026-10-11",
+      "cita": "Code ownership and using Bolt for commercial purposes — All code that you create with Bolt and StackBlitz is your own code, which you can use for any legal purpose including commercial purposes.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "bolt-new",
+      "nombre": "Bolt.new",
+      "campo": "incluida: code-generation",
+      "url": "https://bolt.new/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · $0 · You get: · Public and private projects · 300K tokens daily limit · 1M tokens per month · Bolt branding on websites · 10MB file upload limit · Website hosting · Up to 333k web requests · Unlimited databases",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "cartesia",
+      "nombre": "Cartesia",
+      "campo": "freePlan.limits",
+      "url": "https://cartesia.ai/pricing",
+      "comprobada": "2026-08-18",
+      "cita": "Free — 20K credits / month · Text to Speech and Speech to Text · approximately 27 minutes of generated audio monthly · 1 agent slot with 8 concurrent calls",
+      "estado": "parcial",
+      "faltan": [
+        "text to speech and speech to text",
+        "approximately 27 minutes of generated audio monthly",
+        "1 agent slot with 8 concurrent calls"
+      ],
+      "final": "https://www.cartesia.ai/pricing"
+    },
+    {
+      "slug": "cartesia",
+      "nombre": "Cartesia",
+      "campo": "capabilities",
+      "url": "https://cartesia.ai/pricing",
+      "comprobada": "2026-08-18",
+      "cita": "Text to Speech (Sonic) · Speech to Text (Ink) · Voice Cloning (instant and professional) · Voice Agents (Line)",
+      "estado": "desaparecida",
+      "faltan": [
+        "text to speech (sonic",
+        "speech to text (ink",
+        "voice cloning (instant and professional",
+        "voice agents (line"
+      ],
+      "final": "https://www.cartesia.ai/pricing"
+    },
+    {
+      "slug": "cartesia",
+      "nombre": "Cartesia",
+      "campo": "freePlan.commercialUse",
+      "url": "https://cartesia.ai/legal/terms",
+      "comprobada": "2026-10-11",
+      "cita": "We hereby permit you to use the Services for your personal, non-commercial use only (unless commercial use is expressly permitted by your subscription tier)",
+      "estado": "intacta",
+      "faltan": [],
+      "final": "https://www.cartesia.ai/legal/terms"
+    },
+    {
+      "slug": "cartesia",
+      "nombre": "Cartesia",
+      "campo": "freePlan.excludedCapabilities",
+      "url": "https://cartesia.ai/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · $0 /mo · 20K credits / month · $1 prepaid agents / month · Text to Speech · Speech to Text · Pro · $5 /mo · 100K credits / month · Everything in Free, plus · Commercial use license · Instant voice cloning",
+      "estado": "intacta",
+      "faltan": [],
+      "final": "https://www.cartesia.ai/pricing"
+    },
+    {
+      "slug": "cartesia",
+      "nombre": "Cartesia",
+      "campo": "incluida: text-to-speech",
+      "url": "https://cartesia.ai/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · $0 /mo · 20K credits / month · $1 prepaid agents / month · Text to Speech · Speech to Text · Pro · $5 /mo · 100K credits / month · Everything in Free, plus · Commercial use license · Instant voice cloning",
+      "estado": "intacta",
+      "faltan": [],
+      "final": "https://www.cartesia.ai/pricing"
+    },
+    {
+      "slug": "cartesia",
+      "nombre": "Cartesia",
+      "campo": "incluida: transcription",
+      "url": "https://cartesia.ai/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · $0 /mo · 20K credits / month · $1 prepaid agents / month · Text to Speech · Speech to Text · Pro · $5 /mo · 100K credits / month · Everything in Free, plus · Commercial use license · Instant voice cloning",
+      "estado": "intacta",
+      "faltan": [],
+      "final": "https://www.cartesia.ai/pricing"
+    },
+    {
+      "slug": "chatgpt",
+      "nombre": "ChatGPT",
+      "campo": "freePlan.limits",
+      "url": "https://help.openai.com/en/articles/9275245-chatgpt-free-tier-faq",
+      "comprobada": "2026-10-11",
+      "cita": "Free users have unlimited everyday text chats, subject to abuse-prevention safeguards. File uploads, image generation, voice, data analysis, and other tools have separate usage limits. ChatGPT will notify you when you reach an applicable limit.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "chatgpt",
+      "nombre": "ChatGPT",
+      "campo": "capabilities",
+      "url": "https://chatgpt.com/pricing",
+      "comprobada": "2026-09-15",
+      "cita": "Unlimited text chats with GPT-5.6 Luna · Limited and slower image generation · Limited voice chats · Limited deep research · Limited memory and context · Limited Codex access",
+      "estado": "parcial",
+      "faltan": [
+        "unlimited text chats with gpt-5.6 luna",
+        "limited and slower image generation"
+      ],
+      "final": "https://chatgpt.com/pricing/"
+    },
+    {
+      "slug": "chatgpt",
+      "nombre": "ChatGPT",
+      "campo": "freePlan.commercialUse",
+      "url": "https://openai.com/policies/eu-terms-of-use/",
+      "comprobada": "2026-09-15",
+      "cita": "Commercial and business use. If you use our Services for commercial or business use, the following terms apply.",
+      "estado": "no-leida",
+      "motivo": "HTTP 403",
+      "faltan": []
+    },
+    {
+      "slug": "chatgpt",
+      "nombre": "ChatGPT",
+      "campo": "incluida: text-generation",
+      "url": "https://help.openai.com/en/articles/9275245-chatgpt-free-tier-faq",
+      "comprobada": "2026-10-11",
+      "cita": "Free users have unlimited everyday text chats, subject to abuse-prevention safeguards. File uploads, image generation, voice, data analysis, and other tools have separate usage limits. ChatGPT will notify you when you reach an applicable limit.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "chatgpt",
+      "nombre": "ChatGPT",
+      "campo": "incluida: text-to-image",
+      "url": "https://help.openai.com/en/articles/9275245-chatgpt-free-tier-faq",
+      "comprobada": "2026-10-11",
+      "cita": "Free users have unlimited everyday text chats, subject to abuse-prevention safeguards. File uploads, image generation, voice, data analysis, and other tools have separate usage limits. ChatGPT will notify you when you reach an applicable limit.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "chatgpt",
+      "nombre": "ChatGPT",
+      "campo": "incluida: audio-input",
+      "url": "https://help.openai.com/en/articles/9275245-chatgpt-free-tier-faq",
+      "comprobada": "2026-10-11",
+      "cita": "Free users have unlimited everyday text chats, subject to abuse-prevention safeguards. File uploads, image generation, voice, data analysis, and other tools have separate usage limits. ChatGPT will notify you when you reach an applicable limit.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "chatgpt",
+      "nombre": "ChatGPT",
+      "campo": "incluida: research",
+      "url": "https://chatgpt.com/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · Best for trying out ChatGPT · […] Limited deep research · Limited memory and context · Limited Codex access",
+      "estado": "parcial",
+      "faltan": [
+        "best for trying out chatgpt"
+      ],
+      "final": "https://chatgpt.com/pricing/"
+    },
+    {
+      "slug": "chatgpt",
+      "nombre": "ChatGPT",
+      "campo": "incluida: memory",
+      "url": "https://chatgpt.com/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · Best for trying out ChatGPT · […] Limited deep research · Limited memory and context · Limited Codex access",
+      "estado": "parcial",
+      "faltan": [
+        "best for trying out chatgpt"
+      ],
+      "final": "https://chatgpt.com/pricing/"
+    },
+    {
+      "slug": "chatgpt",
+      "nombre": "ChatGPT",
+      "campo": "incluida: code-generation",
+      "url": "https://chatgpt.com/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · Best for trying out ChatGPT · […] Limited deep research · Limited memory and context · Limited Codex access",
+      "estado": "parcial",
+      "faltan": [
+        "best for trying out chatgpt"
+      ],
+      "final": "https://chatgpt.com/pricing/"
+    },
+    {
+      "slug": "chatgpt",
+      "nombre": "ChatGPT",
+      "campo": "procedencia: c2pa",
+      "url": "https://help.openai.com/en/articles/8912793-provenance-signals-in-openai-generated-content",
+      "comprobada": "2026-10-11",
+      "cita": "Images · Content Credentials and SynthID watermarks · Images generated with ChatGPT, Codex, or the OpenAI API include both signals.",
+      "estado": "no-leida",
+      "motivo": "HTTP 403",
+      "faltan": []
+    },
+    {
+      "slug": "chatgpt",
+      "nombre": "ChatGPT",
+      "campo": "procedencia: synthid",
+      "url": "https://help.openai.com/en/articles/8912793-provenance-signals-in-openai-generated-content",
+      "comprobada": "2026-10-11",
+      "cita": "Images · Content Credentials and SynthID watermarks · Images generated with ChatGPT, Codex, or the OpenAI API include both signals.",
+      "estado": "no-leida",
+      "motivo": "HTTP 403",
+      "faltan": []
+    },
+    {
+      "slug": "chatgpt",
+      "nombre": "ChatGPT",
+      "campo": "procedencia: audio-watermark",
+      "url": "https://help.openai.com/en/articles/8912793-provenance-signals-in-openai-generated-content",
+      "comprobada": "2026-10-11",
+      "cita": "Audio generated by ChatGPT or the OpenAI API includes an inaudible watermark embedded in the audio itself.",
+      "estado": "no-leida",
+      "motivo": "HTTP 403",
+      "faltan": []
+    },
+    {
+      "slug": "chatgpt",
+      "nombre": "ChatGPT",
+      "campo": "procedencia: text-watermark",
+      "url": "https://help.openai.com/en/articles/8912793-provenance-signals-in-openai-generated-content",
+      "comprobada": "2026-10-11",
+      "cita": "In the EU, ChatGPT-generated text includes an invisible change to the randomness used in the model’s word choices to comply with the EU AI Act.",
+      "estado": "no-leida",
+      "motivo": "HTTP 403",
+      "faltan": []
+    },
+    {
+      "slug": "civitai",
+      "nombre": "Civitai",
+      "campo": "freePlan.limits",
+      "url": "https://civitai.com/pricing",
+      "comprobada": "2026-08-12",
+      "cita": "Buzz on daily rewards",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "civitai",
+      "nombre": "Civitai",
+      "campo": "capabilities",
+      "url": "https://civitai.com",
+      "comprobada": "2026-08-12",
+      "cita": "re © Civitai 2026 Terms of Service Privacy Safety API Status Known Issues Education Creators 🛟 Support Home -",
+      "estado": "desaparecida",
+      "faltan": [
+        "re © civitai 2026 terms of service privacy safety api status known issues education creators 🛟 support home -"
+      ],
+      "final": "https://civitai.com/"
+    },
+    {
+      "slug": "claude",
+      "nombre": "Claude",
+      "campo": "capabilities",
+      "url": "https://www.anthropic.com/news/claude-sonnet-5",
+      "comprobada": "2026-08-30",
+      "cita": "it is the default model for Free and Pro plans, and is available to Max, Team, and Enterprise users",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "claude",
+      "nombre": "Claude",
+      "campo": "freePlan.limits",
+      "url": "https://support.claude.com/en/articles/8114491-getting-started-with-claude",
+      "comprobada": "2026-10-11",
+      "cita": "While using the free Claude plan, there is a session-based usage limit that will reset every five hours. […] the number of messages you can send will vary based on demand, and we may impose other types of usage limits to ensure fair access to all users.",
+      "estado": "intacta",
+      "faltan": [],
+      "final": "https://support.claude.com/en/articles/8114491-get-started-with-claude"
+    },
+    {
+      "slug": "claude",
+      "nombre": "Claude",
+      "campo": "freePlan.commercialUse",
+      "url": "https://www.anthropic.com/legal/consumer-terms",
+      "comprobada": "2026-09-15",
+      "cita": "Non-commercial use only. You agree that you will not use our Services for any commercial or business purposes",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "claude",
+      "nombre": "Claude",
+      "campo": "incluida: text-generation",
+      "url": "https://claude.com/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · €0 · Free for everyone · Try Claude · Chat on web, desktop, and mobile · Search the web, create files, and run code · Memory across conversations · Connect your apps and tools · Create Artifacts · Claude Design, Slides, Docs",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "claude",
+      "nombre": "Claude",
+      "campo": "incluida: web-browsing",
+      "url": "https://claude.com/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · €0 · Free for everyone · Try Claude · Chat on web, desktop, and mobile · Search the web, create files, and run code · Memory across conversations · Connect your apps and tools · Create Artifacts · Claude Design, Slides, Docs",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "claude",
+      "nombre": "Claude",
+      "campo": "incluida: code-execution",
+      "url": "https://claude.com/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · €0 · Free for everyone · Try Claude · Chat on web, desktop, and mobile · Search the web, create files, and run code · Memory across conversations · Connect your apps and tools · Create Artifacts · Claude Design, Slides, Docs",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "claude",
+      "nombre": "Claude",
+      "campo": "incluida: memory",
+      "url": "https://claude.com/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · €0 · Free for everyone · Try Claude · Chat on web, desktop, and mobile · Search the web, create files, and run code · Memory across conversations · Connect your apps and tools · Create Artifacts · Claude Design, Slides, Docs",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "claude",
+      "nombre": "Claude",
+      "campo": "incluida: integrations",
+      "url": "https://claude.com/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · €0 · Free for everyone · Try Claude · Chat on web, desktop, and mobile · Search the web, create files, and run code · Memory across conversations · Connect your apps and tools · Create Artifacts · Claude Design, Slides, Docs",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "claude-code",
+      "nombre": "Claude Code",
+      "campo": "freePlan.limits",
+      "url": "https://claude.com/pricing",
+      "comprobada": "2026-08-19",
+      "cita": "Pro — $20/month, or $17/month billed annually: Everything in Free, plus: More usage… Includes Claude Code. [El plan Free lista chat en web, iOS, Android y escritorio, y no menciona Claude Code.]",
+      "estado": "parcial",
+      "faltan": [
+        "$20/month, or $17/month billed annually"
+      ]
+    },
+    {
+      "slug": "claude-code",
+      "nombre": "Claude Code",
+      "campo": "capabilities",
+      "url": "https://claude.com/product/claude-code",
+      "comprobada": "2026-08-19",
+      "cita": "Executing across 10s to 100s of parallel subagents · the entire workflow—reading issues, writing code, running tests, and submitting PRs—all from your terminal · powerful, multi-file edits that work.",
+      "estado": "desaparecida",
+      "faltan": [
+        "executing across 10s to 100s of parallel subagents",
+        "the entire workflow-reading issues, writing code, running tests, and submitting prs-all from your terminal",
+        "powerful, multi-file edits that work"
+      ]
+    },
+    {
+      "slug": "claude-haiku-4-5",
+      "nombre": "Claude Haiku 4.5",
+      "campo": "capabilities",
+      "url": "https://platform.claude.com/docs/en/about-claude/models/overview",
+      "comprobada": "2026-08-20",
+      "cita": "Claude Haiku 4.5 — The fastest model with near-frontier intelligence · Extended thinking: Yes · Context window 200k tokens · Max output 64k tokens · $1 / input MTok $5 / output MTok",
+      "estado": "parcial",
+      "faltan": [
+        "the fastest model with near-frontier intelligence",
+        "context window 200k tokens",
+        "max output 64k tokens",
+        "$1 / input mtok $5 / output mtok"
+      ],
+      "final": "https://platform.claude.com/docs/en/models/overview"
+    },
+    {
+      "slug": "claude-haiku-4-5",
+      "nombre": "Claude Haiku 4.5",
+      "campo": "freePlan.limits",
+      "url": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "comprobada": "2026-08-24",
+      "cita": "Claude Haiku 4.5 — $1 / MTok (base input tokens) · $5 / MTok (output tokens)",
+      "estado": "parcial",
+      "faltan": [
+        "$1 / mtok (base input tokens",
+        "$5 / mtok (output tokens"
+      ]
+    },
+    {
+      "slug": "claude-opus-5",
+      "nombre": "Claude Opus 5",
+      "campo": "capabilities",
+      "url": "https://platform.claude.com/docs/en/about-claude/models/overview",
+      "comprobada": "2026-08-20",
+      "cita": "Claude Opus 5 — For complex agentic coding and enterprise work · Adaptive thinking: Yes · Context window 1M tokens · Max output 128k tokens · All current Claude models support text and image input, text output, multilingual capabilities, and vision.",
+      "estado": "parcial",
+      "faltan": [
+        "for complex agentic coding and enterprise work",
+        "adaptive thinking",
+        "all current claude models support text and image input, text output, multilingual capabilities, and vision"
+      ],
+      "final": "https://platform.claude.com/docs/en/models/overview"
+    },
+    {
+      "slug": "claude-opus-5",
+      "nombre": "Claude Opus 5",
+      "campo": "freePlan.limits",
+      "url": "https://platform.claude.com/docs/en/about-claude/models/overview",
+      "comprobada": "2026-08-20",
+      "cita": "$5 / input MTok $25 / output MTok",
+      "estado": "desaparecida",
+      "faltan": [
+        "$5 / input mtok $25 / output mtok"
+      ],
+      "final": "https://platform.claude.com/docs/en/models/overview"
+    },
+    {
+      "slug": "claude-sonnet-5",
+      "nombre": "Claude Sonnet 5",
+      "campo": "capabilities",
+      "url": "https://platform.claude.com/docs/en/about-claude/models/overview",
+      "comprobada": "2026-08-20",
+      "cita": "Claude Sonnet 5 — The best combination of speed and intelligence · Adaptive thinking: Yes · Context window 1M tokens · Max output 128k · $2 / input MTok $10 / output MTok",
+      "estado": "parcial",
+      "faltan": [
+        "adaptive thinking"
+      ],
+      "final": "https://platform.claude.com/docs/en/models/overview"
+    },
+    {
+      "slug": "claude-sonnet-5",
+      "nombre": "Claude Sonnet 5",
+      "campo": "freePlan.limits",
+      "url": "https://platform.claude.com/docs/en/about-claude/models/overview",
+      "comprobada": "2026-09-16",
+      "cita": "Claude Sonnet 5 · The best combination of speed and intelligence · $2 / input MTok · $10 / output MTok · claude-sonnet-5 · 1M tokens · 128K tokens",
+      "estado": "intacta",
+      "faltan": [],
+      "final": "https://platform.claude.com/docs/en/models/overview"
+    },
+    {
+      "slug": "cline",
+      "nombre": "Cline",
+      "campo": "capabilities",
+      "url": "https://github.com/cline/cline",
+      "comprobada": "2026-08-19",
+      "cita": "The open source coding agent in your IDE and terminal · executes bash commands and watches output in real time · supports Model Context Protocol servers · every file edit and terminal command requires approval · Apache 2.0 © 2026 Cline Bot Inc.",
+      "estado": "parcial",
+      "faltan": [
+        "the open source coding agent in your ide and terminal",
+        "executes bash commands and watches output in real time",
+        "supports model context protocol servers",
+        "every file edit and terminal command requires approval"
+      ]
+    },
+    {
+      "slug": "clipdrop",
+      "nombre": "Clipdrop",
+      "campo": "capabilities",
+      "url": "https://clipdrop.co/",
+      "comprobada": "2026-08-12",
+      "cita": "l Resizer Resize your images for any social media Text to image Text to image Generate high-resolution realist · picture? To remove a person from a photo, use our inpainting algorithm · Uncrop Uncrop Uncrop your photos to any image format Image upscaler Image upscal",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "clipdrop",
+      "nombre": "Clipdrop",
+      "campo": "freePlan.excludedCapabilities",
+      "url": "https://clipdrop.co/text-to-image",
+      "comprobada": "2026-10-12",
+      "cita": "Generate images exclusively for Pro users",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "clipdrop",
+      "nombre": "Clipdrop",
+      "campo": "freePlan.limits",
+      "url": "https://clipdrop.co/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · 0 € · Start for free · [tachado] Text to image · [tachado] Uncrop · Background Removal · 20/24h · Image Upscaler x2 · 20/24h · Cleanup · 20/24h · Relight · 20/24h · Text Remover · 50/24h · [tachado] Replace Background",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "clipdrop",
+      "nombre": "Clipdrop",
+      "campo": "incluida: background-removal",
+      "url": "https://clipdrop.co/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · 0 € · Start for free · [tachado] Text to image · [tachado] Uncrop · Background Removal · 20/24h · Image Upscaler x2 · 20/24h · Cleanup · 20/24h · Relight · 20/24h · Text Remover · 50/24h · [tachado] Replace Background",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "clipdrop",
+      "nombre": "Clipdrop",
+      "campo": "incluida: upscaling",
+      "url": "https://clipdrop.co/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · 0 € · Start for free · [tachado] Text to image · [tachado] Uncrop · Background Removal · 20/24h · Image Upscaler x2 · 20/24h · Cleanup · 20/24h · Relight · 20/24h · Text Remover · 50/24h · [tachado] Replace Background",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "clipdrop",
+      "nombre": "Clipdrop",
+      "campo": "incluida: inpainting",
+      "url": "https://clipdrop.co/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · 0 € · Start for free · [tachado] Text to image · [tachado] Uncrop · Background Removal · 20/24h · Image Upscaler x2 · 20/24h · Cleanup · 20/24h · Relight · 20/24h · Text Remover · 50/24h · [tachado] Replace Background",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "codex",
+      "nombre": "OpenAI Codex",
+      "campo": "freePlan.limits",
+      "url": "https://learn.chatgpt.com/docs/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "ChatGPT Work and Codex are included in your ChatGPT Free, Go, Plus, Pro, Business, Edu, or Enterprise plan · Free — $0/month: Explore Codex capabilities on quick coding tasks · Go — $8/month: Use Codex for lightweight coding tasks.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "codex",
+      "nombre": "OpenAI Codex",
+      "campo": "capabilities",
+      "url": "https://learn.chatgpt.com/docs",
+      "comprobada": "2026-08-19",
+      "cita": "run in the terminal/CLI, edit files in a repository, run commands and tests · Local environments and Cloud environment · Browser [listado como capacidad].",
+      "estado": "parcial",
+      "faltan": [
+        "run in the terminal/cli, edit files in a repository, run commands and tests",
+        "local environments and cloud environment"
+      ]
+    },
+    {
+      "slug": "codex",
+      "nombre": "OpenAI Codex",
+      "campo": "freePlan.commercialUse",
+      "url": "https://openai.com/policies/eu-terms-of-use/",
+      "comprobada": "2026-10-11",
+      "cita": "Commercial and business use. If you use our Services for commercial or business use, the following terms apply.",
+      "estado": "no-leida",
+      "motivo": "HTTP 403",
+      "faltan": []
+    },
+    {
+      "slug": "codex",
+      "nombre": "OpenAI Codex",
+      "campo": "incluida: repository-editing",
+      "url": "https://learn.chatgpt.com/docs/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · Explore Codex capabilities on quick coding tasks. · $0 /month · GPT-6 Luna at Standard speed in the desktop app, subject to rollout",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "comfy-cloud",
+      "nombre": "Comfy Cloud",
+      "campo": "freePlan.limits",
+      "url": "https://www.comfy.org/pricing",
+      "comprobada": "2026-08-12",
+      "cita": "Start free. Upgrade when you're ready. 5 free runs on real GPUs — no credit card required.",
+      "estado": "parcial",
+      "faltan": [
+        "start free",
+        "upgrade when you're ready. 5 free runs on real gpus"
+      ],
+      "final": "https://comfy.org/pricing"
+    },
+    {
+      "slug": "comfy-cloud",
+      "nombre": "Comfy Cloud",
+      "campo": "freePlan.requiresCreditCard",
+      "url": "https://www.comfy.org/pricing",
+      "comprobada": "2026-10-12",
+      "cita": "no credit card required",
+      "estado": "intacta",
+      "faltan": [],
+      "final": "https://comfy.org/pricing"
+    },
+    {
+      "slug": "comfy-cloud",
+      "nombre": "Comfy Cloud",
+      "campo": "capabilities",
+      "url": "https://www.comfy.org/",
+      "comprobada": "2026-08-12",
+      "cita": "SEE CLOUD FEATURES Comfy API Turn workflows into production endpoints · View Model Features Try Workflows Open Weights Partner Nodes HOW WORKS Connect models, processing steps, a",
+      "estado": "desaparecida",
+      "faltan": [
+        "see cloud features comfy api turn workflows into production endpoints",
+        "view model features try workflows open weights partner nodes how works connect models, processing steps, a"
+      ],
+      "final": "https://comfy.org/"
+    },
+    {
+      "slug": "comfyui",
+      "nombre": "ComfyUI",
+      "campo": "capabilities",
+      "url": "https://github.com/Comfy-Org/ComfyUI",
+      "comprobada": "2026-08-12",
+      "cita": "Image generation : Stable Diffusion 1 · advanced examples: “Hires Fix” aka 2 Pass Txt2Img Img2Img Inpainting Lora Hypernetworks Embeddings/Textual Inv · Image editing : Flux Kontext, Flux",
+      "estado": "parcial",
+      "faltan": [
+        "advanced examples",
+        "hires fix' aka 2 pass txt2img img2img inpainting lora hypernetworks embeddings/textual inv"
+      ]
+    },
+    {
+      "slug": "comfyui",
+      "nombre": "ComfyUI",
+      "campo": "freePlan.limits",
+      "url": "https://github.com/Comfy-Org/ComfyUI",
+      "comprobada": "2026-09-16",
+      "cita": "Supports all operating systems and GPU types (NVIDIA, AMD, Intel, Apple Silicon, Ascend). · Runs fully offline: core does not download anything unless you request it. · the optional paid Comfy API nodes · There is a portable standalone build for Windows that should work for running on Nvidia GPUs or for running on your CPU only.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "crewai",
+      "nombre": "CrewAI",
+      "campo": "capabilities",
+      "url": "https://github.com/crewAIInc/crewAI",
+      "comprobada": "2026-08-19",
+      "cita": "Framework for orchestrating role-playing, autonomous AI agents… empowers agents to work together seamlessly, tackling complex tasks · Crews: role-based teams that handle dynamic task delegation · Flows: precise, event-driven control over complex automations · License: MIT.",
+      "estado": "parcial",
+      "faltan": [
+        "role-based teams that handle dynamic task delegation",
+        "precise, event-driven control over complex automations"
+      ]
+    },
+    {
+      "slug": "cursor",
+      "nombre": "Cursor",
+      "campo": "freePlan.limits",
+      "url": "https://cursor.com/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Hobby — No credit card required · Limited Agent requests · Access to Composer. Individual: $20 / mo.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "cursor",
+      "nombre": "Cursor",
+      "campo": "freePlan.requiresCreditCard",
+      "url": "https://cursor.com/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "No credit card required",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "cursor",
+      "nombre": "Cursor",
+      "campo": "incluida: repository-editing",
+      "url": "https://cursor.com/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Hobby · For the tinkerer · Free · Includes: ✓ No credit card required · ✓ Limited Agent requests · ✓ Access to Composer",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "deepseek-v4-pro",
+      "nombre": "DeepSeek V4 Pro",
+      "campo": "capabilities",
+      "url": "https://api-docs.deepseek.com/quick_start/pricing",
+      "comprobada": "2026-08-29",
+      "cita": "deepseek-v4-pro: 1M context length, max 384K output. Peak hours: $1.32/1M input (cache miss), $3.96/1M output",
+      "estado": "parcial",
+      "faltan": [
+        "1m context length, max 384k output",
+        "$1.32/1m input (cache miss), $3.96/1m output"
+      ],
+      "final": "https://api-docs.deepseek.com/quick_start/pricing/"
+    },
+    {
+      "slug": "deepseek-v4-pro",
+      "nombre": "DeepSeek V4 Pro",
+      "campo": "openSource",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813",
+      "comprobada": "2026-08-20",
+      "cita": "This repository and the model weights are licensed under the MIT License",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "deepseek-v4-pro",
+      "nombre": "DeepSeek V4 Pro",
+      "campo": "freePlan.limits",
+      "url": "https://api-docs.deepseek.com/quick_start/pricing",
+      "comprobada": "2026-09-16",
+      "cita": "CONTEXT LENGTH 1M · MAX OUTPUT MAXIMUM: 384K · OFF-PEAK $0.15 $0.66 · PEAK $0.3 $1.32 · OFF-PEAK $0.6 $1.98 · PEAK $1.2 $3.96 · In response to user demand, we have decided to continue providing API services for DeepSeek V4 Pro after September 14, 2026, with the billing method remaining unchanged.",
+      "estado": "parcial",
+      "faltan": [
+        "in response to user demand, we have decided to continue providing api services for deepseek v4 pro after september 14, 2026, with the billing method remaining unchanged"
+      ],
+      "final": "https://api-docs.deepseek.com/quick_start/pricing/"
+    },
+    {
+      "slug": "descript",
+      "nombre": "Descript",
+      "campo": "freePlan.limits",
+      "url": "https://www.descript.com/pricing",
+      "comprobada": "2026-10-12",
+      "cita": "[Tabla de planes: Free · Hobbyist · Creator · Business] Media minutes (per editor): 60 minutes (1 hr) / month · 600 minutes (10 hrs) / month […] AI credits (per editor): 100 (one-time) · 400 / month · 800 / month · 1500 / month […] Video export (local) resolution: 720p · 1080p · 4k · 4k",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "descript",
+      "nombre": "Descript",
+      "campo": "capabilities",
+      "url": "https://www.descript.com/pricing",
+      "comprobada": "2026-08-15",
+      "cita": "text-based editing · dynamic captions · transitions · green screen removal · eye contact correction · automatic multicam · avatar-based video generation",
+      "estado": "parcial",
+      "faltan": [
+        "green screen removal",
+        "eye contact correction",
+        "avatar-based video generation"
+      ]
+    },
+    {
+      "slug": "descript",
+      "nombre": "Descript",
+      "campo": "freePlan.requiresCreditCard",
+      "url": "https://www.descript.com/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "No, Descript's Free plan includes everything you need to record, edit and mix audio and video content.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "descript",
+      "nombre": "Descript",
+      "campo": "freePlan.hasWatermark",
+      "url": "https://help.descript.com/hc/en-us/articles/10255814959245-Export-video-locally",
+      "comprobada": "2026-09-16",
+      "cita": "Exports from a Free drive will include a Descript watermark in the bottom-right corner.",
+      "estado": "intacta",
+      "faltan": [],
+      "final": "https://help.descript.com/export-and-share/video-gif"
+    },
+    {
+      "slug": "descript",
+      "nombre": "Descript",
+      "campo": "incluida: transcription",
+      "url": "https://www.descript.com/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "[Tabla de planes: Free · Hobbyist · Creator · Business] Media minutes (per editor): 60 minutes (1 hr) / month · […] Transcription · Multi-language transcription: 25 languages · 25 languages · 25 languages · 25 languages",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "devin",
+      "nombre": "Devin",
+      "campo": "freePlan.limits",
+      "url": "https://docs.devin.ai/admin/billing/self-serve",
+      "comprobada": "2026-08-19",
+      "cita": "Free | Individuals trying Devin | Free | 1 — Limited Devin usage, Devin Review, DeepWiki. [Pro: $20/month · Max: $200/month · Teams: $80/month minimum.]",
+      "estado": "parcial",
+      "faltan": [
+        "limited devin usage, devin review, deepwiki"
+      ]
+    },
+    {
+      "slug": "devin",
+      "nombre": "Devin",
+      "campo": "capabilities",
+      "url": "https://docs.devin.ai/get-started/devin-intro",
+      "comprobada": "2026-08-19",
+      "cita": "Devin's terminal, where you can watch commands being executed and view output logs · Devin's embedded code editor equipped with all the IDE tools and shortcuts you're familiar with · Browser: allows Devin to browse documentation, test applications, and handle web-based tasks.",
+      "estado": "parcial",
+      "faltan": [
+        "allows devin to browse documentation, test applications, and handle web-based tasks"
+      ]
+    },
+    {
+      "slug": "devin",
+      "nombre": "Devin",
+      "campo": "incluida: repository-editing",
+      "url": "https://docs.devin.ai/admin/billing/self-serve",
+      "comprobada": "2026-10-12",
+      "cita": "Free · Individuals trying Devin · Free · 1 · […] Limited Devin usage",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "dify",
+      "nombre": "Dify",
+      "campo": "freePlan.limits",
+      "url": "https://dify.ai/pricing",
+      "comprobada": "2026-08-19",
+      "cita": "Sandbox — For trying out Dify’s core features: 200 message credits · 1 Team Workspace · 1 Team Member · 5 Apps · 50 Knowledge Documents. [Professional: $590 per workspace/year.]",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "dify",
+      "nombre": "Dify",
+      "campo": "capabilities",
+      "url": "https://github.com/langgenius/dify",
+      "comprobada": "2026-08-19",
+      "cita": "Dify is an open-source LLM app development platform… combines AI workflow, RAG pipeline, agent capabilities, model management, observability features · You can define agents based on LLM Function Calling or ReAct, and add pre-built or custom tools · This repository is licensed under the Dify Open Source License, based on Apache 2.0 with additional conditions.",
+      "estado": "parcial",
+      "faltan": [
+        "you can define agents based on llm function calling or react, and add pre-built or custom tools"
+      ]
+    },
+    {
+      "slug": "dify",
+      "nombre": "Dify",
+      "campo": "incluida: workflow-automation",
+      "url": "https://dify.ai/pricing",
+      "comprobada": "2026-10-12",
+      "cita": "Sandbox · For trying out Dify's core features. · Free · Start for Free · 200 message credits · 1 Team Workspace · 1 Team Member · 5 Apps",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "elevenlabs",
+      "nombre": "ElevenLabs",
+      "campo": "freePlan.limits",
+      "url": "https://elevenlabs.io/pricing",
+      "comprobada": "2026-08-24",
+      "cita": "10k credits per month",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "elevenlabs",
+      "nombre": "ElevenLabs",
+      "campo": "freePlan.creditReset",
+      "url": "https://elevenlabs.io/pricing",
+      "comprobada": "2026-10-12",
+      "cita": "Your credit allowance resets at the start of each billing cycle, which begins on the day you subscribed. […] Rollover does not apply to the Free plan.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "elevenlabs",
+      "nombre": "ElevenLabs",
+      "campo": "freePlan.commercialUse",
+      "url": "https://elevenlabs.io/terms-of-use",
+      "comprobada": "2026-10-12",
+      "cita": "if you access or use our Services free of charge (such a user, a “Free User”), you may only use the Services for non-commercial purposes",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "elevenlabs",
+      "nombre": "ElevenLabs",
+      "campo": "freePlan.excludedCapabilities",
+      "url": "https://elevenlabs.io/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Starter … Everything in free, plus · Commercial License · Instant Voice Cloning · 20 Projects in Studio · Music commercial use · Dubbing Studio · Image & Video",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "elevenlabs",
+      "nombre": "ElevenLabs",
+      "campo": "incluida: text-to-speech",
+      "url": "https://elevenlabs.io/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · $0 per month · Build for free · Text to Speech · Speech to Text · Sound Effects · Voice Design · Music · Productions · Image · 3 Projects in Studio · 10k credits per month",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "elevenlabs",
+      "nombre": "ElevenLabs",
+      "campo": "incluida: transcription",
+      "url": "https://elevenlabs.io/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · $0 per month · Build for free · Text to Speech · Speech to Text · Sound Effects · Voice Design · Music · Productions · Image · 3 Projects in Studio · 10k credits per month",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "elevenlabs",
+      "nombre": "ElevenLabs",
+      "campo": "incluida: sound-effects",
+      "url": "https://elevenlabs.io/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · $0 per month · Build for free · Text to Speech · Speech to Text · Sound Effects · Voice Design · Music · Productions · Image · 3 Projects in Studio · 10k credits per month",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "elevenlabs",
+      "nombre": "ElevenLabs",
+      "campo": "incluida: text-to-music",
+      "url": "https://elevenlabs.io/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · $0 per month · Build for free · Text to Speech · Speech to Text · Sound Effects · Voice Design · Music · Productions · Image · 3 Projects in Studio · 10k credits per month",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "elevenlabs",
+      "nombre": "ElevenLabs",
+      "campo": "incluida: dubbing",
+      "url": "https://elevenlabs.io/docs/help-center/product/dubbing/on-which-plans-can-i-use-dubbing",
+      "comprobada": "2026-10-11",
+      "cita": "Dubbing is available on all our plans, including the free plan. Dubs generated on free plans are automatically watermarked, with no option to remove this.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "elevenlabs",
+      "nombre": "ElevenLabs",
+      "campo": "procedencia: audio-watermark",
+      "url": "https://elevenlabs.io/docs/help-center/legal/audio-detector/can-i-hear-the-watermark",
+      "comprobada": "2026-10-12",
+      "cita": "No. The watermark is completely inaudible. It hides a pattern of sound at frequencies that are masked by the existing audio, making it imperceptible to the human ear.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "f5-tts",
+      "nombre": "F5-TTS",
+      "campo": "freePlan.limits",
+      "url": "https://github.com/SWivid/F5-TTS",
+      "comprobada": "2026-08-18",
+      "cita": "The pre-trained models are licensed under the CC-BY-NC license due to the training data Emilia, which is an in-the-wild dataset.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "f5-tts",
+      "nombre": "F5-TTS",
+      "campo": "capabilities",
+      "url": "https://github.com/SWivid/F5-TTS",
+      "comprobada": "2026-08-18",
+      "cita": "Basic TTS with Chunk Inference · Multi-Style / Multi-Speaker Generation · Voice Chat",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "f5-tts",
+      "nombre": "F5-TTS",
+      "campo": "openSource",
+      "url": "https://github.com/SWivid/F5-TTS",
+      "comprobada": "2026-08-24",
+      "cita": "The pre-trained models are licensed under the CC-BY-NC license due to the training data Emilia, which is an in-the-wild dataset.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "f5-tts",
+      "nombre": "F5-TTS",
+      "campo": "freePlan.commercialUse",
+      "url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "comprobada": "2026-09-21",
+      "cita": "NonCommercial — You may not use the material for commercial purposes.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "fish-audio",
+      "nombre": "Fish Audio",
+      "campo": "freePlan.limits",
+      "url": "https://fish.audio/plan/",
+      "comprobada": "2026-10-11",
+      "cita": "Free Tier · $0 /mo · No credit card needed · 8,000 credits monthly · Up to 7 minutes generation · Up to 500 characters per generation · 3 public voice slots · Standard generation speed · [tachado] Enhanced voice cloning · [tachado] Commercial use",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "fish-audio",
+      "nombre": "Fish Audio",
+      "campo": "capabilities",
+      "url": "https://fish.audio/",
+      "comprobada": "2026-08-18",
+      "cita": "text-to-speech, voice cloning, speech-to-text · Voice cloning in as little as 15 seconds · 30+ languages",
+      "estado": "parcial",
+      "faltan": [
+        "text-to-speech, voice cloning, speech-to-text",
+        "voice cloning in as little as 15 seconds"
+      ]
+    },
+    {
+      "slug": "fish-audio",
+      "nombre": "Fish Audio",
+      "campo": "freePlan.requiresCreditCard",
+      "url": "https://fish.audio/plan/",
+      "comprobada": "2026-10-11",
+      "cita": "No credit card needed",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "fish-audio",
+      "nombre": "Fish Audio",
+      "campo": "freePlan.commercialUse",
+      "url": "https://fish.audio/plan/",
+      "comprobada": "2026-10-11",
+      "cita": "Free plan users can only use generated content for personal, non-commercial projects.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "fish-audio",
+      "nombre": "Fish Audio",
+      "campo": "incluida: text-to-speech",
+      "url": "https://fish.audio/plan/",
+      "comprobada": "2026-10-11",
+      "cita": "Free Tier · $0 /mo · No credit card needed · 8,000 credits monthly · Up to 7 minutes generation · Up to 500 characters per generation · 3 public voice slots · Standard generation speed · [tachado] Enhanced voice cloning · [tachado] Commercial use",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "fooocus",
+      "nombre": "Fooocus",
+      "campo": "capabilities",
+      "url": "https://github.com/lllyasviel/Fooocus",
+      "comprobada": "2026-08-12",
+      "cita": "urney's examples: Midjourney Fooocus High-quality text-to-image without needing much prompt engineering or par · oint swap system of the refiner now also supports img2img and upscale in a seamless way · 5x) / Upscale (2x) Inpaint / Up / Down / Left / Right (Pan) Input Image -&gt; Inpaint",
+      "estado": "parcial",
+      "faltan": [
+        "5x) / upscale (2x) inpaint / up / down / left / right (pan) input image -&gt; inpaint"
+      ]
+    },
+    {
+      "slug": "fooocus",
+      "nombre": "Fooocus",
+      "campo": "freePlan.limits",
+      "url": "https://github.com/lllyasviel/Fooocus",
+      "comprobada": "2026-09-16",
+      "cita": "Project Status: Limited Long-Term Support (LTS) with Bug Fixes Only · built entirely on the Stable Diffusion XL architecture · Note that the minimal requirement is 4GB Nvidia GPU memory (4GB VRAM) and 8GB system memory (8GB RAM). · Note that the minimal requirement for different platforms is different.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "gemini-3-flash",
+      "nombre": "Gemini 3 Flash",
+      "campo": "capabilities",
+      "url": "https://ai.google.dev/gemini-api/docs/models",
+      "comprobada": "2026-08-20",
+      "cita": "Gemini 3.7 Flash: Our latest and most capable Flash model, built for complex coding, agentic workflows, and reliable multi-step execution.",
+      "estado": "desaparecida",
+      "faltan": [
+        "gemini 3.7 flash",
+        "our latest and most capable flash model, built for complex coding, agentic workflows, and reliable multi-step execution"
+      ]
+    },
+    {
+      "slug": "gemini-3-flash",
+      "nombre": "Gemini 3 Flash",
+      "campo": "freePlan.limits",
+      "url": "https://ai.google.dev/gemini-api/docs/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · For developers and small projects getting started with the Gemini API. · Limited access to certain models · Free input & output tokens · Google AI Studio access · […] Gemini 3.8 Flash · Input price: Free of charge · $0.75 through December 31, 2026. $1.50 starting January 1, 2027. · Output price (including thinking tokens): Free of charge · $3.75 through December 31, 2026. $7.50 starting January 1, 2027.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "gemini-3-flash",
+      "nombre": "Gemini 3 Flash",
+      "campo": "privacy.trainsOnUserData",
+      "url": "https://ai.google.dev/gemini-api/terms",
+      "comprobada": "2026-10-11",
+      "cita": "When you use Unpaid Services, including, for example, Google AI Studio and the unpaid quota on Gemini API, Google uses the content you submit to the Services and any generated responses to provide, improve, and develop Google products and services and machine learning technologies […] If you're in the European Economic Area, Switzerland, or the United Kingdom, the terms under \"How Google uses Your Data\" in \"Paid Services\" apply to all Services, including Google AI Studio and unpaid quota in the Gemini API, even though they are offered free of charge.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "gemini-3-flash",
+      "nombre": "Gemini 3 Flash",
+      "campo": "incluida: text-generation",
+      "url": "https://ai.google.dev/gemini-api/docs/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Gemini 3.8 Flash · gemini-3.8-flash · Our most intelligent Flash model […] · Free Tier · Input price: Free of charge · Output price (including thinking tokens): Free of charge",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "gemini-3-pro",
+      "nombre": "Gemini 3 Pro",
+      "campo": "freePlan.limits",
+      "url": "https://ai.google.dev/gemini-api/docs/pricing",
+      "comprobada": "2026-08-20",
+      "cita": "Gemini 3.1 Pro Preview (gemini-3.1-pro-preview) — Free Tier: Not available · Paid input $2.00 (prompts ≤200k tokens), $4.00 (>200k) · Paid output $12.00 / $18.00",
+      "estado": "parcial",
+      "faltan": [
+        "gemini 3.1 pro preview (gemini-3.1-pro-preview",
+        "paid input $2.00 (prompts ≤200k tokens), $4.00 (>200k",
+        "paid output $12.00 / $18.00"
+      ]
+    },
+    {
+      "slug": "gemini-cli",
+      "nombre": "Gemini CLI",
+      "campo": "freePlan.limits",
+      "url": "https://developers.google.com/gemini-code-assist/docs/deprecations/code-assist-individuals",
+      "comprobada": "2026-10-11",
+      "cita": "Starting June 18, 2026, Gemini Code Assist IDE extensions stopped serving requests for the Gemini Code Assist for individuals, Google AI Pro, and Google AI Ultra tiers. This also applies to usage of Gemini CLI. As part of the deprecation, you can no longer use the Login with Google option to access the IDE extensions or Gemini CLI.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "gemini-cli",
+      "nombre": "Gemini CLI",
+      "campo": "capabilities",
+      "url": "https://github.com/google-gemini/gemini-cli",
+      "comprobada": "2026-08-19",
+      "cita": "Built-in tools for file operations, shell commands, and web interactions · Built-in Google Search grounding · MCP (Model Context Protocol) support for custom integrations.",
+      "estado": "parcial",
+      "faltan": [
+        "built-in tools for file operations, shell commands, and web interactions",
+        "built-in google search grounding"
+      ]
+    },
+    {
+      "slug": "gemma-4",
+      "nombre": "Gemma 4",
+      "campo": "freePlan.limits",
+      "url": "https://ai.google.dev/gemma/docs/core/model_card_4",
+      "comprobada": "2026-08-20",
+      "cita": "Apache 2.0 · E2B (2.3B effective), E4B (4.5B effective), 12B Unified, 26B A4B (MoE), 31B Dense · E2B and E4B: 128K tokens; 12B, 26B A4B, 31B: 256K · Inputs: text and images (all models); audio support on E2B, E4B, and 12B only · Outputs: text generation only",
+      "estado": "parcial",
+      "faltan": [
+        "e2b (2.3b effective), e4b (4.5b effective), 12b unified, 26b a4b (moe), 31b dense",
+        "128k tokens; 12b, 26b a4b, 31b",
+        "text and images (all models); audio support on e2b, e4b, and 12b only",
+        "text generation only"
+      ]
+    },
+    {
+      "slug": "genspark",
+      "nombre": "Genspark",
+      "campo": "capabilities",
+      "url": "https://www.genspark.ai/helpcenter/super-agent",
+      "comprobada": "2026-08-20",
+      "cita": "Super Agent breaks your request into steps, chooses the right tools, and carries the work through to a finished result. [...] dedicated sandbox environment: real browser, own filesystem, and powerful execution [...] connects to your everyday apps and data so it can act with real context.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "genspark",
+      "nombre": "Genspark",
+      "campo": "freePlan.limits",
+      "url": "https://www.genspark.ai/helpcenter/credits-guide",
+      "comprobada": "2026-10-11",
+      "cita": "Free · 100 credits/day, Free accounts have a lifetime allowance of free credits. Once your account has used its lifetime allowance, the daily free refill stops — your current balance stays and keeps working until it runs out.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "github-copilot",
+      "nombre": "GitHub Copilot",
+      "campo": "freePlan.requiresCreditCard",
+      "url": "https://github.com/features/copilot",
+      "comprobada": "2026-10-11",
+      "cita": "Access to Haiku 4.5, GPT-5 mini, and more · Copilot CLI · Community Support · No credit card required.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "github-copilot",
+      "nombre": "GitHub Copilot",
+      "campo": "freePlan.limits",
+      "url": "https://github.com/features/copilot/plans",
+      "comprobada": "2026-09-16",
+      "cita": "2,000 completions per month · Chat, agent mode, code review, Copilot cloud agent, Copilot CLI, and Copilot Apps consume GitHub AI Credits. Free plan supports CLI and agent mode. · Limited chat and agent usage · Cloud agent — Not included · Assign work to Copilot and it creates a pull request — Not included · Code review — Not included · Delegate tasks to third-party coding agents like Claude by Anthropic and OpenAI Codex (Preview) — Not included · $10 per month",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "github-copilot",
+      "nombre": "GitHub Copilot",
+      "campo": "capabilities",
+      "url": "https://github.com/features/copilot/plans",
+      "comprobada": "2026-09-16",
+      "cita": "Agent mode use in VS Code, Visual Studio, JetBrains, Eclipse, and Xcode · Use Copilot from your terminal · Make and commit code changes locally or on GitHub",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "github-copilot",
+      "nombre": "GitHub Copilot",
+      "campo": "incluida: code-generation",
+      "url": "https://docs.github.com/en/copilot/about-github-copilot/plans-for-github-copilot",
+      "comprobada": "2026-10-11",
+      "cita": "Limited to 2000 completions per month on Copilot Free.",
+      "estado": "intacta",
+      "faltan": [],
+      "final": "https://docs.github.com/en/copilot/get-started/plans"
+    },
+    {
+      "slug": "github-copilot",
+      "nombre": "GitHub Copilot",
+      "campo": "incluida: repository-editing",
+      "url": "https://docs.github.com/en/copilot/about-github-copilot/plans-for-github-copilot",
+      "comprobada": "2026-10-11",
+      "cita": "[Tabla «Agents»] Agent mode — Copilot Free: Included",
+      "estado": "intacta",
+      "faltan": [],
+      "final": "https://docs.github.com/en/copilot/get-started/plans"
+    },
+    {
+      "slug": "glm-5",
+      "nombre": "GLM-5.2",
+      "campo": "freePlan.limits",
+      "url": "https://huggingface.co/zai-org/GLM-5.2",
+      "comprobada": "2026-08-20",
+      "cita": "License: MIT · \"Pure Open\" with MIT licensing and no regional limits, technical access without borders",
+      "estado": "parcial",
+      "faltan": [
+        "pure open' with mit licensing and no regional limits, technical access without borders"
+      ]
+    },
+    {
+      "slug": "glm-5",
+      "nombre": "GLM-5.2",
+      "campo": "capabilities",
+      "url": "https://huggingface.co/zai-org/GLM-5.2",
+      "comprobada": "2026-08-20",
+      "cita": "Solid 1M-token context that stably sustains long-horizon work · Advanced Coding with Flexible Effort · agentic tasks (MCP-Atlas: 76.8, Tool-Decathlon: 48.2)",
+      "estado": "parcial",
+      "faltan": [
+        "agentic tasks (mcp-atlas",
+        "76.8, tool-decathlon"
+      ]
+    },
+    {
+      "slug": "google-adk",
+      "nombre": "Google Agent Development Kit",
+      "campo": "capabilities",
+      "url": "https://github.com/google/adk-python",
+      "comprobada": "2026-08-19",
+      "cita": "An open-source, code-first Python toolkit for building, evaluating, and deploying sophisticated AI agents with flexibility and control · graph-based execution engine supporting routing, loops, retry logic, and nested workflows · composition of specialized agents into hierarchical architectures · Pre-built tools, custom functions, OpenAPI specs, and MCP tool integration · Apache 2.0.",
+      "estado": "parcial",
+      "faltan": [
+        "graph-based execution engine supporting routing, loops, retry logic, and nested workflows",
+        "composition of specialized agents into hierarchical architectures",
+        "pre-built tools, custom functions, openapi specs, and mcp tool integration"
+      ]
+    },
+    {
+      "slug": "google-gemini",
+      "nombre": "Google Gemini",
+      "campo": "capabilities",
+      "url": "https://support.google.com/gemini/answer/15719111",
+      "comprobada": "2026-08-20",
+      "cita": "You can conduct in-depth and real-time research on almost any subject with Deep Research in Gemini Apps. [Crea un plan de investigación y genera un informe. Los usuarios sin plan de pago pueden generar informes con el modelo Thinking; «Google AI Pro and Google AI Ultra users can generate reports using Pro for even higher quality».]",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "google-gemini",
+      "nombre": "Google Gemini",
+      "campo": "freePlan.limits",
+      "url": "https://gemini.google/subscriptions/",
+      "comprobada": "2026-10-11",
+      "cita": "Sin coste · Recibe ayuda en tu día a día de la IA de Google con tus tareas del trabajo, los estudios o la casa. · €0 EUR/mes con una cuenta de Google · Aplicación Gemini · […] Acceso a 3.5 Flash-Lite · Generación y edición de imágenes · Deep Research · Gemini Live · Canvas · Gems",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "google-gemini",
+      "nombre": "Google Gemini",
+      "campo": "freePlan.hasWatermark",
+      "url": "https://support.google.com/gemini/answer/17405358",
+      "comprobada": "2026-10-11",
+      "cita": "You can manage whether visible watermarks appear on AI-generated content in Gemini Apps. This setting controls visible watermarks across all visual media you create with Gemini, including images, videos, and music.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "google-gemini",
+      "nombre": "Google Gemini",
+      "campo": "incluida: text-to-image",
+      "url": "https://gemini.google/overview/image-generation/",
+      "comprobada": "2026-10-11",
+      "cita": "Bring your wildest ideas to life at the speed and quality you need with Nano Banana. Available for free. Upgrade to a Google AI Plan to unlock Nano Banana 2.1, our most advanced image model with enhanced quality, reasoning, and visual design.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "google-gemini",
+      "nombre": "Google Gemini",
+      "campo": "incluida: text-generation",
+      "url": "https://gemini.google/subscriptions/",
+      "comprobada": "2026-10-11",
+      "cita": "Sin coste · Recibe ayuda en tu día a día de la IA de Google con tus tareas del trabajo, los estudios o la casa. · €0 EUR/mes con una cuenta de Google · Aplicación Gemini · […] Acceso a 3.5 Flash-Lite · Generación y edición de imágenes · Deep Research · Gemini Live · Canvas · Gems",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "google-gemini",
+      "nombre": "Google Gemini",
+      "campo": "incluida: image-editing",
+      "url": "https://gemini.google/subscriptions/",
+      "comprobada": "2026-10-11",
+      "cita": "Sin coste · Recibe ayuda en tu día a día de la IA de Google con tus tareas del trabajo, los estudios o la casa. · €0 EUR/mes con una cuenta de Google · Aplicación Gemini · […] Acceso a 3.5 Flash-Lite · Generación y edición de imágenes · Deep Research · Gemini Live · Canvas · Gems",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "google-gemini",
+      "nombre": "Google Gemini",
+      "campo": "incluida: research",
+      "url": "https://gemini.google/subscriptions/",
+      "comprobada": "2026-10-11",
+      "cita": "Sin coste · Recibe ayuda en tu día a día de la IA de Google con tus tareas del trabajo, los estudios o la casa. · €0 EUR/mes con una cuenta de Google · Aplicación Gemini · […] Acceso a 3.5 Flash-Lite · Generación y edición de imágenes · Deep Research · Gemini Live · Canvas · Gems",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "google-gemini",
+      "nombre": "Google Gemini",
+      "campo": "procedencia: synthid",
+      "url": "https://support.google.com/gemini/answer/17405358",
+      "comprobada": "2026-10-11",
+      "cita": "SynthID: All AI-generated media created or edited with Gemini Apps includes an invisible SynthID watermark.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "google-gemini",
+      "nombre": "Google Gemini",
+      "campo": "procedencia: c2pa",
+      "url": "https://support.google.com/gemini/answer/17405358",
+      "comprobada": "2026-10-11",
+      "cita": "Content Credentials (C2PA) provenance signals: Gemini Apps include Content Credentials (C2PA) metadata to provide information about the content's origin.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "gpt-5-6",
+      "nombre": "GPT-5.6",
+      "campo": "capabilities",
+      "url": "https://developers.openai.com/api/docs/models",
+      "comprobada": "2026-08-20",
+      "cita": "GPT-5.6 Sol — Frontier model for complex professional work.",
+      "estado": "desaparecida",
+      "faltan": [
+        "gpt-5.6 sol",
+        "frontier model for complex professional work"
+      ]
+    },
+    {
+      "slug": "gpt-5-6",
+      "nombre": "GPT-5.6",
+      "campo": "freePlan.limits",
+      "url": "https://developers.openai.com/api/docs/pricing",
+      "comprobada": "2026-08-29",
+      "cita": "Sol: short context input $4.00 / output $20.00; long context input $8.00 / output $30.00 · Terra: $2.00 / $12.00; $4.00 / $18.00 · Luna: $0.20 / $1.20; $0.40 / $1.80",
+      "estado": "parcial",
+      "faltan": [
+        "short context input $4.00 / output $20.00; long context input $8.00 / output $30.00",
+        "$2.00 / $12.00; $4.00 / $18.00",
+        "$0.20 / $1.20; $0.40 / $1.80"
+      ]
+    },
+    {
+      "slug": "gpt-researcher",
+      "nombre": "GPT Researcher",
+      "campo": "capabilities",
+      "url": "https://github.com/assafelovic/gpt-researcher",
+      "comprobada": "2026-08-20",
+      "cita": "The first open deep research agent designed for both web and local research on any given task. [...] The planner generates research questions, while the execution agents gather relevant information [...] The publisher then aggregates all findings into a comprehensive report. Aggregate over 20 sources for objective conclusions.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "gpt-researcher",
+      "nombre": "GPT Researcher",
+      "campo": "freePlan.limits",
+      "url": "https://github.com/assafelovic/gpt-researcher/blob/master/LICENSE",
+      "comprobada": "2026-08-20",
+      "cita": "Apache License, Version 2.0, January 2004",
+      "estado": "desaparecida",
+      "faltan": [
+        "apache license, version 2.0, january 2004"
+      ]
+    },
+    {
+      "slug": "grok-4",
+      "nombre": "Grok 4.6",
+      "campo": "freePlan.limits",
+      "url": "https://docs.x.ai/developers/models",
+      "comprobada": "2026-08-20",
+      "cita": "grok-4.6 — 500k context · Input $2–4/1M · Output $6–12/1M. [Sin capa gratuita ni créditos en la tabla.]",
+      "estado": "parcial",
+      "faltan": [
+        "500k context",
+        "input $2-4/1m",
+        "output $6-12/1m"
+      ]
+    },
+    {
+      "slug": "grok-imagine",
+      "nombre": "Grok Imagine",
+      "campo": "freePlan.limits",
+      "url": "https://x.ai/pricing",
+      "comprobada": "2026-08-13",
+      "cita": "Free $0 /month — Get to know Grok and its capabilities for free within generous limits. [Tabla comparativa: «Image generation (Imagine)» marcada en las siete columnas; «Video generation» sin marcar en la columna Free.]",
+      "estado": "no-leida",
+      "motivo": "HTTP 403",
+      "faltan": []
+    },
+    {
+      "slug": "grok-imagine",
+      "nombre": "Grok Imagine",
+      "campo": "capabilities",
+      "url": "https://docs.x.ai/docs/overview",
+      "comprobada": "2026-08-12",
+      "cita": "Imagine Overview Image Generation Image Editing Multi-Image Editing Video Generation Image-to-Video Reference-to-Video",
+      "estado": "desaparecida",
+      "faltan": [
+        "imagine overview image generation image editing multi-image editing video generation image-to-video reference-to-video"
+      ],
+      "final": "https://docs.x.ai/overview"
+    },
+    {
+      "slug": "grok-imagine",
+      "nombre": "Grok Imagine",
+      "campo": "freePlan.excludedCapabilities",
+      "url": "https://x.ai/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "[Tabla «Compare features across plans»: «Video generation» lleva el icono de signo menos en la columna Free y la marca en las otras seis; «Image generation (Imagine)» lleva la marca en las siete.]",
+      "estado": "no-leida",
+      "motivo": "HTTP 403",
+      "faltan": []
+    },
+    {
+      "slug": "hailuo-ai",
+      "nombre": "Hailuo AI",
+      "campo": "capabilities",
+      "url": "https://hailuoai.video/",
+      "comprobada": "2026-08-15",
+      "cita": "MiniMax H3 · Omni Reference · 2K · Create Video · Create Image · From $9.99/mo",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "heygen",
+      "nombre": "HeyGen",
+      "campo": "freePlan.limits",
+      "url": "https://www.heygen.com/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · $0/mo · […] Video Generation: · 3 videos per month · Videos up to 1 min · Access to Avatar IV · Standard video processing · 500+ Stock Video Avatars · Features you'll love: · 1 Custom Video Avatar · 30+ languages",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "heygen",
+      "nombre": "HeyGen",
+      "campo": "capabilities",
+      "url": "https://www.heygen.com/pricing",
+      "comprobada": "2026-08-15",
+      "cita": "Full Video Translation, with lip sync",
+      "estado": "desaparecida",
+      "faltan": [
+        "full video translation, with lip sync"
+      ]
+    },
+    {
+      "slug": "heygen",
+      "nombre": "HeyGen",
+      "campo": "freePlan.requiresCreditCard",
+      "url": "https://www.heygen.com/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "You can try HeyGen for free, no credit card required.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "heygen",
+      "nombre": "HeyGen",
+      "campo": "freePlan.commercialUse",
+      "url": "https://www.heygen.com/terms",
+      "comprobada": "2026-09-15",
+      "cita": "As between HeyGen and you, you own all rights in your User Input or User Output, and does not restrict your ability to use User Output for your own purposes (including for commercial purposes)",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "heygen",
+      "nombre": "HeyGen",
+      "campo": "freePlan.hasWatermark",
+      "url": "https://help.heygen.com/en/articles/11057301-how-to-remove-the-heygen-watermark",
+      "comprobada": "2026-09-16",
+      "cita": "Free user videos automatically include the HeyGen watermark without the option for removal.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "heygen",
+      "nombre": "HeyGen",
+      "campo": "incluida: avatar-video",
+      "url": "https://www.heygen.com/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · $0/mo · […] Video Generation: · 3 videos per month · Videos up to 1 min · Access to Avatar IV · Standard video processing · 500+ Stock Video Avatars · Features you'll love: · 1 Custom Video Avatar · 30+ languages",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "higgsfield",
+      "nombre": "Higgsfield",
+      "campo": "freePlan.limits",
+      "url": "https://higgsfield.ai/pricing",
+      "comprobada": "2026-08-15",
+      "cita": "Compare features — Free · Free · Limited use | Starter €19/month Billed annually",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "higgsfield",
+      "nombre": "Higgsfield",
+      "campo": "capabilities",
+      "url": "https://higgsfield.ai/pricing",
+      "comprobada": "2026-08-15",
+      "cita": "Kling Omni 3 Image Reference 720p · Grok Video Edit · Higgsfield DoP Standard 720p · Talking-avatar videos",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "higgsfield",
+      "nombre": "Higgsfield",
+      "campo": "freePlan.hasWatermark",
+      "url": "https://higgsfield.ai/creator-hub/help-center/credits/watermark-and-how-to-remove",
+      "comprobada": "2026-10-12",
+      "cita": "The watermark depends on your account type, not on the model, the credits used, or the output quality. On a free account, every generation carries a Higgsfield watermark. On any paid plan, generations come without a watermark.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "hugging-face-spaces",
+      "nombre": "Hugging Face Spaces",
+      "campo": "capabilities",
+      "url": "https://huggingface.co/spaces",
+      "comprobada": "2026-08-12",
+      "cita": "rom the Team plan Highest storage, bandwidth, and API rate limits Automated user management with SCIM provisio · & Enterprise Hugging Face PRO Enterprise Support Inference Providers Inference Endpoints Storage Buckets Log I",
+      "estado": "parcial",
+      "faltan": [
+        "rom the team plan highest storage, bandwidth, and api rate limits automated user management with scim provisio"
+      ]
+    },
+    {
+      "slug": "hugging-face-spaces",
+      "nombre": "Hugging Face Spaces",
+      "campo": "freePlan.limits",
+      "url": "https://huggingface.co/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "On-demand GPU hardware. Starting at $0. · CPU Basic 2 vCPU 16 GB - - FREE · ZeroGPU dynamic dynamic Nvidia RTX Pro 6000 Blackwell up to 96 GB FREE · Nvidia T4 - small 4 vCPU 15 GB Nvidia T4 16 GB $0.40 · 8× ZeroGPU quota and highest queue priority",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "hugging-face-spaces",
+      "nombre": "Hugging Face Spaces",
+      "campo": "incluida: model-hosting",
+      "url": "https://huggingface.co/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "[Tabla de hardware de Spaces: NAME · CPU · MEMORY · ACCELERATOR · VRAM · HOURLY PRICE] CPU Basic · 2 vCPU · 16 GB · - · - · FREE · […] ZeroGPU · dynamic · dynamic · Nvidia RTX Pro 6000 Blackwell · up to 96 GB · FREE",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "hunyuanvideo",
+      "nombre": "HunyuanVideo",
+      "campo": "freePlan.limits",
+      "url": "https://github.com/Tencent-Hunyuan/HunyuanVideo",
+      "comprobada": "2026-08-15",
+      "cita": "The minimum GPU memory required is 60GB for 720px1280px129f and 45G for 544px960px129f […] recommend using a GPU with 80GB of memory for better generation quality",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "ideogram",
+      "nombre": "Ideogram",
+      "campo": "capabilities",
+      "url": "https://ideogram.ai/pricing",
+      "comprobada": "2026-08-13",
+      "cita": "Editing — Canvas · Remix · Style · Style reference · Character reference · Magic Fill · Extend · Upscale · Background removal",
+      "estado": "parcial",
+      "faltan": [
+        "canvas",
+        "style reference",
+        "extend",
+        "background removal"
+      ],
+      "final": "https://ideogram.ai/pricing/"
+    },
+    {
+      "slug": "ideogram",
+      "nombre": "Ideogram",
+      "campo": "freePlan.commercialUse",
+      "url": "https://ideogram.ai/legal/tos",
+      "comprobada": "2026-10-11",
+      "cita": "We do not claim any ownership rights in your User Input or User Output, and we do not restrict your ability to use User Output for your own purposes (including for commercial purposes).",
+      "estado": "intacta",
+      "faltan": [],
+      "final": "https://ideogram.ai/legal/tos/"
+    },
+    {
+      "slug": "ideogram",
+      "nombre": "Ideogram",
+      "campo": "freePlan.limits",
+      "url": "https://docs.ideogram.ai/plans-and-billing/available-plans",
+      "comprobada": "2026-10-11",
+      "cita": "Free accounts get 30 credits each week if they sign in with Google, Apple or Microsoft. Accounts created with an email and password don't get free credits; they can buy credits or subscribe.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "ideogram",
+      "nombre": "Ideogram",
+      "campo": "freePlan.excludedCapabilities",
+      "url": "https://docs.ideogram.ai/edit/upscale",
+      "comprobada": "2026-10-11",
+      "cita": "[Tabla: Upscale app · Studio layer · Upscale & download] The Upscale app needs a paid plan or bought credits. The other two need a paid plan. Without a plan, buy credits and use the Upscale app.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "ideogram",
+      "nombre": "Ideogram",
+      "campo": "freePlan.creditReset",
+      "url": "https://docs.ideogram.ai/plans-and-billing/available-plans",
+      "comprobada": "2026-10-11",
+      "cita": "[Tabla: Plan · Monthly billing · Yearly billing · Credits each month] Free · $0 · $0 · 30 a week (see Free plan)",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "ideogram",
+      "nombre": "Ideogram",
+      "campo": "incluida: text-to-image",
+      "url": "https://docs.ideogram.ai/create/models",
+      "comprobada": "2026-10-11",
+      "cita": "Every plan, free included, can use Auto and all Ideogram models.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "ideogram",
+      "nombre": "Ideogram",
+      "campo": "incluida: image-to-image",
+      "url": "https://docs.ideogram.ai/edit/remix",
+      "comprobada": "2026-10-11",
+      "cita": "[Tabla «You can remix in two places»] Remix app — Plan: Any plan (6 credits per image) · Remix in Studio — Plan: Paid plan",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "ideogram",
+      "nombre": "Ideogram",
+      "campo": "incluida: background-removal",
+      "url": "https://docs.ideogram.ai/create/transparent-backgrounds",
+      "comprobada": "2026-10-11",
+      "cita": "[Tabla: Way · Best when · Plan] Remove BG afterwards · You already have the image · Free and paid",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "invokeai",
+      "nombre": "InvokeAI",
+      "campo": "freePlan.limits",
+      "url": "https://api.github.com/repos/invoke-ai/InvokeAI",
+      "comprobada": "2026-08-12",
+      "cita": "spdx_id: Apache-2.0 · archived: false · pushed_at: 2026-08-09",
+      "estado": "parcial",
+      "faltan": [
+        "2026-08-09"
+      ]
+    },
+    {
+      "slug": "invokeai",
+      "nombre": "InvokeAI",
+      "campo": "capabilities",
+      "url": "https://github.com/invoke-ai/InvokeAI",
+      "comprobada": "2026-08-12",
+      "cita": "cial-intelligence generative-art image-generation img2img inpainting latent-diffusion linux macos outpainting · elligence generative-art image-generation img2img inpainting latent-diffusion linux macos outpainting stable-d · n img2img inpainting latent-diffusion linux macos outpainting stable-diffusion txt2img windows Resources Readm",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "jetbrains-ai",
+      "nombre": "JetBrains AI",
+      "campo": "freePlan.limits",
+      "url": "https://www.jetbrains.com/help/ai-assistant/licensing-and-subscriptions.html",
+      "comprobada": "2026-08-21",
+      "cita": "3 AI Credits per 30-days. The AI Free license tier is not available in Android Studio [and] in Community Editions of PyCharm and IntelliJ IDEA.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "kimi-k2",
+      "nombre": "Kimi K3",
+      "campo": "freePlan.limits",
+      "url": "https://huggingface.co/moonshotai/Kimi-K3/blob/main/LICENSE",
+      "comprobada": "2026-08-20",
+      "cita": "to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software [...] more than 100 million monthly active users [...] \"Kimi K3\" must be prominently displayed on the user interface of such product or service",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "kimi-k2",
+      "nombre": "Kimi K3",
+      "campo": "capabilities",
+      "url": "https://huggingface.co/moonshotai/Kimi-K3",
+      "comprobada": "2026-08-20",
+      "cita": "2.8 trillion total; 104 billion actively used per token · 1,048,576 tokens · Text, images, and video understanding within a single model · Kimi K3 always has thinking enabled · long-horizon coding and agentic knowledge work",
+      "estado": "parcial",
+      "faltan": [
+        "2.8 trillion total; 104 billion actively used per token",
+        "1,048,576 tokens",
+        "text, images, and video understanding within a single model",
+        "long-horizon coding and agentic knowledge work"
+      ]
+    },
+    {
+      "slug": "kimi-k2",
+      "nombre": "Kimi K3",
+      "campo": "freePlan.commercialUse",
+      "url": "https://huggingface.co/moonshotai/Kimi-K3/blob/main/LICENSE",
+      "comprobada": "2026-10-12",
+      "cita": "more than 100 million monthly active users, or more than 20 million US dollars […] in monthly revenue, \"Kimi K3\" must be prominently displayed on the user interface […] operates a Model as a Service business, and the aggregate revenue […] exceeds 20 million US dollars […] over any consecutive 12 months, the Licensee must enter into a separate agreement with Moonshot AI",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "klingai",
+      "nombre": "Kling AI",
+      "campo": "freePlan.limits",
+      "url": "https://app.klingai.com/global/membership/membership-plan",
+      "comprobada": "2026-08-15",
+      "cita": "Basic $0 Free forever — No monthly Credits · Element Creation Quantity: 30 · Login to receive monthly credits · Generated content is not for commercial use",
+      "estado": "parcial",
+      "faltan": [
+        "basic $0 free forever",
+        "no monthly credits",
+        "login to receive monthly credits",
+        "generated content is not for commercial use"
+      ],
+      "final": "https://kling.ai/app/membership/membership-plan"
+    },
+    {
+      "slug": "klingai",
+      "nombre": "Kling AI",
+      "campo": "capabilities",
+      "url": "https://app.klingai.com/global/membership/membership-plan",
+      "comprobada": "2026-08-15",
+      "cita": "Premium Features — 1080p Video Generation · Video Extension for multiple times, up to a maximum of 3 minutes · Image upscaling · Brand watermark removal",
+      "estado": "parcial",
+      "faltan": [
+        "premium features",
+        "1080p video generation",
+        "video extension for multiple times, up to a maximum of 3 minutes"
+      ],
+      "final": "https://kling.ai/app/membership/membership-plan"
+    },
+    {
+      "slug": "klingai",
+      "nombre": "Kling AI",
+      "campo": "freePlan.hasWatermark",
+      "url": "https://kling.ai/docs/user-policy",
+      "comprobada": "2026-10-11",
+      "cita": "You acknowledge that, without our written permission, when you use, distribute or disseminate the AI function to generate content, you shall label the Output interface with the brand and logo involved (including but not limited to \"Kling AI\", […])",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "klingai",
+      "nombre": "Kling AI",
+      "campo": "freePlan.commercialUse",
+      "url": "https://kling.ai/docs/user-policy",
+      "comprobada": "2026-10-11",
+      "cita": "Specifically, without our written permission, you may not use, reproduce, distribute, and create derivative works of, and make modifications to, the Output for any commercial purposes.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "kokoro",
+      "nombre": "Kokoro",
+      "campo": "freePlan.limits",
+      "url": "https://github.com/hexgrad/kokoro",
+      "comprobada": "2026-08-18",
+      "cita": "Apache-2.0 · 82 million parameters · comparable quality to larger models while being significantly faster and more cost-efficient · 24,000 Hz",
+      "estado": "parcial",
+      "faltan": [
+        "24,000 hz"
+      ]
+    },
+    {
+      "slug": "kokoro",
+      "nombre": "Kokoro",
+      "campo": "openSource",
+      "url": "https://github.com/hexgrad/kokoro",
+      "comprobada": "2026-08-24",
+      "cita": "With Apache-licensed weights, Kokoro can be deployed anywhere from production environments to personal projects.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "krea",
+      "nombre": "Krea",
+      "campo": "capabilities",
+      "url": "https://www.krea.ai/",
+      "comprobada": "2026-08-13",
+      "cita": "Generate — Text to Image · Realtime Image Generation · Text to Video · Motion Transfer · Text to 3D Object · Image to 3D Object. Edit — Upscaling · Background Remover · AI Image Editor · Frame Interpolation · Video Style Transfer · Video Upscaling",
+      "estado": "parcial",
+      "faltan": [
+        "realtime image generation",
+        "text to video",
+        "text to 3d object",
+        "image to 3d object",
+        "background remover",
+        "ai image editor",
+        "frame interpolation",
+        "video style transfer",
+        "video upscaling"
+      ]
+    },
+    {
+      "slug": "krea",
+      "nombre": "Krea",
+      "campo": "freePlan.limits",
+      "url": "https://www.krea.ai/pricing",
+      "comprobada": "2026-08-13",
+      "cita": "Free — 100 units /day · 1 Nano Banana 2 generation · <1 Seedance 2.0 videos [Filas con aspa en el plan Free: All image models, All video models, All 3D & lipsync models, Krea Nodes, App Builder, Nodes Agent, Commercial license. Con visto: Limited LoRA training, Limited image upscaling. Image concurrency 1, Video concurrency 0.]",
+      "estado": "parcial",
+      "faltan": [
+        "<1 seedance 2.0 videos"
+      ]
+    },
+    {
+      "slug": "krea",
+      "nombre": "Krea",
+      "campo": "freePlan.requiresCreditCard",
+      "url": "https://www.krea.ai/pricing",
+      "comprobada": "2026-09-15",
+      "cita": "No credit card required",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "krea",
+      "nombre": "Krea",
+      "campo": "freePlan.commercialUse",
+      "url": "https://www.krea.ai/pricing",
+      "comprobada": "2026-09-21",
+      "cita": "Commercial license — Use all generated content for commercial purposes including marketing, products, and client work.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "langgraph",
+      "nombre": "LangGraph",
+      "campo": "capabilities",
+      "url": "https://docs.langchain.com/oss/python/langgraph/overview",
+      "comprobada": "2026-08-19",
+      "cita": "Create stateful agents with both short-term working memory for ongoing reasoning and long-term memory across sessions · Incorporate human oversight by inspecting and modifying agent state at any point · Build agents that persist through failures and can run for extended periods, resuming from where they left off.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "leonardo-ai",
+      "nombre": "Leonardo AI",
+      "campo": "freePlan.commercialUse",
+      "url": "https://intercom.help/leonardo-ai/en/articles/8044018-commercial-usage",
+      "comprobada": "2026-10-11",
+      "cita": "As a free plan user, Jason wants to create a design for his T-shirt business. […] In both examples, Jason and Jane can download their own generations for commercial usage. However, Jason might also have his designs used by others too, due to his images being public.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "leonardo-ai",
+      "nombre": "Leonardo AI",
+      "campo": "capabilities",
+      "url": "https://intercom.help/leonardo-ai/en/articles/8093145-how-to-use-canvas-editor-tool",
+      "comprobada": "2026-08-13",
+      "cita": "Inpainting in Canvas Editor effectively allows you to select specific areas of a base image […] Outpainting allows you to generate a coherent extension of your base image […] Text2Img […] Img2Img […] Sketch2Image",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "leonardo-ai",
+      "nombre": "Leonardo AI",
+      "campo": "freePlan.limits",
+      "url": "https://leonardo.ai/pricing/",
+      "comprobada": "2026-10-11",
+      "cita": "FREE $0 /month […] Fast Tokens 150 / day · Token Bank 150 · Creations access Public · Quality settings Basic · Personal collections 1",
+      "estado": "intacta",
+      "faltan": [],
+      "final": "https://leonardo.ai/pricing"
+    },
+    {
+      "slug": "leonardo-ai",
+      "nombre": "Leonardo AI",
+      "campo": "incluida: text-to-image",
+      "url": "https://intercom.help/leonardo-ai/en/articles/8044018-commercial-usage",
+      "comprobada": "2026-10-11",
+      "cita": "As a free plan user, Jason wants to create a design for his T-shirt business. Jason can use free tools such as the AI Generations tool to create new concepts. […] Jason can click on another image on the public feed for his concept and Remix, Upscale, Create Video or Use as Guide to create more imagery.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "leonardo-ai",
+      "nombre": "Leonardo AI",
+      "campo": "incluida: image-to-image",
+      "url": "https://intercom.help/leonardo-ai/en/articles/8044018-commercial-usage",
+      "comprobada": "2026-10-11",
+      "cita": "As a free plan user, Jason wants to create a design for his T-shirt business. Jason can use free tools such as the AI Generations tool to create new concepts. […] Jason can click on another image on the public feed for his concept and Remix, Upscale, Create Video or Use as Guide to create more imagery.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "leonardo-ai",
+      "nombre": "Leonardo AI",
+      "campo": "incluida: upscaling",
+      "url": "https://intercom.help/leonardo-ai/en/articles/8044018-commercial-usage",
+      "comprobada": "2026-10-11",
+      "cita": "As a free plan user, Jason wants to create a design for his T-shirt business. Jason can use free tools such as the AI Generations tool to create new concepts. […] Jason can click on another image on the public feed for his concept and Remix, Upscale, Create Video or Use as Guide to create more imagery.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "leonardo-ai",
+      "nombre": "Leonardo AI",
+      "campo": "incluida: image-to-video",
+      "url": "https://intercom.help/leonardo-ai/en/articles/8044018-commercial-usage",
+      "comprobada": "2026-10-11",
+      "cita": "As a free plan user, Jason wants to create a design for his T-shirt business. Jason can use free tools such as the AI Generations tool to create new concepts. […] Jason can click on another image on the public feed for his concept and Remix, Upscale, Create Video or Use as Guide to create more imagery.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "llama-4",
+      "nombre": "Llama 4 Scout",
+      "campo": "freePlan.limits",
+      "url": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct",
+      "comprobada": "2026-08-20",
+      "cita": "700 million monthly active users in the preceding calendar month, you must request a license from Meta, which Meta may grant to you in its sole discretion. [Distributors must] prominently display \"Built with Llama\" on a related website.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "llama-4",
+      "nombre": "Llama 4 Scout",
+      "campo": "capabilities",
+      "url": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct",
+      "comprobada": "2026-08-20",
+      "cita": "Context Length: 10 million tokens · Input: Multilingual text and images · Output: Multilingual text and code · Active 17B / Total 109B",
+      "estado": "parcial",
+      "faltan": [
+        "10 million tokens",
+        "multilingual text and images",
+        "active 17b / total 109b"
+      ]
+    },
+    {
+      "slug": "lm-studio",
+      "nombre": "LM Studio",
+      "campo": "capabilities",
+      "url": "https://lmstudio.ai/docs/app",
+      "comprobada": "2026-09-15",
+      "cita": "Run an LLM like gpt-oss, Llama, Qwen, Mistral, or DeepSeek R1 on your computer · Search & download functionality (via Hugging Face 🤗) · Serve local models on OpenAI-like endpoints, locally and on the network · You can install MCP servers in LM Studio and use them with your local models.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "lm-studio",
+      "nombre": "LM Studio",
+      "campo": "freePlan.limits",
+      "url": "https://lmstudio.ai/pricing",
+      "comprobada": "2026-09-16",
+      "cita": "Run local LLMs on your machine · Bionic Agent · Run local LLMs using llama.cpp and MLX · State-of-the-art offline voice transcription · LM Link for up to 5 devices · Limited web search · Bionic+ · $20 · US-hosted open source models",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "local-deep-researcher",
+      "nombre": "Local Deep Researcher",
+      "campo": "capabilities",
+      "url": "https://github.com/langchain-ai/local-deep-researcher",
+      "comprobada": "2026-08-20",
+      "cita": "A fully local web research assistant that uses any LLM hosted by Ollama or LMStudio. [Genera una consulta, busca, resume, refleja sobre el resumen para encontrar lagunas, genera una consulta nueva y repite. El número de vueltas se configura con MAX_WEB_RESEARCH_LOOPS, por defecto 3.]",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "local-deep-researcher",
+      "nombre": "Local Deep Researcher",
+      "campo": "freePlan.limits",
+      "url": "https://github.com/langchain-ai/local-deep-researcher/blob/main/LICENSE",
+      "comprobada": "2026-08-20",
+      "cita": "MIT License. Copyright (c) 2025 Lance Martin",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "lovable",
+      "nombre": "Lovable",
+      "campo": "freePlan.limits",
+      "url": "https://docs.lovable.dev/introduction/credits-and-usage",
+      "comprobada": "2026-10-11",
+      "cita": "[Tabla «Included usage-specific grants by plan»] Free · Daily chat allowance: Included · Daily build credits: 5 per day, up to 30 per month · Monthly Cloud grant: 20 credits per month · Monthly AI grant: 4 credits per month",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "lovable",
+      "nombre": "Lovable",
+      "campo": "freePlan.creditReset",
+      "url": "https://docs.lovable.dev/user-guides/messaging-limits",
+      "comprobada": "2026-08-24",
+      "cita": "refresh every day at 00:00 UTC",
+      "estado": "intacta",
+      "faltan": [],
+      "final": "https://docs.lovable.dev/introduction/credits-and-usage"
+    },
+    {
+      "slug": "lovable",
+      "nombre": "Lovable",
+      "campo": "freePlan.requiresCreditCard",
+      "url": "https://lovable.dev/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · Discover what Lovable can do for you · €0 / month · Get started · No credit card needed",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "lovable",
+      "nombre": "Lovable",
+      "campo": "freePlan.commercialUse",
+      "url": "https://docs.lovable.dev/introduction/faq",
+      "comprobada": "2026-10-11",
+      "cita": "Who owns the projects and the code that Lovable creates? You do. Your apps, code, and the content you create with Lovable are yours, subject to third-party rights such as open-source licenses. You can modify them, use them commercially, and host them wherever you choose.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "lovable",
+      "nombre": "Lovable",
+      "campo": "incluida: code-generation",
+      "url": "https://docs.lovable.dev/introduction/credits-and-usage",
+      "comprobada": "2026-10-11",
+      "cita": "[Tabla «Included usage-specific grants by plan»] Free · Daily chat allowance: Included · Daily build credits: 5 per day, up to 30 per month · Monthly Cloud grant: 20 credits per month · Monthly AI grant: 4 credits per month",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "ltx-video",
+      "nombre": "LTX-Video",
+      "campo": "capabilities",
+      "url": "https://github.com/Lightricks/LTX-Video",
+      "comprobada": "2026-08-15",
+      "cita": "Text-to-video · Image-to-video · Video extension (both forward and backward) · Keyframe-based animation · Multi-keyframe conditioning · Video-to-video transformations",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "ltx-video",
+      "nombre": "LTX-Video",
+      "campo": "freePlan.limits",
+      "url": "https://github.com/Lightricks/LTX-Video",
+      "comprobada": "2026-09-16",
+      "cita": "generates HD videos in 10 seconds, with low-res preview after just 3 seconds (on H100)! · Highest quality, requires more VRAM · Faster, less VRAM usage, slight quality reduction compared to 13b. · Ideal for fast generation with light VRAM usage",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "luma-dream-machine",
+      "nombre": "Luma",
+      "campo": "freePlan.limits",
+      "url": "https://lumalabs.ai/",
+      "comprobada": "2026-08-15",
+      "cita": "Plans & Pricing — Individual plans: Plus $30/month · 10,000 credits · Luma and third-party image and video models · Commercial use. [Ningún plan gratuito en la tabla.]",
+      "estado": "desaparecida",
+      "faltan": [
+        "plans & pricing",
+        "individual plans",
+        "plus $30/month",
+        "10,000 credits",
+        "luma and third-party image and video models",
+        "commercial use"
+      ]
+    },
+    {
+      "slug": "luma-dream-machine",
+      "nombre": "Luma",
+      "campo": "capabilities",
+      "url": "https://lumalabs.ai/",
+      "comprobada": "2026-08-15",
+      "cita": "Luma FAQs — Can I edit existing images or videos? · Can I create videos from images? · Can I add voiceovers and audio? · Does Luma Agents support lip sync?",
+      "estado": "desaparecida",
+      "faltan": [
+        "luma faqs",
+        "can i edit existing images or videos",
+        "can i create videos from images",
+        "can i add voiceovers and audio",
+        "does luma agents support lip sync"
+      ]
+    },
+    {
+      "slug": "manus",
+      "nombre": "Manus",
+      "campo": "freePlan.limits",
+      "url": "https://help.manus.im/en/articles/11711111-what-is-the-current-membership-pricing-for-manus",
+      "comprobada": "2026-10-11",
+      "cita": "[Free Plan Price: $0/month] Access to Chat Mode and Manus 2.0 Lite in Agent Mode. Features: Daily Refresh Credits: 300 credits provided daily for quickly answering simple questions. Concurrent Tasks: Supports 1 concurrent task. Scheduled Automations: Supports 2 Scheduled Automations.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "manus",
+      "nombre": "Manus",
+      "campo": "capabilities",
+      "url": "https://manus.im/docs",
+      "comprobada": "2026-08-19",
+      "cita": "It operates in a complete sandbox environment—a virtual computer with internet access, a persistent file system, and the ability to install software and create custom tools · Manus AI can work independently, remember context across long tasks, and deliver production-ready results.",
+      "estado": "intacta",
+      "faltan": [],
+      "final": "https://manus.im/docs/introduction/welcome"
+    },
+    {
+      "slug": "manus",
+      "nombre": "Manus",
+      "campo": "incluida: tool-use",
+      "url": "https://help.manus.im/en/articles/11711111-what-is-the-current-membership-pricing-for-manus",
+      "comprobada": "2026-10-11",
+      "cita": "[Free Plan Price: $0/month] Access to Chat Mode and Manus 2.0 Lite in Agent Mode. Features: Daily Refresh Credits: 300 credits provided daily for quickly answering simple questions. Concurrent Tasks: Supports 1 concurrent task.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "microsoft-agent-framework",
+      "nombre": "Microsoft Agent Framework",
+      "campo": "capabilities",
+      "url": "https://github.com/microsoft/agent-framework",
+      "comprobada": "2026-08-19",
+      "cita": "an open, multi-language framework for building production-grade AI agents and multi-agent workflows in .NET and Python · graph-based patterns (sequential, concurrent, handoff, group collaboration) · agent skills and tool integration across multiple LLM providers · MIT license.",
+      "estado": "parcial",
+      "faltan": [
+        "graph-based patterns (sequential, concurrent, handoff, group collaboration",
+        "agent skills and tool integration across multiple llm providers"
+      ]
+    },
+    {
+      "slug": "microsoft-agent-framework",
+      "nombre": "Microsoft Agent Framework",
+      "campo": "freePlan.limits",
+      "url": "https://github.com/microsoft/autogen",
+      "comprobada": "2026-08-19",
+      "cita": "AutoGen is in maintenance mode and will not receive new features. Microsoft Agent Framework (MAF) is the enterprise-ready successor to AutoGen.",
+      "estado": "desaparecida",
+      "faltan": [
+        "autogen is in maintenance mode and will not receive new features",
+        "microsoft agent framework (maf) is the enterprise-ready successor to autogen"
+      ]
+    },
+    {
+      "slug": "midjourney",
+      "nombre": "Midjourney",
+      "campo": "freePlan.limits",
+      "url": "https://docs.midjourney.com/hc/en-us/articles/27870399340173-Free-Trials",
+      "comprobada": "2026-08-13",
+      "cita": "A limited trial is available on the niji · journey app, available for iOS and Android devices. No free trial is currently available in Discord or the midjourney.com website.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "midjourney",
+      "nombre": "Midjourney",
+      "campo": "capabilities",
+      "url": "https://docs.midjourney.com/hc/en-us/articles/37460773864589-Video",
+      "comprobada": "2026-08-13",
+      "cita": "Turn your images into captivating 5 second videos using Midjourney! […] feeding Midjourney an image to serve as the first frame",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "ministral",
+      "nombre": "Ministral 3",
+      "campo": "capabilities",
+      "url": "https://docs.mistral.ai/getting-started/models/models_overview/",
+      "comprobada": "2026-08-20",
+      "cita": "Ministral 3 14B (Apache 2.0) — Text and vision · Ministral 3 8B (Apache 2.0) — Text and vision · Ministral 3 3B (Apache 2.0) — Text and vision",
+      "estado": "parcial",
+      "faltan": [
+        "ministral 3 14b (apache 2.0",
+        "ministral 3 8b (apache 2.0",
+        "ministral 3 3b (apache 2.0"
+      ],
+      "final": "https://docs.mistral.ai/models"
+    },
+    {
+      "slug": "mistral-large",
+      "nombre": "Mistral Large 3",
+      "campo": "freePlan.limits",
+      "url": "https://mistral.ai/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Does Mistral have a free plan? Yes, Mistral’s Free plan provides limited access to Vibe, including our latest models, chat, search, creation, and Vibe for code for agentic coding in your terminal. On the Free plan, you also get access to Mistral Studio.",
+      "estado": "intacta",
+      "faltan": [],
+      "final": "https://mistral.ai/pricing/"
+    },
+    {
+      "slug": "mistral-large",
+      "nombre": "Mistral Large 3",
+      "campo": "capabilities",
+      "url": "https://docs.mistral.ai/getting-started/models/models_overview/",
+      "comprobada": "2026-08-20",
+      "cita": "Mistral Large 3 (Apache 2.0) — General multimodal",
+      "estado": "desaparecida",
+      "faltan": [
+        "mistral large 3 (apache 2.0",
+        "general multimodal"
+      ],
+      "final": "https://docs.mistral.ai/models"
+    },
+    {
+      "slug": "mistral-large",
+      "nombre": "Mistral Large 3",
+      "campo": "freePlan.commercialUse",
+      "url": "https://huggingface.co/mistralai/Mistral-Large-3-675B-Instruct-2512",
+      "comprobada": "2026-10-11",
+      "cita": "Apache 2.0 License: Open-source license allowing usage and modification for both commercial and non-commercial purposes.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "mistral-small",
+      "nombre": "Mistral Small 4",
+      "campo": "capabilities",
+      "url": "https://docs.mistral.ai/getting-started/models/models_overview/",
+      "comprobada": "2026-08-20",
+      "cita": "Mistral Small 4 (Apache 2.0) — Hybrid instruct/reasoning/coding",
+      "estado": "desaparecida",
+      "faltan": [
+        "mistral small 4 (apache 2.0",
+        "hybrid instruct/reasoning/coding"
+      ],
+      "final": "https://docs.mistral.ai/models"
+    },
+    {
+      "slug": "mochi-1",
+      "nombre": "Mochi 1",
+      "campo": "freePlan.limits",
+      "url": "https://github.com/genmoai/mochi",
+      "comprobada": "2026-08-15",
+      "cita": "released under a permissive Apache 2.0 license […] requires approximately 60GB VRAM when running on a single GPU […] ComfyUI can optimize to run in under 20GB VRAM",
+      "estado": "parcial",
+      "faltan": [
+        "released under a permissive apache 2.0 license",
+        "comfyui can optimize to run in under 20gb vram"
+      ]
+    },
+    {
+      "slug": "n8n",
+      "nombre": "n8n",
+      "campo": "freePlan.limits",
+      "url": "https://n8n.io/pricing/",
+      "comprobada": "2026-10-11",
+      "cita": "A standard, self-hosted version of n8n is available on GitHub · No credit card is required for Starter and Pro trials · A credit card is only required for the Business plan free trial. [Starter: 20 €/mes anual, 2.5K ejecuciones.]",
+      "estado": "parcial",
+      "faltan": [
+        "no credit card is required for starter and pro trials"
+      ]
+    },
+    {
+      "slug": "n8n",
+      "nombre": "n8n",
+      "campo": "capabilities",
+      "url": "https://github.com/n8n-io/n8n",
+      "comprobada": "2026-08-19",
+      "cita": "Fair-code platform to build and deploy AI agents and workflows · n8n is fair-code distributed under the Sustainable Use License and n8n Enterprise License · AI-Native Automation Platform: Build and operationalize AI workflows and multi-step agents · 1,500+ integrations.",
+      "estado": "parcial",
+      "faltan": [
+        "1,500+ integrations"
+      ]
+    },
+    {
+      "slug": "n8n",
+      "nombre": "n8n",
+      "campo": "incluida: workflow-automation",
+      "url": "https://n8n.io/pricing/",
+      "comprobada": "2026-10-11",
+      "cita": "Community Edition · A standard, self-hosted version of n8n is available on GitHub.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "ollama",
+      "nombre": "Ollama",
+      "campo": "capabilities",
+      "url": "https://github.com/ollama/ollama",
+      "comprobada": "2026-09-15",
+      "cita": "Ollama has a REST API for running and managing models. · See ollama.com/library for the full list.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "ollama",
+      "nombre": "Ollama",
+      "campo": "freePlan.limits",
+      "url": "https://ollama.com/pricing",
+      "comprobada": "2026-09-16",
+      "cita": "Running models on your own hardware is always unlimited. · Free accounts include a starter amount of usage for a smaller set of starter models.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "openai-agents-sdk",
+      "nombre": "OpenAI Agents SDK",
+      "campo": "capabilities",
+      "url": "https://github.com/openai/openai-agents-python",
+      "comprobada": "2026-08-19",
+      "cita": "The OpenAI Agents SDK is a lightweight yet powerful framework for building multi-agent workflows · It is provider-agnostic, supporting the OpenAI Responses and Chat Completions APIs, as well as 100+ other LLMs · Tools: Functions, MCP, and hosted tool integrations · Sandbox agents: preconfigured for container-based long-horizon work · Sessions: automatic conversation history management · MIT license.",
+      "estado": "parcial",
+      "faltan": [
+        "functions, mcp, and hosted tool integrations",
+        "preconfigured for container-based long-horizon work"
+      ]
+    },
+    {
+      "slug": "openhands",
+      "nombre": "OpenHands",
+      "campo": "capabilities",
+      "url": "https://github.com/All-Hands-AI/OpenHands",
+      "comprobada": "2026-08-19",
+      "cita": "The self-hosted developer control center for coding agents and automations · run agents like OpenHands, Claude Code, Codex, or Gemini across local, remote, and cloud backends · Docker containers with sandbox isolation · MIT license.",
+      "estado": "parcial",
+      "faltan": [
+        "run agents like openhands, claude code, codex, or gemini across local, remote, and cloud backends",
+        "docker containers with sandbox isolation"
+      ],
+      "final": "https://github.com/OpenHands/OpenHands"
+    },
+    {
+      "slug": "perplexity-ai",
+      "nombre": "Perplexity AI",
+      "campo": "freePlan.limits",
+      "url": "https://www.perplexity.ai/help-center/en/articles/11187416-which-perplexity-subscription-plan-is-right-for-you.html",
+      "comprobada": "2026-10-11",
+      "cita": "What do I get with the Free (Standard) plan? Search history access · Practically unlimited basic searches · Very limited amount of Pro Searches · Basic file uploads (limited) · No access to advanced AI models, image generation, or premium support.",
+      "estado": "no-leida",
+      "motivo": "casi sin texto",
+      "faltan": []
+    },
+    {
+      "slug": "perplexity-ai",
+      "nombre": "Perplexity AI",
+      "campo": "freePlan.commercialUse",
+      "url": "https://www.perplexity.ai/hub/legal/terms-of-service",
+      "comprobada": "2026-09-15",
+      "cita": "We hereby permit you to use the Services for your personal, non-commercial use only",
+      "estado": "no-leida",
+      "motivo": "HTTP 403",
+      "faltan": []
+    },
+    {
+      "slug": "perplexity-ai",
+      "nombre": "Perplexity AI",
+      "campo": "capabilities",
+      "url": "https://www.perplexity.ai/help-center/en/articles/11187416-which-perplexity-subscription-plan-is-right-for-you",
+      "comprobada": "2026-09-15",
+      "cita": "Practically unlimited basic searches · Very limited amount of Pro Searches · Basic file uploads (limited)",
+      "estado": "no-leida",
+      "motivo": "HTTP 403",
+      "faltan": []
+    },
+    {
+      "slug": "perplexity-ai",
+      "nombre": "Perplexity AI",
+      "campo": "incluida: web-browsing",
+      "url": "https://www.perplexity.ai/help-center/en/articles/11187416-which-perplexity-subscription-plan-is-right-for-you.html",
+      "comprobada": "2026-10-11",
+      "cita": "What do I get with the Free (Standard) plan? Search history access · Practically unlimited basic searches · Very limited amount of Pro Searches · We pick the best model to use for your query · Basic file uploads (limited) · No access to advanced AI models, image generation, or premium support.",
+      "estado": "no-leida",
+      "motivo": "casi sin texto",
+      "faltan": []
+    },
+    {
+      "slug": "perplexity-ai",
+      "nombre": "Perplexity AI",
+      "campo": "incluida: text-generation",
+      "url": "https://www.perplexity.ai/help-center/en/articles/11187416-which-perplexity-subscription-plan-is-right-for-you.html",
+      "comprobada": "2026-10-11",
+      "cita": "What do I get with the Free (Standard) plan? Search history access · Practically unlimited basic searches · Very limited amount of Pro Searches · We pick the best model to use for your query · Basic file uploads (limited) · No access to advanced AI models, image generation, or premium support.",
+      "estado": "no-leida",
+      "motivo": "casi sin texto",
+      "faltan": []
+    },
+    {
+      "slug": "phi-4",
+      "nombre": "Phi-4",
+      "campo": "freePlan.limits",
+      "url": "https://huggingface.co/microsoft/phi-4",
+      "comprobada": "2026-08-20",
+      "cita": "License: MIT",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "phi-4",
+      "nombre": "Phi-4",
+      "campo": "capabilities",
+      "url": "https://huggingface.co/microsoft/phi-4",
+      "comprobada": "2026-08-20",
+      "cita": "memory/compute constrained environments · latency bound scenarios · reasoning and logic · MATH: 80.4, GPQA: 56.1, HumanEval: 82.6",
+      "estado": "parcial",
+      "faltan": [
+        "80.4, gpqa",
+        "56.1, humaneval"
+      ]
+    },
+    {
+      "slug": "pika-labs",
+      "nombre": "Pika Labs",
+      "campo": "freePlan.limits",
+      "url": "https://pika.art/pricing",
+      "comprobada": "2026-09-21",
+      "cita": "Free 0 credits / month · packs only — Included: All models · Included: 2 video · 2 image + audio in parallel · Included: No watermark · Not included: Commercial license · Not included: Priority queue · Not included: Early access to new models",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "pika-labs",
+      "nombre": "Pika Labs",
+      "campo": "freePlan.hasWatermark",
+      "url": "https://pika.art/pricing",
+      "comprobada": "2026-09-21",
+      "cita": "Included: No watermark",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "pika-labs",
+      "nombre": "Pika Labs",
+      "campo": "freePlan.commercialUse",
+      "url": "https://pika.art/pricing",
+      "comprobada": "2026-09-21",
+      "cita": "Not included: Commercial license",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "pinokio",
+      "nombre": "Pinokio",
+      "campo": "capabilities",
+      "url": "https://pinokio.computer",
+      "comprobada": "2026-08-12",
+      "cita": "More Store Type: api api plugin All Platform: All All macOS Windows Linux GPU: All A · c, a Metal-only DeepSeek V4 Flash inference server",
+      "estado": "parcial",
+      "faltan": [
+        "more store type",
+        "c, a metal-only deepseek v4 flash inference server"
+      ],
+      "final": "https://pinokio.co/"
+    },
+    {
+      "slug": "pixelcut",
+      "nombre": "Pixelcut",
+      "campo": "freePlan.hasWatermark",
+      "url": "https://www.pixelcut.ai/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · $0 · Limited Background Removal · Limited Upscale · Free export without watermark",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "pixelcut",
+      "nombre": "Pixelcut",
+      "campo": "capabilities",
+      "url": "https://www.pixelcut.ai/",
+      "comprobada": "2026-08-12",
+      "cita": "kground Remover Change Background Magic Eraser AI Image Generator AI Video Generator Generative Fill Uncrop AI · fers a free version that provides access to basic image editing tools, allowing users to get started with crea · mage Generator AI Video Generator Generative Fill Uncrop AI Ads Bulk Image Editor Products Pixelcut for Claude",
+      "estado": "parcial",
+      "faltan": [
+        "fers a free version that provides access to basic image editing tools, allowing users to get started with crea",
+        "mage generator ai video generator generative fill uncrop ai ads bulk image editor products pixelcut for claude"
+      ]
+    },
+    {
+      "slug": "pixelcut",
+      "nombre": "Pixelcut",
+      "campo": "freePlan.limits",
+      "url": "https://www.pixelcut.ai/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Limited Background Removal · Limited Upscale · Free export without watermark",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "pixelcut",
+      "nombre": "Pixelcut",
+      "campo": "incluida: background-removal",
+      "url": "https://www.pixelcut.ai/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · $0 · Limited Background Removal · Limited Upscale · Free export without watermark",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "pixelcut",
+      "nombre": "Pixelcut",
+      "campo": "incluida: upscaling",
+      "url": "https://www.pixelcut.ai/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · $0 · Limited Background Removal · Limited Upscale · Free export without watermark",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "pixelcut",
+      "nombre": "Pixelcut",
+      "campo": "incluida: outpainting",
+      "url": "https://www.pixelcut.ai/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "[Tabla «What's included in your plan»: Free · Pro · Business] Expand Image — Limited · 300/day · Up to 1200/day",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "pixelcut",
+      "nombre": "Pixelcut",
+      "campo": "incluida: image-editing",
+      "url": "https://www.pixelcut.ai/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "[Tabla «What's included in your plan»: Free · Pro · Business] Generative Fill — Limited · 300/day · Up to 1200/day",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "playground-ai",
+      "nombre": "Playground",
+      "campo": "capabilities",
+      "url": "https://playground.com/",
+      "comprobada": "2026-08-12",
+      "cita": "ACTIVE For exploring and casual creation Limited image generation Create up to 10 images every 3 hours Limited · ess to the full premium template library Enhanced image editing Upscaling and background removal included Up t · sthetic Background Image Tools Background Removal Upscale AI Resize Logo Generator Mockup Generator File Conve",
+      "estado": "desaparecida",
+      "faltan": [
+        "active for exploring and casual creation limited image generation create up to 10 images every 3 hours limited",
+        "ess to the full premium template library enhanced image editing upscaling and background removal included up t",
+        "sthetic background image tools background removal upscale ai resize logo generator mockup generator file conve"
+      ],
+      "final": "https://playgroundai.com/"
+    },
+    {
+      "slug": "playground-ai",
+      "nombre": "Playground",
+      "campo": "freePlan.limits",
+      "url": "https://playgroundai.com/design/pricing",
+      "comprobada": "2026-08-26",
+      "cita": "Free — Limited image generation: Create up to 10 images every 3 hours · Limited model access: 3 monthly generations across Nano Banana, GPT Image 2, and Seedream · Commercial use: World-wide, royalty free license · Limitations: Slower generation during peak hours. Waiting period after limits are reached.",
+      "estado": "parcial",
+      "faltan": [
+        "3 monthly generations across nano banana, gpt image 2, and seedream"
+      ]
+    },
+    {
+      "slug": "playground-ai",
+      "nombre": "Playground",
+      "campo": "freePlan.commercialUse",
+      "url": "https://playgroundai.com/design/pricing",
+      "comprobada": "2026-10-12",
+      "cita": "Commercial use — World-wide, royalty free license",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "playground-ai",
+      "nombre": "Playground",
+      "campo": "freePlan.creditReset",
+      "url": "https://playgroundai.com/design/pricing",
+      "comprobada": "2026-08-26",
+      "cita": "Limited image generation — Create up to 10 images every 3 hours",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "playground-ai",
+      "nombre": "Playground",
+      "campo": "freePlan.requiresCreditCard",
+      "url": "https://playground.com/",
+      "comprobada": "2026-10-12",
+      "cita": "Phone wallpaper · Card · Nano Banana Pro · Free to start · No credit card · Print-ready in days",
+      "estado": "intacta",
+      "faltan": [],
+      "final": "https://playgroundai.com/"
+    },
+    {
+      "slug": "qwen3-27b",
+      "nombre": "Qwen3.8 27B",
+      "campo": "freePlan.limits",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B",
+      "comprobada": "2026-08-20",
+      "cita": "License: apache-2.0",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "qwen3-27b",
+      "nombre": "Qwen3.8 27B",
+      "campo": "capabilities",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B",
+      "comprobada": "2026-08-20",
+      "cita": "262,144 tokens natively, extensible to 1,000,000 · Text, images, videos · thinking mode by default, reasoning_effort (xhigh, medium, low)",
+      "estado": "desaparecida",
+      "faltan": [
+        "262,144 tokens natively, extensible to 1,000,000",
+        "text, images, videos",
+        "thinking mode by default, reasoning_effort (xhigh, medium, low"
+      ]
+    },
+    {
+      "slug": "qwen3-max",
+      "nombre": "Qwen3.8 Max",
+      "campo": "freePlan.limits",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B",
+      "comprobada": "2026-08-20",
+      "cita": "License: qwen3.8-max",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "qwen3-max",
+      "nombre": "Qwen3.8 Max",
+      "campo": "capabilities",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B",
+      "comprobada": "2026-08-20",
+      "cita": "2.4 trillion total with 95 billion activated parameters · 262,144 tokens natively, extensible to 1,010,000 · Text-only · thinking enabled by default and cannot be disabled",
+      "estado": "parcial",
+      "faltan": [
+        "2.4 trillion total with 95 billion activated parameters",
+        "262,144 tokens natively, extensible to 1,010,000",
+        "thinking enabled by default and cannot be disabled"
+      ]
+    },
+    {
+      "slug": "qwen3-max",
+      "nombre": "Qwen3.8 Max",
+      "campo": "freePlan.commercialUse",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B/blob/main/LICENSE",
+      "comprobada": "2026-10-12",
+      "cita": "respective model name must be prominently displayed on the user interface of such product or service; and, 2. If the licensee or any of its affiliates conducts a Model as a Service or AI Work Assistant business, and the aggregate revenue of the licensee and its affiliates exceeds US$50,000,000 (or the equivalent amount in any other currencies) during any consecutive twelve (12) months, the licensee shall obtain a separate license from Qwen before Using the Software or its derivative works for any commercial purpose.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "recraft",
+      "nombre": "Recraft",
+      "campo": "freePlan.commercialUse",
+      "url": "https://www.recraft.ai/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Images generated on the Free plan are owned by Recraft. They are publicly visible in the community gallery and are not licensed for commercial use.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "recraft",
+      "nombre": "Recraft",
+      "campo": "capabilities",
+      "url": "https://www.recraft.ai/",
+      "comprobada": "2026-08-12",
+      "cita": "')\"> ')\"> Unlike some other image generators like Midjourney, Recraft is highly customizable · erator AI Image Vectorizer AI Vector Generator AI Photo Editor Mockup Generator Image Upscaler Background Remo · d vector generation, editing, background removal, inpainting, outpainting, batch jobs, and asynchronous proces",
+      "estado": "parcial",
+      "faltan": [
+        "> ')'> unlike some other image generators like midjourney, recraft is highly customizable",
+        "d vector generation, editing, background removal, inpainting, outpainting, batch jobs, and asynchronous proces"
+      ]
+    },
+    {
+      "slug": "recraft",
+      "nombre": "Recraft",
+      "campo": "freePlan.limits",
+      "url": "https://www.recraft.ai/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · For exploring AI features at a basic level. Personal use only. · $0 · Limited free credits · What's included: · 3 generations per style per day · 3 image uploads daily · Up to 2 images per generation · Basic editing tools · Style Library and custom style creation · All images are public · No commercial use · No parallel generation · Recraft models only",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "recraft",
+      "nombre": "Recraft",
+      "campo": "incluida: text-to-image",
+      "url": "https://www.recraft.ai/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · For exploring AI features at a basic level. Personal use only. · $0 · Limited free credits · What's included: · 3 generations per style per day · 3 image uploads daily · Up to 2 images per generation · Basic editing tools · Style Library and custom style creation · All images are public · No commercial use · No parallel generation · Recraft models only",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "replicate",
+      "nombre": "Replicate",
+      "campo": "freePlan.limits",
+      "url": "https://replicate.com/docs/topics/billing",
+      "comprobada": "2026-10-11",
+      "cita": "Free limits — You can run select models on Replicate for free, but after a bit you’ll be asked to set up billing. Some features are only available to customers with billing set up.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "replit-agent",
+      "nombre": "Replit Agent",
+      "campo": "freePlan.limits",
+      "url": "https://replit.com/pricing",
+      "comprobada": "2026-08-19",
+      "cita": "Starter — For exploring what’s possible: Free daily Agent credits · Built-in database for full-stack apps · Create slides, videos, animations · Publish up to 1 project · Publish private or password-protected deployments.",
+      "estado": "desaparecida",
+      "faltan": [
+        "starter",
+        "for exploring what's possible",
+        "free daily agent credits",
+        "built-in database for full-stack apps",
+        "create slides, videos, animations",
+        "publish up to 1 project",
+        "publish private or password-protected deployments"
+      ]
+    },
+    {
+      "slug": "replit-agent",
+      "nombre": "Replit Agent",
+      "campo": "capabilities",
+      "url": "https://docs.replit.com/replitai/agent",
+      "comprobada": "2026-08-19",
+      "cita": "Unlike a chatbot that only answers questions, Agent takes action: it sets up your project, creates applications, checks its work, and fixes problems · Agent writes code, sets up infrastructure, and tests the result · pull data from BigQuery, Linear, Slack, Notion, and more directly from chat.",
+      "estado": "intacta",
+      "faltan": [],
+      "final": "https://docs.replit.com/features/agent/overview"
+    },
+    {
+      "slug": "replit-agent",
+      "nombre": "Replit Agent",
+      "campo": "freePlan.requiresCreditCard",
+      "url": "https://replit.com/",
+      "comprobada": "2026-10-12",
+      "cita": "Join millions of builders who use Replit to bring their ideas to life. Start for free — no credit card required.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "runwayml",
+      "nombre": "RunwayML",
+      "campo": "freePlan.limits",
+      "url": "https://runway.com/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "125 one-time credits to explore Runway’s AI tools",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "runwayml",
+      "nombre": "RunwayML",
+      "campo": "freePlan.hasWatermark",
+      "url": "https://help.runwayml.com/hc/en-us/articles/50404627334547-Free-plan-details",
+      "comprobada": "2026-10-11",
+      "cita": "All videos generated on a Free plan feature a Runway watermark.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "runwayml",
+      "nombre": "RunwayML",
+      "campo": "freePlan.commercialUse",
+      "url": "https://runway.com/terms-of-use",
+      "comprobada": "2026-09-15",
+      "cita": "Subject to your compliance with the Agreement, the Company does not restrict your commercial use of your Outputs.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "sdnext",
+      "nombre": "SD.Next",
+      "campo": "freePlan.limits",
+      "url": "https://api.github.com/repos/vladmandic/sdnext",
+      "comprobada": "2026-08-12",
+      "cita": "spdx_id: Apache-2.0 · archived: false · pushed_at: 2026-08-12",
+      "estado": "parcial",
+      "faltan": [
+        "2026-08-12"
+      ]
+    },
+    {
+      "slug": "sdnext",
+      "nombre": "SD.Next",
+      "campo": "capabilities",
+      "url": "https://github.com/vladmandic/sdnext",
+      "comprobada": "2026-09-15",
+      "cita": "Generate with Text-to-Image, Image-to-Image, Text-to-Video, Image-to-Video, etc. · Edit with Detailer, HiRes/Refine, Image-Edit, Inpainting, Outpainting, etc. · Process with Caption, Tag, Upscale, Interpolate, Colorize, Filter, etc. · Automatic model download",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "stable-diffusion-webui",
+      "nombre": "Stable Diffusion WebUI (AUTOMATIC1111)",
+      "campo": "capabilities",
+      "url": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
+      "comprobada": "2026-08-12",
+      "cita": "can be tiled like textures Progress bar and live image generation preview Can use a separate neural network to · ature showcase with images : Original txt2img and img2img modes One click install and run script (but you stil · ou still must install python and git) Outpainting Inpainting Color Sketch Prompt Matrix Stable Diffusion Upsca",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "stable-diffusion-webui",
+      "nombre": "Stable Diffusion WebUI (AUTOMATIC1111)",
+      "campo": "freePlan.limits",
+      "url": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
+      "comprobada": "2026-09-16",
+      "cita": "NVidia (recommended) · AMD GPUs. · Intel CPUs, Intel GPUs (both integrated and discrete) · Installation on Apple Silicon · No token limit for prompts (original stable diffusion lets you use up to 75 tokens)",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "storm",
+      "nombre": "STORM",
+      "campo": "capabilities",
+      "url": "https://github.com/stanford-oval/storm",
+      "comprobada": "2026-08-20",
+      "cita": "STORM is a LLM system that writes Wikipedia-like articles from scratch based on Internet search. [Pre-writing: conduct Internet research, collect references, generate outline. Writing: use the outline and references to generate the full-length article with citations.]",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "storm",
+      "nombre": "STORM",
+      "campo": "freePlan.limits",
+      "url": "https://github.com/stanford-oval/storm/blob/main/LICENSE",
+      "comprobada": "2026-08-20",
+      "cita": "MIT License. Copyright (c) 2024 Stanford Open Virtual Assistant Lab",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "suno-ai",
+      "nombre": "Suno AI",
+      "campo": "freePlan.limits",
+      "url": "https://suno.com/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · Our starter plan. · 0 € /month · Access to our free models · 50 credits per day · Standard features only · Upload up to 8 min of audio · Shared creation queue · No monthly song downloads · No commercial rights · No add-on credit purchases · No stem separation",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "suno-ai",
+      "nombre": "Suno AI",
+      "campo": "freePlan.requiresCreditCard",
+      "url": "https://suno.com/",
+      "comprobada": "2026-10-11",
+      "cita": "Yes. Suno is a free AI music generator that lets you create up to 10 songs a day, no credit card required.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "suno-ai",
+      "nombre": "Suno AI",
+      "campo": "freePlan.commercialUse",
+      "url": "https://suno.com/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "No commercial rights",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "suno-ai",
+      "nombre": "Suno AI",
+      "campo": "incluida: text-to-music",
+      "url": "https://suno.com/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · Our starter plan. · 0 € /month · Access to our free models · 50 credits per day · Standard features only · Upload up to 8 min of audio · Shared creation queue · No monthly song downloads · No commercial rights · No add-on credit purchases · No stem separation",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "synthesia",
+      "nombre": "Synthesia",
+      "campo": "freePlan.limits",
+      "url": "https://www.synthesia.io/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Basic · €0 per month · 500 CREDITS / MONTH · Get started · Free allowance · […] Videos carry a Synthesia watermark · […] Starter · €16 per month [billed yearly]",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "synthesia",
+      "nombre": "Synthesia",
+      "campo": "capabilities",
+      "url": "https://www.synthesia.io/pricing",
+      "comprobada": "2026-08-15",
+      "cita": "AI Dubbing · Lip Sync — Match mouth movements to the translated audio · 125+ Synthesia AI Avatars",
+      "estado": "parcial",
+      "faltan": [
+        "lip sync"
+      ]
+    },
+    {
+      "slug": "synthesia",
+      "nombre": "Synthesia",
+      "campo": "freePlan.requiresCreditCard",
+      "url": "https://www.synthesia.io/",
+      "comprobada": "2026-10-11",
+      "cita": "Yes, our Basic plan is free, with no credit card required.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "synthesia",
+      "nombre": "Synthesia",
+      "campo": "freePlan.hasWatermark",
+      "url": "https://www.synthesia.io/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Basic · €0 per month · 500 CREDITS / MONTH · […] Videos carry a Synthesia watermark",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "synthesia",
+      "nombre": "Synthesia",
+      "campo": "incluida: avatar-video",
+      "url": "https://www.synthesia.io/",
+      "comprobada": "2026-10-11",
+      "cita": "Yes, our Basic plan is free, with no credit card required. You can choose from our stock avatars, give them any outfit or scene you like, or design your own with Avatar Builder. Then you can generate videos in 140+ languages. You get 500 credits a month, enough for up to 10 minutes of video or 10 minutes of AI Dubbing.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "v0-by-vercel",
+      "nombre": "v0 by Vercel",
+      "campo": "freePlan.limits",
+      "url": "https://v0.app/docs/pricing",
+      "comprobada": "2026-08-24",
+      "cita": "Free plan: $5 monthly credits · Daily Message Limit: 7 messages. Each plan includes a monthly credit allowance.",
+      "estado": "parcial",
+      "faltan": [
+        "free plan",
+        "$5 monthly credits",
+        "each plan includes a monthly credit allowance"
+      ]
+    },
+    {
+      "slug": "v0-by-vercel",
+      "nombre": "v0 by Vercel",
+      "campo": "freePlan.creditReset",
+      "url": "https://v0.app/docs/pricing",
+      "comprobada": "2026-08-24",
+      "cita": "Each plan includes a monthly credit allowance.",
+      "estado": "desaparecida",
+      "faltan": [
+        "each plan includes a monthly credit allowance"
+      ]
+    },
+    {
+      "slug": "wan-2-2",
+      "nombre": "Wan 2.2",
+      "campo": "freePlan.limits",
+      "url": "https://github.com/Wan-Video/Wan2.2",
+      "comprobada": "2026-08-15",
+      "cita": "The models in this repository are licensed under the Apache 2.0 License. […] TI2V-5B […] consumer-grade graphics cards like the RTX 4090 with at least 24GB VRAM. T2V-A14B & I2V-A14B: at least 80GB VRAM",
+      "estado": "parcial",
+      "faltan": [
+        "consumer-grade graphics cards like the rtx 4090 with at least 24gb vram",
+        "t2v-a14b & i2v-a14b"
+      ]
+    },
+    {
+      "slug": "wan-2-2",
+      "nombre": "Wan 2.2",
+      "campo": "capabilities",
+      "url": "https://github.com/Wan-Video/Wan2.2",
+      "comprobada": "2026-08-15",
+      "cita": "Text-to-Video (T2V) · Image-to-Video (I2V) · Speech-to-Video (S2V) · Character Animation and Replacement (Animate)",
+      "estado": "desaparecida",
+      "faltan": [
+        "text-to-video (t2v",
+        "image-to-video (i2v",
+        "speech-to-video (s2v",
+        "character animation and replacement (animate"
+      ]
+    },
+    {
+      "slug": "whisper",
+      "nombre": "Whisper",
+      "campo": "freePlan.limits",
+      "url": "https://github.com/openai/whisper",
+      "comprobada": "2026-08-18",
+      "cita": "Whisper's code and model weights are released under the MIT License.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "whisper",
+      "nombre": "Whisper",
+      "campo": "openSource",
+      "url": "https://github.com/openai/whisper",
+      "comprobada": "2026-08-24",
+      "cita": "Whisper’s code and model weights are released under the MIT License.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "whisper",
+      "nombre": "Whisper",
+      "campo": "freePlan.commercialUse",
+      "url": "https://github.com/openai/whisper/blob/main/LICENSE",
+      "comprobada": "2026-09-21",
+      "cita": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "zapier-agents",
+      "nombre": "Zapier Agents",
+      "campo": "freePlan.limits",
+      "url": "https://zapier.com/pricing#agents",
+      "comprobada": "2026-10-11",
+      "cita": "Free · Free forever · $0 /month · Start automating with AI. Zaps, Tables, and Forms included (100 tasks per month). · Two-step Zaps · Agents Free · Free · Try it free · 400 activities per month · […] Interact with your agents in the Chrome Extension",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "zapier-agents",
+      "nombre": "Zapier Agents",
+      "campo": "capabilities",
+      "url": "https://zapier.com/agents",
+      "comprobada": "2026-08-19",
+      "cita": "do work across 9,000+ apps — on command and while you sleep · connect to your business data and perform tasks · equipped with company knowledge through FAQs, docs, and public links.",
+      "estado": "parcial",
+      "faltan": [
+        "equipped with company knowledge through faqs, docs, and public links"
+      ]
+    },
+    {
+      "slug": "zapier-agents",
+      "nombre": "Zapier Agents",
+      "campo": "freePlan.requiresCreditCard",
+      "url": "https://zapier.com/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Yes! When you create a new Zapier account, you're instantly enrolled in a free 14-day trial of the Zapier Professional plan. No credit card is required.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "zapier-agents",
+      "nombre": "Zapier Agents",
+      "campo": "incluida: tool-use",
+      "url": "https://zapier.com/pricing#agents",
+      "comprobada": "2026-10-11",
+      "cita": "Agents Free · Free · Try it free · 400 activities per month · […] Interact with your agents in the Chrome Extension",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "zapier-agents",
+      "nombre": "Zapier Agents",
+      "campo": "incluida: workflow-automation",
+      "url": "https://zapier.com/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · Free forever · $0 /month · Start automating with AI. Zaps, Tables, and Forms included (100 tasks per month). · Key features: Zapier automation platform · Unlimited Zaps, Tables, and Forms · Two-step Zaps",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "deepseek-v4-1-flash",
+      "nombre": "DeepSeek V4.1 Flash",
+      "campo": "freePlan.limits",
+      "url": "https://api-docs.deepseek.com/quick_start/pricing/",
+      "comprobada": "2026-09-21",
+      "cita": "1M INPUT TOKENS (CACHE MISS) OFF-PEAK $0.15 PEAK $0.3 · 1M OUTPUT TOKENS OFF-PEAK $0.6 PEAK $1.2 · CONTEXT LENGTH 1M · MAX OUTPUT MAXIMUM: 384K",
+      "estado": "parcial",
+      "faltan": [
+        "1m input tokens (cache miss) off-peak $0.15 peak $0.3",
+        "1m output tokens off-peak $0.6 peak $1.2"
+      ]
+    },
+    {
+      "slug": "deepseek-v4-1-flash",
+      "nombre": "DeepSeek V4.1 Flash",
+      "campo": "capabilities",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash",
+      "comprobada": "2026-09-21",
+      "cita": "We introduce DeepSeek-V4.1-Flash, a multimodal Mixture-of-Experts (MoE) model with 552B backbone parameters and support for contexts of up to one million tokens. The model natively processes images and text, and generates text autoregressively.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "deepseek-v4-1-flash",
+      "nombre": "DeepSeek V4.1 Flash",
+      "campo": "openSource",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash",
+      "comprobada": "2026-09-21",
+      "cita": "This repository and the model weights are licensed under the MIT License.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "deepseek-v4-1-flash",
+      "nombre": "DeepSeek V4.1 Flash",
+      "campo": "freePlan.commercialUse",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/blob/main/LICENSE",
+      "comprobada": "2026-09-21",
+      "cita": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "bing-image-creator",
+      "nombre": "Bing Image Creator",
+      "campo": "freePlan.limits",
+      "url": "https://www.bing.com/images/create/help",
+      "comprobada": "2026-09-24",
+      "cita": "Every day, you'll get a total of 15 free fast image creations with Bing Image Creator's fastest speed. If you use up your 15 fast free image creations, they'll replenish the next day! You can keep enjoying the Bing Image Creator's fast creation experience by using Microsoft Rewards points or you can continue creating for free at our standard speed if you don't mind waiting.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "bing-image-creator",
+      "nombre": "Bing Image Creator",
+      "campo": "freePlan.requiresSignup",
+      "url": "https://www.bing.com/images/create/help",
+      "comprobada": "2026-09-24",
+      "cita": "Bing Image Creator is a fantastic tool that's free for everyone with a Microsoft Account (MSA)! Sign up for a new Microsoft Account or sign into your existing Microsoft Account, then you're ready to start creating amazing images.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "bing-image-creator",
+      "nombre": "Bing Image Creator",
+      "campo": "freePlan.creditReset",
+      "url": "https://www.bing.com/images/create/help",
+      "comprobada": "2026-09-24",
+      "cita": "If you use up your 15 fast free image creations, they'll replenish the next day!",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "bing-image-creator",
+      "nombre": "Bing Image Creator",
+      "campo": "freePlan.hasWatermark",
+      "url": "https://www.bing.com/images/create/help",
+      "comprobada": "2026-09-24",
+      "cita": "If you'd like to make it easier for others to recognize that an image was created with AI, you can choose to add a visible watermark to your Bing Image Creator images.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "bing-image-creator",
+      "nombre": "Bing Image Creator",
+      "campo": "privacy.trainsOnUserData",
+      "url": "https://www.bing.com/images/create/help",
+      "comprobada": "2026-09-24",
+      "cita": "We may use images uploaded to generally improve our image processing services, but we will not use them to train models or personalize your Bing Image Creator experience.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "bing-image-creator",
+      "nombre": "Bing Image Creator",
+      "campo": "capabilities",
+      "url": "https://www.bing.com/images/create/help",
+      "comprobada": "2026-09-24",
+      "cita": "Bing Image Creator is a cutting-edge, AI-powered tool that transforms your words and uploaded images into stunning visuals. Whether you're looking to create realistic images or artistic masterpieces, this free feature is perfect for quick and easy image creation or image editing.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "bing-image-creator",
+      "nombre": "Bing Image Creator",
+      "campo": "incluida: text-to-image",
+      "url": "https://www.bing.com/images/create/help",
+      "comprobada": "2026-10-11",
+      "cita": "Every day, you'll get a total of 15 free fast image creations with Bing Image Creator's fastest speed.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "canva",
+      "nombre": "Canva",
+      "campo": "freePlan.limits",
+      "url": "https://www.canva.com/pricing/",
+      "comprobada": "2026-09-24",
+      "cita": "Free — Design anything and bring your ideas to life. No cost, just creativity. €0 /year for one person · 1.6M+ templates to start fast · 5GB of cloud storage · AI usage: Up to 20 Standard or Premium AI uses",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "canva",
+      "nombre": "Canva",
+      "campo": "freePlan.commercialUse",
+      "url": "https://www.canva.com/ai-image-generator/",
+      "comprobada": "2026-09-24",
+      "cita": "Yes, you can use the images generated by our AI image generators for any purpose, including personal or commercial projects, as long as you follow our AI Product Terms and Terms of Use.",
+      "estado": "no-leida",
+      "motivo": "HTTP 403",
+      "faltan": []
+    },
+    {
+      "slug": "canva",
+      "nombre": "Canva",
+      "campo": "freePlan.excludedCapabilities",
+      "url": "https://www.canva.com/es_es/precios/",
+      "comprobada": "2026-10-11",
+      "cita": "[Tabla «Comparar las funciones»: Gratis · Pro · Business · Enterprise] Quitafondos para fotos (también a gran escala) · Eliminación de fondos de las imágenes, de una en una o en lote — No incluido · Incluido · Incluido · Incluido",
+      "estado": "no-leida",
+      "motivo": "HTTP 403",
+      "faltan": []
+    },
+    {
+      "slug": "canva",
+      "nombre": "Canva",
+      "campo": "incluida: text-to-image",
+      "url": "https://www.canva.com/es_es/precios/",
+      "comprobada": "2026-10-11",
+      "cita": "[Tabla «Comparar las funciones», «Herramientas con IA (cuota compartida)»] Crea una imagen con Canva IA (IA estándar) — Gratis: Acceso limitado a la IA · Según las funciones que uses: Hasta 20 usos de la IA estándar o premium^",
+      "estado": "no-leida",
+      "motivo": "HTTP 403",
+      "faltan": []
+    },
+    {
+      "slug": "flux-1-schnell",
+      "nombre": "FLUX.1 [schnell]",
+      "campo": "freePlan.commercialUse",
+      "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
+      "comprobada": "2026-09-24",
+      "cita": "Released under the apache-2.0 licence, the model can be used for personal, scientific, and commercial purposes.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "flux-1-schnell",
+      "nombre": "FLUX.1 [schnell]",
+      "campo": "openSource",
+      "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
+      "comprobada": "2026-09-24",
+      "cita": "License: apache-2.0",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "flux-1-schnell",
+      "nombre": "FLUX.1 [schnell]",
+      "campo": "capabilities",
+      "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
+      "comprobada": "2026-09-24",
+      "cita": "FLUX.1 [schnell] is a 12 billion parameter rectified flow transformer capable of generating images from text descriptions. … can generate high-quality images in only 1 to 4 steps.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "qwen-image-2-1",
+      "nombre": "Qwen-Image-2.1",
+      "campo": "freePlan.commercialUse",
+      "url": "https://raw.githubusercontent.com/QwenLM/Qwen-Image-2.1/main/LICENSE",
+      "comprobada": "2026-09-24",
+      "cita": "You shall not use the Materials for any commercial purpose without obtaining a separate commercial license from us.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "qwen-image-2-1",
+      "nombre": "Qwen-Image-2.1",
+      "campo": "capabilities",
+      "url": "https://huggingface.co/Qwen/Qwen-Image-2.1",
+      "comprobada": "2026-09-24",
+      "cita": "Native Transparency, Unified Creation and Editing — Generate regular or transparent (RGBA) images from text, edit transparent layers, and extract subjects from photographs—all in one model.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "google-flow",
+      "nombre": "Google Flow",
+      "campo": "freePlan.limits",
+      "url": "https://flow.google.com/about",
+      "comprobada": "2026-10-11",
+      "cita": "Try Google Flow free of charge or upgrade to one of our plans below. Free of Charge — Included Features: 50 daily Google Flow credits · Gemini Omni Flash · Nano Banana Pro · Veo 3.1",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "google-flow",
+      "nombre": "Google Flow",
+      "campo": "freePlan.creditReset",
+      "url": "https://flow.google.com/about",
+      "comprobada": "2026-09-24",
+      "cita": "50 daily Google Flow credits",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "google-flow",
+      "nombre": "Google Flow",
+      "campo": "capabilities",
+      "url": "https://flow.google.com/about",
+      "comprobada": "2026-09-24",
+      "cita": "Text to Video · Frames to Video · Ingredients to Video · Video Extension · Video-to-video editing · Scenebuilder · 2K image upscaling · Characters · Avatars",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "google-flow",
+      "nombre": "Google Flow",
+      "campo": "freePlan.requiresSignup",
+      "url": "https://flow.google.com/about",
+      "comprobada": "2026-09-24",
+      "cita": "Try Google Flow with a Google Account Without a Google AI Subscription · Free of Charge",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "google-flow",
+      "nombre": "Google Flow",
+      "campo": "incluida: text-to-video",
+      "url": "https://flow.google.com/about",
+      "comprobada": "2026-10-11",
+      "cita": "Free of Charge · Included Features: · 50 daily Google Flow credits · Gemini Omni Flash · Nano Banana Pro · Veo 3.1 · Google Flow Tools (Usage only) · Agent · Text to Video · Frames to Video · Ingredients to Video · Video Extension · Video-to-video editing · Scenebuilder",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "google-flow",
+      "nombre": "Google Flow",
+      "campo": "incluida: image-to-video",
+      "url": "https://flow.google.com/about",
+      "comprobada": "2026-10-11",
+      "cita": "Free of Charge · Included Features: · 50 daily Google Flow credits · Gemini Omni Flash · Nano Banana Pro · Veo 3.1 · Google Flow Tools (Usage only) · Agent · Text to Video · Frames to Video · Ingredients to Video · Video Extension · Video-to-video editing · Scenebuilder",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "google-flow",
+      "nombre": "Google Flow",
+      "campo": "incluida: video-extend",
+      "url": "https://flow.google.com/about",
+      "comprobada": "2026-10-11",
+      "cita": "Free of Charge · Included Features: · 50 daily Google Flow credits · Gemini Omni Flash · Nano Banana Pro · Veo 3.1 · Google Flow Tools (Usage only) · Agent · Text to Video · Frames to Video · Ingredients to Video · Video Extension · Video-to-video editing · Scenebuilder",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "google-flow",
+      "nombre": "Google Flow",
+      "campo": "incluida: video-editing",
+      "url": "https://flow.google.com/about",
+      "comprobada": "2026-10-11",
+      "cita": "Free of Charge · Included Features: · 50 daily Google Flow credits · Gemini Omni Flash · Nano Banana Pro · Veo 3.1 · Google Flow Tools (Usage only) · Agent · Text to Video · Frames to Video · Ingredients to Video · Video Extension · Video-to-video editing · Scenebuilder",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "google-flow",
+      "nombre": "Google Flow",
+      "campo": "incluida: text-to-image",
+      "url": "https://flow.google.com/about",
+      "comprobada": "2026-10-11",
+      "cita": "Free of Charge · Included Features: · 50 daily Google Flow credits · Gemini Omni Flash · Nano Banana Pro · Veo 3.1 · Google Flow Tools (Usage only) · Agent · Text to Video · Frames to Video · Ingredients to Video · Video Extension · Video-to-video editing · Scenebuilder",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "opusclip",
+      "nombre": "OpusClip",
+      "campo": "freePlan.limits",
+      "url": "https://www.opus.pro/pricing",
+      "comprobada": "2026-10-12",
+      "cita": "Free forever · $0 USD/mo · Create an account · 60 credits per month · Up to 1080p rendered clips · Auto reframe · AI captions with emoji and keyword highlighter · Has watermark · No editing · After 3 days, the clips will no longer be exportable",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "opusclip",
+      "nombre": "OpusClip",
+      "campo": "freePlan.hasWatermark",
+      "url": "https://www.opus.pro/pricing",
+      "comprobada": "2026-10-12",
+      "cita": "Free forever · $0 USD/mo · Create an account · 60 credits per month · Up to 1080p rendered clips · Auto reframe · AI captions with emoji and keyword highlighter · Has watermark · No editing · After 3 days, the clips will no longer be exportable",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "opusclip",
+      "nombre": "OpusClip",
+      "campo": "freePlan.requiresSignup",
+      "url": "https://www.opus.pro/pricing",
+      "comprobada": "2026-09-24",
+      "cita": "Free · $0 USD/mo · Create an account",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "opusclip",
+      "nombre": "OpusClip",
+      "campo": "freePlan.creditReset",
+      "url": "https://www.opus.pro/pricing",
+      "comprobada": "2026-09-24",
+      "cita": "60 credits per month",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "opusclip",
+      "nombre": "OpusClip",
+      "campo": "freePlan.commercialUse",
+      "url": "https://www.opus.pro/terms-of-service",
+      "comprobada": "2026-10-12",
+      "cita": "You will only use the Services for your own internal, personal, non-commercial use, and not on behalf of or for the benefit of any third party […] Notwithstanding the foregoing, if you are a user of Paid Services, you are licensed to use the Services for commercial uses",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "vidu",
+      "nombre": "Vidu",
+      "campo": "freePlan.limits",
+      "url": "https://www.vidu.com/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · $0 / month · Q4 model usage: 540P 4 credits/sec · 10 references/month · […] How to Get Credits? 1. Sign-up Bonus: New users receive trial credits upon registering for Vidu. […] 3. Daily Login: Earn credits by logging in every day.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "vidu",
+      "nombre": "Vidu",
+      "campo": "freePlan.creditReset",
+      "url": "https://www.vidu.com/pricing",
+      "comprobada": "2026-09-24",
+      "cita": "Daily Login: Earn credits by logging in every day.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "vidu",
+      "nombre": "Vidu",
+      "campo": "freePlan.requiresSignup",
+      "url": "https://www.vidu.com/pricing",
+      "comprobada": "2026-09-24",
+      "cita": "Sign-up Bonus: New users receive trial credits upon registering for Vidu.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "vidu",
+      "nombre": "Vidu",
+      "campo": "freePlan.commercialUse",
+      "url": "https://www.vidu.com/terms",
+      "comprobada": "2026-10-11",
+      "cita": "Vidu grants you a limited, non-exclusive, non-transferable, non-sublicensable, and revocable license to access and use Vidu and Vidu Content for personal, non-commercial purposes, for paid users, this license extends to commercial use.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "otter",
+      "nombre": "Otter.ai",
+      "campo": "freePlan.limits",
+      "url": "https://otter.ai/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Basic · For those who want to give it a try · Free · […] 3 lifetime audio/video file imports · Live transcription · […] 300 monthly transcription minutes",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "otter",
+      "nombre": "Otter.ai",
+      "campo": "freePlan.creditReset",
+      "url": "https://otter.ai/pricing",
+      "comprobada": "2026-09-24",
+      "cita": "Meeting & recording transcription monthly limit (no rollover)",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "otter",
+      "nombre": "Otter.ai",
+      "campo": "freePlan.commercialUse",
+      "url": "https://otter.ai/terms-of-service",
+      "comprobada": "2026-10-11",
+      "cita": "BY USING THE SERVICE YOU AGREE NOT TO: […] c. use the Service in connection with any direct or indirect commercial purposes, including in connection with any paid transcription workflow or as a value-added component of a commercial product or service;",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "otter",
+      "nombre": "Otter.ai",
+      "campo": "incluida: transcription",
+      "url": "https://otter.ai/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Basic · For those who want to give it a try · Free · […] 3 lifetime audio/video file imports · Live transcription · […] 300 monthly transcription minutes",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "turboscribe",
+      "nombre": "TurboScribe",
+      "campo": "freePlan.limits",
+      "url": "https://turboscribe.ai/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "TurboScribe Free · 100% Free · 3 Transcripts Daily · Transcribe 3 files for free every day. · 30 Minute Uploads · Each file can be up to 30 minutes long. Upload 1 file at a time. · Lower Priority · Wait longer before your files are transcribed.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "turboscribe",
+      "nombre": "TurboScribe",
+      "campo": "freePlan.creditReset",
+      "url": "https://turboscribe.ai/pricing",
+      "comprobada": "2026-09-24",
+      "cita": "Transcribe 3 files for free every day.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "turboscribe",
+      "nombre": "TurboScribe",
+      "campo": "freePlan.requiresSignup",
+      "url": "https://turboscribe.ai/pricing",
+      "comprobada": "2026-09-24",
+      "cita": "Start Transcribing for Free · Sign up with email address",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "turboscribe",
+      "nombre": "TurboScribe",
+      "campo": "freePlan.requiresCreditCard",
+      "url": "https://turboscribe.ai/",
+      "comprobada": "2026-10-11",
+      "cita": "3 free transcripts daily. No credit card required.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "turboscribe",
+      "nombre": "TurboScribe",
+      "campo": "incluida: transcription",
+      "url": "https://turboscribe.ai/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free · 100% Free · 3 Transcripts Daily · Transcribe 3 files for free every day. · 30 Minute Uploads · Each file can be up to 30 minutes long. Upload 1 file at a time.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "lalal-ai",
+      "nombre": "LALAL.AI",
+      "campo": "freePlan.limits",
+      "url": "https://www.lalal.ai/pricing/",
+      "comprobada": "2026-09-24",
+      "cita": "Starter · €0 · Always free · Get Free · Try out our service. · No credit card needed. · 10 Minutes · Free Result Previews · 200MB Upload File Limit",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "lalal-ai",
+      "nombre": "LALAL.AI",
+      "campo": "freePlan.requiresCreditCard",
+      "url": "https://www.lalal.ai/pricing/",
+      "comprobada": "2026-10-12",
+      "cita": "No credit card needed.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "murf-ai",
+      "nombre": "Murf AI",
+      "campo": "freePlan.limits",
+      "url": "https://murf.ai/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free Trial · Get access to all API endpoints. Explore, build, and test without barriers · Get Started · No credit card required · $10 FREE for API calls · 150+ voices in 35+ languages and styles · 5 concurrent requests",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "murf-ai",
+      "nombre": "Murf AI",
+      "campo": "freePlan.requiresCreditCard",
+      "url": "https://murf.ai/pricing",
+      "comprobada": "2026-09-24",
+      "cita": "No credit card required",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "murf-ai",
+      "nombre": "Murf AI",
+      "campo": "incluida: text-to-speech",
+      "url": "https://murf.ai/pricing",
+      "comprobada": "2026-10-11",
+      "cita": "Free Trial · Get access to all API endpoints. Explore, build, and test without barriers · Get Started · No credit card required · $10 FREE for API calls · 150+ voices in 35+ languages and styles · 5 concurrent requests",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "moises",
+      "nombre": "Moises",
+      "campo": "freePlan.limits",
+      "url": "https://moises.ai/",
+      "comprobada": "2026-09-24",
+      "cita": "Moises offers a free tier that provides a limited number of uploads each month, with access to a select set of features.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "moises",
+      "nombre": "Moises",
+      "campo": "freePlan.creditReset",
+      "url": "https://moises.ai/",
+      "comprobada": "2026-09-24",
+      "cita": "a limited number of uploads each month",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "moises",
+      "nombre": "Moises",
+      "campo": "freePlan.commercialUse",
+      "url": "https://moises.ai/terms/",
+      "comprobada": "2026-10-12",
+      "cita": "For clarity, this personal-use limitation does not prohibit you from using or distributing Output commercially, subject to Section 11.2 (Ownership and Limitations), any applicable feature-specific restrictions in these Terms, and any third-party rights.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "zed",
+      "nombre": "Zed",
+      "campo": "freePlan.limits",
+      "url": "https://zed.dev/pricing",
+      "comprobada": "2026-09-24",
+      "cita": "PERSONAL · $0 · forever · The next-generation code editor. Free forever. · 2,000 accepted edit predictions · Unlimited use with your API keys or external agents like Claude Agent, Codex CLI, and more",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "zed",
+      "nombre": "Zed",
+      "campo": "openSource",
+      "url": "https://raw.githubusercontent.com/zed-industries/zed/main/LICENSE-GPL",
+      "comprobada": "2026-09-24",
+      "cita": "The GNU General Public License is a free, copyleft license for software and other kinds of works.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "zed",
+      "nombre": "Zed",
+      "campo": "freePlan.commercialUse",
+      "url": "https://zed.dev/terms",
+      "comprobada": "2026-10-12",
+      "cita": "Customer may access and use the Service only for Customer’s internal business purposes or for individuals, for personal non-commercial purposes",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "zed",
+      "nombre": "Zed",
+      "campo": "incluida: code-generation",
+      "url": "https://zed.dev/pricing",
+      "comprobada": "2026-10-12",
+      "cita": "PERSONAL · $0 · forever · The next-generation code editor. Free forever. · 2,000 accepted edit predictions · Unlimited use with your API keys or external agents like Claude Agent, Codex CLI, and more",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "trae",
+      "nombre": "Trae",
+      "campo": "freePlan.limits",
+      "url": "https://www.trae.ai/pricing",
+      "comprobada": "2026-10-12",
+      "cita": "Free · $0 · Start for free · Auto mode only · Limited usage · Limited Autocomplete",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "trae",
+      "nombre": "Trae",
+      "campo": "freePlan.creditReset",
+      "url": "https://www.trae.ai/pricing",
+      "comprobada": "2026-09-24",
+      "cita": "Monthly Basic Usage",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "trae",
+      "nombre": "Trae",
+      "campo": "incluida: code-generation",
+      "url": "https://www.trae.ai/pricing",
+      "comprobada": "2026-10-12",
+      "cita": "Free · $0 · Start for free · Auto mode only · Limited usage · Limited Autocomplete",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "kilo-code",
+      "nombre": "Kilo Code",
+      "campo": "freePlan.limits",
+      "url": "https://kilo.ai/pricing",
+      "comprobada": "2026-09-24",
+      "cita": "Free & Open Source · For every developer building with AI · Free · Usage is billed separately · Open source VS Code, JetBrains & CLI extensions · Auto Free routes to free models through Kilo Gateway where available",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "kilo-code",
+      "nombre": "Kilo Code",
+      "campo": "freePlan.commercialUse",
+      "url": "https://raw.githubusercontent.com/Kilo-Org/kilocode/main/LICENSE",
+      "comprobada": "2026-09-24",
+      "cita": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "kilo-code",
+      "nombre": "Kilo Code",
+      "campo": "openSource",
+      "url": "https://raw.githubusercontent.com/Kilo-Org/kilocode/main/LICENSE",
+      "comprobada": "2026-09-24",
+      "cita": "MIT License",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "jules",
+      "nombre": "Jules",
+      "campo": "freePlan.limits",
+      "url": "https://jules.google/",
+      "comprobada": "2026-10-11",
+      "cita": "Jules · Get started with real coding tasks. · 15 tasks per day · 3 concurrent tasks · Powered by Gemini 2.5 Pro",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "jules",
+      "nombre": "Jules",
+      "campo": "freePlan.creditReset",
+      "url": "https://jules.google/",
+      "comprobada": "2026-09-24",
+      "cita": "15 tasks per day",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "jules",
+      "nombre": "Jules",
+      "campo": "capabilities",
+      "url": "https://jules.google/",
+      "comprobada": "2026-09-24",
+      "cita": "Jules creates a PR of the changes. Approve the PR, merge it to your branch, and publish it on GitHub.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "jules",
+      "nombre": "Jules",
+      "campo": "incluida: code-generation",
+      "url": "https://jules.google/",
+      "comprobada": "2026-10-11",
+      "cita": "Get started with real coding tasks. · 15 tasks per day · 3 concurrent tasks · Powered by Gemini 2.5 Pro",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "jules",
+      "nombre": "Jules",
+      "campo": "incluida: repository-editing",
+      "url": "https://jules.google/",
+      "comprobada": "2026-10-11",
+      "cita": "Get started with real coding tasks. · 15 tasks per day · 3 concurrent tasks · Powered by Gemini 2.5 Pro",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "browser-use",
+      "nombre": "Browser Use",
+      "campo": "freePlan.commercialUse",
+      "url": "https://raw.githubusercontent.com/browser-use/browser-use/main/LICENSE",
+      "comprobada": "2026-09-24",
+      "cita": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "browser-use",
+      "nombre": "Browser Use",
+      "campo": "openSource",
+      "url": "https://raw.githubusercontent.com/browser-use/browser-use/main/LICENSE",
+      "comprobada": "2026-09-24",
+      "cita": "MIT License",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "browser-use",
+      "nombre": "Browser Use",
+      "campo": "capabilities",
+      "url": "https://github.com/browser-use/browser-use",
+      "comprobada": "2026-09-24",
+      "cita": "Agents that use the browser.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "langflow",
+      "nombre": "Langflow",
+      "campo": "freePlan.commercialUse",
+      "url": "https://raw.githubusercontent.com/langflow-ai/langflow/main/LICENSE",
+      "comprobada": "2026-09-24",
+      "cita": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "langflow",
+      "nombre": "Langflow",
+      "campo": "openSource",
+      "url": "https://raw.githubusercontent.com/langflow-ai/langflow/main/LICENSE",
+      "comprobada": "2026-09-24",
+      "cita": "MIT License",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "langflow",
+      "nombre": "Langflow",
+      "campo": "capabilities",
+      "url": "https://github.com/langflow-ai/langflow",
+      "comprobada": "2026-09-24",
+      "cita": "Langflow is a powerful tool for building and deploying AI-powered agents and workflows.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "flowise",
+      "nombre": "Flowise",
+      "campo": "openSource",
+      "url": "https://github.com/FlowiseAI/Flowise/blob/main/LICENSE.md",
+      "comprobada": "2026-09-24",
+      "cita": "Portions of this software are licensed as follows: All content that resides under https://github.com/FlowiseAI/Flowise/tree/main/packages/server/src/enterprise directory and files with explicit copyright notice such as IdentityManager.ts are licensed under Commercial License.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "flowise",
+      "nombre": "Flowise",
+      "campo": "capabilities",
+      "url": "https://github.com/FlowiseAI/Flowise",
+      "comprobada": "2026-09-24",
+      "cita": "Build AI Agents, Visually",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "smolagents",
+      "nombre": "smolagents",
+      "campo": "openSource",
+      "url": "https://github.com/huggingface/smolagents",
+      "comprobada": "2026-09-24",
+      "cita": "Apache-2.0 license",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "smolagents",
+      "nombre": "smolagents",
+      "campo": "capabilities",
+      "url": "https://github.com/huggingface/smolagents",
+      "comprobada": "2026-09-24",
+      "cita": "smolagents is a library that enables you to run powerful agents in a few lines of code.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "letta",
+      "nombre": "Letta",
+      "campo": "openSource",
+      "url": "https://github.com/letta-ai/letta",
+      "comprobada": "2026-09-24",
+      "cita": "Apache-2.0 license",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "letta",
+      "nombre": "Letta",
+      "campo": "capabilities",
+      "url": "https://github.com/letta-ai/letta",
+      "comprobada": "2026-09-24",
+      "cita": "Build stateful agents with memory that can learn and improve over time.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "gpt-oss",
+      "nombre": "gpt-oss",
+      "campo": "freePlan.commercialUse",
+      "url": "https://huggingface.co/openai/gpt-oss-120b",
+      "comprobada": "2026-09-24",
+      "cita": "Permissive Apache 2.0 license: Build freely without copyleft restrictions or patent risk—ideal for experimentation, customization, and commercial deployment.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "gpt-oss",
+      "nombre": "gpt-oss",
+      "campo": "openSource",
+      "url": "https://huggingface.co/openai/gpt-oss-120b",
+      "comprobada": "2026-09-24",
+      "cita": "License: apache-2.0",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "gpt-oss",
+      "nombre": "gpt-oss",
+      "campo": "freePlan.limits",
+      "url": "https://huggingface.co/openai/gpt-oss-120b",
+      "comprobada": "2026-09-24",
+      "cita": "gpt-oss-120b — for production, general purpose, high reasoning use cases that fit into a single 80GB GPU (like NVIDIA H100 or AMD MI300X) (117B parameters with 5.1B active parameters) · gpt-oss-20b — for lower latency, and local or specialized use cases (21B parameters with 3.6B active parameters)",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "gpt-oss",
+      "nombre": "gpt-oss",
+      "campo": "capabilities",
+      "url": "https://huggingface.co/openai/gpt-oss-120b",
+      "comprobada": "2026-09-24",
+      "cita": "Welcome to the gpt-oss series, OpenAI’s open-weight models designed for powerful reasoning, agentic tasks, and versatile developer use cases.",
+      "estado": "intacta",
+      "faltan": []
+    }
+  ]
+}
