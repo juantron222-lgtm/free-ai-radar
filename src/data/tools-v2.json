@@ -10927,7 +10927,21 @@
       "hasWatermark": "unverified",
       "commercialUse": "yes",
       "creditReset": "none",
-      "verifiedAt": "2026-09-16"
+      "verifiedAt": "2026-09-16",
+      "includedCapabilities": [
+        {
+          "capability": "api",
+          "condition": "en tu equipo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/ollama/ollama",
+            "sourceKind": "repo",
+            "quote": "Ollama has a REST API for running and managing models."
+          }
+        }
+      ]
     },
     "openSource": "yes",
     "hosting": "hybrid",
@@ -17306,6 +17320,20 @@
         "Licencia MIT",
         "Necesita un modelo: de pago por API o local",
         "Hay que programar en Python"
+      ],
+      "includedCapabilities": [
+        {
+          "capability": "web-browsing",
+          "condition": "en tu equipo; necesita un modelo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/browser-use/browser-use",
+            "sourceKind": "repo",
+            "quote": "Navigate the web like a human does."
+          }
+        }
       ]
     },
     "capabilities": [
@@ -17688,6 +17716,20 @@
         "Licencia Apache 2.0",
         "Necesita un modelo: de pago por API o local",
         "Hay que programar en Python"
+      ],
+      "includedCapabilities": [
+        {
+          "capability": "code-execution",
+          "condition": "biblioteca de código abierto; necesita un modelo",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-12",
+            "scope": "local",
+            "sourceUrl": "https://github.com/huggingface/smolagents",
+            "sourceKind": "repo",
+            "quote": "First-class support for Code Agents. Our CodeAgent writes its actions in code (as opposed to \"agents being used to write code\")."
+          }
+        }
       ]
     },
     "capabilities": [
