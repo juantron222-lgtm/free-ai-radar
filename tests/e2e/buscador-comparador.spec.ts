@@ -353,11 +353,12 @@ test.describe('por qué falta un dato', () => {
   test('la ficha no acusa al fabricante de lo que no hemos mirado', async ({ page }) => {
     /*
      * Hace falta una ficha con los dos huecos a la vez. Era Ideogram hasta el
-     * 15 de septiembre, cuando se comprobó que su página de precios no dice si
-     * pide tarjeta y dejó de tener nada pendiente nuestro. Codex tiene la
-     * tarjeta sin publicar y el uso comercial sin mirar todavía.
+     * 15 de septiembre y Codex hasta el 11 de octubre de 2026, cuando la
+     * campaña de verificación cerró su uso comercial. Genspark tiene la
+     * tarjeta sin publicar y el uso comercial pendiente a propósito: sus
+     * propias páginas se contradicen y Juan pidió conservar la duda.
      */
-    await page.goto('/herramientas/codex');
+    await page.goto('/herramientas/genspark');
     const nota = page.locator('.tool-verified-note');
     await expect(nota).toContainText('su fabricante no publica');
     await expect(nota).toContainText('Nos falta comprobar');

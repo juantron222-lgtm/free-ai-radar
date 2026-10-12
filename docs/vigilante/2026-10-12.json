@@ -1,12 +1,12 @@
 {
   "resumen": {
     "fecha": "2026-10-12",
-    "citas": 373,
-    "paginas": 208,
-    "intactas": 271,
-    "parciales": 62,
-    "desaparecidas": 20,
-    "noLeidas": 20
+    "citas": 435,
+    "paginas": 224,
+    "intactas": 339,
+    "parciales": 57,
+    "desaparecidas": 18,
+    "noLeidas": 21
   },
   "resultados": [
     {
@@ -60,6 +60,16 @@
       "url": "https://github.com/Aider-AI/aider",
       "comprobada": "2026-08-19",
       "cita": "Aider lets you pair program with LLMs to start a new project or build on your existing codebase · Aider automatically commits changes with sensible commit messages · [ejecuta pruebas y linters y corrige los problemas detectados] · Apache-2.0.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "aider",
+      "nombre": "Aider",
+      "campo": "incluida: repository-editing",
+      "url": "https://github.com/Aider-AI/aider",
+      "comprobada": "2026-10-12",
+      "cita": "Aider lets you pair program with LLMs to start a new project or build on your existing codebase.",
       "estado": "intacta",
       "faltan": []
     },
@@ -120,6 +130,26 @@
       ]
     },
     {
+      "slug": "audiocraft",
+      "nombre": "AudioCraft (MusicGen)",
+      "campo": "freePlan.commercialUse",
+      "url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "comprobada": "2026-10-12",
+      "cita": "NonCommercial — You may not use the material for commercial purposes.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "audiocraft",
+      "nombre": "AudioCraft (MusicGen)",
+      "campo": "incluida: text-to-music",
+      "url": "https://github.com/facebookresearch/audiocraft",
+      "comprobada": "2026-10-12",
+      "cita": "MusicGen: A state-of-the-art controllable text-to-music model.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
       "slug": "bolt-new",
       "nombre": "Bolt.new",
       "campo": "freePlan.limits",
@@ -154,14 +184,10 @@
       "nombre": "Cartesia",
       "campo": "freePlan.limits",
       "url": "https://cartesia.ai/pricing",
-      "comprobada": "2026-08-18",
-      "cita": "Free — 20K credits / month · Text to Speech and Speech to Text · approximately 27 minutes of generated audio monthly · 1 agent slot with 8 concurrent calls",
-      "estado": "parcial",
-      "faltan": [
-        "text to speech and speech to text",
-        "approximately 27 minutes of generated audio monthly",
-        "1 agent slot with 8 concurrent calls"
-      ],
+      "comprobada": "2026-10-12",
+      "cita": "Free · $0 /mo · 20K credits / month · $1 prepaid agents / month · Text to Speech · Speech to Text · […] [Tabla: Free · Pro · Startup · Scale · Enterprise] Minutes included monthly: ~27 · ~133 · ~1,667 · ~10,667 · Custom · Concurrent requests: 2 · 3 · 5 · 15 · Custom · Concurrent calls: 8 · 12 · 20 · 60 · Custom",
+      "estado": "intacta",
+      "faltan": [],
       "final": "https://www.cartesia.ai/pricing"
     },
     {
@@ -296,10 +322,8 @@
       "url": "https://chatgpt.com/pricing",
       "comprobada": "2026-10-11",
       "cita": "Free · Best for trying out ChatGPT · […] Limited deep research · Limited memory and context · Limited Codex access",
-      "estado": "parcial",
-      "faltan": [
-        "best for trying out chatgpt"
-      ],
+      "estado": "intacta",
+      "faltan": [],
       "final": "https://chatgpt.com/pricing/"
     },
     {
@@ -309,10 +333,8 @@
       "url": "https://chatgpt.com/pricing",
       "comprobada": "2026-10-11",
       "cita": "Free · Best for trying out ChatGPT · […] Limited deep research · Limited memory and context · Limited Codex access",
-      "estado": "parcial",
-      "faltan": [
-        "best for trying out chatgpt"
-      ],
+      "estado": "intacta",
+      "faltan": [],
       "final": "https://chatgpt.com/pricing/"
     },
     {
@@ -322,10 +344,8 @@
       "url": "https://chatgpt.com/pricing",
       "comprobada": "2026-10-11",
       "cita": "Free · Best for trying out ChatGPT · […] Limited deep research · Limited memory and context · Limited Codex access",
-      "estado": "parcial",
-      "faltan": [
-        "best for trying out chatgpt"
-      ],
+      "estado": "intacta",
+      "faltan": [],
       "final": "https://chatgpt.com/pricing/"
     },
     {
@@ -599,6 +619,16 @@
       ]
     },
     {
+      "slug": "cline",
+      "nombre": "Cline",
+      "campo": "incluida: repository-editing",
+      "url": "https://github.com/cline/cline",
+      "comprobada": "2026-10-12",
+      "cita": "The open source coding agent in your IDE, terminal, & desktop.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
       "slug": "clipdrop",
       "nombre": "Clipdrop",
       "campo": "capabilities",
@@ -765,6 +795,16 @@
       "faltan": []
     },
     {
+      "slug": "comfyui",
+      "nombre": "ComfyUI",
+      "campo": "incluida: text-to-image",
+      "url": "https://github.com/Comfy-Org/ComfyUI",
+      "comprobada": "2026-10-12",
+      "cita": "Its powerful and modular node graph interface empowers creatives to generate images, videos, 3D models, audio, and more",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
       "slug": "crewai",
       "nombre": "CrewAI",
       "campo": "capabilities",
@@ -776,6 +816,36 @@
         "role-based teams that handle dynamic task delegation",
         "precise, event-driven control over complex automations"
       ]
+    },
+    {
+      "slug": "crewai",
+      "nombre": "CrewAI",
+      "campo": "freePlan.commercialUse",
+      "url": "https://raw.githubusercontent.com/crewAIInc/crewAI/main/LICENSE",
+      "comprobada": "2026-10-12",
+      "cita": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "crewai",
+      "nombre": "CrewAI",
+      "campo": "incluida: multi-agent",
+      "url": "https://github.com/crewAIInc/crewAI",
+      "comprobada": "2026-10-12",
+      "cita": "CrewAI Crews: Optimize for autonomy and collaborative intelligence with role-based AI agents. · CrewAI Flows: Build event-driven automations",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "crewai",
+      "nombre": "CrewAI",
+      "campo": "incluida: workflow-automation",
+      "url": "https://github.com/crewAIInc/crewAI",
+      "comprobada": "2026-10-12",
+      "cita": "CrewAI Crews: Optimize for autonomy and collaborative intelligence with role-based AI agents. · CrewAI Flows: Build event-driven automations",
+      "estado": "intacta",
+      "faltan": []
     },
     {
       "slug": "cursor",
@@ -843,6 +913,16 @@
         "in response to user demand, we have decided to continue providing api services for deepseek v4 pro after september 14, 2026, with the billing method remaining unchanged"
       ],
       "final": "https://api-docs.deepseek.com/quick_start/pricing/"
+    },
+    {
+      "slug": "deepseek-v4-pro",
+      "nombre": "DeepSeek V4 Pro",
+      "campo": "freePlan.commercialUse",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813/blob/main/LICENSE",
+      "comprobada": "2026-10-12",
+      "cita": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software",
+      "estado": "intacta",
+      "faltan": []
     },
     {
       "slug": "descript",
@@ -1181,6 +1261,16 @@
       "faltan": []
     },
     {
+      "slug": "fooocus",
+      "nombre": "Fooocus",
+      "campo": "incluida: text-to-image",
+      "url": "https://github.com/lllyasviel/Fooocus",
+      "comprobada": "2026-10-12",
+      "cita": "Fooocus is an image generating software (based on Gradio). […] The software is offline, open source, and free",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
       "slug": "gemini-3-flash",
       "nombre": "Gemini 3 Flash",
       "campo": "capabilities",
@@ -1274,6 +1364,16 @@
         "text and images (all models); audio support on e2b, e4b, and 12b only",
         "text generation only"
       ]
+    },
+    {
+      "slug": "gemma-4",
+      "nombre": "Gemma 4",
+      "campo": "incluida: text-generation",
+      "url": "https://ai.google.dev/gemma/docs/core/model_card_4",
+      "comprobada": "2026-10-12",
+      "cita": "Gemma 4 is well-suited for tasks like text generation, coding, and reasoning.",
+      "estado": "intacta",
+      "faltan": []
     },
     {
       "slug": "genspark",
@@ -1371,6 +1471,16 @@
         "agentic tasks (mcp-atlas",
         "76.8, tool-decathlon"
       ]
+    },
+    {
+      "slug": "glm-5",
+      "nombre": "GLM-5.2",
+      "campo": "freePlan.commercialUse",
+      "url": "https://huggingface.co/zai-org/GLM-5.2/blob/main/LICENSE",
+      "comprobada": "2026-10-12",
+      "cita": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software",
+      "estado": "intacta",
+      "faltan": []
     },
     {
       "slug": "google-adk",
@@ -1524,6 +1634,16 @@
       "faltan": [
         "apache license, version 2.0, january 2004"
       ]
+    },
+    {
+      "slug": "gpt-researcher",
+      "nombre": "GPT Researcher",
+      "campo": "incluida: research",
+      "url": "https://github.com/assafelovic/gpt-researcher",
+      "comprobada": "2026-10-12",
+      "cita": "GPT Researcher the first open deep research agent designed for both web and local research on any given task.",
+      "estado": "intacta",
+      "faltan": []
     },
     {
       "slug": "grok-4",
@@ -1719,6 +1839,17 @@
       "faltan": []
     },
     {
+      "slug": "hunyuanvideo",
+      "nombre": "HunyuanVideo",
+      "campo": "openSource",
+      "url": "https://github.com/Tencent-Hunyuan/HunyuanVideo/blob/main/LICENSE",
+      "comprobada": "2026-10-12",
+      "cita": "THIS LICENSE AGREEMENT DOES NOT APPLY IN THE EUROPEAN UNION, UNITED KINGDOM AND SOUTH KOREA AND IS EXPRESSLY LIMITED TO THE TERRITORY, AS DEFINED BELOW. […] “Territory” shall mean the worldwide territory, excluding the territory of the European Union, United Kingdom and South Korea.",
+      "estado": "no-leida",
+      "motivo": "HTTP 404",
+      "faltan": []
+    },
+    {
       "slug": "ideogram",
       "nombre": "Ideogram",
       "campo": "capabilities",
@@ -1824,6 +1955,16 @@
       "url": "https://github.com/invoke-ai/InvokeAI",
       "comprobada": "2026-08-12",
       "cita": "cial-intelligence generative-art image-generation img2img inpainting latent-diffusion linux macos outpainting · elligence generative-art image-generation img2img inpainting latent-diffusion linux macos outpainting stable-d · n img2img inpainting latent-diffusion linux macos outpainting stable-diffusion txt2img windows Resources Readm",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "invokeai",
+      "nombre": "InvokeAI",
+      "campo": "freePlan.commercialUse",
+      "url": "https://github.com/invoke-ai/InvokeAI",
+      "comprobada": "2026-10-12",
+      "cita": "Free to use under a commercially-friendly license",
       "estado": "intacta",
       "faltan": []
     },
@@ -1946,6 +2087,16 @@
       "faltan": []
     },
     {
+      "slug": "kokoro",
+      "nombre": "Kokoro",
+      "campo": "incluida: text-to-speech",
+      "url": "https://github.com/hexgrad/kokoro",
+      "comprobada": "2026-10-12",
+      "cita": "Kokoro is an open-weight TTS model with 82 million parameters.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
       "slug": "krea",
       "nombre": "Krea",
       "campo": "capabilities",
@@ -1974,6 +2125,7 @@
       "cita": "Free — 100 units /day · 1 Nano Banana 2 generation · <1 Seedance 2.0 videos [Filas con aspa en el plan Free: All image models, All video models, All 3D & lipsync models, Krea Nodes, App Builder, Nodes Agent, Commercial license. Con visto: Limited LoRA training, Limited image upscaling. Image concurrency 1, Video concurrency 0.]",
       "estado": "parcial",
       "faltan": [
+        "100 units /day",
         "<1 seedance 2.0 videos"
       ]
     },
@@ -2004,6 +2156,16 @@
       "url": "https://docs.langchain.com/oss/python/langgraph/overview",
       "comprobada": "2026-08-19",
       "cita": "Create stateful agents with both short-term working memory for ongoing reasoning and long-term memory across sessions · Incorporate human oversight by inspecting and modifying agent state at any point · Build agents that persist through failures and can run for extended periods, resuming from where they left off.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "langgraph",
+      "nombre": "LangGraph",
+      "campo": "freePlan.commercialUse",
+      "url": "https://raw.githubusercontent.com/langchain-ai/langgraph/main/LICENSE",
+      "comprobada": "2026-10-12",
+      "cita": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software",
       "estado": "intacta",
       "faltan": []
     },
@@ -2103,6 +2265,16 @@
       ]
     },
     {
+      "slug": "llama-4",
+      "nombre": "Llama 4 Scout",
+      "campo": "freePlan.commercialUse",
+      "url": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct",
+      "comprobada": "2026-10-12",
+      "cita": "2. Additional Commercial Terms. If, on the Llama 4 version release date, the monthly active users of the products or services made available by or for Licensee, or Licensee’s affiliates, is greater than 700 million monthly active users in the preceding calendar month, you must request a license from Meta",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
       "slug": "lm-studio",
       "nombre": "LM Studio",
       "campo": "capabilities",
@@ -2139,6 +2311,36 @@
       "url": "https://github.com/langchain-ai/local-deep-researcher/blob/main/LICENSE",
       "comprobada": "2026-08-20",
       "cita": "MIT License. Copyright (c) 2025 Lance Martin",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "local-deep-researcher",
+      "nombre": "Local Deep Researcher",
+      "campo": "freePlan.commercialUse",
+      "url": "https://raw.githubusercontent.com/langchain-ai/local-deep-researcher/main/LICENSE",
+      "comprobada": "2026-10-12",
+      "cita": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "local-deep-researcher",
+      "nombre": "Local Deep Researcher",
+      "campo": "incluida: research",
+      "url": "https://github.com/langchain-ai/local-deep-researcher",
+      "comprobada": "2026-10-12",
+      "cita": "Local Deep Researcher is a fully local web research assistant that uses any LLM hosted by Ollama or LMStudio.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "local-deep-researcher",
+      "nombre": "Local Deep Researcher",
+      "campo": "incluida: web-browsing",
+      "url": "https://github.com/langchain-ai/local-deep-researcher",
+      "comprobada": "2026-10-12",
+      "cita": "Local Deep Researcher is a fully local web research assistant that uses any LLM hosted by Ollama or LMStudio.",
       "estado": "intacta",
       "faltan": []
     },
@@ -2217,18 +2419,11 @@
       "slug": "luma-dream-machine",
       "nombre": "Luma",
       "campo": "freePlan.limits",
-      "url": "https://lumalabs.ai/",
-      "comprobada": "2026-08-15",
-      "cita": "Plans & Pricing — Individual plans: Plus $30/month · 10,000 credits · Luma and third-party image and video models · Commercial use. [Ningún plan gratuito en la tabla.]",
-      "estado": "desaparecida",
-      "faltan": [
-        "plans & pricing",
-        "individual plans",
-        "plus $30/month",
-        "10,000 credits",
-        "luma and third-party image and video models",
-        "commercial use"
-      ]
+      "url": "https://lumalabs.ai/pricing",
+      "comprobada": "2026-10-12",
+      "cita": "Plans & Pricing · Individual plans · Plus · $30/month · Start Now · 10,000 credits · Luma and third-party image and video models · Edit access for guest collaborators · Commercial use [Ningún plan gratuito ni prueba en la página]",
+      "estado": "intacta",
+      "faltan": []
     },
     {
       "slug": "luma-dream-machine",
@@ -2304,6 +2499,36 @@
       ]
     },
     {
+      "slug": "microsoft-agent-framework",
+      "nombre": "Microsoft Agent Framework",
+      "campo": "freePlan.commercialUse",
+      "url": "https://raw.githubusercontent.com/microsoft/agent-framework/main/LICENSE",
+      "comprobada": "2026-10-12",
+      "cita": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "microsoft-agent-framework",
+      "nombre": "Microsoft Agent Framework",
+      "campo": "incluida: multi-agent",
+      "url": "https://github.com/microsoft/agent-framework",
+      "comprobada": "2026-10-12",
+      "cita": "Microsoft Agent Framework (MAF) is an open, multi-language framework for building production-grade AI agents and multi-agent workflows in .NET and Python.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "microsoft-agent-framework",
+      "nombre": "Microsoft Agent Framework",
+      "campo": "incluida: workflow-automation",
+      "url": "https://github.com/microsoft/agent-framework",
+      "comprobada": "2026-10-12",
+      "cita": "Microsoft Agent Framework (MAF) is an open, multi-language framework for building production-grade AI agents and multi-agent workflows in .NET and Python.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
       "slug": "midjourney",
       "nombre": "Midjourney",
       "campo": "freePlan.limits",
@@ -2337,6 +2562,36 @@
         "ministral 3 3b (apache 2.0"
       ],
       "final": "https://docs.mistral.ai/models"
+    },
+    {
+      "slug": "ministral",
+      "nombre": "Ministral 3",
+      "campo": "freePlan.commercialUse",
+      "url": "https://huggingface.co/mistralai/Ministral-3-14B-Instruct-2512",
+      "comprobada": "2026-10-12",
+      "cita": "Apache 2.0 License: Open-source license allowing usage and modification for both commercial and non-commercial purposes.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "ministral",
+      "nombre": "Ministral 3",
+      "campo": "incluida: text-generation",
+      "url": "https://huggingface.co/mistralai/Ministral-3-14B-Instruct-2512",
+      "comprobada": "2026-10-12",
+      "cita": "A powerful and efficient language model with vision capabilities.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "ministral",
+      "nombre": "Ministral 3",
+      "campo": "incluida: vision",
+      "url": "https://huggingface.co/mistralai/Ministral-3-14B-Instruct-2512",
+      "comprobada": "2026-10-12",
+      "cita": "A powerful and efficient language model with vision capabilities.",
+      "estado": "intacta",
+      "faltan": []
     },
     {
       "slug": "mistral-large",
@@ -2388,6 +2643,36 @@
       "final": "https://docs.mistral.ai/models"
     },
     {
+      "slug": "mistral-small",
+      "nombre": "Mistral Small 4",
+      "campo": "freePlan.commercialUse",
+      "url": "https://huggingface.co/mistralai/Mistral-Small-4-119B-2603",
+      "comprobada": "2026-10-12",
+      "cita": "Apache 2.0 License: Open-source license for both commercial and non-commercial use.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "mistral-small",
+      "nombre": "Mistral Small 4",
+      "campo": "incluida: text-generation",
+      "url": "https://huggingface.co/mistralai/Mistral-Small-4-119B-2603",
+      "comprobada": "2026-10-12",
+      "cita": "Mistral Small 4 is a powerful hybrid model capable of acting as both a general instruction model and a reasoning model.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "mistral-small",
+      "nombre": "Mistral Small 4",
+      "campo": "incluida: reasoning",
+      "url": "https://huggingface.co/mistralai/Mistral-Small-4-119B-2603",
+      "comprobada": "2026-10-12",
+      "cita": "Mistral Small 4 is a powerful hybrid model capable of acting as both a general instruction model and a reasoning model.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
       "slug": "mochi-1",
       "nombre": "Mochi 1",
       "campo": "freePlan.limits",
@@ -2399,6 +2684,16 @@
         "released under a permissive apache 2.0 license",
         "comfyui can optimize to run in under 20gb vram"
       ]
+    },
+    {
+      "slug": "mochi-1",
+      "nombre": "Mochi 1",
+      "campo": "incluida: text-to-video",
+      "url": "https://github.com/genmoai/mochi",
+      "comprobada": "2026-10-12",
+      "cita": "Mochi 1 preview is an open state-of-the-art video generation model with high-fidelity motion and strong prompt adherence",
+      "estado": "intacta",
+      "faltan": []
     },
     {
       "slug": "n8n",
@@ -2455,6 +2750,16 @@
       "faltan": []
     },
     {
+      "slug": "ollama",
+      "nombre": "Ollama",
+      "campo": "freePlan.commercialUse",
+      "url": "https://raw.githubusercontent.com/ollama/ollama/main/LICENSE",
+      "comprobada": "2026-10-12",
+      "cita": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
       "slug": "openai-agents-sdk",
       "nombre": "OpenAI Agents SDK",
       "campo": "capabilities",
@@ -2468,6 +2773,26 @@
       ]
     },
     {
+      "slug": "openai-agents-sdk",
+      "nombre": "OpenAI Agents SDK",
+      "campo": "freePlan.commercialUse",
+      "url": "https://raw.githubusercontent.com/openai/openai-agents-python/main/LICENSE",
+      "comprobada": "2026-10-12",
+      "cita": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "openai-agents-sdk",
+      "nombre": "OpenAI Agents SDK",
+      "campo": "incluida: multi-agent",
+      "url": "https://github.com/openai/openai-agents-python",
+      "comprobada": "2026-10-12",
+      "cita": "The OpenAI Agents SDK is a lightweight yet powerful framework for building multi-agent workflows.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
       "slug": "openhands",
       "nombre": "OpenHands",
       "campo": "capabilities",
@@ -2479,6 +2804,27 @@
         "run agents like openhands, claude code, codex, or gemini across local, remote, and cloud backends",
         "docker containers with sandbox isolation"
       ],
+      "final": "https://github.com/OpenHands/OpenHands"
+    },
+    {
+      "slug": "openhands",
+      "nombre": "OpenHands",
+      "campo": "freePlan.commercialUse",
+      "url": "https://raw.githubusercontent.com/All-Hands-AI/OpenHands/main/LICENSE",
+      "comprobada": "2026-10-12",
+      "cita": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "openhands",
+      "nombre": "OpenHands",
+      "campo": "incluida: repository-editing",
+      "url": "https://github.com/All-Hands-AI/OpenHands",
+      "comprobada": "2026-10-12",
+      "cita": "The self-hosted developer control center for coding agents and automations.",
+      "estado": "intacta",
+      "faltan": [],
       "final": "https://github.com/OpenHands/OpenHands"
     },
     {
@@ -2560,11 +2906,21 @@
       ]
     },
     {
+      "slug": "phi-4",
+      "nombre": "Phi-4",
+      "campo": "freePlan.commercialUse",
+      "url": "https://huggingface.co/microsoft/phi-4/blob/main/LICENSE",
+      "comprobada": "2026-10-12",
+      "cita": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
       "slug": "pika-labs",
       "nombre": "Pika Labs",
       "campo": "freePlan.limits",
       "url": "https://pika.art/pricing",
-      "comprobada": "2026-09-21",
+      "comprobada": "2026-10-12",
       "cita": "Free 0 credits / month · packs only — Included: All models · Included: 2 video · 2 image + audio in parallel · Included: No watermark · Not included: Commercial license · Not included: Priority queue · Not included: Early access to new models",
       "estado": "intacta",
       "faltan": []
@@ -2602,6 +2958,16 @@
         "c, a metal-only deepseek v4 flash inference server"
       ],
       "final": "https://pinokio.co/"
+    },
+    {
+      "slug": "pinokio",
+      "nombre": "Pinokio",
+      "campo": "freePlan.commercialUse",
+      "url": "https://raw.githubusercontent.com/pinokiocomputer/pinokio/main/LICENSE",
+      "comprobada": "2026-10-12",
+      "cita": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software",
+      "estado": "intacta",
+      "faltan": []
     },
     {
       "slug": "pixelcut",
@@ -2696,12 +3062,10 @@
       "nombre": "Playground",
       "campo": "freePlan.limits",
       "url": "https://playgroundai.com/design/pricing",
-      "comprobada": "2026-08-26",
-      "cita": "Free — Limited image generation: Create up to 10 images every 3 hours · Limited model access: 3 monthly generations across Nano Banana, GPT Image 2, and Seedream · Commercial use: World-wide, royalty free license · Limitations: Slower generation during peak hours. Waiting period after limits are reached.",
-      "estado": "parcial",
-      "faltan": [
-        "3 monthly generations across nano banana, gpt image 2, and seedream"
-      ]
+      "comprobada": "2026-10-12",
+      "cita": "Free · Create up to 10 images every 3 hours · 3 monthly generations across Muse Image, Nano Banana, GPT Image 2, GPT Image 2.5, and Seedream",
+      "estado": "intacta",
+      "faltan": []
     },
     {
       "slug": "playground-ai",
@@ -2757,6 +3121,26 @@
         "text, images, videos",
         "thinking mode by default, reasoning_effort (xhigh, medium, low"
       ]
+    },
+    {
+      "slug": "qwen3-27b",
+      "nombre": "Qwen3.8 27B",
+      "campo": "incluida: text-generation",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B",
+      "comprobada": "2026-10-12",
+      "cita": "Qwen3.8 delivers substantial gains across coding, professional work, research, and long-horizon agentic tasks.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "qwen3-27b",
+      "nombre": "Qwen3.8 27B",
+      "campo": "incluida: code-generation",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B",
+      "comprobada": "2026-10-12",
+      "cita": "Qwen3.8 delivers substantial gains across coding, professional work, research, and long-horizon agentic tasks.",
+      "estado": "intacta",
+      "faltan": []
     },
     {
       "slug": "qwen3-max",
@@ -2849,19 +3233,11 @@
       "slug": "replit-agent",
       "nombre": "Replit Agent",
       "campo": "freePlan.limits",
-      "url": "https://replit.com/pricing",
-      "comprobada": "2026-08-19",
-      "cita": "Starter — For exploring what’s possible: Free daily Agent credits · Built-in database for full-stack apps · Create slides, videos, animations · Publish up to 1 project · Publish private or password-protected deployments.",
-      "estado": "desaparecida",
-      "faltan": [
-        "starter",
-        "for exploring what's possible",
-        "free daily agent credits",
-        "built-in database for full-stack apps",
-        "create slides, videos, animations",
-        "publish up to 1 project",
-        "publish private or password-protected deployments"
-      ]
+      "url": "https://replit.com/",
+      "comprobada": "2026-10-12",
+      "cita": "Starter · $0 · For exploring what's possible with our new generative tools. · Explore what's possible: · Free daily usage · Create anything from slides to apps · Built-in database · Publish 1 live project · Run one background task at a time · Start for free · Replit Core · $20 · $18 · per month · billed annually",
+      "estado": "intacta",
+      "faltan": []
     },
     {
       "slug": "replit-agent",
@@ -2937,6 +3313,26 @@
       "faltan": []
     },
     {
+      "slug": "sdnext",
+      "nombre": "SD.Next",
+      "campo": "incluida: text-to-image",
+      "url": "https://github.com/vladmandic/sdnext",
+      "comprobada": "2026-10-12",
+      "cita": "SD.Next is a state-of-the-art, open-source server application and web interface (WebUI) for AI image and video generation […] Create, refine, caption, upscale and process images and videos",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "sdnext",
+      "nombre": "SD.Next",
+      "campo": "incluida: upscaling",
+      "url": "https://github.com/vladmandic/sdnext",
+      "comprobada": "2026-10-12",
+      "cita": "SD.Next is a state-of-the-art, open-source server application and web interface (WebUI) for AI image and video generation […] Create, refine, caption, upscale and process images and videos",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
       "slug": "stable-diffusion-webui",
       "nombre": "Stable Diffusion WebUI (AUTOMATIC1111)",
       "campo": "capabilities",
@@ -2957,6 +3353,56 @@
       "faltan": []
     },
     {
+      "slug": "stable-diffusion-webui",
+      "nombre": "Stable Diffusion WebUI (AUTOMATIC1111)",
+      "campo": "incluida: text-to-image",
+      "url": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
+      "comprobada": "2026-10-12",
+      "cita": "A web interface for Stable Diffusion […] Original txt2img and img2img modes · Outpainting · Inpainting · Stable Diffusion Upscale",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "stable-diffusion-webui",
+      "nombre": "Stable Diffusion WebUI (AUTOMATIC1111)",
+      "campo": "incluida: image-to-image",
+      "url": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
+      "comprobada": "2026-10-12",
+      "cita": "A web interface for Stable Diffusion […] Original txt2img and img2img modes · Outpainting · Inpainting · Stable Diffusion Upscale",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "stable-diffusion-webui",
+      "nombre": "Stable Diffusion WebUI (AUTOMATIC1111)",
+      "campo": "incluida: inpainting",
+      "url": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
+      "comprobada": "2026-10-12",
+      "cita": "A web interface for Stable Diffusion […] Original txt2img and img2img modes · Outpainting · Inpainting · Stable Diffusion Upscale",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "stable-diffusion-webui",
+      "nombre": "Stable Diffusion WebUI (AUTOMATIC1111)",
+      "campo": "incluida: outpainting",
+      "url": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
+      "comprobada": "2026-10-12",
+      "cita": "A web interface for Stable Diffusion […] Original txt2img and img2img modes · Outpainting · Inpainting · Stable Diffusion Upscale",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "stable-diffusion-webui",
+      "nombre": "Stable Diffusion WebUI (AUTOMATIC1111)",
+      "campo": "incluida: upscaling",
+      "url": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
+      "comprobada": "2026-10-12",
+      "cita": "A web interface for Stable Diffusion […] Original txt2img and img2img modes · Outpainting · Inpainting · Stable Diffusion Upscale",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
       "slug": "storm",
       "nombre": "STORM",
       "campo": "capabilities",
@@ -2973,6 +3419,26 @@
       "url": "https://github.com/stanford-oval/storm/blob/main/LICENSE",
       "comprobada": "2026-08-20",
       "cita": "MIT License. Copyright (c) 2024 Stanford Open Virtual Assistant Lab",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "storm",
+      "nombre": "STORM",
+      "campo": "freePlan.commercialUse",
+      "url": "https://raw.githubusercontent.com/stanford-oval/storm/main/LICENSE",
+      "comprobada": "2026-10-12",
+      "cita": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "storm",
+      "nombre": "STORM",
+      "campo": "incluida: research",
+      "url": "https://github.com/stanford-oval/storm",
+      "comprobada": "2026-10-12",
+      "cita": "STORM is a LLM system that writes Wikipedia-like articles from scratch based on Internet search.",
       "estado": "intacta",
       "faltan": []
     },
@@ -3123,6 +3589,26 @@
       ]
     },
     {
+      "slug": "wan-2-2",
+      "nombre": "Wan 2.2",
+      "campo": "incluida: text-to-video",
+      "url": "https://github.com/Wan-Video/Wan2.2",
+      "comprobada": "2026-10-12",
+      "cita": "This model supports both text-to-video and image-to-video generation at 720P resolution with 24fps",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "wan-2-2",
+      "nombre": "Wan 2.2",
+      "campo": "incluida: image-to-video",
+      "url": "https://github.com/Wan-Video/Wan2.2",
+      "comprobada": "2026-10-12",
+      "cita": "This model supports both text-to-video and image-to-video generation at 720P resolution with 24fps",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
       "slug": "whisper",
       "nombre": "Whisper",
       "campo": "freePlan.limits",
@@ -3149,6 +3635,16 @@
       "url": "https://github.com/openai/whisper/blob/main/LICENSE",
       "comprobada": "2026-09-21",
       "cita": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "whisper",
+      "nombre": "Whisper",
+      "campo": "incluida: transcription",
+      "url": "https://github.com/openai/whisper",
+      "comprobada": "2026-10-12",
+      "cita": "Whisper is a general-purpose speech recognition model. […] a multitasking model that can perform multilingual speech recognition, speech translation, and language identification.",
       "estado": "intacta",
       "faltan": []
     },
@@ -3244,6 +3740,26 @@
       "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/blob/main/LICENSE",
       "comprobada": "2026-09-21",
       "cita": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "deepseek-v4-1-flash",
+      "nombre": "DeepSeek V4.1 Flash",
+      "campo": "incluida: text-generation",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash",
+      "comprobada": "2026-10-12",
+      "cita": "We introduce DeepSeek-V4.1-Flash, a multimodal Mixture-of-Experts (MoE) model […] The model natively processes images and text, and generates text autoregressively.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "deepseek-v4-1-flash",
+      "nombre": "DeepSeek V4.1 Flash",
+      "campo": "incluida: vision",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash",
+      "comprobada": "2026-10-12",
+      "cita": "We introduce DeepSeek-V4.1-Flash, a multimodal Mixture-of-Experts (MoE) model […] The model natively processes images and text, and generates text autoregressively.",
       "estado": "intacta",
       "faltan": []
     },
@@ -3407,6 +3923,26 @@
       "url": "https://huggingface.co/Qwen/Qwen-Image-2.1",
       "comprobada": "2026-09-24",
       "cita": "Native Transparency, Unified Creation and Editing — Generate regular or transparent (RGBA) images from text, edit transparent layers, and extract subjects from photographs—all in one model.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "qwen-image-2-1",
+      "nombre": "Qwen-Image-2.1",
+      "campo": "incluida: text-to-image",
+      "url": "https://huggingface.co/Qwen/Qwen-Image-2.1",
+      "comprobada": "2026-10-12",
+      "cita": "a unified text-to-image generation and image editing model in the Qwen family",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "qwen-image-2-1",
+      "nombre": "Qwen-Image-2.1",
+      "campo": "incluida: image-editing",
+      "url": "https://huggingface.co/Qwen/Qwen-Image-2.1",
+      "comprobada": "2026-10-12",
+      "cita": "a unified text-to-image generation and image editing model in the Qwen family",
       "estado": "intacta",
       "faltan": []
     },
@@ -3861,6 +4397,26 @@
       "faltan": []
     },
     {
+      "slug": "kilo-code",
+      "nombre": "Kilo Code",
+      "campo": "incluida: code-generation",
+      "url": "https://github.com/Kilo-Org/kilocode",
+      "comprobada": "2026-10-12",
+      "cita": "The open source coding agent for building with AI in VS Code, JetBrains, or the CLI.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "kilo-code",
+      "nombre": "Kilo Code",
+      "campo": "incluida: repository-editing",
+      "url": "https://github.com/Kilo-Org/kilocode",
+      "comprobada": "2026-10-12",
+      "cita": "The open source coding agent for building with AI in VS Code, JetBrains, or the CLI.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
       "slug": "jules",
       "nombre": "Jules",
       "campo": "freePlan.limits",
@@ -3971,6 +4527,16 @@
       "faltan": []
     },
     {
+      "slug": "langflow",
+      "nombre": "Langflow",
+      "campo": "incluida: workflow-automation",
+      "url": "https://github.com/langflow-ai/langflow",
+      "comprobada": "2026-10-12",
+      "cita": "Langflow is a powerful platform for building and deploying AI-powered agents and workflows.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
       "slug": "flowise",
       "nombre": "Flowise",
       "campo": "openSource",
@@ -4031,6 +4597,16 @@
       "faltan": []
     },
     {
+      "slug": "letta",
+      "nombre": "Letta",
+      "campo": "incluida: memory",
+      "url": "https://github.com/letta-ai/letta",
+      "comprobada": "2026-10-12",
+      "cita": "Build stateful agents with memory that can learn and improve over time.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
       "slug": "gpt-oss",
       "nombre": "gpt-oss",
       "campo": "freePlan.commercialUse",
@@ -4066,6 +4642,26 @@
       "campo": "capabilities",
       "url": "https://huggingface.co/openai/gpt-oss-120b",
       "comprobada": "2026-09-24",
+      "cita": "Welcome to the gpt-oss series, OpenAI’s open-weight models designed for powerful reasoning, agentic tasks, and versatile developer use cases.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "gpt-oss",
+      "nombre": "gpt-oss",
+      "campo": "incluida: text-generation",
+      "url": "https://huggingface.co/openai/gpt-oss-120b",
+      "comprobada": "2026-10-12",
+      "cita": "Welcome to the gpt-oss series, OpenAI’s open-weight models designed for powerful reasoning, agentic tasks, and versatile developer use cases.",
+      "estado": "intacta",
+      "faltan": []
+    },
+    {
+      "slug": "gpt-oss",
+      "nombre": "gpt-oss",
+      "campo": "incluida: reasoning",
+      "url": "https://huggingface.co/openai/gpt-oss-120b",
+      "comprobada": "2026-10-12",
       "cita": "Welcome to the gpt-oss series, OpenAI’s open-weight models designed for powerful reasoning, agentic tasks, and versatile developer use cases.",
       "estado": "intacta",
       "faltan": []
