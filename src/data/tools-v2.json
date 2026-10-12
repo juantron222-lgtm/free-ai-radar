@@ -7309,17 +7309,18 @@
     "officialUrl": "https://github.com/Tencent-Hunyuan/HunyuanVideo",
     "repoUrl": "https://github.com/Tencent-Hunyuan/HunyuanVideo",
     "hosting": "local",
-    "openSource": "unverified",
+    "openSource": "partial",
     "platforms": [
       "linux"
     ],
     "freeModel": "open_source",
-    "tagline": "Pesos abiertos de Tencent, con 60 GB de memoria de vídeo como mínimo.",
+    "tagline": "Pesos de Tencent con una licencia que excluye la Unión Europea: no se puede usar legalmente desde España.",
     "descriptionShort": "Modelo de vídeo de Tencent con arquitectura unificada de imagen y vídeo. Su repositorio documenta 60 GB de memoria de vídeo para 720p y 45 GB para 544×960, y recomienda 80 GB para mejor calidad.",
     "verdict": "Potente y fuera del alcance de una tarjeta de consumo: 45 GB en el ajuste más modesto. Está aquí para que quede claro dónde está esa frontera.",
     "freePlan": {
-      "summary": "Pesos publicados en el repositorio oficial. El fichero de licencia existe pero no se pudo leer su identificador en esta comprobación, así que el tipo exacto de licencia queda sin confirmar. Requisitos declarados: 60 GB de VRAM a 720p, 45 GB a 544×960.",
+      "summary": "Pesos publicados en el repositorio oficial bajo la licencia comunitaria de Tencent Hunyuan, que no se aplica en la Unión Europea, Reino Unido ni Corea del Sur: desde España no hay licencia que cubra su uso. Requisitos declarados: 60 GB de VRAM a 720p, 45 GB a 544×960.",
       "limits": [
+        "La licencia no se aplica en la Unión Europea, Reino Unido ni Corea del Sur: no concede uso en España",
         "60 GB de VRAM para 720×1280 con 129 fotogramas",
         "45 GB para 544×960 con 129 fotogramas",
         "El repositorio recomienda 80 GB para mejor calidad"
@@ -7329,7 +7330,7 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-15"
+      "verifiedAt": "2026-10-12"
     },
     "capabilities": [
       "text-to-video",
@@ -7352,6 +7353,13 @@
         "kind": "repo",
         "publisher": "github.com",
         "checkedAt": "2026-08-15"
+      },
+      {
+        "url": "https://github.com/Tencent-Hunyuan/HunyuanVideo/blob/main/LICENSE",
+        "label": "Licencia oficial (Tencent Hunyuan Community License)",
+        "kind": "repo",
+        "publisher": "github.com",
+        "checkedAt": "2026-10-12"
       }
     ],
     "evidence": [
@@ -7372,6 +7380,15 @@
         "scope": "local",
         "checkedAt": "2026-09-16",
         "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice."
+      },
+      {
+        "checkedAt": "2026-10-12",
+        "scope": "weights",
+        "field": "openSource",
+        "outcome": "stated",
+        "sourceUrl": "https://github.com/Tencent-Hunyuan/HunyuanVideo/blob/main/LICENSE",
+        "sourceKind": "licence",
+        "quote": "THIS LICENSE AGREEMENT DOES NOT APPLY IN THE EUROPEAN UNION, UNITED KINGDOM AND SOUTH KOREA AND IS EXPRESSLY LIMITED TO THE TERRITORY, AS DEFINED BELOW. […] “Territory” shall mean the worldwide territory, excluding the territory of the European Union, United Kingdom and South Korea."
       }
     ],
     "auditNotes": "`openSource` queda en `unverified` aunque el repositorio sea público: la regla de este catálogo exige leer el identificador de licencia, y en esta comprobación no fue posible. Repositorio abierto no es lo mismo que licencia abierta.",
@@ -7379,8 +7396,11 @@
     "lastVerifiedAt": "2026-08-15",
     "updatedAt": "2026-08-15",
     "skillLevel": "beginner",
-    "licences": {},
-    "access": {}
+    "licences": {
+      "weights": "Tencent Hunyuan Community License"
+    },
+    "access": {},
+    "licence": "Tencent Hunyuan Community License (no OSI; excluye la UE, Reino Unido y Corea del Sur)"
   },
   {
     "secondaryCategories": [],

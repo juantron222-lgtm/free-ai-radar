@@ -236,10 +236,14 @@ describe('la verificación de vídeo', () => {
       expect(bySlug.get(slug)!.licence, slug).toBe('Apache-2.0');
     }
     /*
-     * HunyuanVideo tiene repositorio público pero no se pudo leer el
-     * identificador de licencia: repositorio abierto no es licencia abierta.
+     * HunyuanVideo tiene repositorio público, pero repositorio abierto no es
+     * licencia abierta. El 12 de octubre de 2026 se leyó su licencia: la
+     * comunitaria de Tencent, que no se aplica en la UE, Reino Unido ni Corea
+     * del Sur. No es abierta del todo, y desde España no cubre nada.
      */
-    expect(bySlug.get('hunyuanvideo')!.openSource).toBe('unverified');
+    const hunyuan = bySlug.get('hunyuanvideo')!;
+    expect(hunyuan.openSource).toBe('partial');
+    expect(hunyuan.freePlan.limits[0]).toMatch(/no se aplica en la Unión Europea/);
   });
 
   it('las multiverticales no se duplican: entran por categoría secundaria', () => {
