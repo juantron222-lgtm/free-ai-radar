@@ -36,6 +36,35 @@
     "frontPage": true
   },
   {
+    "id": "news-2026-10-08-oss-scanner",
+    "slug": "anthropic-oss-scanner",
+    "title": "Anthropic escanea gratis el código abierto con sus mejores modelos, y los informes van sin revisión humana",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Anthropic lanzó el 8 de octubre OSS Scanner, un servicio voluntario inspirado en el OSS-Fuzz de Google: los proyectos de código abierto que se inscriban reciben escaneos periódicos de sus modelos más capaces, sin coste. Cada informe incluye una prueba de concepto de cómo se podría explotar el fallo, una explicación y una corrección sugerida cuando la hay. Forma parte de una iniciativa más amplia, la Misión Ciber, que arranca en dos frentes: infraestructuras críticas y software de código abierto.",
+    "impact": "La salvedad es grande y la ponen ellos: los informes los genera el modelo y se envían sin revisión humana, así que llegan antes, pero algunos tendrán imprecisiones, como una gravedad mal puntuada. Esperan acertar en más del 90 % de los casos. Avisan también de que esto es para proyectos con capacidad de seguir el ritmo de los hallazgos; al resto le seguirán mandando avisos verificados por personas. Lo que mantiene el escaneo gratis es su propio fondo, y los mantenedores pueden además pedir suscripciones Claude Max gratuitas.",
+    "category": "plan-gratuito",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-08",
+    "checkedAt": "2026-10-12",
+    "officialUrl": "https://www.anthropic.com/news/anthropic-cyber-mission",
+    "sources": [
+      {
+        "url": "https://www.anthropic.com/news/anthropic-cyber-mission",
+        "kind": "official",
+        "label": "Introducing the Anthropic Cyber Mission",
+        "checkedAt": "2026-10-12",
+        "publisher": "anthropic.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "yes",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-10-08-anthropic-politica-uso-2026",
     "slug": "anthropic-politica-uso-2026",
     "title": "Anthropic reescribe su política de uso, en vigor el 12 de noviembre, y añade un límite al maltrato a sus modelos",
@@ -236,6 +265,35 @@
         "label": "ElevenLabs is now on OpenRouter",
         "checkedAt": "2026-10-08",
         "publisher": "openrouter.ai"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-06-cvp-tres-niveles",
+    "slug": "anthropic-cvp-tres-niveles",
+    "title": "Anthropic abre en tres niveles el acceso a modelos con menos bloqueos de ciberseguridad, a cambio de retener datos",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Anthropic publicó el 6 de octubre una versión ampliada de su Programa de Verificación Ciber, que pone capacidades avanzadas y clasificadores que bloquean menos a disposición de profesionales de seguridad que cumplan los requisitos. Ahora son tres niveles con exigencias distintas. El de defensa cubre centros de operaciones, respuesta a incidentes, ingeniería inversa de malware y análisis de vulnerabilidades, y entre quienes pueden pedirlo cita a mantenedores de código abierto e investigadores individuales con historial.",
+    "impact": "El precio no es dinero, es información: la retención de datos es obligatoria para las organizaciones inscritas, porque así vigilan el uso indebido, y sólo cuando llegue su solución de salvaguardas para empresas podrán guardar esos datos en infraestructura propia. El nivel de equipo rojo añade pruebas de intrusión autorizadas, es sólo para organizaciones y mantiene bloqueos en tiempo real sobre lo que pueda causar daño físico o interrupciones masivas. El tercero, el de menos bloqueos, lo revisan en colaboración con el Gobierno de Estados Unidos.",
+    "category": "privacidad-licencias",
+    "eventType": "actualizacion",
+    "availability": "limited",
+    "publishedAt": "2026-10-06",
+    "checkedAt": "2026-10-12",
+    "officialUrl": "https://www.anthropic.com/news/cyber-verification-program",
+    "sources": [
+      {
+        "url": "https://www.anthropic.com/news/cyber-verification-program",
+        "kind": "official",
+        "label": "Expanding the Cyber Verification Program",
+        "checkedAt": "2026-10-12",
+        "publisher": "anthropic.com"
       }
     ],
     "relatedTools": [],
