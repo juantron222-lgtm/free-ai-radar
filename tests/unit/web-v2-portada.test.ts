@@ -4,7 +4,8 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { getAllTools } from '@lib/data/catalog';
 import { usableFreeNow } from '@lib/data/category-page';
-import { conteosDeDecision, filaDe, recomendadas } from '@lib/data/portada';
+import { EJEMPLOS_DE_BUSQUEDA, conteosDeDecision, filaDe, hrefDeBusqueda, recomendadas } from '@lib/data/portada';
+import { detectarIntenciones } from '@lib/search/intents';
 import { MOTIVO_LABEL, motivoDelHueco } from '@lib/domain/evidencia';
 import { verificacionDe } from '@lib/domain/verification';
 import { EMPTY_FILTERS, applyFilters, parseFilters } from '@lib/search/filters';
@@ -139,6 +140,23 @@ describe('la puerta del catálogo enseña datos, no promesas', () => {
     expect(linea!.length, `son ${linea!.length} caracteres`).toBeLessThanOrEqual(220);
     expect(linea).toMatch(/fabricante/);
     expect(linea).toMatch(/no publica/);
+  });
+
+  it('los ejemplos del buscador son tareas que el buscador entiende', () => {
+    /*
+     * Debajo de la caja hay seis ejemplos. No se llaman «búsquedas populares»
+     * porque no medimos qué se busca; lo mínimo que tienen que cumplir es que
+     * el buscador los entienda como una tarea y no los trate como un nombre.
+     */
+    expect(EJEMPLOS_DE_BUSQUEDA.length).toBeGreaterThanOrEqual(4);
+    for (const ejemplo of EJEMPLOS_DE_BUSQUEDA) {
+      expect(detectarIntenciones(ejemplo).length, `«${ejemplo}» no dispara ninguna intención`).toBeGreaterThan(0);
+      const href = hrefDeBusqueda(ejemplo);
+      expect(href.startsWith(`${ROUTES.tools}?q=`), href).toBe(true);
+      expect(new URLSearchParams(href.split('?')[1]).get('q')).toBe(ejemplo.toLocaleLowerCase('es'));
+    }
+    const portada = codigo('src/pages/index.astro');
+    expect(portada).not.toMatch(/populares/i);
   });
 
   it('la puerta del catálogo no es otro buscador', () => {

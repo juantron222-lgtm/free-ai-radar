@@ -149,3 +149,23 @@ export function conteosDeDecision(tools: readonly Tool[] = getAllTools()): Conte
     },
   ];
 }
+
+/**
+ * Ejemplos debajo del buscador de la portada.
+ *
+ * No son «búsquedas populares»: no medimos qué se busca más, y llamarlas así
+ * sería inventar un dato. Son tareas que el buscador entiende —cada una dispara
+ * una intención de `intents.ts`, lo comprueba `web-v2-portada.test.ts`— y que
+ * enseñan lo que se puede escribir ahí: una tarea, no sólo un nombre.
+ */
+export const EJEMPLOS_DE_BUSQUEDA = [
+  'Quitar fondo',
+  'Transcribir audio',
+  'Clonar voz',
+  'Crear música',
+  'Crear una app',
+  'Modelo local',
+] as const;
+
+export const hrefDeBusqueda = (consulta: string): string =>
+  `${ROUTES.tools}?q=${encodeURIComponent(consulta.toLocaleLowerCase('es'))}`;

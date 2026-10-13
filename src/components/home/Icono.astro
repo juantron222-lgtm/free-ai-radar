@@ -1,0 +1,116 @@
+---
+/**
+ * Los iconos de la portada: las seis clases de IA y los cuatro filtros.
+ *
+ * Trazos propios, a mano, en vez de una librería de iconos: son diez, pesan
+ * menos que el `import` de cualquiera y no traen nada que no se use. Todos son
+ * decorativos —el nombre de lo que señalan va siempre en texto al lado—, así
+ * que salen con `aria-hidden` y heredan el color del texto.
+ *
+ * Agentes no es un robot, a propósito: el sistema de diseño los descarta, y lo
+ * que hace un agente se dice mejor como una tarea que lleva a la siguiente.
+ */
+export type NombreDeIcono =
+  | 'imagen'
+  | 'video'
+  | 'audio'
+  | 'agentes'
+  | 'modelos'
+  | 'codigo'
+  | 'nocard'
+  | 'nosignup'
+  | 'comm'
+  | 'oss'
+  | 'lupa';
+
+interface Props {
+  nombre: NombreDeIcono;
+  class?: string;
+}
+
+const { nombre, class: clase } = Astro.props;
+---
+
+<svg
+  class:list={['icono', clase]}
+  viewBox="0 0 24 24"
+  width="24"
+  height="24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.75"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  {nombre === 'imagen' && (
+    <>
+      <rect x="3" y="4" width="18" height="16" rx="2.5" />
+      <circle cx="9" cy="9.5" r="1.75" />
+      <path d="m4 18 5.5-5.5 4 4 2.5-2.5L20 18" />
+    </>
+  )}
+  {nombre === 'video' && (
+    <>
+      <rect x="3" y="5" width="18" height="14" rx="2.5" />
+      <path d="m10 9.25 5 2.75-5 2.75z" />
+    </>
+  )}
+  {nombre === 'audio' && <path d="M4 10v4M8 7v10M12 4v16M16 8v8M20 11v2" />}
+  {nombre === 'agentes' && (
+    <>
+      <rect x="3" y="4" width="7.5" height="6" rx="1.5" />
+      <rect x="13.5" y="14" width="7.5" height="6" rx="1.5" />
+      <path d="M6.75 10v3.5a3.5 3.5 0 0 0 3.5 3.5h3.25" />
+      <path d="m11.5 15 2 2-2 2" />
+    </>
+  )}
+  {nombre === 'modelos' && (
+    <>
+      <path d="M12 3 20 7.5v9L12 21l-8-4.5v-9z" />
+      <path d="M4 7.5 12 12l8-4.5M12 12v9" />
+    </>
+  )}
+  {nombre === 'codigo' && <path d="m8 8-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14" />}
+  {nombre === 'nocard' && (
+    <>
+      <rect x="3" y="6" width="18" height="12" rx="2" />
+      <path d="M3 10h18M4 3.5l16 17" />
+    </>
+  )}
+  {nombre === 'nosignup' && (
+    <>
+      <circle cx="12" cy="8" r="3.5" />
+      <path d="M5 20c.8-3.5 3.6-5.5 7-5.5s6.2 2 7 5.5M4 3.5l16 17" />
+    </>
+  )}
+  {nombre === 'comm' && (
+    <>
+      <rect x="3" y="7" width="18" height="13" rx="2" />
+      <path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M3 12.5h18" />
+    </>
+  )}
+  {nombre === 'oss' && (
+    <>
+      <circle cx="6" cy="5" r="2" />
+      <circle cx="6" cy="19" r="2" />
+      <circle cx="18" cy="7" r="2" />
+      <path d="M6 7v10M18 9a6 6 0 0 1-6 6H8" />
+    </>
+  )}
+  {nombre === 'lupa' && (
+    <>
+      <circle cx="11" cy="11" r="6.5" />
+      <path d="m20 20-4.4-4.4" />
+    </>
+  )}
+</svg>
+
+<style>
+  .icono {
+    flex: none;
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+</style>

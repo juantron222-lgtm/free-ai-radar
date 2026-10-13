@@ -77,6 +77,34 @@
     /* --- Focus --- */
     --focus: #1d4ed8;
 
+    /*
+     * --- Clases de IA ---
+     *
+     * Un tono por cada una de las seis puertas de la portada, para que la
+     * puerta y su sector del radar se reconozcan como la misma cosa. Ninguno es
+     * verde: el verde sigue reservado para lo comprobado gratis. Tonos 700 en
+     * claro y 400 en oscuro, por encima de 4,5:1 sobre el papel de cada tema,
+     * porque también colorean los nombres de los sectores, que son texto.
+     */
+    --sector-imagen: #6d28d9;
+    --sector-video: #be185d;
+    --sector-audio: #92400e;
+    --sector-agentes: #0e7490;
+    --sector-modelos: #1d4ed8;
+    --sector-codigo: #c2410c;
+
+    /*
+     * --- Atmósfera de la portada ---
+     *
+     * El cielo de la primera pantalla: la base, el halo verde detrás del
+     * radar, las estrellas y el arco del horizonte. En claro casi desaparece
+     * —un halo leve sobre el papel, sin estrellas—; en oscuro es la noche.
+     */
+    --atmos-base: #f3f2ee;
+    --atmos-glow: rgb(10 113 80 / 0.1);
+    --atmos-star: transparent;
+    --atmos-arc: rgb(10 113 80 / 0.22);
+
     /* --- Type --- */
     --font-display: 'Segoe UI Variable Display', 'SF Pro Display', -apple-system,
       BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -150,6 +178,18 @@
 
       --focus: #8ab0f8;
 
+      --sector-imagen: #a78bfa;
+      --sector-video: #f472b6;
+      --sector-audio: #fbbf24;
+      --sector-agentes: #22d3ee;
+      --sector-modelos: #60a5fa;
+      --sector-codigo: #fb923c;
+
+      --atmos-base: #07090d;
+      --atmos-glow: rgb(74 222 159 / 0.16);
+      --atmos-star: rgb(231 233 236 / 0.55);
+      --atmos-arc: rgb(74 222 159 / 0.4);
+
       --shadow-s: 0 1px 2px rgb(0 0 0 / 0.4);
       --shadow-m: 0 2px 4px rgb(0 0 0 / 0.3), 0 8px 20px -8px rgb(0 0 0 / 0.6);
       --shadow-l: 0 4px 8px rgb(0 0 0 / 0.35), 0 24px 48px -16px rgb(0 0 0 / 0.7);
@@ -202,6 +242,18 @@
     --neutral-soft: #1a1e24;
 
     --focus: #8ab0f8;
+
+    --sector-imagen: #a78bfa;
+    --sector-video: #f472b6;
+    --sector-audio: #fbbf24;
+    --sector-agentes: #22d3ee;
+    --sector-modelos: #60a5fa;
+    --sector-codigo: #fb923c;
+
+    --atmos-base: #07090d;
+    --atmos-glow: rgb(74 222 159 / 0.16);
+    --atmos-star: rgb(231 233 236 / 0.55);
+    --atmos-arc: rgb(74 222 159 / 0.4);
 
     --shadow-s: 0 1px 2px rgb(0 0 0 / 0.4);
     --shadow-m: 0 2px 4px rgb(0 0 0 / 0.3), 0 8px 20px -8px rgb(0 0 0 / 0.6);

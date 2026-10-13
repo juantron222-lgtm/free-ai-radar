@@ -10,8 +10,9 @@ import NewsletterForm from '@components/marketing/NewsletterForm.astro';
 import { getAllTools, getCatalogStats } from '@lib/data/catalog';
 import { VERTICALES, carasDe, destacadas } from '@lib/data/home';
 import PilaDeLogos from '@components/tools/PilaDeLogos.astro';
+import Icono, { type NombreDeIcono } from '@components/home/Icono.astro';
 import registroDeLogos from '@/data/logos.json';
-import { conteosDeDecision, recomendadas } from '@lib/data/portada';
+import { EJEMPLOS_DE_BUSQUEDA, conteosDeDecision, hrefDeBusqueda, recomendadas } from '@lib/data/portada';
 import { getLatestNews } from '@lib/data/news';
 import { radarDe } from '@lib/data/radar';
 import { itemListSchema } from '@lib/seo/structured-data';
@@ -82,6 +83,34 @@ const verticalesHero = ORDEN_HERO.map((href) => VERTICALS.find((v) => v.href ===
 const radar = radarDe(tools);
 
 /*
+ * Caras en el radar, en su sitio.
+ *
+ * Las dos primeras caras de cada puerta salen también en el radar, sobre su
+ * propio punto: no se mueven para quedar bonitas, así que una cara dice a la
+ * vez quién es y dónde cae. Y como son las mismas que las de la puerta, al
+ * señalar «Audio» se encienden en el sector de Audio las caras que se acaban
+ * de ver en el botón.
+ */
+const registro = registroDeLogos as Record<string, { ruta?: string; placa?: string }>;
+const logosDelRadar = verticalesHero
+  .flatMap((v) => v.caras.slice(0, 2))
+  .map((t) => ({ slug: t.slug, src: t.logo ?? registro[t.slug]?.ruta ?? '', placa: registro[t.slug]?.placa ?? 'tema' }))
+  .filter((l) => l.src !== '');
+
+/*
+ * El icono de cada puerta sale de su sector, que es la ruta sin la barra:
+ * `/imagen` → `imagen`. Las seis rutas de `ORDEN_HERO` tienen el suyo.
+ */
+const ICONO_DE_SECTOR: Record<string, NombreDeIcono> = {
+  imagen: 'imagen',
+  video: 'video',
+  audio: 'audio',
+  agentes: 'agentes',
+  modelos: 'modelos',
+  codigo: 'codigo',
+};
+
+/*
  * Con qué dos herramientas viene puesto el comparador.
  *
  * Arrancaba con las dos primeras del abecedario, que no le dicen nada a nadie.
@@ -102,9 +131,23 @@ const description =
   schemas={[itemListSchema(paraSchema, 'Herramientas de IA con acceso gratuito confirmado')]}
 >
   <section class="hero" aria-labelledby="hero-titulo">
+    {/*
+      El cielo de la primera pantalla: estrellas y un horizonte.
+
+      Es lo único de la portada que sólo decora, y por eso va en un elemento
+      aparte, oculto a los lectores de pantalla y sin recibir el puntero. Se
+      pinta con degradados de CSS, sin imágenes que descargar. En claro casi no
+      se ve: los tokens `--atmos-*` lo apagan.
+    */}
+    <div class="hero-cielo" aria-hidden="true"></div>
+
     <div class="page hero-inner">
       <div class="hero-texto">
-        <h1 id="hero-titulo" class="hero-title">¿Qué clase de IA estás buscando?</h1>
+        <p class="hero-antetitulo">
+          Descubre <span class="hero-antetitulo-punto" aria-hidden="true">•</span> compara <span class="hero-antetitulo-punto" aria-hidden="true">•</span> elige mejor
+        </p>
+
+        <h1 id="hero-titulo" class="hero-title">¿Qué clase de <span class="hero-acento">IA</span> estás buscando?</h1>
 
         {/*
           Una línea, no un párrafo.
@@ -129,14 +172,22 @@ const description =
               tres nombres van en texto oculto a continuación, para que quien usa
               un lector de pantalla reciba la misma pista que quien los ve:
               «Imagen, por ejemplo Clipdrop, Krea e Ideogram».
+
+              El icono y la descripción son la parte nueva. El icono lleva el
+              color de su sector del radar, que es como la puerta y el sector se
+              reconocen como la misma cosa; la descripción sólo aparece cuando la
+              tarjeta tiene ancho para ella, porque en un móvil las seis puertas
+              tienen que caber por encima del aviso de cookies.
             */}
             {verticalesHero.map((vertical) => (
               <li>
                 <a class="hero-vertical" href={vertical.href} data-sector={vertical.sector}>
-                  <span class="hero-vertical-cabeza">
-                    <span>{vertical.label}</span>
-                    <span class="hero-vertical-flecha" aria-hidden="true">→</span>
+                  <span class="hero-vertical-icono">
+                    <Icono nombre={ICONO_DE_SECTOR[vertical.sector] ?? 'imagen'} />
                   </span>
+                  <span class="hero-vertical-nombre">{vertical.label}</span>
+                  <span class="hero-vertical-flecha" aria-hidden="true">→</span>
+                  {vertical.description && <span class="hero-vertical-desc">{vertical.description}</span>}
                   <PilaDeLogos tools={vertical.caras} nombrarOculto />
                 </a>
               </li>
@@ -145,22 +196,43 @@ const description =
         </nav>
 
         <form class="hero-buscar" role="search" action={ROUTES.tools} method="get">
-          <label class="hero-buscar-intro" for="hero-q">¿Buscas algo concreto?</label>
+          {/*
+            La etiqueta sigue ahí, para quien no ve la lupa.
+
+            Visible decía «¿Buscas algo concreto?» encima de la caja; ahora la
+            caja lleva su lupa y su botón, y la pregunta se queda como nombre
+            accesible del campo.
+          */}
+          <label class="sr-only" for="hero-q">¿Buscas algo concreto?</label>
           <div class="hero-buscar-campo">
+            <Icono nombre="lupa" class="hero-buscar-lupa" />
             <input
               type="search"
               id="hero-q"
               name="q"
-              class="input"
+              class="hero-buscar-input"
               placeholder="Quitar fondo, transcribir audio, generar vídeo…"
               autocomplete="off"
             />
-            <button type="submit" class="btn btn-primary">Buscar</button>
+            <button type="submit" class="btn btn-primary hero-buscar-boton">
+              Buscar <span aria-hidden="true">→</span>
+            </button>
           </div>
         </form>
+
+        <div class="hero-ejemplos">
+          <span id="hero-ejemplos-t" class="hero-ejemplos-t">Prueba con:</span>
+          <ul role="list" aria-labelledby="hero-ejemplos-t">
+            {EJEMPLOS_DE_BUSQUEDA.map((ejemplo) => (
+              <li>
+                <a class="hero-ejemplo" href={hrefDeBusqueda(ejemplo)}>{ejemplo}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
-      <RadarCatalogo radar={radar} />
+      <RadarCatalogo radar={radar} logos={logosDelRadar} />
     </div>
   </section>
 
@@ -209,9 +281,21 @@ const description =
 </BaseLayout>
 
 <style>
+  /*
+   * La primera pantalla, de noche.
+   *
+   * Encima del papel, un halo verde detrás del radar y, en oscuro, un cielo
+   * con estrellas y el arco de un horizonte. Todo sale de los tokens
+   * `--atmos-*`: en claro el cielo se queda en un halo leve sobre el papel,
+   * que es lo que pide el resto del sitio. `overflow: clip` porque el arco es
+   * más ancho que la pantalla y no puede empujarla de lado.
+   */
   .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
     border-block-end: 1px solid var(--line);
-    background: linear-gradient(to bottom, var(--surface-sunken), var(--paper) 75%);
+    background: linear-gradient(to bottom, var(--atmos-base), var(--paper) 85%);
     padding-block: var(--space-m) var(--space-l);
   }
 
@@ -224,6 +308,51 @@ const description =
   @media (min-width: 62rem) {
     .hero {
       padding-block: var(--space-2xl) var(--space-xl);
+      background:
+        radial-gradient(ellipse 38% 48% at 76% 44%, var(--atmos-glow), transparent 72%),
+        linear-gradient(to bottom, var(--atmos-base), var(--paper) 85%);
+    }
+  }
+
+  .hero-cielo {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      radial-gradient(1px 1px at 6% 12%, var(--atmos-star), transparent),
+      radial-gradient(1px 1px at 18% 64%, var(--atmos-star), transparent),
+      radial-gradient(1.5px 1.5px at 27% 28%, var(--atmos-star), transparent),
+      radial-gradient(1px 1px at 39% 82%, var(--atmos-star), transparent),
+      radial-gradient(1px 1px at 46% 9%, var(--atmos-star), transparent),
+      radial-gradient(1.5px 1.5px at 58% 47%, var(--atmos-star), transparent),
+      radial-gradient(1px 1px at 67% 18%, var(--atmos-star), transparent),
+      radial-gradient(1px 1px at 74% 73%, var(--atmos-star), transparent),
+      radial-gradient(1.5px 1.5px at 86% 33%, var(--atmos-star), transparent),
+      radial-gradient(1px 1px at 93% 88%, var(--atmos-star), transparent),
+      radial-gradient(1px 1px at 97% 6%, var(--atmos-star), transparent);
+    background-size: 560px 380px;
+    mask-image: linear-gradient(to bottom, black, transparent 92%);
+    opacity: 0.8;
+  }
+
+  /*
+   * El horizonte: un arco enorme cuyo borde de arriba asoma por debajo del
+   * radar. Sólo en escritorio, donde el radar está al lado; en un móvil sería
+   * una línea curva cruzando las puertas.
+   */
+  @media (min-width: 62rem) {
+    .hero-cielo::after {
+      content: '';
+      position: absolute;
+      inset-inline-start: 18%;
+      inset-block-start: 84%;
+      width: 130%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border-block-start: 1px solid var(--atmos-arc);
+      background: radial-gradient(ellipse 50% 6% at 50% 0, var(--atmos-glow), transparent);
+      box-shadow: 0 -18px 60px -24px var(--atmos-arc);
     }
   }
 
@@ -239,7 +368,7 @@ const description =
 
   @media (min-width: 62rem) {
     .hero-inner {
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
       align-items: center;
       gap: var(--space-xl);
     }
@@ -252,14 +381,53 @@ const description =
     min-width: 0;
   }
 
+  /*
+   * El antetítulo sólo a partir de 40 rem.
+   *
+   * En un 375×812 la sexta puerta acaba a 31 px de donde empieza la barra de
+   * cookies de la primera visita, y la píldora mide 50 con su hueco: no cabe
+   * sin que la última fila de puertas quede debajo del aviso, que es lo que
+   * vigila `home.spec.ts`. No dice nada que el titular no diga.
+   */
+  .hero-antetitulo {
+    display: none;
+    justify-self: start;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0.375rem 0.875rem;
+    border: 1px solid var(--signal-line);
+    border-radius: var(--radius-full);
+    background: color-mix(in oklab, var(--signal-soft) 70%, transparent);
+    color: var(--signal-strong);
+    font-size: 0.75rem;
+    font-weight: 650;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  @media (min-width: 40rem) {
+    .hero-antetitulo {
+      display: inline-flex;
+    }
+  }
+
+  .hero-antetitulo-punto {
+    color: var(--signal);
+  }
+
   .hero-title {
     margin: 0;
     max-width: 16ch;
-    font-size: clamp(2.125rem, 1.15rem + 4.4vw, 4.25rem);
-    font-weight: 650;
-    line-height: 1;
+    font-size: clamp(2.125rem, 1.15rem + 4.4vw, 4rem);
+    font-weight: 700;
+    line-height: 1.02;
     letter-spacing: -0.045em;
     text-wrap: balance;
+  }
+
+  .hero-acento {
+    color: var(--signal);
   }
 
   .hero-diferencial {
@@ -275,8 +443,9 @@ const description =
    * Seis botones, no seis enlaces.
    *
    * Tienen que parecer lo que son —la respuesta a la pregunta de arriba— y
-   * poder pulsarse con el pulgar: 2×3 en un móvil de 375 px y 3×2 en cuanto
-   * cabe. Sin descripción ni cifra debajo: aquí sólo se elige.
+   * poder pulsarse con el pulgar. Las columnas dependen del ancho de la
+   * rejilla, no de la pantalla: a 1024 px la columna de la pregunta mide medio
+   * escritorio y tres tarjetas en fila partían la descripción en tres líneas.
    *
    * Tres logos sí. No son texto que haya que leer, son caras que se reconocen,
    * y eso es exactamente lo que ayuda a elegir: quien busca «algo como
@@ -285,6 +454,7 @@ const description =
    */
   .hero-verticales {
     width: 100%;
+    container-type: inline-size;
   }
 
   .hero-verticales ul {
@@ -296,7 +466,7 @@ const description =
     list-style: none;
   }
 
-  @media (min-width: 40rem) {
+  @container (min-width: 36rem) {
     .hero-verticales ul {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
@@ -305,42 +475,71 @@ const description =
   /*
    * Compacta en móvil, y medida.
    *
-   * Con los logos debajo, cada puerta pasó de 56 a 91 px y en un 375×812 la
-   * última fila acababa 44 px por debajo de donde empieza la barra de cookies
-   * de la primera visita: justo lo que `home.spec.ts` vigila, que las seis
-   * puertas se vean enteras antes de decidir nada. En estrecho se aprieta el
-   * relleno, la interlínea y los logos (22 px); a partir de 40 rem vuelve el
-   * tamaño holgado. Sigue por encima de los 44 px de objetivo táctil.
+   * En estrecho, una fila con el icono (24 px, del alto de la palabra), el
+   * nombre y la flecha, y debajo los logos (22 px). Medido a 375×812: con un
+   * icono de 28 px la sexta puerta acababa a 5 px de la barra de cookies; así
+   * queda a más de 20. La descripción entra cuando la rejilla tiene ancho
+   * para ella. Siempre por encima de los 44 px de objetivo táctil.
    */
   .hero-vertical {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: center;
-    gap: 0.25rem;
+    --sector: var(--signal);
+
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      'icono nombre flecha'
+      'pila pila pila';
+    align-items: center;
+    align-content: start;
+    gap: 0.25rem 0.5rem;
+    height: 100%;
     min-height: 56px;
-    padding: 0.5rem 0.875rem;
+    padding: 0.5rem 0.625rem;
     line-height: 1.2;
     border: 1px solid var(--line);
     border-radius: var(--radius-l);
-    background: var(--surface);
+    background: color-mix(in oklab, var(--surface) 88%, transparent);
     box-shadow: var(--shadow-s);
     color: var(--ink-strong);
-    font-size: 1.125rem;
+    font-size: 1.0625rem;
     font-weight: 650;
     letter-spacing: -0.01em;
     text-decoration: none;
     transition:
       border-color 160ms ease,
-      color 160ms ease,
       box-shadow 160ms ease,
       transform 160ms ease;
   }
 
+  .hero-vertical[data-sector='imagen'] {
+    --sector: var(--sector-imagen);
+  }
+
+  .hero-vertical[data-sector='video'] {
+    --sector: var(--sector-video);
+  }
+
+  .hero-vertical[data-sector='audio'] {
+    --sector: var(--sector-audio);
+  }
+
+  .hero-vertical[data-sector='agentes'] {
+    --sector: var(--sector-agentes);
+  }
+
+  .hero-vertical[data-sector='modelos'] {
+    --sector: var(--sector-modelos);
+  }
+
+  .hero-vertical[data-sector='codigo'] {
+    --sector: var(--sector-codigo);
+  }
+
   .hero-vertical:hover {
-    border-color: var(--signal);
-    color: var(--signal-strong);
-    box-shadow: var(--shadow-m);
+    border-color: var(--sector);
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--sector) 35%, transparent),
+      var(--shadow-m);
   }
 
   @media (hover: hover) and (prefers-reduced-motion: no-preference) {
@@ -354,14 +553,41 @@ const description =
     outline-offset: 2px;
   }
 
-  .hero-vertical-cabeza {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
+  .hero-vertical-icono {
+    grid-area: icono;
+    display: grid;
+    place-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 1px solid color-mix(in oklab, var(--sector) 32%, transparent);
+    border-radius: 6px;
+    background: color-mix(in oklab, var(--sector) 15%, transparent);
+    color: var(--sector);
+  }
+
+  .hero-vertical-icono :global(.icono) {
+    width: 0.9375rem;
+    height: 0.9375rem;
+  }
+
+  .hero-vertical-nombre {
+    grid-area: nombre;
+    min-width: 0;
+  }
+
+  .hero-vertical-desc {
+    grid-area: desc;
+    display: none;
+    color: var(--ink-muted);
+    font-size: 0.8125rem;
+    font-weight: 450;
+    line-height: 1.4;
+    letter-spacing: 0;
+    text-wrap: pretty;
   }
 
   .hero-vertical :global(.pila) {
+    grid-area: pila;
     min-height: 22px;
   }
 
@@ -370,31 +596,50 @@ const description =
     height: 22px;
   }
 
-  @media (min-width: 40rem) {
+  @container (min-width: 30rem) {
     .hero-vertical {
-      gap: 0.625rem;
-      padding: 0.875rem 1rem;
-      line-height: inherit;
+      grid-template-areas:
+        'icono nombre flecha'
+        'desc desc desc'
+        'pila pila pila';
+      gap: 0.5rem 0.625rem;
+      padding: 0.875rem 0.9375rem;
+    }
+
+    .hero-vertical-icono {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 10px;
+    }
+
+    .hero-vertical-icono :global(.icono) {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    .hero-vertical-desc {
+      display: block;
     }
 
     .hero-vertical :global(.pila) {
-      min-height: 28px;
+      min-height: 24px;
     }
 
     .hero-vertical :global(.pila .tool-logo) {
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
     }
   }
 
   .hero-vertical-flecha {
+    grid-area: flecha;
     color: var(--ink-subtle);
     font-weight: 500;
     transition: transform 160ms ease;
   }
 
   .hero-vertical:hover .hero-vertical-flecha {
-    color: inherit;
+    color: var(--sector);
   }
 
   @media (hover: hover) and (prefers-reduced-motion: no-preference) {
@@ -429,10 +674,6 @@ const description =
       opacity: 1;
     }
 
-    .hero-inner:has(.hero-vertical:is(:hover, :focus-visible)) :global(.radar-sector .radar-rotulo) {
-      fill: var(--signal-strong);
-    }
-
     /* Y debajo del radar, lo que hay en ese sector, con sus cifras. */
     .hero-inner:has(.hero-vertical:is(:hover, :focus-visible)) :global(.radar-lectura) {
       visibility: hidden;
@@ -448,26 +689,124 @@ const description =
     }
   }
 
+  /*
+   * El buscador, grande y con su lupa.
+   *
+   * La caja entera hace de campo: el borde y el anillo de foco van en el
+   * contenedor (`:focus-within`), así que quitar el contorno del `input` no
+   * deja a nadie sin saber dónde está el foco.
+   */
   .hero-buscar {
-    display: grid;
-    gap: 0.4rem;
     width: 100%;
-    max-width: 36rem;
-  }
-
-  .hero-buscar-intro {
-    font-size: 0.9375rem;
-    color: var(--ink-muted);
+    max-width: 40rem;
   }
 
   .hero-buscar-campo {
     display: flex;
-    gap: var(--space-3xs);
+    align-items: center;
+    gap: 0.5rem;
     width: 100%;
+    padding: 0.375rem 0.375rem 0.375rem 0.875rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-l);
+    background: var(--surface);
+    box-shadow: var(--shadow-m);
+    transition:
+      border-color 140ms ease,
+      box-shadow 140ms ease;
   }
 
-  .hero-buscar-campo .input {
-    min-height: 48px;
+  .hero-buscar-campo:focus-within {
+    border-color: var(--signal);
+    box-shadow:
+      0 0 0 3px color-mix(in oklab, var(--signal) 28%, transparent),
+      var(--shadow-m);
+  }
+
+  .hero-buscar-campo :global(.hero-buscar-lupa) {
+    color: var(--ink-subtle);
+  }
+
+  .hero-buscar-input {
+    flex: 1;
+    min-width: 0;
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--ink-strong);
+    font: inherit;
+    font-size: 1rem;
+  }
+
+  .hero-buscar-input::placeholder {
+    color: var(--ink-subtle);
+  }
+
+  .hero-buscar-input:focus {
+    outline: none;
+  }
+
+  .hero-buscar-boton {
+    flex: none;
+    min-height: 44px;
+    gap: 0.4rem;
+  }
+
+  /*
+   * «Prueba con», no «Búsquedas populares».
+   *
+   * No medimos qué se busca más, así que no lo decimos. Son tareas que el
+   * buscador entiende, y cada una es la URL del catálogo con esa consulta.
+   */
+  .hero-ejemplos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.625rem;
+    margin-block-start: calc(var(--space-2xs) * -1);
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  /*
+   * La lista se funde con su rótulo para que «Prueba con:» y los ejemplos
+   * fluyan en la misma línea; `role="list"` le devuelve la semántica que
+   * `display: contents` le quita en Safari.
+   */
+  .hero-ejemplos ul {
+    display: contents;
+  }
+
+  .hero-ejemplos li {
+    list-style: none;
+  }
+
+  .hero-ejemplo {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-full);
+    background: color-mix(in oklab, var(--surface) 75%, transparent);
+    color: var(--ink);
+    font-size: 0.8125rem;
+    font-weight: 550;
+    text-decoration: none;
+    transition:
+      border-color 140ms ease,
+      color 140ms ease;
+  }
+
+  .hero-ejemplo:hover {
+    border-color: var(--signal);
+    color: var(--signal-strong);
+  }
+
+  .hero-ejemplo:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
   }
 
   .home-revisado {
@@ -509,20 +848,20 @@ const description =
   }
 
   /*
-   * La puerta del catálogo manda.
+   * La puerta del catálogo manda, a todo lo ancho.
    *
-   * Las tres caben en la primera pantalla, pero no pesan igual: buscar es a lo
-   * que viene la mayoría, así que ocupa la columna ancha y las dos filas. Tres
-   * cajas idénticas serían un índice, que es justo lo que no queremos.
+   * Buscar es a lo que viene la mayoría, así que va primero y ocupa la fila
+   * entera: sus recomendadas se leen como una fila de tarjetas, una por clase
+   * de IA. Debajo, actualidad y comparar, a medias. Tres cajas idénticas
+   * serían un índice, que es justo lo que no queremos.
    */
   @media (min-width: 62rem) {
     .puertas {
-      grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
-      grid-template-rows: auto 1fr;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       grid-template-areas:
-        'buscar actualidad'
-        'buscar comparar';
-      align-items: start;
+        'buscar buscar'
+        'actualidad comparar';
+      align-items: stretch;
     }
 
     .hueco-buscar {

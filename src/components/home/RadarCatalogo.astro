@@ -1,11 +1,21 @@
 ---
 import { ANILLOS, MARGEN, RADIO, arco, radioEn, type AnilloId, type Radar } from '@lib/data/radar';
 
-interface Props {
-  radar: Radar;
+interface LogoEnRadar {
+  slug: string;
+  src: string;
+  /** El fondo que necesita la marca, como en `ToolLogo`: ninguna, clara, oscura o tema. */
+  placa: string;
 }
 
-const { radar } = Astro.props;
+interface Props {
+  radar: Radar;
+  /** Fichas que se dibujan con su logo en vez de con un punto, en su sitio. */
+  logos?: readonly LogoEnRadar[];
+}
+
+const { radar, logos = [] } = Astro.props;
+const logoDe = new Map(logos.map((l) => [l.slug, l]));
 
 /*
  * El radar se dibuja en tres capas apiladas: el fondo (zona gratuita, anillos
@@ -95,29 +105,72 @@ const resumenSector = detalles.map((d) => `Con ${d.etiqueta} como clase principa
       <desc id="radar-desc">{resumenSector}</desc>
       <defs>
         {rotulos.map((r) => <path id={`radar-arco-${r.id}`} d={r.trazado} />)}
+        <clipPath id="radar-logo-recorte">
+          <circle r="10.5" />
+        </clipPath>
       </defs>
       {radar.sectores.map((s) => (
         <g class="radar-sector" data-sector={s.id}>
           <text class="radar-rotulo">
             <textPath href={`#radar-arco-${s.id}`} startOffset="50%">{rotulos.find((r) => r.id === s.id)!.texto}</textPath>
           </text>
-          {s.puntos.map((p) => (
-            <circle
-              class:list={['radar-punto', `radar-punto-${p.anillo}`]}
-              cx={p.x}
-              cy={p.y}
-              r={p.anillo === 'web' ? 5 : 4.25}
-              style={`--vuelta: ${p.vuelta}`}
-            >
-              <title>{p.nombre}</title>
-            </circle>
-          ))}
+          {/*
+            Una cara en vez de un punto, en el mismo sitio.
+
+            Dos capas: la de fuera coloca y la de dentro anima. Si fuera una
+            sola, el `transform` de CSS que la agranda al pasar el puntero
+            pisaría el `translate` del atributo y la cara saltaría al centro.
+            El aro lleva el color de su anillo, para que la cara no esconda
+            lo que dice el punto que sustituye.
+          */}
+          {s.puntos.map((p) => {
+            const logo = logoDe.get(p.slug);
+            return logo ? (
+              <g transform={`translate(${p.x} ${p.y})`}>
+                <g class:list={['radar-punto', 'radar-logo', `radar-logo-${p.anillo}`]} style={`--vuelta: ${p.vuelta}`}>
+                  <title>{p.nombre}</title>
+                  <circle class="radar-logo-placa" data-placa={logo.placa} r="12" />
+                  <image
+                    href={logo.src}
+                    x={logo.placa === 'ninguna' ? -10.5 : -8}
+                    y={logo.placa === 'ninguna' ? -10.5 : -8}
+                    width={logo.placa === 'ninguna' ? 21 : 16}
+                    height={logo.placa === 'ninguna' ? 21 : 16}
+                    clip-path="url(#radar-logo-recorte)"
+                    preserveAspectRatio="xMidYMid meet"
+                  />
+                </g>
+              </g>
+            ) : (
+              <circle
+                class:list={['radar-punto', `radar-punto-${p.anillo}`]}
+                cx={p.x}
+                cy={p.y}
+                r={p.anillo === 'web' ? 5 : 4.25}
+                style={`--vuelta: ${p.vuelta}`}
+              >
+                <title>{p.nombre}</title>
+              </circle>
+            );
+          })}
         </g>
       ))}
     </svg>
   </div>
 
+  {/*
+    El pie es el panel de cifras de la maqueta, con las cifras del radar.
+
+    La maqueta proponía «+4.800 herramientas analizadas», «53 criterios» y
+    «actualizado diariamente»: ninguna es cierta aquí. Las que sí lo son ya
+    estaban debajo del radar —cuántas hay y cuántas de cada clase de acceso—,
+    así que se les da el formato de panel y se suma el total.
+  */}
   <figcaption class="radar-pie">
+    <p class="radar-total">
+      <span class="radar-total-n tnum">{radar.total}</span>
+      <span class="radar-total-t">herramientas en el radar</span>
+    </p>
     {/*
       La lectura general y la de cada sector ocupan la misma celda: la hero
       enseña una u otra según qué puerta se señale, y como la celda mide lo que
@@ -161,9 +214,9 @@ const resumenSector = detalles.map((d) => `Con ${d.etiqueta} como clase principa
     --radar-vuelta: 2.6s;
 
     display: grid;
-    gap: var(--space-s);
+    gap: var(--space-m);
     width: 100%;
-    max-width: 30rem;
+    max-width: 31rem;
     margin: 0;
     justify-self: center;
   }
@@ -182,6 +235,8 @@ const resumenSector = detalles.map((d) => `Con ${d.etiqueta} como clase principa
     aspect-ratio: 1;
     width: 100%;
     overflow: hidden;
+    /* El halo: verde muy rebajado que se apaga antes del borde del lienzo. */
+    background: radial-gradient(closest-side, var(--atmos-glow), transparent);
   }
 
   .radar-capa {
@@ -200,25 +255,34 @@ const resumenSector = detalles.map((d) => `Con ${d.etiqueta} como clase principa
 
   .radar-anillo {
     fill: none;
-    stroke: var(--line);
+    stroke: color-mix(in oklab, var(--signal) 30%, var(--line));
     stroke-width: 1;
     stroke-dasharray: 2 4;
     vector-effect: non-scaling-stroke;
   }
 
+  /*
+   * El borde brilla un poco, y sólo el borde.
+   *
+   * Es el «glow» de la maqueta reducido a una línea: dice dónde acaba el
+   * radar sin competir con los puntos, que son los que llevan los datos.
+   */
   .radar-anillo-borde {
-    stroke: var(--line-strong);
+    stroke: color-mix(in oklab, var(--signal) 65%, transparent);
+    stroke-width: 1.5;
     stroke-dasharray: none;
+    filter: drop-shadow(0 0 5px var(--atmos-arc));
   }
 
   .radar-radio {
-    stroke: var(--line);
+    stroke: color-mix(in oklab, var(--signal) 16%, var(--line));
     stroke-width: 1;
     vector-effect: non-scaling-stroke;
   }
 
   .radar-centro {
     fill: var(--signal);
+    filter: drop-shadow(0 0 4px var(--signal));
   }
 
   /* --- Barrido: una vuelta al cargar, y se apaga --- */
@@ -255,6 +319,36 @@ const resumenSector = detalles.map((d) => `Con ${d.etiqueta} como clase principa
     }
   }
 
+  /*
+   * El nombre de cada sector, del color de su puerta.
+   *
+   * Es lo que ata la tarjeta «Audio» de la izquierda con su porción del
+   * radar. «Otras» no tiene puerta, así que se queda en gris.
+   */
+  .radar-sector[data-sector='imagen'] .radar-rotulo {
+    fill: var(--sector-imagen);
+  }
+
+  .radar-sector[data-sector='video'] .radar-rotulo {
+    fill: var(--sector-video);
+  }
+
+  .radar-sector[data-sector='audio'] .radar-rotulo {
+    fill: var(--sector-audio);
+  }
+
+  .radar-sector[data-sector='agentes'] .radar-rotulo {
+    fill: var(--sector-agentes);
+  }
+
+  .radar-sector[data-sector='modelos'] .radar-rotulo {
+    fill: var(--sector-modelos);
+  }
+
+  .radar-sector[data-sector='codigo'] .radar-rotulo {
+    fill: var(--sector-codigo);
+  }
+
   .radar-sector {
     transition: opacity 200ms ease;
   }
@@ -286,9 +380,48 @@ const resumenSector = detalles.map((d) => `Con ${d.etiqueta} como clase principa
     fill: var(--ink-subtle);
   }
 
+  /*
+   * Las caras.
+   *
+   * La placa repite lo que decide `ToolLogo` para cada marca —fondo claro,
+   * oscuro, ninguno o el de la página—, con los mismos dos valores fijos que
+   * usa allí, porque son el fondo que la marca necesita y no un color del
+   * tema. El aro es el del anillo: verde lleno si se usa gratis en el
+   * navegador, verde fino si hay que instalarla, gris si no es gratis.
+   */
+  .radar-logo-placa {
+    fill: var(--surface);
+    stroke-width: 1.75;
+  }
+
+  .radar-logo-placa[data-placa='clara'] {
+    fill: #fbfbf9;
+  }
+
+  .radar-logo-placa[data-placa='oscura'] {
+    fill: #1b1b19;
+  }
+
+  .radar-logo-web .radar-logo-placa {
+    stroke: var(--signal);
+  }
+
+  .radar-logo-instalar .radar-logo-placa {
+    stroke: color-mix(in oklab, var(--signal) 55%, transparent);
+  }
+
+  .radar-logo-prueba .radar-logo-placa,
+  .radar-logo-pago .radar-logo-placa {
+    stroke: var(--ink-subtle);
+  }
+
   @media (hover: hover) {
     .radar-punto:hover {
       transform: scale(1.7);
+    }
+
+    .radar-logo:hover {
+      transform: scale(1.35);
     }
   }
 
@@ -331,11 +464,40 @@ const resumenSector = detalles.map((d) => `Con ${d.etiqueta} como clase principa
     }
   }
 
-  /* --- Pie --- */
+  /* --- Pie: el panel de cifras --- */
 
   .radar-pie {
     display: grid;
-    gap: var(--space-2xs);
+    gap: var(--space-s);
+    padding: var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: color-mix(in oklab, var(--surface) 82%, transparent);
+    box-shadow: var(--shadow-s);
+  }
+
+  @media (min-width: 48rem) {
+    .radar-pie {
+      padding: var(--space-s) var(--space-m);
+    }
+  }
+
+  .radar-total {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem 0.5rem;
+    margin: 0;
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+  }
+
+  .radar-total-n {
+    color: var(--signal);
+    font-size: clamp(1.75rem, 1.5rem + 1vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
   }
 
   .radar-lecturas {
@@ -360,23 +522,47 @@ const resumenSector = detalles.map((d) => `Con ${d.etiqueta} como clase principa
     font-weight: 650;
   }
 
+  /*
+   * Cuatro cifras, 2×2 en cuanto caben.
+   *
+   * Cada una con su muestra, su número grande y lo que cuenta debajo, que es
+   * el formato de panel de la maqueta. En muy estrecho, una por línea.
+   */
   .radar-leyenda {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    gap: 0.35rem var(--space-s);
+    gap: var(--space-xs) var(--space-s);
     margin: 0;
-    padding: 0;
+    padding: var(--space-xs) 0 0;
+    border-block-start: 1px solid var(--line-hairline);
     list-style: none;
+  }
+
+  @media (min-width: 22rem) {
+    .radar-leyenda {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   .radar-leyenda li {
     display: grid;
-    grid-template-columns: 12px 2.25ch minmax(0, 1fr);
-    align-items: baseline;
-    gap: 0.5rem;
+    grid-template-columns: 12px minmax(0, 1fr);
+    grid-template-areas:
+      'muestra cifra'
+      '. nombre';
+    align-items: center;
+    gap: 0.125rem 0.5rem;
     font-size: 0.8125rem;
     line-height: 1.35;
     color: var(--ink-muted);
+  }
+
+  .radar-leyenda .radar-muestra {
+    grid-area: muestra;
+  }
+
+  .radar-leyenda .radar-anillo-nombre {
+    grid-area: nombre;
   }
 
   .radar-muestra {
@@ -387,9 +573,12 @@ const resumenSector = detalles.map((d) => `Con ${d.etiqueta} como clase principa
   }
 
   .radar-cifra {
+    grid-area: cifra;
     color: var(--ink-strong);
-    font-weight: 650;
-    text-align: end;
+    font-size: 1.375rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
   }
 
   .radar-fuera {
