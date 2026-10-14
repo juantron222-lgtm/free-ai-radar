@@ -1,5 +1,128 @@
 [
   {
+    "id": "news-2026-10-14-gemma-estafas-singapur",
+    "slug": "gemma-deteccion-estafas-singapur",
+    "title": "Google y Singapur ajustan un Gemma que detecta estafas sin que las conversaciones salgan del móvil",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Google DeepMind anunció el 14 de octubre que ha ajustado con la agencia tecnológica del Gobierno de Singapur un modelo de detección de estafas que corre en el propio dispositivo. Parte del Gemma ligero de Google, entrenado con conversaciones de estafa locales, y al detectar patrones de manipulación lanza un aviso en el móvil pidiendo al usuario que se detenga antes de compartir datos o dinero. A diferencia de lo habitual, no escanea los mensajes en la nube.",
+    "impact": "La afirmación fuerte es suya y conviene atribuirla: dicen que, al ejecutarse enteramente en el dispositivo, ni el Gobierno de Singapur ni Google podrán acceder a las conversaciones. El despliegue en aplicaciones será por fases, así que todavía no hay nada que instalar, y cuando llegue sólo accederá con consentimiento del usuario. Dos detalles técnicos que explican por qué cabe en un teléfono: funciona en dos etapas para gastar poca batería, y el entrenamiento excluyó datos privados o identificables.",
+    "category": "privacidad-licencias",
+    "eventType": "anuncio",
+    "availability": "announced",
+    "publishedAt": "2026-10-14",
+    "checkedAt": "2026-10-14",
+    "officialUrl": "https://deepmind.google/blog/on-device-ai-scam-detection-mddi/",
+    "sources": [
+      {
+        "url": "https://deepmind.google/blog/on-device-ai-scam-detection-mddi/",
+        "kind": "official",
+        "label": "Google DeepMind and Singapore Government collaborate to build fine-tuned AI model for scam detection",
+        "checkedAt": "2026-10-14",
+        "publisher": "deepmind.google"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-13-argon-abre-a-desarrolladores",
+    "slug": "gemini-4-argon-abre-a-quien-paga",
+    "title": "Gemini 4 Argon sale del círculo cerrado: ya está para desarrolladores y en la app, siempre en planes de pago",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Google abrió el 13 de octubre Gemini 4 Argon, el modelo que hasta ahora sólo tenían un grupo de defensores de ciberseguridad de confianza. Los desarrolladores pueden empezar a construir con él desde el nivel de pago de la API de Gemini, en AI Studio y Android Studio, y los suscriptores de Google AI Ultra pueden probarlo en AI Studio y en Antigravity. En la aplicación de Gemini el acceso es para quienes tengan Google AI Pro o Ultra.",
+    "impact": "El reparto ha empezado exactamente por donde Google dijo que empezaría: por quien paga. No hay acceso gratuito en ninguno de los dos caminos. En la aplicación, además del modelo, llega la interfaz de programación agéntica de Antigravity dentro de la app de macOS, y un interruptor que pasa del chat a las tareas, con Gemini trabajando cuando el usuario no está delante. De las mejoras de estilo —responder más directo, con menos rodeos y sin clichés— sólo tenemos la palabra de Google.",
+    "category": "modelo-lenguaje",
+    "eventType": "actualizacion",
+    "availability": "available",
+    "publishedAt": "2026-10-13",
+    "checkedAt": "2026-10-14",
+    "officialUrl": "https://blog.google/innovation-and-ai/technology/developers-tools/build-with-gemini-4-argon/",
+    "sources": [
+      {
+        "url": "https://blog.google/innovation-and-ai/technology/developers-tools/build-with-gemini-4-argon/",
+        "kind": "official",
+        "label": "Gemini 4 Argon is now available for developers",
+        "checkedAt": "2026-10-14",
+        "publisher": "blog.google"
+      },
+      {
+        "url": "https://blog.google/innovation-and-ai/products/gemini-app/gemini-4-argon-availability/",
+        "kind": "official",
+        "label": "Gemini 4 Argon comes to the Gemini app",
+        "checkedAt": "2026-10-14",
+        "publisher": "blog.google"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-13-lfm25-24b-a2b",
+    "slug": "lfm2-5-24b-a2b",
+    "title": "Liquid AI abre un modelo de razonamiento de 24.000 millones que sólo activa 2.000 por token",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Liquid AI publicó el 13 de octubre LFM2.5-24B-A2B, un modelo de razonamiento de 24.000 millones de parámetros que sólo activa 2.000 millones por token, pensado para agentes rápidos y privados en el propio dispositivo. Los pesos están abiertos y en Hugging Face desde ese mismo día, tanto el modelo como su versión base. A diferencia del anterior, es sólo de razonamiento: produce una cadena de pensamiento explícita antes de dar la respuesta.",
+    "impact": "El argumento es económico: al activar sólo una fracción de la red, cada token de razonamiento sale barato, y eso es lo que permite tener agentes funcionando sin parar en hardware propio. Sus medidas, que son suyas: 184 tokens por segundo en un Apple M5 Max y hasta 21.000 de salida en una sola B300. La ventana de contexto sube de 32.000 a 131.000 tokens y el vocabulario se duplica para tokenizar mejor lo que no usa alfabeto latino. Dicen competir con un modelo que tiene un 50 % más de parámetros.",
+    "category": "local-open-source",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-13",
+    "checkedAt": "2026-10-14",
+    "officialUrl": "https://huggingface.co/blog/LiquidAI/lfm25-24b-a2b",
+    "sources": [
+      {
+        "url": "https://huggingface.co/blog/LiquidAI/lfm25-24b-a2b",
+        "kind": "official",
+        "label": "Run fast, private agents on-device with LFM2.5-24B-A2B",
+        "checkedAt": "2026-10-14",
+        "publisher": "huggingface.co/blog"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-13-ollama-fly-sprites",
+    "slug": "ollama-fly-io-sprites",
+    "title": "Ollama y Fly.io encierran al agente en una máquina aislada y le esconden la clave de la API",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Ollama anunció el 13 de octubre que los modelos de su nube funcionan ya dentro de los Sprites de Fly.io, que son máquinas virtuales Linux completas con su propio disco y que se conservan entre sesiones. Claude Code, Codex y Gemini CLI están soportados de salida, de modo que el agente puede ejecutar órdenes dentro del aislamiento. Con el conector nuevo, esas máquinas pueden usar modelos como kimi-k3, glm-5.3 y deepseek-v4.1-flash.",
+    "impact": "La parte interesante es cómo tratan la credencial. La clave se guarda en la organización de Fly.io, que la cifra y no la devuelve nunca por su API; cuando el código del Sprite llama, pasa por una pasarela que comprueba quién es y añade la clave. El Sprite sólo conoce una dirección y un identificador, así que un agente que se desmande no puede filtrarla. Además, los conectores nuevos bloquean todas las máquinas por omisión y hay que conceder el acceso a mano. Eso sí: hace falta clave de Ollama, no es gratis.",
+    "category": "agentes",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-13",
+    "checkedAt": "2026-10-14",
+    "officialUrl": "https://ollama.com/blog/fly-io-sprites",
+    "sources": [
+      {
+        "url": "https://ollama.com/blog/fly-io-sprites",
+        "kind": "official",
+        "label": "Run AI agents safely with Ollama and Fly.io",
+        "checkedAt": "2026-10-14",
+        "publisher": "ollama.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-10-09-claude-flujos-dinamicos",
     "slug": "claude-flujos-dinamicos",
     "title": "Un agente de Claude puede escribir su propio flujo y repartir el trabajo entre varios agentes por fases",
