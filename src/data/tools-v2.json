@@ -10622,7 +10622,14 @@
     "notFor": [],
     "alternatives": [],
     "alternativeNames": [],
-    "changelog": [],
+    "changelog": [
+      {
+        "date": "2026-10-06",
+        "kind": "other",
+        "summary": "Mistral abre en vista previa pública Mistral Large 4: 1,05 billones de parámetros con 52.000 millones activos y un millón de tokens de contexto, por API. El 17 de octubre de 2026 sus pesos aún no estaban en Hugging Face, así que esta ficha sigue describiendo Large 3, el modelo estable con pesos publicados.",
+        "sourceUrl": "https://docs.mistral.ai/models/mistral-large-4"
+      }
+    ],
     "affiliation": {
       "isAffiliate": false
     },
@@ -10711,6 +10718,13 @@
         "kind": "repo",
         "publisher": "huggingface.co",
         "checkedAt": "2026-10-11"
+      },
+      {
+        "url": "https://docs.mistral.ai/models/mistral-large-4",
+        "label": "Mistral Large 4 en la documentación de Mistral",
+        "kind": "docs",
+        "publisher": "docs.mistral.ai",
+        "checkedAt": "2026-10-17"
       }
     ],
     "evidence": [
@@ -10755,7 +10769,7 @@
     "id": "tool_mistral-large",
     "nextReviewAt": "2026-11-18",
     "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-10-17",
     "auditNotes": "Uso comercial comprobado el 11 de octubre de 2026 para los pesos de Mistral Large 3 (675B, versión 2512) en su ficha de Hugging Face. La página de precios de Mistral dice en sus preguntas frecuentes, sin nombrar este modelo, que los modelos abiertos son Apache 2.0 «for research/individual use» y que los despliegues comerciales requieren una licencia de Mistral: contradice la licencia y la ficha del modelo, y la ficha lo cuenta en vez de elegir. El uso por API se rige por las condiciones de la plataforma, no por la licencia de los pesos."
   },
   {
