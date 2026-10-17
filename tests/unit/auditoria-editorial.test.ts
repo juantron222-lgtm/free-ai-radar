@@ -453,7 +453,7 @@ describe('un dato volátil se publica con su fecha dentro', () => {
     expect(ev.outcome).toBe('stated');
     expect(citaDe(ev)).toMatch(/Features Free Pro/);
     expect(citaDe(ev)).toMatch(/Sonnet Yes/);
-    expect(claude.freePlan.limits.join(' ')).not.toMatch(/Sonnet 5/);
+    expect(claude.freePlan.limits.join(' ')).not.toMatch(/Sonnet 5\b/);
   });
 
   it('ninguna de las dos vuelve a afirmar lo que su campo deja sin confirmar', () => {
