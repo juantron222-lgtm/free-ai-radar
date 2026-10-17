@@ -303,9 +303,18 @@ describe('la verificación de modelos', () => {
   });
 
   it('ningún modelo de pago se disfraza de gratuito', () => {
-    for (const slug of ['gpt-5-6', 'gemini-3-pro', 'grok-4', 'claude-opus-5']) {
+    for (const slug of ['gpt-5-6', 'gemini-3-pro', 'grok-4']) {
       expect(bySlug.get(slug)!.freeModel, slug).toBe('paid_only');
     }
+    /*
+     * Claude Opus pasó de «de pago» a «sólo prueba» el 17 de octubre de 2026:
+     * la API da «a small amount of free credits» a las cuentas nuevas. Prueba
+     * no es capa gratuita, y eso es lo que se exige.
+     */
+    const opus = bySlug.get('claude-opus-5')!;
+    expect(opus.freeModel).toBe('trial');
+    expect(opus.freePlan.creditReset).toBe('one_off');
+    expect(opus.access.apiFree).toBe('no');
   });
 
   it('el precio, cuando se enseña, dice de qué versión es', () => {

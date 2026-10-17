@@ -1796,7 +1796,7 @@
     "platforms": [
       "api"
     ],
-    "freeModel": "paid_only",
+    "freeModel": "trial",
     "tagline": "La gama rápida y barata de Anthropic, ahora con un millón de tokens de contexto.",
     "descriptionShort": "La gama pequeña: «For high-volume, latency-sensitive tasks such as classification, extraction, and routing». Desde 0,10 $ por millón de tokens de entrada y 0,50 $ de salida, con ventana de un millón y salida máxima de 128K. Acepta texto e imagen.",
     "verdict": "Deja de separarse de las gamas mayores por contexto: Haiku 4.5 tenía 200k y Haiku 5.5 tiene el millón de Opus y Sonnet. Lo que la distingue ahora es el precio, con un tramo más caro para los prompts de más de 100.000 tokens.",
@@ -1805,14 +1805,15 @@
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
-      "creditReset": "none",
+      "creditReset": "one_off",
       "verifiedAt": "2026-10-17",
-      "summary": "Sin capa gratuita de API. 0,10 $ por millón de tokens de entrada y 0,50 $ de salida en prompts de hasta 100.000 tokens; 0,50 $ y 2,50 $ por encima.",
+      "summary": "Sin capa gratuita de API, aunque las cuentas nuevas reciben «a small amount of free credits» para probarla; Anthropic no dice cuánto. 0,10 $ por millón de tokens de entrada y 0,50 $ de salida en prompts de hasta 100.000 tokens; 0,50 $ y 2,50 $ por encima.",
       "limits": [
         "0,10 $/M de entrada · 0,50 $/M de salida (prompts de hasta 100.000 tokens)",
         "0,50 $/M de entrada · 2,50 $/M de salida (prompts de más de 100.000 tokens)",
         "Contexto de 1M de tokens · salida máxima de 128K",
-        "Incluida en el plan gratuito de claude.ai"
+        "Incluida en el plan gratuito de claude.ai",
+        "Sin capa gratuita de API; las cuentas nuevas reciben unos créditos de prueba, sin cifra publicada, que se registran como asignación única"
       ]
     },
     "access": {
@@ -1851,7 +1852,7 @@
         "label": "Página oficial de precios",
         "kind": "pricing",
         "publisher": "platform.claude.com",
-        "checkedAt": "2026-08-24"
+        "checkedAt": "2026-10-17"
       },
       {
         "url": "https://claude.com/pricing",
@@ -1895,6 +1896,15 @@
         "scope": "api",
         "checkedAt": "2026-08-24",
         "lookedFor": "Si hace falta tarjeta para gastar los créditos de bienvenida. La página describe la facturación («Credit card and invoicing options available») pero no dice si la tarjeta es requisito para empezar."
+      },
+      {
+        "checkedAt": "2026-10-17",
+        "scope": "api",
+        "field": "freePlan.creditReset",
+        "outcome": "stated",
+        "sourceUrl": "https://platform.claude.com/docs/en/about-claude/pricing",
+        "sourceKind": "pricing",
+        "quote": "Are there free tiers or trials? · New users receive a small amount of free credits to test the API. Contact sales for information about extended trials for enterprise evaluation."
       }
     ],
     "slug": "claude-haiku-4-5",
@@ -1948,7 +1958,7 @@
       "api",
       "web"
     ],
-    "freeModel": "paid_only",
+    "freeModel": "trial",
     "tagline": "Un millón de tokens de contexto y pensamiento adaptativo siempre activo.",
     "descriptionShort": "La gama que Anthropic propone como punto de partida: «For long-running agentic coding and knowledge work». Ventana de un millón de tokens, 128K de salida máxima y pensamiento adaptativo siempre activo. Acepta texto e imagen; genera texto.",
     "verdict": "La documentación la señala como la opción por defecto («start with Claude Opus 5.5 for most workloads»). Por API se paga por token; en claude.ai la tabla de planes la deja fuera del gratuito: Opus empieza en Pro.",
@@ -1957,14 +1967,14 @@
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
-      "creditReset": "none",
+      "creditReset": "one_off",
       "verifiedAt": "2026-10-17",
-      "summary": "Sin capa gratuita de API. 4 $ por millón de tokens de entrada y 20 $ de salida.",
+      "summary": "Sin capa gratuita de API, aunque las cuentas nuevas reciben «a small amount of free credits» para probarla; Anthropic no dice cuánto. 4 $ por millón de tokens de entrada y 20 $ de salida.",
       "limits": [
         "4 $/M de entrada · 20 $/M de salida",
         "Contexto de 1M de tokens · salida máxima de 128K",
         "No entra en el plan gratuito de claude.ai: empieza en Pro",
-        "Sin capa gratuita de API documentada"
+        "Sin capa gratuita de API; las cuentas nuevas reciben unos créditos de prueba, sin cifra publicada, que se registran como asignación única"
       ]
     },
     "access": {
@@ -2012,6 +2022,13 @@
         "kind": "official",
         "publisher": "anthropic.com",
         "checkedAt": "2026-10-17"
+      },
+      {
+        "url": "https://platform.claude.com/docs/en/about-claude/pricing",
+        "label": "Precios de la API de Claude",
+        "kind": "pricing",
+        "publisher": "platform.claude.com",
+        "checkedAt": "2026-10-17"
       }
     ],
     "evidence": [
@@ -2032,6 +2049,15 @@
         "sourceUrl": "https://platform.claude.com/docs/en/about-claude/models/overview",
         "sourceKind": "docs",
         "quote": "Claude Opus 5.5 · $4 / input MTok · $20 / output MTok · claude-opus-5-5"
+      },
+      {
+        "checkedAt": "2026-10-17",
+        "scope": "api",
+        "field": "freePlan.creditReset",
+        "outcome": "stated",
+        "sourceUrl": "https://platform.claude.com/docs/en/about-claude/pricing",
+        "sourceKind": "pricing",
+        "quote": "Are there free tiers or trials? · New users receive a small amount of free credits to test the API. Contact sales for information about extended trials for enterprise evaluation."
       }
     ],
     "slug": "claude-opus-5",
@@ -2062,20 +2088,20 @@
       "Comparar coste por token antes de elegir modelo para un proyecto",
       "Programación asistida y análisis de documentos"
     ],
-    "freeModel": "paid_only",
+    "freeModel": "trial",
     "freePlan": {
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
-      "creditReset": "none",
+      "creditReset": "one_off",
       "verifiedAt": "2026-10-17",
-      "summary": "Sin capa gratuita de API. 2 $ por millón de tokens de entrada y 10 $ de salida.",
+      "summary": "Sin capa gratuita de API, aunque las cuentas nuevas reciben «a small amount of free credits» para probarla; Anthropic no dice cuánto. 2 $ por millón de tokens de entrada y 10 $ de salida.",
       "limits": [
         "2 $/M de entrada · 10 $/M de salida",
         "Contexto de 1M de tokens · salida máxima de 128K",
         "Incluida en el plan gratuito de claude.ai",
-        "Sin capa gratuita de API documentada"
+        "Sin capa gratuita de API; las cuentas nuevas reciben unos créditos de prueba, sin cifra publicada, que se registran como asignación única"
       ]
     },
     "openSource": "no",
@@ -2117,6 +2143,13 @@
         "label": "Anuncio de Claude Sonnet 5.5",
         "kind": "official",
         "publisher": "anthropic.com",
+        "checkedAt": "2026-10-17"
+      },
+      {
+        "url": "https://platform.claude.com/docs/en/about-claude/pricing",
+        "label": "Precios de la API de Claude",
+        "kind": "pricing",
+        "publisher": "platform.claude.com",
         "checkedAt": "2026-10-17"
       }
     ],
@@ -2197,6 +2230,15 @@
         "sourceUrl": "https://platform.claude.com/docs/en/about-claude/models/overview",
         "sourceKind": "docs",
         "quote": "Claude Sonnet 5.5 · $2 / input MTok · $10 / output MTok · claude-sonnet-5-5"
+      },
+      {
+        "checkedAt": "2026-10-17",
+        "scope": "api",
+        "field": "freePlan.creditReset",
+        "outcome": "stated",
+        "sourceUrl": "https://platform.claude.com/docs/en/about-claude/pricing",
+        "sourceKind": "pricing",
+        "quote": "Are there free tiers or trials? · New users receive a small amount of free credits to test the API. Contact sales for information about extended trials for enterprise evaluation."
       }
     ],
     "startEffortReason": "Por API con clave y facturación; en claude.ai basta una cuenta.",
