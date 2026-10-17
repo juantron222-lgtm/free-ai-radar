@@ -141,7 +141,7 @@ const crumbs = migasDeVertical(ROUTES.models);
 const faqs = [
   {
     question: '¿Qué modelos de IA puedo usar gratis?',
-    answer: `Depende de por dónde entres, y son tres puertas distintas. ${apiGratis.length} tienen capa gratuita de API documentada por su fabricante. ${pesos.length} publican sus pesos y se pueden ejecutar en tu equipo. Y en aplicaciones de chat sólo hay ${chatGratis.length} confirmado: las páginas de OpenAI, xAI y Perplexity devuelven 403 a toda lectura automática, así que no podemos comprobar qué modelo sirve su plan gratuito.`,
+    answer: `Depende de por dónde entres, y son tres puertas distintas. ${apiGratis.length} tienen capa gratuita de API documentada por su fabricante. ${pesos.length} publican sus pesos y se pueden ejecutar en tu equipo. Y en aplicaciones de chat sólo hay ${chatGratis.length} ${chatGratis.length === 1 ? 'confirmado' : 'confirmados'}: las páginas de OpenAI, xAI y Perplexity devuelven 403 a toda lectura automática, así que no podemos comprobar qué modelo sirve su plan gratuito.`,
   },
   {
     question: '¿«Pesos abiertos» es lo mismo que «open source»?',

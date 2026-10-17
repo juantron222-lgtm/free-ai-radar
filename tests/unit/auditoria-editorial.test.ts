@@ -390,7 +390,7 @@ describe('un dato volátil se publica con su fecha dentro', () => {
   it('el modelo por defecto se nombra con la fecha en la que se comprobó', () => {
     for (const slug of conModelo) {
       const tool = tools.find((t) => t.slug === slug)!;
-      const linea = tool.freePlan.limits.find((l) => /modelo por defecto/i.test(l));
+      const linea = tool.freePlan.limits.find((l) => /modelo por defecto|gamas incluidas/i.test(l));
       expect(linea, `${slug} no dice qué modelo sirve`).toBeDefined();
       expect(linea, `${slug}: el modelo se afirma sin fecha`).toMatch(/\d{1,2} de \w+ de \d{4}/);
     }
@@ -436,11 +436,19 @@ describe('un dato volátil se publica con su fecha dentro', () => {
     expect(claude.freePlan.limits.join(' ')).toMatch(/no hay cifra fija|varía según la demanda/i);
   });
 
-  it('y lo de Sonnet 5 sí es cita, porque la fuente nombra el plan gratuito', () => {
+  it('y las gamas del gratuito de Claude son cita de la columna Free de su tabla', () => {
+    /*
+     * Hasta el 17 de octubre de 2026 era «Sonnet 5 por defecto», del anuncio de
+     * Sonnet 5. Los anuncios de la gama 5.5 no dicen qué modelo sirve el plan
+     * gratuito; la tabla de planes sí dice qué gamas incluye. Se cita eso, con
+     * la columna Free a la vista, y no se deduce una versión.
+     */
     const claude = tools.find((t) => t.slug === 'claude')!;
     const ev = evidenciaDe(claude, 'capabilities')!;
     expect(ev.outcome).toBe('stated');
-    expect(citaDe(ev)).toMatch(/default model for Free and Pro plans/i);
+    expect(citaDe(ev)).toMatch(/Features Free Pro/);
+    expect(citaDe(ev)).toMatch(/Sonnet Yes/);
+    expect(claude.freePlan.limits.join(' ')).not.toMatch(/Sonnet 5/);
   });
 
   it('ninguna de las dos vuelve a afirmar lo que su campo deja sin confirmar', () => {

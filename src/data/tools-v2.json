@@ -1396,8 +1396,8 @@
     "slug": "claude",
     "name": "Claude",
     "tagline": "Asistente IA de Anthropic con razonamiento avanzado, ventana de contexto masiva y capacidad de análisis de documentos extensos.",
-    "descriptionShort": "Asistente de Anthropic con razonamiento avanzado, contexto amplio y análisis de documentos extensos. Su plan gratuito servía Claude Sonnet 5 el 30 de agosto de 2026 —el mismo modelo que Pro— y cuenta el uso por sesiones de cinco horas.",
-    "descriptionLong": "Claude, de Anthropic, destaca en razonamiento, escritura larga y análisis de documentos extensos. El plan gratuito permite conversar, subir archivos y analizar imágenes, con cuenta obligatoria. El 30 de agosto de 2026 servía Claude Sonnet 5 por defecto, el mismo modelo que el plan Pro. El uso se cuenta por sesiones que se reinician cada cinco horas, y cuántos mensajes caben en cada una no es una cifra fija: la propia documentación dice que varía según la demanda.",
+    "descriptionShort": "Asistente de Anthropic con razonamiento avanzado, contexto amplio y análisis de documentos extensos. Su plan gratuito incluye las gamas Sonnet y Haiku, no Opus ni Fable, y cuenta el uso por sesiones de cinco horas.",
+    "descriptionLong": "Claude, de Anthropic, destaca en razonamiento, escritura larga y análisis de documentos extensos. El plan gratuito permite conversar, subir archivos y analizar imágenes, con cuenta obligatoria. Según la tabla de planes, el gratuito incluye las gamas Sonnet y Haiku; Opus y Fable son de pago. El uso se cuenta por sesiones que se reinician cada cinco horas, y cuántos mensajes caben en cada una no es una cifra fija: la propia documentación dice que varía según la demanda.",
     "kind": "app",
     "verification": "partially_verified",
     "nextReviewAt": "2026-10-06",
@@ -1412,10 +1412,10 @@
     ],
     "freeModel": "free_real",
     "freePlan": {
-      "summary": "Plan gratuito con conversación, subida de archivos y análisis de imágenes. El 30 de agosto de 2026, el modelo por defecto era Claude Sonnet 5, el mismo que el plan Pro. Exige crear cuenta. El uso se cuenta por sesiones que se reinician cada cinco horas, y Anthropic dice que el número de mensajes varía según la demanda: no hay una cifra fija que se pueda publicar.",
+      "summary": "Plan gratuito con conversación, subida de archivos y análisis de imágenes. La tabla de planes da al gratuito las gamas Sonnet y Haiku; Opus y Fable quedan para los de pago. Exige crear cuenta. El uso se cuenta por sesiones que se reinician cada cinco horas, y Anthropic dice que el número de mensajes varía según la demanda: no hay una cifra fija que se pueda publicar.",
       "limits": [
         "Hay que crear cuenta",
-        "Modelo por defecto el 30 de agosto de 2026: Claude Sonnet 5, el mismo que en Pro",
+        "Gamas incluidas el 17 de octubre de 2026: Sonnet y Haiku; Opus y Fable, no. Decide Anthropic y puede cambiarlo",
         "Límite por sesión, que se reinicia cada cinco horas",
         "No hay cifra fija de mensajes: Anthropic dice que varía según la demanda",
         "No es código abierto ni se ejecuta en local"
@@ -1534,7 +1534,7 @@
         "url": "https://claude.com/pricing",
         "label": "Página oficial de precios",
         "kind": "pricing",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-10-17"
       }
     ],
     "scores": {
@@ -1577,7 +1577,7 @@
     "status": "published",
     "detectedAt": "2023-07-01",
     "lastVerifiedAt": "2026-08-30",
-    "updatedAt": "2026-07-08",
+    "updatedAt": "2026-10-17",
     "startEffort": "signup",
     "capabilities": [
       "api",
@@ -1589,13 +1589,13 @@
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-17",
+        "scope": "product",
         "field": "capabilities",
         "outcome": "stated",
-        "sourceUrl": "https://www.anthropic.com/news/claude-sonnet-5",
-        "sourceKind": "official",
-        "scope": "product",
-        "checkedAt": "2026-08-30",
-        "quote": "it is the default model for Free and Pro plans, and is available to Max, Team, and Enterprise users"
+        "sourceUrl": "https://claude.com/pricing",
+        "sourceKind": "pricing",
+        "quote": "Models and usage · Features Free Pro Max 5x Max 20x · Opus No Yes Yes Yes · Sonnet Yes Yes Yes Yes · Haiku Yes Yes Yes Yes"
       },
       {
         "field": "freePlan.limits",
@@ -1769,7 +1769,14 @@
     "notFor": [],
     "alternatives": [],
     "alternativeNames": [],
-    "changelog": [],
+    "changelog": [
+      {
+        "date": "2026-10-07",
+        "kind": "launch",
+        "summary": "Anthropic presenta Claude Haiku 5.5: pasa de 200.000 a un millón de tokens de contexto y de 64K a 128K de salida, y baja de 1 $ y 5 $ por millón a 0,10 $ y 0,50 $ en prompts de hasta 100.000 tokens. Haiku 4.5 pasa a la lista de modelos anteriores. La ficha describía Haiku 4.5 hasta esta revisión.",
+        "sourceUrl": "https://www.anthropic.com/claude-haiku-5-5"
+      }
+    ],
     "affiliation": {
       "isAffiliate": false
     },
@@ -1781,7 +1788,7 @@
     "kind": "model",
     "categorySlug": "modelos",
     "licences": {},
-    "name": "Claude Haiku 4.5",
+    "name": "Claude Haiku 5.5",
     "verification": "verified",
     "officialUrl": "https://platform.claude.com/docs/en/about-claude/models/overview",
     "hosting": "cloud",
@@ -1790,29 +1797,31 @@
       "api"
     ],
     "freeModel": "paid_only",
-    "tagline": "La gama rápida y barata de Anthropic, con contexto de 200k.",
-    "descriptionShort": "La gama pequeña: «The fastest model with near-frontier intelligence». Un dólar por millón de tokens de entrada y cinco de salida, con ventana de 200k y salida máxima de 64k. Acepta texto e imagen.",
-    "verdict": "Es la que separa a Anthropic por contexto y no sólo por precio: 200k frente al millón de las gamas mayores. Si tu trabajo cabe ahí, cuesta la quinta parte.",
+    "tagline": "La gama rápida y barata de Anthropic, ahora con un millón de tokens de contexto.",
+    "descriptionShort": "La gama pequeña: «For high-volume, latency-sensitive tasks such as classification, extraction, and routing». Desde 0,10 $ por millón de tokens de entrada y 0,50 $ de salida, con ventana de un millón y salida máxima de 128K. Acepta texto e imagen.",
+    "verdict": "Deja de separarse de las gamas mayores por contexto: Haiku 4.5 tenía 200k y Haiku 5.5 tiene el millón de Opus y Sonnet. Lo que la distingue ahora es el precio, con un tramo más caro para los prompts de más de 100.000 tokens.",
     "freePlan": {
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-24",
-      "summary": "Sin capa gratuita de API. 1 $ por millón de tokens de entrada y 5 $ de salida.",
+      "verifiedAt": "2026-10-17",
+      "summary": "Sin capa gratuita de API. 0,10 $ por millón de tokens de entrada y 0,50 $ de salida en prompts de hasta 100.000 tokens; 0,50 $ y 2,50 $ por encima.",
       "limits": [
-        "1 $/M de entrada · 5 $/M de salida",
-        "Contexto de 200k tokens · salida máxima de 64k",
-        "Pensamiento extendido disponible"
+        "0,10 $/M de entrada · 0,50 $/M de salida (prompts de hasta 100.000 tokens)",
+        "0,50 $/M de entrada · 2,50 $/M de salida (prompts de más de 100.000 tokens)",
+        "Contexto de 1M de tokens · salida máxima de 128K",
+        "Incluida en el plan gratuito de claude.ai"
       ]
     },
     "access": {
-      "chat": "unverified",
-      "chatFree": "unverified",
+      "chat": "yes",
+      "chatFree": "yes",
       "api": "yes",
       "apiFree": "no",
-      "weights": "no"
+      "weights": "no",
+      "chatWhere": "claude.ai"
     },
     "capabilities": [
       "text-generation",
@@ -1835,7 +1844,7 @@
         "label": "Documentación oficial de modelos",
         "kind": "docs",
         "publisher": "claude.com",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-10-17"
       },
       {
         "url": "https://platform.claude.com/docs/en/about-claude/pricing",
@@ -1843,26 +1852,40 @@
         "kind": "pricing",
         "publisher": "platform.claude.com",
         "checkedAt": "2026-08-24"
+      },
+      {
+        "url": "https://claude.com/pricing",
+        "label": "Planes de Claude",
+        "kind": "pricing",
+        "publisher": "claude.com",
+        "checkedAt": "2026-10-17"
+      },
+      {
+        "url": "https://www.anthropic.com/claude-haiku-5-5",
+        "label": "Anuncio de Claude Haiku 5.5",
+        "kind": "official",
+        "publisher": "anthropic.com",
+        "checkedAt": "2026-10-17"
       }
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-17",
+        "scope": "api",
         "field": "capabilities",
         "outcome": "stated",
         "sourceUrl": "https://platform.claude.com/docs/en/about-claude/models/overview",
         "sourceKind": "docs",
-        "checkedAt": "2026-08-20",
-        "quote": "Claude Haiku 4.5 — The fastest model with near-frontier intelligence · Extended thinking: Yes · Context window 200k tokens · Max output 64k tokens · $1 / input MTok $5 / output MTok",
-        "scope": "api"
+        "quote": "Claude Haiku 5.5 · For high-volume, latency-sensitive tasks such as classification, extraction, and routing · Context window · 1M tokens · Max output · 128K tokens"
       },
       {
+        "checkedAt": "2026-10-17",
+        "scope": "api",
         "field": "freePlan.limits",
         "outcome": "stated",
-        "sourceUrl": "https://platform.claude.com/docs/en/about-claude/pricing",
-        "sourceKind": "pricing",
-        "scope": "api",
-        "checkedAt": "2026-08-24",
-        "quote": "Claude Haiku 4.5 — $1 / MTok (base input tokens) · $5 / MTok (output tokens)"
+        "sourceUrl": "https://www.anthropic.com/claude-haiku-5-5",
+        "sourceKind": "official",
+        "quote": "Price per 1 million tokens · Haiku 5.5 prompts up to / over 100k · Input tokens · $0.10 / $0.50 · Output tokens · $0.50 / $2.50"
       },
       {
         "field": "freePlan.requiresCreditCard",
@@ -1876,9 +1899,9 @@
     ],
     "slug": "claude-haiku-4-5",
     "id": "tool_claude-haiku-4-5",
-    "nextReviewAt": "2026-11-22",
-    "lastVerifiedAt": "2026-08-24",
-    "updatedAt": "2026-08-20"
+    "nextReviewAt": "2027-01-15",
+    "lastVerifiedAt": "2026-10-17",
+    "updatedAt": "2026-10-17"
   },
   {
     "skillLevel": "beginner",
@@ -1896,7 +1919,14 @@
     "notFor": [],
     "alternatives": [],
     "alternativeNames": [],
-    "changelog": [],
+    "changelog": [
+      {
+        "date": "2026-09-22",
+        "kind": "launch",
+        "summary": "Anthropic presenta Claude Opus 5.5, primer modelo de la familia 5.5, y lo pone a 4 $ por millón de tokens de entrada y 20 $ de salida, un 20 % menos que Opus 5 (5 $ y 25 $). Opus 5 pasa a la lista de modelos anteriores. La ficha describía Opus 5 hasta esta revisión.",
+        "sourceUrl": "https://www.anthropic.com/claude-opus-5-5"
+      }
+    ],
     "affiliation": {
       "isAffiliate": false
     },
@@ -1908,7 +1938,7 @@
     "kind": "model",
     "categorySlug": "modelos",
     "licences": {},
-    "name": "Claude Opus 5",
+    "name": "Claude Opus 5.5",
     "verification": "verified",
     "officialUrl": "https://platform.claude.com/docs/en/about-claude/models/overview",
     "pricingUrl": "https://platform.claude.com/docs/en/about-claude/pricing",
@@ -1919,26 +1949,27 @@
       "web"
     ],
     "freeModel": "paid_only",
-    "tagline": "Un millón de tokens de contexto y pensamiento adaptativo.",
-    "descriptionShort": "La gama que Anthropic recomienda por defecto: «For complex agentic coding and enterprise work». Ventana de un millón de tokens, 128k de salida máxima y pensamiento adaptativo. Acepta texto e imagen; genera texto.",
-    "verdict": "La documentación la señala como punto de partida para trabajo agéntico de código. Por API se paga desde el primer token; en claude.ai hay plan gratuito, pero su web no documenta qué gama lo sirve.",
+    "tagline": "Un millón de tokens de contexto y pensamiento adaptativo siempre activo.",
+    "descriptionShort": "La gama que Anthropic propone como punto de partida: «For long-running agentic coding and knowledge work». Ventana de un millón de tokens, 128K de salida máxima y pensamiento adaptativo siempre activo. Acepta texto e imagen; genera texto.",
+    "verdict": "La documentación la señala como la opción por defecto («start with Claude Opus 5.5 for most workloads»). Por API se paga por token; en claude.ai la tabla de planes la deja fuera del gratuito: Opus empieza en Pro.",
     "freePlan": {
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-20",
-      "summary": "Sin capa gratuita de API. 5 $ por millón de tokens de entrada y 25 $ de salida.",
+      "verifiedAt": "2026-10-17",
+      "summary": "Sin capa gratuita de API. 4 $ por millón de tokens de entrada y 20 $ de salida.",
       "limits": [
-        "5 $/M de entrada · 25 $/M de salida",
-        "Contexto de 1M de tokens · salida máxima de 128k",
+        "4 $/M de entrada · 20 $/M de salida",
+        "Contexto de 1M de tokens · salida máxima de 128K",
+        "No entra en el plan gratuito de claude.ai: empieza en Pro",
         "Sin capa gratuita de API documentada"
       ]
     },
     "access": {
       "chat": "yes",
-      "chatFree": "unverified",
+      "chatFree": "no",
       "api": "yes",
       "apiFree": "no",
       "weights": "no",
@@ -1966,45 +1997,59 @@
         "label": "Documentación oficial de modelos",
         "kind": "docs",
         "publisher": "claude.com",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-10-17"
+      },
+      {
+        "url": "https://claude.com/pricing",
+        "label": "Planes de Claude",
+        "kind": "pricing",
+        "publisher": "claude.com",
+        "checkedAt": "2026-10-17"
+      },
+      {
+        "url": "https://www.anthropic.com/claude-opus-5-5",
+        "label": "Anuncio de Claude Opus 5.5",
+        "kind": "official",
+        "publisher": "anthropic.com",
+        "checkedAt": "2026-10-17"
       }
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-17",
+        "scope": "api",
         "field": "capabilities",
         "outcome": "stated",
         "sourceUrl": "https://platform.claude.com/docs/en/about-claude/models/overview",
         "sourceKind": "docs",
-        "checkedAt": "2026-08-20",
-        "quote": "Claude Opus 5 — For complex agentic coding and enterprise work · Adaptive thinking: Yes · Context window 1M tokens · Max output 128k tokens · All current Claude models support text and image input, text output, multilingual capabilities, and vision.",
-        "scope": "api"
+        "quote": "Claude Opus 5.5 · For long-running agentic coding and knowledge work · Adaptive (always on) · Context window · 1M tokens · Max output · 128K tokens"
       },
       {
+        "checkedAt": "2026-10-17",
+        "scope": "api",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://platform.claude.com/docs/en/about-claude/models/overview",
         "sourceKind": "docs",
-        "checkedAt": "2026-08-20",
-        "quote": "$5 / input MTok $25 / output MTok",
-        "scope": "api"
+        "quote": "Claude Opus 5.5 · $4 / input MTok · $20 / output MTok · claude-opus-5-5"
       }
     ],
     "slug": "claude-opus-5",
     "id": "tool_claude-opus-5",
-    "nextReviewAt": "2026-11-18",
-    "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-08-20"
+    "nextReviewAt": "2027-01-15",
+    "lastVerifiedAt": "2026-10-17",
+    "updatedAt": "2026-10-17"
   },
   {
     "id": "tool_claude-sonnet-5",
     "slug": "claude-sonnet-5",
-    "name": "Claude Sonnet 5",
-    "tagline": "La gama equilibrada: mismo contexto que Opus, a menos de la mitad.",
-    "descriptionShort": "La gama que Anthropic describe como «The best combination of speed and intelligence». Dos dólares por millón de tokens de entrada y diez de salida, con la misma ventana de un millón y la misma salida máxima de 128k que Opus 5.",
+    "name": "Claude Sonnet 5.5",
+    "tagline": "La gama equilibrada: mismo contexto que Opus, a la mitad de precio.",
+    "descriptionShort": "La gama que Anthropic describe como «The best combination of speed and intelligence». Dos dólares por millón de tokens de entrada y diez de salida, con la misma ventana de un millón y la misma salida máxima de 128K que Opus 5.5.",
     "descriptionLong": "Claude Sonnet 5 es el modelo intermedio de Anthropic. Su importancia para este catálogo es concreta: es el modelo por defecto de los planes Free y Pro de Claude, según la propia documentación de Anthropic. Quien usa Claude sin pagar está usando este modelo.\n\nPor API el precio estándar es de 3 dólares por millón de tokens de entrada y 15 por millón de salida. Anthropic aplicó un precio de lanzamiento reducido —2 y 10 dólares— vigente hasta el 31 de agosto de 2026.\n\nEsta ficha describe el modelo, no la aplicación. Los límites de mensajes, la ventana de uso y lo que ocurre al agotarla pertenecen a la ficha de Claude, porque son decisiones de producto que Anthropic puede cambiar sin tocar el modelo.",
     "kind": "model",
     "verification": "verified",
-    "nextReviewAt": "2026-11-18",
+    "nextReviewAt": "2027-01-15",
     "version": "5",
     "categorySlug": "modelos",
     "secondaryCategories": [
@@ -2024,11 +2069,12 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-09-16",
+      "verifiedAt": "2026-10-17",
       "summary": "Sin capa gratuita de API. 2 $ por millón de tokens de entrada y 10 $ de salida.",
       "limits": [
         "2 $/M de entrada · 10 $/M de salida",
-        "Contexto de 1M de tokens · salida máxima de 128k",
+        "Contexto de 1M de tokens · salida máxima de 128K",
+        "Incluida en el plan gratuito de claude.ai",
         "Sin capa gratuita de API documentada"
       ]
     },
@@ -2057,7 +2103,21 @@
         "label": "Documentación oficial de modelos",
         "kind": "docs",
         "publisher": "claude.com",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-10-17"
+      },
+      {
+        "url": "https://claude.com/pricing",
+        "label": "Planes de Claude",
+        "kind": "pricing",
+        "publisher": "claude.com",
+        "checkedAt": "2026-10-17"
+      },
+      {
+        "url": "https://www.anthropic.com/claude-sonnet-5-5",
+        "label": "Anuncio de Claude Sonnet 5.5",
+        "kind": "official",
+        "publisher": "anthropic.com",
+        "checkedAt": "2026-10-17"
       }
     ],
     "scores": {
@@ -2067,7 +2127,7 @@
       "transparency": 7,
       "creatorValue": 7
     },
-    "verdict": "Comparte contexto y capacidades con Opus 5 y cuesta menos de la mitad. La diferencia que documenta Anthropic es de latencia y de para qué está pensada cada una.",
+    "verdict": "Comparte contexto y salida máxima con Opus 5.5 y cuesta la mitad. Es además la gama que el plan gratuito de claude.ai incluye, junto con Haiku: si la usas desde el chat no hace falta pagar.",
     "pros": [
       "Es el modelo por defecto del plan gratuito, confirmado por Anthropic",
       "Sin instalación: funciona en el navegador",
@@ -2092,7 +2152,14 @@
       "google-gemini"
     ],
     "alternativeNames": [],
-    "changelog": [],
+    "changelog": [
+      {
+        "date": "2026-09-28",
+        "kind": "launch",
+        "summary": "Anthropic presenta Claude Sonnet 5.5 al mismo precio que Sonnet 5 (2 $ por millón de entrada y 10 $ de salida) y con la lectura de caché a la mitad. Sonnet 5 pasa a la lista de modelos anteriores. La ficha describía Sonnet 5 hasta esta revisión.",
+        "sourceUrl": "https://www.anthropic.com/claude-sonnet-5-5"
+      }
+    ],
     "affiliation": {
       "isAffiliate": false
     },
@@ -2102,8 +2169,8 @@
     },
     "status": "published",
     "detectedAt": "2026-08-07",
-    "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-08-20",
+    "lastVerifiedAt": "2026-10-17",
+    "updatedAt": "2026-10-17",
     "startEffort": "signup",
     "capabilities": [
       "text-generation",
@@ -2114,30 +2181,29 @@
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-17",
+        "scope": "api",
         "field": "capabilities",
         "outcome": "stated",
         "sourceUrl": "https://platform.claude.com/docs/en/about-claude/models/overview",
         "sourceKind": "docs",
-        "checkedAt": "2026-08-20",
-        "quote": "Claude Sonnet 5 — The best combination of speed and intelligence · Adaptive thinking: Yes · Context window 1M tokens · Max output 128k · $2 / input MTok $10 / output MTok",
-        "scope": "api"
+        "quote": "Claude Sonnet 5.5 · The best combination of speed and intelligence · Context window · 1M tokens · Max output · 128K tokens"
       },
       {
+        "checkedAt": "2026-10-17",
+        "scope": "api",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://platform.claude.com/docs/en/about-claude/models/overview",
         "sourceKind": "docs",
-        "scope": "api",
-        "quote": "Claude Sonnet 5 · The best combination of speed and intelligence · $2 / input MTok · $10 / output MTok · claude-sonnet-5 · 1M tokens · 128K tokens",
-        "basis": "Tercera columna de la tabla comparativa de modelos. La página de precios añade que 2/10 $ es ya el precio estándar y que la subida a 3/15 $ del 1 de septiembre no se aplicará.",
-        "checkedAt": "2026-09-16"
+        "quote": "Claude Sonnet 5.5 · $2 / input MTok · $10 / output MTok · claude-sonnet-5-5"
       }
     ],
     "startEffortReason": "Por API con clave y facturación; en claude.ai basta una cuenta.",
     "licences": {},
     "access": {
       "chat": "yes",
-      "chatFree": "unverified",
+      "chatFree": "yes",
       "api": "yes",
       "apiFree": "no",
       "weights": "no",

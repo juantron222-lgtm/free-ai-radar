@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { baseDe, buscadoEn, citaDe } from '@lib/domain/evidencia';
 import { getAllTools } from '@lib/data/catalog';
@@ -181,8 +182,20 @@ describe('bloques', () => {
     }
   });
 
-  it('«gratis en un chat» no llega a bloque, y por eso la página lo explica', () => {
-    expect(enChatGratis(modelos).length).toBeLessThan(MIN_BLOQUE);
+  it('«gratis en un chat» se cuenta en la página, con su número y su plural', () => {
+    /*
+     * No llegaba a bloque y la página lo explicaba con una cifra. El 17 de
+     * octubre de 2026 pasó a tres —Sonnet 5.5 y Haiku 5.5 en claude.ai,
+     * Mistral Large en Le Chat—: la tabla de planes de Claude da al gratuito
+     * las gamas Sonnet y Haiku. Que haya bloque propio es una decisión de
+     * diseño pendiente; lo que no puede pasar es que la frase diga «3
+     * confirmado».
+     */
+    const n = enChatGratis(modelos).length;
+    expect(n).toBeGreaterThan(0);
+    for (const t of enChatGratis(modelos)) expect(t.access.chatWhere, t.slug).toBeTruthy();
+    const pagina = readFileSync(new URL('../../src/pages/modelos.astro', import.meta.url), 'utf8');
+    expect(pagina).toContain("chatGratis.length === 1 ? 'confirmado' : 'confirmados'");
   });
 
   it('cada bloque contiene sólo lo que su título dice', () => {
