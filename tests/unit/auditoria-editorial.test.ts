@@ -226,17 +226,22 @@ describe('los precios son los del modelo del que habla la ficha', () => {
     expect(flash.replacedBy, 'una retirada tiene que decir a dónde ir').toBe('deepseek-v4-1-flash');
   });
 
-  it('GPT-5.6 distingue contexto corto de largo, que es lo que hace su tabla', () => {
+  it('GPT-6 distingue contexto corto de largo, que es lo que hace su tabla', () => {
     /*
      * Publicaba tres parejas sin decir a qué contexto correspondían. Dos
      * coincidían con la fila de contexto corto por casualidad y la de Sol no
      * coincidía con ninguna.
+     *
+     * Desde el 17 de octubre de 2026 la ficha es GPT-6: Sol está en su 6.1 y
+     * cuesta 2 $, no los 4 $ de GPT-5.6 Sol. Arrastrar la cifra de la
+     * generación anterior sería el mismo error con otro número.
      */
     const gpt = tools.find((t) => t.slug === 'gpt-5-6')!;
     const texto = gpt.freePlan.limits.join(' · ');
     expect(texto, 'no distingue contexto').toMatch(/contexto corto/i);
-    expect(texto, 'Sol con el precio que no era').toMatch(/Sol: 4 \$/);
-    expect(texto).not.toMatch(/Sol: 5 \$/);
+    expect(texto, 'Sol con el precio que no era').toMatch(/6\.1 Sol: 2 \$/);
+    expect(texto).not.toMatch(/Sol: 4 \$/);
+    expect(texto).toMatch(/Astra: 10 \$/);
   });
 });
 

@@ -4837,7 +4837,14 @@
     "notFor": [],
     "alternatives": [],
     "alternativeNames": [],
-    "changelog": [],
+    "changelog": [
+      {
+        "date": "2026-09-02",
+        "kind": "launch",
+        "summary": "Google publica Gemini 3.8 Flash como versión estable. El 8 de octubre de 2026 retira gemini-3.7-flash y redirige sus peticiones a gemini-3.8-flash.",
+        "sourceUrl": "https://ai.google.dev/gemini-api/docs/changelog"
+      }
+    ],
     "affiliation": {
       "isAffiliate": false
     },
@@ -4921,7 +4928,7 @@
         "label": "Documentación oficial de modelos",
         "kind": "docs",
         "publisher": "ai.google.dev",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-10-17"
       },
       {
         "url": "https://ai.google.dev/gemini-api/docs/pricing",
@@ -4940,13 +4947,13 @@
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-17",
+        "scope": "api",
         "field": "capabilities",
         "outcome": "stated",
         "sourceUrl": "https://ai.google.dev/gemini-api/docs/models",
         "sourceKind": "docs",
-        "checkedAt": "2026-08-20",
-        "quote": "Gemini 3.7 Flash: Our latest and most capable Flash model, built for complex coding, agentic workflows, and reliable multi-step execution.",
-        "scope": "api"
+        "quote": "Gemini 3.8 Flash · Our most intelligent Flash model, engineered for long-horizon software engineering, autonomous agents, and complex enterprise workflows"
       },
       {
         "checkedAt": "2026-10-11",
@@ -4991,7 +4998,7 @@
     "id": "tool_gemini-3-flash",
     "nextReviewAt": "2026-11-22",
     "lastVerifiedAt": "2026-08-24",
-    "updatedAt": "2026-08-20"
+    "updatedAt": "2026-10-17"
   },
   {
     "skillLevel": "beginner",
@@ -5009,7 +5016,14 @@
     "notFor": [],
     "alternatives": [],
     "alternativeNames": [],
-    "changelog": [],
+    "changelog": [
+      {
+        "date": "2026-10-13",
+        "kind": "other",
+        "summary": "Google abre a todos los desarrolladores Gemini 4 Argon, que pasa a ser su modelo insignia por encima de la gama Pro de Gemini 3. Tampoco tiene capa gratuita: 2 $ por millón de tokens de entrada y 10 $ de salida hasta el 30 de noviembre de 2026, y 4 $ y 20 $ desde el 1 de diciembre.",
+        "sourceUrl": "https://blog.google/innovation-and-ai/technology/developers-tools/build-with-gemini-4-argon/"
+      }
+    ],
     "affiliation": {
       "isAffiliate": false
     },
@@ -5032,16 +5046,16 @@
       "web"
     ],
     "freeModel": "paid_only",
-    "tagline": "La gama grande de Google, y la tabla dice «Free Tier: Not available».",
-    "descriptionShort": "La gama de mayor capacidad de Gemini: «Advanced intelligence, complex problem-solving skills, and powerful agentic and vibe coding capabilities». Su versión actual, 3.1 Pro, es la única fila de la tabla de texto que no tiene capa gratuita.",
-    "verdict": "Está aquí precisamente por el contraste: es el ejemplo de que «la API de Gemini tiene capa gratuita» no se puede heredar de un modelo a otro.",
+    "tagline": "La gama Pro de Gemini 3, y la tabla dice «Not available» en la capa gratuita.",
+    "descriptionShort": "La gama Pro de Gemini 3, hoy en su versión 3.1 Pro Preview: «Our 3rd generation Pro model, built for multimodal understanding, agentic capabilities, and vibe-coding». Su fila de precios no tiene capa gratuita. Desde el 13 de octubre de 2026 la gama insignia de Google es Gemini 4 Argon, que tampoco la tiene.",
+    "verdict": "Está aquí precisamente por el contraste: es el ejemplo de que «la API de Gemini tiene capa gratuita» no se puede heredar de un modelo a otro. Lo mismo vale para el nuevo Gemini 4 Argon: la tabla dice «Gemini 4 Argon is not available on the Free tier».",
     "freePlan": {
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-20",
+      "verifiedAt": "2026-10-17",
       "summary": "Sin capa gratuita: la tabla oficial marca «Free Tier: Not available» para gemini-3.1-pro-preview. De pago, 2 $ por millón de entrada hasta 200k tokens de prompt y 4 $ por encima; 12 $ y 18 $ de salida.",
       "limits": [
         "Free Tier: Not available",
@@ -5078,25 +5092,25 @@
         "label": "Precios oficiales de la API",
         "kind": "pricing",
         "publisher": "ai.google.dev",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-10-17"
       }
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-17",
+        "scope": "api",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-08-20",
-        "quote": "Gemini 3.1 Pro Preview (gemini-3.1-pro-preview) — Free Tier: Not available · Paid input $2.00 (prompts ≤200k tokens), $4.00 (>200k) · Paid output $12.00 / $18.00",
-        "scope": "api"
+        "quote": "Gemini 3.1 Pro Preview · gemini-3.1-pro-preview · Input price · Not available · $2.00, prompts <= 200k tokens · $4.00, prompts > 200k tokens · Output price (including thinking tokens) · Not available · $12.00, prompts <= 200k tokens · $18.00, prompts > 200k"
       }
     ],
     "slug": "gemini-3-pro",
     "id": "tool_gemini-3-pro",
-    "nextReviewAt": "2026-11-18",
-    "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-08-20"
+    "nextReviewAt": "2027-01-15",
+    "lastVerifiedAt": "2026-10-17",
+    "updatedAt": "2026-10-17"
   },
   {
     "skillLevel": "beginner",
@@ -6296,7 +6310,20 @@
     "notFor": [],
     "alternatives": [],
     "alternativeNames": [],
-    "changelog": [],
+    "changelog": [
+      {
+        "date": "2026-09-03",
+        "kind": "launch",
+        "summary": "OpenAI lanza GPT-6 Astra, la gama mayor de la nueva generación: 10 $ por millón de tokens de entrada y 50 $ de salida en contexto corto. La ficha describía GPT-5.6 (Sol, Terra y Luna) hasta la revisión del 17 de octubre de 2026; GPT-5.6 Sol sigue en la API, ahora listado entre los modelos de ciberseguridad.",
+        "sourceUrl": "https://openai.com/index/gpt-6-astra"
+      },
+      {
+        "date": "2026-09-22",
+        "kind": "launch",
+        "summary": "OpenAI presenta GPT-6 Sol y GPT-6 Luna, con el mismo contexto que Astra y una fracción de su precio. En la página de precios del 17 de octubre de 2026, Sol figura ya como GPT-6.1 Sol, a 2 $ y 10 $ por millón.",
+        "sourceUrl": "https://openai.com/index/introducing-gpt-6-sol-and-luna"
+      }
+    ],
     "affiliation": {
       "isAffiliate": false
     },
@@ -6308,7 +6335,7 @@
     "kind": "model",
     "categorySlug": "modelos",
     "licences": {},
-    "name": "GPT-5.6",
+    "name": "GPT-6",
     "verification": "partially_verified",
     "officialUrl": "https://developers.openai.com/api/docs/models",
     "pricingUrl": "https://developers.openai.com/api/docs/pricing",
@@ -6319,22 +6346,23 @@
     ],
     "freeModel": "paid_only",
     "tagline": "Tres gamas, ninguna gratis por API.",
-    "descriptionShort": "La generación actual de OpenAI, en tres gamas: Sol («frontier model for complex professional work»), Terra y Luna, la económica. Su documentación de precios no menciona capa gratuita ni tokens de regalo: se paga por token desde el primero.",
-    "verdict": "Se paga desde el primer token. Lo que una persona puede usar sin pagar es ChatGPT, que es otra cosa —una aplicación— y tiene su propia ficha.",
+    "descriptionShort": "La generación actual de OpenAI, en tres gamas: Astra («Our most capable model for the most demanding work»), Sol —ya en su versión 6.1— y Luna, la económica. Su página de precios no menciona capa gratuita ni tokens de regalo: se paga por token desde el primero.",
+    "verdict": "Se paga desde el primer token. Lo que una persona puede usar sin pagar es ChatGPT, que es otra cosa —una aplicación, con su propia ficha—, y su plan gratuito ni siquiera sirve GPT-6: según la ayuda de OpenAI, usa GPT-5.6 Luna.",
     "freePlan": {
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-20",
-      "summary": "Sin capa gratuita documentada. Precios estándar por millón de tokens, con contexto corto y largo tarifados aparte. Sol: 4 $ de entrada y 20 $ de salida en contexto corto; 8 $ y 30 $ en largo. Terra: 2 $ y 12 $ en corto; 4 $ y 18 $ en largo. Luna: 0,20 $ y 1,20 $ en corto; 0,40 $ y 1,80 $ en largo.",
+      "verifiedAt": "2026-10-17",
+      "summary": "Sin capa gratuita documentada. Precios estándar por millón de tokens, con contexto corto y largo tarifados aparte. Astra: 10 $ de entrada y 50 $ de salida en contexto corto; 20 $ y 75 $ en largo. 6.1 Sol: 2 $ y 10 $ en corto; 4 $ y 15 $ en largo. Luna: 0,10 $ y 0,50 $ en corto; 0,20 $ y 0,75 $ en largo.",
       "limits": [
-        "GPT-5.6 Sol: 4 $/M entrada · 20 $/M salida (contexto corto) · 8 $ y 30 $ (largo)",
-        "GPT-5.6 Terra: 2 $/M entrada · 12 $/M salida (contexto corto) · 4 $ y 18 $ (largo)",
-        "GPT-5.6 Luna: 0,20 $/M entrada · 1,20 $/M salida (contexto corto) · 0,40 $ y 1,80 $ (largo)",
+        "GPT-6 Astra: 10 $/M entrada · 50 $/M salida (contexto corto) · 20 $ y 75 $ (largo)",
+        "GPT-6.1 Sol: 2 $/M entrada · 10 $/M salida (contexto corto) · 4 $ y 15 $ (largo)",
+        "GPT-6 Luna: 0,10 $/M entrada · 0,50 $/M salida (contexto corto) · 0,20 $ y 0,75 $ (largo)",
         "Las tarifas por lotes y flex son la mitad; el modo rápido, el doble",
-        "La página de precios no documenta capa gratuita"
+        "La página de precios no documenta capa gratuita",
+        "El plan gratuito de ChatGPT usa GPT-5.6 Luna, no GPT-6"
       ]
     },
     "access": {
@@ -6363,42 +6391,49 @@
         "label": "Documentación oficial de modelos",
         "kind": "docs",
         "publisher": "openai.com",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-10-17"
       },
       {
         "url": "https://developers.openai.com/api/docs/pricing",
         "label": "Precios oficiales de la API",
         "kind": "pricing",
         "publisher": "openai.com",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-10-17"
+      },
+      {
+        "url": "https://help.openai.com/en/articles/20001354-gpt-6-and-other-models-in-chatgpt",
+        "label": "GPT-6 y otros modelos en ChatGPT",
+        "kind": "docs",
+        "publisher": "help.openai.com",
+        "checkedAt": "2026-10-17"
       }
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-17",
+        "scope": "api",
         "field": "capabilities",
         "outcome": "stated",
         "sourceUrl": "https://developers.openai.com/api/docs/models",
         "sourceKind": "docs",
-        "checkedAt": "2026-08-20",
-        "quote": "GPT-5.6 Sol — Frontier model for complex professional work.",
-        "scope": "api"
+        "quote": "GPT-6 Astra · Our most capable model for the most demanding work · GPT-6.1 Sol · Near-Astra performance for complex work at a lower cost · GPT-6 Luna · Our most efficient model for focused, high-volume tasks"
       },
       {
+        "checkedAt": "2026-10-17",
+        "scope": "api",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://developers.openai.com/api/docs/pricing",
         "sourceKind": "pricing",
-        "scope": "api",
-        "checkedAt": "2026-08-29",
-        "quote": "Sol: short context input $4.00 / output $20.00; long context input $8.00 / output $30.00 · Terra: $2.00 / $12.00; $4.00 / $18.00 · Luna: $0.20 / $1.20; $0.40 / $1.80"
+        "quote": "Flagship models · Our latest models · gpt-6-astra $10.00 $1.00 $12.50 $50.00 $20.00 $2.00 $25.00 $75.00 · gpt-6.1-sol $2.00 $0.10 $2.50 $10.00 $4.00 $0.20 $5.00 $15.00 · gpt-6-luna $0.10 $0.01 $0.125 $0.50 $0.20 $0.02 $0.25 $0.75"
       }
     ],
     "auditNotes": "`chat` y `chatFree` se quedan sin afirmar: help.openai.com, openai.com/chatgpt/pricing y el blog devuelven 403 a toda lectura automática, así que no hay forma de comprobar qué modelo sirve el plan gratuito de ChatGPT. Las capacidades se quedan en lo que la tabla de modelos demuestra.",
     "slug": "gpt-5-6",
     "id": "tool_gpt-5-6",
-    "nextReviewAt": "2026-11-18",
-    "lastVerifiedAt": "2026-08-29",
-    "updatedAt": "2026-08-20"
+    "nextReviewAt": "2027-01-15",
+    "lastVerifiedAt": "2026-10-17",
+    "updatedAt": "2026-10-17"
   },
   {
     "skillLevel": "beginner",
