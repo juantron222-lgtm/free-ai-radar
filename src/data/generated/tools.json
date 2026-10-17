@@ -17374,8 +17374,8 @@
     "id": "tool_v0-by-vercel",
     "slug": "v0-by-vercel",
     "name": "v0 by Vercel",
-    "tagline": "Cinco dólares en créditos al mes y siete mensajes al día.",
-    "descriptionShort": "Genera interfaces y aplicaciones web desde una descripción, con vista previa y despliegue en Vercel. Su plan gratuito incluye cinco dólares mensuales en créditos y un límite de siete mensajes al día.",
+    "tagline": "Cinco dólares en créditos una sola vez al darte de alta, y siete mensajes al día.",
+    "descriptionShort": "Genera interfaces y aplicaciones web desde una descripción, con vista previa y despliegue en Vercel. Las cuentas nuevas reciben cinco dólares en créditos una sola vez, que no se renuevan, y un límite de siete mensajes al día; las cuentas gratuitas anteriores conservan sus cinco dólares al mes.",
     "descriptionLong": "v0 by Vercel es un generador de UI que convierte descripciones de texto en componentes React completos con Tailwind CSS y shadcn/ui. Generas código limpio, responsive y listo para copiar y pegar en tu proyecto Next.js. Ideal para desarrolladores frontend que quieren prototipar rápido o generar componentes complejos sin escribirlos manualmente. El plan gratuito permite varias generaciones al día.",
     "kind": "agent",
     "verification": "verified",
@@ -17391,11 +17391,11 @@
       "Aprendizaje de patrones de diseño con Tailwind",
       "Creación de landing pages y dashboards"
     ],
-    "freeModel": "freemium",
+    "freeModel": "credits",
     "freePlan": {
-      "summary": "Plan gratuito con cinco dólares en créditos mensuales incluidos y un límite de siete mensajes al día. El plan de pago más barato es Plus, 30 $ al mes por usuario.",
+      "summary": "Plan gratuito con cinco dólares en créditos una sola vez para las cuentas nuevas —las cuentas gratuitas anteriores conservan sus cinco dólares al mes— y un límite de siete mensajes al día. El plan de pago más barato es Plus, 30 $ al mes por usuario.",
       "limits": [
-        "5 $ en créditos incluidos al mes",
+        "Cuentas nuevas: 5 $ en créditos una sola vez, que no se renuevan; las cuentas gratuitas anteriores conservan sus 5 $ al mes",
         "7 mensajes al día",
         "Plan de pago más barato: Plus, 30 $/mes por usuario"
       ],
@@ -17403,9 +17403,9 @@
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
-      "creditsAmount": "5 $/mes en créditos · 7 mensajes/día",
-      "creditReset": "monthly",
-      "verifiedAt": "2026-08-24"
+      "creditsAmount": "5 $ una sola vez (cuentas nuevas) · 7 mensajes/día",
+      "creditReset": "one_off",
+      "verifiedAt": "2026-10-17"
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -17434,7 +17434,7 @@
         "label": "Documentación oficial",
         "kind": "docs",
         "publisher": "v0.app",
-        "checkedAt": "2026-08-24"
+        "checkedAt": "2026-10-17"
       }
     ],
     "scores": {
@@ -17444,7 +17444,7 @@
       "transparency": 5,
       "creatorValue": 7
     },
-    "verdict": "Los dos límites conviven y el que primero te frena es el diario: siete mensajes se gastan en una tarde de pruebas aunque queden créditos.",
+    "verdict": "Para quien se da de alta hoy es una prueba, no un plan que se renueva: cinco dólares una vez. Y antes que los créditos suele frenar el límite diario: siete mensajes se gastan en una tarde de pruebas.",
     "pros": [],
     "cons": [
       "Generaciones diarias limitadas en plan gratuito",
@@ -17464,6 +17464,12 @@
         "date": "2023-09-15",
         "kind": "launch",
         "summary": "v0 sigue siendo la herramienta de referencia para generar UI con IA. La calidad del código generado es consistentemente alta."
+      },
+      {
+        "date": "2026-10-17",
+        "kind": "free_plan_reduced",
+        "summary": "Las cuentas nuevas reciben 5 $ en créditos una sola vez en lugar de 5 $ al mes; las cuentas gratuitas anteriores conservan su asignación mensual. Así lo explica la documentación de precios, y de ahí venía la discrepancia entre la página de precios («one-time credits for new users») y la ficha. Vercel no publica desde cuándo; la fecha es la de nuestra comprobación.",
+        "sourceUrl": "https://v0.app/docs/pricing"
       }
     ],
     "affiliation": {
@@ -17475,8 +17481,8 @@
     },
     "status": "published",
     "detectedAt": "2023-09-15",
-    "lastVerifiedAt": "2026-08-24",
-    "updatedAt": "2026-08-21",
+    "lastVerifiedAt": "2026-10-17",
+    "updatedAt": "2026-10-17",
     "startEffort": "signup",
     "capabilities": [
       "code-generation",
@@ -17484,22 +17490,22 @@
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-17",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://v0.app/docs/pricing",
         "sourceKind": "docs",
-        "scope": "product",
-        "checkedAt": "2026-08-24",
-        "quote": "Free plan: $5 monthly credits · Daily Message Limit: 7 messages. Each plan includes a monthly credit allowance."
+        "quote": "Free: No cost. For people looking to explore. · Plus: $30/user/month · 7 messages · New users who sign up under the one-time Free credit offer receive $5 once per user in each personal or team account. Existing Free users keep their $5 monthly allowance."
       },
       {
+        "checkedAt": "2026-10-17",
+        "scope": "product",
         "field": "freePlan.creditReset",
         "outcome": "stated",
         "sourceUrl": "https://v0.app/docs/pricing",
         "sourceKind": "docs",
-        "scope": "product",
-        "checkedAt": "2026-08-24",
-        "quote": "Each plan includes a monthly credit allowance."
+        "quote": "New users who sign up under the one-time Free credit offer receive $5 once per user in each personal or team account. […] A one-time allowance does not renew."
       },
       {
         "checkedAt": "2026-10-11",

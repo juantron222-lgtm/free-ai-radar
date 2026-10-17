@@ -74,7 +74,13 @@ const REGLAS: Regla[] = [
     id: 'créditos de una vez contados como si volvieran',
     aplica: (t) => t.freePlan.creditReset === 'one_off',
     choca: /(?<!\bno vuelven )\b(al mes|cada mes|mensual(es)?|al día|cada día|diari[oa]s?|a la semana|semanal(es)?)\b/i,
-    ignora: new RegExp(`${DE_PAGO_O_PRUEBA.source}|no vuelven`, 'i'),
+    /*
+     * Dos cosas que vuelven y no son los créditos: un tope de mensajes (v0:
+     * «siete mensajes al día») y la asignación que conservan las cuentas
+     * anteriores a un cambio (v0, 17 de octubre de 2026: las cuentas gratuitas
+     * de antes siguen con 5 $ al mes; las nuevas, una sola vez).
+     */
+    ignora: new RegExp(`${DE_PAGO_O_PRUEBA.source}|no vuelven|mensajes|cuentas (gratuitas )?anteriores`, 'i'),
   },
   {
     id: 'cuota que vuelve contada como de una vez',
@@ -156,6 +162,10 @@ describe('una ficha no se contradice a sí misma', () => {
     const prueba = (id: string, frase: string) => REGLAS.find((r) => r.id === id)!.choca.test(frase);
     expect(prueba('créditos de una vez contados como si volvieran', 'Cinco dólares en créditos al mes')).toBe(true);
     expect(prueba('créditos de una vez contados como si volvieran', 'Los 125 créditos no vuelven al mes siguiente')).toBe(false);
+    // Las excepciones no se tragan el error de verdad.
+    const ignora = (id: string, frase: string) => REGLAS.find((r) => r.id === id)!.ignora?.test(frase) ?? false;
+    expect(ignora('créditos de una vez contados como si volvieran', 'Cinco dólares en créditos al mes')).toBe(false);
+    expect(ignora('créditos de una vez contados como si volvieran', 'y un límite de siete mensajes al día')).toBe(true);
     expect(prueba('sin marca, pero la lleva', 'Los vídeos llevan la marca de agua')).toBe(true);
     expect(prueba('sin marca, pero la lleva', 'lo que salga no lleva marca de agua')).toBe(false);
     expect(prueba('afirma una tarjeta que no consta', 'No pide tarjeta para empezar')).toBe(true);
