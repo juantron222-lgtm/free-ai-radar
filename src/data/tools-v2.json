@@ -50,7 +50,7 @@
     "status": "published",
     "detectedAt": "2026-08-12",
     "lastVerifiedAt": "2026-08-12",
-    "updatedAt": "2026-08-12",
+    "updatedAt": "2026-10-17",
     "slug": "adobe-firefly",
     "name": "Adobe Firefly",
     "tagline": "Generaciones gratuitas diarias, según la propia documentación de Adobe.",
@@ -76,7 +76,7 @@
           "condition": "generaciones diarias, sin cifra publicada",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-10-17",
             "scope": "product",
             "sourceUrl": "https://www.adobe.com/products/firefly/plans.html",
             "sourceKind": "pricing",
@@ -89,7 +89,7 @@
           "signal": "c2pa",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-10-17",
             "scope": "product",
             "sourceUrl": "https://www.adobe.com/products/firefly/plans.html",
             "sourceKind": "pricing",
@@ -108,7 +108,7 @@
     "verdict": "La frecuencia está documentada y la cantidad no. Se registra lo primero y se calla lo segundo.",
     "evidence": [
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-10-17",
         "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
@@ -121,8 +121,8 @@
         "outcome": "stated",
         "sourceUrl": "https://www.adobe.com/products/firefly.html",
         "sourceKind": "official",
-        "checkedAt": "2026-08-12",
-        "quote": "range of aesthetic styles and capabilities across text-to-image, text-to-video, and image-to-video workflows, · Generate and edit images, video, audio, and designs using top AI models from Adobe,",
+        "checkedAt": "2026-10-17",
+        "quote": "Generate and edit images, video, audio, and designs using top AI models from Adobe, Google, OpenAI, Kling AI, and more",
         "scope": "cloud"
       },
       {
@@ -914,7 +914,7 @@
     "slug": "chatgpt",
     "name": "ChatGPT",
     "tagline": "Plan gratuito con cuenta obligatoria: conversaciones de texto cotidianas ilimitadas; el resto de herramientas, con límites que no publica.",
-    "descriptionShort": "El asistente de OpenAI en el navegador y en móvil. Su plan gratuito da conversaciones de texto cotidianas ilimitadas —sujetas a medidas contra el abuso— y límites propios, sin cifra publicada, para archivos, imágenes, voz y otras herramientas. Exige cuenta. El 11 de octubre de 2026 servía GPT-5.6 Luna por defecto, y OpenAI cambia esa asignación sin aviso.",
+    "descriptionShort": "El asistente de OpenAI en el navegador y en móvil. Su plan gratuito da conversaciones de texto cotidianas ilimitadas —sujetas a medidas contra el abuso— y límites propios, sin cifra publicada, para archivos, imágenes, voz y otras herramientas. Exige cuenta. El 17 de octubre de 2026 servía GPT-5.6 Luna por defecto, y OpenAI cambia esa asignación sin aviso.",
     "descriptionLong": "ChatGPT es el asistente de OpenAI. El plan gratuito da conversación con capacidades de texto y visión, generación de imágenes, navegación web, análisis de archivos y GPTs, además de la conversación por voz en la aplicación móvil. Hace falta crear una cuenta. El 30 de agosto de 2026, el modelo asignado por defecto era GPT-5.6 Luna, sin acceso a GPT-5.6 Sol. Esa asignación la decide OpenAI y ha cambiado varias veces, así que la fecha forma parte del dato.",
     "kind": "app",
     "verification": "partially_verified",
@@ -932,10 +932,10 @@
     ],
     "freeModel": "free_real",
     "freePlan": {
-      "summary": "Plan gratuito con conversaciones de texto cotidianas ilimitadas, sujetas a medidas contra el abuso. Archivos subidos, imágenes, voz, análisis de datos y otras herramientas tienen cada uno su límite, que OpenAI no publica. Exige crear cuenta. El 11 de octubre de 2026 el modelo por defecto era GPT-5.6 Luna.",
+      "summary": "Plan gratuito con conversaciones de texto cotidianas ilimitadas, sujetas a medidas contra el abuso. Archivos subidos, imágenes, voz, análisis de datos y otras herramientas tienen cada uno su límite, que OpenAI no publica. Exige crear cuenta. El 17 de octubre de 2026 el modelo por defecto seguía siendo GPT-5.6 Luna, según la ayuda de OpenAI.",
       "limits": [
         "Hay que crear cuenta",
-        "Modelo por defecto el 11 de octubre de 2026: GPT-5.6 Luna; GPT-6 se está desplegando sólo en planes de pago, aunque la página de precios lo nombre en el gratuito",
+        "Modelo por defecto el 17 de octubre de 2026: GPT-5.6 Luna; GPT-6 se está desplegando sólo en planes de pago, aunque la página de precios lo nombre en el gratuito («Unlimited text chats with GPT-6»)",
         "Conversaciones de texto cotidianas ilimitadas, sujetas a medidas contra el abuso",
         "Archivos subidos, imágenes, voz, análisis de datos y otras herramientas: cada uno con su límite, sin cifra publicada",
         "La asignación de modelo la decide OpenAI y cambia sin aviso",
@@ -946,7 +946,7 @@
       "hasWatermark": "unverified",
       "commercialUse": "yes",
       "creditReset": "none",
-      "verifiedAt": "2026-10-11",
+      "verifiedAt": "2026-10-17",
       "includedCapabilities": [
         {
           "capability": "text-generation",
@@ -989,7 +989,7 @@
           "condition": "limitada, sin cifra publicada",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-10-17",
             "scope": "product",
             "sourceUrl": "https://chatgpt.com/pricing",
             "sourceKind": "pricing",
@@ -1001,7 +1001,7 @@
           "condition": "limitada, sin cifra publicada",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-10-17",
             "scope": "product",
             "sourceUrl": "https://chatgpt.com/pricing",
             "sourceKind": "pricing",
@@ -1013,7 +1013,7 @@
           "condition": "acceso limitado a Codex, sin cifra publicada",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-10-17",
             "scope": "product",
             "sourceUrl": "https://chatgpt.com/pricing",
             "sourceKind": "pricing",
@@ -1182,7 +1182,7 @@
     "status": "published",
     "detectedAt": "2022-11-30",
     "lastVerifiedAt": "2026-08-30",
-    "updatedAt": "2026-07-08",
+    "updatedAt": "2026-10-17",
     "startEffort": "signup",
     "capabilities": [
       "text-generation",
@@ -1195,7 +1195,7 @@
     ],
     "evidence": [
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-10-17",
         "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
@@ -1209,8 +1209,8 @@
         "sourceUrl": "https://chatgpt.com/pricing",
         "sourceKind": "pricing",
         "scope": "web",
-        "checkedAt": "2026-09-15",
-        "quote": "Unlimited text chats with GPT-5.6 Luna · Limited and slower image generation · Limited voice chats · Limited deep research · Limited memory and context · Limited Codex access",
+        "checkedAt": "2026-10-17",
+        "quote": "Free · Best for trying out ChatGPT · Unlimited text chats with GPT-6 · Limited messages with uploads · Limited image creation · Limited voice chats · Limited deep research · Limited memory and context · Limited Codex access · Unlimited text chats subject to abuse guardrails",
         "basis": "Lista del plan Free en la página de precios."
       },
       {
