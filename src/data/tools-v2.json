@@ -378,8 +378,8 @@
         "outcome": "stated",
         "sourceUrl": "https://aws.amazon.com/q/developer/pricing/",
         "sourceKind": "pricing",
-        "checkedAt": "2026-08-21",
-        "quote": "Free Tier: 50 agentic requests per month · 1,000 lines of code per month · Suppress public code suggestions. Pro: $19 per month per user.",
+        "checkedAt": "2026-10-17",
+        "quote": "50 agentic requests per month · 1,000 lines of code per month · Suppress public code suggestions · Pro Tier: Expanded limits $19/mo. per user",
         "scope": "cloud"
       },
       {
@@ -405,7 +405,7 @@
     "id": "tool_amazon-q-developer",
     "nextReviewAt": "2026-11-19",
     "lastVerifiedAt": "2026-08-21",
-    "updatedAt": "2026-08-21"
+    "updatedAt": "2026-10-17"
   },
   {
     "skillLevel": "beginner",
@@ -2688,7 +2688,7 @@
   {
     "id": "tool_comfy-cloud",
     "kind": "platform",
-    "verification": "verified",
+    "verification": "partially_verified",
     "nextReviewAt": "2026-11-12",
     "categorySlug": "imagen",
     "secondaryCategories": [],
@@ -2719,7 +2719,14 @@
     "notFor": [],
     "alternatives": [],
     "alternativeNames": [],
-    "changelog": [],
+    "changelog": [
+      {
+        "date": "2026-10-15",
+        "kind": "other",
+        "summary": "La página de precios deja de decir «no credit card required» y añade créditos gratis para Comfy Agent a las cinco ejecuciones de los usuarios nuevos. Comfy no publica la fecha del cambio: el 12 de octubre de 2026 aún lo decía y el 15 ya no.",
+        "sourceUrl": "https://www.comfy.org/pricing"
+      }
+    ],
     "affiliation": {
       "isAffiliate": false
     },
@@ -2728,27 +2735,29 @@
     },
     "status": "published",
     "detectedAt": "2026-08-12",
-    "lastVerifiedAt": "2026-08-12",
-    "updatedAt": "2026-08-12",
+    "lastVerifiedAt": "2026-10-17",
+    "updatedAt": "2026-10-17",
     "slug": "comfy-cloud",
     "name": "Comfy Cloud",
-    "tagline": "ComfyUI alojado, con cinco ejecuciones gratuitas y sin tarjeta.",
-    "descriptionShort": "La versión alojada de ComfyUI: los mismos flujos de nodos sin instalar nada ni tener GPU. Ofrece cinco ejecuciones gratuitas para empezar.",
+    "tagline": "ComfyUI alojado, con cinco ejecuciones gratuitas para empezar.",
+    "descriptionShort": "La versión alojada de ComfyUI: los mismos flujos de nodos sin instalar nada ni tener GPU. Ofrece a los usuarios nuevos cinco ejecuciones gratuitas y créditos gratis para Comfy Agent.",
     "officialUrl": "https://www.comfy.org/",
     "pricingUrl": "https://www.comfy.org/pricing",
     "freeModel": "credits",
     "freePlan": {
-      "summary": "Cinco ejecuciones gratuitas en GPU real, sin tarjeta. La página no dice que se renueven, así que se registran como asignación única.",
+      "summary": "Cinco ejecuciones gratuitas en GPU real y créditos gratis para Comfy Agent, para usuarios nuevos. La página no dice que se renueven, así que se registran como asignación única. Ya no dice si hace falta tarjeta.",
       "limits": [
-        "5 free runs on real GPUs"
+        "5 free runs on real GPUs",
+        "Créditos gratis para Comfy Agent, sólo para usuarios nuevos",
+        "La página de precios ya no dice si pide tarjeta"
       ],
       "requiresSignup": "unverified",
-      "requiresCreditCard": "no",
+      "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "one_off",
       "creditsAmount": "5 free runs",
-      "verifiedAt": "2026-10-12"
+      "verifiedAt": "2026-10-17"
     },
     "scores": {
       "freeReal": 6,
@@ -2764,18 +2773,18 @@
         "outcome": "stated",
         "sourceUrl": "https://www.comfy.org/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-08-12",
-        "quote": "Start free. Upgrade when you're ready. 5 free runs on real GPUs — no credit card required.",
+        "checkedAt": "2026-10-17",
+        "quote": "Start Comfy Cloud for free. Upgrade when ready. 5 free runs on real GPUs and free Comfy Agent credits for new users",
         "scope": "cloud"
       },
       {
+        "checkedAt": "2026-10-17",
+        "scope": "product",
         "field": "freePlan.requiresCreditCard",
-        "outcome": "stated",
+        "outcome": "not_published",
         "sourceUrl": "https://www.comfy.org/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-10-12",
-        "quote": "no credit card required",
-        "scope": "cloud"
+        "lookedFor": "Si las ejecuciones gratuitas piden tarjeta. La página decía «no credit card required» hasta el 12 de octubre de 2026; el 15 ya no lo decía, y ahora sólo anuncia «5 free runs on real GPUs and free Comfy Agent credits for new users»."
       },
       {
         "field": "capabilities",
@@ -3933,8 +3942,8 @@
         "outcome": "stated",
         "sourceUrl": "https://docs.devin.ai/admin/billing/self-serve",
         "sourceKind": "docs",
-        "checkedAt": "2026-08-19",
-        "quote": "Free | Individuals trying Devin | Free | 1 — Limited Devin usage, Devin Review, DeepWiki. [Pro: $20/month · Max: $200/month · Teams: $80/month minimum.]",
+        "checkedAt": "2026-10-17",
+        "quote": "Free | Individuals trying Devin | Free | 1 · The Free plan lets you try Devin with limited usage. It includes: Limited Devin usage Access to Devin Review Access to DeepWiki · Individual users $20/month",
         "scope": "cloud"
       },
       {
@@ -3959,7 +3968,7 @@
     "auditNotes": "La documentación afirma «if you can do it in three hours, Devin can most likely do it». Es una promesa de alcance, no un dato comprobable, y no se recoge como capacidad. Plataformas corregidas el 13 de septiembre de 2026: la documentación de Devin CLI la describe como «a local command-line coding agent» e indica cómo instalarla en macOS, Linux/WSL y Windows. Ya aparecía en las notas de versión de abril de 2026, así que era una omisión de la ficha y no un cambio del fabricante, y por eso no va al changelog. Devin Desktop no se añade por separado: ninguna página oficial consultada declara explícitamente en qué sistemas se instala. SWE-2, el modelo presentado el 10 de septiembre, no altera ningún campo de la ficha. Planes y precios comprobados el 13 de septiembre, sin cambios.",
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-09-13",
+    "updatedAt": "2026-10-17",
     "access": {},
     "productType": "agent"
   },
@@ -5421,7 +5430,7 @@
     "status": "published",
     "detectedAt": "2026-08-07",
     "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-10-17",
     "startEffort": "install",
     "capabilities": [
       "text-generation",
@@ -5446,8 +5455,8 @@
         "outcome": "stated",
         "sourceUrl": "https://ai.google.dev/gemma/docs/core/model_card_4",
         "sourceKind": "docs",
-        "checkedAt": "2026-08-20",
-        "quote": "Apache 2.0 · E2B (2.3B effective), E4B (4.5B effective), 12B Unified, 26B A4B (MoE), 31B Dense · E2B and E4B: 128K tokens; 12B, 26B A4B, 31B: 256K · Inputs: text and images (all models); audio support on E2B, E4B, and 12B only · Outputs: text generation only",
+        "checkedAt": "2026-10-17",
+        "quote": "Apache 2.0 · available in five distinct sizes: E2B, E4B, 12B, 26B A4B, and 31B · The small models feature a 128K context window, while the medium models support 256K · text and image input (with audio supported on E2B, E4B, and 12B models) and generating text output",
         "scope": "api"
       }
     ],
@@ -6053,7 +6062,7 @@
     "freePlan": {
       "summary": "El plan gratuito de la app Gemini (0 €/mes) incluye generación y edición de imágenes, con la advertencia de que «se pueden aplicar límites de uso». El centro de ayuda confirma que existe una cuota diaria de imágenes, pero Google no publica la cifra. Distinto de la API: en ai.google.dev todos los modelos de imagen figuran como «Not available» en la capa gratuita.",
       "limits": [
-        "Modelo del plan sin coste el 11 de octubre de 2026: 3.5 Flash-Lite",
+        "Modelo del plan sin coste el 17 de octubre de 2026: «our Flash-Lite model», sin versión publicada",
         "Generación y edición de imágenes incluidas en el plan gratuito de la app",
         "La marca visible se puede desactivar en Ajustes → Media Watermark, salvo en India, Corea del Sur y Vietnam; la marca invisible SynthID y las credenciales C2PA van siempre",
         "Existe una cuota diaria de imágenes; Google no publica la cantidad",
@@ -6066,7 +6075,7 @@
       "hasWatermark": "no",
       "commercialUse": "unverified",
       "creditReset": "daily",
-      "verifiedAt": "2026-10-11",
+      "verifiedAt": "2026-10-17",
       "includedCapabilities": [
         {
           "capability": "text-to-image",
@@ -6082,14 +6091,14 @@
         },
         {
           "capability": "text-generation",
-          "condition": "con 3.5 Flash-Lite",
+          "condition": "con el modelo Flash-Lite, sin versión publicada",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-10-17",
             "scope": "product",
             "sourceUrl": "https://gemini.google/subscriptions/",
             "sourceKind": "pricing",
-            "quote": "Sin coste · Recibe ayuda en tu día a día de la IA de Google con tus tareas del trabajo, los estudios o la casa. · €0 EUR/mes con una cuenta de Google · Aplicación Gemini · […] Acceso a 3.5 Flash-Lite · Generación y edición de imágenes · Deep Research · Gemini Live · Canvas · Gems"
+            "quote": "Sin coste · Recibe ayuda en tu día a día de la IA de Google con tus tareas del trabajo, los estudios o la casa. · €0 EUR/mes con una cuenta de Google · Aplicación Gemini · […] Access to our Flash-Lite model · Generación y edición de imágenes · Deep Research · Gemini Live · Canvas · Gems"
           }
         },
         {
@@ -6097,11 +6106,11 @@
           "condition": "cuota diaria sin cifra publicada",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-10-17",
             "scope": "product",
             "sourceUrl": "https://gemini.google/subscriptions/",
             "sourceKind": "pricing",
-            "quote": "Sin coste · Recibe ayuda en tu día a día de la IA de Google con tus tareas del trabajo, los estudios o la casa. · €0 EUR/mes con una cuenta de Google · Aplicación Gemini · […] Acceso a 3.5 Flash-Lite · Generación y edición de imágenes · Deep Research · Gemini Live · Canvas · Gems"
+            "quote": "Sin coste · Recibe ayuda en tu día a día de la IA de Google con tus tareas del trabajo, los estudios o la casa. · €0 EUR/mes con una cuenta de Google · Aplicación Gemini · […] Access to our Flash-Lite model · Generación y edición de imágenes · Deep Research · Gemini Live · Canvas · Gems"
           }
         },
         {
@@ -6109,11 +6118,11 @@
           "condition": "Deep Research, con límites",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-10-17",
             "scope": "product",
             "sourceUrl": "https://gemini.google/subscriptions/",
             "sourceKind": "pricing",
-            "quote": "Sin coste · Recibe ayuda en tu día a día de la IA de Google con tus tareas del trabajo, los estudios o la casa. · €0 EUR/mes con una cuenta de Google · Aplicación Gemini · […] Acceso a 3.5 Flash-Lite · Generación y edición de imágenes · Deep Research · Gemini Live · Canvas · Gems"
+            "quote": "Sin coste · Recibe ayuda en tu día a día de la IA de Google con tus tareas del trabajo, los estudios o la casa. · €0 EUR/mes con una cuenta de Google · Aplicación Gemini · […] Access to our Flash-Lite model · Generación y edición de imágenes · Deep Research · Gemini Live · Canvas · Gems"
           }
         }
       ],
@@ -6266,7 +6275,7 @@
     "status": "published",
     "detectedAt": "2023-12-06",
     "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-09-13",
+    "updatedAt": "2026-10-17",
     "auditNotes": "Entra en /agentes por `secondaryCategories`, no por su `kind`: es un asistente con un modo de investigación documentado, no un agente de propósito general. La cifra del límite diario no se publica; la cadencia sí. Plataformas ampliadas el 13 de septiembre de 2026 con fuentes oficiales: aplicación de escritorio para Windows y macOS (gemini.google/desktop) y aplicación móvil para Android e iOS (ayuda de Google). Sólo la de Windows es posterior a la verificación anterior (10 de septiembre de 2026); no se anota en el changelog porque el del catálogo está congelado por decisión de producto, y el lanzamiento consta en la noticia gemini-app-windows, enlazada a esta ficha. La de macOS ya figura en las notas de versión del 29 de julio, y las fuentes consultadas no fechan las móviles. «extension» procede de los datos originales y ninguna fuente consultada la confirma ni la descarta: queda pendiente. Precio de Google AI Plus comprobado el 13 de septiembre, sin cambios: 4,99 €/mes.",
     "startEffort": "signup",
     "capabilities": [
@@ -6288,13 +6297,13 @@
         "scope": "cloud"
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-10-17",
         "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://gemini.google/subscriptions/",
         "sourceKind": "pricing",
-        "quote": "Sin coste · Recibe ayuda en tu día a día de la IA de Google con tus tareas del trabajo, los estudios o la casa. · €0 EUR/mes con una cuenta de Google · Aplicación Gemini · […] Acceso a 3.5 Flash-Lite · Generación y edición de imágenes · Deep Research · Gemini Live · Canvas · Gems"
+        "quote": "Sin coste · Recibe ayuda en tu día a día de la IA de Google con tus tareas del trabajo, los estudios o la casa. · €0 EUR/mes con una cuenta de Google · Aplicación Gemini · […] Access to our Flash-Lite model · Generación y edición de imágenes · Deep Research · Gemini Live · Canvas · Gems"
       },
       {
         "checkedAt": "2026-10-11",
@@ -6584,15 +6593,15 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/assafelovic/gpt-researcher/blob/master/LICENSE",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-20",
-        "quote": "Apache License, Version 2.0, January 2004",
+        "checkedAt": "2026-10-17",
+        "quote": "assafelovic/gpt-researcher is licensed under the Apache License 2.0",
         "scope": "local"
       }
     ],
     "auditNotes": "`multi-agent` se marca porque el propio README separa planificador y agentes de ejecución, no por su asistente opcional sobre LangGraph.",
     "nextReviewAt": "2026-11-18",
     "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-10-17",
     "access": {}
   },
   {
@@ -7873,7 +7882,7 @@
     "status": "published",
     "detectedAt": "2026-08-12",
     "lastVerifiedAt": "2026-08-12",
-    "updatedAt": "2026-08-12",
+    "updatedAt": "2026-10-17",
     "slug": "invokeai",
     "name": "InvokeAI",
     "tagline": "Interfaz local de generación con licencia Apache 2.0 y desarrollo activo.",
@@ -7909,8 +7918,8 @@
         "outcome": "stated",
         "sourceUrl": "https://api.github.com/repos/invoke-ai/InvokeAI",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-12",
-        "quote": "spdx_id: Apache-2.0 · archived: false · pushed_at: 2026-08-09",
+        "checkedAt": "2026-10-17",
+        "quote": "spdx_id: Apache-2.0 · archived: false",
         "scope": "local"
       },
       {
@@ -8221,7 +8230,14 @@
     "notFor": [],
     "alternatives": [],
     "alternativeNames": [],
-    "changelog": [],
+    "changelog": [
+      {
+        "date": "2026-10-17",
+        "kind": "other",
+        "summary": "La tabla de planes se rediseña: el plan gratuito deja de presentarse como «Free forever» y la fila de uso comercial pasa a «Generated content is for commercial use», marcada sólo en los de pago. Las preguntas frecuentes de la misma página aclaran lo que la tabla anterior dejaba confuso: quien no paga recibe créditos gratis cada mes al iniciar sesión, válidos 31 días. Kling no publica la fecha; ésta es la de nuestra comprobación.",
+        "sourceUrl": "https://kling.ai/app/membership/membership-plan"
+      }
+    ],
     "affiliation": {
       "isAffiliate": false
     },
@@ -8244,14 +8260,14 @@
       "web"
     ],
     "freeModel": "freemium",
-    "tagline": "Plan gratuito permanente, pero lo que generes no se puede usar comercialmente.",
-    "descriptionShort": "Generador de vídeo e imagen de Kuaishou. Su plan Basic es gratuito y permanente, y la propia tabla advierte de que el contenido generado no es para uso comercial. La eliminación de la marca de agua empieza en el plan de pago.",
+    "tagline": "Plan gratuito con créditos cada mes, pero lo que generes no se puede usar comercialmente.",
+    "descriptionShort": "Generador de vídeo e imagen de Kuaishou. Su plan Basic es gratuito: quien no paga recibe créditos cada mes al iniciar sesión, sin que Kling publique cuántos. El uso comercial y la eliminación de la marca de agua empiezan en los planes de pago.",
     "verdict": "Su tabla dice con todas las letras lo que casi ninguna dice: en el plan gratuito, lo que generes no puedes usarlo comercialmente. Eso decide más que cualquier cifra de créditos.",
     "freePlan": {
-      "summary": "Plan Basic gratuito y permanente («Free forever»). La tabla indica «No monthly Credits» y a la vez «Login to receive monthly credits», así que la cantidad no queda establecida. Lo que sí consta sin ambigüedad: el contenido generado no es para uso comercial.",
+      "summary": "Plan Basic gratuito. Quien no paga recibe créditos gratis cada mes al iniciar sesión, válidos 31 días; Kling no publica cuántos. Lo que sí consta sin ambigüedad: el uso comercial del contenido generado es para suscriptores de pago.",
       "limits": [
         "Uso comercial NO permitido con el contenido generado",
-        "Cantidad de créditos mensuales sin establecer en la tabla",
+        "Créditos gratis cada mes al iniciar sesión, válidos 31 días; la cantidad no se publica",
         "Creación de elementos: 30",
         "La eliminación de marca de agua, el 1080p y la extensión de vídeo empiezan en el plan Standard",
         "Plan de pago más barato: Standard, 6,99 $/mes la primera suscripción"
@@ -8260,8 +8276,8 @@
       "requiresCreditCard": "unverified",
       "hasWatermark": "yes",
       "commercialUse": "no",
-      "creditReset": "unknown",
-      "verifiedAt": "2026-08-15"
+      "creditReset": "monthly",
+      "verifiedAt": "2026-10-17"
     },
     "capabilities": [
       "text-to-video",
@@ -8312,10 +8328,10 @@
       {
         "field": "freePlan.limits",
         "outcome": "stated",
-        "sourceUrl": "https://app.klingai.com/global/membership/membership-plan",
+        "sourceUrl": "https://kling.ai/app/membership/membership-plan",
         "sourceKind": "pricing",
-        "checkedAt": "2026-08-15",
-        "quote": "Basic $0 Free forever — No monthly Credits · Element Creation Quantity: 30 · Login to receive monthly credits · Generated content is not for commercial use",
+        "checkedAt": "2026-10-17",
+        "quote": "Basic $ 0 Free · Element Creation Quantity 30 50 150 150 500 · Generated content is for commercial use -",
         "scope": "cloud"
       },
       {
@@ -8355,12 +8371,21 @@
         "sourceKind": "terms",
         "quote": "Specifically, without our written permission, you may not use, reproduce, distribute, and create derivative works of, and make modifications to, the Output for any commercial purposes.",
         "basis": "Su página de planes da «Generated content is for commercial use» sólo a los planes de pago (Standard, Pro, Premier)."
+      },
+      {
+        "checkedAt": "2026-10-17",
+        "scope": "product",
+        "field": "freePlan.creditReset",
+        "outcome": "stated",
+        "sourceUrl": "https://kling.ai/app/membership/membership-plan",
+        "sourceKind": "pricing",
+        "quote": "Monthly Free Credits for Non-Subscribers: Claimed upon login each month and valid for 31 days. [Respuesta a «How long are Credits valid?», en las preguntas frecuentes de la página, que hay que desplegar.]"
       }
     ],
     "auditNotes": "`hasWatermark` queda sin confirmar a propósito: que «Brand watermark removal» figure entre las características de pago sugiere que el gratuito la lleva, pero la tabla no lo afirma del plan Basic y sugerir no es afirmar. `commercialUse: no` sí es explícito.",
     "nextReviewAt": "2026-11-13",
-    "lastVerifiedAt": "2026-08-15",
-    "updatedAt": "2026-08-15",
+    "lastVerifiedAt": "2026-10-17",
+    "updatedAt": "2026-10-17",
     "skillLevel": "beginner",
     "licences": {},
     "access": {}
@@ -8469,8 +8494,8 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/hexgrad/kokoro",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-18",
-        "quote": "Apache-2.0 · 82 million parameters · comparable quality to larger models while being significantly faster and more cost-efficient · 24,000 Hz",
+        "checkedAt": "2026-10-17",
+        "quote": "Apache-2.0 · 82 million parameters · comparable quality to larger models while being significantly faster and more cost-efficient · rate=24000",
         "scope": "local"
       },
       {
@@ -8494,7 +8519,7 @@
     ],
     "nextReviewAt": "2026-11-22",
     "lastVerifiedAt": "2026-08-24",
-    "updatedAt": "2026-08-18",
+    "updatedAt": "2026-10-17",
     "licences": {
       "code": "Apache-2.0",
       "weights": "Apache-2.0"
@@ -8613,8 +8638,8 @@
         "sourceUrl": "https://www.krea.ai/pricing",
         "sourceKind": "pricing",
         "scope": "cloud",
-        "checkedAt": "2026-08-13",
-        "quote": "Free — 100 units /day · 1 Nano Banana 2 generation · <1 Seedance 2.0 videos [Filas con aspa en el plan Free: All image models, All video models, All 3D & lipsync models, Krea Nodes, App Builder, Nodes Agent, Commercial license. Con visto: Limited LoRA training, Limited image upscaling. Image concurrency 1, Video concurrency 0.]"
+        "checkedAt": "2026-10-17",
+        "quote": "Free — 100 units /day · 1 Nano Banana 2 generation"
       },
       {
         "field": "freePlan.requiresCreditCard",
@@ -8649,7 +8674,7 @@
     "auditNotes": "commercialUse es «no» y no «unverified» porque la tabla lo declara explícitamente: «Commercial license» aparece con aspa en la columna Free y con visto en Basic, Pro y Max. Los precios de los planes de pago no están en el DOM de la página, así que el precio mínimo queda sin verificar.",
     "nextReviewAt": "2026-12-20",
     "lastVerifiedAt": "2026-09-21",
-    "updatedAt": "2026-09-21",
+    "updatedAt": "2026-10-17",
     "licences": {},
     "access": {}
   },
@@ -10095,7 +10120,7 @@
     "freeModel": "open_source",
     "tagline": "El sucesor de AutoGen, en Python y .NET.",
     "descriptionShort": "Framework multilenguaje con licencia MIT para agentes y flujos multiagente en .NET y Python. Trae patrones de grafo —secuencial, concurrente, traspaso, colaboración en grupo—, middleware, puntos de control, humano en el bucle y observabilidad con OpenTelemetry. Su propio repositorio lo presenta como el sucesor de AutoGen.",
-    "verdict": "Si estabas mirando AutoGen, mira esto: AutoGen ya no recibe funciones nuevas y su repositorio señala aquí.",
+    "verdict": "Si estabas mirando AutoGen, mira esto: Microsoft lo ha archivado y ya no le da ni parches de seguridad, y su repositorio manda aquí a los proyectos nuevos.",
     "freePlan": {
       "summary": "Publicado con licencia MIT, para Python y .NET. Sin cuotas ni cuenta propias: el coste es el del modelo que se conecte.",
       "limits": [
@@ -10163,7 +10188,7 @@
         "label": "Repositorio de AutoGen: estado",
         "kind": "repo",
         "publisher": "github.com",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-10-17"
       },
       {
         "url": "https://raw.githubusercontent.com/microsoft/agent-framework/main/LICENSE",
@@ -10186,10 +10211,10 @@
       {
         "field": "freePlan.limits",
         "outcome": "stated",
-        "sourceUrl": "https://github.com/microsoft/autogen",
+        "sourceUrl": "https://github.com/microsoft/agent-framework",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-19",
-        "quote": "AutoGen is in maintenance mode and will not receive new features. Microsoft Agent Framework (MAF) is the enterprise-ready successor to AutoGen.",
+        "checkedAt": "2026-10-17",
+        "quote": "MIT license · A framework for building, orchestrating and deploying AI agents and multi-agent workflows with support for Python and .NET",
         "scope": "local"
       },
       {
@@ -10204,7 +10229,7 @@
     ],
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19",
+    "updatedAt": "2026-10-17",
     "access": {}
   },
   {
@@ -10919,8 +10944,8 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/genmoai/mochi",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-15",
-        "quote": "released under a permissive Apache 2.0 license […] requires approximately 60GB VRAM when running on a single GPU […] ComfyUI can optimize to run in under 20GB VRAM",
+        "checkedAt": "2026-10-17",
+        "quote": "We’re releasing the model under a permissive Apache 2.0 license […] requires approximately 60GB VRAM when running on a single GPU. While ComfyUI can optimize Mochi to run on less than 20GB VRAM",
         "scope": "local"
       },
       {
@@ -10935,7 +10960,7 @@
     ],
     "nextReviewAt": "2026-11-13",
     "lastVerifiedAt": "2026-08-15",
-    "updatedAt": "2026-08-15",
+    "updatedAt": "2026-10-17",
     "skillLevel": "beginner",
     "licences": {
       "code": "Apache-2.0",
@@ -11000,7 +11025,7 @@
       "limits": [
         "Autoalojado: gratis, bajo Sustainable Use License (fair-code)",
         "La nube no tiene capa gratuita permanente, sólo prueba",
-        "Pruebas de Starter y Pro sin tarjeta; la de Business exige tarjeta",
+        "La prueba de la nube no pide tarjeta; la de Business, sí",
         "Plan de pago más barato: Starter, 20 €/mes anual (2.500 ejecuciones)"
       ],
       "requiresSignup": "no",
@@ -11061,8 +11086,8 @@
         "outcome": "stated",
         "sourceUrl": "https://n8n.io/pricing/",
         "sourceKind": "pricing",
-        "checkedAt": "2026-10-11",
-        "quote": "A standard, self-hosted version of n8n is available on GitHub · No credit card is required for Starter and Pro trials · A credit card is only required for the Business plan free trial. [Starter: 20 €/mes anual, 2.5K ejecuciones.]",
+        "checkedAt": "2026-10-17",
+        "quote": "A standard, self-hosted version of n8n is available on GitHub · No credit card is required for the n8n Cloud trial. A credit card is only required for the Business plan free trial. · 20€ /mo, billed annually · 2.5k workflow executions",
         "scope": "product"
       },
       {
@@ -11078,7 +11103,7 @@
     "auditNotes": "`openSource: partial` y no `yes`: fair-code permite ver y autoalojar el código pero no es una licencia OSI, y llamarlo open source sin más induciría a error.",
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19",
+    "updatedAt": "2026-10-17",
     "access": {}
   },
   {
@@ -13480,7 +13505,7 @@
     "status": "published",
     "detectedAt": "2026-08-12",
     "lastVerifiedAt": "2026-08-12",
-    "updatedAt": "2026-08-12",
+    "updatedAt": "2026-10-17",
     "slug": "sdnext",
     "name": "SD.Next",
     "tagline": "Interfaz local avanzada, Apache 2.0, con desarrollo muy activo.",
@@ -13542,8 +13567,8 @@
         "outcome": "stated",
         "sourceUrl": "https://api.github.com/repos/vladmandic/sdnext",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-12",
-        "quote": "spdx_id: Apache-2.0 · archived: false · pushed_at: 2026-08-12",
+        "checkedAt": "2026-10-17",
+        "quote": "spdx_id: Apache-2.0 · archived: false",
         "scope": "local"
       },
       {
@@ -14536,8 +14561,8 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/Wan-Video/Wan2.2",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-15",
-        "quote": "The models in this repository are licensed under the Apache 2.0 License. […] TI2V-5B […] consumer-grade graphics cards like the RTX 4090 with at least 24GB VRAM. T2V-A14B & I2V-A14B: at least 80GB VRAM",
+        "checkedAt": "2026-10-17",
+        "quote": "The models in this repository are licensed under the Apache 2.0 License […] This command can run on a GPU with at least 24GB VRAM (e.g, RTX 4090 GPU) […] This command can run on a GPU with at least 80GB VRAM",
         "scope": "local"
       },
       {
@@ -14562,7 +14587,7 @@
     "auditNotes": "«Speech-to-Video» y «Animate» no tienen capacidad equivalente en la taxonomía; quedan descritas en el texto en lugar de forzarse dentro de una etiqueta que significaría otra cosa.",
     "nextReviewAt": "2026-11-13",
     "lastVerifiedAt": "2026-08-15",
-    "updatedAt": "2026-08-15",
+    "updatedAt": "2026-10-17",
     "skillLevel": "beginner",
     "licences": {
       "code": "Apache-2.0",
@@ -16857,7 +16882,14 @@
     "notFor": [],
     "alternatives": [],
     "alternativeNames": [],
-    "changelog": [],
+    "changelog": [
+      {
+        "date": "2026-10-15",
+        "kind": "free_plan_reduced",
+        "summary": "El plan Personal deja de incluir 2.000 predicciones de edición aceptadas: la página de precios las da sólo en Pro («it comes with Zed-hosted AI models and unlimited edit predictions»). Zed no publica la fecha del cambio: el 12 de octubre de 2026 aún figuraban en el plan gratuito y el 15 ya no.",
+        "sourceUrl": "https://zed.dev/pricing"
+      }
+    ],
     "affiliation": {
       "isAffiliate": false
     },
@@ -16887,35 +16919,34 @@
       "windows"
     ],
     "freeModel": "free_real",
-    "tagline": "Editor de código gratis para siempre, con 2.000 predicciones y uso ilimitado con tus propias claves.",
-    "descriptionShort": "Editor de código de código abierto, muy rápido y con colaboración en directo. El plan Personal es gratuito para siempre: 2.000 predicciones de edición aceptadas y uso ilimitado de la IA con tus propias claves o con agentes externos como Claude Agent o Codex CLI.",
-    "verdict": "La forma más honesta de ofrecer IA gratis en un editor: te da un cupo de predicciones y, a partir de ahí, puedes usar tus propias claves sin límite. Y si no quieres IA, se desactiva entera y sigue siendo un editor rapidísimo.",
+    "tagline": "Editor de código gratis para siempre, con IA ilimitada si pones tus propias claves.",
+    "descriptionShort": "Editor de código de código abierto, muy rápido y con colaboración en directo. El plan Personal es gratuito para siempre y da uso ilimitado de la IA con tus propias claves o con agentes externos como Claude Agent o Codex CLI. Las predicciones de edición y los modelos alojados por Zed son de Pro.",
+    "verdict": "Sigue siendo una forma honesta de ofrecer IA en un editor: con tus propias claves no hay tope. Lo que se ha ido del plan gratuito es el cupo de predicciones de edición, que ahora es de Pro. Y si no quieres IA, se desactiva entera y sigue siendo un editor rapidísimo.",
     "freePlan": {
       "requiresSignup": "unverified",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "no",
       "creditReset": "none",
-      "verifiedAt": "2026-10-12",
-      "summary": "Plan Personal a 0 $, «gratis para siempre»: el editor completo, 2.000 predicciones de edición aceptadas y uso ilimitado con tus propias claves de API o con agentes externos. Pro cuesta 10 $ al mes y tiene prueba de 14 días sin tarjeta.",
+      "verifiedAt": "2026-10-17",
+      "summary": "Plan Personal a 0 $, «gratis para siempre»: el editor completo y uso ilimitado con tus propias claves de API o con agentes externos. Las predicciones de edición y los modelos alojados por Zed son de Pro, que cuesta 10 $ al mes y tiene prueba de 14 días sin tarjeta.",
       "limits": [
-        "2.000 predicciones de edición aceptadas",
         "Uso ilimitado con tus propias claves o con agentes externos",
+        "Predicciones de edición y modelos alojados por Zed: sólo en Pro",
         "Las funciones de IA se pueden desactivar",
         "Plan de pago más barato: Pro, 10 $/mes"
       ],
-      "creditsAmount": "2.000 predicciones aceptadas",
       "includedCapabilities": [
         {
           "capability": "code-generation",
-          "condition": "2.000 predicciones de edición aceptadas; sin límite con tus propias claves",
+          "condition": "sólo con tus propias claves o con agentes externos; las predicciones de edición son de Pro",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-10-17",
             "scope": "product",
             "sourceUrl": "https://zed.dev/pricing",
             "sourceKind": "pricing",
-            "quote": "PERSONAL · $0 · forever · The next-generation code editor. Free forever. · 2,000 accepted edit predictions · Unlimited use with your API keys or external agents like Claude Agent, Codex CLI, and more"
+            "quote": "PERSONAL · $0 · forever · The next-generation code editor. Free forever. · Unlimited use with your API keys or external agents like Claude Agent, Codex CLI, and more · PRO · $10 · per month · Unlimited edit predictions"
           }
         }
       ]
@@ -16956,8 +16987,8 @@
         "sourceUrl": "https://zed.dev/pricing",
         "sourceKind": "pricing",
         "scope": "product",
-        "checkedAt": "2026-09-24",
-        "quote": "PERSONAL · $0 · forever · The next-generation code editor. Free forever. · 2,000 accepted edit predictions · Unlimited use with your API keys or external agents like Claude Agent, Codex CLI, and more"
+        "checkedAt": "2026-10-17",
+        "quote": "PERSONAL · $0 · forever · The next-generation code editor. Free forever. · Unlimited use with your API keys or external agents like Claude Agent, Codex CLI, and more · PRO · $10 · per month · Unlimited edit predictions"
       },
       {
         "field": "openSource",
@@ -16989,8 +17020,8 @@
     ],
     "id": "tool_zed",
     "nextReviewAt": "2026-12-23",
-    "lastVerifiedAt": "2026-09-24",
-    "updatedAt": "2026-09-24"
+    "lastVerifiedAt": "2026-10-17",
+    "updatedAt": "2026-10-17"
   },
   {
     "secondaryCategories": [],
