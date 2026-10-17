@@ -107,10 +107,17 @@ describe('el acceso de la marca no se hereda al producto', () => {
   });
 
   it('lo que no publica cifras no se las inventa', () => {
+    /*
+     * Desde el 12 de octubre de 2026 Cursor se vende dentro de The X
+     * Subscription. Publica que el fondo se renueva cada semana —eso entra— y
+     * sigue sin publicar cuánto. Lo de la tarjeta va al revés: lo decía y dejó
+     * de decirlo, así que vuelve a «sin confirmar» en vez de quedarse en el
+     * «no» que ya nadie sostiene.
+     */
     const cursor = bySlug.get('cursor')!;
     expect(cursor.freePlan.creditsAmount).toBeUndefined();
-    expect(cursor.freePlan.creditReset).toBe('unknown');
-    expect(cursor.freePlan.requiresCreditCard, 'esto sí lo publica').toBe('no');
+    expect(cursor.freePlan.creditReset, 'esto ahora sí lo publica').toBe('weekly');
+    expect(cursor.freePlan.requiresCreditCard, 'esto dejó de publicarlo').toBe('unverified');
   });
 });
 

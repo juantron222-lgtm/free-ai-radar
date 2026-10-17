@@ -3118,12 +3118,12 @@
     "id": "tool_cursor",
     "slug": "cursor",
     "name": "Cursor",
-    "tagline": "Editor completo, plan Hobby sin tarjeta y con peticiones limitadas.",
-    "descriptionShort": "Un editor de código con IA integrada, no una extensión: sustituye al editor. Su plan Hobby no pide tarjeta y da acceso a Composer con «peticiones de agente limitadas», sin publicar cuántas.",
-    "descriptionLong": "Cursor es un fork de VS Code con capacidades de IA profundamente integradas. El asistente entiende todo tu proyecto, puede editar múltiples archivos, predecir tu siguiente movimiento con Tab completions avanzadas, y mantener conversaciones sobre tu código base. Soporta múltiples modelos (GPT-4, Claude) y ofrece un plan gratuito (Hobby) con límites de uso mensuales generosos.",
+    "tagline": "Editor completo con agentes; su plan gratuito vive ahora dentro de The X Subscription.",
+    "descriptionShort": "Un editor de código con IA integrada, no una extensión: sustituye al editor. Desde agosto de 2026 es de SpaceX y desde el 12 de octubre se vende dentro de The X Subscription, junto a Grok y X Premium. El plan gratuito da «Limited agent requests» de un fondo de uso que comparte con Grok y se renueva cada semana, sin publicar cuánto.",
+    "descriptionLong": "Cursor es un fork de VS Code con IA integrada: entiende el proyecto entero, edita varios archivos a la vez y trabaja con agentes locales y en la nube. SpaceX completó su compra el 14 de agosto de 2026 y, desde el 12 de octubre, sus planes se venden como parte de The X Subscription, que junta Cursor, Grok y X Premium. El plan gratuito incluye peticiones de agente y de chat limitadas, de un fondo de uso compartido con Grok que se renueva cada semana. Quien ya pagaba Cursor puede quedarse en su plan anterior.",
     "kind": "agent",
-    "verification": "verified",
-    "nextReviewAt": "2026-11-19",
+    "verification": "partially_verified",
+    "nextReviewAt": "2026-11-16",
     "categorySlug": "codigo",
     "secondaryCategories": [
       "agentes"
@@ -3139,30 +3139,31 @@
     ],
     "freeModel": "freemium",
     "freePlan": {
-      "summary": "Plan Hobby gratuito que no pide tarjeta, con peticiones de agente limitadas y acceso a Composer. La cantidad no se publica. El plan de pago más barato es Individual, 20 $ al mes.",
+      "summary": "Plan gratuito de The X Subscription: peticiones de agente y de chat limitadas, de un fondo de uso compartido con Grok que se renueva cada semana. No publica la cantidad ni si pide tarjeta. El plan de pago más barato es Plus, 8 $ al mes, sólo con modelos Grok; Premium, 30 $, incluye las ventajas de Cursor Pro.",
       "limits": [
-        "Sin tarjeta",
-        "Peticiones de agente limitadas: la cantidad no se publica",
-        "Acceso a Composer",
-        "Plan de pago más barato: Individual, 20 $/mes"
+        "Peticiones de agente y de chat limitadas: la cantidad no se publica",
+        "El fondo de uso se comparte con Grok y se renueva cada semana",
+        "La página de precios ya no dice si pide tarjeta",
+        "Plan de pago más barato: Plus, 8 $/mes, sólo con modelos Grok",
+        "Premium, 30 $/mes, incluye lo de Cursor Pro"
       ],
       "requiresSignup": "yes",
-      "requiresCreditCard": "no",
+      "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
-      "creditReset": "unknown",
-      "verifiedAt": "2026-10-11",
+      "creditReset": "weekly",
+      "verifiedAt": "2026-10-17",
       "includedCapabilities": [
         {
           "capability": "repository-editing",
-          "condition": "peticiones de agente limitadas, sin cifra publicada",
+          "condition": "peticiones de agente limitadas, sin cifra publicada, de un fondo compartido con Grok",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-10-17",
             "scope": "product",
             "sourceUrl": "https://cursor.com/pricing",
             "sourceKind": "pricing",
-            "quote": "Hobby · For the tinkerer · Free · Includes: ✓ No credit card required · ✓ Limited Agent requests · ✓ Access to Composer"
+            "quote": "Free · $0 · Limited agent requests · Limited Chat requests"
           }
         }
       ]
@@ -3189,13 +3190,27 @@
         "label": "Precios oficiales",
         "kind": "pricing",
         "publisher": "cursor.com",
-        "checkedAt": "2026-08-21"
+        "checkedAt": "2026-10-17"
       },
       {
         "url": "https://cursor.com/terms-of-service",
         "label": "Condiciones de uso",
         "kind": "docs",
         "checkedAt": "2026-09-15"
+      },
+      {
+        "url": "https://x.ai/news/x-subscription",
+        "label": "Presentación de The X Subscription",
+        "kind": "official",
+        "publisher": "x.ai",
+        "checkedAt": "2026-10-17"
+      },
+      {
+        "url": "https://cursor.com/blog/joining-spacex",
+        "label": "Cursor pasa a ser parte de SpaceX",
+        "kind": "official",
+        "publisher": "cursor.com",
+        "checkedAt": "2026-10-17"
       }
     ],
     "scores": {
@@ -3205,12 +3220,12 @@
       "transparency": 6,
       "creatorValue": 8
     },
-    "verdict": "La forma más cómoda de probar un agente de código sin instalar nada raro ni dar una tarjeta. Cuántas peticiones entran en el plan gratuito, no lo publica.",
+    "verdict": "Sigue siendo la forma más cómoda de probar un agente de código dentro de un editor, pero el gratuito cambió el 12 de octubre: ya no se llama Hobby, la página ya no dice si pide tarjeta y el fondo de uso se comparte con Grok. Cuánto entra, no lo publica.",
     "pros": [],
     "cons": [
-      "La cantidad de peticiones del plan Hobby no se publica",
+      "La cantidad de peticiones del plan gratuito no se publica",
       "No es código abierto: es un fork propietario de VS Code",
-      "Los modelos de frontera quedan para los planes de pago"
+      "Los modelos de otros fabricantes no entran en ningún plan: se pagan aparte, a precio de API, desde Premium"
     ],
     "bestFor": [],
     "notFor": [],
@@ -3225,6 +3240,18 @@
         "date": "2023-10-01",
         "kind": "launch",
         "summary": "Cursor se ha convertido en el editor de código con IA más popular, compitiendo directamente con GitHub Copilot y superándolo en muchas áreas."
+      },
+      {
+        "date": "2026-08-14",
+        "kind": "other",
+        "summary": "SpaceX completa la compra de Cursor, iniciada en abril con el acuerdo con SpaceXAI.",
+        "sourceUrl": "https://cursor.com/blog/joining-spacex"
+      },
+      {
+        "date": "2026-10-12",
+        "kind": "other",
+        "summary": "Cursor pasa a venderse dentro de The X Subscription, con Grok y X Premium. El plan gratuito deja de llamarse Hobby y de decir «No credit card required»; su uso sale de un fondo compartido con Grok que se renueva cada semana. Los planes de pago son Plus (8 $), Premium (30 $, con lo de Cursor Pro), Super (100 $) y Ultra (200 $). Quien ya pagaba Cursor puede quedarse en su plan.",
+        "sourceUrl": "https://x.ai/news/x-subscription"
       }
     ],
     "affiliation": {
@@ -3236,27 +3263,26 @@
     },
     "status": "published",
     "detectedAt": "2023-10-01",
-    "lastVerifiedAt": "2026-08-29",
-    "updatedAt": "2026-08-21",
+    "lastVerifiedAt": "2026-10-17",
+    "updatedAt": "2026-10-17",
     "evidence": [
       {
+        "checkedAt": "2026-10-17",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://cursor.com/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-10-11",
-        "quote": "Hobby — No credit card required · Limited Agent requests · Access to Composer. Individual: $20 / mo.",
-        "scope": "product"
+        "quote": "Free · $0 · /month · Get started with: · Limited · AI usage · Limited agent requests · Limited Chat requests · Plus · $8 · /month · *Only Grok models are available on this plan · Premium · $30"
       },
       {
+        "checkedAt": "2026-10-17",
+        "scope": "product",
         "field": "freePlan.requiresCreditCard",
-        "outcome": "stated",
+        "outcome": "not_published",
         "sourceUrl": "https://cursor.com/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-10-11",
-        "scope": "product",
-        "quote": "No credit card required",
-        "basis": "En la lista «Includes» del plan Free."
+        "lookedFor": "Si el plan gratuito pide tarjeta. La página de precios, ya dentro de The X Subscription, dejó de decir «No credit card required»; sólo dice que los planes de pago admiten tarjeta («Self-serve plans support all major credit and debit cards»)."
       },
       {
         "checkedAt": "2026-10-11",
@@ -3266,6 +3292,15 @@
         "sourceUrl": "https://cursor.com/terms-of-service",
         "sourceKind": "terms",
         "lookedFor": "Si el plan gratuito permite usar comercialmente el código generado. Las condiciones definen las «Suggestions» y las limitaciones sobre ellas, pero no dicen nada de uso comercial."
+      },
+      {
+        "checkedAt": "2026-10-17",
+        "scope": "product",
+        "field": "freePlan.creditReset",
+        "outcome": "stated",
+        "sourceUrl": "https://cursor.com/pricing",
+        "sourceKind": "pricing",
+        "quote": "Every tier includes a pool of AI usage shared across Cursor and Grok […] Your allowance refreshes weekly"
       }
     ],
     "startEffort": "install",
@@ -9600,7 +9635,14 @@
     "notFor": [],
     "alternatives": [],
     "alternativeNames": [],
-    "changelog": [],
+    "changelog": [
+      {
+        "date": "2025-10-23",
+        "kind": "other",
+        "summary": "Lightricks anuncia LTX-2 y lo convierte en «the primary home for LTX development»; LTX-2.5 llega en julio de 2026. LTX-Video sigue publicado con Apache 2.0, pero LTX-2 y LTX-2.5 usan la LTX-2.x Community License: uso comercial sin coste por debajo de 10 millones de dólares de ingresos anuales y licencia de pago por encima. La ficha no lo decía hasta la revisión del 17 de octubre de 2026.",
+        "sourceUrl": "https://github.com/Lightricks/LTX-Video"
+      }
+    ],
     "affiliation": {
       "isAffiliate": false
     },
@@ -9627,12 +9669,13 @@
     "freeModel": "open_source",
     "tagline": "Apache 2.0, con extensión de vídeo y control por fotogramas clave.",
     "descriptionShort": "Modelo de vídeo de Lightricks con licencia Apache 2.0. Su repositorio documenta texto a vídeo, imagen a vídeo, extensión hacia delante y hacia atrás, animación por fotogramas clave y transformación de vídeo a vídeo.",
-    "verdict": "De los pocos modelos abiertos que documentan alargar un vídeo existente y condicionarlo con fotogramas clave, que es lo que separa una demostración de un plano utilizable.",
+    "verdict": "De los pocos modelos abiertos que documentan alargar un vídeo existente y condicionarlo con fotogramas clave, que es lo que separa una demostración de un plano utilizable. Ojo a la fecha: Lightricks ya desarrolla en LTX-2, y la generación nueva no hereda la licencia Apache 2.0.",
     "freePlan": {
       "summary": "Pesos publicados bajo licencia Apache 2.0. El repositorio usa una H100 como referencia de rendimiento y ofrece variantes que consumen menos VRAM que el modelo de 13B.",
       "limits": [
         "Referencia de rendimiento del repositorio: GPU H100",
-        "El modelo de 13B pide más VRAM; los destilados y el de 2B, menos"
+        "El modelo de 13B pide más VRAM; los destilados y el de 2B, menos",
+        "Lightricks ya desarrolla en LTX-2, con otra licencia"
       ],
       "requiresSignup": "no",
       "requiresCreditCard": "no",
@@ -9664,6 +9707,20 @@
         "kind": "repo",
         "publisher": "github.com",
         "checkedAt": "2026-08-15"
+      },
+      {
+        "url": "https://github.com/Lightricks/LTX-2",
+        "label": "Repositorio de LTX-2",
+        "kind": "repo",
+        "publisher": "github.com",
+        "checkedAt": "2026-10-17"
+      },
+      {
+        "url": "https://huggingface.co/Lightricks/LTX-2.5",
+        "label": "LTX-2.5 en Hugging Face",
+        "kind": "repo",
+        "publisher": "huggingface.co",
+        "checkedAt": "2026-10-17"
       }
     ],
     "evidence": [
@@ -9697,7 +9754,7 @@
     ],
     "nextReviewAt": "2026-11-13",
     "lastVerifiedAt": "2026-08-15",
-    "updatedAt": "2026-08-15",
+    "updatedAt": "2026-10-17",
     "hardwareRequirements": "Referencia del repositorio: GPU H100.",
     "skillLevel": "beginner",
     "licences": {
@@ -17684,7 +17741,14 @@
     "notFor": [],
     "alternatives": [],
     "alternativeNames": [],
-    "changelog": [],
+    "changelog": [
+      {
+        "date": "2026-08-31",
+        "kind": "shutdown",
+        "summary": "Fin de vida de Flowise. Su equipo anunció el cierre el 29 de julio de 2026 y congeló el desarrollo ese día; el 13 de agosto archivó el repositorio y marcó como obsoletos los paquetes de npm y las imágenes de Docker; el 31 de agosto dejó de atender Discord y GitHub. El código sigue publicado y anima a bifurcarlo.",
+        "sourceUrl": "https://github.com/FlowiseAI/Flowise/discussions/6727"
+      }
+    ],
     "affiliation": {
       "isAffiliate": false
     },
@@ -17700,7 +17764,7 @@
     "name": "Flowise",
     "kind": "framework",
     "productType": "platform",
-    "verification": "pending_review",
+    "verification": "discontinued",
     "categorySlug": "agentes",
     "officialUrl": "https://flowiseai.com/",
     "repoUrl": "https://github.com/FlowiseAI/Flowise",
@@ -17714,9 +17778,9 @@
       "docker"
     ],
     "freeModel": "open_source",
-    "tagline": "Construye agentes de IA de forma visual. Casi todo es abierto; la parte enterprise, no.",
-    "descriptionShort": "Herramienta visual para montar agentes de IA con bloques. Se instala en tu equipo o servidor. La mayor parte del código es abierto, pero el directorio enterprise y algunos archivos van con licencia comercial.",
-    "verdict": "Muy parecido a Langflow y con una comunidad enorme. La diferencia está en la licencia: una parte del código es comercial, así que conviene leerla antes de construir un producto encima.",
+    "tagline": "Retirado: su equipo lo cerró el 31 de agosto de 2026. El código sigue publicado.",
+    "descriptionShort": "Herramienta visual para montar agentes de IA con bloques. Su equipo dejó de desarrollarla el 29 de julio de 2026, archivó el repositorio el 13 de agosto y dio por terminado el proyecto el 31: el código sigue publicado para quien quiera mantener una bifurcación.",
+    "verdict": "Ya no se mantiene: ni actualizaciones ni parches de seguridad, y los paquetes de npm y las imágenes de Docker quedan marcados como obsoletos. Sirve para estudiar el código o bifurcarlo, no para montar algo nuevo encima. Si buscas algo parecido, mira Langflow.",
     "freePlan": {
       "requiresSignup": "unverified",
       "requiresCreditCard": "unverified",
@@ -17724,11 +17788,12 @@
       "commercialUse": "unverified",
       "creditReset": "none",
       "verifiedAt": "2026-09-24",
-      "summary": "Se instala en tu equipo o servidor sin cuotas propias. La mayor parte del código es abierto; el directorio enterprise y los archivos con aviso de copyright explícito tienen licencia comercial.",
+      "summary": "Proyecto cerrado por su equipo el 31 de agosto de 2026. El código sigue disponible y se puede instalar, pero ya no recibe actualizaciones. La licencia no cambia: Apache 2.0 salvo el directorio enterprise y los archivos con aviso de copyright explícito.",
       "limits": [
-        "Parte del código con licencia comercial (enterprise)",
-        "Se instala en tu equipo o servidor",
-        "Necesita un modelo: de pago por API o local"
+        "Retirado el 31 de agosto de 2026: sin actualizaciones ni soporte",
+        "Paquetes de npm e imágenes de Docker marcados como obsoletos",
+        "El código sigue publicado para bifurcarlo",
+        "Parte del código con licencia comercial (enterprise)"
       ]
     },
     "capabilities": [
@@ -17759,6 +17824,13 @@
         "kind": "repo",
         "publisher": "github.com",
         "checkedAt": "2026-09-24"
+      },
+      {
+        "url": "https://github.com/FlowiseAI/Flowise/discussions/6727",
+        "label": "The Future of Flowise",
+        "kind": "repo",
+        "publisher": "github.com",
+        "checkedAt": "2026-10-17"
       }
     ],
     "evidence": [
@@ -17782,9 +17854,9 @@
       }
     ],
     "id": "tool_flowise",
-    "nextReviewAt": "2026-12-23",
-    "lastVerifiedAt": "2026-09-24",
-    "updatedAt": "2026-09-24"
+    "nextReviewAt": "2027-01-15",
+    "lastVerifiedAt": "2026-10-17",
+    "updatedAt": "2026-10-17"
   },
   {
     "secondaryCategories": [],
