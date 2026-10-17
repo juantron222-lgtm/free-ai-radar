@@ -5737,7 +5737,14 @@
     "notFor": [],
     "alternatives": [],
     "alternativeNames": [],
-    "changelog": [],
+    "changelog": [
+      {
+        "date": "2026-08-25",
+        "kind": "licence_change",
+        "summary": "Z.ai publica GLM-5.3 con licencia propia en lugar de MIT. Permite lo mismo que MIT salvo una condición: los negocios de modelo como servicio con más de 10.000 millones de dólares de ingresos en doce meses tienen que pasar su revisión de seguridad antes del uso comercial. GLM-5.2, con el mismo modelo base, sigue publicado con MIT. La ficha describía GLM-5.2 hasta esta revisión; la fecha es la de publicación de los pesos en Hugging Face.",
+        "sourceUrl": "https://huggingface.co/zai-org/GLM-5.3"
+      }
+    ],
     "affiliation": {
       "isAffiliate": false
     },
@@ -5749,36 +5756,37 @@
     "kind": "model",
     "categorySlug": "modelos",
     "licences": {
-      "code": "MIT",
-      "weights": "MIT"
+      "code": "GLM-5.3 License",
+      "weights": "GLM-5.3 License"
     },
-    "name": "GLM-5.2",
+    "name": "GLM-5.3",
     "verification": "verified",
     "officialUrl": "https://huggingface.co/zai-org/GLM-5.2",
     "repoUrl": "https://huggingface.co/zai-org/GLM-5.2",
     "hosting": "local",
-    "openSource": "yes",
-    "licence": "MIT",
+    "openSource": "weights",
+    "licence": "GLM-5.3 License (permisiva, con revisión de seguridad para negocios MaaS de más de 10.000 M$)",
     "platforms": [
       "linux",
       "api"
     ],
     "freeModel": "open_source",
-    "tagline": "MIT, un millón de tokens de contexto y esfuerzo de pensamiento regulable.",
-    "descriptionShort": "753.000 millones de parámetros con licencia MIT y contexto de un millón de tokens. Su ficha lo describe como «Advanced Coding with Flexible Effort», con varios niveles de pensamiento, y reivindica ser «Pure Open»: MIT y sin límites regionales.",
-    "verdict": "El modelo grande más permisivo del catálogo: MIT de verdad, sin umbral de usuarios ni atribución obligatoria, y con el contexto de un millón que hasta hace poco era exclusivo de los cerrados.",
+    "tagline": "Pesos casi MIT, un millón de tokens de contexto y tres niveles de esfuerzo.",
+    "descriptionShort": "753.000 millones de parámetros y contexto de un millón de tokens, con licencia propia. Usa el mismo modelo base que GLM-5.2: según su ficha, «every gain comes from post-training», sobre todo en programación compleja y tareas largas. El esfuerzo de pensamiento se regula en tres niveles: low, high y max.",
+    "verdict": "La licencia permite usar, modificar y vender, como MIT, con una condición nueva: un negocio de modelo como servicio que facture más de 10.000 millones de dólares en doce meses tiene que pasar la revisión de seguridad de Z.ai antes de usarlo comercialmente. A casi nadie le afecta; quien necesite MIT sin condiciones tiene GLM-5.2, con el mismo modelo base.",
     "freePlan": {
       "requiresSignup": "no",
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-20",
-      "commercialUse": "yes",
-      "summary": "Pesos bajo licencia MIT, sin condiciones añadidas. 753.000 millones de parámetros y contexto de un millón de tokens, con niveles de esfuerzo de pensamiento.",
+      "verifiedAt": "2026-10-17",
+      "commercialUse": "partial",
+      "summary": "Pesos descargables bajo la GLM-5.3 License: permite usar, copiar, modificar y vender copias. La única condición añadida es para negocios de modelo como servicio con más de 10.000 millones de dólares de ingresos en doce meses consecutivos, que deben pasar la revisión de seguridad de Z.ai antes de usarlo con fines comerciales. 753.000 millones de parámetros y contexto de un millón de tokens.",
       "limits": [
-        "Pesos: MIT",
+        "Pesos: GLM-5.3 License (permisiva, casi MIT)",
+        "Revisión de seguridad de Z.ai para negocios de modelo como servicio con más de 10.000 M$ en 12 meses",
         "753.000 millones de parámetros",
-        "Contexto de 1.000.000 de tokens",
+        "Contexto de 1.048.576 tokens",
         "Sólo texto"
       ]
     },
@@ -5819,42 +5827,56 @@
         "kind": "repo",
         "publisher": "huggingface.co",
         "checkedAt": "2026-10-12"
+      },
+      {
+        "url": "https://huggingface.co/zai-org/GLM-5.3",
+        "label": "Ficha de GLM-5.3 en Hugging Face",
+        "kind": "repo",
+        "publisher": "huggingface.co",
+        "checkedAt": "2026-10-17"
+      },
+      {
+        "url": "https://huggingface.co/zai-org/GLM-5.3/resolve/main/LICENSE",
+        "label": "Licencia GLM-5.3",
+        "kind": "repo",
+        "publisher": "huggingface.co",
+        "checkedAt": "2026-10-17"
       }
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-17",
+        "scope": "local",
         "field": "freePlan.limits",
         "outcome": "stated",
-        "sourceUrl": "https://huggingface.co/zai-org/GLM-5.2",
+        "sourceUrl": "https://huggingface.co/zai-org/GLM-5.3/resolve/main/config.json",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-20",
-        "quote": "License: MIT · \"Pure Open\" with MIT licensing and no regional limits, technical access without borders",
-        "scope": "local"
+        "quote": "\"max_position_embeddings\": 1048576"
       },
       {
+        "checkedAt": "2026-10-17",
+        "scope": "local",
         "field": "capabilities",
         "outcome": "stated",
-        "sourceUrl": "https://huggingface.co/zai-org/GLM-5.2",
+        "sourceUrl": "https://huggingface.co/zai-org/GLM-5.3",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-20",
-        "quote": "Solid 1M-token context that stably sustains long-horizon work · Advanced Coding with Flexible Effort · agentic tasks (MCP-Atlas: 76.8, Tool-Decathlon: 48.2)",
-        "scope": "local"
+        "quote": "License: · glm-5.3 · GLM-5.3 uses the same base model as GLM-5.2 — every gain comes from post-training · Stronger Coding · much better at complex coding and long-horizon tasks · reasoning_effort"
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-10-17",
         "scope": "weights",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
-        "sourceUrl": "https://huggingface.co/zai-org/GLM-5.2/blob/main/LICENSE",
-        "sourceKind": "licence",
-        "quote": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software"
+        "sourceUrl": "https://huggingface.co/zai-org/GLM-5.3/resolve/main/LICENSE",
+        "sourceKind": "repo",
+        "quote": "to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software […] If the Licensee or any of its affiliates operates a Model as a Service business, and the aggregate revenue of the Licensee and its affiliates exceeds 10 billion US dollars (or the equivalent in other currencies) in total over any consecutive 12 months, the Licensee must pass Z.AI’s security review before using the Software or its derivative works for any commercial purpose"
       }
     ],
     "slug": "glm-5",
     "id": "tool_glm-5",
-    "nextReviewAt": "2026-11-18",
-    "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-08-20"
+    "nextReviewAt": "2027-01-15",
+    "lastVerifiedAt": "2026-10-17",
+    "updatedAt": "2026-10-17"
   },
   {
     "skillLevel": "beginner",
@@ -6519,7 +6541,14 @@
     "notFor": [],
     "alternatives": [],
     "alternativeNames": [],
-    "changelog": [],
+    "changelog": [
+      {
+        "date": "2026-09-21",
+        "kind": "price_change",
+        "summary": "xAI presenta Grok 4.7 y deja un precio único: 2 $ por millón de tokens de entrada y 6 $ de salida. Grok 4.6 cobraba por tramos según la longitud del prompt, de 2 a 4 $ de entrada y de 6 a 12 $ de salida. El contexto sigue en 500k tokens y el corte de conocimiento pasa de febrero a mayo de 2026. La ficha describía Grok 4.6 hasta esta revisión.",
+        "sourceUrl": "https://docs.x.ai/developers/models"
+      }
+    ],
     "affiliation": {
       "isAffiliate": false
     },
@@ -6531,7 +6560,7 @@
     "kind": "model",
     "categorySlug": "modelos",
     "licences": {},
-    "name": "Grok 4.6",
+    "name": "Grok 4.7",
     "verification": "verified",
     "officialUrl": "https://docs.x.ai/developers/models",
     "hosting": "cloud",
@@ -6541,21 +6570,20 @@
     ],
     "freeModel": "paid_only",
     "tagline": "Medio millón de tokens de contexto, sin capa gratuita documentada.",
-    "descriptionShort": "La gama actual de xAI. Contexto de 500k tokens y precio por tramos según la longitud del prompt: 2 $ por millón de entrada por debajo de 200k y 4 $ por encima. Su documentación no menciona capa gratuita ni créditos.",
-    "verdict": "La documentación advierte de algo que conviene leer: sin herramientas de búsqueda activadas, «Grok has no knowledge of current events or data beyond what was present in its training data», con corte en febrero de 2026.",
+    "descriptionShort": "La gama actual de xAI: «Our flagship model for code and everything else». Contexto de 500k tokens, 2 $ por millón de tokens de entrada y 6 $ de salida, y razonamiento configurable. Su documentación no menciona capa gratuita ni créditos.",
+    "verdict": "La documentación advierte de algo que conviene leer: sin herramientas de búsqueda activadas, «Grok has no knowledge of current events or data beyond what was present in its training data», con corte en mayo de 2026.",
     "freePlan": {
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-20",
-      "summary": "Sin capa gratuita ni créditos documentados. 2 $ por millón de entrada (prompts <200k) y 4 $ por encima; 6 $ y 12 $ de salida. Contexto de 500k tokens.",
+      "verifiedAt": "2026-10-17",
+      "summary": "Sin capa gratuita ni créditos documentados. 2 $ por millón de tokens de entrada y 6 $ de salida. Contexto de 500k tokens.",
       "limits": [
-        "2–4 $/M de entrada según longitud del prompt",
-        "6–12 $/M de salida",
+        "2 $/M de entrada · 6 $/M de salida",
         "Contexto de 500k tokens",
-        "Corte de conocimiento: 1 de febrero de 2026"
+        "Corte de conocimiento: mayo de 2026"
       ]
     },
     "access": {
@@ -6584,26 +6612,26 @@
         "label": "Documentación oficial de modelos",
         "kind": "docs",
         "publisher": "x.ai",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-10-17"
       }
     ],
     "evidence": [
       {
+        "checkedAt": "2026-10-17",
+        "scope": "api",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://docs.x.ai/developers/models",
         "sourceKind": "docs",
-        "checkedAt": "2026-08-20",
-        "quote": "grok-4.6 — 500k context · Input $2–4/1M · Output $6–12/1M. [Sin capa gratuita ni créditos en la tabla.]",
-        "scope": "product"
+        "quote": "grok-4.7 · Our flagship model for code and everything else · Context · 500k tokens · Input · $2.00 / 1M tokens · Output · $6.00 / 1M tokens · The knowledge cut-off date of Grok 4.7 is May 2026"
       }
     ],
     "auditNotes": "El acceso en chat se queda sin afirmar: x.ai/grok devuelve 403 a toda lectura automática, así que no se puede comprobar qué gama sirve el plan gratuito de la aplicación.",
     "slug": "grok-4",
     "id": "tool_grok-4",
-    "nextReviewAt": "2026-11-18",
-    "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-08-20"
+    "nextReviewAt": "2027-01-15",
+    "lastVerifiedAt": "2026-10-17",
+    "updatedAt": "2026-10-17"
   },
   {
     "id": "tool_grok-imagine",

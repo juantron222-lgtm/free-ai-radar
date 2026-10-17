@@ -124,7 +124,7 @@ describe('las tres puertas no se heredan', () => {
 
 describe('pesos abiertos no es open source', () => {
   it('los de licencia propia no se declaran OSI', () => {
-    for (const slug of ['llama-4', 'kimi-k2', 'qwen3-max']) {
+    for (const slug of ['llama-4', 'kimi-k2', 'qwen3-max', 'glm-5']) {
       const tool = bySlug.get(slug)!;
       expect(tool.openSource, slug).toBe('weights');
       expect(tool.access.weights, slug).toBe('yes');
@@ -132,9 +132,24 @@ describe('pesos abiertos no es open source', () => {
   });
 
   it('los permisivos de verdad sí', () => {
-    for (const slug of ['qwen3-27b', 'glm-5', 'phi-4', 'deepseek-v4-pro', 'gemma-4']) {
+    /*
+     * GLM salió de esta lista el 17 de octubre de 2026. GLM-5.2 era MIT; GLM-5.3
+     * (25 de agosto) trae licencia propia, casi MIT pero con una revisión de
+     * seguridad obligatoria para negocios de modelo como servicio de más de
+     * 10.000 millones. Una condición así ya no es OSI, por pequeña que sea.
+     */
+    for (const slug of ['qwen3-27b', 'phi-4', 'deepseek-v4-pro', 'gemma-4']) {
       expect(bySlug.get(slug)!.openSource, slug).toBe('yes');
     }
+  });
+
+  it('la condición de GLM-5.3 está citada de su licencia', () => {
+    const glm = bySlug.get('glm-5')!;
+    const ev = glm.evidence.find((e) => e.field === 'freePlan.commercialUse');
+    expect(ev?.outcome).toBe('stated');
+    expect(ev?.quote).toMatch(/sell copies/);
+    expect(ev?.quote).toMatch(/security review/);
+    expect(glm.freePlan.commercialUse).toBe('partial');
   });
 
   it('la misma familia puede tener dos licencias, y se distingue', () => {
