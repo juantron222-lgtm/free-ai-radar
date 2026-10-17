@@ -203,7 +203,8 @@ describe('la verificación de agosto de 2026', () => {
     const tool = bySlug.get('grok-imagine')!;
     expect(tool.freeModel).toBe('freemium');
     const limits = tool.freePlan.limits.join(' ');
-    expect(limits).toContain('Generación de imágenes: incluida en el plan Free');
+    // Desde el 12 de octubre de 2026 (The X Subscription) la tabla dice «Limited».
+    expect(limits).toContain('Generación de imágenes: limitada en el plan Free');
     expect(limits).toContain('Generación de vídeo: no incluida en el plan Free');
   });
 
