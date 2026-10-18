@@ -1,5 +1,121 @@
 [
   {
+    "id": "news-2026-10-16-beam-gratis-ollama",
+    "slug": "reflection-beam-gratis-ollama",
+    "title": "Beam, un modelo abierto de 501.000 millones con licencia Apache 2.0, está gratis en Ollama por tiempo limitado",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Ollama anunció el 16 de octubre que Beam, el primer modelo de pesos abiertos de Reflection, está ya disponible y que ellos lo sirven gratis por tiempo limitado, como socios de día cero. Es una mezcla de expertos de unos 501.000 millones de parámetros con 23.000 millones activos por token y un millón de tokens de contexto, pensada para ingeniería de software, razonamiento y tareas agénticas de largo recorrido. Sale con licencia Apache 2.0.",
+    "impact": "Dos detalles pesan más que el tamaño. El primero, de cautela: lo gratuito es «por tiempo limitado» y no dan fecha de fin, así que no conviene montar nada que dependa de ello. El segundo, a favor: el extremo de Beam en Ollama funciona con retención cero de datos. Se usa desde su nube sin descargar nada ni gestionar inferencia local, y se puede arrancar directamente dentro de Claude Code, Codex u OpenCode. La licencia Apache 2.0 es la diferencia de fondo: permite inspeccionarlo, adaptarlo y construir encima.",
+    "category": "plan-gratuito",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-16",
+    "checkedAt": "2026-10-18",
+    "officialUrl": "https://ollama.com/blog/reflection-beam",
+    "sources": [
+      {
+        "url": "https://ollama.com/blog/reflection-beam",
+        "kind": "official",
+        "label": "Reflection's Beam is freely available on Ollama for a limited time",
+        "checkedAt": "2026-10-18",
+        "publisher": "ollama.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "yes",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-15-flux3-image-klein",
+    "slug": "flux-3-image-klein",
+    "title": "FLUX.3 Image Klein llega a Diffusers y deja colocar cada parte de la imagen escribiendo cajas en la petición",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Black Forest Labs publicó el 15 de octubre FLUX.3 Image Klein, que funciona en Diffusers desde el primer día. Un mismo modelo hace texto a imagen e imagen a imagen con varias referencias, y añade algo nuevo: control de la disposición escribiendo cajas delimitadoras en la propia petición, para decir dónde va cada parte o qué partes de una referencia mover. Hay dos puntos de control abiertos, uno destilado para ir rápido y el modelo base.",
+    "impact": "Las cifras que deciden si lo puedes ejecutar en casa: el destilado hace una imagen de 1024 por 1024 en 1,93 segundos en una H100, con 23,8 GiB de memoria máxima. Para tarjetas más pequeñas hay pesos en NVFP4 y FP8 que bajan la memoria tras la carga a unos 13,4 GiB, y recomiendan ejecutar el codificador de texto aparte y liberarlo. Añadir una imagen de referencia duplica aproximadamente el tiempo. Vienen además guiones de LoRA para texto a imagen y para edición.",
+    "category": "imagen",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-15",
+    "checkedAt": "2026-10-18",
+    "officialUrl": "https://huggingface.co/blog/flux-3",
+    "sources": [
+      {
+        "url": "https://huggingface.co/blog/flux-3",
+        "kind": "official",
+        "label": "Welcome FLUX.3 Image Klein in Diffusers",
+        "checkedAt": "2026-10-18",
+        "publisher": "huggingface.co/blog"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-15-muse-spark-open",
+    "slug": "meta-muse-spark-open",
+    "title": "Meta abre los pesos de Muse Spark, de 816.000 millones, y la configuración de referencia pide cuatro GPU GB300",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Hugging Face publicó el 15 de octubre la llegada de Muse Spark Open, el modelo de pesos abiertos de Meta: una mezcla de expertos de unos 816.000 millones de parámetros con unos 42.000 millones activos por token, que acepta texto, imágenes, audio y vídeo y devuelve texto, con hasta un millón de tokens de contexto. Meta lo entrenó para programar de forma agéntica: leer un repositorio, escribir y depurar código, y llamar a herramientas.",
+    "impact": "Que los pesos estén abiertos no quiere decir que quepa en casa: su configuración de referencia en NVFP4 se reparte entre cuatro GPU GB300. El enrutado usa 256 expertos por capa y elige ocho por token, y hay dos formatos de punto de control, BF16 y NVFP4. Lo práctico del diseño multimodal es que el mismo modelo puede leer una captura, escuchar una nota de voz o ver una grabación de pantalla mientras trabaja en el código. Que sea el modelo de pesos abiertos más capaz de Estados Unidos lo dice Hugging Face, no nosotros.",
+    "category": "local-open-source",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-15",
+    "checkedAt": "2026-10-18",
+    "officialUrl": "https://huggingface.co/blog/meta-muse-spark-open",
+    "sources": [
+      {
+        "url": "https://huggingface.co/blog/meta-muse-spark-open",
+        "kind": "official",
+        "label": "Welcome Muse Spark Open: open-weight frontier multimodal mixture-of-experts model from Meta",
+        "checkedAt": "2026-10-18",
+        "publisher": "huggingface.co/blog"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-15-timestral",
+    "slug": "mistral-timestral",
+    "title": "Mistral publica Timestral, modelos de previsión de series temporales que corren en CPU y con licencia MIT modificada",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Mistral publicó el 15 de octubre Timestral, su primera familia de modelos fundacionales para series temporales. Sostiene que el mayor, de sólo 209 millones de parámetros, queda primero en las tres pruebas públicas principales del campo —GIFT-Eval, TIME y fev-bench— superando al estado del arte anterior con dos tercios de sus parámetros. La familia tiene cuatro tamaños, de 5 a 209 millones, se despliega en local o en entornos aislados y sale con licencia MIT modificada.",
+    "impact": "El atractivo está en el tamaño: son modelos que funcionan con eficiencia en CPU, lo que cambia dónde se pueden poner. Entrega previsiones probabilísticas con 21 cuantiles y admite covariables pasadas y también futuras conocidas, que es lo que separa una previsión utilizable de un ejercicio. El dato al que apunta es de los más comunes en una empresa: telemetría de sensores y métricas de observabilidad. Conviene anotar que los resultados están enviados a las clasificaciones de GIFT-Eval y TIME, no confirmados por ellas.",
+    "category": "local-open-source",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-15",
+    "checkedAt": "2026-10-18",
+    "officialUrl": "https://mistral.ai/news/timestral/",
+    "sources": [
+      {
+        "url": "https://mistral.ai/news/timestral/",
+        "kind": "official",
+        "label": "Introducing Timestral",
+        "checkedAt": "2026-10-18",
+        "publisher": "mistral.ai"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-10-14-gemma-estafas-singapur",
     "slug": "gemma-deteccion-estafas-singapur",
     "title": "Google y Singapur ajustan un Gemma que detecta estafas sin que las conversaciones salgan del móvil",
