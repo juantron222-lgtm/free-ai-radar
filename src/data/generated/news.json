@@ -1,5 +1,121 @@
 [
   {
+    "id": "news-2026-10-20-anylanguagemodel-1-0",
+    "slug": "anylanguagemodel-1-0",
+    "title": "AnyLanguageModel llega a la 1.0: una sola API para el modelo del sistema de Apple, los locales y los de la nube",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Hugging Face publicó el 20 de octubre la versión 1.0 de AnyLanguageModel, junto a swift-huggingface 1.0 y swift-xet 1.0. Es un sustituto directo del marco de modelos de Apple que deja elegir qué modelo y qué proveedor usa la aplicación: basta cambiar la línea de importación y el mismo código de sesión sigue valiendo, ya sea con el modelo del sistema, con modelos de pesos abiertos a través de llama.cpp, MLX o Core ML, o con proveedores alojados.",
+    "impact": "Lo que resuelve es un problema concreto de quien hace aplicaciones: probar un modelo local sin reescribir la aplicación, y poder cambiar de proveedor después. Durante el año han añadido llamada a herramientas y generación guiada con todos los proveedores, y soporte de imágenes en las peticiones, incluido el modelo del sistema en iOS, macOS y visionOS. Entre los alojados están OpenAI, Anthropic, la API de Gemini y Ollama. Dicen haber nacido de desarrolladores con curiosidad por lo local que no sabían por dónde empezar.",
+    "category": "programacion",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-20",
+    "checkedAt": "2026-10-20",
+    "officialUrl": "https://huggingface.co/blog/anylanguagemodel-1-0",
+    "sources": [
+      {
+        "url": "https://huggingface.co/blog/anylanguagemodel-1-0",
+        "kind": "official",
+        "label": "AnyLanguageModel 1.0: One Year of Local Models on Apple Platforms",
+        "checkedAt": "2026-10-20",
+        "publisher": "huggingface.co/blog"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-20-mps-pytorch-2-15",
+    "slug": "mps-pytorch-2-15",
+    "title": "PyTorch 2.15 acelera los modelos en Mac: una mezcla de expertos pasa de 9,4 a 61,3 tokens por segundo",
+    "author": "Redacción de Free AI Radar",
+    "summary": "El equipo de PyTorch de Hugging Face publicó el 20 de octubre lo que cambia en la versión 2.15 para quien ejecuta modelos en un Mac. Lo más llamativo son los modelos de mezcla de expertos, que según sus medidas decodifican entre 5 y 6,5 veces más rápido que en la 2.14: Qwen3.6-35B-A3B pasa de 9,4 a 61,3 tokens por segundo en un M3 Ultra. Llega además FP8 al Mac, que guarda los valores en la mitad de espacio que BF16.",
+    "impact": "Afecta directamente a quien usa transformers, diffusers o ComfyUI en un Mac. Los modelos densos también ganan, con un softmax ocho veces más rápido para el muestreo, y hay un caso extremo en vídeo: la decodificación del VAE de Wan2.2 baja de un pico de 270 GiB de memoria a 8 GiB. Conviene mirar los requisitos antes de actualizar, porque han subido: MPS exige ya macOS 15 o posterior y PyTorch 2.15 pide Python 3.11. Todas las cifras son medidas suyas.",
+    "category": "local-open-source",
+    "eventType": "actualizacion",
+    "availability": "available",
+    "publishedAt": "2026-10-20",
+    "checkedAt": "2026-10-20",
+    "officialUrl": "https://huggingface.co/blog/mps-pytorch-2-15",
+    "sources": [
+      {
+        "url": "https://huggingface.co/blog/mps-pytorch-2-15",
+        "kind": "official",
+        "label": "MPS in PyTorch 2.15",
+        "checkedAt": "2026-10-20",
+        "publisher": "huggingface.co/blog"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-19-clef-ollama",
+    "slug": "clef-modelo-decision-cloudflare",
+    "title": "Clef, el modelo de decisión multimodal de Cloudflare, llega a Ollama con licencia Apache 2.0",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Ollama anunció el 19 de octubre que Clef, un modelo de decisión multimodal de 27.000 millones de parámetros hecho por Cloudflare, se puede ejecutar ya en local o en su nube. Convierte un estado y un esquema de preguntas con tipos en decisiones, acepta texto e imagen y es compatible con las API Jev y System One. Está ajustado a partir de Qwen3.8-27B y sale con licencia Apache 2.0.",
+    "impact": "Lo distinto es cómo trabaja: lee la entrada una vez y puntúa todas las respuestas a todas las preguntas a la vez, en lugar de redactar palabra por palabra, y eso es lo que explica la latencia. Su mediana en 43 pruebas es de 209,3 milisegundos, y 38,8 en la variante flash. Sirve para encaminar peticiones, comprobar condiciones, aplicar políticas, leer un documento a partir de una foto y moderar la llamada a una herramienta antes de que se ejecute. Las cifras de referencia no son de Ollama: vienen del anuncio de Cloudflare.",
+    "category": "modelo-multimodal",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-19",
+    "checkedAt": "2026-10-20",
+    "officialUrl": "https://ollama.com/blog/clef",
+    "sources": [
+      {
+        "url": "https://ollama.com/blog/clef",
+        "kind": "official",
+        "label": "Clef is available on Ollama's cloud",
+        "checkedAt": "2026-10-20",
+        "publisher": "ollama.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-19-thin-orchestrator",
+    "slug": "meta-orquestador-delgado-agentes",
+    "title": "Meta cuenta que sus agentes mejoraron al quitarle conocimiento al que reparte el trabajo, no al añadirlo",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Meta publicó el 19 de octubre cómo rehizo los agentes que dan de alta columnas de datos en sus sistemas de recomendación, un proceso que abarca tres repositorios, tres lenguajes y hasta seis etapas. Su primer intento fue un único agente que lo sabía todo: funcionaba en las demostraciones y en producción empezó a alucinar. La solución, dicen, no fueron mejores instrucciones ni más ventana de contexto, sino darle menos trabajo al agente central.",
+    "impact": "El hallazgo va contra la intuición y por eso merece atención: pasado cierto umbral de contexto, el conocimiento adicional empeoraba el rendimiento en lugar de mejorarlo, y el agente mezclaba convenciones de un subsistema con otro. Ahora tienen un orquestador de 1.300 líneas que encamina más de veinte flujos a catorce agentes especializados sin hacer ningún trabajo de dominio. Sus cifras del intento anterior: entre el 70 y el 80 % de acierto con una instrucción escrita a mano para cada tarea, y entre el 10 y el 20 % sin ella.",
+    "category": "agentes",
+    "eventType": "anuncio",
+    "availability": "unknown",
+    "publishedAt": "2026-10-19",
+    "checkedAt": "2026-10-20",
+    "officialUrl": "https://engineering.fb.com/2026/10/19/ml-applications/thin-orchestrator-ai-agent-architecture/",
+    "sources": [
+      {
+        "url": "https://engineering.fb.com/2026/10/19/ml-applications/thin-orchestrator-ai-agent-architecture/",
+        "kind": "official",
+        "label": "The Thin Orchestrator: How We Made Our AI Agents More Reliable by Giving the Router Less to Do",
+        "checkedAt": "2026-10-20",
+        "publisher": "fb.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-10-16-beam-gratis-ollama",
     "slug": "reflection-beam-gratis-ollama",
     "title": "Beam, un modelo abierto de 501.000 millones con licencia Apache 2.0, está gratis en Ollama por tiempo limitado",
