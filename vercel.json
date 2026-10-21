@@ -87,7 +87,7 @@
       ]
     },
     {
-      "source": "/(favicon.svg|theme-init.js|consent.js|auth-form.js|sw-register.js)",
+      "source": "/(favicon.svg|theme-init.js|sesion-init.js|consent.js|auth-form.js|sw-register.js)",
       "headers": [
         {
           "key": "Cache-Control",

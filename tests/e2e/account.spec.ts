@@ -130,6 +130,35 @@ test.describe('inicio y cierre de sesión', () => {
     await expect(page).toHaveURL(/\/cuenta\/entrar/);
   });
 
+  test('la cabecera dice «Tu cuenta» con sesión y vuelve a «Entrar» al salir', async ({ page }) => {
+    /*
+     * /metodologia se sirve ya hecha: el servidor no sabe quién la mira, y
+     * hasta el 21 de octubre de 2026 decía «Entrar» también con la sesión
+     * iniciada. En escritorio el enlace está en la barra; en móvil, en el menú.
+     */
+    const cabecera = page.locator('.site-header');
+    const escritorio = (page.viewportSize()?.width ?? 0) >= 1088;
+    const enlace = async (nombre: RegExp) => {
+      if (!escritorio && (await page.locator('#menu-toggle').getAttribute('aria-expanded')) !== 'true') {
+        await page.locator('#menu-toggle').click();
+      }
+      return cabecera.getByRole('link', { name: nombre });
+    };
+
+    await register(page);
+    await page.goto('/metodologia');
+    await expect(await enlace(/^Tu cuenta/)).toBeVisible();
+    await expect(await enlace(/^Entrar/)).toBeHidden();
+
+    await page.goto('/cuenta');
+    await page.getByRole('button', { name: 'Salir' }).click();
+    await page.waitForURL('/', { waitUntil: 'domcontentloaded' });
+
+    await page.goto('/metodologia');
+    await expect(await enlace(/^Entrar/)).toBeVisible();
+    await expect(await enlace(/^Tu cuenta/)).toBeHidden();
+  });
+
   test('un usuario ya autenticado no ve el formulario de login', async ({ page }) => {
     await register(page);
     await page.goto('/cuenta/entrar');

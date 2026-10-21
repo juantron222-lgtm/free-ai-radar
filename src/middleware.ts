@@ -3,7 +3,14 @@ import { getAuthProvider } from '@lib/auth/provider';
 import { CSRF_COOKIE, issueToken } from '@lib/security/csrf';
 import { readConsentFromCookie, CONSENT_COOKIE, DENY_ALL } from '@lib/consent';
 import { logger } from '@lib/observability/logger';
-import { csrfCookie, serializeCookie } from '@lib/security/cookies';
+import { SESSION_MAX_AGE_SECONDS } from '@lib/auth/local-store';
+import {
+  SESSION_HINT_COOKIE,
+  clearedCookie,
+  csrfCookie,
+  serializeCookie,
+  sessionHintCookie,
+} from '@lib/security/cookies';
 
 /**
  * Request pipeline.
@@ -11,7 +18,9 @@ import { csrfCookie, serializeCookie } from '@lib/security/cookies';
  *   1. Attach the session user to `locals` so pages never call the provider.
  *   2. Guard `/cuenta` and `/admin`.
  *   3. Mint a CSRF token for anything that renders a form.
- *   4. Set security headers that must vary per response.
+ *   4. Keep the «hay sesión» hint in step with the real session, so that
+ *      prerendered pages can say «Tu cuenta» instead of «Entrar».
+ *   5. Set security headers that must vary per response.
  *
  * Static security headers live in `vercel.json` so they also cover prerendered
  * pages, which never reach this middleware at request time.
@@ -104,6 +113,20 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
   if (mintedCsrf) {
     response.headers.append('set-cookie', serializeCookie(CSRF_COOKIE, csrfToken, csrfCookie()));
+  }
+
+  // ---- «Hay sesión» ------------------------------------------------------
+  // Se mira después de `next()` porque entrar y salir cambian `locals.user`
+  // dentro de la propia petición. Sólo se escribe cuando no cuadra, para no
+  // mandar una cookie en cada respuesta.
+  const conPista = cookies.get(SESSION_HINT_COOKIE)?.value === '1';
+  if (locals.user && !conPista) {
+    response.headers.append(
+      'set-cookie',
+      serializeCookie(SESSION_HINT_COOKIE, '1', sessionHintCookie(SESSION_MAX_AGE_SECONDS))
+    );
+  } else if (!locals.user && conPista) {
+    response.headers.append('set-cookie', serializeCookie(SESSION_HINT_COOKIE, '', clearedCookie(false)));
   }
 
   // ---- Per-response security headers -------------------------------------

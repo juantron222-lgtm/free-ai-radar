@@ -44,6 +44,28 @@ export function csrfCookie(maxAgeSeconds = 60 * 60 * 8): CookieAttributes {
   };
 }
 
+/**
+ * «Hay sesión», y nada más.
+ *
+ * Casi todas las páginas se sirven ya hechas desde la CDN y no saben quién
+ * las mira, así que la cabecera decía «Entrar» también a quien ya había
+ * entrado. Esta cookie la lee `public/sesion-init.js` antes de pintar para
+ * enseñar «Tu cuenta». Vale siempre `1`: no identifica a nadie ni sirve para
+ * entrar; la sesión de verdad sigue en las cookies que no lee ningún script.
+ * Sólo la escribe el middleware.
+ */
+export const SESSION_HINT_COOKIE = 'far_hay_sesion';
+
+export function sessionHintCookie(maxAgeSeconds: number): CookieAttributes {
+  return {
+    httpOnly: false,
+    sameSite: 'lax',
+    path: '/',
+    secure: isProduction,
+    maxAge: maxAgeSeconds,
+  };
+}
+
 export function clearedCookie(httpOnly = true): CookieAttributes {
   return { httpOnly, sameSite: 'lax', path: '/', secure: isProduction, maxAge: 0 };
 }

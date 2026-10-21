@@ -33,6 +33,9 @@ export const POST: APIRoute = async (context) => {
     return respond(context, { ok: false, message: result.message, errors: { password: result.message } }, 401);
   }
 
+  // El middleware lo lee al volver para dejar la cookie «hay sesión».
+  context.locals.user = result.user ?? null;
+
   const next = safeRedirect(check.form!.get('next') as string | null, ROUTES.account);
   return respond(context, { ok: true, message: result.message, data: { next } }, 200, next);
 };

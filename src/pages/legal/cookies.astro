@@ -12,6 +12,11 @@ const NECESSARY_COOKIES = [
   { name: 'far_consent', purpose: 'Guarda tu decisión sobre cookies y su fecha', duration: '6 meses' },
   { name: 'far_csrf', purpose: 'Protege los formularios frente a peticiones falsificadas', duration: '8 horas' },
   { name: 'far_session / sb-*', purpose: 'Mantiene tu sesión iniciada', duration: 'Hasta 30 días' },
+  {
+    name: 'far_hay_sesion',
+    purpose: 'Sólo dice que has iniciado sesión (vale «1»), para que la cabecera muestre «Tu cuenta» en vez de «Entrar». No te identifica ni sirve para entrar',
+    duration: 'Mientras dure tu sesión, hasta 30 días',
+  },
   { name: 'far-theme (localStorage)', purpose: 'Recuerda si prefieres tema claro u oscuro', duration: 'Permanente hasta que la borres' },
 ];
 ---
@@ -22,7 +27,7 @@ const NECESSARY_COOKIES = [
   heading="Política de cookies"
   lede="Nada que no sea estrictamente necesario se carga sin tu permiso. Aquí está el detalle."
   crumbs={crumbs}
-  updatedAt="2026-08-03"
+  updatedAt="2026-10-21"
   draftNotice
 >
   <p>

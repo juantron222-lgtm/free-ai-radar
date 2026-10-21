@@ -17,5 +17,8 @@ export const POST: APIRoute = async (context) => {
     context.cookies.set(cookie.name, cookie.value, cookie.options as never);
   }
 
+  // El middleware lo lee al volver para borrar la cookie «hay sesión».
+  context.locals.user = null;
+
   return context.redirect(ROUTES.home, 303);
 };

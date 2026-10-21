@@ -96,7 +96,13 @@ const conLupa = !enPortada;
 
       <ThemeToggle />
 
-      <a href={ROUTES.login} class="btn btn-secondary btn-sm header-login">Entrar</a>
+      {/* Van los dos y el CSS enseña uno. Casi todas las páginas se sirven ya
+          hechas y no saben si hay sesión: lo dice `html[data-sesion]`, que pone
+          public/sesion-init.js antes de pintar. Alternativa descartada: cambiar
+          el texto desde el script de la cabecera, que corre después de pintar y
+          dejaba ver «Entrar» un instante. */}
+      <a href={ROUTES.login} class="btn btn-secondary btn-sm header-login" data-sin-sesion>Entrar</a>
+      <a href={ROUTES.account} class="btn btn-secondary btn-sm header-login" data-con-sesion>Tu cuenta</a>
 
       <button
         type="button"
@@ -156,10 +162,16 @@ const conLupa = !enPortada;
             </a>
           </li>
         ))}
-        <li class="mobile-menu-divider">
+        <li class="mobile-menu-divider" data-sin-sesion>
           <a href={ROUTES.login}>
             <span class="mobile-menu-label">Entrar o crear cuenta</span>
             <span class="mobile-menu-desc">Guarda herramientas y comprueba tus listas</span>
+          </a>
+        </li>
+        <li class="mobile-menu-divider" data-con-sesion>
+          <a href={ROUTES.account}>
+            <span class="mobile-menu-label">Tu cuenta</span>
+            <span class="mobile-menu-desc">Lo que has guardado y lo que sigues</span>
           </a>
         </li>
       </ul>
@@ -274,6 +286,12 @@ const conLupa = !enPortada;
   }
 
   .header-login {
+    display: none;
+  }
+
+  /* Con sesión, «Tu cuenta»; sin ella, «Entrar» (ver public/sesion-init.js). */
+  :global(html[data-sesion]) [data-sin-sesion],
+  :global(html:not([data-sesion])) [data-con-sesion] {
     display: none;
   }
 

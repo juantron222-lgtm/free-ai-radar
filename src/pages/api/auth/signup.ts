@@ -44,6 +44,9 @@ export const POST: APIRoute = async (context) => {
    */
   const destination = result.pendingConfirmation ? ROUTES.login : next;
 
+  // Si el alta ya deja la sesión abierta, el middleware deja la cookie «hay sesión».
+  if (result.ok && !result.pendingConfirmation && result.user) context.locals.user = result.user;
+
   const response = respond(
     context,
     { ok: result.ok, message: result.message, ...(result.field ? { errors: { [result.field]: result.message } } : {}) },
