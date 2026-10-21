@@ -1,0 +1,72 @@
+---
+import type { Fuente } from '@lib/decision/motor';
+
+/*
+ * De dónde sale una razón del motor, en una línea.
+ *
+ * Una cita enseña su página y su fecha, y la frase se despliega: está a un
+ * clic, pero no ocupa la tarjeta. Un dato anterior a las citas por campo se
+ * presenta como lo que es —«según la ficha»— y lleva a la ficha, que lista sus
+ * fuentes; no se disfraza de cita.
+ */
+interface Props {
+  fuente: Fuente;
+}
+const { fuente } = Astro.props;
+
+const fecha = new Date(`${fuente.fecha}T12:00:00Z`).toLocaleDateString('es-ES', {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
+const sitio = (() => {
+  try {
+    return new URL(fuente.url).hostname.replace(/^www\./, '');
+  } catch {
+    return fuente.url;
+  }
+})();
+---
+
+{fuente.tipo === 'cita' ? (
+  <div class="fuentecita">
+    <a href={fuente.url} rel="noopener noreferrer" target="_blank">{sitio}<span class="sr-only"> (se abre en una pestaña nueva)</span></a>, {fecha}
+    {fuente.alcance && <> · sólo {fuente.alcance.toLowerCase()}</>}
+    {fuente.cita && (
+      <details class="fuentecita-cita">
+        <summary>Ver la frase</summary>
+        <blockquote>«{fuente.cita}»</blockquote>
+      </details>
+    )}
+  </div>
+) : (
+  <div class="fuentecita">
+    <a href={fuente.url}>Según la ficha</a>, comprobada el {fecha}
+  </div>
+)}
+
+<style>
+  .fuentecita {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+  }
+
+  .fuentecita a {
+    color: inherit;
+  }
+
+  .fuentecita-cita summary {
+    cursor: pointer;
+    width: fit-content;
+    min-height: 24px;
+  }
+
+  .fuentecita-cita blockquote {
+    margin: var(--space-3xs) 0 0;
+    padding-inline-start: var(--space-xs);
+    border-inline-start: 2px solid var(--line-strong);
+    color: var(--ink);
+  }
+</style>

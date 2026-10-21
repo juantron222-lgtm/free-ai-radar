@@ -1,0 +1,592 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import CabeceraPagina from '@components/site/CabeceraPagina.astro';
+import ToolLogo from '@components/tools/ToolLogo.astro';
+import Fuentecita from '@components/decision/Fuentecita.astro';
+import { getTool } from '@lib/data/catalog';
+import { fichasDelCatalogo } from '@lib/decision/fichas';
+import {
+  decidir,
+  DONDE,
+  DONDE_ETIQUETA,
+  EXIGENCIAS,
+  IDS_DE_EXIGENCIA,
+  leerConsulta,
+  TAREAS,
+  urlDeConsulta,
+  type Resultado,
+} from '@lib/decision/motor';
+import { ROUTES } from '@lib/nav';
+
+/*
+ * «Pregúntale al Radar».
+ *
+ * Se calcula en el servidor, como el comparador, y no en el navegador como
+ * proponía el diseño del 10 de octubre: así funciona sin JavaScript, no carga
+ * ni un kilobyte de script, y la respuesta es la misma URL que se comparte. El
+ * coste por consulta es una función de Vercel, que a este tráfico es nada.
+ *
+ * Sin enlazar desde ningún sitio y con `noindex` hasta que Juan la revise.
+ */
+export const prerender = false;
+
+const params = Astro.url.searchParams;
+const consulta = leerConsulta(params);
+const tareaDesconocida = params.has('tarea') && !consulta;
+const respuesta = consulta ? decidir(fichasDelCatalogo(), consulta) : null;
+
+const nombres = (rs: readonly { nombre: string }[]) => rs.map((r) => r.nombre).join(', ');
+const lista = (xs: readonly string[]) =>
+  xs.length <= 1 ? xs.join('') : `${xs.slice(0, -1).join(', ')} y ${xs[xs.length - 1]}`;
+
+const pedidas = respuesta ? respuesta.exigencias.map((id) => EXIGENCIAS[id].etiqueta.toLowerCase()) : [];
+const cumplenTodo = respuesta ? respuesta.recomendadas.length + respuesta.tambien.length : 0;
+const totalDescartadas = respuesta ? respuesta.descartadas.reduce((n, d) => n + d.fichas.length, 0) : 0;
+
+const tituloRespuesta = respuesta
+  ? `${respuesta.tarea.etiqueta}${pedidas.length ? `, ${lista(pedidas)}` : ''}`
+  : '';
+
+const title = respuesta ? `${respuesta.tarea.etiqueta}: qué herramienta usar` : 'Pregúntale al Radar: qué IA usar para lo que quieres hacer';
+const description =
+  'Elige qué quieres hacer y qué condiciones pones. Te decimos qué herramientas lo cumplen según su página oficial, y qué no sabemos todavía.';
+const crumbs = [
+  { name: 'Inicio', path: ROUTES.home },
+  { name: 'Pregúntale al Radar', path: ROUTES.elegir },
+];
+
+/** Quitar una exigencia de la consulta actual: la salida del vacío honesto. */
+const sinExigencia = (id: (typeof IDS_DE_EXIGENCIA)[number]) =>
+  consulta ? urlDeConsulta({ ...consulta, exigencias: consulta.exigencias.filter((x) => x !== id) }) : ROUTES.elegir;
+---
+
+<BaseLayout title={title} description={description} crumbs={crumbs} migasEnCabecera noindex>
+  <CabeceraPagina titulo="Pregúntale al Radar" crumbs={crumbs}>
+    <p class="cabecera-entradilla">
+      Dinos qué quieres hacer y qué condiciones pones. Te decimos qué herramientas lo cumplen según lo
+      comprobado en su página oficial, con la fuente de cada cosa, y qué no sabemos todavía. Sin notas ni
+      opiniones.
+    </p>
+  </CabeceraPagina>
+
+  <div class="page elegir">
+    {/* GET y en el servidor: funciona sin JavaScript y la respuesta es una URL que se puede compartir. */}
+    <form class="elegir-form" method="get" action={`${ROUTES.elegir}#respuesta`}>
+      <fieldset class="paso">
+        <legend class="paso-titulo"><span class="paso-n" aria-hidden="true">1</span>¿Qué quieres hacer?</legend>
+        <div class="opciones">
+          {TAREAS.map((t) => (
+            <label class="opcion">
+              <input type="radio" name="tarea" value={t.id} checked={consulta?.tarea === t.id} required />
+              <span>{t.etiqueta}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <fieldset class="paso">
+        <legend class="paso-titulo"><span class="paso-n" aria-hidden="true">2</span>¿Qué condiciones pones?</legend>
+        <p class="paso-ayuda">Marca sólo las que necesites de verdad: cada una descarta lo que no la cumple.</p>
+        <div class="opciones">
+          {IDS_DE_EXIGENCIA.map((id) => (
+            <label class="opcion">
+              <input type="checkbox" name={id} value="1" checked={consulta?.exigencias.includes(id) ?? false} />
+              <span>
+                {EXIGENCIAS[id].etiqueta}
+                {id === 'sin-marca' && <span class="opcion-nota"> (imagen, vídeo y audio)</span>}
+              </span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <fieldset class="paso">
+        <legend class="paso-titulo"><span class="paso-n" aria-hidden="true">3</span>¿Dónde lo vas a usar?</legend>
+        <p class="paso-ayuda">No descarta nada: sólo pone primero lo que encaja.</p>
+        <div class="opciones">
+          <label class="opcion">
+            <input type="radio" name="donde" value="" checked={!consulta?.donde} />
+            <span>Me da igual</span>
+          </label>
+          {DONDE.map((d) => (
+            <label class="opcion">
+              <input type="radio" name="donde" value={d} checked={consulta?.donde === d} />
+              <span>{DONDE_ETIQUETA[d]}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <button type="submit" class="btn btn-primary elegir-enviar">Ver qué uso</button>
+    </form>
+
+    <section id="respuesta" class="respuesta" aria-labelledby="respuesta-titulo" aria-live="polite">
+      {tareaDesconocida && (
+        <div class="aviso" role="status">
+          <h2 id="respuesta-titulo">No conocemos esa tarea</h2>
+          <p>El enlace pide una tarea que el Radar no sabe reconocer. Elige una de la lista de arriba.</p>
+        </div>
+      )}
+
+      {!respuesta && !tareaDesconocida && (
+        <div class="inicio">
+          <h2 id="respuesta-titulo">Cómo decide</h2>
+          <ul>
+            <li>Sólo recomienda una herramienta si su página oficial dice que el plan gratuito incluye lo que quieres hacer.</li>
+            <li>Una condición comprobada en contra la descarta. Una que no consta no la descarta ni la da por buena: la verás aparte, con lo que no sabemos.</li>
+            <li>No hay notas. El orden sale de hechos de la ficha: qué da gratis, cuánto cuesta empezar y cuándo se comprobó.</li>
+          </ul>
+          <p><a href={ROUTES.methodology}>Cómo comprobamos cada dato</a></p>
+        </div>
+      )}
+
+      {respuesta && (
+        <>
+          <h2 id="respuesta-titulo" class="respuesta-titulo">{tituloRespuesta}</h2>
+          <p class="respuesta-resumen">
+            {cumplenTodo === 1 ? '1 cumple todo' : `${cumplenTodo} cumplen todo`} ·{' '}
+            {respuesta.posibles.length} sin confirmar · {totalDescartadas}{' '}
+            {totalDescartadas === 1 ? 'descartada' : 'descartadas'} · {respuesta.siPagas.length} sólo pagando
+          </p>
+          {respuesta.ignoradas.length > 0 && (
+            <p class="respuesta-nota">
+              «{lista(respuesta.ignoradas.map((id) => EXIGENCIAS[id].etiqueta.toLowerCase()))}» no se ha tenido en
+              cuenta: no aplica a esta tarea.
+            </p>
+          )}
+
+          {respuesta.recomendadas.length > 0 ? (
+            <ol class="recomendadas" aria-label="Recomendadas">
+              {respuesta.recomendadas.map((r: Resultado, i) => {
+                const tool = getTool(r.ficha.slug);
+                return (
+                  <li class="card recomendada">
+                    <div class="recomendada-cabeza">
+                      <span class="puesto" aria-hidden="true">{i + 1}</span>
+                      {tool && <ToolLogo tool={tool} size="sm" />}
+                      <div>
+                        <h3 class="recomendada-nombre">
+                          <a href={ROUTES.tool(r.ficha.slug)}>{r.ficha.nombre}</a>
+                        </h3>
+                        <p class="recomendada-meta">
+                          {r.ficha.vertical} · {r.ficha.acceso} · {r.ficha.esfuerzoTexto}
+                        </p>
+                      </div>
+                    </div>
+
+                    <h4 class="por-que">Por qué</h4>
+                    <ul class="razones">
+                      {r.razones.map((razon) => (
+                        <li>
+                          <span>{razon.texto}</span>
+                          <Fuentecita fuente={razon.fuente} />
+                        </li>
+                      ))}
+                    </ul>
+
+                    {r.ficha.limites.length > 0 && (
+                      <>
+                        <h4 class="por-que">Límites del plan gratuito</h4>
+                        <ul class="limites">
+                          {r.ficha.limites.map((l) => <li>{l}</li>)}
+                        </ul>
+                      </>
+                    )}
+
+                    <div class="recomendada-acciones">
+                      <a class="btn btn-secondary btn-sm" href={ROUTES.tool(r.ficha.slug)}>Ver la ficha</a>
+                      <a
+                        class="btn btn-ghost btn-sm"
+                        href={ROUTES.salida(r.ficha.slug)}
+                        target="_blank"
+                        rel={tool?.affiliation.isAffiliate ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
+                      >
+                        Ir a {r.ficha.nombre}<span class="sr-only"> (se abre en una pestaña nueva)</span>
+                      </a>
+                    </div>
+                    {tool?.affiliation.isAffiliate && (
+                      <p class="afiliacion">
+                        Enlace de afiliación: si contratas algo, podemos cobrar una comisión.{' '}
+                        <a href={ROUTES.affiliates}>No influye en lo que recomendamos</a>.
+                      </p>
+                    )}
+                  </li>
+                );
+              })}
+            </ol>
+          ) : (
+            <div class="vacio" role="status">
+              <p class="vacio-titulo">Ninguna cumple todo lo que pides con datos comprobados.</p>
+              {respuesta.vaciaPor ? (
+                <p>
+                  La condición que deja la respuesta vacía es «{EXIGENCIAS[respuesta.vaciaPor.exigencia].etiqueta.toLowerCase()}».{' '}
+                  <a href={sinExigencia(respuesta.vaciaPor.exigencia)}>
+                    Sin ella, {respuesta.vaciaPor.sinElla === 1 ? 'hay 1 que cumple' : `hay ${respuesta.vaciaPor.sinElla} que cumplen`}
+                  </a>
+                  .
+                </p>
+              ) : (
+                <p>Mira abajo las que podrían servir pero tienen algo sin confirmar, y lo que no sabemos de cada una.</p>
+              )}
+            </div>
+          )}
+
+          {respuesta.tambien.length > 0 && (
+            <div class="grupo">
+              <h3 class="grupo-titulo">También cumplen todo ({respuesta.tambien.length})</h3>
+              <ul class="nombres">
+                {respuesta.tambien.map((r) => (
+                  <li><a href={ROUTES.tool(r.ficha.slug)}>{r.ficha.nombre}</a> <span class="nombres-meta">{r.ficha.acceso}</span></li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {respuesta.posibles.length > 0 && (
+            <details class="grupo" open={respuesta.recomendadas.length === 0}>
+              <summary class="grupo-titulo">Posibles, sin confirmar ({respuesta.posibles.length})</summary>
+              <p class="grupo-ayuda">Podrían servir, pero falta algo por confirmar. No las damos por buenas ni por malas.</p>
+              <ul class="posibles">
+                {respuesta.posibles.map((r) => (
+                  <li>
+                    <a href={ROUTES.tool(r.ficha.slug)}>{r.ficha.nombre}</a>
+                    <ul class="dudas">
+                      {r.dudas.map((d) => <li>{d}</li>)}
+                    </ul>
+                  </li>
+                ))}
+              </ul>
+            </details>
+          )}
+
+          {respuesta.descartadas.length > 0 && (
+            <details class="grupo">
+              <summary class="grupo-titulo">Descartadas ({totalDescartadas})</summary>
+              <ul class="descartes">
+                {respuesta.descartadas.map((d) => (
+                  <li>
+                    <strong>{d.fichas.length} {d.texto}</strong>: {nombres(d.fichas)}
+                  </li>
+                ))}
+              </ul>
+            </details>
+          )}
+
+          {respuesta.siPagas.length > 0 && (
+            <details class="grupo">
+              <summary class="grupo-titulo">Sólo pagando ({respuesta.siPagas.length})</summary>
+              <p class="grupo-ayuda">Hacen esta tarea, pero su página oficial la deja fuera del plan gratuito o no tienen plan gratuito.</p>
+              <ul class="nombres">
+                {respuesta.siPagas.map((r) => (
+                  <li><a href={ROUTES.tool(r.ficha.slug)}>{r.ficha.nombre}</a></li>
+                ))}
+              </ul>
+            </details>
+          )}
+
+          <p class="respuesta-pie">
+            Cada dato sale de la página oficial de la herramienta, con su fecha. Si ves algo que ha cambiado, dínoslo
+            desde su ficha. <a href={ROUTES.methodology}>Cómo comprobamos cada dato</a>.
+          </p>
+        </>
+      )}
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  /* Base a 375 px; sube con min-width. */
+  .elegir {
+    display: grid;
+    gap: var(--space-l);
+    padding-block-end: var(--space-2xl);
+  }
+
+  .elegir-form {
+    display: grid;
+    gap: var(--space-m);
+  }
+
+  .paso {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-inline-size: 0;
+  }
+
+  .paso-titulo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    padding: 0;
+    margin-block-end: var(--space-2xs);
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 650;
+    color: var(--ink-strong);
+  }
+
+  .paso-n {
+    display: inline-grid;
+    place-items: center;
+    inline-size: 1.75rem;
+    block-size: 1.75rem;
+    border-radius: var(--radius-full);
+    background: var(--signal-soft);
+    color: var(--signal-strong);
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+
+  .paso-ayuda {
+    margin: 0 0 var(--space-2xs);
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .opciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+  }
+
+  /*
+   * Cada opción es la etiqueta entera, con el control nativo dentro: el
+   * objetivo táctil es toda la píldora (44 px de alto) y el foco y el estado
+   * los pinta el navegador. Alternativa descartada: ocultar el input y dibujar
+   * uno propio, que obliga a reimplementar foco, teclado y lector de pantalla.
+   */
+  .opcion {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    min-block-size: 44px;
+    padding: var(--space-2xs) var(--space-xs);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-full);
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 0.9375rem;
+    cursor: pointer;
+  }
+
+  .opcion:hover {
+    border-color: var(--line-strong);
+  }
+
+  .opcion:has(input:checked) {
+    border-color: var(--signal-line);
+    background: var(--signal-soft);
+    color: var(--ink-strong);
+  }
+
+  .opcion input {
+    accent-color: var(--signal);
+    margin: 0;
+    inline-size: 1.05rem;
+    block-size: 1.05rem;
+  }
+
+  .opcion-nota {
+    color: var(--ink-muted);
+    font-size: 0.8125rem;
+  }
+
+  .elegir-enviar {
+    justify-self: start;
+    min-block-size: 44px;
+  }
+
+  .respuesta {
+    display: grid;
+    gap: var(--space-m);
+    scroll-margin-top: 80px;
+  }
+
+  .inicio,
+  .aviso,
+  .vacio {
+    padding: var(--space-m);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface);
+  }
+
+  .inicio h2,
+  .aviso h2 {
+    margin: 0 0 var(--space-2xs);
+    font-size: 1.125rem;
+  }
+
+  .inicio ul {
+    margin: 0 0 var(--space-s);
+    padding-inline-start: 1.1rem;
+    display: grid;
+    gap: var(--space-2xs);
+    color: var(--ink-muted);
+  }
+
+  .vacio {
+    border-color: var(--warn-line);
+    background: var(--warn-soft);
+  }
+
+  .vacio p {
+    margin: 0;
+  }
+
+  .vacio p + p {
+    margin-block-start: var(--space-2xs);
+  }
+
+  .vacio-titulo {
+    font-weight: 650;
+    color: var(--ink-strong);
+  }
+
+  .respuesta-titulo {
+    margin: 0;
+    font-size: 1.375rem;
+  }
+
+  .respuesta-resumen,
+  .respuesta-nota,
+  .respuesta-pie,
+  .grupo-ayuda {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .recomendadas {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-s);
+  }
+
+  .recomendada {
+    padding: var(--space-m);
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .recomendada-cabeza {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .puesto {
+    flex: none;
+    display: inline-grid;
+    place-items: center;
+    inline-size: 1.75rem;
+    block-size: 1.75rem;
+    border-radius: var(--radius-full);
+    background: var(--ink-strong);
+    color: var(--ink-inverse);
+    font-weight: 700;
+    font-size: 0.875rem;
+  }
+
+  .recomendada-nombre {
+    margin: 0;
+    font-size: 1.125rem;
+  }
+
+  .recomendada-meta {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+  }
+
+  .por-que {
+    margin: var(--space-2xs) 0 0;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-subtle);
+  }
+
+  .razones,
+  .limites,
+  .dudas {
+    margin: 0;
+    padding-inline-start: 1.1rem;
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .limites {
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+  }
+
+  .recomendada-acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+    margin-block-start: var(--space-2xs);
+  }
+
+  .recomendada-acciones .btn {
+    min-block-size: 44px;
+  }
+
+  .afiliacion {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+  }
+
+  .grupo {
+    border-block-start: 1px solid var(--line);
+    padding-block-start: var(--space-s);
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .grupo-titulo {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 650;
+    color: var(--ink-strong);
+  }
+
+  summary.grupo-titulo {
+    cursor: pointer;
+    min-block-size: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .nombres,
+  .posibles,
+  .descartes {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .nombres-meta {
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+  }
+
+  .dudas {
+    margin-block-start: var(--space-3xs);
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  @media (min-width: 48rem) {
+    .recomendadas {
+      grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+      align-items: start;
+    }
+  }
+</style>

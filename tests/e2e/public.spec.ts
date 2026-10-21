@@ -760,6 +760,37 @@ test.describe('accesibilidad', () => {
   });
 });
 
+test.describe('Pregúntale al Radar', () => {
+  /*
+   * Se calcula en el servidor y responde a un formulario GET: tiene que
+   * funcionar entero sin JavaScript, y la respuesta tiene que ser la URL.
+   */
+  test.use({ javaScriptEnabled: false });
+
+  test('responde sin JavaScript y la consulta queda en la URL', async ({ page }) => {
+    await page.goto('/elegir');
+    await expect(page.getByRole('heading', { level: 1, name: 'Pregúntale al Radar' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Cómo decide' })).toBeVisible();
+
+    await page.getByRole('radio', { name: 'Transcribir audio a texto' }).check();
+    await page.getByRole('checkbox', { name: 'Sin dar una tarjeta' }).check();
+    await page.getByRole('button', { name: 'Ver qué uso' }).click();
+
+    await expect(page).toHaveURL(/\/elegir\?tarea=transcribir&sin-tarjeta=1/);
+    await expect(page.getByRole('heading', { level: 2, name: /Transcribir audio a texto, sin dar una tarjeta/ })).toBeVisible();
+    // Cada recomendada dice por qué, y cada razón lleva su fuente.
+    const primera = page.locator('.recomendada').first();
+    await expect(primera.getByRole('heading', { name: 'Por qué' })).toBeVisible();
+    await expect(primera.locator('.fuentecita').first()).toBeVisible();
+  });
+
+  test('una tarea desconocida lo dice, y no se indexa', async ({ page }) => {
+    await page.goto('/elegir?tarea=inventada');
+    await expect(page.getByRole('heading', { name: 'No conocemos esa tarea' })).toBeVisible();
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
+  });
+});
+
 test.describe('rutas privadas', () => {
   test('la cuenta redirige al login', async ({ page }) => {
     await page.goto('/cuenta');

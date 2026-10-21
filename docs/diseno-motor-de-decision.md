@@ -1,6 +1,22 @@
 # Motor de decisión — diseño mínimo
 
-Estado: propuesta, 10 de octubre de 2026. Nada de esto está programado.
+Estado: propuesta del 10 de octubre de 2026. **Primera versión programada el
+21 de octubre** en la rama `motor-decision`, sin publicar ni enlazar:
+`src/lib/decision/` y `/elegir`. Tres cambios sobre lo escrito aquí, al
+programarlo:
+
+- **`/elegir` se calcula en el servidor**, como el comparador, y no en el
+  navegador. Así funciona sin JavaScript y no carga script. La URL es la
+  respuesta. Por consulta cuesta una función de Vercel.
+- **«Que no entrene con mis datos» queda fuera** hasta que haya datos (consta
+  en el 3 % de las fichas; Juan, 21 de octubre).
+- **Respaldo de los datos sin cita propia.** La mayoría de los datos de
+  tarjeta, registro, código abierto y «dónde se ejecuta» son anteriores a las
+  citas por campo. Se respaldan con las fuentes de la ficha y su fecha, y se
+  dice así («según la ficha, comprobada el…»), igual que en la propia ficha.
+
+Fuera de la primera versión, por falta de datos para el motor: «Crear una
+aplicación» y «Usarlo por API».
 
 Prioridades acordadas con Juan: **4** (producto: encontrar la IA que mejor se
 adapta) → **1** (adquisición: páginas por tarea, sólo con demanda medida) → **3**

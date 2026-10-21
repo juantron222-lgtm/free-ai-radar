@@ -37,6 +37,8 @@ export const ROUTES = {
   models: '/modelos',
   agents: '/agentes',
   compare: '/comparar',
+  /** «Pregúntale al Radar». Sin enlazar desde ningún sitio hasta que Juan lo revise. */
+  elegir: '/elegir',
   collections: '/colecciones',
   collection: (slug: string) => `/colecciones/${slug}`,
   news: '/noticias',
