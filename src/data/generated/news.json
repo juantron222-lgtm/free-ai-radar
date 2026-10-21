@@ -1,5 +1,63 @@
 [
   {
+    "id": "news-2026-10-21-nemotron-35-retriever",
+    "slug": "nemotron-3-5-embed-rerank-parse",
+    "title": "NVIDIA abre los pesos de Nemotron 3.5: un extractor de documentos de 631 millones de parámetros que dice liderar ParseBench",
+    "author": "Redacción de Free AI Radar",
+    "summary": "NVIDIA publicó el 21 de octubre cinco modelos abiertos y de uso comercial para montar búsqueda sobre documentos: dos de incrustación (8.000 y 1.000 millones de parámetros), una versión cuantizada del pequeño, un reordenador de 8.000 millones y Nemotron 3.5 Parse, de 631 millones, que convierte imágenes de documentos en texto conservando la estructura. Los pesos, los datos y las recetas de entrenamiento están en Hugging Face.",
+    "impact": "Lo aprovechable para quien monta búsqueda en documentos sin presupuesto es el pequeño: con 631 millones de parámetros, Parse devuelve Markdown, tablas en HTML y bloques estructurados, y admite tres modos según si se quiere velocidad o detalle (16,1 páginas por segundo con 72,74 puntos, o 10,5 con 75,20). La búsqueda entra en tablas, gráficos, infografías y esquemas, no sólo en el texto. Las posiciones de cabeza son medidas de NVIDIA y están fechadas al 20 de octubre; en una clasificación pública eso caduca.",
+    "category": "local-open-source",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-21",
+    "checkedAt": "2026-10-21",
+    "officialUrl": "https://huggingface.co/blog/nvidia/nemotron-retriever-world-class-agentic-retrieval",
+    "sources": [
+      {
+        "url": "https://huggingface.co/blog/nvidia/nemotron-retriever-world-class-agentic-retrieval",
+        "kind": "official",
+        "label": "NVIDIA Nemotron 3.5 Embed, Rerank, and Parse: Advancing Agents with World-Class Retrieval Models",
+        "checkedAt": "2026-10-21",
+        "publisher": "huggingface.co/blog"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-20-altk-evolve",
+    "slug": "altk-evolve-manual-aprendido-agentes",
+    "title": "IBM dice que un agente con un modelo viejo adelanta a los de frontera si aprende su propio manual de instrucciones",
+    "author": "Redacción de Free AI Radar",
+    "summary": "IBM Research publicó el 20 de octubre los resultados de ALTK-Evolve en τ²-bench, un banco de pruebas de atención al cliente. El método deja que el propio modelo lea los intentos del agente y destile los aciertos y los fallos en reglas de conducta cortas, que después se pegan a su instrucción. No se toca ni un peso del modelo ni hace falta anotación humana: lo único que cambia respecto al banco de pruebas de serie es ese bloque de reglas.",
+    "impact": "El interés está en lo que no hace falta. Con GPT-4.1, un modelo viejo y sin razonamiento, la fiabilidad estricta sube 10 puntos en comercio y otros 10 en aerolíneas, y con un modelo de frontera sube 15, así que no es sólo parchear un modelo flojo. Las conversaciones se acortan un poco; lo que sube es el coste de la instrucción de entrada, de 0,084 a 0,139 dólares. Dos salvedades: la comparación es contra una instantánea que ellos mismos tomaron el 12 de octubre, y sus entradas a la clasificación siguen siendo peticiones de cambio abiertas.",
+    "category": "agentes",
+    "eventType": "anuncio",
+    "availability": "unknown",
+    "publishedAt": "2026-10-20",
+    "checkedAt": "2026-10-21",
+    "officialUrl": "https://huggingface.co/blog/ibm-research/altk-evolve-bc",
+    "sources": [
+      {
+        "url": "https://huggingface.co/blog/ibm-research/altk-evolve-bc",
+        "kind": "official",
+        "label": "ALTK-Evolve: How learned memory tops the tau-2-bench leaderboard on customer service tasks without a frontier model",
+        "checkedAt": "2026-10-21",
+        "publisher": "huggingface.co/blog"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-10-20-anylanguagemodel-1-0",
     "slug": "anylanguagemodel-1-0",
     "title": "AnyLanguageModel llega a la 1.0: una sola API para el modelo del sistema de Apple, los locales y los de la nube",
@@ -29,6 +87,42 @@
     "frontPage": true
   },
   {
+    "id": "news-2026-10-20-voxtral-3",
+    "slug": "mistral-voxtral-3",
+    "title": "Voxtral 3: Mistral transcribe en 50 idiomas y añade un SDK para montar agentes que hablan por teléfono",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Mistral publicó el 20 de octubre Voxtral 3, una familia nueva de modelos de voz a texto y de texto a voz con un SDK de agente de voz encima. La transcripción sube a 50 idiomas, con las 24 lenguas oficiales de la UE y varias asiáticas e índicas con pocos recursos; la síntesis cubre más de 35 idiomas y más de 50 dialectos. Está disponible hoy por la API europea de Mistral o para desplegarlo en infraestructura propia.",
+    "impact": "Lo que cambia es el montaje: el SDK, construido sobre LiveKit, encadena escucha, razonamiento y habla en una sola tubería, ninguna etapa espera a la anterior y cada etapa es un modelo distinto, así que se puede cambiar el modelo de lenguaje, la voz o el idioma sin reescribir el agente. Precios: 0,0035 dólares por minuto la transcripción Mini, 13 por millón de caracteres la voz, y 0,04 o 0,08 por minuto el agente completo. No hay pesos abiertos, y las comparaciones con Whisper, ElevenLabs o Gemini son medidas de Mistral.",
+    "category": "audio",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-20",
+    "checkedAt": "2026-10-21",
+    "officialUrl": "https://mistral.ai/news/voxtral-3/",
+    "sources": [
+      {
+        "url": "https://mistral.ai/news/voxtral-3/",
+        "kind": "official",
+        "label": "Voxtral 3: Voice Agent SDK & Speech Models in 50+ Languages",
+        "checkedAt": "2026-10-21",
+        "publisher": "mistral.ai"
+      },
+      {
+        "url": "https://mistral.ai/news/rss",
+        "kind": "official",
+        "label": "Mistral Blog (feed oficial), entrada de Voxtral 3",
+        "checkedAt": "2026-10-21",
+        "publisher": "mistral.ai"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-10-20-mps-pytorch-2-15",
     "slug": "mps-pytorch-2-15",
     "title": "PyTorch 2.15 acelera los modelos en Mac: una mezcla de expertos pasa de 9,4 a 61,3 tokens por segundo",
@@ -47,6 +141,35 @@
         "kind": "official",
         "label": "MPS in PyTorch 2.15",
         "checkedAt": "2026-10-20",
+        "publisher": "huggingface.co/blog"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-20-torchtpu",
+    "slug": "torchtpu-tpu-nativo-pytorch",
+    "title": "TorchTPU convierte las TPU de Google en un dispositivo más de PyTorch, sin pasar por XLA ni aprender JAX",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Hugging Face publicó el 20 de octubre que TorchTPU, un backend nativo de PyTorch, deja usar las TPU de Google como cualquier otro dispositivo. Transformers, Diffusers y Kernels funcionan ya de forma nativa: se coge un modelo del Hub y se le manda a la TPU. Hasta ahora había que pasar por PyTorch/XLA, con tensores perezosos que hacían que el código no siempre se ejecutara cuando uno creía, y recompilaciones del grafo al menor cambio.",
+    "impact": "Para quien escribe código esto quita una barrera entera: la instalación es una orden de pip y Optimum TPU deja de ser necesario. Un modelo que no cabe en un chip se reparte entre varios al cargarlo. Con un núcleo del Hub y lote de 64 dicen medir decodificaciones 21,5 veces más rápidas en Qwen3-30B-A3B. Dos avisos, uno suyo y uno nuestro: de las pruebas que corren en TPU pasa el 96,5 %, y ellos mismos escriben que no está todo en verde; y las TPU viven en Google Cloud, así que esto no es ejecutar en casa.",
+    "category": "programacion",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-20",
+    "checkedAt": "2026-10-21",
+    "officialUrl": "https://huggingface.co/blog/hf-torchtpu",
+    "sources": [
+      {
+        "url": "https://huggingface.co/blog/hf-torchtpu",
+        "kind": "official",
+        "label": "Hugging Face TorchTPU: TPUs, Natively",
+        "checkedAt": "2026-10-21",
         "publisher": "huggingface.co/blog"
       }
     ],
