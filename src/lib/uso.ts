@@ -36,17 +36,28 @@ export const PARAMETROS_DE_FILTRO = [
 export const LARGO_MAXIMO_BUSQUEDA = 60;
 
 /**
+ * Cuántas cifras puede tener una búsqueda, en total, para guardarse.
+ *
+ * Un teléfono, un IBAN o una tarjeta se escriben a trozos («612 345 678»), y
+ * ningún trozo llega a cinco cifras seguidas. Contadas todas, pasan de seis;
+ * los nombres de modelos, no: «llama 3.1 405b» tiene cinco y «qwen3 235b a22b»,
+ * seis.
+ */
+const CIFRAS_MAXIMAS_BUSQUEDA = 6;
+
+/**
  * El texto de una búsqueda, como se guarda.
  *
  * En minúsculas, sin espacios de sobra y cortado a 60 caracteres. Si parece
- * un dato personal —una dirección de correo, un número largo, un enlace— no se
- * guarda: alguien puede pegar cualquier cosa en un buscador, y un contador de
- * uso no es sitio para eso.
+ * un dato personal —una dirección de correo, un número largo, aunque vaya a
+ * trozos, un enlace— no se guarda: alguien puede pegar cualquier cosa en un
+ * buscador, y un contador de uso no es sitio para eso.
  */
 export function normalizarBusqueda(texto: string): string | null {
   const limpio = texto.normalize('NFC').toLocaleLowerCase('es').replace(/\s+/g, ' ').trim();
   if (limpio.length < 2) return null;
   if (/@|https?:|www\.|\d{5,}/.test(limpio)) return null;
+  if ((limpio.match(/\d/g) ?? []).length > CIFRAS_MAXIMAS_BUSQUEDA) return null;
   return limpio.slice(0, LARGO_MAXIMO_BUSQUEDA).trim();
 }
 

@@ -44,6 +44,17 @@ describe('qué forma tiene cada cosa que se guarda', () => {
     expect(normalizarBusqueda('www.ejemplo.com')).toBeNull();
   });
 
+  it('un número largo escrito a trozos tampoco se guarda, y un nombre de modelo sí', () => {
+    // Hasta el 21 de octubre de 2026 sólo se descartaban cinco cifras seguidas.
+    expect(normalizarBusqueda('612 345 678')).toBeNull();
+    expect(normalizarBusqueda('+34 612 34 56 78')).toBeNull();
+    expect(normalizarBusqueda('ES91 2100 0418 4502 0005 1332')).toBeNull();
+    expect(normalizarBusqueda('4111 1111 1111 1111')).toBeNull();
+    expect(normalizarBusqueda('llama 3.1 405b')).toBe('llama 3.1 405b');
+    expect(normalizarBusqueda('qwen3 235b a22b')).toBe('qwen3 235b a22b');
+    expect(normalizarBusqueda('mejores ia 2025')).toBe('mejores ia 2025');
+  });
+
   it('una salida o una comparación sólo valen con herramientas del catálogo', () => {
     expect(claveDeUso('salida', a!, slugs)).toBe(a);
     expect(claveDeUso('salida', 'inventada-que-no-existe', slugs)).toBeNull();
