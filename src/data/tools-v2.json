@@ -7004,6 +7004,13 @@
         "kind": "official",
         "publisher": "hailuoai.video",
         "checkedAt": "2026-08-15"
+      },
+      {
+        "url": "https://hailuoai.video/doc/terms-of-service.html",
+        "label": "Términos de uso de Hailuo",
+        "kind": "docs",
+        "publisher": "hailuoai.video",
+        "checkedAt": "2026-10-22"
       }
     ],
     "evidence": [
@@ -7033,12 +7040,21 @@
         "sourceUrl": "https://hailuoai.video/doc/terms-of-service.html",
         "sourceKind": "terms",
         "lookedFor": "Si el plan gratuito pone una marca de agua visible. Las condiciones prohíben quitar «any watermark, metadata, label, or other notice applied by the Company to identify content as AI-generated», sin decir qué marca pone el plan gratuito."
+      },
+      {
+        "checkedAt": "2026-10-22",
+        "scope": "product",
+        "field": "freePlan.commercialUse",
+        "outcome": "not_published",
+        "sourceUrl": "https://hailuoai.video/doc/terms-of-service.html",
+        "sourceKind": "terms",
+        "lookedFor": "Si se puede usar comercialmente lo generado. La cláusula «personal, non-commercial use only» se aplica sólo al contenido del propio sitio; para lo generado, los términos dicen que quien lo use «for any personal, business, or commercial purpose, whether or not such use is permitted under these Terms of Use» lo hace por su cuenta, sin decir si está permitido."
       }
     ],
     "auditNotes": "Cola de verificación manual: los términos del plan gratuito exigen crear cuenta para verlos. «Download MiniMax Design and Get 3,000 Free Credits» es una promoción y no se registra como acceso gratuito permanente.",
     "nextReviewAt": "2026-11-13",
     "lastVerifiedAt": "2026-08-15",
-    "updatedAt": "2026-08-15",
+    "updatedAt": "2026-10-22",
     "skillLevel": "beginner",
     "licences": {},
     "access": {}
@@ -12533,7 +12549,7 @@
         "label": "Página oficial de precios o producto",
         "kind": "pricing",
         "publisher": "playground.com",
-        "checkedAt": "2026-08-12"
+        "checkedAt": "2026-10-22"
       },
       {
         "url": "https://playgroundai.com/design/pricing",
@@ -12559,7 +12575,7 @@
     "status": "published",
     "detectedAt": "2026-08-12",
     "lastVerifiedAt": "2026-08-26",
-    "updatedAt": "2026-08-12",
+    "updatedAt": "2026-10-22",
     "slug": "playground-ai",
     "name": "Playground",
     "tagline": "Diez imágenes cada tres horas en el plan gratuito, con licencia comercial.",
@@ -12581,7 +12597,21 @@
       "commercialUse": "yes",
       "creditReset": "intraday",
       "creditsAmount": "10 imágenes cada 3 horas",
-      "verifiedAt": "2026-10-12"
+      "verifiedAt": "2026-10-12",
+      "includedCapabilities": [
+        {
+          "capability": "text-to-image",
+          "condition": "hasta 10 imágenes cada 3 horas",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-22",
+            "scope": "product",
+            "sourceUrl": "https://playground.com/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · For exploring and casual creation · Limited image generation · Create up to 10 images every 3 hours"
+          }
+        }
+      ]
     },
     "scores": {
       "freeReal": 8,
@@ -16200,16 +16230,17 @@
     "freePlan": {
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
-      "hasWatermark": "unverified",
+      "hasWatermark": "yes",
       "commercialUse": "no",
       "creditReset": "daily",
-      "verifiedAt": "2026-10-11",
-      "summary": "Sin suscripción, Vidu da créditos de prueba al registrarse y créditos por iniciar sesión cada día. La página no publica cuántos ni cuánto vídeo sale de ellos.",
+      "verifiedAt": "2026-10-22",
+      "summary": "Sin suscripción, Vidu da créditos de prueba al registrarse y créditos por iniciar sesión cada día. La página no publica cuántos ni cuánto vídeo sale de ellos. Lo que se descarga en el plan gratuito lleva marca de agua y no se puede usar comercialmente.",
       "limits": [
         "Créditos de prueba al registrarse",
         "Créditos por iniciar sesión cada día; la cantidad no se publica",
         "Modelo Q4 a 540P: 4 créditos por segundo de vídeo",
-        "10 referencias al mes"
+        "10 referencias al mes",
+        "Las descargas del plan gratuito llevan marca de agua"
       ]
     },
     "capabilities": [
@@ -16231,7 +16262,7 @@
         "label": "Página oficial de precios",
         "kind": "pricing",
         "publisher": "vidu.com",
-        "checkedAt": "2026-09-24"
+        "checkedAt": "2026-10-22"
       },
       {
         "url": "https://www.vidu.com/terms",
@@ -16288,19 +16319,19 @@
         "quote": "Vidu grants you a limited, non-exclusive, non-transferable, non-sublicensable, and revocable license to access and use Vidu and Vidu Content for personal, non-commercial purposes, for paid users, this license extends to commercial use."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-10-22",
         "scope": "product",
         "field": "freePlan.hasWatermark",
-        "outcome": "not_published",
+        "outcome": "stated",
         "sourceUrl": "https://www.vidu.com/pricing",
         "sourceKind": "pricing",
-        "lookedFor": "Si el plan Free pone marca de agua. La página de precios ofrece «Download without watermark» en los planes de pago y no dice nada de la marca en el Free; las condiciones sólo prohíben quitar las marcas «associated with the Services»."
+        "quote": "Free · […] Commercial use allowed · Download without watermark [En la tabla de planes, las dos filas llevan una cruz en la columna Free y una marca de verificación en las de pago. Son iconos sin texto: se leyeron en el código de la página el 22 de octubre de 2026.]"
       }
     ],
     "id": "tool_vidu",
     "nextReviewAt": "2026-12-23",
-    "lastVerifiedAt": "2026-09-24",
-    "updatedAt": "2026-09-24"
+    "lastVerifiedAt": "2026-10-22",
+    "updatedAt": "2026-10-22"
   },
   {
     "secondaryCategories": [],

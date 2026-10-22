@@ -746,7 +746,9 @@ describe('un filtro promete según lo que sabemos', () => {
     expect(politicaDe(registro), 'registro, 90 %').toBe('suficiente');
     expect(politicaDe(tarjeta), 'tarjeta, 40 %').toBe('parcial');
     expect(politicaDe(comercial), 'uso comercial, 27 %').toBe('parcial');
-    expect(politicaDe(marca), 'marca de agua, 3 %').toBe('testimonial');
+    // El 22 de octubre de 2026 la marca de agua pasó del 24 % al 26 % (12 de 46 fichas que
+    // generan imagen, vídeo o audio): el filtro vuelve a ofrecerse, anunciando su cobertura.
+    expect(politicaDe(marca), 'marca de agua, 26 %').toBe('parcial');
   });
 
   it('un campo del que no sabemos nada es testimonial, no suficiente', () => {

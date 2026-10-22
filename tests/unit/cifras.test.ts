@@ -62,6 +62,25 @@ describe('las cifras del catálogo cuadran entre sí', () => {
     }
   });
 
+  it('cada casilla de condición tiene su cifra y su frase, también la marca de agua', () => {
+    /*
+     * El 22 de octubre de 2026 la marca de agua cruzó el 25 % de cobertura, el
+     * panel de filtros pidió su frase de cobertura y no existía: el catálogo no
+     * se generaba. Toda casilla que pueda llegar a «parcial» tiene que poder
+     * contarse aquí.
+     */
+    for (const clave of ['nocard', 'nosignup', 'nowm', 'comm'] as const) {
+      const cifra = cifraDe(clave, tools);
+      expect(cifra.cumplen, clave).toBe(devuelveElFiltro(tools, clave));
+      expect(cifra.cumplen + cifra.noCumplen + cifra.sinDato, clave).toBe(tools.length);
+      expect(fraseDeCobertura(cifra).startsWith(`${cifra.cumplen} `), clave).toBe(true);
+    }
+    const panel = readFileSync(join(ROOT, 'src/components/discovery/FilterPanel.astro'), 'utf8');
+    for (const clave of panel.matchAll(/key: '(\w+)'[^}]*field: '/g)) {
+      expect(['nocard', 'nosignup', 'nowm', 'comm'], `${clave[1]} filtra un hecho y no tiene cifra`).toContain(clave[1]);
+    }
+  });
+
   it('la frase de cobertura empieza por el número del chip y suma el catálogo', () => {
     const frase = fraseDeCobertura(cifras.sinTarjeta);
     expect(frase.startsWith(`${cifras.sinTarjeta.cumplen} `)).toBe(true);

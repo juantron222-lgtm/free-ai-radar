@@ -21,7 +21,13 @@ import { EMPTY_FILTERS, applyFilters, parseFilters } from '@lib/search/filters';
  * pasar sólo las suyas.
  */
 
-export type ClaveCondicion = 'nocard' | 'nosignup' | 'comm';
+/*
+ * `nowm` entró el 22 de octubre de 2026, el día que la marca de agua pasó del
+ * 25 % de cobertura: con política «parcial», el panel de filtros escribe la
+ * frase de cobertura de cada casilla, y la de marca de agua no existía. El
+ * catálogo no se podía generar.
+ */
+export type ClaveCondicion = 'nocard' | 'nosignup' | 'nowm' | 'comm';
 
 export interface CifraCondicion {
   clave: ClaveCondicion;
@@ -32,8 +38,8 @@ export interface CifraCondicion {
   /** Las que todavía no tienen respuesta. */
   sinDato: number;
   /**
-   * Las que dicen expresamente lo contrario: piden tarjeta, piden registro o
-   * no permiten uso comercial. «Sólo en parte» no cuenta aquí.
+   * Las que dicen expresamente lo contrario: piden tarjeta, piden registro,
+   * ponen marca de agua o no permiten uso comercial. «Sólo en parte» no cuenta aquí.
    */
   enContra: number;
   total: number;
@@ -42,6 +48,7 @@ export interface CifraCondicion {
 const CAMPO: Record<ClaveCondicion, (tool: Tool) => TriState> = {
   nocard: (tool) => tool.freePlan.requiresCreditCard,
   nosignup: (tool) => tool.freePlan.requiresSignup,
+  nowm: (tool) => tool.freePlan.hasWatermark,
   comm: (tool) => tool.freePlan.commercialUse,
 };
 
@@ -50,7 +57,7 @@ export function devuelveElFiltro(tools: readonly Tool[], clave: string): number 
   return applyFilters(tools, { ...EMPTY_FILTERS, ...parseFilters(new URLSearchParams(`${clave}=1`)) }).length;
 }
 
-const CONTRARIO: Record<ClaveCondicion, TriState> = { nocard: 'yes', nosignup: 'yes', comm: 'no' };
+const CONTRARIO: Record<ClaveCondicion, TriState> = { nocard: 'yes', nosignup: 'yes', nowm: 'yes', comm: 'no' };
 
 export function cifraDe(clave: ClaveCondicion, tools: readonly Tool[]): CifraCondicion {
   const cumplen = devuelveElFiltro(tools, clave);
@@ -89,6 +96,7 @@ export function fraseDeCobertura(cifra: CifraCondicion): string {
   const partes: Record<ClaveCondicion, [string, string]> = {
     nocard: ['no la piden', 'sí'],
     nosignup: ['se usan sin cuenta', 'la piden'],
+    nowm: ['no la ponen', 'la ponen o sólo en parte'],
     comm: ['lo permiten', 'no o sólo en parte'],
   };
   const [cumplen, noCumplen] = partes[cifra.clave];
