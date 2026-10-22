@@ -1,5 +1,128 @@
 [
   {
+    "id": "news-2026-10-22-agent-skills-aaif",
+    "slug": "agent-skills-donado-agentic-ai-foundation",
+    "title": "Anthropic cede el estándar de Agent Skills a la fundación de la Linux Foundation que ya custodia MCP",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Anthropic anunció el 22 de octubre que dona Agent Skills —el estándar abierto que da a los agentes conocimiento y procedimientos especializados— a la Agentic AI Foundation, que está bajo la Linux Foundation y es donde ya fue a parar el Model Context Protocol. Con el estándar se van el nombre, el logotipo, la organización de GitHub y el dominio agentskills.io. Dicen que más de 70 plataformas lo han integrado desde diciembre de 2025, entre ellas ChatGPT, Cursor, GitHub Copilot y VS Code.",
+    "impact": "Para quien escribe habilidades lo práctico es que no cambia nada hoy: se puede seguir usando el estándar o contribuir sin entrar en la fundación, y el formato sigue siendo una carpeta con un fichero SKILL.md. Lo que cambia es quién decide. Lo mantendrán a título individual ingenieros de Anthropic, Google y OpenAI, y la hoja de ruta propuesta incluye versiones numeradas, un proceso formal de propuestas y —esto importa, porque una habilidad trae guiones ejecutables— guía de seguridad para quien las escribe e instala. Las cifras de adopción son suyas.",
+    "category": "agentes",
+    "eventType": "actualizacion",
+    "availability": "available",
+    "publishedAt": "2026-10-22",
+    "checkedAt": "2026-10-22",
+    "officialUrl": "https://www.anthropic.com/news/donating-agent-skills-to-the-agentic-ai-foundation",
+    "sources": [
+      {
+        "url": "https://www.anthropic.com/news/donating-agent-skills-to-the-agentic-ai-foundation",
+        "kind": "official",
+        "label": "Donating Agent Skills to the Agentic AI Foundation",
+        "checkedAt": "2026-10-22",
+        "publisher": "anthropic.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-22-cohere-computacion-confidencial",
+    "slug": "cohere-computacion-confidencial-model-vault",
+    "title": "Cohere cifra también el dato en uso: beta pública de computación confidencial con atestación que el cliente verifica",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Cohere anunció el 22 de octubre la beta pública de computación confidencial en Model Vault, su plataforma de inferencia dedicada, sobre GPU NVIDIA H100 en Microsoft Azure. El cifrado habitual cubre el dato guardado y el dato en tránsito; esto va al tercer estado, el dato en uso: las instrucciones, los documentos, las respuestas y la propia ejecución del modelo quedan dentro de un límite aplicado por hardware mientras la inferencia corre.",
+    "impact": "La parte interesante no es el cifrado, es quién comprueba. Antes de enviar nada, el software del cliente verifica pruebas firmadas del hardware, el firmware y la configuración que van a procesar la petición, y si el entorno no cumple la política, se niega a enviarla. Su director técnico llega a decir que el cliente puede verificar que sus datos están a salvo de accesos no autorizados incluso de Cohere. Ellos mismos ponen el límite: esto no elimina todo el riesgo ni sustituye al cumplimiento, a los controles contractuales ni a la residencia del dato.",
+    "category": "privacidad-licencias",
+    "eventType": "preview-beta",
+    "availability": "preview",
+    "publishedAt": "2026-10-22",
+    "checkedAt": "2026-10-22",
+    "officialUrl": "https://cohere.com/blog/introducing-confidential-computing-on-cohere-model-vault",
+    "sources": [
+      {
+        "url": "https://cohere.com/blog/introducing-confidential-computing-on-cohere-model-vault",
+        "kind": "official",
+        "label": "Introducing Confidential Computing on Cohere Model Vault",
+        "checkedAt": "2026-10-22",
+        "publisher": "cohere.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-22-ocria-1",
+    "slug": "llamaindex-ocria-1",
+    "title": "OCRia-1, el extractor de documentos de LlamaIndex: 4.000 millones de parámetros y, dicen, 12 puntos sobre el siguiente",
+    "author": "Redacción de Free AI Radar",
+    "summary": "LlamaIndex presentó el 22 de octubre OCRia-1, un modelo de visión y lenguaje de 4.000 millones de parámetros para extraer documentos. Sostienen que es el mejor del mundo y que en ParseBench marca 87,4 puntos, la mejor cifra para un modelo por debajo de los 35.000 millones y 12,1 por delante del siguiente. Llega dentro de LlamaParse, su producto alojado, al mismo precio que antes.",
+    "impact": "Donde dice apuntar es a lo que de verdad rompe un extractor: reconstruye cabeceras anidadas, celdas combinadas y rejillas irregulares conservando qué valor va con qué etiqueta, convierte los gráficos en tablas HTML con sus puntos de datos, y pasa las fórmulas a LaTeX en vez de a texto plano. Dos avisos. Todas las cifras son medidas suyas sobre bancos de pruebas que en parte eligen ellos. Y el anuncio no menciona pesos abiertos en ningún momento: esto se usa a través de su servicio, no en tu máquina.",
+    "category": "programacion",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-22",
+    "checkedAt": "2026-10-22",
+    "officialUrl": "https://www.llamaindex.ai/blog/parse-ocria-1",
+    "sources": [
+      {
+        "url": "https://www.llamaindex.ai/blog/parse-ocria-1",
+        "kind": "official",
+        "label": "Introducing OCRia-1: SOTA 4B Model for Document Parsing",
+        "checkedAt": "2026-10-22",
+        "publisher": "llamaindex.ai"
+      },
+      {
+        "url": "https://www.llamaindex.ai/blog",
+        "kind": "official",
+        "label": "Blog de LlamaIndex, índice de entradas con la fecha de OCRia-1",
+        "checkedAt": "2026-10-22",
+        "publisher": "llamaindex.ai"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-22-olmoearth-v1-3",
+    "slug": "olmoearth-v1-3-incrustaciones-planeta",
+    "title": "OlmoEarth v1.3 regala las incrustaciones de satélite de todo el planeta, con pesos, datos y código abiertos",
+    "author": "Redacción de Free AI Radar",
+    "summary": "El Allen Institute publicó el 22 de octubre OlmoEarth v1.3, un modelo que lee un año de radar y de imagen multiespectral y devuelve un vector de 128 dimensiones por cada píxel de 10 metros de la Tierra. Con el modelo vienen las incrustaciones anuales ya calculadas de todo el planeta y un explorador de navegador para usarlas. Los pesos, los datos de preentrenamiento y el código son abiertos, bajo la licencia que ellos describen como la misma de las versiones anteriores.",
+    "impact": "Lo valioso aquí es el cálculo que ya está hecho: con las incrustaciones descargadas, un mapa de cultivos o un análisis de cambio se reduce a entrenar un clasificador pequeño encima y ejecutarlo en local, sin GPU. En el explorador se pincha un sitio para buscar otros parecidos, se marcan unos puntos y se exporta un GeoTIFF, sin cuenta ni instalación. Dos límites que conviene saber: la cobertura global es sólo de 2023 a 2025 —antes, países sueltos— y el archivo pesa unos 150 TB por año.",
+    "category": "local-open-source",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-22",
+    "checkedAt": "2026-10-22",
+    "officialUrl": "https://huggingface.co/blog/allenai/olmoearth-v1-3",
+    "sources": [
+      {
+        "url": "https://huggingface.co/blog/allenai/olmoearth-v1-3",
+        "kind": "official",
+        "label": "OlmoEarth v1.3: State-of-the-art embeddings for the whole planet",
+        "checkedAt": "2026-10-22",
+        "publisher": "huggingface.co/blog"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-10-21-nemotron-35-retriever",
     "slug": "nemotron-3-5-embed-rerank-parse",
     "title": "NVIDIA abre los pesos de Nemotron 3.5: un extractor de documentos de 631 millones de parámetros que dice liderar ParseBench",
