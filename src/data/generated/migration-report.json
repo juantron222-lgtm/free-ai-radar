@@ -1,11 +1,19 @@
 {
-  "generatedAt": "2026-10-17T13:05:44.850Z",
+  "generatedAt": "2026-10-22T11:59:52.049Z",
   "source": "src/data/tools.json",
   "inputCount": 0,
-  "outputCount": 117,
+  "outputCount": 120,
   "dropped": [],
   "duplicates": [],
   "issues": [
+    {
+      "tool": "-",
+      "issue": "Categoría fuera de taxonomía: modelos"
+    },
+    {
+      "tool": "-",
+      "issue": "Categoría fuera de taxonomía: modelos"
+    },
     {
       "tool": "-",
       "issue": "Categoría fuera de taxonomía: modelos"
@@ -93,5 +101,5 @@
   ],
   "unknownAlternatives": [],
   "scoreDeltas": [],
-  "nativeCount": 117
+  "nativeCount": 120
 }

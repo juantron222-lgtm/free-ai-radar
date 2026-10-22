@@ -734,7 +734,7 @@
     "slug": "bolt-new",
     "name": "Bolt.new",
     "tagline": "Trescientos mil tokens al día, un millón al mes.",
-    "descriptionShort": "Construye una aplicación web desde una descripción, en el navegador, y la despliega. Su plan gratuito reparte 300.000 tokens al día con un tope de un millón al mes.",
+    "descriptionShort": "Construye una aplicación web desde una descripción, en el navegador, y la despliega. Su plan gratuito da un millón de tokens al mes, con límites diarios cuya cifra no publica, y no pide tarjeta.",
     "descriptionLong": "Bolt.new de StackBlitz permite crear aplicaciones web completas (frontend + backend) describiendo lo que quieres en lenguaje natural. Genera React, Next.js, Node.js y más, con un entorno de desarrollo completo en el navegador que incluye preview en vivo, terminal, y deploy a producción. Ideal para prototipos rápidos, MVPs, y herramientas internas sin configurar nada localmente.",
     "kind": "agent",
     "verification": "verified",
@@ -752,32 +752,33 @@
     ],
     "freeModel": "freemium",
     "freePlan": {
-      "summary": "Plan gratuito con un límite de 300.000 tokens al día y un millón de tokens al mes. El plan de pago más barato es Pro, 25 $ al mes con facturación mensual.",
+      "summary": "Plan gratuito «free forever», sin tarjeta: un millón de tokens al mes y límites diarios cuya cifra ya no se publica. Las webs que publicas llevan la marca de Bolt. El plan de pago más barato es Pro, 25 $ al mes con facturación mensual (18 $ con pago anual).",
       "limits": [
-        "300.000 tokens al día",
-        "1.000.000 de tokens al mes",
+        "1 millón de tokens al mes",
+        "Límites diarios, sin cifra publicada",
+        "Proyectos públicos y privados",
         "Las webs que publicas llevan la marca de Bolt",
-        "Alojamiento incluido, hasta 333.000 peticiones web",
-        "Plan de pago más barato: Pro, 25 $/mes"
+        "Alojamiento web y bases de datos ilimitadas",
+        "Plan de pago más barato: Pro, 25 $/mes (18 $/mes con pago anual)"
       ],
       "requiresSignup": "yes",
-      "requiresCreditCard": "unverified",
+      "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "commercialUse": "yes",
-      "creditsAmount": "300.000 tokens/día (1M/mes)",
+      "creditsAmount": "1M tokens/mes",
       "creditReset": "daily",
-      "verifiedAt": "2026-10-11",
+      "verifiedAt": "2026-10-22",
       "includedCapabilities": [
         {
           "capability": "code-generation",
-          "condition": "300.000 tokens al día, 1 millón al mes",
+          "condition": "1 millón de tokens al mes, con límites diarios sin cifra publicada",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-10-22",
             "scope": "product",
             "sourceUrl": "https://bolt.new/pricing",
             "sourceKind": "pricing",
-            "quote": "Free · $0 · You get: · Public and private projects · 300K tokens daily limit · 1M tokens per month · Bolt branding on websites · 10MB file upload limit · Website hosting · Up to 333k web requests · Unlimited databases"
+            "quote": "Free · $0 · […] Try Bolt with daily limits. No credit card. · 1M tokens/month to try Bolt · Public and private projects"
           }
         }
       ]
@@ -801,7 +802,7 @@
         "label": "Precios oficiales",
         "kind": "pricing",
         "publisher": "bolt.new",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-10-22"
       },
       {
         "url": "https://stackblitz.com/terms-of-service",
@@ -843,6 +844,12 @@
         "date": "2024-06-01",
         "kind": "launch",
         "summary": "Bolt.new ha crecido enormemente como la opción más rápida para crear apps completas desde cero sin configuración."
+      },
+      {
+        "date": "2026-10-22",
+        "kind": "other",
+        "summary": "La página de precios deja de dar la cifra del límite diario («300K tokens daily limit»; ahora sólo dice «daily limits») y de listar el límite de subida de 10 MB y las 333.000 peticiones web. Mantiene el millón de tokens al mes y ahora dice «Free forever, no card required». Bolt no publica la fecha del cambio: el 17 de octubre de 2026 aún figuraba la cifra diaria.",
+        "sourceUrl": "https://bolt.new/pricing"
       }
     ],
     "affiliation": {
@@ -854,30 +861,30 @@
     },
     "status": "published",
     "detectedAt": "2024-06-01",
-    "lastVerifiedAt": "2026-08-21",
-    "updatedAt": "2026-08-21",
+    "lastVerifiedAt": "2026-10-22",
+    "updatedAt": "2026-10-22",
     "startEffort": "signup",
     "capabilities": [
       "code-generation"
     ],
     "evidence": [
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-10-22",
         "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://bolt.new/pricing",
         "sourceKind": "pricing",
-        "quote": "Free · $0 · You get: · Public and private projects · 300K tokens daily limit · 1M tokens per month · Bolt branding on websites · 10MB file upload limit · Website hosting · Up to 333k web requests · Unlimited databases"
+        "quote": "Free · $0 · /month · Free forever, no card required · Try Bolt with daily limits. No credit card. · 1M tokens/month to try Bolt · Public and private projects · Bolt branding on websites · Unlimited databases · Website hosting"
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-10-22",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
-        "outcome": "not_published",
-        "sourceUrl": "https://support.bolt.new/account-and-subscription/billing",
-        "sourceKind": "help",
-        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. La página de precios, la de facturación de su centro de ayuda (que pide «your credit card and billing details» sólo al suscribirse), sus preguntas frecuentes y las condiciones de StackBlitz no dicen si el plan gratuito la pide."
+        "outcome": "stated",
+        "sourceUrl": "https://bolt.new/pricing",
+        "sourceKind": "pricing",
+        "quote": "Free forever, no card required · Try Bolt with daily limits. No credit card."
       },
       {
         "checkedAt": "2026-10-11",
@@ -2240,6 +2247,168 @@
     "updatedAt": "2026-08-19",
     "access": {},
     "productType": "cli"
+  },
+  {
+    "skillLevel": "beginner",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-10-22",
+    "licences": {},
+    "slug": "claude-fable",
+    "id": "tool_claude-fable",
+    "nextReviewAt": "2027-01-20",
+    "lastVerifiedAt": "2026-10-22",
+    "updatedAt": "2026-10-22",
+    "kind": "model",
+    "categorySlug": "modelos",
+    "name": "Claude Fable 5.1",
+    "verification": "partially_verified",
+    "officialUrl": "https://platform.claude.com/docs/en/models/fable-5-1/overview",
+    "pricingUrl": "https://platform.claude.com/docs/en/about-claude/pricing",
+    "hosting": "cloud",
+    "openSource": "no",
+    "platforms": [
+      "api",
+      "web"
+    ],
+    "freeModel": "trial",
+    "tagline": "Lo que Anthropic recomienda cuando Opus no llega, a 10 $ y 50 $ por millón de tokens.",
+    "descriptionShort": "El modelo de Claude «for demanding reasoning and long-horizon agentic work», presentado en septiembre de 2026. Es el mismo modelo que Mythos 5.1, con salvaguardas de ciberseguridad y biología. Un millón de tokens de contexto, 128K de salida y pensamiento adaptativo siempre activo.",
+    "verdict": "La propia documentación dice que se empiece por Opus 5.5 y se pase a Fable 5.1 sólo si no basta («when your evals on Claude Opus 5.5 at higher effort still fall short»). Cuesta 2,5 veces Opus por token y no entra en el plan Free de claude.ai.",
+    "freePlan": {
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "one_off",
+      "verifiedAt": "2026-10-22",
+      "summary": "Sin capa gratuita de API, aunque las cuentas nuevas reciben «a small amount of free credits» para probarla; Anthropic no dice cuánto. 10 $ por millón de tokens de entrada y 50 $ de salida. En claude.ai no está en el plan Free: en Pro se usa con créditos de uso y en Max, hasta la mitad de los límites semanales.",
+      "limits": [
+        "10 $/M de entrada · 50 $/M de salida",
+        "Contexto de 1M de tokens · salida máxima de 128K",
+        "No entra en el plan Free de claude.ai: en Pro, con créditos de uso; en Max, hasta el 50 % de los límites semanales",
+        "Sin capa gratuita de API; las cuentas nuevas reciben unos créditos de prueba, sin cifra publicada, que se registran como asignación única"
+      ]
+    },
+    "access": {
+      "chat": "yes",
+      "chatFree": "no",
+      "api": "yes",
+      "apiFree": "no",
+      "weights": "no",
+      "chatWhere": "claude.ai"
+    },
+    "capabilities": [
+      "text-generation",
+      "code-generation",
+      "vision",
+      "reasoning",
+      "api"
+    ],
+    "startEffort": "signup",
+    "startEffortReason": "Por API con clave y facturación; en claude.ai, desde el plan Pro.",
+    "scores": {
+      "freeReal": 2,
+      "usefulness": 10,
+      "ease": 5,
+      "transparency": 9,
+      "creatorValue": 5
+    },
+    "alternatives": [
+      "claude-opus-5"
+    ],
+    "sources": [
+      {
+        "url": "https://platform.claude.com/docs/en/models/overview",
+        "label": "Documentación oficial de modelos",
+        "kind": "docs",
+        "publisher": "platform.claude.com",
+        "checkedAt": "2026-10-22"
+      },
+      {
+        "url": "https://platform.claude.com/docs/en/models/fable-5-1/overview",
+        "label": "Claude Fable 5.1 en la documentación",
+        "kind": "docs",
+        "publisher": "platform.claude.com",
+        "checkedAt": "2026-10-22"
+      },
+      {
+        "url": "https://platform.claude.com/docs/en/about-claude/pricing",
+        "label": "Precios de la API de Claude",
+        "kind": "pricing",
+        "publisher": "platform.claude.com",
+        "checkedAt": "2026-10-22"
+      },
+      {
+        "url": "https://claude.com/pricing",
+        "label": "Planes de Claude",
+        "kind": "pricing",
+        "publisher": "claude.com",
+        "checkedAt": "2026-10-22"
+      },
+      {
+        "url": "https://www.anthropic.com/claude-fable-and-mythos-5-1",
+        "label": "Anuncio de Claude Fable 5.1 y Mythos 5.1",
+        "kind": "official",
+        "publisher": "anthropic.com",
+        "checkedAt": "2026-10-22"
+      },
+      {
+        "url": "https://www.anthropic.com/claude/mythos",
+        "label": "Claude Mythos",
+        "kind": "official",
+        "publisher": "anthropic.com",
+        "checkedAt": "2026-10-22"
+      }
+    ],
+    "evidence": [
+      {
+        "checkedAt": "2026-10-22",
+        "scope": "api",
+        "field": "capabilities",
+        "outcome": "stated",
+        "sourceUrl": "https://platform.claude.com/docs/en/models/overview",
+        "sourceKind": "docs",
+        "quote": "Claude Fable 5.1 · For demanding reasoning and long-horizon agentic work · Adaptive (always on) · Context window · 1M tokens · Max output · 128K tokens"
+      },
+      {
+        "checkedAt": "2026-10-22",
+        "scope": "api",
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://platform.claude.com/docs/en/about-claude/pricing",
+        "sourceKind": "pricing",
+        "quote": "Claude Fable 5.1 · For demanding reasoning and long-horizon agentic work · $10 / MTok · $50 / MTok"
+      },
+      {
+        "checkedAt": "2026-10-22",
+        "scope": "api",
+        "field": "freePlan.creditReset",
+        "outcome": "stated",
+        "sourceUrl": "https://platform.claude.com/docs/en/about-claude/pricing",
+        "sourceKind": "pricing",
+        "quote": "Are there free tiers or trials? · New users receive a small amount of free credits to test the API. Contact sales for information about extended trials for enterprise evaluation."
+      }
+    ]
   },
   {
     "skillLevel": "beginner",
@@ -6118,6 +6287,152 @@
   },
   {
     "skillLevel": "beginner",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternativeNames": [],
+    "changelog": [
+      {
+        "date": "2026-10-13",
+        "kind": "launch",
+        "summary": "Google abre Gemini 4 Argon a los desarrolladores en el nivel de pago de la API («Start building using the paid tier of the Gemini API»), y a los suscriptores de Google AI Ultra en AI Studio. No tiene capa gratuita.",
+        "sourceUrl": "https://blog.google/innovation-and-ai/technology/developers-tools/build-with-gemini-4-argon/"
+      }
+    ],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-10-22",
+    "licences": {},
+    "slug": "gemini-4-argon",
+    "id": "tool_gemini-4-argon",
+    "nextReviewAt": "2027-01-20",
+    "lastVerifiedAt": "2026-10-22",
+    "updatedAt": "2026-10-22",
+    "kind": "model",
+    "categorySlug": "modelos",
+    "name": "Gemini 4 Argon",
+    "verification": "partially_verified",
+    "officialUrl": "https://ai.google.dev/gemini-api/docs/models",
+    "pricingUrl": "https://ai.google.dev/gemini-api/docs/pricing",
+    "hosting": "cloud",
+    "openSource": "no",
+    "platforms": [
+      "api",
+      "web"
+    ],
+    "freeModel": "paid_only",
+    "tagline": "El modelo insignia de Google, sin capa gratuita ni en la API ni en la app.",
+    "descriptionShort": "«Our flagship reasoning model», con un millón de tokens de contexto y respuestas de hasta un millón. Google lo abrió a los desarrolladores el 13 de octubre de 2026 en el nivel de pago de la API; en la app Gemini empieza en Google AI Pro.",
+    "verdict": "Si buscas algo gratis, no es por aquí: la tabla de precios dice «Gemini 4 Argon is not available on the Free tier» y el plan sin coste de la app usa Flash-Lite. Para probar la API sin pagar, Gemini 3.8 Flash sí tiene capa gratuita.",
+    "freePlan": {
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-10-22",
+      "summary": "Sin plan gratuito. En la API sólo está en el nivel de pago: 2 $ por millón de tokens de entrada y 10 $ de salida hasta el 30 de noviembre de 2026, y 4 $ y 20 $ desde el 1 de diciembre. En la app Gemini, el plan sin coste da acceso a Flash-Lite; Argon empieza en Google AI Pro, 21,99 € al mes.",
+      "limits": [
+        "Sin capa gratuita en la API («not available on the Free tier»)",
+        "2 $/M de entrada · 10 $/M de salida hasta el 30 de noviembre de 2026; 4 $ y 20 $ desde el 1 de diciembre",
+        "Contexto de 1M de tokens y respuestas de hasta 1M",
+        "En la app Gemini, desde Google AI Pro (21,99 €/mes en España)"
+      ]
+    },
+    "access": {
+      "chat": "yes",
+      "chatFree": "no",
+      "api": "yes",
+      "apiFree": "no",
+      "weights": "no",
+      "chatWhere": "gemini.google.com"
+    },
+    "capabilities": [
+      "text-generation",
+      "code-generation",
+      "reasoning",
+      "api"
+    ],
+    "startEffort": "signup",
+    "startEffortReason": "Por API con clave y facturación activa; en la app, con una suscripción AI Pro o superior.",
+    "scores": {
+      "freeReal": 0,
+      "usefulness": 10,
+      "ease": 5,
+      "transparency": 9,
+      "creatorValue": 4
+    },
+    "alternatives": [
+      "gemini-3-flash",
+      "gemini-3-pro"
+    ],
+    "sources": [
+      {
+        "url": "https://ai.google.dev/gemini-api/docs/models",
+        "label": "Modelos de la API de Gemini",
+        "kind": "docs",
+        "publisher": "ai.google.dev",
+        "checkedAt": "2026-10-22"
+      },
+      {
+        "url": "https://ai.google.dev/gemini-api/docs/pricing",
+        "label": "Precios de la API de Gemini",
+        "kind": "pricing",
+        "publisher": "ai.google.dev",
+        "checkedAt": "2026-10-22"
+      },
+      {
+        "url": "https://blog.google/innovation-and-ai/technology/developers-tools/build-with-gemini-4-argon/",
+        "label": "Gemini 4 Argon, disponible para desarrolladores",
+        "kind": "official",
+        "publisher": "blog.google",
+        "checkedAt": "2026-10-22"
+      },
+      {
+        "url": "https://gemini.google/subscriptions/",
+        "label": "Planes de Google AI",
+        "kind": "pricing",
+        "publisher": "gemini.google",
+        "checkedAt": "2026-10-22"
+      }
+    ],
+    "evidence": [
+      {
+        "checkedAt": "2026-10-22",
+        "scope": "api",
+        "field": "capabilities",
+        "outcome": "stated",
+        "sourceUrl": "https://ai.google.dev/gemini-api/docs/models",
+        "sourceKind": "docs",
+        "quote": "Gemini 4 Argon · Our flagship reasoning model with a unified 1M context window and long decodes up to 1M tokens."
+      },
+      {
+        "checkedAt": "2026-10-22",
+        "scope": "api",
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
+        "sourceKind": "pricing",
+        "quote": "Gemini 4 Argon · gemini-4-argon · Note: Gemini 4 Argon is not available on the Free tier. · Input price · Not available · $2.00 through November 30, 2026. · $4.00 starting December 1, 2026. · Output price (including thinking tokens) · Not available · $10.00 through November 30, 2026. · $20.00 starting December 1, 2026."
+      }
+    ]
+  },
+  {
+    "skillLevel": "beginner",
     "secondaryCategories": [
       "agentes",
       "modelos-open-source"
@@ -6712,13 +7027,13 @@
         "lookedFor": "Si el plan Free permite usar comercialmente el código sugerido. Ni las condiciones adicionales de GitHub para Copilot ni la página de planes lo dicen."
       },
       {
+        "checkedAt": "2026-10-22",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://github.com/features/copilot/plans",
         "sourceKind": "pricing",
-        "scope": "product",
-        "checkedAt": "2026-09-16",
-        "quote": "2,000 completions per month · Chat, agent mode, code review, Copilot cloud agent, Copilot CLI, and Copilot Apps consume GitHub AI Credits. Free plan supports CLI and agent mode. · Limited chat and agent usage · Cloud agent — Not included · Assign work to Copilot and it creates a pull request — Not included · Code review — Not included · Delegate tasks to third-party coding agents like Claude by Anthropic and OpenAI Codex (Preview) — Not included · $10 per month",
+        "quote": "2,000 completions per month · Agent mode, code review, Copilot in the cloud, Copilot CLI, and Copilot app consume GitHub AI Credits. Free plan supports CLI and agent mode. · Limited chat and agent usage · Cloud agent — Not included · Assign work to Copilot and it creates a pull request — Not included · Code review — Not included · Delegate tasks to third-party coding agents like Claude by Anthropic and OpenAI Codex (Preview) — Not included · $10 per month",
         "basis": "Texto de la tarjeta Free y filas de la tabla de funciones de la misma página; «—» separa el nombre de la fila del valor de la columna Free. «$10 per month» es el precio de Pro."
       },
       {
@@ -6735,7 +7050,7 @@
     "auditNotes": "Las capacidades describen el producto completo; lo que el plan gratuito no incluye está en los límites, que es donde decide.",
     "nextReviewAt": "2026-11-22",
     "lastVerifiedAt": "2026-08-29",
-    "updatedAt": "2026-08-21",
+    "updatedAt": "2026-10-22",
     "access": {},
     "productType": "copilot"
   },
@@ -8179,7 +8494,7 @@
         "outcome": "stated",
         "sourceUrl": "https://x.ai/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-10-17",
+        "checkedAt": "2026-10-22",
         "quote": "Free · $0 · /month · Limited · AI usage · Limited Chat requests · Limited agent requests · Compare features across plans · Image generation (Imagine) · Limited · Video generation · Plus · $8",
         "scope": "cloud"
       },
@@ -8195,14 +8510,14 @@
       {
         "field": "freePlan.excludedCapabilities",
         "outcome": "stated",
-        "checkedAt": "2026-10-17",
+        "checkedAt": "2026-10-22",
         "scope": "product",
         "sourceUrl": "https://x.ai/pricing",
         "sourceKind": "pricing",
         "quote": "Compare features across plans · Image generation (Imagine) · Limited · Video generation · Grok API access [En la columna Free, «Image generation (Imagine)» dice «Limited» y «Video generation» no lleva marca; en las de pago, sí.]"
       },
       {
-        "checkedAt": "2026-10-17",
+        "checkedAt": "2026-10-22",
         "scope": "product",
         "field": "freePlan.creditReset",
         "outcome": "stated",
@@ -8372,11 +8687,12 @@
     "descriptionShort": "Vídeo con avatares digitales, traducción con sincronía labial y doblaje. Su plan gratuito permite tres vídeos al mes de hasta un minuto; quitar la marca de agua es de pago.",
     "verdict": "La opción a mirar si lo que necesitas es una persona hablando a cámara sin grabarla. Tres vídeos al mes dan para probar el formato, no para producir con él.",
     "freePlan": {
-      "summary": "Plan gratuito con 3 vídeos al mes de hasta 1 minuto, acceso a avatares de stock y un avatar propio. La eliminación de la marca de agua figura entre las características de los planes de pago. El más barato es Creator, 29 $/mes con 600 créditos.",
+      "summary": "Plan gratuito con 3 vídeos al mes, con marca de agua, de hasta 1 minuto, con Avatar IV y Video Agent, más de 500 presentadores de catálogo y un avatar propio. La eliminación de la marca de agua es de pago. El más barato es Creator, 29 $/mes con 600 créditos.",
       "limits": [
-        "3 vídeos al mes",
+        "3 vídeos al mes, con marca de agua",
         "Hasta 1 minuto por vídeo",
-        "Más de 500 avatares de catálogo y 1 avatar propio",
+        "Incluye Avatar IV y Video Agent",
+        "1 avatar propio y más de 500 presentadores de catálogo",
         "La eliminación de marca de agua es de pago",
         "Plan de pago más barato: Creator, 29 $/mes (600 créditos)"
       ],
@@ -8386,18 +8702,18 @@
       "commercialUse": "yes",
       "creditsAmount": "3 vídeos/mes",
       "creditReset": "monthly",
-      "verifiedAt": "2026-10-11",
+      "verifiedAt": "2026-10-22",
       "includedCapabilities": [
         {
           "capability": "avatar-video",
-          "condition": "3 vídeos al mes, de hasta 1 minuto",
+          "condition": "3 vídeos al mes, de hasta 1 minuto, con marca de agua",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-10-22",
             "scope": "product",
             "sourceUrl": "https://www.heygen.com/pricing",
             "sourceKind": "pricing",
-            "quote": "Free · $0/mo · […] Video Generation: · 3 videos per month · Videos up to 1 min · Access to Avatar IV · Standard video processing · 500+ Stock Video Avatars · Features you'll love: · 1 Custom Video Avatar · 30+ languages"
+            "quote": "Free · $0/mo · […] 3 videos a month, watermarked · Videos up to 1 minute each · Access to Avatar IV and Video Agent"
           }
         }
       ]
@@ -8429,7 +8745,7 @@
         "label": "Página oficial de precios",
         "kind": "pricing",
         "publisher": "heygen.com",
-        "checkedAt": "2026-08-15"
+        "checkedAt": "2026-10-22"
       },
       {
         "url": "https://www.heygen.com/terms",
@@ -8446,13 +8762,13 @@
     ],
     "evidence": [
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-10-22",
         "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://www.heygen.com/pricing",
         "sourceKind": "pricing",
-        "quote": "Free · $0/mo · […] Video Generation: · 3 videos per month · Videos up to 1 min · Access to Avatar IV · Standard video processing · 500+ Stock Video Avatars · Features you'll love: · 1 Custom Video Avatar · 30+ languages"
+        "quote": "Free · $0/mo · For trying it out · […] 3 videos a month, watermarked · Videos up to 1 minute each · Access to Avatar IV and Video Agent · One Custom Video Avatar, plus 500+ ready-made presenters · 30+ languages · Creator · $29 / mo · […] 600 credits"
       },
       {
         "field": "capabilities",
@@ -8492,8 +8808,8 @@
       }
     ],
     "nextReviewAt": "2026-11-13",
-    "lastVerifiedAt": "2026-08-15",
-    "updatedAt": "2026-08-15",
+    "lastVerifiedAt": "2026-10-22",
+    "updatedAt": "2026-10-22",
     "skillLevel": "beginner",
     "licences": {},
     "access": {}
@@ -10046,7 +10362,7 @@
         "basis": "Su página de planes da «Generated content is for commercial use» sólo a los planes de pago (Standard, Pro, Premier)."
       },
       {
-        "checkedAt": "2026-10-17",
+        "checkedAt": "2026-10-22",
         "scope": "product",
         "field": "freePlan.creditReset",
         "outcome": "stated",
@@ -10744,10 +11060,10 @@
     ],
     "freeModel": "credits",
     "freePlan": {
-      "summary": "Plan FREE de 0 $/mes con 150 Fast Tokens al día y un banco de 150 fichas. En el plan gratuito las creaciones son públicas: el centro de ayuda dice que quedan visibles para que otros usuarios las copien y remezclen. El plan de pago más barato es Essential, 12 $/mes.",
+      "summary": "Plan FREE de 0 $/mes con 150 Fast Tokens al día y sólo el modo automático de modelo. En el plan gratuito las creaciones son públicas: el centro de ayuda dice que quedan visibles para que otros usuarios las copien y remezclen. El plan de pago más barato es Essential, 12 $/mes.",
       "limits": [
         "150 Fast Tokens al día",
-        "Banco de fichas: 150",
+        "Modelo: sólo el modo automático («Auto Only»)",
         "Creaciones públicas: la generación privada es de pago",
         "Ajustes de calidad básicos",
         "1 colección personal",
@@ -10759,7 +11075,7 @@
       "commercialUse": "yes",
       "creditsAmount": "150 Fast Tokens/día",
       "creditReset": "daily",
-      "verifiedAt": "2026-10-11",
+      "verifiedAt": "2026-10-22",
       "includedCapabilities": [
         {
           "capability": "text-to-image",
@@ -10838,7 +11154,7 @@
         "label": "Página oficial de precios",
         "kind": "pricing",
         "publisher": "leonardo.ai",
-        "checkedAt": "2026-08-13"
+        "checkedAt": "2026-10-22"
       },
       {
         "url": "https://intercom.help/leonardo-ai/en/articles/8044018-commercial-usage",
@@ -10890,6 +11206,12 @@
         "date": "2023-06-15",
         "kind": "launch",
         "summary": "Leonardo AI sigue ofreciendo uno de los mejores planes gratuitos para generación de imágenes, con créditos diarios generosos y calidad competitiva."
+      },
+      {
+        "date": "2026-10-22",
+        "kind": "free_plan_reduced",
+        "summary": "El plan gratuito pierde el banco de 150 fichas («Token Bank 150») y la tabla le añade «Model Access: Auto Only»: quien no paga ya no elige modelo. Leonardo no publica la fecha del cambio: el 17 de octubre de 2026 la tabla aún daba el banco de fichas al plan gratuito y no tenía la fila «Model Access».",
+        "sourceUrl": "https://leonardo.ai/pricing/"
       }
     ],
     "affiliation": {
@@ -10901,8 +11223,8 @@
     },
     "status": "published",
     "detectedAt": "2023-06-15",
-    "lastVerifiedAt": "2026-08-26",
-    "updatedAt": "2026-08-15",
+    "lastVerifiedAt": "2026-10-22",
+    "updatedAt": "2026-10-22",
     "auditNotes": "El uso comercial es yes para todos los planes, pero en el gratuito las creaciones son públicas y remezclables: la diferencia está en los límites, no en el permiso. Marca de agua y tarjeta siguen sin constar en ninguna página oficial.",
     "startEffort": "signup",
     "capabilities": [
@@ -10935,13 +11257,13 @@
         "scope": "cloud"
       },
       {
+        "checkedAt": "2026-10-22",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://leonardo.ai/pricing/",
         "sourceKind": "pricing",
-        "scope": "cloud",
-        "checkedAt": "2026-10-11",
-        "quote": "FREE $0 /month […] Fast Tokens 150 / day · Token Bank 150 · Creations access Public · Quality settings Basic · Personal collections 1"
+        "quote": "FREE $0 /month […] Fast Tokens 150 / day · Model Access Auto Only · Creations access Public · Quality settings Basic · Personal collections 1"
       },
       {
         "checkedAt": "2026-10-11",
@@ -11679,6 +12001,212 @@
     "nextReviewAt": "2026-11-22",
     "lastVerifiedAt": "2026-08-24",
     "updatedAt": "2026-08-21"
+  },
+  {
+    "skillLevel": "advanced",
+    "secondaryCategories": [],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternativeNames": [],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-10-22",
+    "licences": {
+      "weights": "LTX-2.x Community License"
+    },
+    "slug": "ltx-2",
+    "id": "tool_ltx-2",
+    "nextReviewAt": "2027-01-20",
+    "lastVerifiedAt": "2026-10-22",
+    "updatedAt": "2026-10-22",
+    "kind": "model",
+    "categorySlug": "video",
+    "name": "LTX-2.5",
+    "verification": "partially_verified",
+    "officialUrl": "https://huggingface.co/Lightricks/LTX-2.5",
+    "repoUrl": "https://github.com/Lightricks/LTX-2",
+    "hosting": "local",
+    "openSource": "weights",
+    "platforms": [
+      "linux",
+      "windows"
+    ],
+    "freeModel": "open_source",
+    "licence": "LTX-2.x Community License (no OSI; uso comercial gratis por debajo de 10 M$ de ingresos anuales)",
+    "hardwareRequirements": "Recomienda Python 3.12 o superior, CUDA 12.7 o superior y PyTorch 2.7; no publica la memoria de vídeo mínima.",
+    "tagline": "Vídeo con sonido sincronizado y pesos abiertos para tu equipo, gratis para trabajar por debajo de 10 M$ de ingresos.",
+    "descriptionShort": "El modelo de vídeo de pesos abiertos de Lightricks: genera vídeo y audio sincronizados a partir de texto, imagen o vídeo, y se ejecuta en tu equipo. Su licencia, la LTX-2.x Community License, permite el uso comercial sin coste por debajo de 10 millones de dólares de ingresos anuales.",
+    "verdict": "Para quien tiene una GPU NVIDIA y no le asusta la línea de comandos: genera vídeo con audio en tu equipo, sin pagar por cada generación, y la licencia deja usarlo para trabajar si tu empresa factura menos de 10 millones de dólares al año. Lightricks no publica cuánta memoria de vídeo hace falta.",
+    "freePlan": {
+      "requiresSignup": "yes",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "partial",
+      "creditReset": "none",
+      "verifiedAt": "2026-10-22",
+      "summary": "Los pesos se descargan gratis de Hugging Face, con una cuenta y aceptando las condiciones, y se ejecutan en tu equipo sin pagar por generación. El uso comercial es gratuito por debajo de 10 millones de dólares de ingresos anuales; por encima hace falta una licencia de pago.",
+      "limits": [
+        "Pesos abiertos para ejecutar en tu equipo, sin pago por generación",
+        "Descarga desde Hugging Face con cuenta y aceptando sus condiciones",
+        "Recomienda Python 3.12 o superior y CUDA 12.7 o superior (GPU NVIDIA); no publica la memoria de vídeo mínima",
+        "Uso comercial gratis por debajo de 10 M$ de ingresos anuales; por encima, licencia de pago"
+      ],
+      "includedCapabilities": [
+        {
+          "capability": "text-to-video",
+          "condition": "pesos descargables, en tu equipo; uso comercial gratis por debajo de 10 M$ de ingresos anuales",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-22",
+            "scope": "weights",
+            "sourceUrl": "https://huggingface.co/Lightricks/LTX-2.5",
+            "sourceKind": "repo",
+            "quote": "LTX-2.5 is an open world model with open weights, built for local execution and fine-tuning. Its established use is generating synchronized, high-fidelity video and audio from text, image, and video inputs"
+          }
+        },
+        {
+          "capability": "image-to-video",
+          "condition": "pesos descargables, en tu equipo; uso comercial gratis por debajo de 10 M$ de ingresos anuales",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-22",
+            "scope": "weights",
+            "sourceUrl": "https://huggingface.co/Lightricks/LTX-2.5",
+            "sourceKind": "repo",
+            "quote": "LTX-2.5 is an open world model with open weights, built for local execution and fine-tuning. Its established use is generating synchronized, high-fidelity video and audio from text, image, and video inputs"
+          }
+        },
+        {
+          "capability": "native-audio",
+          "condition": "pesos descargables, en tu equipo; uso comercial gratis por debajo de 10 M$ de ingresos anuales",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-22",
+            "scope": "weights",
+            "sourceUrl": "https://huggingface.co/Lightricks/LTX-2.5",
+            "sourceKind": "repo",
+            "quote": "LTX-2.5 is an open world model with open weights, built for local execution and fine-tuning. Its established use is generating synchronized, high-fidelity video and audio from text, image, and video inputs"
+          }
+        }
+      ]
+    },
+    "access": {},
+    "capabilities": [
+      "text-to-video",
+      "image-to-video",
+      "native-audio",
+      "model-download"
+    ],
+    "startEffort": "technical",
+    "startEffortReason": "Hay que clonar el repositorio, instalar Python con CUDA y descargar los pesos.",
+    "scores": {
+      "freeReal": 9,
+      "usefulness": 8,
+      "ease": 3,
+      "transparency": 9,
+      "creatorValue": 8
+    },
+    "alternatives": [
+      "ltx-video",
+      "wan-2-2",
+      "hunyuanvideo"
+    ],
+    "sources": [
+      {
+        "url": "https://huggingface.co/Lightricks/LTX-2.5",
+        "label": "LTX-2.5 en Hugging Face",
+        "kind": "repo",
+        "publisher": "huggingface.co",
+        "checkedAt": "2026-10-22"
+      },
+      {
+        "url": "https://github.com/Lightricks/LTX-2",
+        "label": "Repositorio de LTX-2",
+        "kind": "repo",
+        "publisher": "github.com",
+        "checkedAt": "2026-10-22"
+      }
+    ],
+    "evidence": [
+      {
+        "checkedAt": "2026-10-22",
+        "scope": "weights",
+        "field": "capabilities",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/Lightricks/LTX-2.5",
+        "sourceKind": "repo",
+        "quote": "LTX-2.5 is an open world model with open weights, built for local execution and fine-tuning. Its established use is generating synchronized, high-fidelity video and audio from text, image, and video inputs"
+      },
+      {
+        "checkedAt": "2026-10-22",
+        "scope": "weights",
+        "field": "openSource",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/Lightricks/LTX-2.5",
+        "sourceKind": "repo",
+        "quote": "License: · ltx-2.x-community-license-agreement · LTX-2.5 is an open world model with open weights, built for local execution and fine-tuning."
+      },
+      {
+        "checkedAt": "2026-10-22",
+        "scope": "weights",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/Lightricks/LTX-2.5",
+        "sourceKind": "repo",
+        "quote": "Under $10M annual revenue · Commercial and production use at no cost under the LTX-2.x Community License. Transfer of fine-tunes may require a paid license, in accordance with the LTX-2.x Community License. · Over $10M annual revenue · Paid Commercial Use Agreement for LTX-2.x with full weights, engineering support, LoRAs, and flexible deployment options."
+      },
+      {
+        "checkedAt": "2026-10-22",
+        "scope": "weights",
+        "field": "freePlan.requiresSignup",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/Lightricks/LTX-2.5",
+        "sourceKind": "repo",
+        "quote": "You need to agree to share your Hugging Face information to access this model"
+      },
+      {
+        "checkedAt": "2026-10-22",
+        "scope": "local",
+        "field": "hosting",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/Lightricks/LTX-2.5",
+        "sourceKind": "repo",
+        "quote": "Full control and customization — self-host on your own infrastructure. No per-generation billing, no per-seat lock-in, no forced API dependency."
+      },
+      {
+        "checkedAt": "2026-10-22",
+        "scope": "local",
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://huggingface.co/Lightricks/LTX-2.5",
+        "sourceKind": "repo",
+        "quote": "Python >= 3.12, CUDA >= 12.7, PyTorch ~= 2.7 recommended."
+      },
+      {
+        "checkedAt": "2026-10-22",
+        "scope": "weights",
+        "field": "freePlan.requiresCreditCard",
+        "outcome": "not_published",
+        "sourceUrl": "https://huggingface.co/Lightricks/LTX-2.5",
+        "sourceKind": "repo",
+        "lookedFor": "Si la descarga pide tarjeta. La ficha de Hugging Face pide cuenta y aceptar las condiciones, y dice que el uso por debajo de 10 M$ de ingresos es «at no cost», pero no habla de tarjeta."
+      }
+    ]
   },
   {
     "secondaryCategories": [
@@ -16236,7 +16764,7 @@
     "status": "published",
     "detectedAt": "2026-08-12",
     "lastVerifiedAt": "2026-08-12",
-    "updatedAt": "2026-10-17",
+    "updatedAt": "2026-10-22",
     "slug": "sdnext",
     "name": "SD.Next",
     "tagline": "Interfaz local avanzada, Apache 2.0, con desarrollo muy activo.",
@@ -16263,11 +16791,11 @@
           "condition": "en tu equipo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-10-22",
             "scope": "local",
             "sourceUrl": "https://github.com/vladmandic/sdnext",
             "sourceKind": "repo",
-            "quote": "SD.Next is a state-of-the-art, open-source server application and web interface (WebUI) for AI image and video generation […] Create, refine, caption, upscale and process images and videos"
+            "quote": "SD.Next is a state-of-the-art open-source web interface for generating and editing images and video with a wide range of diffusion models. […] Process: Captioning, tagging, upscaling, interpolation, colorization, and filters."
           }
         },
         {
@@ -16275,11 +16803,11 @@
           "condition": "en tu equipo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-10-22",
             "scope": "local",
             "sourceUrl": "https://github.com/vladmandic/sdnext",
             "sourceKind": "repo",
-            "quote": "SD.Next is a state-of-the-art, open-source server application and web interface (WebUI) for AI image and video generation […] Create, refine, caption, upscale and process images and videos"
+            "quote": "SD.Next is a state-of-the-art open-source web interface for generating and editing images and video with a wide range of diffusion models. […] Process: Captioning, tagging, upscaling, interpolation, colorization, and filters."
           }
         }
       ]
@@ -16303,13 +16831,13 @@
         "scope": "local"
       },
       {
+        "checkedAt": "2026-10-22",
+        "scope": "local",
         "field": "capabilities",
         "outcome": "stated",
         "sourceUrl": "https://github.com/vladmandic/sdnext",
         "sourceKind": "repo",
-        "scope": "local",
-        "checkedAt": "2026-09-15",
-        "quote": "Generate with Text-to-Image, Image-to-Image, Text-to-Video, Image-to-Video, etc. · Edit with Detailer, HiRes/Refine, Image-Edit, Inpainting, Outpainting, etc. · Process with Caption, Tag, Upscale, Interpolate, Colorize, Filter, etc. · Automatic model download"
+        "quote": "Generate: Text-to-image, image-to-image, text-to-video, and image-to-video. · Edit: Image editing, inpainting, outpainting, detailer, and hires/refine. · Process: Captioning, tagging, upscaling, interpolation, colorization, and filters. · Work with models: Browse supported models, auto-download from the reference list, or add your own; added models are detected automatically"
       },
       {
         "field": "freePlan.hasWatermark",

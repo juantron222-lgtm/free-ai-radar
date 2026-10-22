@@ -249,7 +249,8 @@ describe('las reglas globales siguen en pie', () => {
   });
 
   it('las cifras publicadas van tal cual, sin convertir', () => {
-    expect(bySlug.get('bolt-new')!.freePlan.creditsAmount).toBe('300.000 tokens/día (1M/mes)');
+    // El 22 de octubre de 2026 Bolt dejó de publicar la cifra diaria (ahora sólo «daily limits»).
+    expect(bySlug.get('bolt-new')!.freePlan.creditsAmount).toBe('1M tokens/mes');
     expect(bySlug.get('lovable')!.freePlan.creditsAmount).toBe('5 créditos/día (tope de 30/mes)');
     expect(bySlug.get('amazon-q-developer')!.freePlan.creditsAmount).toBe('50 peticiones agénticas/mes');
   });

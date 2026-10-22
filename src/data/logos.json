@@ -1415,5 +1415,46 @@
     "luminancia": 194,
     "cobertura": 0.55,
     "placa": "oscura"
+  },
+  "claude-fable": {
+    "ruta": "/logos/claude-opus-5.svg",
+    "sourceUrl": "https://platform.claude.com/favicon.svg",
+    "sourceKind": "favicon",
+    "formatoOriginal": "svg",
+    "descubiertoEn": "https://platform.claude.com/docs/en/about-claude/models/overview",
+    "ancho": null,
+    "alto": null,
+    "bytes": 2779,
+    "obtenidoEl": "2026-09-16",
+    "luminancia": 68,
+    "cobertura": 0.95,
+    "placa": "ninguna"
+  },
+  "gemini-4-argon": {
+    "ruta": "/logos/gemini-3-pro.png",
+    "sourceUrl": "https://www.gstatic.com/devrel-devsite/prod/veec7311b6c5f99ef32994eb65aab7022195f72bfa4f3d934bdc7556da7fa7c3b/googledevai/images/touchicon-180-new.png",
+    "sourceKind": "favicon",
+    "formatoOriginal": "png",
+    "descubiertoEn": "https://ai.google.dev/gemini-api/docs/models",
+    "ancho": 128,
+    "alto": 128,
+    "bytes": 4615,
+    "obtenidoEl": "2026-09-16",
+    "luminancia": 218,
+    "cobertura": 0.68,
+    "placa": "oscura"
+  },
+  "ltx-2": {
+    "ruta": "/logos/ltx-video.png",
+    "sourceUrl": "https://github.com/Lightricks.png",
+    "sourceKind": "repo",
+    "formatoOriginal": "jpeg",
+    "ancho": 128,
+    "alto": 128,
+    "bytes": 4756,
+    "obtenidoEl": "2026-09-16",
+    "luminancia": 222,
+    "cobertura": 1,
+    "placa": "ninguna"
   }
 }
