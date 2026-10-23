@@ -597,21 +597,22 @@
     "freeModel": "free_real",
     "tagline": "Gratis con una cuenta de Microsoft: 15 creaciones rápidas al día y, después, a velocidad normal.",
     "descriptionShort": "El generador de imágenes de Microsoft, dentro de Bing. Usa sus propios modelos, MAI-Image-2.5-Flash y MAI-Image-2e, y también edita imágenes que subas. Es gratuito con una cuenta personal de Microsoft.",
-    "verdict": "De los pocos que dicen con todas las letras cuánto dan y qué pasa cuando se acaba: quince rápidas al día y, después, sigue gratis a velocidad estándar hasta 200 peticiones diarias. La marca visible es opcional y no usa lo que subes para entrenar. Lo que no publica en su ayuda es qué puedes hacer comercialmente con el resultado.",
+    "verdict": "De los pocos que dicen con todas las letras cuánto dan y qué pasa cuando se acaba: quince rápidas al día y, después, sigue gratis a velocidad estándar hasta 200 peticiones diarias. La marca visible es opcional y no usa lo que subes para entrenar. Pero no sirve para trabajar: sus términos sólo permiten un uso personal.",
     "freePlan": {
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "no",
-      "commercialUse": "unverified",
+      "commercialUse": "no",
       "creditReset": "daily",
       "verifiedAt": "2026-09-24",
-      "summary": "Gratis para cualquiera con una cuenta personal de Microsoft. Cada día da 15 creaciones rápidas; cuando se agotan se sigue creando gratis a velocidad estándar, más lenta, hasta 200 peticiones cada 24 horas. Las cuentas de trabajo o de centro educativo (Entra ID) no pueden usarlo.",
+      "summary": "Gratis para cualquiera con una cuenta personal de Microsoft. Cada día da 15 creaciones rápidas; cuando se agotan se sigue creando gratis a velocidad estándar, más lenta, hasta 200 peticiones cada 24 horas. Las cuentas de trabajo o de centro educativo (Entra ID) no pueden usarlo. Sus términos de uso, los de Copilot, sólo permiten un uso personal.",
       "limits": [
         "15 creaciones rápidas al día, que se renuevan al día siguiente",
         "Después, sin coste a velocidad estándar",
         "Hasta 200 peticiones cada 24 horas, ediciones incluidas",
         "Exige cuenta personal de Microsoft; no sirven las de trabajo o centro educativo",
-        "El vídeo sólo se crea desde la app móvil de Bing"
+        "El vídeo sólo se crea desde la app móvil de Bing",
+        "Sólo uso personal: sus términos dicen «You can only use Copilot for your own personal use»"
       ],
       "creditsAmount": "15 creaciones rápidas al día",
       "includedCapabilities": [
@@ -656,6 +657,13 @@
         "kind": "docs",
         "publisher": "bing.com",
         "checkedAt": "2026-09-24"
+      },
+      {
+        "url": "https://www.bing.com/new/termsofuseimagecreator",
+        "label": "Términos de uso de Bing Image Creator",
+        "kind": "docs",
+        "publisher": "bing.com",
+        "checkedAt": "2026-10-23"
       }
     ],
     "evidence": [
@@ -722,12 +730,21 @@
         "scope": "product",
         "checkedAt": "2026-09-24",
         "lookedFor": "Si el alta o el uso gratuito piden tarjeta. La ayuda sólo exige una cuenta personal de Microsoft y no menciona ningún medio de pago."
+      },
+      {
+        "checkedAt": "2026-10-23",
+        "scope": "product",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://www.bing.com/new/termsofuseimagecreator",
+        "sourceKind": "terms",
+        "quote": "You can only use Copilot for your own personal use."
       }
     ],
     "id": "tool_bing-image-creator",
     "nextReviewAt": "2026-12-23",
     "lastVerifiedAt": "2026-09-24",
-    "updatedAt": "2026-09-24"
+    "updatedAt": "2026-10-23"
   },
   {
     "id": "tool_bolt-new",
@@ -1816,6 +1833,13 @@
         "label": "Repositorio",
         "kind": "repo",
         "checkedAt": "2026-07-08"
+      },
+      {
+        "url": "https://civitai.com/content/tos",
+        "label": "Términos de uso de Civitai",
+        "kind": "docs",
+        "publisher": "civitai.com",
+        "checkedAt": "2026-10-23"
       }
     ],
     "scores": {
@@ -1856,7 +1880,7 @@
     "status": "published",
     "detectedAt": "2023-02-01",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08",
+    "updatedAt": "2026-10-23",
     "evidence": [
       {
         "field": "freePlan.limits",
@@ -1875,6 +1899,15 @@
         "checkedAt": "2026-08-12",
         "quote": "re © Civitai 2026 Terms of Service Privacy Safety API Status Known Issues Education Creators 🛟 Support Home -",
         "scope": "cloud"
+      },
+      {
+        "checkedAt": "2026-10-23",
+        "scope": "product",
+        "field": "freePlan.commercialUse",
+        "outcome": "not_published",
+        "sourceUrl": "https://civitai.com/content/tos",
+        "sourceKind": "terms",
+        "lookedFor": "Si se puede usar comercialmente lo generado. La licencia «personal, non-commercial» de la sección 6.1 es la de su aplicación; para lo generado, cada modelo arrastra sus propios términos (secciones 8.6 y 8.8) y no hay una respuesta general."
       }
     ],
     "auditNotes": [
@@ -2277,7 +2310,7 @@
     "id": "tool_claude-fable",
     "nextReviewAt": "2027-01-20",
     "lastVerifiedAt": "2026-10-22",
-    "updatedAt": "2026-10-22",
+    "updatedAt": "2026-10-23",
     "kind": "model",
     "categorySlug": "modelos",
     "name": "Claude Fable 5.1",
@@ -2378,6 +2411,13 @@
         "kind": "official",
         "publisher": "anthropic.com",
         "checkedAt": "2026-10-22"
+      },
+      {
+        "url": "https://www.anthropic.com/legal/commercial-terms",
+        "label": "Términos de uso de Claude Fable 5.1",
+        "kind": "docs",
+        "publisher": "anthropic.com",
+        "checkedAt": "2026-10-23"
       }
     ],
     "evidence": [
@@ -2407,6 +2447,15 @@
         "sourceUrl": "https://platform.claude.com/docs/en/about-claude/pricing",
         "sourceKind": "pricing",
         "quote": "Are there free tiers or trials? · New users receive a small amount of free credits to test the API. Contact sales for information about extended trials for enterprise evaluation."
+      },
+      {
+        "checkedAt": "2026-10-23",
+        "scope": "api",
+        "field": "freePlan.commercialUse",
+        "outcome": "not_published",
+        "sourceUrl": "https://www.anthropic.com/legal/commercial-terms",
+        "sourceKind": "terms",
+        "lookedFor": "Si se puede usar comercialmente lo que genera la API. Los términos comerciales dicen que el cliente «owns its Outputs» y que Anthropic le cede sus derechos sobre ellos, pero no hablan de uso comercial; los créditos se rigen por unos «Supplemental Credits Terms» aparte."
       }
     ]
   },
@@ -2524,6 +2573,13 @@
         "kind": "official",
         "publisher": "anthropic.com",
         "checkedAt": "2026-10-17"
+      },
+      {
+        "url": "https://www.anthropic.com/legal/commercial-terms",
+        "label": "Términos de uso de Claude Haiku 5.5",
+        "kind": "docs",
+        "publisher": "anthropic.com",
+        "checkedAt": "2026-10-23"
       }
     ],
     "evidence": [
@@ -2562,13 +2618,22 @@
         "sourceUrl": "https://platform.claude.com/docs/en/about-claude/pricing",
         "sourceKind": "pricing",
         "quote": "Are there free tiers or trials? · New users receive a small amount of free credits to test the API. Contact sales for information about extended trials for enterprise evaluation."
+      },
+      {
+        "checkedAt": "2026-10-23",
+        "scope": "api",
+        "field": "freePlan.commercialUse",
+        "outcome": "not_published",
+        "sourceUrl": "https://www.anthropic.com/legal/commercial-terms",
+        "sourceKind": "terms",
+        "lookedFor": "Si se puede usar comercialmente lo que genera la API. Los términos comerciales dicen que el cliente «owns its Outputs» y que Anthropic le cede sus derechos sobre ellos, pero no hablan de uso comercial; los créditos se rigen por unos «Supplemental Credits Terms» aparte."
       }
     ],
     "slug": "claude-haiku-4-5",
     "id": "tool_claude-haiku-4-5",
     "nextReviewAt": "2027-01-15",
     "lastVerifiedAt": "2026-10-17",
-    "updatedAt": "2026-10-17"
+    "updatedAt": "2026-10-23"
   },
   {
     "skillLevel": "beginner",
@@ -2686,6 +2751,13 @@
         "kind": "pricing",
         "publisher": "platform.claude.com",
         "checkedAt": "2026-10-17"
+      },
+      {
+        "url": "https://www.anthropic.com/legal/commercial-terms",
+        "label": "Términos de uso de Claude Opus 5.5",
+        "kind": "docs",
+        "publisher": "anthropic.com",
+        "checkedAt": "2026-10-23"
       }
     ],
     "evidence": [
@@ -2715,13 +2787,22 @@
         "sourceUrl": "https://platform.claude.com/docs/en/about-claude/pricing",
         "sourceKind": "pricing",
         "quote": "Are there free tiers or trials? · New users receive a small amount of free credits to test the API. Contact sales for information about extended trials for enterprise evaluation."
+      },
+      {
+        "checkedAt": "2026-10-23",
+        "scope": "api",
+        "field": "freePlan.commercialUse",
+        "outcome": "not_published",
+        "sourceUrl": "https://www.anthropic.com/legal/commercial-terms",
+        "sourceKind": "terms",
+        "lookedFor": "Si se puede usar comercialmente lo que genera la API. Los términos comerciales dicen que el cliente «owns its Outputs» y que Anthropic le cede sus derechos sobre ellos, pero no hablan de uso comercial; los créditos se rigen por unos «Supplemental Credits Terms» aparte."
       }
     ],
     "slug": "claude-opus-5",
     "id": "tool_claude-opus-5",
     "nextReviewAt": "2027-01-15",
     "lastVerifiedAt": "2026-10-17",
-    "updatedAt": "2026-10-17"
+    "updatedAt": "2026-10-23"
   },
   {
     "id": "tool_claude-sonnet-5",
@@ -2808,6 +2889,13 @@
         "kind": "pricing",
         "publisher": "platform.claude.com",
         "checkedAt": "2026-10-17"
+      },
+      {
+        "url": "https://www.anthropic.com/legal/commercial-terms",
+        "label": "Términos de uso de Claude Sonnet 5.5",
+        "kind": "docs",
+        "publisher": "anthropic.com",
+        "checkedAt": "2026-10-23"
       }
     ],
     "scores": {
@@ -2860,7 +2948,7 @@
     "status": "published",
     "detectedAt": "2026-08-07",
     "lastVerifiedAt": "2026-10-17",
-    "updatedAt": "2026-10-17",
+    "updatedAt": "2026-10-23",
     "startEffort": "signup",
     "capabilities": [
       "text-generation",
@@ -2896,6 +2984,15 @@
         "sourceUrl": "https://platform.claude.com/docs/en/about-claude/pricing",
         "sourceKind": "pricing",
         "quote": "Are there free tiers or trials? · New users receive a small amount of free credits to test the API. Contact sales for information about extended trials for enterprise evaluation."
+      },
+      {
+        "checkedAt": "2026-10-23",
+        "scope": "api",
+        "field": "freePlan.commercialUse",
+        "outcome": "not_published",
+        "sourceUrl": "https://www.anthropic.com/legal/commercial-terms",
+        "sourceKind": "terms",
+        "lookedFor": "Si se puede usar comercialmente lo que genera la API. Los términos comerciales dicen que el cliente «owns its Outputs» y que Anthropic le cede sus derechos sobre ellos, pero no hablan de uso comercial; los créditos se rigen por unos «Supplemental Credits Terms» aparte."
       }
     ],
     "startEffortReason": "Por API con clave y facturación; en claude.ai basta una cuenta.",
@@ -3410,6 +3507,13 @@
         "kind": "pricing",
         "publisher": "comfy.org",
         "checkedAt": "2026-08-12"
+      },
+      {
+        "url": "https://comfy.org/terms-of-service",
+        "label": "Términos de uso de Comfy Cloud",
+        "kind": "docs",
+        "publisher": "comfy.org",
+        "checkedAt": "2026-10-23"
       }
     ],
     "pros": [],
@@ -3435,7 +3539,7 @@
     "status": "published",
     "detectedAt": "2026-08-12",
     "lastVerifiedAt": "2026-10-17",
-    "updatedAt": "2026-10-17",
+    "updatedAt": "2026-10-23",
     "slug": "comfy-cloud",
     "name": "Comfy Cloud",
     "tagline": "ComfyUI alojado, con cinco ejecuciones gratuitas para empezar.",
@@ -3493,6 +3597,15 @@
         "checkedAt": "2026-08-12",
         "quote": "SEE CLOUD FEATURES Comfy API Turn workflows into production endpoints · View Model Features Try Workflows Open Weights Partner Nodes HOW WORKS Connect models, processing steps, a",
         "scope": "cloud"
+      },
+      {
+        "checkedAt": "2026-10-23",
+        "scope": "product",
+        "field": "freePlan.commercialUse",
+        "outcome": "not_published",
+        "sourceUrl": "https://comfy.org/terms-of-service",
+        "sourceKind": "terms",
+        "lookedFor": "Si se puede usar comercialmente lo generado. Los términos dicen que el cliente «retains all right, title, and interest» en lo que genera («Output»), pero no hablan de uso comercial."
       }
     ],
     "descriptionLong": "",
@@ -4744,12 +4857,13 @@
         "Uso limitado de Devin: la cantidad no se publica",
         "1 asiento",
         "Incluye Devin Review y DeepWiki",
-        "Plan de pago más barato: Pro, 20 $/mes"
+        "Plan de pago más barato: Pro, 20 $/mes",
+        "Sus términos permiten usarlo sólo para fines internos de tu empresa; lo que genera es tuyo"
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
-      "commercialUse": "unverified",
+      "commercialUse": "partial",
       "creditReset": "unknown",
       "verifiedAt": "2026-10-12",
       "includedCapabilities": [
@@ -4816,6 +4930,13 @@
         "label": "Página oficial de precios",
         "kind": "pricing",
         "checkedAt": "2026-09-15"
+      },
+      {
+        "url": "https://cognition.com/legal/platform-terms-of-service",
+        "label": "Términos de uso de Devin",
+        "kind": "docs",
+        "publisher": "cognition.com",
+        "checkedAt": "2026-10-23"
       }
     ],
     "evidence": [
@@ -4845,12 +4966,21 @@
         "sourceUrl": "https://docs.devin.ai/admin/billing/self-serve",
         "sourceKind": "docs",
         "lookedFor": "Si el plan Free pide tarjeta. Ni la página de precios ni la documentación de facturación lo dicen."
+      },
+      {
+        "checkedAt": "2026-10-23",
+        "scope": "product",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://cognition.com/legal/platform-terms-of-service",
+        "sourceKind": "terms",
+        "quote": "2.1 Rights Granted: Subject to your compliance with the terms and conditions of this Agreement, Cognition hereby grants you a non-exclusive, non-sublicensable, non-transferable right to access and use the Services and Documentation for your internal business purposes only […] Cognition assigns to you all right, title, and interest in Output."
       }
     ],
     "auditNotes": "La documentación afirma «if you can do it in three hours, Devin can most likely do it». Es una promesa de alcance, no un dato comprobable, y no se recoge como capacidad. Plataformas corregidas el 13 de septiembre de 2026: la documentación de Devin CLI la describe como «a local command-line coding agent» e indica cómo instalarla en macOS, Linux/WSL y Windows. Ya aparecía en las notas de versión de abril de 2026, así que era una omisión de la ficha y no un cambio del fabricante, y por eso no va al changelog. Devin Desktop no se añade por separado: ninguna página oficial consultada declara explícitamente en qué sistemas se instala. SWE-2, el modelo presentado el 10 de septiembre, no altera ningún campo de la ficha. Planes y precios comprobados el 13 de septiembre, sin cambios.",
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-10-17",
+    "updatedAt": "2026-10-23",
     "access": {},
     "productType": "agent"
   },
@@ -6785,12 +6915,13 @@
       "limits": [
         "100 créditos al día, hasta agotar un cupo de por vida cuya cifra no publican; después la recarga diaria se detiene",
         "Los créditos no se acumulan de un periodo al siguiente",
-        "Chat e imágenes sin coste de créditos sólo en los planes de pago"
+        "Chat e imágenes sin coste de créditos sólo en los planes de pago",
+        "Uso comercial permitido por sus términos, que avisan de que podría limitarse a los planes de pago en el futuro"
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
-      "commercialUse": "unverified",
+      "commercialUse": "yes",
       "creditsAmount": "100 créditos/día",
       "creditReset": "daily",
       "verifiedAt": "2026-10-11"
@@ -6830,6 +6961,13 @@
         "kind": "pricing",
         "publisher": "genspark.ai",
         "checkedAt": "2026-08-20"
+      },
+      {
+        "url": "https://www.genspark.ai/terms",
+        "label": "Términos de uso de Genspark",
+        "kind": "docs",
+        "publisher": "genspark.ai",
+        "checkedAt": "2026-10-23"
       }
     ],
     "evidence": [
@@ -6859,12 +6997,21 @@
         "sourceUrl": "https://www.genspark.ai/helpcenter/membership-plans",
         "sourceKind": "help",
         "lookedFor": "Si el plan gratuito pide tarjeta. La página de planes de su centro de ayuda sólo habla de datos de pago al suscribirse."
+      },
+      {
+        "checkedAt": "2026-10-23",
+        "scope": "product",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://www.genspark.ai/terms",
+        "sourceKind": "terms",
+        "quote": "Subject to these Terms and your applicable subscription plan, you may use the Services for internal, personal, or commercial purposes, including on behalf of or for the benefit of third parties. Please note that commercial use of the Services may, at our discretion, be limited to paid subscription tiers in the future."
       }
     ],
     "auditNotes": "No se marcan `code-execution` ni `memory`. «Powerful execution» no dice que ejecute código, y «SecondBrain» aparece sin definir qué persiste. El precio del plan Plus tampoco se registra: el centro de ayuda publica los créditos, no la cifra en euros.",
     "nextReviewAt": "2026-11-18",
     "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-10-23",
     "access": {}
   },
   {
@@ -8454,6 +8601,13 @@
         "kind": "official",
         "publisher": "x.ai",
         "checkedAt": "2026-10-17"
+      },
+      {
+        "url": "https://x.ai/legal/terms-of-service",
+        "label": "Términos de uso de Grok Imagine",
+        "kind": "docs",
+        "publisher": "x.ai",
+        "checkedAt": "2026-10-23"
       }
     ],
     "scores": {
@@ -8487,7 +8641,7 @@
     "status": "published",
     "detectedAt": "2026-08-12",
     "lastVerifiedAt": "2026-10-17",
-    "updatedAt": "2026-10-17",
+    "updatedAt": "2026-10-23",
     "evidence": [
       {
         "field": "freePlan.limits",
@@ -8524,6 +8678,15 @@
         "sourceUrl": "https://x.ai/pricing",
         "sourceKind": "pricing",
         "quote": "Every tier includes a pool of AI usage shared across Grok and Cursor. Within Grok, the pool covers Chat, Imagine, Voice, and Bot. […] Your allowance refreshes weekly"
+      },
+      {
+        "checkedAt": "2026-10-23",
+        "scope": "product",
+        "field": "freePlan.commercialUse",
+        "outcome": "not_published",
+        "sourceUrl": "https://x.ai/legal/terms-of-service",
+        "sourceKind": "terms",
+        "lookedFor": "Si se puede usar comercialmente lo generado. Los términos dicen «You Own Your User Content» —lo que subes y lo que genera es tuyo—, pero no dicen si puede usarse con fines comerciales."
       }
     ],
     "auditNotes": "La tarjeta de SuperGrok anuncia «Image and video generation», lo que sugiere que ninguna de las dos está en el plan gratuito; la tabla comparativa dice lo contrario para imagen. Se toma la tabla, que es donde xAI declara plan por plan. Filas de control usadas: SSO y RBAC, marcadas sólo en Enterprise.",
@@ -9056,6 +9219,13 @@
         "label": "huggingface.co",
         "kind": "community",
         "checkedAt": "2026-07-08"
+      },
+      {
+        "url": "https://huggingface.co/terms-of-service",
+        "label": "Términos de uso de Hugging Face Spaces",
+        "kind": "docs",
+        "publisher": "huggingface.co",
+        "checkedAt": "2026-10-23"
       }
     ],
     "scores": {
@@ -9097,7 +9267,7 @@
     "status": "published",
     "detectedAt": "2023-01-10",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08",
+    "updatedAt": "2026-10-23",
     "startEffort": "signup",
     "capabilities": [
       "api",
@@ -9130,6 +9300,15 @@
         "sourceUrl": "https://huggingface.co/docs/hub/billing",
         "sourceKind": "docs",
         "lookedFor": "Si la cuenta gratuita pide tarjeta. La página de precios y la de facturación sólo hablan de tarjeta para PRO, Team y el pago por uso."
+      },
+      {
+        "checkedAt": "2026-10-23",
+        "scope": "product",
+        "field": "freePlan.commercialUse",
+        "outcome": "not_published",
+        "sourceUrl": "https://huggingface.co/terms-of-service",
+        "sourceKind": "terms",
+        "lookedFor": "Si se puede usar comercialmente lo que genera un Space. Los términos dicen «You own the Content you create!», pero cada Space ejecuta un modelo con su propia licencia, y los términos no lo resuelven."
       }
     ],
     "startEffortReason": "Muchos Spaces se abren sin cuenta, pero las colas y los límites empiezan a exigirla.",
@@ -9221,7 +9400,7 @@
         "label": "Licencia oficial (Tencent Hunyuan Community License)",
         "kind": "repo",
         "publisher": "github.com",
-        "checkedAt": "2026-10-17"
+        "checkedAt": "2026-10-23"
       }
     ],
     "evidence": [
@@ -9251,12 +9430,21 @@
         "sourceUrl": "https://github.com/Tencent-Hunyuan/HunyuanVideo/blob/main/LICENSE.txt",
         "sourceKind": "licence",
         "quote": "THIS LICENSE AGREEMENT DOES NOT APPLY IN THE EUROPEAN UNION, UNITED KINGDOM AND SOUTH KOREA AND IS EXPRESSLY LIMITED TO THE TERRITORY, AS DEFINED BELOW. […] “Territory” shall mean the worldwide territory, excluding the territory of the European Union, United Kingdom and South Korea."
+      },
+      {
+        "checkedAt": "2026-10-23",
+        "scope": "weights",
+        "field": "freePlan.commercialUse",
+        "outcome": "not_published",
+        "sourceUrl": "https://github.com/Tencent-Hunyuan/HunyuanVideo/blob/main/LICENSE.txt",
+        "sourceKind": "terms",
+        "lookedFor": "Si se permite el uso comercial. La licencia sólo trata lo comercial para exigir una licencia aparte por encima de 100 millones de usuarios activos al mes («ADDITIONAL COMMERCIAL TERMS»); no dice que por debajo esté permitido. Además no se aplica en la Unión Europea, el Reino Unido ni Corea del Sur."
       }
     ],
     "auditNotes": "`openSource` queda en `unverified` aunque el repositorio sea público: la regla de este catálogo exige leer el identificador de licencia, y en esta comprobación no fue posible. Repositorio abierto no es lo mismo que licencia abierta.",
     "nextReviewAt": "2026-11-13",
     "lastVerifiedAt": "2026-08-15",
-    "updatedAt": "2026-10-17",
+    "updatedAt": "2026-10-23",
     "skillLevel": "beginner",
     "licences": {
       "weights": "Tencent Hunyuan Community License"
@@ -10548,7 +10736,14 @@
     "notFor": [],
     "alternatives": [],
     "alternativeNames": [],
-    "changelog": [],
+    "changelog": [
+      {
+        "date": "2026-10-22",
+        "kind": "other",
+        "summary": "La tarjeta del plan gratuito marca ahora como incluidos Krea 3, el nuevo modelo propio, y Krea Agent, y deja de equiparar las 100 unidades diarias a una generación de Nano Banana 2. Krea no publica la fecha del cambio: el 17 de octubre de 2026 la tabla aún daba esa equivalencia y la ficha hablaba de Krea 2.",
+        "sourceUrl": "https://www.krea.ai/pricing"
+      }
+    ],
     "affiliation": {
       "isAffiliate": false
     },
@@ -10572,18 +10767,18 @@
     ],
     "skillLevel": "intermediate",
     "freeModel": "credits",
-    "tagline": "Cien unidades al día: dan para bastantes imágenes con su modelo rápido o para una sola con los caros. Sin licencia comercial.",
-    "descriptionShort": "Estudio de imagen, vídeo y 3D en el navegador que reúne modelos propios y de terceros. Su plan gratuito da 100 unidades de cómputo al día, que su propia tabla equipara a una sola generación con Nano Banana 2, y no incluye la licencia comercial.",
-    "verdict": "Potente y ancha, pero su plan gratuito es una demostración: cien unidades al día, sólo con el modelo propio —que estiran o se agotan según cuál elijas— y sin permiso para usar el resultado en un trabajo. Merece estar en el catálogo por lo que es, no por lo que regala.",
+    "tagline": "Cien unidades al día con Krea 3, su modelo propio, y sin tarjeta; pero sin vídeo ni licencia comercial.",
+    "descriptionShort": "Estudio de imagen, vídeo y 3D en el navegador que reúne modelos propios y de terceros. Su plan gratuito da 100 unidades de cómputo al día con Krea 3, su modelo propio más reciente, y los modelos en tiempo real; no incluye vídeo ni la licencia comercial.",
+    "verdict": "Sirve para probar su modelo propio, Krea 3, y la generación en tiempo real: cien unidades al día y sin tarjeta. Lo demás —los modelos de terceros, el vídeo, el 3D y el permiso para usar el resultado en un trabajo— es de pago.",
     "freePlan": {
-      "summary": "Plan gratuito con 100 unidades de cómputo al día. La tabla de precios las equipara a una generación de Nano Banana 2, pero al usarlo el selector del producto tarifaba cada modelo por separado —Krea 2 Turbo 2, Medium 9, Large 20—, así que cuánto rinden depende del que elijas. Incluye el modelo propio Krea 2, entrenamiento LoRA limitado y escalado limitado hasta 2K. La tabla marca como no incluidos el resto de modelos de imagen, los de vídeo, los de 3D, los nodos y la licencia comercial.",
+      "summary": "Plan gratuito con 100 unidades de cómputo al día. Incluye Krea 3, su modelo propio más reciente, Krea Agent, los modelos en tiempo real, un entrenamiento LoRA limitado (50 imágenes) y un escalado limitado hasta 2K. La tabla marca como no incluidos el resto de modelos de imagen, los de vídeo, los de 3D, Krea Nodes, App Builder y la licencia comercial. No pide tarjeta.",
       "limits": [
-        "100 unidades de cómputo al día (≈1 generación de Nano Banana 2)",
-        "Sólo el modelo propio Krea 2: el resto de modelos de imagen no está incluido",
-        "Modelos de vídeo y de 3D no incluidos; concurrencia de vídeo: 0",
-        "Escalado limitado a 2K",
+        "100 unidades de cómputo al día",
+        "Incluye Krea 3, Krea Agent y los modelos en tiempo real",
+        "El resto de modelos de imagen, los de vídeo y los de 3D no están incluidos",
+        "Entrenamiento LoRA limitado (50 imágenes) y escalado limitado hasta 2K",
         "Sin licencia comercial",
-        "Sin Krea Nodes, App Builder ni Nodes Agent"
+        "Sin Krea Nodes ni App Builder"
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "no",
@@ -10591,7 +10786,49 @@
       "commercialUse": "no",
       "creditsAmount": "100 unidades/día",
       "creditReset": "daily",
-      "verifiedAt": "2026-09-21"
+      "verifiedAt": "2026-10-23",
+      "includedCapabilities": [
+        {
+          "capability": "text-to-image",
+          "condition": "con Krea 3 y los modelos en tiempo real, dentro de las 100 unidades diarias",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-23",
+            "scope": "product",
+            "sourceUrl": "https://www.krea.ai/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · 100 units / day · […] Krea 3 · Generate and edit images with our latest in-house model. · […] Full access to real-time models · Generate images in real-time as you type or draw. [En la tarjeta Free, «Krea 3» y «Full access to real-time models» llevan una marca de verificación. Leído en la tarjeta del plan Free el 23 de octubre de 2026: los iconos no tienen texto.]"
+          }
+        },
+        {
+          "capability": "image-editing",
+          "condition": "con Krea 3, dentro de las 100 unidades diarias",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-23",
+            "scope": "product",
+            "sourceUrl": "https://www.krea.ai/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · 100 units / day · […] Krea 3 · Generate and edit images with our latest in-house model. [En la tarjeta Free, «Krea 3» lleva una marca de verificación. Leído en la tarjeta del plan Free el 23 de octubre de 2026: los iconos no tienen texto.]"
+          }
+        },
+        {
+          "capability": "upscaling",
+          "condition": "limitado, hasta 2K con los modelos básicos",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-10-23",
+            "scope": "product",
+            "sourceUrl": "https://www.krea.ai/pricing",
+            "sourceKind": "pricing",
+            "quote": "Free · 100 units / day · […] Limited image upscaling · Upscale images up to 2K resolution using our basic upscaling models. [En la tarjeta Free, lleva una marca de verificación. Leído en la tarjeta del plan Free el 23 de octubre de 2026: los iconos no tienen texto.]"
+          }
+        }
+      ],
+      "excludedCapabilities": [
+        "text-to-video",
+        "video-editing"
+      ]
     },
     "capabilities": [
       "text-to-image",
@@ -10624,7 +10861,7 @@
         "label": "Página oficial de precios",
         "kind": "pricing",
         "publisher": "krea.ai",
-        "checkedAt": "2026-08-13"
+        "checkedAt": "2026-10-23"
       }
     ],
     "evidence": [
@@ -10638,13 +10875,13 @@
         "scope": "cloud"
       },
       {
+        "checkedAt": "2026-10-23",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://www.krea.ai/pricing",
         "sourceKind": "pricing",
-        "scope": "cloud",
-        "checkedAt": "2026-10-17",
-        "quote": "Free — 100 units /day · 1 Nano Banana 2 generation"
+        "quote": "Free · 100 units / day · […] Krea 3 · Krea Agent · No credit card required · Full access to real-time models · All image models · All video models · All 3D & lipsync models · Limited LoRA training (50 images) · Limited image upscaling · Krea Nodes · App Builder · Commercial license [En la tarjeta Free llevan marca de verificación «Krea 3», «Krea Agent», «No credit card required», «Full access to real-time models», «Limited LoRA training (50 images)» y «Limited image upscaling»; llevan una cruz «All image models», «All video models», «All 3D & lipsync models», «Krea Nodes», «App Builder» y «Commercial license». Leído en la tarjeta del plan Free el 23 de octubre de 2026: los iconos no tienen texto.]"
       },
       {
         "field": "freePlan.requiresCreditCard",
@@ -10674,12 +10911,21 @@
         "checkedAt": "2026-09-21",
         "quote": "Commercial license — Use all generated content for commercial purposes including marketing, products, and client work.",
         "basis": "En la tarjeta del plan Free esa fila lleva el icono de equis (`lucide-x`), el mismo que marca «All image models» o «Krea Nodes»; en Basic y superiores lleva el de visto (`lucide-check`)."
+      },
+      {
+        "checkedAt": "2026-10-23",
+        "scope": "product",
+        "field": "freePlan.excludedCapabilities",
+        "outcome": "stated",
+        "sourceUrl": "https://www.krea.ai/pricing",
+        "sourceKind": "pricing",
+        "quote": "Free · 100 units / day · […] All video models [En la tarjeta Free, «All video models» lleva una cruz y no aparece ningún otro modelo de vídeo; Basic marca «Selected video models» y Pro y Max, «All video models». Leído en la tarjeta del plan Free el 23 de octubre de 2026: los iconos no tienen texto.]"
       }
     ],
     "auditNotes": "commercialUse es «no» y no «unverified» porque la tabla lo declara explícitamente: «Commercial license» aparece con aspa en la columna Free y con visto en Basic, Pro y Max. Los precios de los planes de pago no están en el DOM de la página, así que el precio mínimo queda sin verificar.",
     "nextReviewAt": "2026-12-20",
-    "lastVerifiedAt": "2026-09-21",
-    "updatedAt": "2026-10-17",
+    "lastVerifiedAt": "2026-10-23",
+    "updatedAt": "2026-10-23",
     "licences": {},
     "access": {}
   },
@@ -10760,6 +11006,13 @@
         "kind": "pricing",
         "publisher": "lalal.ai",
         "checkedAt": "2026-09-24"
+      },
+      {
+        "url": "https://www.lalal.ai/terms-of-service/",
+        "label": "Términos de uso de LALAL.AI",
+        "kind": "docs",
+        "publisher": "lalal.ai",
+        "checkedAt": "2026-10-23"
       }
     ],
     "evidence": [
@@ -10780,12 +11033,21 @@
         "scope": "product",
         "checkedAt": "2026-10-12",
         "quote": "No credit card needed."
+      },
+      {
+        "checkedAt": "2026-10-23",
+        "scope": "product",
+        "field": "freePlan.commercialUse",
+        "outcome": "not_published",
+        "sourceUrl": "https://www.lalal.ai/terms-of-service/",
+        "sourceKind": "terms",
+        "lookedFor": "Si se puede usar comercialmente el audio procesado o generado. Los términos piden no quitar las marcas que llevan los resultados generados, pero no dicen si pueden usarse con fines comerciales."
       }
     ],
     "id": "tool_lalal-ai",
     "nextReviewAt": "2026-12-23",
     "lastVerifiedAt": "2026-09-24",
-    "updatedAt": "2026-09-24"
+    "updatedAt": "2026-10-23"
   },
   {
     "secondaryCategories": [],
@@ -11579,12 +11841,13 @@
         "Modelos locales con llama.cpp y MLX",
         "LM Link para hasta 5 dispositivos",
         "Búsqueda web limitada",
-        "Modelos en la nube de LM Studio: sólo de pago (Bionic+, 20 $/mes)"
+        "Modelos en la nube de LM Studio: sólo de pago (Bionic+, 20 $/mes)",
+        "Licencia para uso personal o interno de una empresa, no para ofrecerlo a terceros"
       ],
       "requiresSignup": "no",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
-      "commercialUse": "unverified",
+      "commercialUse": "partial",
       "creditReset": "none",
       "verifiedAt": "2026-09-16"
     },
@@ -11622,6 +11885,13 @@
         "label": "Fuente oficial",
         "kind": "pricing",
         "checkedAt": "2026-09-16"
+      },
+      {
+        "url": "https://lmstudio.ai/app-terms",
+        "label": "Términos de uso de LM Studio",
+        "kind": "docs",
+        "publisher": "lmstudio.ai",
+        "checkedAt": "2026-10-23"
       }
     ],
     "scores": {
@@ -11660,7 +11930,7 @@
     "status": "published",
     "detectedAt": "2024-01-10",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08",
+    "updatedAt": "2026-10-23",
     "startEffort": "install",
     "capabilities": [
       "text-generation",
@@ -11689,6 +11959,15 @@
         "scope": "product",
         "quote": "Run local LLMs on your machine · Bionic Agent · Run local LLMs using llama.cpp and MLX · State-of-the-art offline voice transcription · LM Link for up to 5 devices · Limited web search · Bionic+ · $20 · US-hosted open source models",
         "checkedAt": "2026-09-16"
+      },
+      {
+        "checkedAt": "2026-10-23",
+        "scope": "product",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://lmstudio.ai/app-terms",
+        "sourceKind": "terms",
+        "quote": "Subject to the terms and conditions of these Terms, Company grants to You a non-exclusive, non-transferable license to use the Software solely for Your personal and / or internal business purposes and solely in accordance with the Documentation."
       }
     ]
   },
@@ -13732,7 +14011,7 @@
       "requiresSignup": "unverified",
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
-      "commercialUse": "unverified",
+      "commercialUse": "yes",
       "creditReset": "unknown",
       "verifiedAt": "2026-10-11",
       "summary": "Prueba gratuita de la API: 10 $ para llamadas, sin tarjeta, con acceso a todos los puntos de la API, más de 150 voces en más de 35 idiomas y 5 peticiones simultáneas. La página ya no dice que ese crédito se renueve cada mes. No publica un plan gratuito equivalente para el estudio web.",
@@ -13740,7 +14019,8 @@
         "API: prueba gratuita con 10 $ para llamadas; la página ya no dice que se renueven cada mes",
         "Más de 150 voces en más de 35 idiomas",
         "5 peticiones simultáneas",
-        "El estudio web no publica cantidades gratuitas"
+        "El estudio web no publica cantidades gratuitas",
+        "Uso comercial de las voces permitido por sus términos; no se pueden revender"
       ],
       "creditsAmount": "10 $ de prueba (API)",
       "includedCapabilities": [
@@ -13779,6 +14059,13 @@
         "kind": "pricing",
         "publisher": "murf.ai",
         "checkedAt": "2026-09-24"
+      },
+      {
+        "url": "https://murf.ai/legal/terms-of-service",
+        "label": "Términos de uso de Murf AI",
+        "kind": "docs",
+        "publisher": "murf.ai",
+        "checkedAt": "2026-10-23"
       }
     ],
     "evidence": [
@@ -13817,12 +14104,21 @@
         "sourceUrl": "https://murf.ai/pricing",
         "sourceKind": "pricing",
         "lookedFor": "Si el audio gratuito lleva marca. Ni la página de precios ni las condiciones la mencionan."
+      },
+      {
+        "checkedAt": "2026-10-23",
+        "scope": "product",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://murf.ai/legal/terms-of-service",
+        "sourceKind": "terms",
+        "quote": "5.1 Commercial Rights · You can use Murf created voices for commercial purposes. · “Commercial Rights” means any use of Murf created voices for commercial or business purposes, except as restricted by this User Agreement."
       }
     ],
     "id": "tool_murf-ai",
     "nextReviewAt": "2026-12-23",
     "lastVerifiedAt": "2026-09-24",
-    "updatedAt": "2026-09-24"
+    "updatedAt": "2026-10-23"
   },
   {
     "skillLevel": "beginner",
@@ -16365,6 +16661,13 @@
         "kind": "docs",
         "publisher": "replicate.com",
         "checkedAt": "2026-08-13"
+      },
+      {
+        "url": "https://replicate.com/terms",
+        "label": "Términos de uso de Replicate",
+        "kind": "docs",
+        "publisher": "replicate.com",
+        "checkedAt": "2026-10-23"
       }
     ],
     "scores": {
@@ -16405,7 +16708,7 @@
     "status": "published",
     "detectedAt": "2023-04-01",
     "lastVerifiedAt": "2026-08-13",
-    "updatedAt": "2026-08-13",
+    "updatedAt": "2026-10-23",
     "auditNotes": "«Trial» y no «credits»: no hay una cantidad de créditos ni una frecuencia de renovación, sino un acceso gratuito que termina. La página de precios no menciona plan gratuito alguno; la que lo menciona es la de facturación.",
     "startEffort": "signup",
     "capabilities": [
@@ -16421,6 +16724,15 @@
         "checkedAt": "2026-10-11",
         "quote": "Free limits — You can run select models on Replicate for free, but after a bit you’ll be asked to set up billing. Some features are only available to customers with billing set up.",
         "scope": "cloud"
+      },
+      {
+        "checkedAt": "2026-10-23",
+        "scope": "product",
+        "field": "freePlan.commercialUse",
+        "outcome": "not_published",
+        "sourceUrl": "https://replicate.com/terms",
+        "sourceKind": "terms",
+        "lookedFor": "Si se puede usar comercialmente lo generado. Los términos dicen que el cliente es dueño de sus «Customer Data», que incluyen los «Outputs», pero no hablan de uso comercial, y cada modelo tiene su propia licencia."
       }
     ],
     "startEffortReason": "Se usa con token de API desde código; no hay una interfaz donde escribir y generar.",
@@ -17646,6 +17958,13 @@
         "label": "Centro de ayuda oficial",
         "kind": "docs",
         "checkedAt": "2026-09-16"
+      },
+      {
+        "url": "https://www.synthesia.io/legal/customer-terms-of-service",
+        "label": "Términos de uso de Synthesia",
+        "kind": "docs",
+        "publisher": "synthesia.io",
+        "checkedAt": "2026-10-23"
       }
     ],
     "evidence": [
@@ -17684,11 +18003,20 @@
         "sourceUrl": "https://www.synthesia.io/pricing",
         "sourceKind": "pricing",
         "quote": "Basic · €0 per month · 500 CREDITS / MONTH · […] Videos carry a Synthesia watermark"
+      },
+      {
+        "checkedAt": "2026-10-23",
+        "scope": "product",
+        "field": "freePlan.commercialUse",
+        "outcome": "not_published",
+        "sourceUrl": "https://www.synthesia.io/legal/customer-terms-of-service",
+        "sourceKind": "terms",
+        "lookedFor": "Si el plan gratuito permite uso comercial. Los términos dicen que el cliente es dueño de los «Output» y que exportarlos puede depender del plan, pero no dicen si el gratuito permite usarlos comercialmente."
       }
     ],
     "nextReviewAt": "2026-11-13",
     "lastVerifiedAt": "2026-08-15",
-    "updatedAt": "2026-08-15",
+    "updatedAt": "2026-10-23",
     "skillLevel": "beginner",
     "licences": {},
     "access": {}
@@ -18696,6 +19024,13 @@
         "kind": "pricing",
         "publisher": "zapier.com",
         "checkedAt": "2026-10-11"
+      },
+      {
+        "url": "https://zapier.com/legal/terms-of-service",
+        "label": "Términos de uso de Zapier Agents",
+        "kind": "docs",
+        "publisher": "zapier.com",
+        "checkedAt": "2026-10-23"
       }
     ],
     "evidence": [
@@ -18725,11 +19060,20 @@
         "sourceUrl": "https://zapier.com/pricing",
         "sourceKind": "pricing",
         "quote": "Yes! When you create a new Zapier account, you're instantly enrolled in a free 14-day trial of the Zapier Professional plan. No credit card is required."
+      },
+      {
+        "checkedAt": "2026-10-23",
+        "scope": "product",
+        "field": "freePlan.commercialUse",
+        "outcome": "not_published",
+        "sourceUrl": "https://zapier.com/legal/terms-of-service",
+        "sourceKind": "terms",
+        "lookedFor": "Si se puede usar comercialmente lo que generan sus funciones de IA. Los términos cuentan los «Outputs» dentro del «Customer Content», pero no dicen si pueden usarse con fines comerciales."
       }
     ],
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19",
+    "updatedAt": "2026-10-23",
     "access": {}
   },
   {
