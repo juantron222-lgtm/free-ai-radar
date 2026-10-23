@@ -2963,12 +2963,13 @@
         "Funciona sin conexión: el núcleo no descarga nada si no se lo pides",
         "Compatible con GPU NVIDIA, AMD, Intel, Apple Silicon y Ascend",
         "La versión portátil para Windows funciona también sólo con CPU",
-        "Los nodos de API de Comfy son opcionales y de pago"
+        "Los nodos de API de Comfy son opcionales y de pago",
+        "Licencia GPL-3.0: permite usarlo, también para trabajar; cada modelo que cargues tiene su propia licencia"
       ],
       "requiresSignup": "no",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
-      "commercialUse": "unverified",
+      "commercialUse": "yes",
       "creditReset": "none",
       "verifiedAt": "2026-09-16",
       "includedCapabilities": [
@@ -3021,6 +3022,13 @@
         "label": "Fuente oficial",
         "kind": "repo",
         "checkedAt": "2026-09-16"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/Comfy-Org/ComfyUI/master/LICENSE",
+        "label": "Licencia de ComfyUI",
+        "kind": "repo",
+        "publisher": "raw.githubusercontent.com",
+        "checkedAt": "2026-10-23"
       }
     ],
     "scores": {
@@ -3062,7 +3070,7 @@
     "status": "published",
     "detectedAt": "2024-02-20",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08",
+    "updatedAt": "2026-10-23",
     "auditNotes": [
       "El repositorio pasó de comfyanonymous/ComfyUI a Comfy-Org/ComfyUI. La URL anterior redirige, pero nombraba a un propietario que ya no lo es."
     ],
@@ -3103,11 +3111,23 @@
         "scope": "local",
         "quote": "Supports all operating systems and GPU types (NVIDIA, AMD, Intel, Apple Silicon, Ascend). · Runs fully offline: core does not download anything unless you request it. · the optional paid Comfy API nodes · There is a portable standalone build for Windows that should work for running on Nvidia GPUs or for running on your CPU only.",
         "checkedAt": "2026-09-16"
+      },
+      {
+        "checkedAt": "2026-10-23",
+        "scope": "product",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://raw.githubusercontent.com/Comfy-Org/ComfyUI/master/LICENSE",
+        "sourceKind": "licence",
+        "quote": "This License explicitly affirms your unlimited permission to run the unmodified Program. […] You may charge any price or no price for each copy that you convey, and you may offer support or warranty protection for a fee."
       }
     ],
     "startEffortReason": "Exige instalar el entorno, descargar los modelos y montar el grafo de nodos.",
-    "licences": {},
-    "access": {}
+    "licences": {
+      "code": "GPL-3.0"
+    },
+    "access": {},
+    "licence": "GPL-3.0"
   },
   {
     "skillLevel": "beginner",
@@ -4869,12 +4889,13 @@
       "limits": [
         "Requisito mínimo con GPU NVIDIA: 4 GB de VRAM y 8 GB de RAM; otras plataformas tienen el suyo",
         "Soporte limitado: sólo correcciones de errores",
-        "Construido sólo sobre Stable Diffusion XL"
+        "Construido sólo sobre Stable Diffusion XL",
+        "Licencia GPL-3.0: permite usarlo, también para trabajar; cada modelo que cargues tiene su propia licencia"
       ],
       "requiresSignup": "no",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
-      "commercialUse": "unverified",
+      "commercialUse": "yes",
       "creditReset": "none",
       "verifiedAt": "2026-09-16",
       "includedCapabilities": [
@@ -4921,6 +4942,13 @@
         "label": "Documentación",
         "kind": "docs",
         "checkedAt": "2026-07-08"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/lllyasviel/Fooocus/main/LICENSE",
+        "label": "Licencia de Fooocus",
+        "kind": "repo",
+        "publisher": "raw.githubusercontent.com",
+        "checkedAt": "2026-10-23"
       }
     ],
     "scores": {
@@ -4962,7 +4990,7 @@
     "status": "published",
     "detectedAt": "2023-08-15",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08",
+    "updatedAt": "2026-10-23",
     "auditNotes": [
       "Aplicación Python local que exige GPU e instalación. Presentarla como \"beginner\" junto a generadores web es la comparación engañosa que la auditoría señaló. Último push del repositorio: 2025-12-01."
     ],
@@ -5002,11 +5030,23 @@
         "scope": "local",
         "quote": "Project Status: Limited Long-Term Support (LTS) with Bug Fixes Only · built entirely on the Stable Diffusion XL architecture · Note that the minimal requirement is 4GB Nvidia GPU memory (4GB VRAM) and 8GB system memory (8GB RAM). · Note that the minimal requirement for different platforms is different.",
         "checkedAt": "2026-09-16"
+      },
+      {
+        "checkedAt": "2026-10-23",
+        "scope": "product",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://raw.githubusercontent.com/lllyasviel/Fooocus/main/LICENSE",
+        "sourceKind": "licence",
+        "quote": "This License explicitly affirms your unlimited permission to run the unmodified Program. […] You may charge any price or no price for each copy that you convey, and you may offer support or warranty protection for a fee."
       }
     ],
     "startEffortReason": "Se descarga y se ejecuta con un solo fichero, pero exige GPU y descarga modelos de varios gigas.",
-    "licences": {},
-    "access": {}
+    "licences": {
+      "code": "GPL-3.0"
+    },
+    "access": {},
+    "licence": "GPL-3.0"
   },
   {
     "skillLevel": "beginner",
@@ -7736,7 +7776,7 @@
       "requiresSignup": "no",
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
-      "commercialUse": "unverified",
+      "commercialUse": "partial",
       "creditReset": "none",
       "verifiedAt": "2026-10-12"
     },
@@ -7802,10 +7842,10 @@
         "checkedAt": "2026-10-23",
         "scope": "weights",
         "field": "freePlan.commercialUse",
-        "outcome": "not_published",
+        "outcome": "stated",
         "sourceUrl": "https://github.com/Tencent-Hunyuan/HunyuanVideo/blob/main/LICENSE.txt",
-        "sourceKind": "terms",
-        "lookedFor": "Si se permite el uso comercial. La licencia sólo trata lo comercial para exigir una licencia aparte por encima de 100 millones de usuarios activos al mes («ADDITIONAL COMMERCIAL TERMS»); no dice que por debajo esté permitido. Además no se aplica en la Unión Europea, el Reino Unido ni Corea del Sur."
+        "sourceKind": "licence",
+        "quote": "THIS LICENSE AGREEMENT DOES NOT APPLY IN THE EUROPEAN UNION, UNITED KINGDOM AND SOUTH KOREA AND IS EXPRESSLY LIMITED TO THE TERRITORY, AS DEFINED BELOW. […] 4. ADDITIONAL COMMERCIAL TERMS. · If, on the Tencent Hunyuan version release date, the monthly active users of all products or services made available by or for Licensee is greater than 100 million monthly active users in the preceding calendar month, You must request a license from Tencent"
       }
     ],
     "auditNotes": "`openSource` queda en `unverified` aunque el repositorio sea público: la regla de este catálogo exige leer el identificador de licencia, y en esta comprobación no fue posible. Repositorio abierto no es lo mismo que licencia abierta.",
@@ -11365,12 +11405,13 @@
         "Autoalojado: gratis, bajo Sustainable Use License (fair-code)",
         "La nube no tiene capa gratuita permanente, sólo prueba",
         "La prueba de la nube no pide tarjeta; la de Business, sí",
-        "Plan de pago más barato: Starter, 20 €/mes anual (2.500 ejecuciones)"
+        "Plan de pago más barato: Starter, 20 €/mes anual (2.500 ejecuciones)",
+        "Autoalojado, sólo para uso interno de tu empresa o personal: la licencia no permite revenderlo"
       ],
       "requiresSignup": "no",
       "requiresCreditCard": "no",
       "hasWatermark": "no",
-      "commercialUse": "unverified",
+      "commercialUse": "partial",
       "creditReset": "none",
       "verifiedAt": "2026-10-11",
       "includedCapabilities": [
@@ -11417,6 +11458,13 @@
         "kind": "repo",
         "publisher": "github.com",
         "checkedAt": "2026-08-19"
+      },
+      {
+        "url": "https://github.com/n8n-io/n8n/blob/master/LICENSE.md",
+        "label": "Licencia de n8n",
+        "kind": "repo",
+        "publisher": "github.com",
+        "checkedAt": "2026-10-23"
       }
     ],
     "evidence": [
@@ -11437,12 +11485,21 @@
         "checkedAt": "2026-08-19",
         "quote": "Fair-code platform to build and deploy AI agents and workflows · n8n is fair-code distributed under the Sustainable Use License and n8n Enterprise License · AI-Native Automation Platform: Build and operationalize AI workflows and multi-step agents · 1,500+ integrations.",
         "scope": "local"
+      },
+      {
+        "checkedAt": "2026-10-23",
+        "scope": "local",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://github.com/n8n-io/n8n/blob/master/LICENSE.md",
+        "sourceKind": "licence",
+        "quote": "Sustainable Use License · You may use or modify the software only for your own internal business purposes or for non-commercial or personal use. You may distribute the software or provide it to others only if you do so free of charge for non-commercial purposes."
       }
     ],
     "auditNotes": "`openSource: partial` y no `yes`: fair-code permite ver y autoalojar el código pero no es una licencia OSI, y llamarlo open source sin más induciría a error.",
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-10-17",
+    "updatedAt": "2026-10-23",
     "access": {}
   },
   {
@@ -14002,12 +14059,13 @@
       "summary": "Gratuito y open source. Se ejecuta en local; su README documenta la instalación con GPU NVIDIA (recomendada), AMD, Intel y Apple Silicon.",
       "limits": [
         "Instalación documentada para NVIDIA (recomendada), AMD, Intel y Apple Silicon",
-        "Sin límite de tokens en el prompt"
+        "Sin límite de tokens en el prompt",
+        "Licencia AGPL-3.0: permite usarlo, también para trabajar; cada modelo que cargues tiene su propia licencia"
       ],
       "requiresSignup": "no",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
-      "commercialUse": "unverified",
+      "commercialUse": "yes",
       "creditReset": "none",
       "verifiedAt": "2026-09-16",
       "includedCapabilities": [
@@ -14103,6 +14161,13 @@
         "label": "Documentación",
         "kind": "docs",
         "checkedAt": "2026-07-08"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/AUTOMATIC1111/stable-diffusion-webui/master/LICENSE.txt",
+        "label": "Licencia de Stable Diffusion WebUI (AUTOMATIC1111)",
+        "kind": "repo",
+        "publisher": "raw.githubusercontent.com",
+        "checkedAt": "2026-10-23"
       }
     ],
     "scores": {
@@ -14143,7 +14208,7 @@
     "status": "published",
     "detectedAt": "2024-01-15",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08",
+    "updatedAt": "2026-10-23",
     "startEffort": "technical",
     "capabilities": [
       "text-to-image",
@@ -14180,11 +14245,23 @@
         "scope": "local",
         "quote": "NVidia (recommended) · AMD GPUs. · Intel CPUs, Intel GPUs (both integrated and discrete) · Installation on Apple Silicon · No token limit for prompts (original stable diffusion lets you use up to 75 tokens)",
         "checkedAt": "2026-09-16"
+      },
+      {
+        "checkedAt": "2026-10-23",
+        "scope": "product",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://raw.githubusercontent.com/AUTOMATIC1111/stable-diffusion-webui/master/LICENSE.txt",
+        "sourceKind": "licence",
+        "quote": "You may charge any price or no price for each copy that you convey, and you may offer support or warranty protection for a fee."
       }
     ],
     "startEffortReason": "Exige entorno de Python, descarga de modelos y GPU.",
-    "licences": {},
-    "access": {}
+    "licences": {
+      "code": "AGPL-3.0"
+    },
+    "access": {},
+    "licence": "AGPL-3.0"
   },
   {
     "skillLevel": "beginner",
