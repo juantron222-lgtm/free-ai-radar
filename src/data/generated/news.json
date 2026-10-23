@@ -1,5 +1,92 @@
 [
   {
+    "id": "news-2026-10-23-kling-4-luma",
+    "slug": "kling-4-en-luma",
+    "title": "Kling 4.0 entra en Luma para todos sus clientes, con texto a vídeo e imagen a vídeo en cuatro formatos",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Luma anunció el 23 de octubre que Kling 4.0, un generador de vídeo de otra casa orientado a la acción rápida y a los movimientos de cámara amplios, ya se puede usar desde dentro de Luma, disponible para todos sus clientes. Admite texto a vídeo e imagen a vídeo en 16:9, 9:16, 1:1 y 21:9, y se elige desde el mismo tablero donde vive el resto del proyecto, sin salir a otra herramienta.",
+    "impact": "Lo que vale aquí es la integración, no las promesas: Kling 4.0 se coloca al lado de los modelos propios de Luma y se escoge plano a plano, como se escoge un objetivo, de modo que se puede reservar para las tomas con más movimiento y dejar el resto a lo de siempre. El problema que dicen atacar es el coste de rehacer un plano cuando el seguimiento se desvía. Conviene saber que en el anuncio no hay ni una cifra ni una comparación medida: todo lo que se dice de la calidad son afirmaciones de Luma.",
+    "category": "video",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-23",
+    "checkedAt": "2026-10-24",
+    "officialUrl": "https://lumalabs.ai/news/kling-4-in-luma-ai-video",
+    "sources": [
+      {
+        "url": "https://lumalabs.ai/news/kling-4-in-luma-ai-video",
+        "kind": "official",
+        "label": "Kling 4.0 in Luma: Fast Action and Big Camera Moves",
+        "checkedAt": "2026-10-24",
+        "publisher": "lumalabs.ai"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-23-medgemma-cribado-tb",
+    "slug": "medgemma-modelos-abiertos-cribado-tb",
+    "title": "Google explica cómo sus modelos médicos de pesos abiertos llegaron a clínicas: MedGemma corre en local y sin internet",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Google Research publicó el 23 de octubre un repaso de cinco años de trabajo en cribado de tuberculosis por radiografía, y lo interesante para quien sigue los modelos abiertos es el giro que describe: de una herramienta cerrada con un socio a modelos de pesos abiertos que otros ajustan. MedGemma son modelos multimodales de 4.000 y 27.000 millones de parámetros que combinan la imagen con el historial, responden en lenguaje natural y funcionan en el propio dispositivo sin conexión.",
+    "impact": "El caso que mejor explica para qué sirven unos pesos abiertos es Indonesia: su Ministerio de Sanidad está ajustando MedGemma y MedSigLIP con radiografías propias, y el motivo que se da es doble —revisar 50 millones de radiografías a mano es inviable, y el software propietario en la nube plantea problemas de residencia del dato—. Al ejecutarse en infraestructura local, los datos no salen del país. Las cifras de descargas y de uso en clínica son suyas; la decisión clínica final, dicen, sigue siendo del profesional.",
+    "category": "local-open-source",
+    "eventType": "actualizacion",
+    "availability": "available",
+    "publishedAt": "2026-10-23",
+    "checkedAt": "2026-10-24",
+    "officialUrl": "https://research.google/blog/bringing-foundational-models-to-the-front-lines-of-tb-screening/",
+    "sources": [
+      {
+        "url": "https://research.google/blog/bringing-foundational-models-to-the-front-lines-of-tb-screening/",
+        "kind": "official",
+        "label": "Bringing foundational models to the front lines of TB screening",
+        "checkedAt": "2026-10-24",
+        "publisher": "research.google"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-23-trainium-tabla-modelos",
+    "slug": "trainium-tabla-modelos-soportados",
+    "title": "Hugging Face publica qué modelos del Hub funcionan en AWS Trainium, con el guion para probarlo y la letra pequeña incluida",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Hugging Face publicó el 23 de octubre un Space que responde a una pregunta concreta: si un modelo del Hub funciona sin modificar en AWS Trainium. Para cada modelo da el resultado, en cuántos núcleos se repartió, el tiempo de ejecución con la compilación incluida, el pico de memoria y el guion exacto que se usó. Viene de TorchNeuron, el backend nativo de PyTorch para Trainium que presentaron días antes.",
+    "impact": "Lo que lo hace útil es que no se queda en el sí o el no: todo sale de un conjunto de datos público con un fichero por cada par de versiones del compilador y de la biblioteca, se puede consultar con pandas, y cada fila guarda el error cuando falló. Y lo que lo hace honesto es la letra pequeña, que es suya: sólo prueban modelos de Transformers que caben en cuatro dispositivos, un APTO no dice nada del rendimiento, y cuando el modelo va repartido la comprobación es que un modelo juez decida que el texto suena a inglés fluido.",
+    "category": "programacion",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-23",
+    "checkedAt": "2026-10-24",
+    "officialUrl": "https://huggingface.co/blog/torch-neuronx-model-support",
+    "sources": [
+      {
+        "url": "https://huggingface.co/blog/torch-neuronx-model-support",
+        "kind": "official",
+        "label": "Does Your Model Run on AWS Trainium? Look It Up",
+        "checkedAt": "2026-10-24",
+        "publisher": "huggingface.co/blog"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-10-22-agent-skills-aaif",
     "slug": "agent-skills-donado-agentic-ai-foundation",
     "title": "Anthropic cede el estándar de Agent Skills a la fundación de la Linux Foundation que ya custodia MCP",

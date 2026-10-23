@@ -585,3 +585,25 @@ sin pasar por la nube, con Ollama y vLLM soportados de fábrica.
 
 Es la segunda noticia de hardware del radar y la segunda etiqueta forzada por lo
 mismo, que es el punto 2 de lo que Web V2 tiene que decidir.
+
+### La segunda que la taxonomía deja fuera
+
+El 23 de octubre el Allen Institute publicó LitPivot, un sistema que organiza la
+bibliografía alrededor de la parte de una propuesta de investigación que se está
+editando, critica esa parte con pasajes de los artículos elegidos y sugiere cómo
+reescribirla. Tiene fecha propia, fuente primaria y citas comprobables, y se
+quedó sin publicar por lo mismo que SynthID Bio: ninguna de las trece categorías
+nombra herramientas de escritura o de investigación académica. `agentes` diría
+que es un agente y no lo es; `programacion` diría que es para programar.
+
+Es el segundo caso de los dos que no llegan al lector, frente a los seis de
+etiqueta discutible, y refuerza la misma conclusión: la lista se decide entera en
+Web V2. Se anota también un motivo menor para no publicarla aunque hubiera hueco
+—la evidencia es un estudio de laboratorio con 17 participantes y mejoras en
+parte autodeclaradas, y el sistema no se ofrece para usar—, pero el bloqueo real
+es la categoría.
+
+Aviso técnico para quien vuelva a esta fuente: el texto visible de esa página de
+huggingface.co arrastra en su cola el JSON de los comentarios sin limpiar, y uno
+de ellos lleva cargas de prueba de XSS. No afecta a las citas, que salen del
+cuerpo del artículo, pero conviene no citar nada de esa zona.
