@@ -129,9 +129,14 @@ export function paresDeFiltro(query: string): string[] {
  * Madrid, así que ese día mezcla las dos formas de contar: el primer día fiable
  * es el siguiente. Lo anterior se conserva, marcado como no fiable; no se puede
  * separar porque sólo se guardan totales por día.
+ *
+ * Hubo dos despliegues. El primero (e55ce2b, listo el 24 de octubre de 2026 a
+ * las 11:50:39 UTC) ya no contaba precargas, pero exigía `Sec-Fetch-User`, que
+ * WebKit no manda: dejaba fuera los clics desde Safari y el iPhone. La medición
+ * corregida empieza con el segundo (368326a, dpl_9PJJfZQfVnRy1Ptfkx4NbuGMskkx).
  */
 export const MEDICION_CORREGIDA: { publicada: string | null; primerDiaFiable: string } = {
-  publicada: null,
+  publicada: '2026-10-24T12:56:51.977Z',
   primerDiaFiable: '2026-10-25',
 };
 
