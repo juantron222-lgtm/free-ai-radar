@@ -5696,13 +5696,12 @@
       "limits": [
         "100 créditos al día, hasta agotar un cupo de por vida cuya cifra no publican; después la recarga diaria se detiene",
         "Los créditos no se acumulan de un periodo al siguiente",
-        "Chat e imágenes sin coste de créditos sólo en los planes de pago",
-        "Uso comercial permitido por sus términos, que avisan de que podría limitarse a los planes de pago en el futuro"
+        "Chat e imágenes sin coste de créditos sólo en los planes de pago"
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
-      "commercialUse": "yes",
+      "commercialUse": "unverified",
       "creditsAmount": "100 créditos/día",
       "creditReset": "daily",
       "verifiedAt": "2026-10-11"
@@ -5742,13 +5741,6 @@
         "kind": "pricing",
         "publisher": "genspark.ai",
         "checkedAt": "2026-08-20"
-      },
-      {
-        "url": "https://www.genspark.ai/terms",
-        "label": "Términos de uso de Genspark",
-        "kind": "docs",
-        "publisher": "genspark.ai",
-        "checkedAt": "2026-10-23"
       }
     ],
     "evidence": [
@@ -5778,21 +5770,12 @@
         "sourceUrl": "https://www.genspark.ai/helpcenter/membership-plans",
         "sourceKind": "help",
         "lookedFor": "Si el plan gratuito pide tarjeta. La página de planes de su centro de ayuda sólo habla de datos de pago al suscribirse."
-      },
-      {
-        "checkedAt": "2026-10-23",
-        "scope": "product",
-        "field": "freePlan.commercialUse",
-        "outcome": "stated",
-        "sourceUrl": "https://www.genspark.ai/terms",
-        "sourceKind": "terms",
-        "quote": "Subject to these Terms and your applicable subscription plan, you may use the Services for internal, personal, or commercial purposes, including on behalf of or for the benefit of third parties. Please note that commercial use of the Services may, at our discretion, be limited to paid subscription tiers in the future."
       }
     ],
     "auditNotes": "No se marcan `code-execution` ni `memory`. «Powerful execution» no dice que ejecute código, y «SecondBrain» aparece sin definir qué persiste. El precio del plan Plus tampoco se registra: el centro de ayuda publica los créditos, no la cifra en euros.",
     "nextReviewAt": "2026-11-18",
     "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-10-23",
+    "updatedAt": "2026-08-20",
     "access": {}
   },
   {
