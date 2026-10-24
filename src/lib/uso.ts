@@ -113,3 +113,44 @@ export function paresDeFiltro(query: string): string[] {
   }
   return pares;
 }
+
+/**
+ * Desde qué día las salidas cuentan sólo clics de navegador.
+ *
+ * Antes, el 21 de octubre de 2026 (cuando se creó la tabla), también contaban:
+ * las precargas que Astro hace al pasar el ratón o el tabulador por «Ir a…» o
+ * «Ver su página de precios» (`prefetchAll` con estrategia `hover`), y como
+ * `/ir/` responde `no-store`, un clic después de esa precarga contaba dos
+ * veces; y cualquier visita automática que siguiera el enlace sin respetar
+ * robots.txt. Lo de antes de esta fecha no se puede separar: sólo guardamos
+ * totales por día, sin nada que identifique la petición.
+ */
+export const SALIDAS_LIMPIAS_DESDE = '2026-10-24';
+
+/** Agentes que no son una persona en un navegador. */
+const AUTOMATICO =
+  /bot|crawl|spider|slurp|preview|headless|lighthouse|pagespeed|curl|wget|python|httpclient|okhttp|axios|node-fetch|undici|go-http|java\/|libwww|scrapy|facebookexternalhit|embedly|whatsapp|telegram|discord|slack/i;
+
+/**
+ * ¿Es esta petición alguien que ha abierto el enlace en un navegador?
+ *
+ * Los navegadores actuales mandan las cabeceras Fetch Metadata en cada
+ * petición. Al abrir un enlace con el ratón o el teclado llegan
+ * `Sec-Fetch-Mode: navigate`, `Sec-Fetch-Dest: document` y `Sec-Fetch-User: ?1`
+ * (hubo un gesto de la persona). Una precarga llega con `Sec-Purpose` o
+ * `Purpose: prefetch`, o como una petición que no es una navegación; `curl`,
+ * un comprobador de enlaces o un robot no mandan nada de eso, y un navegador
+ * automatizado que navega sin gesto no manda `Sec-Fetch-User`.
+ *
+ * Se mira sólo la forma de la petición; no se guarda ni se registra nada de
+ * ella. La redirección se hace siempre, cuente o no.
+ */
+export function esClicDeNavegador(headers: Headers): boolean {
+  const proposito = `${headers.get('sec-purpose') ?? ''} ${headers.get('purpose') ?? ''} ${headers.get('x-moz') ?? ''}`;
+  if (/prefetch|prerender/i.test(proposito)) return false;
+  if (headers.get('sec-fetch-mode') !== 'navigate') return false;
+  if (headers.get('sec-fetch-dest') !== 'document') return false;
+  if (headers.get('sec-fetch-user') !== '?1') return false;
+  const agente = headers.get('user-agent') ?? '';
+  return agente !== '' && !AUTOMATICO.test(agente);
+}

@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getTool } from '@lib/data/catalog';
 import { contarUso } from '@lib/data/uso';
+import { esClicDeNavegador } from '@lib/uso';
 
 export const prerender = false;
 
@@ -19,17 +20,20 @@ export const prerender = false;
  */
 const ESPERA_MAXIMA_MS = 600;
 
-export const GET: APIRoute = async ({ params, url }) => {
+export const GET: APIRoute = async ({ params, url, request }) => {
   const tool = getTool(params['slug'] ?? '');
   if (!tool) return new Response('No encontrado', { status: 404 });
 
   const precios = url.searchParams.get('a') === 'precios' && Boolean(tool.pricingUrl);
   const destino = precios ? tool.pricingUrl! : tool.outboundUrl;
 
-  await Promise.race([
-    contarUso(precios ? 'precios' : 'salida', tool.slug).catch(() => false),
-    new Promise((listo) => setTimeout(listo, ESPERA_MAXIMA_MS)),
-  ]);
+  // Sólo los clics de una persona en un navegador: ni precargas ni robots (ver `esClicDeNavegador`).
+  if (esClicDeNavegador(request.headers)) {
+    await Promise.race([
+      contarUso(precios ? 'precios' : 'salida', tool.slug).catch(() => false),
+      new Promise((listo) => setTimeout(listo, ESPERA_MAXIMA_MS)),
+    ]);
+  }
 
   return new Response(null, {
     status: 302,

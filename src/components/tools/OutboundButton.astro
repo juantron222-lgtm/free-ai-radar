@@ -9,6 +9,10 @@ const { tool } = Astro.props;
 const isAffiliate = tool.affiliation.isAffiliate;
 
 /*
+ * Ninguno de los dos se precarga (`data-astro-prefetch="false"`): con
+ * `prefetchAll`, pasar el ratón por encima pedía /ir/<slug> y contaba una
+ * salida sin clic (24 de octubre de 2026).
+ *
  * Los dos enlaces pasan por /ir/<slug>, que cuenta el clic en el servidor y
  * redirige al mismo destino de siempre. Es la única forma de saber si la web
  * sirve —si alguien encontró una herramienta y fue a usarla— sin guardar ni
@@ -24,6 +28,7 @@ const isAffiliate = tool.affiliation.isAffiliate;
     rel={isAffiliate ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
     data-outbound={tool.slug}
     data-affiliate={String(isAffiliate)}
+    data-astro-prefetch="false"
   >
     Ir a {tool.name}
     <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -45,7 +50,7 @@ const isAffiliate = tool.affiliation.isAffiliate;
   )}
 
   {tool.pricingUrl && (
-    <a class="outbound-secondary" href={ROUTES.salida(tool.slug, true)} target="_blank" rel="nofollow noopener">
+    <a class="outbound-secondary" href={ROUTES.salida(tool.slug, true)} target="_blank" rel="nofollow noopener" data-astro-prefetch="false">
       Ver su página de precios
     </a>
   )}

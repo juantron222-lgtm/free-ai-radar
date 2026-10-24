@@ -3,6 +3,7 @@ import AdminLayout from '@layouts/AdminLayout.astro';
 import { getTool } from '@lib/data/catalog';
 import { totalesPor, usoReciente } from '@lib/data/uso';
 import { ROUTES } from '@lib/nav';
+import { SALIDAS_LIMPIAS_DESDE } from '@lib/uso';
 
 export const prerender = false;
 
@@ -139,6 +140,7 @@ const fecha = (dia: string) =>
     <h2 id="como-t">Qué cuenta y qué no</h2>
     <ul>
       <li><strong>Salidas y precios:</strong> cada clic en «Ir a…» o «Ver su página de precios» de una ficha, de cualquiera. Pasan por <code>/ir/&lt;herramienta&gt;</code>, que suma uno y redirige; no se guarda nada en el navegador.</li>
+      <li><strong>Desde el {fecha(SALIDAS_LIMPIAS_DESDE)}</strong>, sólo clics de una persona en un navegador. Antes también contaban las precargas al pasar el ratón por el botón (un clic podía contar dos veces) y las visitas automáticas que seguían el enlace: las cifras anteriores son un máximo, no clics.</li>
       <li><strong>Búsquedas, filtros y comparaciones:</strong> sólo de quien aceptó «Analítica» en el aviso de cookies, como promete ese aviso. Son menos de las que hay.</li>
       <li>Sólo totales por día: ni IP, ni cookie, ni quién. Las búsquedas que parecen un correo, un enlace o un número largo no se guardan. Se borra solo lo que pasa de 14 meses.</li>
       <li>Ni los Preview, ni el desarrollo local, ni las pruebas automáticas cuentan.</li>

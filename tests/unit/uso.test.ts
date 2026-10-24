@@ -111,9 +111,19 @@ describe('/api/uso: sólo con permiso, y nunca salidas', () => {
 });
 
 describe('/ir/<slug>: cuenta y lleva al mismo sitio de siempre', () => {
-  async function ir(slug: string, consulta = '') {
+  /** Lo que manda Chrome al abrir un enlace con el ratón. */
+  const CLIC: Record<string, string> = {
+    'sec-fetch-mode': 'navigate',
+    'sec-fetch-dest': 'document',
+    'sec-fetch-user': '?1',
+    'sec-fetch-site': 'same-origin',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  };
+
+  async function ir(slug: string, consulta = '', cabeceras: Record<string, string> = CLIC) {
     const { GET } = await import('../../src/pages/ir/[slug]');
-    const context = { params: { slug }, url: new URL(`https://example.test/ir/${slug}${consulta}`) };
+    const url = new URL(`https://example.test/ir/${slug}${consulta}`);
+    const context = { params: { slug }, url, request: new Request(url, { headers: cabeceras }) };
     return GET(context as unknown as Parameters<typeof GET>[0]);
   }
 
@@ -133,6 +143,29 @@ describe('/ir/<slug>: cuenta y lleva al mismo sitio de siempre', () => {
     expect(contar).toHaveBeenCalledWith('precios', tool.slug);
   });
 
+  it('ni una precarga ni un robot cuentan, pero los dos van al mismo sitio', async () => {
+    /*
+     * El 24 de octubre de 2026 se vio que pasar el ratón por «Ir a…» pedía
+     * /ir/<slug> (precarga de Astro) y sumaba una salida sin clic.
+     */
+    const tool = getAllTools()[0]!;
+    const casos: Record<string, Record<string, string>> = {
+      'precarga de Chrome': { ...CLIC, 'sec-purpose': 'prefetch', 'sec-fetch-mode': 'no-cors', 'sec-fetch-dest': 'empty' },
+      'precarga sin Sec-Fetch': { purpose: 'prefetch', 'user-agent': CLIC['user-agent']! },
+      'curl': { 'user-agent': 'curl/8.9.1' },
+      'robot que navega': { ...CLIC, 'user-agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)' },
+      'navegador automatizado sin gesto': { ...CLIC, 'sec-fetch-user': '' },
+      'Chrome sin interfaz': { ...CLIC, 'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.0.0 Safari/537.36' },
+      'sin agente': { ...CLIC, 'user-agent': '' },
+    };
+    for (const [caso, cabeceras] of Object.entries(casos)) {
+      const r = await ir(tool.slug, '', cabeceras);
+      expect(r.status, caso).toBe(302);
+      expect(r.headers.get('location'), caso).toBe(tool.outboundUrl);
+    }
+    expect(contar).not.toHaveBeenCalled();
+  });
+
   it('una herramienta que no existe es un 404, no una redirección abierta', async () => {
     expect((await ir('no-existe-de-verdad')).status).toBe(404);
   });
@@ -147,6 +180,13 @@ describe('/ir/<slug>: cuenta y lleva al mismo sitio de siempre', () => {
 });
 
 describe('dónde se engancha y qué no se abre', () => {
+  it('los enlaces de salida no se precargan', () => {
+    const boton = leer('src/components/tools/OutboundButton.astro');
+    const enlaces = [...boton.matchAll(/<a\b[^>]*ROUTES\.salida[^>]*>/g)].map((m) => m[0]);
+    expect(enlaces.length).toBe(2);
+    for (const a of enlaces) expect(a).toContain('data-astro-prefetch="false"');
+  });
+
   it('el botón de salida y el de precios pasan por /ir/', () => {
     const boton = leer('src/components/tools/OutboundButton.astro');
     expect(boton).toContain('href={ROUTES.salida(tool.slug)}');
