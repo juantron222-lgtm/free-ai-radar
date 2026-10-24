@@ -17155,16 +17155,16 @@
       "requiresSignup": "unverified",
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
-      "commercialUse": "yes",
+      "commercialUse": "no",
       "creditReset": "unknown",
       "verifiedAt": "2026-10-11",
-      "summary": "Prueba gratuita de la API: 10 $ para llamadas, sin tarjeta, con acceso a todos los puntos de la API, más de 150 voces en más de 35 idiomas y 5 peticiones simultáneas. La página ya no dice que ese crédito se renueve cada mes. No publica un plan gratuito equivalente para el estudio web.",
+      "summary": "Prueba gratuita de la API: 10 $ para llamadas, sin tarjeta, con acceso a todos los puntos de la API, más de 150 voces en más de 35 idiomas y 5 peticiones simultáneas. La página ya no dice que ese crédito se renueve cada mes. El estudio web tiene un plan gratuito de 10 minutos de voz, pero sin descargas y sin derechos comerciales.",
       "limits": [
+        "Estudio web gratis: 10 proyectos y 10 minutos de voz, sin descargas y sin derechos comerciales",
         "API: prueba gratuita con 10 $ para llamadas; la página ya no dice que se renueven cada mes",
         "Más de 150 voces en más de 35 idiomas",
         "5 peticiones simultáneas",
-        "El estudio web no publica cantidades gratuitas",
-        "Uso comercial de las voces permitido por sus términos; no se pueden revender"
+        "Los términos generales permiten el uso comercial de las voces, pero el plan gratuito del estudio dice «No Commercial Rights»"
       ],
       "creditsAmount": "10 $ de prueba (API)",
       "includedCapabilities": [
@@ -17250,13 +17250,13 @@
         "lookedFor": "Si el audio gratuito lleva marca. Ni la página de precios ni las condiciones la mencionan."
       },
       {
-        "checkedAt": "2026-10-23",
-        "scope": "product",
+        "checkedAt": "2026-10-24",
+        "scope": "web",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
-        "sourceUrl": "https://murf.ai/legal/terms-of-service",
-        "sourceKind": "terms",
-        "quote": "5.1 Commercial Rights · You can use Murf created voices for commercial purposes. · “Commercial Rights” means any use of Murf created voices for commercial or business purposes, except as restricted by this User Agreement."
+        "sourceUrl": "https://murf.ai/pricing",
+        "sourceKind": "pricing",
+        "quote": "Free · Get started. No Credit Card required · $0 / month · 10 Projects · 10 minutes of Voice Generation · 1 Editor · Try Business Plan for free · 10 mins of Voice Generation · Everything in Business Plan (No Downloads) · No Commercial Rights [pestaña «Studio» de la página de precios]"
       }
     ],
     "id": "tool_murf-ai",
