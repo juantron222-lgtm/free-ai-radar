@@ -470,14 +470,19 @@ test.describe('un dato que sólo vale por una puerta lo dice', () => {
      * puertas son los pesos y el equipo donde se ejecutan, así que la licencia
      * sí cubre el producto entero y el matiz sobraría: lo que esta prueba
      * vigila necesita un modelo que además venda una API.
+     *
+     * Desde el 24 de octubre Gemma 4 lleva el mismo matiz: su «sí» sale del
+     * anuncio de los pesos y Google también la sirve por la API de Gemini.
      */
     await page.goto('/comparar?t=deepseek-v4-1-flash,gemma-4');
     await mostrarTodas(page);
-    const matiz = page.locator('.compare-matiz', { hasText: 'pesos descargables' }).first();
-    await expect(matiz).toBeVisible();
-
-    const celda = page.locator('.compare-value', { has: matiz });
-    expect(await celda.getAttribute('title')).toContain('Las demás vías de acceso');
+    const celdas = page.locator('.compare-value', {
+      has: page.locator('.compare-matiz', { hasText: 'pesos descargables' }),
+    });
+    await expect(celdas.first()).toBeVisible();
+    for (const celda of await celdas.all()) {
+      expect(await celda.getAttribute('title')).toContain('Las demás vías de acceso');
+    }
   });
 
   test('lo leído en la tabla de precios de una API se atribuye a la API', async ({ page }) => {

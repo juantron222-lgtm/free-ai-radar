@@ -663,15 +663,17 @@ describe('los hechos volátiles confirmados en esta cohorte llevan fuente', () =
       field === 'freePlan.commercialUse' ? tool.freePlan.commercialUse : tool.privacy.trainsOnUserData;
 
     /*
-     * Tres valores vienen decididos de antes de que existiera el registro de
-     * evidencias, casi todos licencias de pesos abiertos. No se tocan aquí:
+     * Dos valores vienen decididos de antes de que existiera el registro de
+     * evidencias. No se tocan aquí:
      * la decisión del 21 de septiembre era sobre las veintiuna deducciones, y
      * bajarlos a «Sin comprobar» sin leer sus licencias tiraría información
      * cierta. Están nombrados uno a uno para que la lista no crezca sola: un
      * hecho decidido sin fuente que no esté aquí rompe la suite.
+     *
+     * El uso comercial de Gemma 4 salió de la lista el 24 de octubre de 2026:
+     * el anuncio de Google dice «commercially permissive Apache 2.0 license».
      */
     const SIN_FUENTE_CONOCIDOS = [
-      'gemma-4·freePlan.commercialUse',
       'gemma-4·privacy.trainsOnUserData',
       'qwen3-27b·freePlan.commercialUse',
     ];

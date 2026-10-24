@@ -6828,6 +6828,13 @@
         "kind": "pricing",
         "publisher": "ai.google.dev",
         "checkedAt": "2026-08-20"
+      },
+      {
+        "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/",
+        "label": "Anuncio oficial de Gemma 4",
+        "kind": "official",
+        "publisher": "blog.google",
+        "checkedAt": "2026-10-24"
       }
     ],
     "scores": {
@@ -6903,6 +6910,15 @@
         "checkedAt": "2026-10-17",
         "quote": "Apache 2.0 · available in five distinct sizes: E2B, E4B, 12B, 26B A4B, and 31B · The small models feature a 128K context window, while the medium models support 256K · text and image input (with audio supported on E2B, E4B, and 12B models) and generating text output",
         "scope": "api"
+      },
+      {
+        "checkedAt": "2026-10-24",
+        "scope": "weights",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/",
+        "sourceKind": "official",
+        "quote": "That's why Gemma 4 is released under a commercially permissive Apache 2.0 license."
       }
     ],
     "auditNotes": "La capa gratuita de API sale de la tabla de precios de Gemini, donde Gemma 4 aparece con «Free Tier: Available» y «Paid Tier: Not available»."
