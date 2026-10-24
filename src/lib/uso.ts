@@ -115,42 +115,66 @@ export function paresDeFiltro(query: string): string[] {
 }
 
 /**
- * Desde qué día las salidas cuentan sólo clics de navegador.
+ * Cuándo empezó la medición corregida de las salidas.
  *
- * Antes, el 21 de octubre de 2026 (cuando se creó la tabla), también contaban:
- * las precargas que Astro hace al pasar el ratón o el tabulador por «Ir a…» o
- * «Ver su página de precios» (`prefetchAll` con estrategia `hover`), y como
- * `/ir/` responde `no-store`, un clic después de esa precarga contaba dos
- * veces; y cualquier visita automática que siguiera el enlace sin respetar
- * robots.txt. Lo de antes de esta fecha no se puede separar: sólo guardamos
- * totales por día, sin nada que identifique la petición.
+ * Hasta entonces, desde que se creó la tabla el 21 de octubre de 2026, también
+ * contaban las precargas que Astro hace al pasar el ratón o el tabulador por
+ * «Ir a…» o «Ver su página de precios» (`prefetchAll` con estrategia `hover`).
+ * Como `/ir/` responde `no-store`, un clic después de esa precarga contaba dos
+ * veces. Contaba también cualquier visita automática que siguiera el enlace sin
+ * respetar robots.txt.
+ *
+ * `publicada` es la hora en que el despliegue que lo corrige quedó en
+ * producción (UTC), tal como la da Vercel. Los contadores se agrupan por día de
+ * Madrid, así que ese día mezcla las dos formas de contar: el primer día fiable
+ * es el siguiente. Lo anterior se conserva, marcado como no fiable; no se puede
+ * separar porque sólo se guardan totales por día.
  */
-export const SALIDAS_LIMPIAS_DESDE = '2026-10-24';
+export const MEDICION_CORREGIDA: { publicada: string | null; primerDiaFiable: string } = {
+  publicada: null,
+  primerDiaFiable: '2026-10-25',
+};
 
-/** Agentes que no son una persona en un navegador. */
+/** Agentes que se identifican como algo que no es un navegador manejado por alguien. */
 const AUTOMATICO =
   /bot|crawl|spider|slurp|preview|headless|lighthouse|pagespeed|curl|wget|python|httpclient|okhttp|axios|node-fetch|undici|go-http|java\/|libwww|scrapy|facebookexternalhit|embedly|whatsapp|telegram|discord|slack/i;
 
+export type ClaseDeSalida = 'clic' | 'precarga' | 'automatica' | 'sin-gesto';
+
 /**
- * ¿Es esta petición alguien que ha abierto el enlace en un navegador?
+ * Qué parece una petición a /ir/<slug>, mirando sólo su forma.
  *
- * Los navegadores actuales mandan las cabeceras Fetch Metadata en cada
- * petición. Al abrir un enlace con el ratón o el teclado llegan
- * `Sec-Fetch-Mode: navigate`, `Sec-Fetch-Dest: document` y `Sec-Fetch-User: ?1`
- * (hubo un gesto de la persona). Una precarga llega con `Sec-Purpose` o
- * `Purpose: prefetch`, o como una petición que no es una navegación; `curl`,
- * un comprobador de enlaces o un robot no mandan nada de eso, y un navegador
- * automatizado que navega sin gesto no manda `Sec-Fetch-User`.
+ *   precarga    trae `Sec-Purpose` o `Purpose: prefetch` (o `prerender`).
+ *   automatica  sin agente, o con uno que se declara robot, programa o
+ *               navegador sin interfaz.
+ *   sin-gesto   no es una navegación de documento con gesto de quien navega
+ *               (`Sec-Fetch-Mode: navigate`, `Sec-Fetch-Dest: document`,
+ *               `Sec-Fetch-User: ?1`): un comprobador de enlaces, una petición
+ *               por programa o un navegador automatizado que navega sin pulsar.
+ *   clic        lo demás: lo que hace un navegador cuando alguien pulsa o abre
+ *               el enlace con el teclado.
  *
- * Se mira sólo la forma de la petición; no se guarda ni se registra nada de
- * ella. La redirección se hace siempre, cuente o no.
+ * No es una prueba de que haya una persona: un navegador automatizado puede
+ * simular el gesto y declararse como un navegador normal. Reduce mucho lo
+ * automático; no lo elimina. No se guarda ni se registra nada que identifique
+ * la petición, y la redirección se hace siempre, cuente o no.
  */
-export function esClicDeNavegador(headers: Headers): boolean {
+export function clasificarSalida(headers: Headers): ClaseDeSalida {
   const proposito = `${headers.get('sec-purpose') ?? ''} ${headers.get('purpose') ?? ''} ${headers.get('x-moz') ?? ''}`;
-  if (/prefetch|prerender/i.test(proposito)) return false;
-  if (headers.get('sec-fetch-mode') !== 'navigate') return false;
-  if (headers.get('sec-fetch-dest') !== 'document') return false;
-  if (headers.get('sec-fetch-user') !== '?1') return false;
+  if (/prefetch|prerender/i.test(proposito)) return 'precarga';
   const agente = headers.get('user-agent') ?? '';
-  return agente !== '' && !AUTOMATICO.test(agente);
+  if (agente === '' || AUTOMATICO.test(agente)) return 'automatica';
+  if (
+    headers.get('sec-fetch-mode') !== 'navigate' ||
+    headers.get('sec-fetch-dest') !== 'document' ||
+    headers.get('sec-fetch-user') !== '?1'
+  ) {
+    return 'sin-gesto';
+  }
+  return 'clic';
+}
+
+/** Lo único que cuenta como salida desde la medición corregida. */
+export function esClicDeNavegador(headers: Headers): boolean {
+  return clasificarSalida(headers) === 'clic';
 }

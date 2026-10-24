@@ -1,7 +1,8 @@
 import type { APIRoute } from 'astro';
 import { getTool } from '@lib/data/catalog';
 import { contarUso } from '@lib/data/uso';
-import { esClicDeNavegador } from '@lib/uso';
+import { clasificarSalida } from '@lib/uso';
+import { logger } from '@lib/observability/logger';
 
 export const prerender = false;
 
@@ -27,10 +28,15 @@ export const GET: APIRoute = async ({ params, url, request }) => {
   const precios = url.searchParams.get('a') === 'precios' && Boolean(tool.pricingUrl);
   const destino = precios ? tool.pricingUrl! : tool.outboundUrl;
 
-  // Sólo los clics de una persona en un navegador: ni precargas ni robots (ver `esClicDeNavegador`).
-  if (esClicDeNavegador(request.headers)) {
+  // Sólo lo que parece un clic en un navegador: ni precargas ni lo que se declara automático.
+  // La clase va al registro, sin IP ni agente, para poder comprobar en producción
+  // qué llega a /ir/ (ver `clasificarSalida`).
+  const evento = precios ? 'precios' : 'salida';
+  const clase = clasificarSalida(request.headers);
+  logger.info('uso.salida', { evento, herramienta: tool.slug, clase });
+  if (clase === 'clic') {
     await Promise.race([
-      contarUso(precios ? 'precios' : 'salida', tool.slug).catch(() => false),
+      contarUso(evento, tool.slug).catch(() => false),
       new Promise((listo) => setTimeout(listo, ESPERA_MAXIMA_MS)),
     ]);
   }

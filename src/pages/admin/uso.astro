@@ -3,7 +3,7 @@ import AdminLayout from '@layouts/AdminLayout.astro';
 import { getTool } from '@lib/data/catalog';
 import { totalesPor, usoReciente } from '@lib/data/uso';
 import { ROUTES } from '@lib/nav';
-import { SALIDAS_LIMPIAS_DESDE } from '@lib/uso';
+import { MEDICION_CORREGIDA } from '@lib/uso';
 
 export const prerender = false;
 
@@ -22,17 +22,41 @@ const DIAS = 30;
 const uso = await usoReciente(DIAS);
 const { filas } = uso;
 
-const salidas = totalesPor(filas, 'salida');
-const precios = new Map(totalesPor(filas, 'precios').map((x) => [x.clave, x.cuenta]));
+/*
+ * Las salidas y las visitas a precios anteriores a la medición corregida se
+ * conservan, pero aparte y marcadas como no fiables (ver MEDICION_CORREGIDA).
+ * Las búsquedas, filtros y comparaciones no cambian: van por otro camino.
+ */
+const PRIMER_DIA_FIABLE = MEDICION_CORREGIDA.primerDiaFiable;
+const esSalida = (evento: string) => evento === 'salida' || evento === 'precios';
+const noFiable = (f: { dia: string; evento: string }) => esSalida(f.evento) && f.dia < PRIMER_DIA_FIABLE;
+const fiables = filas.filter((f) => !noFiable(f));
+const anteriores = filas.filter(noFiable);
+
+const salidas = totalesPor(fiables, 'salida');
+const precios = new Map(totalesPor(fiables, 'precios').map((x) => [x.clave, x.cuenta]));
+const salidasAntes = new Map(totalesPor(anteriores, 'salida').map((x) => [x.clave, x.cuenta]));
+const preciosAntes = new Map(totalesPor(anteriores, 'precios').map((x) => [x.clave, x.cuenta]));
+const herramientasConSalidas = [...new Set([...salidas.map((x) => x.clave), ...salidasAntes.keys(), ...preciosAntes.keys()])]
+  .map((clave) => ({
+    clave,
+    salidas: salidas.find((x) => x.clave === clave)?.cuenta ?? 0,
+    precios: precios.get(clave) ?? 0,
+    antes: (salidasAntes.get(clave) ?? 0) + (preciosAntes.get(clave) ?? 0),
+  }))
+  .sort((a, b) => b.salidas + b.precios - (a.salidas + a.precios) || b.antes - a.antes || a.clave.localeCompare(b.clave, 'es'));
 const vacias = totalesPor(filas, 'busqueda_vacia');
 const conResultados = totalesPor(filas, 'busqueda');
 const filtros = totalesPor(filas, 'filtro');
 const comparaciones = totalesPor(filas, 'comparar');
 
 const suma = (xs: Array<{ cuenta: number }>) => xs.reduce((s, x) => s + x.cuenta, 0);
+const sumaMapa = (m: Map<string, number>) => [...m.values()].reduce((s, n) => s + n, 0);
 const totales = {
   salidas: suma(salidas),
-  precios: suma([...precios.values()].map((cuenta) => ({ cuenta }))),
+  precios: sumaMapa(precios),
+  salidasAntes: sumaMapa(salidasAntes),
+  preciosAntes: sumaMapa(preciosAntes),
   busquedas: suma(conResultados),
   vacias: suma(vacias),
   comparaciones: suma(comparaciones),
@@ -49,6 +73,11 @@ const dias = [...porDia.entries()].sort((a, b) => b[0].localeCompare(a[0])).slic
 const nombre = (slug: string) => getTool(slug)?.name ?? slug;
 const fecha = (dia: string) =>
   new Date(`${dia}T12:00:00Z`).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', timeZone: 'UTC' });
+const fechaYHora = (iso: string) =>
+  new Date(iso).toLocaleString('es-ES', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Madrid' });
+const corregidaDesde = MEDICION_CORREGIDA.publicada
+  ? `${fechaYHora(MEDICION_CORREGIDA.publicada)} (hora de Madrid)`
+  : `el despliegue que la publica`;
 ---
 
 <AdminLayout
@@ -68,8 +97,16 @@ const fecha = (dia: string) =>
   ) : (
     <>
       <dl class="cifras">
-        <div><dt>Salidas a la web oficial</dt><dd class="tnum">{totales.salidas}</dd></div>
-        <div><dt>A su página de precios</dt><dd class="tnum">{totales.precios}</dd></div>
+        <div>
+          <dt>Salidas a la web oficial</dt>
+          <dd class="tnum">{totales.salidas}</dd>
+          {totales.salidasAntes > 0 && <dd class="antes">y {totales.salidasAntes} antes del {fecha(PRIMER_DIA_FIABLE)}, no fiables</dd>}
+        </div>
+        <div>
+          <dt>A su página de precios</dt>
+          <dd class="tnum">{totales.precios}</dd>
+          {totales.preciosAntes > 0 && <dd class="antes">y {totales.preciosAntes} antes del {fecha(PRIMER_DIA_FIABLE)}, no fiables</dd>}
+        </div>
         <div><dt>Búsquedas con resultados</dt><dd class="tnum">{totales.busquedas}</dd></div>
         <div><dt>Búsquedas sin resultados</dt><dd class="tnum">{totales.vacias}</dd></div>
         <div><dt>Comparaciones</dt><dd class="tnum">{totales.comparaciones}</dd></div>
@@ -85,15 +122,23 @@ const fecha = (dia: string) =>
 
       <section aria-labelledby="salidas-t">
         <h2 id="salidas-t">Herramientas a las que más se va</h2>
-        {salidas.length === 0 ? <p class="vacio">Ninguna salida todavía.</p> : (
+        {herramientasConSalidas.length === 0 ? <p class="vacio">Ninguna salida todavía.</p> : (
           <table class="tabla">
-            <thead><tr><th scope="col">Herramienta</th><th scope="col">Web oficial</th><th scope="col">Precios</th></tr></thead>
+            <thead>
+              <tr>
+                <th scope="col">Herramienta</th>
+                <th scope="col">Web oficial</th>
+                <th scope="col">Precios</th>
+                <th scope="col">Antes del {fecha(PRIMER_DIA_FIABLE)} <span class="no-fiable">(no fiable)</span></th>
+              </tr>
+            </thead>
             <tbody>
-              {salidas.slice(0, 30).map((x) => (
+              {herramientasConSalidas.slice(0, 40).map((x) => (
                 <tr>
                   <th scope="row"><a href={ROUTES.tool(x.clave)}>{nombre(x.clave)}</a></th>
-                  <td class="tnum">{x.cuenta}</td>
-                  <td class="tnum">{precios.get(x.clave) ?? 0}</td>
+                  <td class="tnum">{x.salidas}</td>
+                  <td class="tnum">{x.precios}</td>
+                  <td class="tnum no-fiable">{x.antes}</td>
                 </tr>
               ))}
             </tbody>
@@ -128,7 +173,18 @@ const fecha = (dia: string) =>
           {dias.length === 0 ? <p class="vacio">Sin datos.</p> : (
             <table class="tabla">
               <thead><tr><th scope="col">Día</th><th scope="col">Salidas</th><th scope="col">Búsquedas</th></tr></thead>
-              <tbody>{dias.map(([dia, d]) => <tr><th scope="row">{fecha(dia)}</th><td class="tnum">{d.salidas}</td><td class="tnum">{d.busquedas}</td></tr>)}</tbody>
+              <tbody>
+                {dias.map(([dia, d]) => (
+                  <tr>
+                    <th scope="row">{fecha(dia)}</th>
+                    <td class="tnum">
+                      {d.salidas}
+                      {dia < PRIMER_DIA_FIABLE && d.salidas > 0 && <span class="no-fiable"> no fiable</span>}
+                    </td>
+                    <td class="tnum">{d.busquedas}</td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
           )}
         </section>
@@ -140,7 +196,8 @@ const fecha = (dia: string) =>
     <h2 id="como-t">Qué cuenta y qué no</h2>
     <ul>
       <li><strong>Salidas y precios:</strong> cada clic en «Ir a…» o «Ver su página de precios» de una ficha, de cualquiera. Pasan por <code>/ir/&lt;herramienta&gt;</code>, que suma uno y redirige; no se guarda nada en el navegador.</li>
-      <li><strong>Desde el {fecha(SALIDAS_LIMPIAS_DESDE)}</strong>, sólo clics de una persona en un navegador. Antes también contaban las precargas al pasar el ratón por el botón (un clic podía contar dos veces) y las visitas automáticas que seguían el enlace: las cifras anteriores son un máximo, no clics.</li>
+      <li><strong>Medición corregida desde {corregidaDesde}.</strong> Desde entonces sólo cuentan las visitas a <code>/ir/</code> que parecen un clic en un navegador: no las precargas al pasar el ratón ni lo que se declara robot o programa. Reduce mucho lo automático, pero no garantiza que haya una persona: un navegador automatizado puede imitar un clic.</li>
+      <li><strong>Lo anterior al {fecha(PRIMER_DIA_FIABLE)} se conserva, marcado como no fiable.</strong> Incluye precargas al pasar el ratón por el botón (un clic podía contar dos veces) y visitas automáticas que seguían el enlace. Es un máximo, no un número de clics, y no se puede separar: sólo se guardan totales por día.</li>
       <li><strong>Búsquedas, filtros y comparaciones:</strong> sólo de quien aceptó «Analítica» en el aviso de cookies, como promete ese aviso. Son menos de las que hay.</li>
       <li>Sólo totales por día: ni IP, ni cookie, ni quién. Las búsquedas que parecen un correo, un enlace o un número largo no se guardan. Se borra solo lo que pasa de 14 meses.</li>
       <li>Ni los Preview, ni el desarrollo local, ni las pruebas automáticas cuentan.</li>
@@ -149,6 +206,16 @@ const fecha = (dia: string) =>
 </AdminLayout>
 
 <style>
+  .antes,
+  .no-fiable {
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+  }
+
+  .antes {
+    margin: 0;
+  }
+
   .aviso {
     padding: var(--space-s);
     border: 1px solid var(--warn-line);

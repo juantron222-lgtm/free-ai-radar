@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { claveDeUso, normalizarBusqueda, paresDeFiltro } from '@lib/uso';
+import { claveDeUso, clasificarSalida, MEDICION_CORREGIDA, normalizarBusqueda, paresDeFiltro } from '@lib/uso';
 import { getAllTools } from '@lib/data/catalog';
 import type * as DatosDeUso from '@lib/data/uso';
 
@@ -176,6 +176,46 @@ describe('/ir/<slug>: cuenta y lleva al mismo sitio de siempre', () => {
     const r = await ir(getAllTools()[1]!.slug);
     expect(r.status).toBe(302);
     expect(Date.now() - inicio).toBeLessThan(1500);
+  });
+});
+
+describe('qué parece cada visita a /ir/', () => {
+  const CLIC = {
+    'sec-fetch-mode': 'navigate',
+    'sec-fetch-dest': 'document',
+    'sec-fetch-user': '?1',
+    'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15',
+  };
+  const clase = (h: Record<string, string>) => clasificarSalida(new Headers(h));
+
+  it('distingue clic, precarga, automática y sin gesto', () => {
+    expect(clase(CLIC)).toBe('clic');
+    expect(clase({ ...CLIC, 'sec-purpose': 'prefetch' })).toBe('precarga');
+    expect(clase({ ...CLIC, purpose: 'prefetch' })).toBe('precarga');
+    expect(clase({ ...CLIC, 'sec-purpose': 'prefetch;prerender' })).toBe('precarga');
+    expect(clase({ 'user-agent': 'curl/8.9.1' })).toBe('automatica');
+    expect(clase({ ...CLIC, 'user-agent': '' })).toBe('automatica');
+    expect(clase({ ...CLIC, 'user-agent': 'Mozilla/5.0 (compatible; bingbot/2.0)' })).toBe('automatica');
+    expect(clase({ ...CLIC, 'sec-fetch-user': '' })).toBe('sin-gesto');
+    expect(clase({ ...CLIC, 'sec-fetch-mode': 'no-cors', 'sec-fetch-dest': 'empty' })).toBe('sin-gesto');
+  });
+
+  it('la medición corregida tiene fecha, y lo anterior se marca como no fiable sin borrarlo', () => {
+    expect(MEDICION_CORREGIDA.primerDiaFiable).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    if (MEDICION_CORREGIDA.publicada) {
+      expect(MEDICION_CORREGIDA.publicada).toMatch(/^\d{4}-\d{2}-\d{2}T/);
+      expect(MEDICION_CORREGIDA.publicada < `${MEDICION_CORREGIDA.primerDiaFiable}T00:00`).toBe(true);
+    }
+    const admin = leer('src/pages/admin/uso.astro');
+    expect(admin).toContain('MEDICION_CORREGIDA');
+    expect(admin).toContain('no fiable');
+    expect(admin).toContain('se conserva');
+  });
+
+  it('no promete que haya una persona detrás', () => {
+    const admin = leer('src/pages/admin/uso.astro');
+    expect(admin).toContain('no garantiza que haya una persona');
+    expect(admin).not.toMatch(/sólo clics de (una )?persona/i);
   });
 });
 
