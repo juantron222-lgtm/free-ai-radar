@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -244,11 +244,14 @@ describe('qué parece cada visita a /ir/', () => {
 });
 
 describe('dónde se engancha y qué no se abre', () => {
-  it('los enlaces de salida no se precargan', () => {
-    const boton = leer('src/components/tools/OutboundButton.astro');
-    const enlaces = [...boton.matchAll(/<a\b[^>]*ROUTES\.salida[^>]*>/g)].map((m) => m[0]);
-    expect(enlaces.length).toBe(2);
-    for (const a of enlaces) expect(a).toContain('data-astro-prefetch="false"');
+  it('ningún enlace de salida se precarga, esté en la página que esté', () => {
+    // Con prefetchAll, pasar el ratón por encima pedía /ir/ y contaba una salida.
+    const astro = readdirSync(join(ROOT, 'src'), { recursive: true, encoding: 'utf8' }).filter((f) => f.endsWith('.astro'));
+    const enlaces = astro.flatMap((f) =>
+      [...leer(join('src', f)).matchAll(/<a\b[^>]*ROUTES\.salida[^>]*>/g)].map((m) => ({ f, a: m[0] }))
+    );
+    expect(enlaces.filter(({ f }) => f.endsWith('OutboundButton.astro')).length).toBe(2);
+    expect(enlaces.filter(({ a }) => !a.includes('data-astro-prefetch="false"')).map(({ f }) => f)).toEqual([]);
   });
 
   it('el botón de salida y el de precios pasan por /ir/', () => {
