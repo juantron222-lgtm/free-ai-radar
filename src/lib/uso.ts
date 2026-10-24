@@ -147,10 +147,11 @@ export type ClaseDeSalida = 'clic' | 'precarga' | 'automatica' | 'sin-gesto';
  *   precarga    trae `Sec-Purpose` o `Purpose: prefetch` (o `prerender`).
  *   automatica  sin agente, o con uno que se declara robot, programa o
  *               navegador sin interfaz.
- *   sin-gesto   no es una navegación de documento con gesto de quien navega
- *               (`Sec-Fetch-Mode: navigate`, `Sec-Fetch-Dest: document`,
- *               `Sec-Fetch-User: ?1`): un comprobador de enlaces, una petición
+ *   sin-gesto   no es una navegación de documento (`Sec-Fetch-Mode: navigate`,
+ *               `Sec-Fetch-Dest: document`), o es Chromium o Firefox sin
+ *               `Sec-Fetch-User: ?1`: un comprobador de enlaces, una petición
  *               por programa o un navegador automatizado que navega sin pulsar.
+ *               A WebKit no se le exige el gesto porque nunca lo declara.
  *   clic        lo demás: lo que hace un navegador cuando alguien pulsa o abre
  *               el enlace con el teclado.
  *
@@ -164,15 +165,21 @@ export function clasificarSalida(headers: Headers): ClaseDeSalida {
   if (/prefetch|prerender/i.test(proposito)) return 'precarga';
   const agente = headers.get('user-agent') ?? '';
   if (agente === '' || AUTOMATICO.test(agente)) return 'automatica';
-  if (
-    headers.get('sec-fetch-mode') !== 'navigate' ||
-    headers.get('sec-fetch-dest') !== 'document' ||
-    headers.get('sec-fetch-user') !== '?1'
-  ) {
-    return 'sin-gesto';
-  }
+  if (headers.get('sec-fetch-mode') !== 'navigate' || headers.get('sec-fetch-dest') !== 'document') return 'sin-gesto';
+  // El gesto sólo se puede exigir a quien lo declara. Chromium y Firefox mandan
+  // `Sec-Fetch-User: ?1` cuando la navegación sale de un clic o de una tecla, y
+  // no lo mandan si no. WebKit —Safari, y todo navegador de iOS, también Chrome
+  // y Firefox allí— no lo manda nunca: exigírselo dejaba fuera todos los clics
+  // desde un iPhone (comprobado el 24 de octubre de 2026 con clics reales en los
+  // tres motores).
+  if (MANDA_GESTO.test(agente) && !EN_IOS.test(agente) && headers.get('sec-fetch-user') !== '?1') return 'sin-gesto';
   return 'clic';
 }
+
+/** Motores que mandan `Sec-Fetch-User` cuando hay gesto: Chromium (Chrome, Edge, Samsung…) y Firefox. */
+const MANDA_GESTO = /Chrome\/|Chromium\/|Firefox\//;
+/** En iOS todo navegador usa WebKit, aunque se llame Chrome (CriOS), Firefox (FxiOS), Edge u Opera. */
+const EN_IOS = /CriOS|FxiOS|EdgiOS|OPiOS/;
 
 /** Lo único que cuenta como salida desde la medición corregida. */
 export function esClicDeNavegador(headers: Headers): boolean {

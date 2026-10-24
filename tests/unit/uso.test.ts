@@ -184,7 +184,7 @@ describe('qué parece cada visita a /ir/', () => {
     'sec-fetch-mode': 'navigate',
     'sec-fetch-dest': 'document',
     'sec-fetch-user': '?1',
-    'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
   };
   const clase = (h: Record<string, string>) => clasificarSalida(new Headers(h));
 
@@ -198,6 +198,30 @@ describe('qué parece cada visita a /ir/', () => {
     expect(clase({ ...CLIC, 'user-agent': 'Mozilla/5.0 (compatible; bingbot/2.0)' })).toBe('automatica');
     expect(clase({ ...CLIC, 'sec-fetch-user': '' })).toBe('sin-gesto');
     expect(clase({ ...CLIC, 'sec-fetch-mode': 'no-cors', 'sec-fetch-dest': 'empty' })).toBe('sin-gesto');
+  });
+
+  it('un clic desde Safari o un iPhone cuenta aunque WebKit no mande Sec-Fetch-User', () => {
+    /*
+     * Comprobado el 24 de octubre de 2026 con clics reales en un enlace
+     * target="_blank": Chromium y Firefox mandan `Sec-Fetch-User: ?1`; WebKit
+     * manda `navigate` y `document`, pero no esa cabecera.
+     */
+    const NAV = { 'sec-fetch-mode': 'navigate', 'sec-fetch-dest': 'document' };
+    const safari = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15';
+    const iphone = 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1';
+    const chromeIos = 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/139.0.0.0 Mobile/15E148 Safari/604.1';
+    const chrome = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36';
+    const firefox = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:153.0) Gecko/20100101 Firefox/153.0';
+    expect(clase({ ...NAV, 'user-agent': safari })).toBe('clic');
+    expect(clase({ ...NAV, 'user-agent': iphone })).toBe('clic');
+    expect(clase({ ...NAV, 'user-agent': chromeIos })).toBe('clic');
+    // A Chromium y Firefox sí se les exige: sin gesto, no cuenta.
+    expect(clase({ ...NAV, 'user-agent': chrome })).toBe('sin-gesto');
+    expect(clase({ ...NAV, 'user-agent': firefox })).toBe('sin-gesto');
+    expect(clase({ ...NAV, 'user-agent': chrome, 'sec-fetch-user': '?1' })).toBe('clic');
+    expect(clase({ ...NAV, 'user-agent': firefox, 'sec-fetch-user': '?1' })).toBe('clic');
+    // Y a Safari tampoco le vale una precarga.
+    expect(clase({ ...NAV, 'user-agent': safari, purpose: 'prefetch' })).toBe('precarga');
   });
 
   it('la medición corregida tiene fecha, y lo anterior se marca como no fiable sin borrarlo', () => {
