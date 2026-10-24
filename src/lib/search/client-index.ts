@@ -4,6 +4,7 @@ import { hechosDe, normalize, type SearchDoc } from './index';
 import { CAPABILITY_LABEL, PRODUCT_TYPE_LABEL } from '@lib/domain/taxonomy';
 import registroDeLogos from '@/data/logos.json';
 import { TOOL_KIND_LABEL } from '@lib/domain/tool';
+import { produceMedios } from '@lib/domain/medios';
 
 /**
  * The payload the browser receives for instant filtering and search.
@@ -104,6 +105,7 @@ export function buildClientIndex(
       : {}),
     pt: tool.productType ?? null,
     cr: tool.freePlan.creditReset ?? null,
+    medios: produceMedios(tool.capabilities),
   }));
 }
 

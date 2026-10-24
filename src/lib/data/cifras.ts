@@ -1,6 +1,7 @@
 import type { Tool } from '@lib/domain/tool';
 import type { TriState } from '@lib/domain/primitives';
 import { EMPTY_FILTERS, applyFilters, parseFilters } from '@lib/search/filters';
+import { produceMedios } from '@lib/domain/medios';
 
 /**
  * Las cifras del catálogo, calculadas en un solo sitio.
@@ -59,7 +60,10 @@ export function devuelveElFiltro(tools: readonly Tool[], clave: string): number 
 
 const CONTRARIO: Record<ClaveCondicion, TriState> = { nocard: 'yes', nosignup: 'yes', nowm: 'yes', comm: 'no' };
 
-export function cifraDe(clave: ClaveCondicion, tools: readonly Tool[]): CifraCondicion {
+export function cifraDe(clave: ClaveCondicion, todas: readonly Tool[]): CifraCondicion {
+  // La marca de agua se pregunta sólo a lo que produce imagen, vídeo o audio,
+  // igual que la filtra el catálogo: la frase suma ese universo, no el catálogo.
+  const tools = clave === 'nowm' ? todas.filter((tool) => produceMedios(tool.capabilities)) : todas;
   const cumplen = devuelveElFiltro(tools, clave);
   const sinDato = tools.filter((tool) => CAMPO[clave](tool) === 'unverified').length;
   const enContra = tools.filter((tool) => CAMPO[clave](tool) === CONTRARIO[clave]).length;

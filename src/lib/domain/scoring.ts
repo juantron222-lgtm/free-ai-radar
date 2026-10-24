@@ -1,3 +1,4 @@
+import { produceMedios } from './medios';
 import type { ScoreComponents, Tool } from './tool';
 
 /**
@@ -185,12 +186,17 @@ export function daysBetween(isoDate: string, now: Date = new Date()): number {
  * Auto-generated badges. Derived on read so a stored badge can never contradict
  * the record it describes.
  */
-export function deriveTags(tool: Pick<Tool, 'freeModel' | 'freePlan' | 'openSource' | 'hosting' | 'scoreTotal' | 'scores'>): string[] {
+export function deriveTags(
+  tool: Pick<Tool, 'freeModel' | 'freePlan' | 'openSource' | 'hosting' | 'scoreTotal' | 'scores'> & {
+    capabilities?: readonly string[];
+  }
+): string[] {
   const tags = new Set<string>();
 
   if (tool.freePlan.requiresCreditCard === 'no') tags.add('Sin tarjeta');
   if (tool.freePlan.requiresSignup === 'no') tags.add('Sin registro');
-  if (tool.freePlan.hasWatermark === 'no') tags.add('Sin marca de agua');
+  // Sólo a lo que produce imagen, vídeo o audio: ver @lib/domain/medios.
+  if (tool.freePlan.hasWatermark === 'no' && produceMedios(tool.capabilities)) tags.add('Sin marca de agua');
   if (tool.freePlan.commercialUse === 'yes') tags.add('Uso comercial');
   if (tool.openSource === 'yes') tags.add('Open source');
   if (tool.hosting === 'local' || tool.hosting === 'hybrid') tags.add('Funciona en local');

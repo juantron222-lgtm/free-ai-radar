@@ -1,7 +1,7 @@
 import type { Tool } from './tool';
-import type { Capability } from './taxonomy';
 import type { EvidenceField } from './tool';
 import { motivoDelHueco, type MotivoDeHueco } from './evidencia';
+import { CAPACIDADES_DE_MEDIOS } from './medios';
 
 /**
  * En qué estado está de verdad una ficha, y qué puede decir de sí misma.
@@ -43,24 +43,7 @@ export const VERIFICATION_STATE_MEANING: Record<VerificationState, string> = {
  * contarlo como un hueco haría que un runtime pareciera peor documentado de lo
  * que está. Un campo que no aplica no es un campo que falta.
  */
-const GENERA_MEDIOS: readonly Capability[] = [
-  'text-to-image',
-  'image-to-image',
-  'image-editing',
-  'inpainting',
-  'outpainting',
-  'upscaling',
-  'background-removal',
-  'text-to-video',
-  'image-to-video',
-  'video-editing',
-  'avatar-video',
-  'text-to-speech',
-  'voice-clone',
-  'text-to-music',
-  'sound-effects',
-  'dubbing',
-];
+const GENERA_MEDIOS = CAPACIDADES_DE_MEDIOS;
 
 const SIN_CONFIRMAR = new Set(['unverified', 'unknown']);
 

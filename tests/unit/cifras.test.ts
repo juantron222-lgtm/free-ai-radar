@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest';
 import { getAllTools, getCatalogStats, getToolsByCategory, getPopulatedCategories } from '@lib/data/catalog';
 import { cifraDe, cifrasDelCatalogo, devuelveElFiltro, fraseDeCobertura } from '@lib/data/cifras';
 import { conteosDeDecision } from '@lib/data/portada';
+import { produceMedios } from '@lib/domain/medios';
 import { COLLECTIONS, getCollection, getCollectionTools, tieneAccesoGratuito } from '@lib/data/collections';
 
 /**
@@ -69,10 +70,13 @@ describe('las cifras del catálogo cuadran entre sí', () => {
      * se generaba. Toda casilla que pueda llegar a «parcial» tiene que poder
      * contarse aquí.
      */
+    // La marca de agua se cuenta entre lo que produce imagen, vídeo o audio (24 de octubre de 2026).
+    const universo = { nocard: tools, nosignup: tools, nowm: tools.filter((t) => produceMedios(t.capabilities)), comm: tools };
     for (const clave of ['nocard', 'nosignup', 'nowm', 'comm'] as const) {
       const cifra = cifraDe(clave, tools);
       expect(cifra.cumplen, clave).toBe(devuelveElFiltro(tools, clave));
-      expect(cifra.cumplen + cifra.noCumplen + cifra.sinDato, clave).toBe(tools.length);
+      expect(cifra.total, clave).toBe(universo[clave].length);
+      expect(cifra.cumplen + cifra.noCumplen + cifra.sinDato, clave).toBe(universo[clave].length);
       expect(fraseDeCobertura(cifra).startsWith(`${cifra.cumplen} `), clave).toBe(true);
     }
     const panel = readFileSync(join(ROOT, 'src/components/discovery/FilterPanel.astro'), 'utf8');

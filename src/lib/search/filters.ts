@@ -1,6 +1,7 @@
 import type { FreeModel, Hosting, Platform, StartEffort } from '@lib/domain/taxonomy';
 import type { Openness, TriState } from '@lib/domain/primitives';
 import type { Freshness } from '@lib/domain/scoring';
+import { produceMedios } from '@lib/domain/medios';
 
 /**
  * The minimum a record needs to be filterable.
@@ -22,6 +23,13 @@ export interface FilterableTool {
   freshness: Freshness;
   detectedAt: string;
   lastVerifiedAt: string;
+  /**
+   * Si produce imagen, vídeo o audio: sólo ahí se pregunta por la marca de agua.
+   * El índice del navegador lo trae calculado (`medios`); una ficha completa
+   * lo deduce de sus `capabilities`. Ver `@lib/domain/medios`.
+   */
+  medios?: boolean;
+  capabilities?: readonly string[];
   /** Sólo lo lee el orden por defecto, para mandar al final lo retirado. */
   verification: 'verified' | 'partially_verified' | 'pending_review' | 'outdated' | 'discontinued';
   freePlan: {
@@ -125,6 +133,17 @@ export const SORT_OPTIONS: ReadonlyArray<{ key: SortKey; label: string }> = [
  * Cada escalón sale de un campo de la ficha, no de un juicio: por eso el orden
  * se puede explicar en una frase y comprobar abriendo cualquier ficha.
  */
+/**
+ * La marca de agua sólo se filtra entre lo que produce imagen, vídeo o audio.
+ *
+ * Un agente de código no pone marca de agua porque no genera nada que marcar,
+ * y ese «no» no responde a quien pulsa «Sin marca de agua» buscando un
+ * generador de imágenes (Juan, 24 de octubre de 2026).
+ */
+export function mediosDe(tool: FilterableTool): boolean {
+  return tool.medios ?? produceMedios(tool.capabilities);
+}
+
 export function nivelDeAcceso(tool: FilterableTool): number {
   if (tool.verification === 'discontinued') return 4;
   switch (tool.freeModel) {
@@ -287,7 +306,7 @@ export function applyFilters<T extends FilterableTool>(
 
     if (state.noCard && tool.freePlan.requiresCreditCard !== 'no') return false;
     if (state.noSignup && tool.freePlan.requiresSignup !== 'no') return false;
-    if (state.noWatermark && tool.freePlan.hasWatermark !== 'no') return false;
+    if (state.noWatermark && !(mediosDe(tool) && tool.freePlan.hasWatermark === 'no')) return false;
     if (state.commercial && tool.freePlan.commercialUse !== 'yes') return false;
     if (state.openSource && tool.openSource !== 'yes') return false;
     if (state.verifiedRecently && tool.freshness !== 'fresh') return false;
@@ -296,7 +315,7 @@ export function applyFilters<T extends FilterableTool>(
      * Lo desconocido sigue fuera, incluido lo que sabemos que el fabricante no
      * publica: saber que alguien calla no es saber la respuesta.
      */
-    if (state.watermarkKnown && tool.freePlan.hasWatermark === 'unverified') return false;
+    if (state.watermarkKnown && !(mediosDe(tool) && tool.freePlan.hasWatermark !== 'unverified')) return false;
 
     return true;
   });

@@ -423,25 +423,27 @@ test.describe('por qué falta un dato', () => {
     await expect(page.locator('.filters-cobertura')).not.toContainText('sin registro');
   });
 
-  test('uno de cobertura testimonial cambia de pregunta', async ({ page }) => {
+  test('la marca de agua, con cobertura parcial, se ofrece y cuenta sólo lo que produce medios', async ({ page }) => {
     /*
-     * Con el dato confirmado en 1 de las 35 fichas donde aplica, «sin marca de
-     * agua» devolvería una ficha y escondería treinta y cuatro por ignorancia
-     * nuestra: eso presenta lo que no sabemos como un resultado negativo del
-     * fabricante. En su lugar se ofrece ver dónde lo hemos comprobado.
+     * Hasta el 22 de octubre de 2026 la marca de agua estaba confirmada en menos
+     * del 25 % de las fichas que generan imagen, vídeo o audio, y la casilla se
+     * cambiaba por «Marca de agua comprobada». Ese día pasó al 26 %: ahora se
+     * ofrece como filtro y anuncia su cobertura antes de pulsarla. Desde el 24
+     * de octubre, además, sólo cuenta y filtra lo que produce medios: un agente
+     * de código no pone marca de agua porque no genera nada que marcar.
+     * El caso testimonial sigue cubierto por las pruebas unitarias de
+     * `politicaDe`; ningún campo real está hoy por debajo del 25 %.
      */
     await page.goto('/herramientas');
-    await expect(page.locator('[data-filter-flag="nowm"]')).toHaveCount(0);
-
-    const sustituto = page.locator('[data-filter-known="wmknown"]');
-    await expect(sustituto).toBeVisible();
-    /*
-     * Sin paréntesis: «(1)» era la cobertura contando sólo las que generan
-     * archivos, y al marcarla salían quince. Un número entre paréntesis al lado
-     * de un control se lee como el resultado, se llame como se llame por dentro.
-     */
-    await expect(sustituto).toContainText(/Marca de agua comprobada \d+/);
-    expect(await sustituto.getAttribute('title')).toContain('filtra por si la sabemos');
+    await expect(page.locator('[data-filter-flag="nowm"]')).toHaveCount(1);
+    const nota = page.locator('.filters-cobertura');
+    await expect(nota).toContainText('Sin marca de agua');
+    const frase = (await nota.textContent())!.replace(/\s+/g, ' ');
+    const m = /Sin marca de agua: (\d+) no la ponen, (\d+) la ponen o sólo en parte y en (\d+) aún no lo sabemos/.exec(frase);
+    expect(m, frase).not.toBeNull();
+    const total = Number(m![1]) + Number(m![2]) + Number(m![3]);
+    // Las que producen medios, no el catálogo entero.
+    expect(total).toBeLessThan(await page.locator('[data-result-item]').count());
   });
 
   test('y ese sustituto enseña lo comprobado, no lo negativo', async ({ page }) => {

@@ -258,11 +258,20 @@ describe('deriveTags', () => {
   });
 
   it('etiqueta lo que sí está confirmado', () => {
-    const tool = makeTool();
+    const tool = makeTool({ capabilities: ['text-to-image'] });
     const tags = deriveTags(tool);
     expect(tags).toContain('Sin tarjeta');
     expect(tags).toContain('Sin marca de agua');
     expect(tags).toContain('Uso comercial');
+  });
+
+  it('«Sin marca de agua» sólo a lo que produce imagen, vídeo o audio', () => {
+    /*
+     * Un agente de código no pone marca de agua porque no genera nada que se
+     * pueda marcar; la etiqueta en su ficha prometía algo que no aplica
+     * (Juan, 24 de octubre de 2026).
+     */
+    expect(deriveTags(makeTool({ capabilities: ['code-generation'] }))).not.toContain('Sin marca de agua');
   });
 });
 

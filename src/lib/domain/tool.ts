@@ -627,6 +627,7 @@ export function hydrateTool(record: ToolRecord, now: Date = new Date()): Tool {
         hosting: record.hosting,
         scoreTotal,
         scores: record.scores,
+        capabilities: record.capabilities,
       }),
       ...record.tags,
     ]),

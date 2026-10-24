@@ -1,3 +1,4 @@
+import { produceMedios } from '@lib/domain/medios';
 import type { Tool } from '@lib/domain/tool';
 import { tieneAccesoGratuito } from '@lib/domain/acceso';
 import { getAllTools } from './catalog';
@@ -84,7 +85,7 @@ Es la única categoría donde la palabra "gratis" no lleva asterisco.`,
     context: `La marca de agua es la forma más común de hacer que un plan "gratuito" no sirva para nada entregable. Puedes practicar, no puedes trabajar.
 
 Estas herramientas entregan el resultado limpio en su capa gratuita. Comprueba también la fila de uso comercial: no tener marca de agua y poder monetizar son dos permisos distintos, y no siempre vienen juntos.`,
-    match: (tool) => tieneAccesoGratuito(tool) && tool.freePlan.hasWatermark === 'no',
+    match: (tool) => tieneAccesoGratuito(tool) && produceMedios(tool.capabilities) && tool.freePlan.hasWatermark === 'no',
   },
   {
     slug: 'para-creadores',

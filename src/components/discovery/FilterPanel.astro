@@ -4,6 +4,7 @@ import { getAllTools, getPopulatedCategories } from '@lib/data/catalog';
 import { SORT_OPTIONS } from '@lib/search/filters';
 import { cifraDe, devuelveElFiltro, fraseDeCobertura, type ClaveCondicion } from '@lib/data/cifras';
 import { coberturaDe, politicaDe } from '@lib/domain/evidencia';
+import { produceMedios } from '@lib/domain/medios';
 import type { Tool } from '@lib/domain/tool';
 
 interface Props {
@@ -43,8 +44,7 @@ const HARD_REQUIREMENTS = [
  * treinta y cuatro desaparecen como si hubieran fallado la condición.
  */
 const todas = getAllTools();
-const GENERA_MEDIOS = /text-to-image|text-to-video|image-to-|text-to-music|text-to-speech|avatar-video|video-editing|image-editing/;
-const generaMedios = (t: Tool) => t.capabilities.some((c) => GENERA_MEDIOS.test(c));
+const generaMedios = (t: Tool) => produceMedios(t.capabilities);
 
 const VALOR: Record<string, (t: Tool) => string> = {
   'freePlan.requiresCreditCard': (t) => t.freePlan.requiresCreditCard,

@@ -1,3 +1,4 @@
+import { produceMedios } from '@lib/domain/medios';
 import type { Tool } from '@lib/domain/tool';
 import type { Capability } from '@lib/domain/taxonomy';
 
@@ -273,8 +274,8 @@ export const FACT_FILTERS: readonly CategoryFilter[] = [
     id: 'sin-marca',
     label: 'Sin marca de agua',
     hint: 'Confirmado que el resultado sale limpio.',
-    matches: (t) => t.freePlan.hasWatermark === 'no',
-    resolved: (t) => t.freePlan.hasWatermark !== 'unverified',
+    matches: (t) => produceMedios(t.capabilities) && t.freePlan.hasWatermark === 'no',
+    resolved: (t) => produceMedios(t.capabilities) && t.freePlan.hasWatermark !== 'unverified',
   },
   {
     id: 'comercial',
