@@ -5194,7 +5194,7 @@
         "Plan de pago más barato: Starter, 6 $/mes (30.000 créditos)"
       ],
       "requiresSignup": "yes",
-      "requiresCreditCard": "unverified",
+      "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "commercialUse": "no",
       "creditsAmount": "10.000 créditos/mes",
@@ -5324,6 +5324,13 @@
         "kind": "docs",
         "publisher": "elevenlabs.io",
         "checkedAt": "2026-10-11"
+      },
+      {
+        "url": "https://elevenlabs.io/v4",
+        "label": "Página oficial de Eleven v4",
+        "kind": "official",
+        "publisher": "elevenlabs.io",
+        "checkedAt": "2026-10-25"
       }
     ],
     "scores": {
@@ -5392,13 +5399,13 @@
         "quote": "if you access or use our Services free of charge (such a user, a “Free User”), you may only use the Services for non-commercial purposes"
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-10-25",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
-        "outcome": "not_published",
-        "sourceUrl": "https://elevenlabs.io/pricing",
-        "sourceKind": "pricing",
-        "lookedFor": "Si el plan gratuito o el alta piden tarjeta. Ni la página de precios ni los artículos de pago y facturación de su centro de ayuda lo dicen."
+        "outcome": "stated",
+        "sourceUrl": "https://elevenlabs.io/v4",
+        "sourceKind": "official",
+        "quote": "Free plan comes with: · 10,000 credits each month · Personal use · No credit card required"
       },
       {
         "field": "freePlan.excludedCapabilities",
@@ -9192,10 +9199,12 @@
     ],
     "freeModel": "free_real",
     "freePlan": {
-      "summary": "Explorar demos y alojar las tuyas es gratis: el hardware básico (2 vCPU y 16 GB) y ZeroGPU tienen precio cero, y las GPU dedicadas se pagan por horas. ZeroGPU tiene cuota: la de la cuenta PRO es ocho veces mayor.",
+      "summary": "Usar las demos de otros es gratis. Para alojar las tuyas, la cuenta gratuita sólo cubre los Spaces estáticos y hasta dos de Gradio en ZeroGPU: los de Gradio o Docker en el hardware básico exigen la cuenta PRO (9 $ al mes). ZeroGPU tiene cuota, y la de PRO es ocho veces mayor.",
       "limits": [
-        "Hardware CPU Basic gratuito: 2 vCPU y 16 GB de memoria",
-        "ZeroGPU gratuito, con cuota; la cuenta PRO la multiplica por 8",
+        "Spaces estáticos: gratis para todos",
+        "Cuenta gratuita: hasta 2 Spaces de Gradio en ZeroGPU, si la cuenta está en regla",
+        "Spaces de Gradio o Docker en CPU Basic: hace falta PRO (9 $/mes) para crearlos",
+        "ZeroGPU con cuota; la cuenta PRO la multiplica por 8",
         "GPU dedicadas de pago por horas, desde 0,40 $/h (Nvidia T4)"
       ],
       "requiresSignup": "no",
@@ -9207,14 +9216,14 @@
       "includedCapabilities": [
         {
           "capability": "model-hosting",
-          "condition": "CPU Basic y ZeroGPU, con cuota",
+          "condition": "Spaces estáticos, y hasta 2 de Gradio en ZeroGPU",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
-            "scope": "product",
-            "sourceUrl": "https://huggingface.co/pricing",
-            "sourceKind": "pricing",
-            "quote": "[Tabla de hardware de Spaces: NAME · CPU · MEMORY · ACCELERATOR · VRAM · HOURLY PRICE] CPU Basic · 2 vCPU · 16 GB · - · - · FREE · […] ZeroGPU · dynamic · dynamic · Nvidia RTX Pro 6000 Blackwell · up to 96 GB · FREE"
+            "checkedAt": "2026-10-25",
+            "scope": "cloud",
+            "sourceUrl": "https://huggingface.co/docs/hub/en/spaces-overview",
+            "sourceKind": "docs",
+            "quote": "Static Spaces are free for everyone. Gradio and Docker Spaces run on compute and require a paid plan to create: PRO for personal accounts, Team or Enterprise for organizations. Free personal accounts in good standing can still host up to 2 Gradio Spaces running on ZeroGPU."
           }
         }
       ]
@@ -9245,7 +9254,7 @@
         "url": "https://huggingface.co/pricing",
         "label": "Página de precios",
         "kind": "pricing",
-        "checkedAt": "2026-07-08"
+        "checkedAt": "2026-10-25"
       },
       {
         "url": "https://huggingface.co/docs/hub/spaces",
@@ -9265,6 +9274,13 @@
         "kind": "docs",
         "publisher": "huggingface.co",
         "checkedAt": "2026-10-23"
+      },
+      {
+        "url": "https://huggingface.co/docs/hub/en/spaces-overview",
+        "label": "Documentación de Spaces",
+        "kind": "docs",
+        "publisher": "huggingface.co",
+        "checkedAt": "2026-10-25"
       }
     ],
     "scores": {
@@ -9323,13 +9339,13 @@
         "scope": "local"
       },
       {
+        "checkedAt": "2026-10-25",
+        "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://huggingface.co/pricing",
         "sourceKind": "pricing",
-        "scope": "product",
-        "quote": "On-demand GPU hardware. Starting at $0. · CPU Basic 2 vCPU 16 GB - - FREE · ZeroGPU dynamic dynamic Nvidia RTX Pro 6000 Blackwell up to 96 GB FREE · Nvidia T4 - small 4 vCPU 15 GB Nvidia T4 16 GB $0.40 · 8× ZeroGPU quota and highest queue priority",
-        "checkedAt": "2026-10-11"
+        "quote": "PRO Account · Boost your personal HF experience · $9 /month · 8× ZeroGPU quota and highest queue priority · Host ZeroGPU, Gradio & Docker Spaces · CPU Basic 2 vCPU 16 GB - - FREE · Nvidia T4 - small 4 vCPU 15 GB Nvidia T4 16 GB $0.40"
       },
       {
         "checkedAt": "2026-10-11",
@@ -14958,7 +14974,7 @@
     "verdict": "Publica la cantidad y la frecuencia: 300 minutos al mes, sin acumular. El límite que más se nota es otro, 30 minutos por conversación, que corta cualquier reunión larga a la mitad.",
     "freePlan": {
       "requiresSignup": "unverified",
-      "requiresCreditCard": "unverified",
+      "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "commercialUse": "no",
       "creditReset": "monthly",
@@ -15013,6 +15029,13 @@
         "kind": "docs",
         "publisher": "otter.ai",
         "checkedAt": "2026-10-11"
+      },
+      {
+        "url": "https://otter.ai/mp3-to-text",
+        "label": "Transcripción de MP3 de Otter",
+        "kind": "official",
+        "publisher": "otter.ai",
+        "checkedAt": "2026-10-25"
       }
     ],
     "evidence": [
@@ -15035,13 +15058,13 @@
         "quote": "Meeting & recording transcription monthly limit (no rollover)"
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-10-25",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
-        "outcome": "not_published",
-        "sourceUrl": "https://otter.ai/pricing",
-        "sourceKind": "pricing",
-        "lookedFor": "Si el plan Basic gratuito pide tarjeta. La página de precios y las condiciones sólo hablan del método de pago con el que se cobra una suscripción; no dicen si el plan gratuito lo pide."
+        "outcome": "stated",
+        "sourceUrl": "https://otter.ai/mp3-to-text",
+        "sourceKind": "official",
+        "quote": "Otter’s free plan includes 300 minutes of transcription per month with no credit card required."
       },
       {
         "checkedAt": "2026-10-11",
@@ -15741,6 +15764,13 @@
         "kind": "pricing",
         "publisher": "pixelcut.ai",
         "checkedAt": "2026-08-12"
+      },
+      {
+        "url": "https://www.pixelcut.ai/image-upscaler/unblur-image",
+        "label": "Quitar desenfoque de Pixelcut",
+        "kind": "official",
+        "publisher": "pixelcut.ai",
+        "checkedAt": "2026-10-25"
       }
     ],
     "pros": [],
@@ -15775,7 +15805,7 @@
         "Exporta sin marca de agua"
       ],
       "requiresSignup": "unverified",
-      "requiresCreditCard": "unverified",
+      "requiresCreditCard": "no",
       "hasWatermark": "no",
       "commercialUse": "unverified",
       "creditReset": "unknown",
@@ -15859,13 +15889,13 @@
         "scope": "cloud"
       },
       {
-        "checkedAt": "2026-10-11",
-        "scope": "product",
+        "checkedAt": "2026-10-25",
+        "scope": "web",
         "field": "freePlan.requiresCreditCard",
-        "outcome": "not_published",
-        "sourceUrl": "https://www.pixelcut.ai/pricing",
-        "sourceKind": "pricing",
-        "lookedFor": "Si el plan gratuito pide tarjeta. Ni la página de precios ni las condiciones lo mencionan."
+        "outcome": "stated",
+        "sourceUrl": "https://www.pixelcut.ai/image-upscaler/unblur-image",
+        "sourceKind": "official",
+        "quote": "With Pixelcut, you can unblur images for free instantly—no sign-ups, no credit card, and no watermarks."
       },
       {
         "field": "freePlan.limits",
@@ -16515,6 +16545,13 @@
         "kind": "pricing",
         "publisher": "recraft.ai",
         "checkedAt": "2026-08-12"
+      },
+      {
+        "url": "https://www.recraft.ai/ai-image-generator",
+        "label": "Generador de imágenes de Recraft",
+        "kind": "official",
+        "publisher": "recraft.ai",
+        "checkedAt": "2026-10-25"
       }
     ],
     "pros": [],
@@ -16553,7 +16590,7 @@
         "Plan de pago más barato: Basic, 10 $/mes en anual (1.000 créditos al mes)"
       ],
       "requiresSignup": "unverified",
-      "requiresCreditCard": "unverified",
+      "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "commercialUse": "no",
       "creditReset": "daily",
@@ -16602,13 +16639,13 @@
         "scope": "cloud"
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-10-25",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
-        "outcome": "not_published",
-        "sourceUrl": "https://www.recraft.ai/docs/plans-and-billing/free-plan",
-        "sourceKind": "docs",
-        "lookedFor": "Si el plan gratuito pide tarjeta. Ni la página del plan gratuito de su documentación ni la de precios lo dicen; la de precios sólo enumera los métodos de pago aceptados para pagar."
+        "outcome": "stated",
+        "sourceUrl": "https://www.recraft.ai/ai-image-generator",
+        "sourceKind": "official",
+        "quote": "GET STARTED FOR FREE · NO CREDIT CARD REQUIRED"
       },
       {
         "checkedAt": "2026-10-11",
