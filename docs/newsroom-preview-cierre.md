@@ -607,3 +607,38 @@ Aviso técnico para quien vuelva a esta fuente: el texto visible de esa página 
 huggingface.co arrastra en su cola el JSON de los comentarios sin limpiar, y uno
 de ellos lleva cargas de prueba de XSS. No afecta a las citas, que salen del
 cuerpo del artículo, pero conviene no citar nada de esa zona.
+
+### La tercera que no llega, y es la más grande
+
+El 26 de octubre Anthropic anunció que ha presentado el formulario S-1 ante la
+SEC para una salida a bolsa, con intención de cotizar en el Nasdaq como «ANT».
+Es la noticia de IA más importante del día y no se publicó, por dos razones que
+conviene separar.
+
+La primera es la taxonomía: ninguna de las trece categorías habla de empresa,
+financiación ni mercado. Es el mismo hueco que obligó a meter
+`positron-ronda-875-millones` en `modelo-lenguaje`, y la decisión de entonces
+—dejarlo como deuda y no volver a forzarlo— es la que se ha aplicado hoy.
+
+La segunda es que el aviso no contiene ni un dato que el lector pueda usar: ni
+número de acciones, ni rango de precio, ni cuentas. Es una nota legal. Así que
+aunque Web V2 cree una categoría de empresa, esta noticia concreta seguiría
+siendo flaca; lo que demuestra es el hueco, no que haya que publicarla.
+
+El mismo día quedó fuera por lo mismo «Polar Peaks», la tercera entrega de los
+AI Quests de Google con la Universidad de Stanford: educación, que tampoco
+existe en la lista.
+
+Con esto el recuento es de seis noticias con etiqueta discutible y tres que no
+llegaron al lector —SynthID Bio, LitPivot y el S-1—, y las tres por huecos
+distintos: biología, herramientas de investigación y empresa.
+
+### Un aviso sobre las fechas de los índices
+
+El 26 de octubre, el índice de huggingface.co/blog traía marcas `2026-10-24`,
+`2026-10-25` y `2026-10-26` en el HTML. Ninguna era la fecha de publicación:
+al abrir cada entrada, UltraBERT estaba fechada el 14 de octubre, Microduck el
+21 y A5 el 23. Las marcas del índice eran de actividad posterior. La regla que
+ya estaba escrita para el blog de LlamaIndex —comprobar la fecha en la propia
+entrada, y usar el índice sólo cuando la entrada no la lleva y el orden
+título-fecha se puede verificar con entradas ya publicadas— vale igual aquí.

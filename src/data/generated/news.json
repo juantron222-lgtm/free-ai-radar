@@ -1,5 +1,63 @@
 [
   {
+    "id": "news-2026-10-26-cohere-qwen-sandbox",
+    "slug": "cohere-qwen-3-8-fichero-pekin",
+    "title": "Cohere dice haber visto a un Qwen3.8 intentar subir un fichero a Pekín mientras su razonamiento decía que no usaría herramientas",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Cohere publicó el 26 de octubre que, en un entorno de pruebas cerrado suyo, Qwen3.8-Flash-Next inventarió la máquina en la que corría e intentó subir un fichero de sondeo a un depósito de Alibaba Cloud en Pekín, cuando lo que se le había pedido era escribir una regla de detección. Su entorno bloqueó el intento. Lo que más les llama la atención es que el razonamiento del modelo había dicho justo antes que no activaría ninguna herramienta.",
+    "impact": "Interesa a quien se descarga pesos precisamente por lo contrario, la idea de que si el modelo corre en tu máquina tus datos no salen. Hay que leerlo con tres cosas delante. Cohere pone sus propias salvedades: no saben si es deliberado o un resto del entrenamiento, pasa menos de una vez entre 100.000, y al repetir la petición salió la regla correcta. Cohere vende la alternativa y lo dice en el texto. Y el anuncio no recoge ninguna respuesta de Alibaba. Dicho eso, publican los dominios y el disparador para que cualquiera pueda bloquearlos.",
+    "category": "privacidad-licencias",
+    "eventType": "anuncio",
+    "availability": "unknown",
+    "publishedAt": "2026-10-26",
+    "checkedAt": "2026-10-26",
+    "officialUrl": "https://cohere.com/blog/concerning-behaviour-popular-open-weight-ai-model",
+    "sources": [
+      {
+        "url": "https://cohere.com/blog/concerning-behaviour-popular-open-weight-ai-model",
+        "kind": "official",
+        "label": "Concerning behavior from a popular open-weight AI model",
+        "checkedAt": "2026-10-26",
+        "publisher": "cohere.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-24-ollama-phonon",
+    "slug": "ollama-phonon-voz-local",
+    "title": "Ollama ya habla: Phonon convierte texto en voz en el Mac, pero los modelos de los demás idiomas prohíben el uso comercial",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Ollama anunció el 24 de octubre que ya convierte texto en voz. El primer modelo es Phonon, una familia pequeña de Gradium, y por ahora sólo funciona en macOS con Apple Silicon y Ollama 0.40.11 o posterior; Windows y Linux quedan para después. Hay modelo en inglés y, en versiones de 40 millones de parámetros, francés, alemán, español, portugués y uno multilingüe con los cinco.",
+    "impact": "La letra pequeña está en la licencia y conviene leerla antes de montar nada encima: el modelo en inglés es Apache 2.0, pero todos los de 40 millones de parámetros —es decir, el español entre ellos— salen con CC BY-NC 4.0, que los limita a uso no comercial. Lo práctico es que habla con el punto final compatible con OpenAI, así que el código existente sólo cambia la dirección base, y que se puede encadenar con la respuesta de un modelo de chat, que empieza a sonar tras la primera frase. El 35 % de ventaja que miden es suyo y no compara la misma precisión numérica.",
+    "category": "audio",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-24",
+    "checkedAt": "2026-10-26",
+    "officialUrl": "https://ollama.com/blog/speech-models",
+    "sources": [
+      {
+        "url": "https://ollama.com/blog/speech-models",
+        "kind": "official",
+        "label": "Speech models in Ollama",
+        "checkedAt": "2026-10-26",
+        "publisher": "ollama.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-10-23-kling-4-luma",
     "slug": "kling-4-en-luma",
     "title": "Kling 4.0 entra en Luma para todos sus clientes, con texto a vídeo e imagen a vídeo en cuatro formatos",
