@@ -27,6 +27,25 @@ import { HttpUrl, IsoDate, Slug } from './primitives';
  * What remains is subject matter only. `plan-gratuito`, `precios` and
  * `api-gratuita` stay: a free tier and a price are things an item can be
  * *about*, not things that happen to it.
+ *
+ * `empresa-mercado` was added on 26 October 2026, by the editor's decision, and
+ * it is the only value here that does not name something a reader can run. That
+ * is deliberate: a funding round, an acquisition, a licensing deal or an IPO
+ * filing is what an item is *about*, and the first thirteen categories
+ * inherited the free-AI catalogue's vocabulary, which only names things you
+ * use. For over a year the gap was covered by labels that were slightly false —
+ * Positron's Series C sat in `modelo-lenguaje`, NVIDIA buying Hugging Face in
+ * `local-open-source`, the ElevenLabs deal with Universal in `audio` — because
+ * each at least named one of the companies involved. Those three moved here the
+ * day this value appeared.
+ *
+ * It is a subject and not an event, so rule 5 below still holds: the round, the
+ * purchase and the filing are all `eventType: 'anuncio'`. Two things it is not.
+ * It is not a licence to run any company's press release; what it covers is the
+ * ownership, the money and the market behind the tools, and that is editorial
+ * scope rather than schema. And it does not close the hardware gap:
+ * `dgx-spark-64gb` is a product launch, not a deal, and stays in
+ * `local-open-source` as the debt it already was.
  */
 export const NewsCategory = z.enum([
   'modelo-lenguaje',
@@ -42,6 +61,7 @@ export const NewsCategory = z.enum([
   'precios',
   'privacidad-licencias',
   'api-gratuita',
+  'empresa-mercado',
 ]);
 export type NewsCategory = z.infer<typeof NewsCategory>;
 
@@ -59,6 +79,7 @@ export const NEWS_CATEGORY_LABEL: Record<NewsCategory, string> = {
   precios: 'Precios',
   'privacidad-licencias': 'Privacidad y licencias',
   'api-gratuita': 'APIs gratuitas',
+  'empresa-mercado': 'Empresa y mercado',
 };
 
 /**

@@ -521,6 +521,8 @@ de IA gratis y describen cosas que se usan —modelos, agentes, imagen, audio,
 planes, precios—. Ninguna cubre chips, infraestructura ni operaciones
 empresariales, y /noticias ya cubre la actualidad general del sector.
 
+**Resuelto el 26 de octubre de 2026.** Juan pidió cobertura de empresa, se añadió `empresa-mercado` y esta noticia se movió allí. Lo que sigue abajo se conserva porque explica por qué se esperó.
+
 **Se deja así a propósito.** Crear una categoría sólo para esta noticia sería
 ampliar la taxonomía por la puerta de atrás, y la taxonomía se decide entera en
 Web V2. El texto de la noticia es correcto; lo que falla es la etiqueta.
@@ -642,3 +644,44 @@ al abrir cada entrada, UltraBERT estaba fechada el 14 de octubre, Microduck el
 ya estaba escrita para el blog de LlamaIndex —comprobar la fecha en la propia
 entrada, y usar el índice sólo cuando la entrada no la lleva y el orden
 título-fecha se puede verificar con entradas ya publicadas— vale igual aquí.
+
+## Cerrado: la categoría de empresa existe
+
+El 26 de octubre Juan decidió que /noticias cubre empresa, y se añadió
+`empresa-mercado` («Empresa y mercado») a `NewsCategory`. Es el punto 2 de la
+lista de arriba, resuelto por la mitad: cubre operaciones empresariales
+—rondas, compras, acuerdos, salidas a bolsa— y no cubre hardware.
+
+Lo que se movió el mismo día, que es el punto 3 tal como estaba escrito:
+
+- `positron-ronda-875-millones`, de `modelo-lenguaje`.
+- `nvidia-compra-hugging-face`, de `local-open-source`.
+- `elevenlabs-universal-music-group`, de `audio`.
+
+Las tres eran operaciones empresariales etiquetadas con el asunto de una de las
+empresas implicadas. Las URL no cambian, porque dependen sólo del slug, así que
+ni las páginas ni el sitemap se mueven.
+
+Y lo que entró con la categoría recién creada: `anthropic-s1-sec-salida-a-bolsa`,
+el S-1 ante la SEC del 26 de octubre, que el día anterior se había quedado fuera
+por este hueco exacto.
+
+### Lo que sigue pendiente
+
+1. **Hardware.** `dgx-spark-64gb` es un lanzamiento de producto, no una
+   operación, y sigue en `local-open-source`. `empresa-mercado` no lo arregla.
+2. **Biología y bioseguridad.** SynthID Bio sigue sin publicar.
+3. **Herramientas de investigación y escritura.** LitPivot sigue sin publicar.
+4. **Educación.** Los AI Quests de Google, el caso más reciente.
+
+El recuento queda así: de las tres noticias que no llegaban al lector, una está
+publicada y dos siguen bloqueadas; de las seis con etiqueta discutible, tres se
+han corregido y tres siguen —`gemini-skills-sustituyen-gems`, `dgx-spark-64gb` y
+la que quede del grupo del 13 de septiembre—.
+
+Una nota sobre el criterio, porque la categoría no es una licencia: cubre quién
+tiene la propiedad, el dinero y el mercado detrás de las herramientas. No
+convierte en noticia cualquier nota de prensa de cualquier empresa. El propio
+S-1 es el ejemplo: entró porque el hecho es verificable y relevante, y se publicó
+diciendo en el primer párrafo del impacto que no trae ni acciones, ni precio, ni
+cuentas, ni calendario.

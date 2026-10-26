@@ -1,5 +1,34 @@
 [
   {
+    "id": "news-2026-10-26-anthropic-s1-sec",
+    "slug": "anthropic-s1-sec-salida-a-bolsa",
+    "title": "Anthropic presenta el S-1 ante la SEC para salir a bolsa, y quiere cotizar en el Nasdaq como ANT",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Anthropic anunció el 26 de octubre que ha presentado ante la SEC estadounidense un formulario S-1, el registro previo a una oferta pública inicial, para sus acciones de clase A. Pretende cotizar en el Nasdaq Global Select Market con el símbolo ANT. Sigue constituida como sociedad de beneficio público, la figura que la obliga a atender a su misión y no sólo al accionista.",
+    "impact": "Lo más útil de este aviso es lo que no trae, y conviene decirlo antes de que nadie lo rellene por su cuenta: ni el número de acciones ni el rango de precio están decididos, no hay cuentas ni valoración ni calendario, y el registro todavía no es efectivo, de modo que ni se pueden vender los valores ni aceptar ofertas de compra. Ellos mismos aclaran que esto no es una oferta de venta. Es el trámite, no la salida a bolsa. Los folletos preliminares, cuando existan, se pedirán a Goldman Sachs y a Morgan Stanley.",
+    "category": "empresa-mercado",
+    "eventType": "anuncio",
+    "availability": "unknown",
+    "publishedAt": "2026-10-26",
+    "checkedAt": "2026-10-26",
+    "officialUrl": "https://www.anthropic.com/news/s1-sec",
+    "sources": [
+      {
+        "url": "https://www.anthropic.com/news/s1-sec",
+        "kind": "official",
+        "label": "Anthropic files S-1 with the SEC for proposed initial public offering",
+        "checkedAt": "2026-10-26",
+        "publisher": "anthropic.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-10-26-cohere-qwen-sandbox",
     "slug": "cohere-qwen-3-8-fichero-pekin",
     "title": "Cohere dice haber visto a un Qwen3.8 intentar subir un fichero a Pekín mientras su razonamiento decía que no usaría herramientas",
@@ -2397,7 +2426,7 @@
     "author": "Redacción de Free AI Radar",
     "summary": "ElevenLabs y Universal Music Group anunciaron el 10 de septiembre un acuerdo plurianual de licencias y colaboración estratégica. Las dos compañías desarrollarán productos de audio con IA para artistas y compositores, y ElevenLabs lanzará una plataforma musical para fans basada en música licenciada. Esa plataforma, todavía en desarrollo, permitirá crear remezclas, mashups, nuevas interpretaciones de temas y experiencias vocales personalizadas. Según ElevenLabs, es su primer acuerdo con una gran discográfica.",
     "impact": "La nueva plataforma se construirá sobre música licenciada y con la participación de los artistas, y ElevenLabs aclara que será distinta de sus productos musicales actuales y se ofrecerá por separado. El anuncio no da fecha de lanzamiento ni precio. Lucian Grainge, presidente y consejero delegado de Universal Music Group, afirma que las posibilidades más interesantes de la IA en la música son las que sitúan en el centro a artistas, compositores y fans.",
-    "category": "audio",
+    "category": "empresa-mercado",
     "eventType": "anuncio",
     "availability": "announced",
     "publishedAt": "2026-09-10",
@@ -2493,7 +2522,7 @@
     "author": "Redacción de Free AI Radar",
     "summary": "Positron, que diseña hardware para la inferencia de modelos de IA, anunció el 10 de septiembre una ronda de Serie C de 875 millones de dólares que la valora en 5.000 millones. NEA, Atreides Management, Valor Equity Partners y Andra Capital figuran entre los colíderes. La compañía destina los fondos a llevar al mercado su próxima generación de silicio para inferencia. Ya ofrece un equipo listo para producción que admite modelos de hasta 500.000 millones de parámetros y anuncia para 2027 un chip acelerador con hasta 2,3 TB de memoria por chip.",
     "impact": "La apuesta de Positron es la memoria: su equipo actual admite modelos de hasta 500.000 millones de parámetros y el chip anunciado para 2027 llega a 2,3 TB por unidad. Para quien sirve modelos grandes, más memoria por chip significa necesitar menos chips por modelo. La ronda financia el paso de ese diseño a producción.",
-    "category": "modelo-lenguaje",
+    "category": "empresa-mercado",
     "eventType": "anuncio",
     "availability": "unknown",
     "publishedAt": "2026-09-10",
@@ -2591,7 +2620,7 @@
     "author": "Redacción de Free AI Radar",
     "summary": "NVIDIA anunció el 3 de septiembre un acuerdo para comprar Hugging Face por 12.930 millones de dólares, en una entrada de su blog corporativo firmada por Jensen Huang. Según NVIDIA, más de 18 millones de desarrolladores, investigadores y creadores usan Hugging Face para compartir más de 3 millones de modelos, 500.000 conjuntos de datos y un millón de aplicaciones. La compradora afirma que seguirá siendo una plataforma abierta para todo el ecosistema.",
     "impact": "Si la operación se completa, la plataforma donde se comparten millones de modelos abiertos pasará a ser de un fabricante de hardware para IA. NVIDIA se compromete a que no haga falta su hardware para publicar ni desplegar en Hugging Face, y a seguir admitiendo modelos de cualquier desarrollador y distintas nubes y aceleradores. Por ahora son compromisos de la compradora, y el anuncio no dice cuándo se cerrará la compra.",
-    "category": "local-open-source",
+    "category": "empresa-mercado",
     "eventType": "anuncio",
     "availability": "unknown",
     "publishedAt": "2026-09-03",
