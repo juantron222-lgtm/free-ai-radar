@@ -63,7 +63,25 @@
   .resumen { background: var(--sunken); border-radius: var(--r-m); padding: 10px 12px; margin: 8px 0 12px; }
 
   .tabla-wrap { overflow-x: auto; margin: 0 -4px; }
-  table { width: 100%; border-collapse: collapse; font-size: .9rem; min-width: 520px; }
+  table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+  @media (min-width: 40rem) { table { font-size: .9rem; } }
+  /* En pantallas estrechas cada fila se apila y cada celda dice de qué plan es:
+     tres columnas a 375 px parten «Verificado» letra a letra. */
+  @media (max-width: 39.99rem) {
+    .tabla-wrap thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    .tabla-wrap tr { display: block; padding: 10px 0; border-bottom: 1px solid var(--line); }
+    .tabla-wrap th[scope=row], .tabla-wrap td { display: block; width: auto; border: 0; padding: 2px 0; }
+    .tabla-wrap th[scope=row] { margin-bottom: 4px; }
+    .tabla-wrap td::before { display: block; font-size: .75rem; font-weight: 600; color: var(--ink-muted); content: var(--a); }
+    .tabla-wrap td + td::before { content: var(--b); }
+    .tabla-wrap td[colspan]::before { content: var(--ambos, "Los dos planes"); }
+    .tabla-wrap td + td { margin-top: 6px; }
+  }
+  [data-tabla="murf"] { --a: "Gratis"; --b: "Creator"; }
+  [data-tabla="eleven"] { --a: "Gratis"; --b: "Starter"; }
+  [data-tabla="runway"] { --a: "Gratis"; --b: "Standard"; }
+  [data-tabla="canva"] { --a: "Gratis"; --b: "Pro"; }
+  [data-tabla="cmp-voz"] { --a: "ElevenLabs · Starter"; --b: "Murf · Creator"; --ambos: "Las dos"; }
   th, td { text-align: left; vertical-align: top; padding: 8px 6px; border-bottom: 1px solid var(--line); }
   thead th { font-size: .8rem; color: var(--ink-muted); font-weight: 600; }
   th[scope=row] { font-weight: 600; width: 26%; }
@@ -81,48 +99,61 @@
   .alerta { border-left: 4px solid var(--alert); background: var(--alert-soft); padding: 10px 12px; border-radius: 0 var(--r-m) var(--r-m) 0; margin: 12px 0; }
   ol li, ul li { margin-bottom: 6px; }
   code { font-size: .85em; background: var(--sunken); padding: 1px 4px; border-radius: 4px; }
+  .precio { margin: 0; display: grid; gap: 2px; }
+  .precio div { display: flex; gap: 6px; flex-wrap: wrap; }
+  .precio dt { color: var(--ink-muted); min-width: 4.5rem; }
+  .precio dd { margin: 0; font-weight: 600; }
+  .supuestos { border: 1px solid var(--warn-line); background: var(--warn-soft); border-radius: var(--r-m); padding: 10px 12px; margin: 12px 0; font-size: .875rem; }
+  .supuestos ul { margin: 6px 0 0; padding-left: 18px; }
+  .hecho { border-left: 4px solid var(--signal); background: var(--signal-soft); padding: 10px 12px; border-radius: 0 var(--r-m) var(--r-m) 0; margin: 12px 0; }
+  figure { margin: 16px 0; }
+  figure img { width: 100%; height: auto; border: 1px solid var(--line); border-radius: var(--r-m); display: block; }
+  figcaption { font-size: .8rem; color: var(--ink-muted); margin-top: 6px; }
 </style>
 </head>
 <body>
 <main>
 
-<p><span class="estado">Propuesta · no publicada</span></p>
+<p><span class="estado">Revisión 2 · para aprobación visual · no publicada</span></p>
 <h1>Piloto calidad-precio</h1>
-<p class="muted">Murf, ElevenLabs, Runway y Canva. Precios y condiciones leídos en sus páginas oficiales el 27 de octubre de 2026. Las 14 citas se han comprobado literalmente contra el texto de cada página.</p>
+<p class="muted">Murf, ElevenLabs, Runway y Canva, con las cinco decisiones del 27 de octubre. Los datos son de las páginas oficiales leídas el 27 de octubre de 2026; las 15 citas coinciden literalmente con el texto de cada página.</p>
 
 <h2>Cómo se distingue cada dato</h2>
-<p>Nada se comunica sólo por color: cada celda lleva su etiqueta.</p>
+<p>Ningún dato se distingue sólo por el color: cada celda lleva su etiqueta.</p>
 <div class="leyenda">
   <div><span class="tipo t-ver">✓ Verificado</span> <span class="small">Lo dice el fabricante. Cita literal, enlace y fecha.</span></div>
-  <div><span class="tipo t-cal">= Cálculo nuestro</span> <span class="small">Una división hecha con cifras verificadas, enseñando la operación.</span></div>
+  <div><span class="tipo t-cal">= Cálculo nuestro</span> <span class="small">Una operación con cifras verificadas. Se enseñan la operación y los supuestos.</span></div>
   <div><span class="tipo t-pro">◆ Probado por nosotros</span> <span class="small">Una prueba editorial propia, con el prompt publicado. Hoy no hay ninguna en estas cuatro.</span></div>
-  <div><span class="tipo t-des">? No lo publica</span> <span class="small">El fabricante no lo dice. No lo deducimos.</span></div>
+  <div><span class="tipo t-des">? No lo publica</span> <span class="small">El fabricante no lo dice, o se contradice. No lo deducimos.</span></div>
 </div>
+<p class="small muted"><strong>Precios.</strong> Van en la moneda del fabricante, sin convertir. «Mensual» es pagar mes a mes. «Anual» es el precio mensual equivalente cuando se paga el año entero, seguido del total anual. Si el fabricante no publica ese total, lo calculamos y lo marcamos como cálculo.</p>
 
 <h2>1 · Bloque «¿Merece la pena pagar?» en la ficha</h2>
-<p class="muted small">Va debajo de «Los límites reales». Compara el plan gratuito con el primer plan de pago que resuelve lo que el gratis no permite. No puntúa ni recomienda: enseña la diferencia.</p>
+<p class="muted small">Va debajo de «Los límites reales». Compara el plan gratuito con el primer plan de pago útil, es decir, el primero que desbloquea lo que el gratis no permite. No puntúa ni recomienda: enseña la diferencia.</p>
 
 <!-- MURF -->
-<article class="ficha" aria-labelledby="murf">
+<article class="ficha" aria-labelledby="murf" data-tabla="murf">
   <div class="ficha-cab"><h3 id="murf">Murf AI</h3><span class="seccion">Voz · estudio web</span></div>
   <h4 class="bloque-titulo">¿Merece la pena pagar?</h4>
-  <p class="resumen">Gratis sirve para escuchar las voces: <strong>no deja descargar el audio ni usarlo comercialmente</strong>. El primer plan que permite las dos cosas es <strong>Creator</strong>.</p>
+  <p class="resumen">El plan gratuito sirve para escuchar las voces: <strong>no deja descargar el audio ni usarlo comercialmente</strong>. El primer plan que permite las dos cosas es <strong>Creator</strong>.</p>
   <div class="tabla-wrap"><table>
     <thead><tr><th scope="col"></th><th scope="col">Gratis</th><th scope="col">Creator</th></tr></thead>
     <tbody>
-      <tr><th scope="row">Precio</th><td><span class="valor">0 $</span><span class="tipo t-ver">✓ Verificado</span></td><td><span class="valor">29 $/mes en mensual · 19 $/mes en anual (228 $/año)</span><span class="tipo t-ver">✓ Verificado</span></td></tr>
-      <tr><th scope="row">Voz incluida</th><td><span class="valor">10 minutos</span><span class="tipo t-ver">✓ Verificado</span></td><td><span class="valor">2 h/mes en mensual · 24 h/año en anual</span><span class="tipo t-ver">✓ Verificado</span></td></tr>
+      <tr><th scope="row">Precio</th><td><span class="valor">0 $</span><span class="tipo t-ver">✓ Verificado</span></td><td>
+        <dl class="precio"><div><dt>Mensual</dt><dd>29 $/mes</dd></div><div><dt>Anual</dt><dd>19 $/mes equivalentes · 228 $ al año</dd></div></dl>
+        <span class="tipo t-ver">✓ Verificado</span></td></tr>
+      <tr><th scope="row">Voz incluida</th><td><span class="valor">10 minutos</span><span class="tipo t-ver">✓ Verificado</span></td><td><span class="valor">Mensual: 2 h al mes · Anual: 24 h al año</span><span class="tipo t-ver">✓ Verificado</span></td></tr>
       <tr><th scope="row">Descargas</th><td><span class="valor">No</span><span class="tipo t-ver">✓ Verificado</span></td><td><span class="valor">Ilimitadas</span><span class="tipo t-ver">✓ Verificado</span></td></tr>
       <tr><th scope="row">Uso comercial</th><td><span class="valor">No</span><span class="tipo t-ver">✓ Verificado</span></td><td><span class="valor">Sí («Commercial Rights»)</span><span class="tipo t-ver">✓ Verificado</span></td></tr>
       <tr><th scope="row">Otras diferencias</th><td><span class="valor">10 proyectos</span><span class="tipo t-ver">✓ Verificado</span></td><td><span class="valor">100 proyectos · más de 200 voces · integración con Canva</span><span class="tipo t-ver">✓ Verificado</span></td></tr>
-      <tr><th scope="row">Coste por minuto de voz</th><td>—</td><td><span class="valor">0,24 $ en mensual (29 $ ÷ 120 min) · 0,16 $ en anual (228 $ ÷ 1.440 min)</span><span class="tipo t-cal">= Cálculo nuestro</span></td></tr>
+      <tr><th scope="row">Precio por minuto de la cuota</th><td>—</td><td><span class="valor">Mensual: 0,24 $ (29 $ ÷ 120 min) · Anual: 0,16 $ (228 $ ÷ 1.440 min)</span><span class="tipo t-cal">= Cálculo nuestro</span><span class="small muted valor">Supone que gastas toda la cuota. No consta si las regeneraciones descuentan tiempo.</span></td></tr>
       <tr><th scope="row">Tarjeta para empezar</th><td><span class="valor">No</span><span class="tipo t-ver">✓ Verificado</span></td><td>—</td></tr>
-      <tr><th scope="row">Impuestos incluidos</th><td colspan="2"><span class="tipo t-des">? No lo publica</span> <span class="small muted">La pregunta está en sus FAQ, pero plegada y sin leer todavía.</span></td></tr>
+      <tr><th scope="row">Impuestos incluidos</th><td colspan="2"><span class="tipo t-des">? No lo publica</span> <span class="small muted">La pregunta está en sus FAQ, plegada; no la hemos leído.</span></td></tr>
       <tr><th scope="row">«Business License»</th><td colspan="2"><span class="small">Sólo aparece desde el plan Business. </span><span class="tipo t-des">? No explica qué añade</span></td></tr>
     </tbody>
   </table></div>
-  <div class="prueba"><span class="tipo t-pro">◆ Probado por nosotros</span> <span class="small muted">Todavía no. Sin prueba propia no decimos nada de cómo suena.</span></div>
-  <p class="afil">Si el enlace de pago fuera de afiliación, se diría aquí. No cambia nada de este bloque.</p>
+  <div class="prueba"><span class="tipo t-pro">◆ Probado por nosotros</span> <span class="small muted">Todavía no. Sin una prueba propia no decimos nada de cómo suena.</span></div>
+  <p class="afil">Si el enlace de pago fuera de afiliación, se diría aquí, junto al botón. No cambia ninguna celda de este bloque.</p>
   <details class="fuentes"><summary>Fuentes (3)</summary><ul>
     <li><q>Free · Get started. No Credit Card required · $0 / month · 10 Projects · 10 minutes of Voice Generation · 1 Editor · Everything in Business Plan (No Downloads) · No Commercial Rights</q> — murf.ai/pricing, pestaña Studio, 27 oct 2026</li>
     <li><q>Creator · … · $29 / month · 100 Projects · 2 hrs/Month of Voice Generation · 1 Editor</q> — ídem, facturación mensual</li>
@@ -131,142 +162,163 @@
 </article>
 
 <!-- ELEVENLABS -->
-<article class="ficha" aria-labelledby="eleven">
+<article class="ficha" aria-labelledby="eleven" data-tabla="eleven">
   <div class="ficha-cab"><h3 id="eleven">ElevenLabs</h3><span class="seccion">Voz</span></div>
   <h4 class="bloque-titulo">¿Merece la pena pagar?</h4>
-  <p class="resumen">Gratis permite unos <strong>10 minutos de voz al mes, sólo para uso personal</strong>. <strong>Starter</strong> añade la licencia comercial y la clonación instantánea de voz.</p>
+  <p class="resumen">El plan gratuito da 10.000 créditos al mes, <strong>sólo para uso personal</strong>. <strong>Starter</strong> añade la licencia comercial, la clonación instantánea de voz y el triple de créditos.</p>
   <div class="tabla-wrap"><table>
     <thead><tr><th scope="col"></th><th scope="col">Gratis</th><th scope="col">Starter</th></tr></thead>
     <tbody>
-      <tr><th scope="row">Precio</th><td><span class="valor">0 $</span><span class="tipo t-ver">✓ Verificado</span></td><td><span class="valor">6 $/mes en mensual · 5 $/mes en anual</span><span class="tipo t-ver">✓ Verificado</span><span class="small muted valor">Hasta el 1 de noviembre, el primer mes cuesta 1 $. Es una oferta temporal y no entra en el cálculo.</span></td></tr>
-      <tr><th scope="row">Créditos</th><td><span class="valor">10.000/mes</span><span class="tipo t-ver">✓ Verificado</span></td><td><span class="valor">30.000/mes</span><span class="tipo t-ver">✓ Verificado</span></td></tr>
-      <tr><th scope="row">Voz incluida (texto a voz)</th><td><span class="valor">~10 min</span><span class="tipo t-ver">✓ Verificado</span></td><td><span class="valor">~30 min</span><span class="tipo t-ver">✓ Verificado</span></td></tr>
+      <tr><th scope="row">Precio</th><td><span class="valor">0 $</span><span class="tipo t-ver">✓ Verificado</span></td><td>
+        <dl class="precio"><div><dt>Mensual</dt><dd>6 $/mes</dd></div><div><dt>Anual</dt><dd>5 $/mes equivalentes</dd></div></dl>
+        <span class="tipo t-ver">✓ Verificado</span>
+        <span class="small valor">Total anual: 60 $ <span class="tipo t-cal">= Cálculo nuestro</span> <span class="muted">(5 $ × 12; la página no publica el total)</span></span>
+        <span class="small muted valor">Hasta el 1 de noviembre, el primer mes cuesta 1 $. Es una oferta temporal y no entra en ningún cálculo.</span></td></tr>
+      <tr><th scope="row">Créditos</th><td><span class="valor">10.000 al mes</span><span class="tipo t-ver">✓ Verificado</span></td><td><span class="valor">30.000 al mes</span><span class="tipo t-ver">✓ Verificado</span></td></tr>
+      <tr><th scope="row">Minutos de voz (estimación del fabricante)</th><td><span class="valor">~10 al mes</span><span class="tipo t-ver">✓ Verificado</span></td><td><span class="valor">~30 al mes</span><span class="tipo t-ver">✓ Verificado</span><span class="small muted valor">El «~» es suyo: es una estimación, no una cuota. Lo que se gasta son créditos.</span></td></tr>
       <tr><th scope="row">Uso comercial</th><td><span class="valor">No (✗ en su tabla)</span><span class="tipo t-ver">✓ Verificado</span></td><td><span class="valor">Sí («Commercial License»)</span><span class="tipo t-ver">✓ Verificado</span></td></tr>
-      <tr><th scope="row">Otras diferencias</th><td><span class="valor">3 proyectos en Studio</span><span class="tipo t-ver">✓ Verificado</span></td><td><span class="valor">Clonación instantánea · 20 proyectos · Dubbing Studio · uso comercial de música</span><span class="tipo t-ver">✓ Verificado</span></td></tr>
-      <tr><th scope="row">Coste por minuto de voz</th><td>—</td><td><span class="valor">~0,20 $ en mensual (6 $ ÷ ~30 min) · ~0,17 $ en anual (5 $ ÷ ~30 min)</span><span class="tipo t-cal">= Cálculo nuestro</span><span class="small muted valor">Los minutos son aproximados («~»): dependen del modelo y del texto.</span></td></tr>
+      <tr><th scope="row">Otras diferencias</th><td><span class="valor">3 proyectos en Studio</span><span class="tipo t-ver">✓ Verificado</span></td><td><span class="valor">Clonación instantánea · 20 proyectos · Dubbing Studio · uso comercial de la música</span><span class="tipo t-ver">✓ Verificado</span></td></tr>
+      <tr><th scope="row">Precio por minuto estimado</th><td>—</td><td><span class="valor">Mensual: ~0,20 $ (6 $ ÷ ~30 min) · Anual: ~0,17 $ (5 $ ÷ ~30 min)</span><span class="tipo t-cal">= Cálculo nuestro</span><span class="small muted valor">Hereda la estimación del fabricante: si un modelo o un texto gasta más créditos, sale más caro.</span></td></tr>
       <tr><th scope="row">Tarjeta para empezar</th><td><span class="valor">No</span><span class="tipo t-ver">✓ Verificado</span></td><td>—</td></tr>
       <tr><th scope="row">Impuestos incluidos</th><td colspan="2"><span class="valor">No: <q>Prices exclude all taxes, levies and duties.</q></span><span class="tipo t-ver">✓ Verificado</span></td></tr>
     </tbody>
   </table></div>
   <div class="prueba"><span class="tipo t-pro">◆ Probado por nosotros</span> <span class="small muted">Todavía no.</span></div>
-  <details class="fuentes"><summary>Fuentes (4)</summary><ul>
+  <details class="fuentes"><summary>Fuentes (5)</summary><ul>
     <li><q>Free · $0 · per month · 3 Projects in Studio · 10k credits · per month</q> — elevenlabs.io/pricing, 27 oct 2026</li>
     <li><q>Starter · Until Nov 1 · $6 First month 83% off · $1 · per month · Everything in free, plus · Commercial License · Instant Voice Cloning · 20 Projects in Studio · Music commercial use · Dubbing Studio · Image &amp; Video · 30k credits · per month</q> — ídem, mensual</li>
     <li><q>Starter · $6 2 months free · $5 · per month</q> — ídem, anual</li>
-    <li>Tabla «Compare plans»: Minutes included ~10 / ~30; Commercial use ✗ / ✓ (leída en captura, iconos sin texto) — ídem</li>
+    <li><q>Prices exclude all taxes, levies and duties.</q> — ídem</li>
+    <li>Tabla «Compare plans»: Minutes included ~10 / ~30; Commercial use ✗ / ✓. Los iconos no llevan texto: se leyeron en una captura de pantalla.</li>
   </ul></details>
 </article>
 
 <!-- RUNWAY -->
-<article class="ficha" aria-labelledby="runway">
+<article class="ficha" aria-labelledby="runway" data-tabla="runway">
   <div class="ficha-cab"><h3 id="runway">Runway</h3><span class="seccion">Vídeo</span></div>
   <h4 class="bloque-titulo">¿Merece la pena pagar?</h4>
-  <p class="resumen">Gratis son <strong>125 créditos una sola vez</strong>, con marca de agua. <strong>Standard</strong> da 625 créditos al mes, todos los modelos y vídeo sin marca de agua.</p>
+  <p class="resumen">El plan gratuito son <strong>125 créditos una sola vez</strong>, y sus vídeos llevan marca de agua. <strong>Standard</strong> da 625 créditos al mes, todos los modelos y vídeo sin marca de agua.</p>
   <div class="tabla-wrap"><table>
     <thead><tr><th scope="col"></th><th scope="col">Gratis</th><th scope="col">Standard</th></tr></thead>
     <tbody>
-      <tr><th scope="row">Precio</th><td><span class="valor">0 $</span><span class="tipo t-ver">✓ Verificado</span></td><td><span class="valor">15 $/mes en mensual · 12 $/mes en anual (ahorra 36 $/año)</span><span class="tipo t-ver">✓ Verificado</span></td></tr>
-      <tr><th scope="row">Créditos</th><td><span class="valor">125, una sola vez</span><span class="tipo t-ver">✓ Verificado</span></td><td><span class="valor">625 al mes = 52 s de Gen-4.5, 104 s de Gen-4 Turbo o 78 imágenes Gen-4</span><span class="tipo t-ver">✓ Verificado</span></td></tr>
-      <tr><th scope="row">Equivalencia de lo gratis</th><td><span class="valor">≈ 10 s de Gen-4.5 (125 ÷ 625 × 52 s)</span><span class="tipo t-cal">= Cálculo nuestro</span></td><td>—</td></tr>
-      <tr><th scope="row">Modelos</th><td><span class="valor">«Una selección» de modelos</span><span class="tipo t-ver">✓ Verificado</span></td><td><span class="valor">Todos los de vídeo e imagen</span><span class="tipo t-ver">✓ Verificado</span></td></tr>
-      <tr><th scope="row">Marca de agua</th><td><span class="valor">Sí</span><span class="tipo t-ver">✓ Verificado</span></td><td><span class="valor">No («No watermarks»)</span><span class="tipo t-ver">✓ Verificado</span></td></tr>
+      <tr><th scope="row">Precio</th><td><span class="valor">0 $</span><span class="tipo t-ver">✓ Verificado</span></td><td>
+        <dl class="precio"><div><dt>Mensual</dt><dd>15 $/mes</dd></div><div><dt>Anual</dt><dd>12 $/mes equivalentes</dd></div></dl>
+        <span class="tipo t-ver">✓ Verificado</span>
+        <span class="small valor">Total anual: 144 $ <span class="tipo t-cal">= Cálculo nuestro</span> <span class="muted">(12 $ × 12; cuadra con su «Save $36/year»)</span></span></td></tr>
+      <tr><th scope="row">Créditos</th><td><span class="valor">125, una sola vez; no se renuevan</span><span class="tipo t-ver">✓ Verificado</span></td><td><span class="valor">625 al mes = 52 s de Gen-4.5, 104 s de Gen-4 Turbo o 78 imágenes Gen-4</span><span class="tipo t-ver">✓ Verificado</span><span class="small muted valor">La equivalencia es suya.</span></td></tr>
+      <tr><th scope="row">Modelos</th><td><span class="valor">«Una selección»; no dice cuáles</span><span class="tipo t-ver">✓ Verificado</span></td><td><span class="valor">Todos los de vídeo e imagen</span><span class="tipo t-ver">✓ Verificado</span></td></tr>
+      <tr><th scope="row">Marca de agua</th><td><span class="valor">Sí, en todos los vídeos</span><span class="tipo t-ver">✓ Verificado</span></td><td><span class="valor">No («No watermarks»)</span><span class="tipo t-ver">✓ Verificado</span></td></tr>
       <tr><th scope="row">Uso comercial</th><td colspan="2"><span class="valor">Sus términos no lo restringen en ningún plan</span><span class="tipo t-ver">✓ Verificado</span></td></tr>
-      <tr><th scope="row">Coste por segundo de vídeo</th><td>—</td><td><span class="valor">0,29 $/s de Gen-4.5 en mensual (15 $ ÷ 52 s) · 0,23 $/s en anual</span><span class="tipo t-cal">= Cálculo nuestro</span></td></tr>
-      <tr><th scope="row">Tarjeta para empezar</th><td colspan="2"><span class="tipo t-des">? Se contradice</span> <span class="small">Sus páginas de producto dicen que no; sus términos (8.1) dicen que sí. Pendiente de tu decisión.</span></td></tr>
+      <tr><th scope="row">Precio por segundo de vídeo</th><td>—</td><td><span class="valor">Sólo Gen-4.5. Mensual: 0,29 $/s (15 $ ÷ 52 s) · Anual: 0,23 $/s (12 $ ÷ 52 s)</span><span class="tipo t-cal">= Cálculo nuestro</span><span class="small muted valor">Otro modelo cuesta otra cosa. Para el plan gratuito no se calcula, porque no consta que incluya Gen-4.5.</span></td></tr>
       <tr><th scope="row">Impuestos incluidos</th><td colspan="2"><span class="tipo t-des">? No lo publica</span></td></tr>
     </tbody>
   </table></div>
+  <p class="small muted">Si hace falta tarjeta para el plan gratuito no se publica: sus páginas se contradicen.</p>
   <div class="prueba"><span class="tipo t-pro">◆ Probado por nosotros</span> <span class="small muted">Todavía no.</span></div>
-  <details class="fuentes"><summary>Fuentes (3)</summary><ul>
+  <details class="fuentes"><summary>Fuentes (4)</summary><ul>
     <li><q>Free · $0 · /month · 125 credits · 125 one-time credits to explore Runway's AI tools. · A selection of generative creative models to test concepts · 5GB asset storage</q> — runway.com/pricing, 27 oct 2026</li>
-    <li><q>Standard · $15 · /month · 625 credits · 625 credits monthly = 52s of Gen-4.5, 104s of Gen-4 Turbo, or 78 Gen-4 Images (1080p). · Access to all AI video &amp; image models · Up to 3 projects · No watermarks · 4K upscaling · 20GB storage</q> — ídem, mensual</li>
+    <li><q>All videos generated on a Free plan feature a Runway watermark.</q> — help.runwayml.com, «Free plan details», 27 oct 2026</li>
+    <li><q>Standard · $15 · /month · 625 credits · 625 credits monthly = 52s of Gen-4.5, 104s of Gen-4 Turbo, or 78 Gen-4 Images (1080p). · Access to all AI video &amp; image models · Up to 3 projects · No watermarks · 4K upscaling · 20GB storage</q> — runway.com/pricing, mensual</li>
     <li><q>Standard · Billed annually. Save $36/year. · $15 · $12 · /month</q> — ídem, anual</li>
   </ul></details>
 </article>
 
 <!-- CANVA -->
-<article class="ficha" aria-labelledby="canva">
+<article class="ficha" aria-labelledby="canva" data-tabla="canva">
   <div class="ficha-cab"><h3 id="canva">Canva</h3><span class="seccion">Diseño</span></div>
   <h4 class="bloque-titulo">¿Merece la pena pagar?</h4>
-  <p class="resumen">Gratis cubre el editor, 1,6 millones de plantillas y <strong>hasta 20 usos de IA</strong>. <strong>Pro</strong> añade el contenido premium, herramientas como quitar fondos y 10 veces más IA.</p>
+  <p class="resumen">El plan gratuito cubre el editor, 1,6 millones de plantillas y <strong>hasta 20 usos de IA</strong>. <strong>Pro</strong> añade el contenido premium, herramientas como quitar fondos y 10 veces más IA.</p>
   <div class="tabla-wrap"><table>
     <thead><tr><th scope="col"></th><th scope="col">Gratis</th><th scope="col">Pro</th></tr></thead>
     <tbody>
-      <tr><th scope="row">Precio (visto desde España)</th><td><span class="valor">0 €</span><span class="tipo t-ver">✓ Verificado</span></td><td><span class="valor">12 €/mes en mensual · 110 €/año (≈ 9,17 €/mes)</span><span class="tipo t-ver">✓ Verificado</span></td></tr>
+      <tr><th scope="row">Precio</th><td><span class="valor">0 €</span><span class="tipo t-ver">✓ Verificado</span></td><td>
+        <dl class="precio"><div><dt>Mensual</dt><dd>12 €/mes</dd></div><div><dt>Anual</dt><dd>110 € al año</dd></div></dl>
+        <span class="tipo t-ver">✓ Verificado</span>
+        <span class="small valor">Equivalente mensual: 9,17 € <span class="tipo t-cal">= Cálculo nuestro</span> <span class="muted">(110 € ÷ 12)</span></span>
+        <span class="small muted valor">Canva enseña euros a quien entra desde España; es su precio para este público.</span></td></tr>
       <tr><th scope="row">IA</th><td><span class="valor">Hasta 20 usos Standard o Premium</span><span class="tipo t-ver">✓ Verificado</span></td><td><span class="valor">«10x more AI than Canva Free»</span><span class="tipo t-ver">✓ Verificado</span></td></tr>
       <tr><th scope="row">Cada cuánto se renuevan los 20 usos</th><td colspan="2"><span class="tipo t-des">? No lo publica</span></td></tr>
       <tr><th scope="row">Contenido</th><td><span class="valor">1,6 M de plantillas · 5 GB</span><span class="tipo t-ver">✓ Verificado</span></td><td><span class="valor">3,6 M de plantillas (premium incluidas) · 141 M de recursos premium · 5 kits de marca · 100 GB</span><span class="tipo t-ver">✓ Verificado</span></td></tr>
-      <tr><th scope="row">Herramientas</th><td>—</td><td><span class="valor">Cambiar tamaño, traducir, quitar fondo y más (con límites de uso justo)</span><span class="tipo t-ver">✓ Verificado</span></td></tr>
-      <tr><th scope="row">Uso comercial de imágenes de IA</th><td colspan="2"><span class="valor">Sí, en ambos</span><span class="tipo t-ver">✓ Verificado</span></td></tr>
-      <tr><th scope="row">Coste por unidad</th><td colspan="2"><span class="tipo t-des">? Sin equivalencia válida</span> <span class="small">Cada herramienta de IA gasta la cuota a un ritmo distinto, y Canva lo dice: <q>use your shared AI allowance at different rates</q>. Un «coste por uso» sería inventado.</span></td></tr>
+      <tr><th scope="row">Herramientas</th><td>—</td><td><span class="valor">Cambiar tamaño, traducir, quitar fondo y más, con límites de uso justo</span><span class="tipo t-ver">✓ Verificado</span></td></tr>
+      <tr><th scope="row">Uso comercial de imágenes de IA</th><td colspan="2"><span class="valor">Sí, en los dos planes</span><span class="tipo t-ver">✓ Verificado</span></td></tr>
+      <tr><th scope="row">Precio por unidad</th><td colspan="2"><span class="tipo t-des">? Sin unidad comparable</span> <span class="small">Canva dice que sus herramientas <q>use your shared AI allowance at different rates</q>. Un «precio por uso» sería inventado.</span></td></tr>
       <tr><th scope="row">Marca de agua · tarjeta · impuestos</th><td colspan="2"><span class="tipo t-des">? No lo publica</span></td></tr>
     </tbody>
   </table></div>
   <div class="prueba"><span class="tipo t-pro">◆ Probado por nosotros</span> <span class="small muted">Todavía no.</span></div>
-  <details class="fuentes"><summary>Fuentes (3)</summary><ul>
+  <details class="fuentes"><summary>Fuentes (4)</summary><ul>
     <li><q>Free · € · 0 · /year for one person · 1.6M+ templates to start fast · 5GB of cloud storage · AI usage · Up to 20 Standard or Premium AI uses^</q> — canva.com/pricing, 27 oct 2026</li>
     <li><q>Pro · € · 12 · /month for one person · Start a free trial</q> — ídem, mensual</li>
     <li><q>Pro · € · 110 · /year for one person · AI tools (resize, translate, remove background, and more)+ · … · 10x more AI than Canva Free (Premium or Ultra AI)^</q> — ídem, anual</li>
+    <li><q>^Standard, Premium, and Ultra AI tools use your shared AI allowance at different rates.</q> — ídem</li>
   </ul></details>
 </article>
 
-<h2>2 · Comparación de calidad-precio dentro de una misma función</h2>
-<p class="muted small">Sólo se comparan productos que resuelven la misma necesidad, con la misma unidad y los mismos derechos. Si no hay equivalencia válida, la comparación no se hace.</p>
+<h2>2 · Comparación dentro de una misma función</h2>
+<p class="muted small">Sólo se comparan productos que resuelven la misma necesidad, con la misma unidad y los mismos derechos. Si no hay equivalencia válida, la comparación no se hace. No dice cuál es mejor: eso pide una prueba propia.</p>
 
-<article class="ficha" aria-labelledby="cmp-voz">
-  <h3 id="cmp-voz">Voz para publicar: texto a voz con derechos comerciales</h3>
-  <p class="small muted">La necesidad: generar locuciones que puedas descargar y usar en un trabajo comercial. Ningún plan gratuito lo permite en estas dos, así que se compara el primer plan que sí lo permite.</p>
+<article class="ficha" aria-labelledby="cmp-voz" data-tabla="cmp-voz">
+  <h3 id="cmp-voz">Voz para publicar: el primer plan con derechos comerciales</h3>
+  <p class="small muted">La necesidad es generar locuciones que puedas descargar y usar en un trabajo comercial. En estas dos herramientas ningún plan gratuito lo permite, así que se compara el primer plan que sí lo hace.</p>
   <div class="tabla-wrap"><table>
     <thead><tr><th scope="col"></th><th scope="col">ElevenLabs · Starter</th><th scope="col">Murf · Creator</th></tr></thead>
     <tbody>
-      <tr><th scope="row">Mensual</th><td>6 $ · ~30 min</td><td>29 $ · 120 min</td></tr>
-      <tr><th scope="row">Anual (por mes)</th><td>5 $ · ~30 min</td><td>19 $ · 120 min de media (24 h al año)</td></tr>
-      <tr><th scope="row">Por minuto, mensual <span class="tipo t-cal">= Cálculo</span></th><td>~0,20 $</td><td>0,24 $</td></tr>
-      <tr><th scope="row">Por minuto, anual <span class="tipo t-cal">= Cálculo</span></th><td>~0,17 $</td><td>0,16 $</td></tr>
+      <tr><th scope="row">Mensual</th><td>6 $/mes</td><td>29 $/mes</td></tr>
+      <tr><th scope="row">Anual</th><td>5 $/mes equivalentes · 60 $ al año <span class="tipo t-cal">= Cálculo</span></td><td>19 $/mes equivalentes · 228 $ al año</td></tr>
+      <tr><th scope="row">Voz al mes</th><td>~30 min: <strong>estimación</strong> del fabricante</td><td>120 min: <strong>cuota</strong> (en anual, 24 h al año)</td></tr>
+      <tr><th scope="row">Precio por minuto, mensual <span class="tipo t-cal">= Cálculo</span></th><td>~0,20 $</td><td>0,24 $</td></tr>
+      <tr><th scope="row">Precio por minuto, anual <span class="tipo t-cal">= Cálculo</span></th><td>~0,17 $</td><td>0,16 $</td></tr>
       <tr><th scope="row">Uso comercial</th><td>Sí</td><td>Sí</td></tr>
       <tr><th scope="row">Si necesitas más</th><td>Minuto extra ~0,20 $</td><td><span class="tipo t-des">? No lo publica</span></td></tr>
-      <tr><th scope="row">Calidad de la voz</th><td colspan="2"><span class="tipo t-pro">◆ Sin prueba propia</span> <span class="small">No lo comparamos hasta escuchar las dos con el mismo texto.</span></td></tr>
+      <tr><th scope="row">Calidad de la voz</th><td colspan="2"><span class="tipo t-pro">◆ Sin prueba propia</span> <span class="small">No comparamos la calidad hasta escuchar las dos con el mismo texto.</span></td></tr>
     </tbody>
   </table></div>
-  <p class="small">Lectura honesta: con pocos minutos al mes, ElevenLabs cuesta mucho menos (6 $ frente a 29 $). Por minuto, en anual, quedan casi igual. Los minutos de ElevenLabs son aproximados; los de Murf son tiempo de voz generada. La equivalencia vale para orientarse, no al céntimo.</p>
+  <div class="supuestos"><strong>Supuestos del cálculo por minuto: no es una equivalencia garantizada.</strong>
+    <ul>
+      <li>Los minutos de ElevenLabs son una estimación suya («~»). Lo que se gasta son créditos, que dependen del modelo y del texto.</li>
+      <li>Los minutos de Murf son una cuota de «tiempo de generación de voz». No consta si las regeneraciones la descuentan.</li>
+      <li>El cálculo supone que gastas todo lo incluido. Si usas menos, el precio por minuto sube en los dos.</li>
+    </ul>
+  </div>
+  <p class="small">Lo que dicen las cifras, sin más. El plan de entrada de ElevenLabs cuesta menos al mes (6 $ frente a 29 $). El de Murf incluye más minutos (120 frente a ~30). Con esos supuestos, el precio por minuto queda cerca en los dos. Ninguna de las dos es mejor ni peor por eso.</p>
 </article>
 
-<div class="aviso"><strong>Lo que no se compara, y por qué.</strong> Runway y Canva no tienen pareja en el piloto. Runway sólo se compararía con otros generadores de vídeo (Kling, Hailuo, Pika…) en segundos del mismo tipo de vídeo. Canva es un editor de diseño con IA dentro, y meterlo en la tabla de vídeo o de imagen mezclaría necesidades distintas.</div>
+<div class="aviso"><strong>Lo que no se compara, y por qué.</strong> Runway y Canva no tienen pareja en el piloto. Runway sólo se compararía con otros generadores de vídeo, en segundos del mismo tipo de vídeo. Canva es un editor de diseño con IA dentro: ponerlo junto a un generador de imágenes mezclaría necesidades distintas.</div>
 
-<h2>3 · Auditoría de «valor para creadores»</h2>
-<p>En la portada ya no influye: no la enlaza ni la usa. Pero sigue pesando en dos sitios públicos:</p>
-<div class="alerta">
-  <p><strong>/colecciones/para-creadores</strong> (72 herramientas en producción)</p>
+<h2>3 · «Para creadores» sin notas, y el buscador</h2>
+<div class="hecho">
+  <p><strong>Hecho en la rama <code>piloto-calidad-precio</code>; no está publicado.</strong></p>
   <ul>
-    <li><strong>Entra por esa nota:</strong> la selección exige «valor para creadores» de 7 o más. Es un juicio editorial sin fuente.</li>
-    <li><strong>Promete lo que no comprueba:</strong> el texto dice que deja fuera «la marca de agua y la restricción comercial». En realidad acepta la marca de agua «sin comprobar» y no mira el uso comercial. Por eso entran Claude, ElevenLabs, Suno y Zed, que no permiten uso comercial gratis.</li>
-    <li><strong>Mezcla necesidades:</strong> entran bibliotecas para programar agentes (CrewAI, LangGraph…), que no son herramientas de creación de contenido.</li>
-    <li><strong>El orden es un ranking escondido:</strong> se ordena por la suma de las cinco notas (<code>scoreTotal</code>). Ollama sale primero por eso. Afecta a todas las colecciones, no sólo a esta.</li>
+    <li><strong>Colección temática:</strong> entra todo lo que genera o edita imagen, vídeo, voz o música y tiene acceso gratuito. Son 42 herramientas, frente a 72 elegidas por nota. Ya no entran las bibliotecas de agentes.</li>
+    <li><strong>Sin promesa general de uso comercial:</strong> el texto dice que estar en la colección no significa poder usar comercialmente el resultado. Cada tarjeta enseña el uso comercial de su plan gratuito, sólo cuando está verificado; si no, «Sin comprobar».</li>
+    <li><strong>Orden alfabético en todas las colecciones,</strong> no sólo en esta. Se acabó el ranking escondido por la suma de notas.</li>
+    <li><strong>Buscador:</strong> desaparece la etiqueta oculta «Para creadores».</li>
+    <li><strong>Seis pruebas nuevas lo vigilan:</strong> poner todas las notas a 0 o a 10 no mete ni saca a nadie de ninguna colección; el orden es alfabético; la colección sólo admite herramientas de creación con acceso gratuito; el texto no hace promesas generales; y ninguna ficha lleva la etiqueta. Pasan las 1.653 pruebas.</li>
   </ul>
-  <p><strong>Buscador:</strong> las herramientas con «valor para creadores» de 8 o más reciben la etiqueta oculta «Para creadores» en el índice de búsqueda. Una búsqueda con «creadores» las favorece sin que el lector sepa por qué.</p>
 </div>
-<p><strong>Propuesta:</strong></p>
-<ol>
-  <li><strong>Que la colección se defina sólo por hechos verificados:</strong> produce imagen, vídeo o audio; tiene acceso gratuito; marca de agua «no» verificada; uso comercial «sí» verificado.</li>
-  <li><strong>Que todas las colecciones vayan en orden alfabético,</strong> como ya va el resto del catálogo.</li>
-  <li><strong>Que la etiqueta «Para creadores» salga del índice de búsqueda.</strong></li>
-</ol>
-<p>Con la regla nueva, <strong>hoy no entraría ninguna herramienta</strong>: ninguna tiene a la vez marca de agua «no» y uso comercial «sí» verificados. Lo honesto es retirar la colección hasta que los datos la llenen, o cambiarla por otra que sí se pueda sostener, como «Sin marca de agua» o «Con uso comercial». Es un cambio de funcionamiento: no está hecho.</p>
+<figure>
+  <img src="coleccion-para-creadores.png" alt="Página de la colección reconstruida en local: título «Para crear imagen, vídeo y audio», 42 herramientas en orden alfabético desde Adobe Firefly, cada tarjeta con tarjeta, registro y uso comercial.">
+  <figcaption>La colección reconstruida, en local. La URL es la misma, así que no hace falta redirección.</figcaption>
+</figure>
+<p class="small"><strong>Lo que queda de las notas, para que lo decidas:</strong></p>
+<ul class="small">
+  <li><strong>Dos etiquetas ocultas del buscador también salen de notas:</strong> «Fácil de empezar» (facilidad de 8 o más) y «Recomendada» (suma de 80 o más). No vienen de «valor para creadores», así que no las he tocado. Propongo quitarlas por la misma razón.</li>
+  <li><strong>Las tarjetas dicen «Uso comercial» sin aclarar que es el del plan gratuito.</strong> En la colección lo explica el texto. Cambiar la etiqueta de la tarjeta afectaría a toda la web, así que lo dejo para cuando se extienda el piloto.</li>
+  <li><strong>El uso comercial de los planes de pago</strong> sólo está investigado en estas cuatro herramientas. En el resto se añadiría ficha a ficha, al extender el piloto.</li>
+</ul>
 
 <h2>4 · Afiliación</h2>
 <ul>
-  <li>El bloque y las comparaciones se generan sólo a partir de los datos de la ficha. El campo de afiliación no entra en el cálculo ni en el orden.</li>
-  <li>Una prueba automática lo vigilará: marcar una herramienta como afiliada no cambia ni una celda del bloque ni su posición en una comparación.</li>
-  <li>Si hay enlace de afiliación, va marcado como tal junto al botón y no dentro de la tabla.</li>
+  <li>El bloque y las comparaciones se generan sólo con datos verificados de la ficha. El campo de afiliación no entra en ningún cálculo ni en ningún orden.</li>
+  <li>Al programarlo, una prueba automática comprobará que marcar una herramienta como afiliada no cambia ni una celda del bloque ni su posición en una comparación.</li>
+  <li>Si hay enlace de afiliación, va marcado junto al botón, fuera de la tabla.</li>
 </ul>
 
-<h2>5 · Lo que necesito que decidas</h2>
+<h2>5 · Para la aprobación final</h2>
 <ol>
-  <li><strong>El bloque:</strong> ¿te sirve así?, ¿o quieres el resumen arriba más corto o quitarlo?</li>
-  <li><strong>Los cálculos por unidad</strong> («coste por minuto», «por segundo de vídeo»), marcados como cálculo nuestro: ¿se muestran o prefieres sólo las cifras del fabricante?</li>
-  <li><strong>La moneda:</strong> Canva muestra euros a quien entra desde España, y las otras tres sólo publican dólares. ¿Mostramos cada precio en su moneda original, sin convertir? Es lo que propongo.</li>
-  <li><strong>La colección «para creadores»:</strong> con hechos hoy quedaría vacía. ¿La retiramos o la sustituimos por otra que sí se pueda sostener?</li>
-  <li><strong>Runway:</strong> ¿qué hacemos con la tarjeta, que se contradice entre sus páginas?</li>
+  <li><strong>Aspecto:</strong> ¿apruebas el bloque y la comparación tal como se ven aquí?</li>
+  <li><strong>Etiquetas del buscador:</strong> ¿quito también «Fácil de empezar» y «Recomendada»?</li>
+  <li><strong>Siguiente paso, cuando lo apruebes:</strong> programar el bloque de verdad en las cuatro fichas, con los datos en el catálogo, las citas vigiladas y la prueba de afiliación. Lo haría en la misma rama, sin publicar, para una última revisión en la web real.</li>
 </ol>
 
 </main>

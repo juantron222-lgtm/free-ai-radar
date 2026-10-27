@@ -89,16 +89,22 @@ Estas herramientas entregan el resultado limpio en su capa gratuita. Comprueba t
   },
   {
     slug: 'para-creadores',
-    title: 'IA gratis para creadores de contenido',
-    h1: 'Para quien produce por su cuenta',
-    lede: 'Las que mejor resuelven el trabajo de alguien que crea contenido sin presupuesto ni equipo.',
+    title: 'IA gratis para crear contenido',
+    h1: 'Para crear imagen, vídeo y audio',
+    lede: 'Herramientas con acceso gratuito que generan o editan imagen, vídeo, voz o música. En orden alfabético: no es un ranking.',
     description:
-      'Selección de herramientas de IA gratuitas orientadas a creadores independientes: imagen, vídeo, voz y edición sin coste.',
-    context: `Esta colección cruza tres condiciones: valor para quien crea contenido por su cuenta, capa gratuita utilizable de verdad y ausencia de las trampas que más estorban a quien entrega trabajo — marca de agua y restricción comercial.
+      'Herramientas de IA con acceso gratuito para crear contenido: imagen, vídeo, voz, música y edición. Cada ficha dice qué permite el plan gratuito.',
+    /*
+     * Antes se elegían por la nota «valor para creadores», un juicio sin
+     * fuente, y el texto prometía que ninguna ponía «restricción comercial»
+     * sin comprobarlo. Ahora la colección es temática: entra lo que produce
+     * medios y tiene acceso gratuito, y el uso comercial lo dice cada tarjeta
+     * con su dato verificado.
+     */
+    context: `Aquí está lo que genera o edita imagen, vídeo, voz o música y se puede usar sin pagar. La colección no elige «las mejores» ni las ordena por ninguna nota: van en orden alfabético.
 
-No es una lista de "lo más popular": es lo que sobrevive a mirar la letra pequeña.`,
-    match: (tool) =>
-      tieneAccesoGratuito(tool) && tool.scores.creatorValue >= 7 && tool.freePlan.hasWatermark !== 'yes',
+Estar aquí no significa que puedas usar comercialmente lo que generes, ni que el resultado salga sin marca de agua. Eso cambia de una herramienta a otra, y cada tarjeta dice el **uso comercial del plan gratuito** sólo cuando lo hemos confirmado en la fuente oficial. Si dice «Sin comprobar», no lo sabemos.`,
+    match: (tool) => tieneAccesoGratuito(tool) && produceMedios(tool.capabilities),
   },
   {
     slug: 'sin-registro',
@@ -118,10 +124,17 @@ export function getCollection(slug: string): Collection | undefined {
   return COLLECTIONS.find((collection) => collection.slug === slug);
 }
 
+/**
+ * Las fichas de una colección, en orden alfabético.
+ *
+ * Se ordenaban por `scoreTotal`, la suma de cinco notas editoriales sin
+ * fuente: un ranking escondido en cada colección. Lo alfabético no insinúa
+ * nada, como en el resto del catálogo (`getAllTools`).
+ */
 export function getCollectionTools(collection: Collection): Tool[] {
   return getAllTools()
     .filter(collection.match)
-    .sort((a, b) => b.scoreTotal - a.scoreTotal);
+    .sort((a, b) => a.name.localeCompare(b.name, 'es'));
 }
 
 /** Only collections with enough entries to be worth a page. */

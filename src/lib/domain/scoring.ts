@@ -202,7 +202,6 @@ export function deriveTags(
   if (tool.hosting === 'local' || tool.hosting === 'hybrid') tags.add('Funciona en local');
   if (tool.freeModel === 'free_real') tags.add('Gratis real');
   if (tool.scores.ease >= 8) tags.add('Fácil de empezar');
-  if (tool.scores.creatorValue >= 8) tags.add('Para creadores');
   if (tool.scoreTotal >= 80) tags.add('Recomendada');
   if (tool.freePlan.requiresCreditCard === 'yes') tags.add('Pide tarjeta');
   if (tool.freeModel === 'trial' || tool.freeModel === 'demo') tags.add('Acceso limitado');
