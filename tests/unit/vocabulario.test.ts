@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { getAllTools } from '@lib/data/catalog';
 import { filaDe } from '@lib/data/portada';
+import { usoComercialDe } from '@lib/domain/uso-comercial';
 import { MOTIVO_LABEL, etiquetaDeHecho, motivoDelHueco } from '@lib/domain/evidencia';
 import { OPENNESS_LABEL, TRI_STATE_LABEL } from '@lib/domain/primitives';
 
@@ -65,6 +66,16 @@ describe('un solo vocabulario para lo que no sabemos', () => {
     for (const tool of getAllTools()) {
       const fila = filaDe(tool);
       for (const [clave, field, campo] of campos) {
+        /*
+         * El uso comercial conocido dice además a qué plan se refiere («Sí,
+         * gratis», «Sólo de pago», «No, gratis no»: @lib/domain/uso-comercial).
+         * Lo que no sabemos se sigue diciendo con el mismo vocabulario en todas
+         * partes, que es lo que esta prueba protege.
+         */
+        if (clave === 'comercial' && usoComercialDe(tool).estado !== 'sin-dato') {
+          expect(fila[clave].etiqueta, `${tool.slug} · ${clave}`).toBe(usoComercialDe(tool).corta);
+          continue;
+        }
         expect(fila[clave].etiqueta, `${tool.slug} · ${clave}`).toBe(etiquetaDeHecho(tool, field, tool.freePlan[campo]));
       }
     }

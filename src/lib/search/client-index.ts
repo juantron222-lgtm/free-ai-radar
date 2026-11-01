@@ -88,7 +88,7 @@ export function buildClientIndex(
           tool.tagline,
           tool.descriptionShort,
           tool.useCases.join(' '),
-          tool.tags.join(' '),
+          // Sin `tool.tags`: eran opiniones escritas a mano («Ideal para creadores»), no hechos.
           tool.badges.join(' '),
         ].join(' ')
       ),

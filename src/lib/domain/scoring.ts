@@ -1,3 +1,4 @@
+import { esfuerzoDe } from './esfuerzo';
 import { produceMedios } from './medios';
 import type { ScoreComponents, Tool } from './tool';
 
@@ -185,9 +186,16 @@ export function daysBetween(isoDate: string, now: Date = new Date()): number {
 /**
  * Auto-generated badges. Derived on read so a stored badge can never contradict
  * the record it describes.
+ *
+ * Sólo hechos. «Recomendada» (suma de notas ≥ 80), «Fácil de empezar»
+ * (facilidad ≥ 8) y «Para creadores» salían de notas editoriales sin fuente y
+ * entraban en el buscador sin que nadie lo viera; se retiraron el 27 de octubre
+ * y el 1 de noviembre de 2026. Lo que cuesta empezar se dice ahora con la
+ * clasificación de esfuerzo de la ficha (`startEffort`, la misma etiqueta que
+ * enseña su panel), no con una nota.
  */
 export function deriveTags(
-  tool: Pick<Tool, 'freeModel' | 'freePlan' | 'openSource' | 'hosting' | 'scoreTotal' | 'scores'> & {
+  tool: Pick<Tool, 'freeModel' | 'freePlan' | 'openSource' | 'hosting' | 'startEffort'> & {
     capabilities?: readonly string[];
   }
 ): string[] {
@@ -201,8 +209,7 @@ export function deriveTags(
   if (tool.openSource === 'yes') tags.add('Open source');
   if (tool.hosting === 'local' || tool.hosting === 'hybrid') tags.add('Funciona en local');
   if (tool.freeModel === 'free_real') tags.add('Gratis real');
-  if (tool.scores.ease >= 8) tags.add('Fácil de empezar');
-  if (tool.scoreTotal >= 80) tags.add('Recomendada');
+  tags.add(esfuerzoDe(tool).label);
   if (tool.freePlan.requiresCreditCard === 'yes') tags.add('Pide tarjeta');
   if (tool.freeModel === 'trial' || tool.freeModel === 'demo') tags.add('Acceso limitado');
 

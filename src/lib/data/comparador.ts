@@ -9,6 +9,7 @@ import {
 } from '@lib/domain/taxonomy';
 import type { EvidenceField, Tool } from '@lib/domain/tool';
 import { esfuerzoDe } from '@lib/domain/esfuerzo';
+import { usoComercialDe } from '@lib/domain/uso-comercial';
 import {
   MOTIVO_EXPLICACION,
   MOTIVO_LABEL,
@@ -156,8 +157,8 @@ export const ROWS: Row[] = [
   {
     label: '¿Uso comercial?',
     values: (t) =>
-      triEstado(t, 'freePlan.commercialUse', t.freePlan.commercialUse, TRI_STATE_LABEL[t.freePlan.commercialUse]),
-    better: (v) => v === 'Sí',
+      triEstado(t, 'freePlan.commercialUse', t.freePlan.commercialUse, usoComercialDe(t).corta),
+    better: (v) => v === 'Sí, gratis',
   },
   { label: 'Dónde se ejecuta', values: (t) => valor(HOSTING_LABEL[t.hosting]) },
   { label: 'Cuánto cuesta empezar', values: (t) => valor(esfuerzoDe(t).label) },

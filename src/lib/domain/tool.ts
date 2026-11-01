@@ -625,11 +625,15 @@ export function hydrateTool(record: ToolRecord, now: Date = new Date()): Tool {
         freePlan: record.freePlan,
         openSource: record.openSource,
         hosting: record.hosting,
-        scoreTotal,
-        scores: record.scores,
+        startEffort: record.startEffort,
         capabilities: record.capabilities,
       }),
-      ...record.tags,
+      /*
+       * `record.tags` ya no entra: eran etiquetas escritas a mano («Ideal para
+       * creadores», «Bueno para vídeo»), opiniones sin fuente que el buscador
+       * usaba para emparejar. Siguen en el JSON por si alguna se convierte en
+       * un hecho con cita; mientras, no llegan al lector.
+       */
     ]),
   ];
 

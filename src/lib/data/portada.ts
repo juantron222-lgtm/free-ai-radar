@@ -2,6 +2,7 @@ import type { EvidenceField, Tool } from '@lib/domain/tool';
 import type { TriState } from '@lib/domain/primitives';
 import { TRI_STATE_LABEL } from '@lib/domain/primitives';
 import { MOTIVO_LABEL, motivoDelHueco, type MotivoDeHueco } from '@lib/domain/evidencia';
+import { usoComercialDe } from '@lib/domain/uso-comercial';
 import { getAllTools } from './catalog';
 import { freeAccessLabel } from './category-page';
 import { cifrasDelCatalogo } from './cifras';
@@ -72,8 +73,18 @@ export function filaDe(tool: Tool): FilaEvidencia {
     cantidad: acceso.amount ?? acceso.amountFallback,
     tarjeta: condicion(tool, 'freePlan.requiresCreditCard', tool.freePlan.requiresCreditCard, 'no'),
     registro: condicion(tool, 'freePlan.requiresSignup', tool.freePlan.requiresSignup, 'no'),
-    comercial: condicion(tool, 'freePlan.commercialUse', tool.freePlan.commercialUse, 'yes'),
+    comercial: comercialDe(tool),
   };
+}
+
+/**
+ * El uso comercial dice siempre a qué plan se refiere: «Sí, gratis», «Sólo de
+ * pago», «No, gratis no». Ver @lib/domain/uso-comercial.
+ */
+function comercialDe(tool: Tool): Condicion {
+  const uso = usoComercialDe(tool);
+  if (uso.estado === 'sin-dato') return condicion(tool, 'freePlan.commercialUse', tool.freePlan.commercialUse, 'yes');
+  return { etiqueta: uso.corta, tono: uso.tono, sinConfirmar: false };
 }
 
 export interface Recomendada {

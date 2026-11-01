@@ -1,0 +1,562 @@
+{
+  "fichas": {
+    "murf-ai": {
+      "producto": "estudio web",
+      "plan": "Creator",
+      "moneda": "USD",
+      "precio": {
+        "mensual": 29,
+        "anualPorMes": 19,
+        "anualTotal": 228,
+        "fuentes": [
+          1,
+          2
+        ]
+      },
+      "comercialDePago": "yes",
+      "resumen": "El plan gratuito sirve para escuchar las voces: no deja descargar el audio ni usarlo comercialmente. El primer plan que permite las dos cosas es Creator.",
+      "unidad": {
+        "nombre": "minuto de voz",
+        "porMes": 120,
+        "naturaleza": "cuota",
+        "fuentes": [
+          1,
+          2
+        ],
+        "supuestos": [
+          "Supone que gastas toda la cuota: si usas menos, el minuto sale más caro.",
+          "No consta si las regeneraciones descuentan tiempo de la cuota.",
+          "En anual la cuota es de 24 horas al año; se reparte a 120 minutos por mes."
+        ]
+      },
+      "filas": [
+        {
+          "etiqueta": "Voz incluida",
+          "gratis": {
+            "texto": "10 minutos",
+            "tipo": "verificado",
+            "fuentes": [
+              0
+            ]
+          },
+          "pago": {
+            "texto": "2 horas al mes en mensual; 24 horas al año en anual",
+            "tipo": "verificado",
+            "fuentes": [
+              1,
+              2
+            ]
+          }
+        },
+        {
+          "etiqueta": "Descargas",
+          "gratis": {
+            "texto": "No",
+            "tipo": "verificado",
+            "fuentes": [
+              0
+            ]
+          },
+          "pago": {
+            "texto": "Ilimitadas",
+            "tipo": "verificado",
+            "fuentes": [
+              2
+            ]
+          }
+        },
+        {
+          "etiqueta": "Uso comercial",
+          "gratis": {
+            "texto": "No",
+            "tipo": "verificado",
+            "fuentes": [
+              0
+            ]
+          },
+          "pago": {
+            "texto": "Sí («Commercial Rights»)",
+            "tipo": "verificado",
+            "fuentes": [
+              2
+            ]
+          }
+        },
+        {
+          "etiqueta": "Proyectos y voces",
+          "gratis": {
+            "texto": "10 proyectos",
+            "tipo": "verificado",
+            "fuentes": [
+              0
+            ]
+          },
+          "pago": {
+            "texto": "100 proyectos, más de 200 voces e integración con Canva",
+            "tipo": "verificado",
+            "fuentes": [
+              1,
+              2
+            ]
+          }
+        },
+        {
+          "etiqueta": "Tarjeta para empezar",
+          "gratis": {
+            "texto": "No hace falta",
+            "tipo": "verificado",
+            "fuentes": [
+              0
+            ]
+          }
+        }
+      ],
+      "fuentes": [
+        {
+          "url": "https://murf.ai/pricing",
+          "detalle": "pestaña «Studio»",
+          "cita": "Free · Get started. No Credit Card required · $0 / month · 10 Projects · 10 minutes of Voice Generation · 1 Editor · Everything in Business Plan (No Downloads) · No Commercial Rights",
+          "comprobadoEl": "2026-11-01"
+        },
+        {
+          "url": "https://murf.ai/pricing",
+          "detalle": "pestaña «Studio», facturación mensual",
+          "cita": "Creator · Starter plan to create voiceovers for Individuals & Freelancers · $29 / month · 100 Projects · 2 hrs/Month of Voice Generation · 1 Editor",
+          "comprobadoEl": "2026-11-01"
+        },
+        {
+          "url": "https://murf.ai/pricing",
+          "detalle": "pestaña «Studio», facturación anual",
+          "cita": "Creator · $19 / month · $228 Billed Annually · 100 Projects · 24 hrs/Year of Voice Generation · All 200+ Voices, Styles & Tonalities · Unlimited Downloads · Canva Integration · Commercial Rights",
+          "comprobadoEl": "2026-11-01"
+        }
+      ]
+    },
+    "elevenlabs": {
+      "plan": "Starter",
+      "moneda": "USD",
+      "precio": {
+        "mensual": 6,
+        "anualPorMes": 5,
+        "fuentes": [
+          1,
+          2
+        ]
+      },
+      "comercialDePago": "yes",
+      "resumen": "El plan gratuito da 10.000 créditos al mes, sólo para uso personal. Starter añade la licencia comercial, la clonación instantánea de voz y el triple de créditos.",
+      "unidad": {
+        "nombre": "minuto de voz",
+        "porMes": 30,
+        "naturaleza": "estimacion",
+        "fuentes": [
+          3
+        ],
+        "supuestos": [
+          "Los minutos son una estimación del fabricante («~»): lo que se gasta son créditos, y cuántos depende del modelo y del texto."
+        ]
+      },
+      "filas": [
+        {
+          "etiqueta": "Créditos",
+          "gratis": {
+            "texto": "10.000 al mes",
+            "tipo": "verificado",
+            "fuentes": [
+              0
+            ]
+          },
+          "pago": {
+            "texto": "30.000 al mes",
+            "tipo": "verificado",
+            "fuentes": [
+              1
+            ]
+          }
+        },
+        {
+          "etiqueta": "Minutos de voz",
+          "gratis": {
+            "texto": "~10 al mes",
+            "tipo": "verificado",
+            "fuentes": [
+              3
+            ],
+            "nota": "Estimación del fabricante, no una cuota."
+          },
+          "pago": {
+            "texto": "~30 al mes",
+            "tipo": "verificado",
+            "fuentes": [
+              3
+            ],
+            "nota": "Estimación del fabricante, no una cuota."
+          }
+        },
+        {
+          "etiqueta": "Uso comercial",
+          "gratis": {
+            "texto": "No: sólo uso personal",
+            "tipo": "verificado",
+            "fuentes": [
+              3,
+              5
+            ]
+          },
+          "pago": {
+            "texto": "Sí («Commercial License»)",
+            "tipo": "verificado",
+            "fuentes": [
+              1,
+              3
+            ]
+          }
+        },
+        {
+          "etiqueta": "Otras diferencias",
+          "gratis": {
+            "texto": "3 proyectos en Studio",
+            "tipo": "verificado",
+            "fuentes": [
+              0
+            ]
+          },
+          "pago": {
+            "texto": "Clonación instantánea de voz, 20 proyectos, Dubbing Studio y uso comercial de la música",
+            "tipo": "verificado",
+            "fuentes": [
+              1
+            ]
+          }
+        },
+        {
+          "etiqueta": "Tarjeta para empezar",
+          "gratis": {
+            "texto": "No hace falta",
+            "tipo": "verificado",
+            "fuentes": [
+              5
+            ]
+          }
+        },
+        {
+          "etiqueta": "Impuestos",
+          "ambos": {
+            "texto": "No están incluidos en el precio",
+            "tipo": "verificado",
+            "fuentes": [
+              4
+            ]
+          }
+        }
+      ],
+      "fuentes": [
+        {
+          "url": "https://elevenlabs.io/pricing",
+          "detalle": "facturación mensual",
+          "cita": "Free · $0 · per month · 3 Projects in Studio · 10k credits · per month",
+          "comprobadoEl": "2026-11-01"
+        },
+        {
+          "url": "https://elevenlabs.io/pricing",
+          "detalle": "facturación mensual",
+          "cita": "Starter · $6 · per month · Everything in free, plus · Commercial License · Instant Voice Cloning · 20 Projects in Studio · Music commercial use · Dubbing Studio · Image & Video · 30k credits · per month",
+          "comprobadoEl": "2026-11-01"
+        },
+        {
+          "url": "https://elevenlabs.io/pricing",
+          "detalle": "facturación anual",
+          "cita": "Starter · $6 2 months free · $5 · per month",
+          "comprobadoEl": "2026-11-01"
+        },
+        {
+          "url": "https://elevenlabs.io/pricing",
+          "detalle": "tabla «Compare plans», texto a voz",
+          "cita": "Minutes included · ~10 · ~30 · Commercial use · ✗ · ✓ [iconos sin texto, leídos en una captura]",
+          "comprobadoEl": "2026-11-01"
+        },
+        {
+          "url": "https://elevenlabs.io/pricing",
+          "cita": "Prices exclude all taxes, levies and duties.",
+          "comprobadoEl": "2026-11-01"
+        },
+        {
+          "url": "https://elevenlabs.io/v4",
+          "cita": "Free plan comes with: · 10,000 credits each month · Personal use · No credit card required",
+          "comprobadoEl": "2026-11-01"
+        }
+      ]
+    },
+    "runwayml": {
+      "plan": "Standard",
+      "moneda": "USD",
+      "precio": {
+        "mensual": 15,
+        "anualPorMes": 12,
+        "fuentes": [
+          2,
+          3
+        ],
+        "notaAnual": "Cuadra con su «Save $36/year»."
+      },
+      "comercialDePago": "yes",
+      "resumen": "El plan gratuito son 125 créditos una sola vez, y sus vídeos llevan marca de agua. Standard da 625 créditos al mes, todos los modelos y vídeo sin marca de agua.",
+      "unidad": {
+        "nombre": "segundo de vídeo Gen-4.5",
+        "porMes": 52,
+        "naturaleza": "equivalencia",
+        "fuentes": [
+          2
+        ],
+        "supuestos": [
+          "Sólo vale para Gen-4.5: otro modelo gasta los créditos a otro ritmo.",
+          "Supone que gastas todos los créditos del mes.",
+          "No se calcula para el plan gratuito: no consta que incluya Gen-4.5."
+        ]
+      },
+      "filas": [
+        {
+          "etiqueta": "Créditos",
+          "gratis": {
+            "texto": "125, una sola vez; no se renuevan",
+            "tipo": "verificado",
+            "fuentes": [
+              0,
+              1
+            ]
+          },
+          "pago": {
+            "texto": "625 al mes: 52 s de Gen-4.5, 104 s de Gen-4 Turbo o 78 imágenes Gen-4",
+            "tipo": "verificado",
+            "fuentes": [
+              2
+            ],
+            "nota": "La equivalencia es del fabricante."
+          }
+        },
+        {
+          "etiqueta": "Modelos",
+          "gratis": {
+            "texto": "«Una selección»; no dice cuáles",
+            "tipo": "verificado",
+            "fuentes": [
+              0
+            ]
+          },
+          "pago": {
+            "texto": "Todos los de vídeo e imagen",
+            "tipo": "verificado",
+            "fuentes": [
+              2
+            ]
+          }
+        },
+        {
+          "etiqueta": "Marca de agua",
+          "gratis": {
+            "texto": "Sí, en todos los vídeos",
+            "tipo": "verificado",
+            "fuentes": [
+              1
+            ]
+          },
+          "pago": {
+            "texto": "No («No watermarks»)",
+            "tipo": "verificado",
+            "fuentes": [
+              2
+            ]
+          }
+        },
+        {
+          "etiqueta": "Uso comercial",
+          "ambos": {
+            "texto": "Sus términos no lo restringen",
+            "tipo": "verificado",
+            "fuentes": [
+              4
+            ]
+          }
+        },
+        {
+          "etiqueta": "Impuestos",
+          "ambos": {
+            "texto": "La página de precios no dice si están incluidos",
+            "tipo": "no-publicado",
+            "fuentes": [
+              2
+            ]
+          }
+        }
+      ],
+      "fuentes": [
+        {
+          "url": "https://runway.com/pricing",
+          "detalle": "facturación mensual",
+          "cita": "Free · $0 · /month · 125 credits · 125 one-time credits to explore Runway's AI tools. · A selection of generative creative models to test concepts · 5GB asset storage",
+          "comprobadoEl": "2026-11-01"
+        },
+        {
+          "url": "https://help.runwayml.com/hc/en-us/articles/50404627334547-Free-plan-details",
+          "cita": "All videos generated on a Free plan feature a Runway watermark. You can generate without a watermark by signing up for the Standard plan or above.",
+          "comprobadoEl": "2026-11-01",
+          "detalle": "respuesta a «Why do my videos have a Watermark?», plegada"
+        },
+        {
+          "url": "https://runway.com/pricing",
+          "detalle": "facturación mensual",
+          "cita": "Standard · $15 · /month · 625 credits · 625 credits monthly = 52s of Gen-4.5, 104s of Gen-4 Turbo, or 78 Gen-4 Images (1080p). · Access to all AI video & image models · Up to 3 projects · No watermarks · 4K upscaling · 20GB storage",
+          "comprobadoEl": "2026-11-01"
+        },
+        {
+          "url": "https://runway.com/pricing",
+          "detalle": "facturación anual",
+          "cita": "Standard · Billed annually. Save $36/year. · $15 · $12 · /month",
+          "comprobadoEl": "2026-11-01"
+        },
+        {
+          "url": "https://runway.com/terms-of-use",
+          "cita": "Subject to your compliance with the Agreement, the Company does not restrict your commercial use of your Outputs.",
+          "comprobadoEl": "2026-11-01"
+        }
+      ]
+    },
+    "canva": {
+      "plan": "Pro",
+      "moneda": "EUR",
+      "notaMoneda": "Es el precio que Canva enseña a quien entra desde España.",
+      "precio": {
+        "mensual": 12,
+        "anualTotal": 110,
+        "fuentes": [
+          1,
+          2
+        ]
+      },
+      "comercialDePago": "yes",
+      "resumen": "El plan gratuito cubre el editor, 1,6 millones de plantillas y un acceso limitado a la IA. Pro añade el contenido premium, herramientas como quitar fondos y diez veces la IA del plan gratuito.",
+      "sinUnidad": "No se calcula un precio por uso: Canva no publica cuántos usos de IA trae cada plan, y dice que las herramientas más avanzadas gastan más cuota («More advanced AI tools and complex tasks use more allowance»).",
+      "filas": [
+        {
+          "etiqueta": "IA",
+          "gratis": {
+            "texto": "Acceso limitado a la IA Standard y Premium",
+            "tipo": "verificado",
+            "fuentes": [
+              0
+            ]
+          },
+          "pago": {
+            "texto": "«10x more AI than Canva Free»",
+            "tipo": "verificado",
+            "fuentes": [
+              2
+            ]
+          }
+        },
+        {
+          "etiqueta": "Cuántos usos de IA",
+          "ambos": {
+            "texto": "La página de precios no publica la cifra de ningún plan",
+            "tipo": "no-publicado",
+            "fuentes": [
+              0,
+              2
+            ],
+            "nota": "El 27 de octubre decía «Up to 20» para el plan gratuito; el 1 de noviembre ya no."
+          }
+        },
+        {
+          "etiqueta": "Renovación de la cuota de IA",
+          "ambos": {
+            "texto": "Mensual",
+            "tipo": "verificado",
+            "fuentes": [
+              3
+            ]
+          }
+        },
+        {
+          "etiqueta": "Contenido",
+          "gratis": {
+            "texto": "1,6 millones de plantillas y 5 GB",
+            "tipo": "verificado",
+            "fuentes": [
+              0
+            ]
+          },
+          "pago": {
+            "texto": "3,6 millones de plantillas (con las premium), 141 millones de recursos premium, 5 kits de marca y 100 GB",
+            "tipo": "verificado",
+            "fuentes": [
+              2
+            ]
+          }
+        },
+        {
+          "etiqueta": "Herramientas",
+          "pago": {
+            "texto": "Cambiar tamaño, traducir, quitar fondo y más, con límites de uso justo",
+            "tipo": "verificado",
+            "fuentes": [
+              2,
+              3
+            ]
+          }
+        },
+        {
+          "etiqueta": "Uso comercial de imágenes de IA",
+          "ambos": {
+            "texto": "Permitido",
+            "tipo": "verificado",
+            "fuentes": [
+              4
+            ]
+          }
+        }
+      ],
+      "fuentes": [
+        {
+          "url": "https://www.canva.com/pricing/",
+          "detalle": "facturación anual",
+          "cita": "Free · € · 0 · /year for one person · 1.6M+ templates to start fast · 5GB of cloud storage · AI usage · Limited access to Standard and Premium AI^",
+          "comprobadoEl": "2026-11-01"
+        },
+        {
+          "url": "https://www.canva.com/pricing/",
+          "detalle": "facturación mensual",
+          "cita": "Pro · € · 12 · /month for one person · Start a free trial",
+          "comprobadoEl": "2026-11-01"
+        },
+        {
+          "url": "https://www.canva.com/pricing/",
+          "detalle": "facturación anual",
+          "cita": "Pro · € · 110 · /year for one person · AI tools (resize, translate, remove background, and more)¹ · 3.6M+ templates (including premium) · 141M+ premium photos, videos, graphics, and audio · 5 Brand Kits · 100GB of cloud storage · 10x more AI than Canva Free (Premium or Ultra AI)^",
+          "comprobadoEl": "2026-11-01"
+        },
+        {
+          "url": "https://www.canva.com/pricing/",
+          "cita": "^Standard, Premium, and Ultra AI tools share a monthly AI allowance that varies by plan. Other tools (including Standard AI on paid plans) don’t use it. More advanced AI tools and complex tasks use more allowance. · ¹Fair use limits apply.",
+          "comprobadoEl": "2026-11-01"
+        },
+        {
+          "url": "https://www.canva.com/ai-image-generator/",
+          "cita": "Yes, you can use the images generated by our AI image generators for any purpose, including personal or commercial projects, as long as you follow our AI Product Terms and Terms of Use.",
+          "comprobadoEl": "2026-11-01",
+          "detalle": "respuesta plegada de sus preguntas frecuentes"
+        }
+      ]
+    }
+  },
+  "comparaciones": [
+    {
+      "id": "voz-comercial",
+      "titulo": "Voz para publicar: el primer plan con derechos comerciales",
+      "necesidad": "Generar locuciones que puedas descargar y usar en un trabajo comercial. En estas dos herramientas ningún plan gratuito lo permite, así que se compara el primer plan que sí lo hace.",
+      "herramientas": [
+        "elevenlabs",
+        "murf-ai"
+      ]
+    }
+  ]
+}
