@@ -685,3 +685,23 @@ convierte en noticia cualquier nota de prensa de cualquier empresa. El propio
 S-1 es el ejemplo: entró porque el hecho es verificable y relevante, y se publicó
 diciendo en el primer párrafo del impacto que no trae ni acciones, ni precio, ni
 cuentas, ni calendario.
+
+### Productividad, el quinto hueco
+
+El 29 de octubre la aplicación de Gemini empezó a generar, previsualizar y
+editar documentos, PDF, presentaciones y hojas de cálculo dentro del propio
+chat, «para todos los usuarios, en todos los idiomas donde está disponible».
+Es la noticia más útil de la semana para un lector corriente y se quedó fuera:
+ninguna de las catorce categorías nombra ofimática ni productividad.
+`plan-gratuito` habla de planes, no de funciones, y el anuncio no dice en
+ningún momento la palabra «gratis», sólo «todos los usuarios», así que tampoco
+daba para `affectsFreePlan: 'yes'`.
+
+Es el mismo hueco que forzó `gemini-skills-sustituyen-gems` a `agentes`, y
+ahora tiene un segundo caso que no llega al lector. Si Web V2 abre una
+categoría de asistentes o productividad, estas dos entran y la de octubre se
+reclasifica.
+
+El recuento, tras cerrar el de empresa: cinco huecos abiertos —hardware,
+biología, herramientas de investigación, educación y productividad— y uno
+cerrado.

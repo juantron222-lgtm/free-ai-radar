@@ -1,5 +1,128 @@
 [
   {
+    "id": "news-2026-10-29-anyspeech-anydecision",
+    "slug": "anyspeechrecognizer-anydecisionmodel",
+    "title": "Dos paquetes de Swift abren la voz y las decisiones en iPhone y Mac: la API de Apple con el motor que tú elijas",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Hugging Face publicó el 29 de octubre dos paquetes de Swift que continúan lo que hizo AnyLanguageModel con los modelos de lenguaje. AnySpeechRecognizer implementa la API de voz a texto de Apple dejando elegir el motor —Parakeet de NVIDIA o Qwen3-ASR de Alibaba, en local sobre Core ML— y añade identificación de quién habla. AnyDecisionModel responde preguntas de sí o no, de opción múltiple y de escala, con resultados tipados.",
+    "impact": "El detalle técnico que importa es cómo decide el segundo: saca la respuesta de las probabilidades del modelo en vez de generar texto, lo que da una respuesta tipada y una probabilidad en lugar de una frase que hay que interpretar. Y para migrar, si el código ya usa la API de Apple basta cambiar la importación. Los dos descargan modelos abiertos del Hub y los ejecutan en el dispositivo. Avisan de los límites de cada motor: Qwen cubre 30 idiomas y 22 dialectos chinos, pero va en GPU, más lento, y sirve mejor para ficheros que para voz en directo.",
+    "category": "programacion",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-29",
+    "checkedAt": "2026-11-01",
+    "officialUrl": "https://huggingface.co/blog/anydecisionmodel",
+    "sources": [
+      {
+        "url": "https://huggingface.co/blog/anydecisionmodel",
+        "kind": "official",
+        "label": "Introducing AnySpeechRecognizer and AnyDecisionModel: Open Models for Speech and Decisions on Apple Platforms",
+        "checkedAt": "2026-11-01",
+        "publisher": "huggingface.co/blog"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-29-cartesia-managed-agents",
+    "slug": "cartesia-managed-agents",
+    "title": "Cartesia lanza Managed Agents, su plataforma de agentes de voz, y gana dos pruebas de terceros usando GPT-5.5 por detrás",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Cartesia anunció el 29 de octubre Managed Agents, una plataforma completa para montar agentes de voz que atienden llamadas de empresa. Dice haber diseñado a la vez el armazón y sus propios modelos de voz, de modo que escucha, turnos, razonamiento, llamada a herramientas y habla se ajustan como un solo sistema, y trae telefonía, bases de conocimiento e integraciones en un único sitio.",
+    "impact": "A diferencia de la mayoría de estos anuncios, las cifras no son suyas: en la arena de agentes de voz de Artificial Analysis, donde personas comparan a ciegas, queda primera de 30; y en EVA-Bench, el banco abierto de ServiceNow, marca 87,4 % de precisión y 90,7 % de experiencia frente al 73,7 % y 71,2 % del siguiente. Conviene leer la letra pequeña que ellos mismos ponen: las dos pruebas se corrieron con GPT-5.5 razonando por detrás, no con un modelo suyo. Lo que aportan es la voz y el armazón.",
+    "category": "plataforma-agentes",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-29",
+    "checkedAt": "2026-11-01",
+    "officialUrl": "https://cartesia.ai/blog/managed-agents",
+    "sources": [
+      {
+        "url": "https://cartesia.ai/blog/managed-agents",
+        "kind": "official",
+        "label": "Introducing Managed Agents",
+        "checkedAt": "2026-11-01",
+        "publisher": "cartesia.ai"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-29-mistral-large-4-abierto",
+    "slug": "mistral-large-4-pesos-abiertos",
+    "title": "Mistral abre los pesos de Mistral Large 4: MIT modificada, gratis incluso para comercializar, salvo si vendes el modelo como servicio",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Mistral publicó el 29 de octubre los pesos de Mistral Large 4, el modelo multimodal de un billón de parámetros que a principios de mes había salido sólo en previsualización. Se descargan de Hugging Face y se despliegan en infraestructura propia con vLLM o SGLang. Está entrenado desde cero en infraestructura europea, y ahora admite tres modos de razonamiento para elegir entre coste y precisión.",
+    "impact": "La licencia es lo primero que hay que leer, y es generosa con una excepción concreta: la Mistral Ecosystem Open-Weight es una MIT modificada, libre para usar, modificar, ajustar y comercializar, salvo que tu negocio sea ofrecer el modelo como servicio, y entonces necesitas una licencia comercial aparte. Lo demás son sus propias medidas: dicen empatar con el líder abierto en programación gastando un 47 % menos de tokens, y subir 13 puntos en Terminal-Bench desde la previsualización. El informe técnico aún no está.",
+    "category": "local-open-source",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-10-29",
+    "checkedAt": "2026-11-01",
+    "officialUrl": "https://mistral.ai/news/mistral-large-4-oss/",
+    "sources": [
+      {
+        "url": "https://mistral.ai/news/mistral-large-4-oss/",
+        "kind": "official",
+        "label": "Mistral Large 4 (Le Chonk) is now open weight",
+        "checkedAt": "2026-11-01",
+        "publisher": "mistral.ai"
+      },
+      {
+        "url": "https://mistral.ai/news/rss",
+        "kind": "official",
+        "label": "Mistral Blog (feed oficial), entrada de Le Chonk",
+        "checkedAt": "2026-11-01",
+        "publisher": "mistral.ai"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-28-gemini-4-carbon",
+    "slug": "gemini-4-carbon",
+    "title": "Gemini 4 Carbon se anuncia como el modelo más fuerte de Google, y de momento sólo lo tocan unos defensores de ciberseguridad",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Google DeepMind anunció el 28 de octubre Gemini 4 Carbon, que presenta como su modelo más capaz, centrado en ciberseguridad y en tareas de horizonte largo. Llega dos semanas después de Gemini 4 Argon. El reparto es deliberadamente lento: esta semana sólo accede un subconjunto de defensores de ciberseguridad, y después socios de confianza por fases; para desarrolladores, empresas y consumidores todavía no está.",
+    "impact": "Lo que se puede usar hoy es nada, y eso es la noticia tanto como las cifras. Cuando abra, el precio anunciado es el mismo de salida que Argon: 2 dólares por millón de tokens de entrada y 10 por millón de salida, con la entrada en caché un 95 % más barata. Las medidas son suyas: primero en la versión 5.0 del índice de Artificial Analysis con 59 puntos, y 88,2 %, 54,8 % y 71,0 % en tres pruebas de hallar fallos, explotarlos y parchearlos. Dicen estar en el proceso voluntario de pruebas previas del gobierno estadounidense.",
+    "category": "modelo-lenguaje",
+    "eventType": "lanzamiento",
+    "availability": "limited",
+    "publishedAt": "2026-10-28",
+    "checkedAt": "2026-11-01",
+    "officialUrl": "https://deepmind.google/blog/gemini-4-carbon-our-next-frontier-model/",
+    "sources": [
+      {
+        "url": "https://deepmind.google/blog/gemini-4-carbon-our-next-frontier-model/",
+        "kind": "official",
+        "label": "Gemini 4 Carbon: our next frontier model",
+        "checkedAt": "2026-11-01",
+        "publisher": "deepmind.google"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-10-26-anthropic-s1-sec",
     "slug": "anthropic-s1-sec-salida-a-bolsa",
     "title": "Anthropic presenta el S-1 ante la SEC para salir a bolsa, y quiere cotizar en el Nasdaq como ANT",
