@@ -1,0 +1,390 @@
+---
+import type { Tool } from '@lib/domain/tool';
+import {
+  fichaDePago,
+  precioDe,
+  precioPorUnidad,
+  type TipoDeDato,
+} from '@lib/domain/pago';
+import { muestrasDe } from '@lib/data/muestras';
+import TipoDeDatoChip from './TipoDeDatoChip.astro';
+
+/*
+ * ¿Merece la pena pagar? El plan gratuito frente al primer plan de pago útil,
+ * fila a fila, y cada celda con su clase de dato (@lib/domain/pago).
+ *
+ * No puntúa ni recomienda: enseña la diferencia. No lee la afiliación: recibe
+ * la ficha sólo para el `slug` y el nombre, y todo lo demás sale de
+ * src/data/pago.json.
+ *
+ * En pantallas estrechas cada fila se apila y cada celda lleva encima el plan
+ * al que pertenece: tres columnas a 375 px partían «Verificado» letra a letra.
+ */
+interface Props {
+  tool: Tool;
+}
+
+const { tool } = Astro.props;
+const f = fichaDePago(tool.slug);
+const precio = f ? precioDe(f) : undefined;
+const porUnidad = f ? precioPorUnidad(f) : undefined;
+const probada = muestrasDe(tool.slug).length > 0;
+
+const host = (url: string) => new URL(url).hostname.replace(/^www\./, '');
+const fecha = (iso: string) =>
+  new Date(`${iso}T12:00:00Z`).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
+const lineas = precio
+  ? [
+      { etiqueta: 'Mensual', importe: precio.mensual, sufijo: ' al mes' },
+      { etiqueta: 'Anual', importe: precio.anualPorMes, sufijo: ' al mes' },
+      { etiqueta: 'Total anual', importe: precio.anualTotal, sufijo: '' },
+    ]
+  : [];
+const anclas = (fuentes: number[]) => fuentes.map((i) => ({ n: i + 1, href: `#pago-fuente-${i + 1}` }));
+const tipo = (t: TipoDeDato) => t;
+---
+
+{f && precio && (
+  <section class="tool-section pago" aria-labelledby="pago-title" data-pago={tool.slug}>
+    <h2 id="pago-title">¿Merece la pena pagar?</h2>
+    <p class="pago-resumen">{f.resumen}</p>
+
+    <div class="pago-tabla" style={`--pago-a: "Gratis"; --pago-b: "${f.plan}";`}>
+      <table class="data-table">
+        <caption class="sr-only">
+          Plan gratuito de {tool.name} frente a {f.plan}, con la clase de cada dato
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col"><span class="sr-only">Qué cambia</span></th>
+            <th scope="col">Gratis</th>
+            <th scope="col">{f.plan}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Precio</th>
+            <td>
+              <span class="pago-valor">0 {f.moneda === 'EUR' ? '€' : '$'}</span>
+              {/* La fuente 1 de cada ficha es siempre la tarjeta del plan gratuito (lo vigila una prueba). */}
+              <TipoDeDatoChip tipo="verificado" fuentes={anclas([0])} />
+            </td>
+            <td>
+              {/*
+                Primero lo que publica el fabricante, con su etiqueta; después lo
+                que calculamos, con la suya. Con una sola etiqueta al final, el
+                total calculado parecía verificado.
+              */}
+              <dl class="pago-precio">
+                {lineas.filter((l) => l.importe.tipo === 'verificado').map((l) => (
+                  <div>
+                    <dt>{l.etiqueta}</dt>
+                    <dd>{l.importe.texto}{l.sufijo}</dd>
+                  </div>
+                ))}
+              </dl>
+              <TipoDeDatoChip tipo="verificado" fuentes={anclas(f.precio.fuentes)} />
+              {lineas.some((l) => l.importe.tipo === 'calculo') && (
+                <dl class="pago-precio pago-precio-calculo">
+                  {lineas.filter((l) => l.importe.tipo === 'calculo').map((l) => (
+                    <div>
+                      <dt>{l.etiqueta}</dt>
+                      <dd>
+                        {l.importe.texto}{l.sufijo}
+                        <TipoDeDatoChip tipo="calculo" detalle={l.importe.operacion} />
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              )}
+              {precio.nota && <span class="pago-nota">{precio.nota}</span>}
+              {f.notaMoneda && <span class="pago-nota">{f.notaMoneda}</span>}
+            </td>
+          </tr>
+          {f.filas.map((fila) => (
+            <tr>
+              <th scope="row">{fila.etiqueta}</th>
+              {fila.ambos ? (
+                <td colspan="2" class="pago-ambos">
+                  <span class="pago-valor">{fila.ambos.texto}</span>
+                  <TipoDeDatoChip tipo={tipo(fila.ambos.tipo)} fuentes={anclas(fila.ambos.fuentes)} />
+                  {fila.ambos.nota && <span class="pago-nota">{fila.ambos.nota}</span>}
+                </td>
+              ) : (
+                <>
+                  <td>
+                    {fila.gratis ? (
+                      <>
+                        <span class="pago-valor">{fila.gratis.texto}</span>
+                        <TipoDeDatoChip tipo={tipo(fila.gratis.tipo)} fuentes={anclas(fila.gratis.fuentes)} />
+                        {fila.gratis.nota && <span class="pago-nota">{fila.gratis.nota}</span>}
+                      </>
+                    ) : (
+                      <span class="pago-vacio" aria-label="Sin dato">—</span>
+                    )}
+                  </td>
+                  <td>
+                    {fila.pago ? (
+                      <>
+                        <span class="pago-valor">{fila.pago.texto}</span>
+                        <TipoDeDatoChip tipo={tipo(fila.pago.tipo)} fuentes={anclas(fila.pago.fuentes)} />
+                        {fila.pago.nota && <span class="pago-nota">{fila.pago.nota}</span>}
+                      </>
+                    ) : (
+                      <span class="pago-vacio" aria-label="Sin dato">—</span>
+                    )}
+                  </td>
+                </>
+              )}
+            </tr>
+          ))}
+          {porUnidad && (
+            <tr>
+              <th scope="row">Precio por {porUnidad.unidad}</th>
+              <td>
+                <span class="pago-vacio" aria-label="No se calcula">—</span>
+              </td>
+              <td>
+                <span class="pago-valor">
+                  Mensual: {porUnidad.mensual.texto} · Anual: {porUnidad.anual.texto}
+                </span>
+                <TipoDeDatoChip
+                  tipo="calculo"
+                  detalle={`${porUnidad.mensual.operacion}; ${porUnidad.anual.operacion}`}
+                />
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+
+    {porUnidad && (
+      <div class="pago-supuestos">
+        <p><strong>Supuestos del precio por {porUnidad.unidad}.</strong> Es una cuenta nuestra, no un precio del fabricante.</p>
+        <ul>
+          {porUnidad.supuestos.map((s) => <li>{s}</li>)}
+        </ul>
+      </div>
+    )}
+    {!porUnidad && f.unidad?.naturaleza === 'estimacion' && (
+      <p class="pago-nota-bloque">
+        No calculamos un precio por {f.unidad.nombre}: los minutos que publica son una estimación suya, no una cuota.
+        {f.unidad.supuestos[0] && ` ${f.unidad.supuestos[0]}`}
+      </p>
+    )}
+    {f.sinUnidad && <p class="pago-nota-bloque">{f.sinUnidad}</p>}
+
+    {/*
+      La etiqueta «Probado por nosotros» sólo sale si hay una prueba: junto a
+      «todavía no» se leía como si la hubiera.
+    */}
+    <p class="pago-prueba">
+      {probada ? (
+        <>
+          <TipoDeDatoChip tipo="probado" />
+          <span> Hay una prueba nuestra con el prompt publicado: está en «Muestras» de esta ficha.</span>
+        </>
+      ) : (
+        <span>
+          <strong>Prueba propia:</strong> todavía no la hemos hecho. Sin ella no decimos nada de la calidad del resultado.
+        </span>
+      )}
+    </p>
+
+    <dl class="pago-leyenda" aria-label="Cómo leer este bloque">
+      <div><dt><TipoDeDatoChip tipo="verificado" /></dt><dd>Lo dice el fabricante: cita, enlace y fecha en las fuentes.</dd></div>
+      <div><dt><TipoDeDatoChip tipo="calculo" /></dt><dd>Una cuenta nuestra con cifras verificadas, con la operación a la vista.</dd></div>
+      <div><dt><TipoDeDatoChip tipo="probado" /></dt><dd>Lo hemos probado nosotros, con el prompt publicado.</dd></div>
+      <div><dt><TipoDeDatoChip tipo="no-publicado" /></dt><dd>El fabricante no lo dice. No lo suponemos.</dd></div>
+    </dl>
+
+    <details class="pago-fuentes">
+      <summary>Fuentes de este bloque ({f.fuentes.length})</summary>
+      <ol>
+        {f.fuentes.map((fu, i) => (
+          <li id={`pago-fuente-${i + 1}`}>
+            <q>{fu.cita}</q> —{' '}
+            <a href={fu.url} rel="nofollow noopener" target="_blank">
+              {host(fu.url)}
+            </a>
+            {fu.detalle && `, ${fu.detalle}`}, comprobado el {fecha(fu.comprobadoEl)}
+          </li>
+        ))}
+      </ol>
+    </details>
+  </section>
+)}
+
+<style>
+  .pago-resumen {
+    background: var(--surface-sunken);
+    border-radius: var(--radius-m);
+    padding: var(--space-xs) var(--space-s);
+    max-width: var(--measure);
+  }
+
+  .pago-valor {
+    display: block;
+  }
+
+  .pago-nota {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+    margin-top: var(--space-3xs);
+  }
+
+  .pago-vacio {
+    color: var(--ink-subtle);
+  }
+
+  .pago-precio {
+    margin: 0 0 var(--space-3xs);
+    display: grid;
+    gap: 2px;
+  }
+
+  .pago-precio div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--space-2xs);
+    align-items: baseline;
+  }
+
+  .pago-precio dt {
+    color: var(--ink-muted);
+    min-width: 6.5rem;
+  }
+
+  .pago-precio dd {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .pago-precio-calculo {
+    margin-top: var(--space-2xs);
+  }
+
+  .pago-supuestos {
+    border: 1px solid var(--warn-line);
+    background: var(--warn-soft);
+    border-radius: var(--radius-m);
+    padding: var(--space-xs) var(--space-s);
+    font-size: 0.875rem;
+    margin-top: var(--space-s);
+  }
+
+  .pago-supuestos p {
+    margin: 0;
+  }
+
+  .pago-supuestos ul {
+    margin: var(--space-3xs) 0 0;
+    padding-left: 1.1rem;
+  }
+
+  .pago-nota-bloque {
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    margin-top: var(--space-s);
+    max-width: var(--measure);
+  }
+
+  .pago-prueba {
+    border: 1px dashed var(--line);
+    border-radius: var(--radius-m);
+    padding: var(--space-xs) var(--space-s);
+    font-size: 0.875rem;
+    margin-top: var(--space-s);
+  }
+
+  .pago-leyenda {
+    margin: var(--space-s) 0 0;
+    display: grid;
+    gap: var(--space-3xs);
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+  }
+
+  .pago-leyenda div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 var(--space-2xs);
+  }
+
+  .pago-leyenda dt {
+    min-width: 11.5rem;
+  }
+
+  .pago-leyenda dd {
+    margin: 0;
+  }
+
+  .pago-fuentes {
+    margin-top: var(--space-s);
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+  }
+
+  .pago-fuentes summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .pago-fuentes li {
+    margin: var(--space-2xs) 0;
+  }
+
+  .pago-fuentes li:target {
+    background: var(--signal-soft);
+  }
+
+  @media (max-width: 39.99rem) {
+    .pago-tabla thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+    }
+
+    .pago-tabla tr {
+      display: block;
+      padding: var(--space-xs) 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .pago-tabla :is(th, td) {
+      display: block;
+      border: 0;
+      padding: 2px 0;
+    }
+
+    .pago-tabla th[scope='row'] {
+      margin-bottom: var(--space-3xs);
+    }
+
+    .pago-tabla td::before {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+      content: var(--pago-a);
+    }
+
+    .pago-tabla td + td::before {
+      content: var(--pago-b);
+    }
+
+    .pago-tabla td.pago-ambos::before {
+      content: 'Los dos planes';
+    }
+
+    .pago-tabla td + td {
+      margin-top: var(--space-2xs);
+    }
+  }
+</style>

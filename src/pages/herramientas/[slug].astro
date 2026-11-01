@@ -10,6 +10,8 @@ import OutboundButton from '@components/tools/OutboundButton.astro';
 import ToolActions from '@components/tools/ToolActions.astro';
 import CorrectionForm from '@components/tools/CorrectionForm.astro';
 import ToolCard from '@components/tools/ToolCard.astro';
+import MerecePagar from '@components/tools/MerecePagar.astro';
+import ComparacionPago from '@components/tools/ComparacionPago.astro';
 import CompareTray from '@components/tools/CompareTray.astro';
 import AffiliatePlacement from '@components/affiliate/AffiliatePlacement.astro';
 import { getAllTools, getAlternativesFor } from '@lib/data/catalog';
@@ -32,6 +34,7 @@ import { esfuerzoDe } from '@lib/domain/esfuerzo';
 import { freeAccessLabel } from '@lib/data/category-page';
 import { filaDe } from '@lib/data/portada';
 import { descripcionDeFicha } from '@lib/seo/ficha';
+import { usoComercialDe } from '@lib/domain/uso-comercial';
 
 export function getStaticPaths() {
   return getAllTools().map((tool) => ({ params: { slug: tool.slug }, props: { tool } }));
@@ -58,6 +61,7 @@ const fmtDate = (iso: string) =>
   });
 
 /** Rows of the "what you get for free" table. Order = decision order. */
+const usoComercial = usoComercialDe(tool);
 const facts = [
   { label: '¿Pide tarjeta?', value: etiquetaDeHecho(tool, 'freePlan.requiresCreditCard', tool.freePlan.requiresCreditCard), good: tool.freePlan.requiresCreditCard === 'no' },
   { label: '¿Hay que registrarse?', value: etiquetaDeHecho(tool, 'freePlan.requiresSignup', tool.freePlan.requiresSignup), good: tool.freePlan.requiresSignup === 'no' },
@@ -70,7 +74,12 @@ const facts = [
   ...(tool.freePlan.provenanceSignals.length > 0
     ? [{ label: 'Marcas técnicas de procedencia', value: tool.freePlan.provenanceSignals.map((p) => PROVENANCE_LABEL[p.signal]).join(' · '), good: false }]
     : []),
-  { label: '¿Uso comercial?', value: etiquetaDeHecho(tool, 'freePlan.commercialUse', tool.freePlan.commercialUse), good: tool.freePlan.commercialUse === 'yes' },
+  // Dice a qué plan se refiere: «No» a secas se leía como «nunca» (ver @lib/domain/uso-comercial).
+  {
+    label: '¿Uso comercial?',
+    value: usoComercial.estado === 'sin-dato' ? etiquetaDeHecho(tool, 'freePlan.commercialUse', tool.freePlan.commercialUse) : usoComercial.larga,
+    good: tool.freePlan.commercialUse === 'yes',
+  },
   { label: '¿Código abierto?', value: OPENNESS_LABEL[tool.openSource], good: tool.openSource === 'yes' },
   { label: 'Dónde se ejecuta', value: HOSTING_LABEL[tool.hosting], good: tool.hosting !== 'cloud' },
   ...(tool.freePlan.creditsAmount
@@ -443,6 +452,10 @@ const compararHref = compararCon.length
             <a href="#reportar">avísanos si algo ya no es cierto</a>.
           </p>
         </section>
+
+        {/* Piloto calidad-precio (27 oct 2026): sólo pinta en las fichas con datos en src/data/pago.json. */}
+        <MerecePagar tool={tool} />
+        <ComparacionPago tool={tool} />
 
         {/*
           La sección "Por qué 89 y no otra cifra" se ha retirado junto con la

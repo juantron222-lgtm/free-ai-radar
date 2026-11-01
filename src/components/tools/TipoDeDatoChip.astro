@@ -1,0 +1,79 @@
+---
+import { ETIQUETA_DE_TIPO, type TipoDeDato } from '@lib/domain/pago';
+
+/*
+ * La clase de un dato, con texto y símbolo: nunca sólo con color.
+ * Verificado (cita del fabricante), cálculo nuestro (con la operación),
+ * probado por nosotros, no lo publica.
+ */
+interface Props {
+  tipo: TipoDeDato;
+  /** La operación de un cálculo, para enseñarla tal cual. */
+  detalle?: string;
+  /** Enlaces a las fuentes del bloque que respaldan el dato. */
+  fuentes?: Array<{ n: number; href: string }>;
+}
+
+const { tipo, detalle, fuentes = [] } = Astro.props;
+const SIMBOLO: Record<TipoDeDato, string> = { verificado: '✓', calculo: '=', probado: '◆', 'no-publicado': '?' };
+---
+
+<span class="tipo-dato" data-tipo={tipo}>
+  <span aria-hidden="true">{SIMBOLO[tipo]}</span>
+  {ETIQUETA_DE_TIPO[tipo]}
+  {detalle && <span class="tipo-detalle">({detalle})</span>}
+  {fuentes.length > 0 && (
+    <span class="tipo-fuentes">
+      {fuentes.map((fu) => (
+        <a href={fu.href} aria-label={`Fuente ${fu.n}`}>
+          [{fu.n}]
+        </a>
+      ))}
+    </span>
+  )}
+</span>
+
+<style>
+  .tipo-dato {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0 0.35em;
+    margin-top: var(--space-3xs);
+    padding: 1px 0.55em;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.6;
+  }
+
+  .tipo-dato[data-tipo='verificado'] {
+    background: var(--signal-soft);
+    color: var(--signal-strong);
+  }
+
+  .tipo-dato[data-tipo='calculo'] {
+    background: var(--warn-soft);
+    color: var(--warn);
+  }
+
+  .tipo-dato[data-tipo='probado'] {
+    background: var(--info-soft);
+    color: var(--info);
+  }
+
+  .tipo-dato[data-tipo='no-publicado'] {
+    background: var(--surface-sunken);
+    color: var(--ink-muted);
+    border: 1px dashed var(--ink-muted);
+  }
+
+  .tipo-detalle {
+    font-weight: 400;
+  }
+
+  .tipo-fuentes a {
+    color: inherit;
+    font-weight: 400;
+  }
+</style>

@@ -1,0 +1,200 @@
+---
+import type { Tool } from '@lib/domain/tool';
+import { comparacionesDe } from '@lib/domain/pago';
+import { getTool } from '@lib/data/catalog';
+import { ROUTES } from '@lib/nav';
+import TipoDeDatoChip from './TipoDeDatoChip.astro';
+
+/*
+ * Comparaciones de precio entre herramientas que resuelven la misma necesidad
+ * (@lib/domain/pago). Las columnas van en el orden fijado en los datos, no en
+ * uno calculado: nada —ni la afiliación ni una nota— puede reordenarlas.
+ *
+ * El precio por unidad sólo aparece si todas miden lo mismo del mismo modo.
+ * Si no, se dice por qué no. Y la calidad nunca se deduce de la cantidad.
+ */
+interface Props {
+  tool: Tool;
+}
+
+const { tool } = Astro.props;
+const comparaciones = comparacionesDe(tool.slug);
+const nombre = (slug: string) => getTool(slug)?.name ?? slug;
+/* El rótulo de cada columna en móvil. Hasta tres herramientas por comparación. */
+const rotulo = (col?: { slug: string; plan: string }) => (col ? `${nombre(col.slug)} · ${col.plan}` : '');
+const COMERCIAL: Record<string, string> = {
+  yes: 'Sí',
+  no: 'No',
+  partial: 'Con condiciones',
+  unverified: 'Sin comprobar',
+};
+---
+
+{comparaciones.map((c) => (
+  <section class="tool-section comparacion" aria-labelledby={`cmp-${c.id}`} data-comparacion={c.id}>
+    <h2 id={`cmp-${c.id}`}>{c.titulo}</h2>
+    <p class="cmp-necesidad">{c.necesidad}</p>
+    <div class="cmp-tabla" style={`--cmp-0: "${rotulo(c.columnas[0])}"; --cmp-1: "${rotulo(c.columnas[1])}"; --cmp-2: "${rotulo(c.columnas[2])}";`}>
+      <table class="data-table">
+        <caption class="sr-only">{c.titulo}</caption>
+        <thead>
+          <tr>
+            <th scope="col"><span class="sr-only">Qué se compara</span></th>
+            {c.columnas.map((col) => (
+              <th scope="col">
+                {col.slug === tool.slug ? (
+                  <>{nombre(col.slug)} · {col.plan}</>
+                ) : (
+                  <a href={ROUTES.tool(col.slug)}>{nombre(col.slug)} · {col.plan}</a>
+                )}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Mensual</th>
+            {c.columnas.map((col) => <td>{col.precio.mensual.texto} al mes</td>)}
+          </tr>
+          <tr>
+            <th scope="row">Anual</th>
+            {c.columnas.map((col) => (
+              <td>
+                {col.precio.anualPorMes.texto} al mes · {col.precio.anualTotal.texto} al año
+                {(col.precio.anualPorMes.tipo === 'calculo' || col.precio.anualTotal.tipo === 'calculo') && (
+                  <TipoDeDatoChip
+                    tipo="calculo"
+                    detalle={col.precio.anualTotal.operacion ?? col.precio.anualPorMes.operacion}
+                  />
+                )}
+              </td>
+            ))}
+          </tr>
+          <tr>
+            <th scope="row">Cantidad incluida</th>
+            {c.columnas.map((col) => <td>{col.cantidad?.texto ?? '—'}</td>)}
+          </tr>
+          {c.porUnidad && (
+            <tr>
+              <th scope="row">Precio por {c.porUnidad[0]!.unidad}</th>
+              {c.porUnidad.map((u) => (
+                <td>
+                  Mensual: {u.mensual.texto} · Anual: {u.anual.texto}
+                  <TipoDeDatoChip tipo="calculo" detalle={`${u.mensual.operacion}; ${u.anual.operacion}`} />
+                </td>
+              ))}
+            </tr>
+          )}
+          <tr>
+            <th scope="row">Uso comercial en ese plan</th>
+            {c.columnas.map((col) => <td>{COMERCIAL[col.comercialDePago]}</td>)}
+          </tr>
+          <tr>
+            <th scope="row">Calidad del resultado</th>
+            <td colspan={c.columnas.length} class="cmp-todas">
+              <span class="cmp-nota">
+                Sin prueba propia todavía, así que no decimos cuál suena o queda mejor. Más minutos o más créditos no
+                significan mejor resultado.
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    {c.motivoSinPorUnidad && <p class="cmp-nota-bloque">{c.motivoSinPorUnidad}</p>}
+    {/* Los supuestos de un precio por unidad sólo tienen sentido si se calcula. */}
+    {c.porUnidad && c.supuestos.length > 0 && (
+      <div class="cmp-supuestos">
+        <p><strong>Supuestos del precio por unidad.</strong> Es una cuenta nuestra, no un precio del fabricante.</p>
+        <ul>
+          {c.supuestos.map((s) => <li>{s}</li>)}
+        </ul>
+      </div>
+    )}
+    <p class="cmp-nota-bloque">
+      Precios, cantidades y uso comercial: verificados en cada fabricante. Las fuentes están en el bloque «¿Merece la
+      pena pagar?» de cada ficha.
+    </p>
+  </section>
+))}
+
+<style>
+  .cmp-necesidad,
+  .cmp-nota-bloque {
+    max-width: var(--measure);
+  }
+
+  .cmp-nota-bloque {
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    margin-top: var(--space-s);
+  }
+
+  .cmp-nota {
+    font-size: 0.875rem;
+  }
+
+  .cmp-supuestos {
+    border: 1px solid var(--warn-line);
+    background: var(--warn-soft);
+    border-radius: var(--radius-m);
+    padding: var(--space-xs) var(--space-s);
+    font-size: 0.875rem;
+    margin-top: var(--space-s);
+  }
+
+  .cmp-supuestos p {
+    margin: 0;
+  }
+
+  .cmp-supuestos ul {
+    margin: var(--space-3xs) 0 0;
+    padding-left: 1.1rem;
+  }
+
+  @media (max-width: 39.99rem) {
+    .cmp-tabla thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+    }
+
+    .cmp-tabla tr {
+      display: block;
+      padding: var(--space-xs) 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .cmp-tabla :is(th, td) {
+      display: block;
+      border: 0;
+      padding: 2px 0;
+    }
+
+    .cmp-tabla td::before {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+      content: var(--cmp-0);
+    }
+
+    .cmp-tabla td + td::before {
+      content: var(--cmp-1);
+    }
+
+    .cmp-tabla td + td + td::before {
+      content: var(--cmp-2);
+    }
+
+    .cmp-tabla td.cmp-todas::before {
+      content: 'Todas';
+    }
+
+    .cmp-tabla td + td {
+      margin-top: var(--space-2xs);
+    }
+  }
+</style>
