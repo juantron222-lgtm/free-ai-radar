@@ -19399,5 +19399,192 @@
         "lookedFor": "Si la descarga pide tarjeta. La ficha de Hugging Face pide cuenta y aceptar las condiciones, y dice que el uso por debajo de 10 M$ de ingresos es «at no cost», pero no habla de tarjeta."
       }
     ]
+  },
+  {
+    "secondaryCategories": [
+      "agentes"
+    ],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en"
+    ],
+    "privacy": {
+      "dataRetention": "OpenCode dice que sólo guarda tus datos cuando usas sus modelos gratuitos."
+    },
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [
+      "opencode",
+      "open code"
+    ],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-11-01",
+    "skillLevel": "intermediate",
+    "access": {},
+    "licences": {
+      "code": "MIT"
+    },
+    "slug": "opencode",
+    "name": "OpenCode",
+    "kind": "agent",
+    "productType": "agent",
+    "verification": "partially_verified",
+    "categorySlug": "codigo",
+    "officialUrl": "https://opencode.ai/",
+    "repoUrl": "https://github.com/anomalyco/opencode",
+    "hosting": "hybrid",
+    "openSource": "yes",
+    "licence": "MIT",
+    "platforms": [
+      "cli",
+      "extension",
+      "windows",
+      "macos",
+      "linux",
+      "web"
+    ],
+    "freeModel": "open_source",
+    "tagline": "Agente de programación de código abierto para terminal, escritorio y editor, con modelos gratuitos que se usan sin crear cuenta.",
+    "descriptionShort": "Agente de programación de código abierto (MIT) que trabaja en la terminal, en una app de escritorio, en la web o como extensión del editor. La herramienta es gratuita y trae modelos gratuitos; con otros proveedores pagas lo que cobren ellos.",
+    "verdict": "La herramienta es gratis y abierta, y trae modelos gratuitos que se usan sin crear cuenta. A cambio, con esos modelos OpenCode sí guarda tus datos; con tus propias claves o modelos locales pagas, o no, lo que cobre ese proveedor.",
+    "freePlan": {
+      "requiresSignup": "no",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "yes",
+      "creditReset": "none",
+      "verifiedAt": "2026-11-01",
+      "summary": "Gratis y de código abierto (MIT). Trae un conjunto de modelos gratuitos que se usan sin crear cuenta; con otros proveedores puede haber costes, los de ese proveedor.",
+      "limits": [
+        "La herramienta es gratuita y de código abierto (MIT)",
+        "Trae modelos gratuitos que se usan sin crear cuenta",
+        "Los modelos gratuitos los lista su documentación (Big Pickle, GLM-5.3-Flash Free, DeepSeek V4.1 Flash Free y otros)",
+        "Con otros proveedores puede haber costes: los de ese proveedor",
+        "Con los modelos gratuitos, OpenCode guarda tus datos",
+        "En Windows recomiendan usarlo dentro de WSL"
+      ],
+      "includedCapabilities": [
+        {
+          "capability": "code-generation",
+          "condition": "con sus modelos gratuitos, sin cuenta",
+          "evidence": {
+            "outcome": "stated",
+            "checkedAt": "2026-11-01",
+            "scope": "product",
+            "sourceUrl": "https://opencode.ai/",
+            "sourceKind": "official",
+            "quote": "OpenCode comes with a set of free models that you can use without creating an account."
+          }
+        }
+      ]
+    },
+    "capabilities": [
+      "code-generation",
+      "repository-editing",
+      "terminal",
+      "tool-use"
+    ],
+    "startEffort": "install",
+    "startEffortReason": "Se instala con un comando (curl, npm, Homebrew, Chocolatey o Scoop) o como app de escritorio.",
+    "scores": {
+      "freeReal": 8,
+      "usefulness": 8,
+      "ease": 6,
+      "transparency": 8,
+      "creatorValue": 5
+    },
+    "sources": [
+      {
+        "url": "https://opencode.ai/",
+        "label": "Web oficial",
+        "kind": "official",
+        "publisher": "opencode.ai",
+        "checkedAt": "2026-11-01"
+      },
+      {
+        "url": "https://opencode.ai/docs/",
+        "label": "Documentación",
+        "kind": "docs",
+        "publisher": "opencode.ai",
+        "checkedAt": "2026-11-01"
+      },
+      {
+        "url": "https://opencode.ai/docs/zen/",
+        "label": "Modelos y precios",
+        "kind": "pricing",
+        "publisher": "opencode.ai",
+        "checkedAt": "2026-11-01"
+      },
+      {
+        "url": "https://github.com/anomalyco/opencode",
+        "label": "Repositorio oficial",
+        "kind": "repo",
+        "publisher": "github.com",
+        "checkedAt": "2026-11-01"
+      }
+    ],
+    "evidence": [
+      {
+        "checkedAt": "2026-11-01",
+        "scope": "product",
+        "field": "freePlan.limits",
+        "outcome": "stated",
+        "sourceUrl": "https://opencode.ai/",
+        "sourceKind": "official",
+        "quote": "OpenCode is 100% free to use. It also comes with a set of free models. There might be additional costs if you connect any other provider."
+      },
+      {
+        "checkedAt": "2026-11-01",
+        "scope": "product",
+        "field": "freePlan.requiresSignup",
+        "outcome": "stated",
+        "sourceUrl": "https://opencode.ai/",
+        "sourceKind": "official",
+        "quote": "OpenCode comes with a set of free models that you can use without creating an account."
+      },
+      {
+        "checkedAt": "2026-11-01",
+        "scope": "local",
+        "field": "freePlan.commercialUse",
+        "outcome": "stated",
+        "sourceUrl": "https://github.com/anomalyco/opencode/blob/dev/LICENSE",
+        "sourceKind": "licence",
+        "quote": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software"
+      },
+      {
+        "checkedAt": "2026-11-01",
+        "scope": "local",
+        "field": "openSource",
+        "outcome": "stated",
+        "sourceUrl": "https://github.com/anomalyco/opencode/blob/dev/LICENSE",
+        "sourceKind": "licence",
+        "quote": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software"
+      },
+      {
+        "checkedAt": "2026-11-01",
+        "scope": "product",
+        "field": "capabilities",
+        "outcome": "stated",
+        "sourceUrl": "https://opencode.ai/",
+        "sourceKind": "official",
+        "quote": "OpenCode is an open source agent that helps you write code in your terminal, IDE, or desktop."
+      }
+    ],
+    "id": "tool_opencode",
+    "nextReviewAt": "2026-12-01",
+    "lastVerifiedAt": "2026-11-01",
+    "updatedAt": "2026-11-01"
   }
 ]
