@@ -597,12 +597,12 @@
     "freeModel": "free_real",
     "tagline": "Gratis con una cuenta de Microsoft: 15 creaciones rápidas al día y, después, a velocidad normal.",
     "descriptionShort": "El generador de imágenes de Microsoft, dentro de Bing. Usa sus propios modelos, MAI-Image-2.5-Flash y MAI-Image-2e, y también edita imágenes que subas. Es gratuito con una cuenta personal de Microsoft.",
-    "verdict": "De los pocos que dicen con todas las letras cuánto dan y qué pasa cuando se acaba: quince rápidas al día y, después, sigue gratis a velocidad estándar hasta 200 peticiones diarias. La marca visible es opcional y no usa lo que subes para entrenar. Pero no sirve para trabajar: sus términos sólo permiten un uso personal.",
+    "verdict": "De los pocos que dicen con todas las letras cuánto dan y qué pasa cuando se acaba: quince rápidas al día y, después, sigue gratis a velocidad estándar hasta 200 peticiones diarias. La marca visible es opcional y no usa lo que subes para entrenar. Lo que ya no está claro es el uso comercial: sus términos actuales ni lo permiten ni lo prohíben expresamente.",
     "freePlan": {
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "no",
-      "commercialUse": "no",
+      "commercialUse": "unverified",
       "creditReset": "daily",
       "verifiedAt": "2026-09-24",
       "summary": "Gratis para cualquiera con una cuenta personal de Microsoft. Cada día da 15 creaciones rápidas; cuando se agotan se sigue creando gratis a velocidad estándar, más lenta, hasta 200 peticiones cada 24 horas. Las cuentas de trabajo o de centro educativo (Entra ID) no pueden usarlo. Sus términos de uso, los de Copilot, sólo permiten un uso personal.",
@@ -610,9 +610,7 @@
         "15 creaciones rápidas al día, que se renuevan al día siguiente",
         "Después, sin coste a velocidad estándar",
         "Hasta 200 peticiones cada 24 horas, ediciones incluidas",
-        "Exige cuenta personal de Microsoft; no sirven las de trabajo o centro educativo",
-        "El vídeo sólo se crea desde la app móvil de Bing",
-        "Sólo uso personal: sus términos dicen «You can only use Copilot for your own personal use»"
+        "El vídeo sólo se crea desde la app móvil de Bing"
       ],
       "creditsAmount": "15 creaciones rápidas al día",
       "includedCapabilities": [
@@ -732,19 +730,19 @@
         "lookedFor": "Si el alta o el uso gratuito piden tarjeta. La ayuda sólo exige una cuenta personal de Microsoft y no menciona ningún medio de pago."
       },
       {
-        "checkedAt": "2026-10-23",
-        "scope": "product",
+        "checkedAt": "2026-11-02",
         "field": "freePlan.commercialUse",
-        "outcome": "stated",
+        "outcome": "not_published",
+        "scope": "product",
         "sourceUrl": "https://www.bing.com/new/termsofuseimagecreator",
         "sourceKind": "terms",
-        "quote": "You can only use Copilot for your own personal use."
+        "lookedFor": "Si se puede usar comercialmente lo que genera Image Creator. Sus términos (actualizados en marzo de 2026) remiten al Microsoft Services Agreement y no limitan el uso a lo personal ni lo permiten expresamente. La frase «You can only use Copilot for your own personal use» que citábamos es de los términos de Copilot, otro servicio."
       }
     ],
     "id": "tool_bing-image-creator",
     "nextReviewAt": "2026-12-23",
     "lastVerifiedAt": "2026-09-24",
-    "updatedAt": "2026-10-23"
+    "updatedAt": "2026-11-02"
   },
   {
     "id": "tool_bolt-new",
@@ -1508,11 +1506,11 @@
           "condition": "limitada, sin cifra publicada",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-17",
+            "checkedAt": "2026-11-02",
             "scope": "product",
             "sourceUrl": "https://chatgpt.com/pricing",
             "sourceKind": "pricing",
-            "quote": "Free · Best for trying out ChatGPT · […] Limited deep research · Limited memory and context · Limited Codex access"
+            "quote": "Free · Intelligence for everyday tasks · […] Limited deep research · Limited memory and context · Limited Codex access"
           }
         },
         {
@@ -1520,11 +1518,11 @@
           "condition": "limitada, sin cifra publicada",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-17",
+            "checkedAt": "2026-11-02",
             "scope": "product",
             "sourceUrl": "https://chatgpt.com/pricing",
             "sourceKind": "pricing",
-            "quote": "Free · Best for trying out ChatGPT · […] Limited deep research · Limited memory and context · Limited Codex access"
+            "quote": "Free · Intelligence for everyday tasks · […] Limited deep research · Limited memory and context · Limited Codex access"
           }
         },
         {
@@ -1532,11 +1530,11 @@
           "condition": "acceso limitado a Codex, sin cifra publicada",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-17",
+            "checkedAt": "2026-11-02",
             "scope": "product",
             "sourceUrl": "https://chatgpt.com/pricing",
             "sourceKind": "pricing",
-            "quote": "Free · Best for trying out ChatGPT · […] Limited deep research · Limited memory and context · Limited Codex access"
+            "quote": "Free · Intelligence for everyday tasks · […] Limited deep research · Limited memory and context · Limited Codex access"
           }
         }
       ],
@@ -2207,20 +2205,20 @@
     "freeModel": "paid_only",
     "tagline": "Sin plan gratuito: empieza en Pro, 20 $ al mes.",
     "descriptionShort": "Agente de programación que trabaja en la terminal, en el IDE y en la web: edita varios ficheros a la vez, ejecuta órdenes y pruebas, y reparte trabajo entre subagentes. No está incluido en el plan gratuito de Claude.",
-    "verdict": "Potente y, para lo que busca quien llega a Free AI Radar, con una respuesta corta: aquí no hay nada gratis. La entrada son 20 $ al mes.",
+    "verdict": "Potente y, para lo que busca quien llega a Free AI Radar, con una respuesta corta: aquí no hay nada gratis. La entrada es Pro, 18 € al mes (15 € pagando el año).",
     "freePlan": {
-      "summary": "No hay plan gratuito. La página de precios lista Claude Code a partir de Pro, 20 $/mes (17 $/mes con facturación anual); el plan Free incluye el chat en web, iOS, Android y escritorio, pero no Claude Code.",
+      "summary": "No hay plan gratuito. La página de precios lista Claude Code a partir de Pro: 18 € al mes, o 15 € al mes pagando el año, en el precio que enseña desde España. El plan Free incluye el chat, pero no Claude Code.",
       "limits": [
         "No incluido en el plan gratuito de Claude",
-        "Entra en Pro: 20 $/mes (17 $/mes anual)",
-        "Max, desde 100 $/mes, ofrece 5× o 20× el uso de Pro"
+        "Entra en Pro: 18 € al mes, o 15 € al mes pagando el año (180 €); es el precio que la página enseña desde España",
+        "Max, 90 € al mes, da 5 veces el uso de Pro; Ultra, 180 € al mes, 10 veces el semanal"
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "no",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-19"
+      "verifiedAt": "2026-11-02"
     },
     "capabilities": [
       "terminal",
@@ -2256,13 +2254,13 @@
     ],
     "evidence": [
       {
+        "checkedAt": "2026-11-02",
         "field": "freePlan.limits",
         "outcome": "stated",
+        "scope": "product",
         "sourceUrl": "https://claude.com/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-08-19",
-        "quote": "Pro — $20/month, or $17/month billed annually: Everything in Free, plus: More usage… Includes Claude Code. [El plan Free lista chat en web, iOS, Android y escritorio, y no menciona Claude Code.]",
-        "scope": "cloud"
+        "quote": "Pro · For everyday work · €15 · Per month with annual subscription discount (€180 billed up front). €18 if billed monthly. · Everything in Free, plus: · Claude Code · Max · For all-day work · €90 · Per month · 5x Pro usage every 5 hours and every week* · Ultra · For your longest tasks · €180 · Per month · 10x Pro usage every week* [El plan Free enumera chat, búsqueda, archivos, memoria y Artifacts, y no menciona Claude Code.]"
       },
       {
         "field": "capabilities",
@@ -2276,8 +2274,8 @@
     ],
     "auditNotes": "Ficha de la casa: Free AI Radar se construye con Claude Code. No cambia el criterio — `paid_only` es lo que dice su página de precios, y así se publica.",
     "nextReviewAt": "2026-11-17",
-    "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19",
+    "lastVerifiedAt": "2026-11-02",
+    "updatedAt": "2026-11-02",
     "access": {},
     "productType": "cli"
   },
@@ -4296,14 +4294,13 @@
     ],
     "evidence": [
       {
+        "checkedAt": "2026-11-02",
         "field": "freePlan.limits",
         "outcome": "stated",
+        "scope": "api",
         "sourceUrl": "https://api-docs.deepseek.com/quick_start/pricing/",
         "sourceKind": "pricing",
-        "scope": "api",
-        "checkedAt": "2026-09-21",
-        "quote": "1M INPUT TOKENS (CACHE MISS) OFF-PEAK $0.15 PEAK $0.3 · 1M OUTPUT TOKENS OFF-PEAK $0.6 PEAK $1.2 · CONTEXT LENGTH 1M · MAX OUTPUT MAXIMUM: 384K",
-        "basis": "Son las celdas de la columna «deepseek-flash», cuya fila «MODEL VERSION» dice «DeepSeek-V4.1-Flash»."
+        "quote": "MODEL VERSION DeepSeek-V4.1-Flash-1017 DeepSeek-V4-Pro-0813 · CONTEXT LENGTH 1M MAX OUTPUT MAXIMUM: 384K · 1M INPUT TOKENS (CACHE MISS) OFF-PEAK $0.15 $0.66 PEAK $0.3 $1.32 1M OUTPUT TOKENS OFF-PEAK $0.6 $1.98 PEAK $1.2 $3.96 [Columnas: la primera es DeepSeek-V4.1-Flash, la segunda DeepSeek-V4-Pro.]"
       },
       {
         "field": "capabilities",
@@ -4542,13 +4539,13 @@
       "creditReset": "none",
       "verifiedAt": "2026-09-16",
       "commercialUse": "yes",
-      "summary": "Repositorio y pesos bajo licencia MIT. Por API se paga por token: 1,32 $ de entrada sin caché y 3,96 $ de salida por millón en hora punta, y la mitad en hora valle. DeepSeek mantiene la API de V4 Pro después del 14 de septiembre de 2026 con la misma facturación.",
+      "summary": "Repositorio y pesos bajo licencia MIT. Por API se paga por token: 1,32 $ de entrada sin caché y 3,96 $ de salida por millón en hora punta, y la mitad en hora valle. La API sigue ofreciendo DeepSeek-V4-Pro-0813.",
       "limits": [
         "Pesos y código: MIT",
         "Contexto de 1M · salida máxima de 384K",
         "API en hora valle: 0,66 $/M de entrada sin caché · 1,98 $/M de salida",
         "API en hora punta: 1,32 $/M de entrada sin caché · 3,96 $/M de salida",
-        "La API sigue disponible después del 14 de septiembre de 2026, con la misma facturación"
+        "La API sigue ofreciendo DeepSeek-V4-Pro-0813"
       ]
     },
     "access": {
@@ -4623,14 +4620,13 @@
         "scope": "local"
       },
       {
+        "checkedAt": "2026-11-02",
         "field": "freePlan.limits",
         "outcome": "stated",
+        "scope": "api",
         "sourceUrl": "https://api-docs.deepseek.com/quick_start/pricing",
         "sourceKind": "pricing",
-        "scope": "api",
-        "quote": "CONTEXT LENGTH 1M · MAX OUTPUT MAXIMUM: 384K · OFF-PEAK $0.15 $0.66 · PEAK $0.3 $1.32 · OFF-PEAK $0.6 $1.98 · PEAK $1.2 $3.96 · In response to user demand, we have decided to continue providing API services for DeepSeek V4 Pro after September 14, 2026, with the billing method remaining unchanged.",
-        "basis": "Columna deepseek-v4-pro: la segunda cifra de cada fila de precios. La licencia MIT se cita aparte, en la evidencia de código abierto.",
-        "checkedAt": "2026-09-16"
+        "quote": "MODEL VERSION DeepSeek-V4.1-Flash-1017 DeepSeek-V4-Pro-0813 · CONTEXT LENGTH 1M MAX OUTPUT MAXIMUM: 384K · 1M INPUT TOKENS (CACHE MISS) OFF-PEAK $0.15 $0.66 PEAK $0.3 $1.32 1M OUTPUT TOKENS OFF-PEAK $0.6 $1.98 PEAK $1.2 $3.96 [Columnas: la primera es DeepSeek-V4.1-Flash, la segunda DeepSeek-V4-Pro.]"
       },
       {
         "checkedAt": "2026-10-12",
@@ -8078,11 +8074,12 @@
       "commercialUse": "unverified",
       "creditReset": "none",
       "verifiedAt": "2026-10-17",
-      "summary": "Sin capa gratuita documentada. Precios estándar por millón de tokens, con contexto corto y largo tarifados aparte. Astra: 10 $ de entrada y 50 $ de salida en contexto corto; 20 $ y 75 $ en largo. 6.1 Sol: 2 $ y 10 $ en corto; 4 $ y 15 $ en largo. Luna: 0,10 $ y 0,50 $ en corto; 0,20 $ y 0,75 $ en largo.",
+      "summary": "Sin capa gratuita documentada. Precios estándar por millón de tokens en contexto corto: Astra, 10 $ de entrada y 50 $ de salida; 6.1 Sol, 2 $ y 10 $; 6.1 Terra, 1 $ y 5 $; Luna, 0,10 $ y 0,50 $. El contexto largo se tarifa aparte.",
       "limits": [
-        "GPT-6 Astra: 10 $/M entrada · 50 $/M salida (contexto corto) · 20 $ y 75 $ (largo)",
-        "GPT-6.1 Sol: 2 $/M entrada · 10 $/M salida (contexto corto) · 4 $ y 15 $ (largo)",
-        "GPT-6 Luna: 0,10 $/M entrada · 0,50 $/M salida (contexto corto) · 0,20 $ y 0,75 $ (largo)",
+        "GPT-6 Astra: 10 $/M entrada · 50 $/M salida (contexto corto)",
+        "GPT-6.1 Sol: 2 $/M entrada · 10 $/M salida (contexto corto)",
+        "GPT-6.1 Terra: 1 $/M entrada · 5 $/M salida (contexto corto)",
+        "GPT-6 Luna: 0,10 $/M entrada · 0,50 $/M salida (contexto corto)",
         "Las tarifas por lotes y flex son la mitad; el modo rápido, el doble",
         "La página de precios no documenta capa gratuita",
         "El plan gratuito de ChatGPT usa GPT-5.6 Luna, no GPT-6"
@@ -8142,13 +8139,13 @@
         "quote": "GPT-6 Astra · Our most capable model for the most demanding work · GPT-6.1 Sol · Near-Astra performance for complex work at a lower cost · GPT-6 Luna · Our most efficient model for focused, high-volume tasks"
       },
       {
-        "checkedAt": "2026-10-17",
-        "scope": "api",
+        "checkedAt": "2026-11-02",
         "field": "freePlan.limits",
         "outcome": "stated",
+        "scope": "api",
         "sourceUrl": "https://developers.openai.com/api/docs/pricing",
         "sourceKind": "pricing",
-        "quote": "Flagship models · Our latest models · gpt-6-astra $10.00 $1.00 $12.50 $50.00 $20.00 $2.00 $25.00 $75.00 · gpt-6.1-sol $2.00 $0.10 $2.50 $10.00 $4.00 $0.20 $5.00 $15.00 · gpt-6-luna $0.10 $0.01 $0.125 $0.50 $0.20 $0.02 $0.25 $0.75"
+        "quote": "Model Input Output Cached input 30m write 12h write gpt-6-astra $10.00 $50.00 $1.00 $12.50 $25.00 gpt-6.1-sol $2.00 $10.00 $0.10 $2.50 $5.00 gpt-6.1-terra $1.00 $5.00 $0.05 $1.25 $2.50 gpt-6-luna $0.10 $0.50 $0.01 [Contexto corto; los precios de contexto largo están en otra pestaña de la tabla.]"
       }
     ],
     "auditNotes": "`chat` y `chatFree` se quedan sin afirmar: help.openai.com, openai.com/chatgpt/pricing y el blog devuelven 403 a toda lectura automática, así que no hay forma de comprobar qué modelo sirve el plan gratuito de ChatGPT. Las capacidades se quedan en lo que la tabla de modelos demuestra.",
@@ -11879,7 +11876,7 @@
     "descriptionLong": "LM Studio ofrece una experiencia de escritorio pulida para ejecutar LLMs locales. Incluye buscador de modelos integrado que indexa Hugging Face, descarga con un clic, chat multi-turno, servidor API local compatible con OpenAI, y configuración avanzada de GPU offloading. Ideal para quienes prefieren GUI sobre línea de comandos.",
     "kind": "app",
     "verification": "pending_review",
-    "nextReviewAt": "2026-10-06",
+    "nextReviewAt": "2027-01-31",
     "categorySlug": "modelos-open-source",
     "secondaryCategories": [],
     "tags": [],
@@ -11904,7 +11901,7 @@
       "hasWatermark": "unverified",
       "commercialUse": "partial",
       "creditReset": "none",
-      "verifiedAt": "2026-09-16"
+      "verifiedAt": "2026-11-02"
     },
     "openSource": "no",
     "hosting": "hybrid",
@@ -11984,7 +11981,7 @@
     },
     "status": "published",
     "detectedAt": "2024-01-10",
-    "lastVerifiedAt": "2026-07-08",
+    "lastVerifiedAt": "2026-11-02",
     "updatedAt": "2026-10-23",
     "startEffort": "install",
     "capabilities": [
@@ -12003,7 +12000,7 @@
         "sourceUrl": "https://lmstudio.ai/docs/app",
         "sourceKind": "docs",
         "scope": "local",
-        "checkedAt": "2026-09-15",
+        "checkedAt": "2026-11-02",
         "quote": "Run an LLM like gpt-oss, Llama, Qwen, Mistral, or DeepSeek R1 on your computer · Search & download functionality (via Hugging Face 🤗) · Serve local models on OpenAI-like endpoints, locally and on the network · You can install MCP servers in LM Studio and use them with your local models."
       },
       {
@@ -12013,10 +12010,10 @@
         "sourceKind": "pricing",
         "scope": "product",
         "quote": "Run local LLMs on your machine · Bionic Agent · Run local LLMs using llama.cpp and MLX · State-of-the-art offline voice transcription · LM Link for up to 5 devices · Limited web search · Bionic+ · $20 · US-hosted open source models",
-        "checkedAt": "2026-09-16"
+        "checkedAt": "2026-11-02"
       },
       {
-        "checkedAt": "2026-10-23",
+        "checkedAt": "2026-11-02",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -12328,13 +12325,13 @@
         "quote": "refresh every day at 00:00 UTC"
       },
       {
-        "checkedAt": "2026-10-11",
-        "scope": "product",
+        "checkedAt": "2026-11-02",
         "field": "freePlan.requiresCreditCard",
         "outcome": "stated",
+        "scope": "product",
         "sourceUrl": "https://lovable.dev/pricing",
         "sourceKind": "pricing",
-        "quote": "Free · Discover what Lovable can do for you · €0 / month · Get started · No credit card needed"
+        "quote": "Free · Discover what Lovable can do for you · €0 · Get started · No credit card needed"
       },
       {
         "checkedAt": "2026-10-11",
@@ -12862,11 +12859,10 @@
     "descriptionShort": "Agente general que recibe un encargo y lo ejecuta en un entorno aislado: su documentación lo describe como un ordenador virtual con acceso a internet, sistema de ficheros persistente y capacidad de instalar software. El plan gratuito da 300 créditos que se renuevan cada día a medianoche UTC.",
     "verdict": "De los pocos agentes generales con una capa gratuita que se renueva de verdad, y con la letra pequeña donde importa: una tarea a la vez y sólo el modelo Lite.",
     "freePlan": {
-      "summary": "Plan gratuito de 0 $/mes con 300 créditos diarios que se reinician a medianoche UTC y no se acumulan. Da acceso al modo Chat y a Manus 2.0 Lite en modo Agente, una tarea simultánea y dos tareas programadas. El plan de pago más barato es Pro, desde 20 $/mes con 4.000 créditos mensuales.",
+      "summary": "Plan gratuito de 0 $/mes con 300 créditos diarios que se reinician a medianoche UTC y no se acumulan, una tarea simultánea y dos tareas programadas. El plan de pago más barato es Pro, desde 20 $/mes con 4.000 créditos mensuales.",
       "limits": [
         "300 créditos al día, reiniciados a medianoche UTC",
         "Los créditos diarios no se acumulan: lo que sobra desaparece",
-        "Sólo Manus 2.0 Lite en modo Agente",
         "1 tarea simultánea · 2 tareas programadas",
         "Plan de pago más barato: Pro, desde 20 $/mes (4.000 créditos/mes)"
       ],
@@ -12877,20 +12873,7 @@
       "creditsAmount": "300 créditos/día",
       "creditReset": "daily",
       "verifiedAt": "2026-10-11",
-      "includedCapabilities": [
-        {
-          "capability": "tool-use",
-          "condition": "300 créditos al día, una tarea a la vez",
-          "evidence": {
-            "outcome": "stated",
-            "checkedAt": "2026-10-11",
-            "scope": "product",
-            "sourceUrl": "https://help.manus.im/en/articles/11711111-what-is-the-current-membership-pricing-for-manus",
-            "sourceKind": "help",
-            "quote": "[Free Plan Price: $0/month] Access to Chat Mode and Manus 2.0 Lite in Agent Mode. Features: Daily Refresh Credits: 300 credits provided daily for quickly answering simple questions. Concurrent Tasks: Supports 1 concurrent task."
-          }
-        }
-      ]
+      "includedCapabilities": []
     },
     "capabilities": [
       "web-browsing",
@@ -12946,13 +12929,13 @@
     ],
     "evidence": [
       {
-        "checkedAt": "2026-10-11",
-        "scope": "product",
+        "checkedAt": "2026-11-02",
         "field": "freePlan.limits",
         "outcome": "stated",
+        "scope": "product",
         "sourceUrl": "https://help.manus.im/en/articles/11711111-what-is-the-current-membership-pricing-for-manus",
         "sourceKind": "help",
-        "quote": "[Free Plan Price: $0/month] Access to Chat Mode and Manus 2.0 Lite in Agent Mode. Features: Daily Refresh Credits: 300 credits provided daily for quickly answering simple questions. Concurrent Tasks: Supports 1 concurrent task. Scheduled Automations: Supports 2 Scheduled Automations."
+        "quote": "[Free Plan Price: $0/month] Features: Daily Refresh Credits: 300 credits provided daily for quickly answering simple questions. Concurrent Tasks: Supports 1 concurrent task. Scheduled Automations: Supports 2 Scheduled Automations."
       },
       {
         "field": "capabilities",
@@ -12985,7 +12968,7 @@
     "auditNotes": "`memory` se marca porque la documentación dice «remember context across long tasks», no porque prometa memoria permanente entre sesiones distintas. `computer-use` NO se marca: el ordenador es suyo, no el tuyo.",
     "nextReviewAt": "2026-11-17",
     "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19",
+    "updatedAt": "2026-11-02",
     "access": {}
   },
   {
@@ -14351,10 +14334,10 @@
     ],
     "freeModel": "free_real",
     "freePlan": {
-      "summary": "Gratis y open source. Ejecutar modelos en tu equipo no tiene límite de uso. Sus modelos en la nube gastan créditos, y una cuenta gratuita trae una cantidad inicial para unos pocos modelos. Desde julio de 2025 tiene app con interfaz para macOS y Windows.",
+      "summary": "Gratis y open source. Ejecutar modelos en tu equipo no tiene límite de uso. Sus modelos en la nube se pagan por token: la página de precios ya no anuncia uso gratuito en la nube para cuentas gratis. Desde julio de 2025 tiene app con interfaz para macOS y Windows.",
       "limits": [
         "Sin límite de uso al ejecutar modelos en tu equipo",
-        "Modelos en la nube: una cuenta gratuita trae una cantidad inicial de uso para unos pocos modelos",
+        "Modelos en la nube: se pagan por token; la página ya no anuncia uso gratuito en la nube para cuentas gratis",
         "App con interfaz para macOS y Windows desde julio de 2025"
       ],
       "requiresSignup": "no",
@@ -14470,7 +14453,7 @@
     "status": "published",
     "detectedAt": "2023-10-15",
     "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08",
+    "updatedAt": "2026-11-02",
     "startEffort": "install",
     "capabilities": [
       "api",
@@ -14489,14 +14472,13 @@
         "basis": "El README enseña a ejecutar y chatear con modelos de lenguaje abiertos descargados de su biblioteca."
       },
       {
+        "checkedAt": "2026-11-02",
         "field": "freePlan.limits",
         "outcome": "stated",
+        "scope": "product",
         "sourceUrl": "https://ollama.com/pricing",
         "sourceKind": "pricing",
-        "scope": "product",
-        "quote": "Running models on your own hardware is always unlimited. · Free accounts include a starter amount of usage for a smaller set of starter models.",
-        "basis": "La app con interfaz está en el blog oficial, «Ollama’s new app is now available for macOS and Windows.» (30 de julio de 2025), anotado en el historial de la ficha.",
-        "checkedAt": "2026-09-16"
+        "quote": "Running models on your own hardware is always unlimited. · Pay as you go · $0 · Pay per token for every cloud model. · Includes: · Run models locally · No subscription · 3 concurrent requests · No service fees"
       },
       {
         "checkedAt": "2026-10-12",
@@ -16165,19 +16147,19 @@
     },
     "status": "published",
     "detectedAt": "2026-08-12",
-    "lastVerifiedAt": "2026-08-26",
-    "updatedAt": "2026-10-22",
+    "lastVerifiedAt": "2026-11-02",
+    "updatedAt": "2026-11-02",
     "slug": "playground-ai",
     "name": "Playground",
-    "tagline": "Diez imágenes cada tres horas en el plan gratuito, con licencia comercial.",
-    "descriptionShort": "Generador de imagen en el navegador. El plan gratuito documenta su límite —diez imágenes cada tres horas— y concede licencia comercial sobre lo generado.",
+    "tagline": "Cinco imágenes cada tres horas en el plan gratuito, con licencia comercial.",
+    "descriptionShort": "Generador de imagen en el navegador. El plan gratuito documenta su límite —cinco imágenes cada tres horas— y concede licencia comercial sobre lo generado.",
     "officialUrl": "https://playground.com/",
     "pricingUrl": "https://playground.com/pricing",
     "freeModel": "credits",
     "freePlan": {
-      "summary": "Plan gratuito activo con hasta diez imágenes cada tres horas y tres generaciones mensuales en los modelos premium. La licencia comercial se concede también en el plan gratuito.",
+      "summary": "Plan gratuito activo con hasta cinco imágenes cada tres horas (eran diez hasta finales de octubre) y tres generaciones mensuales en los modelos premium. La licencia comercial se concede también en el plan gratuito.",
       "limits": [
-        "Hasta 10 imágenes cada 3 horas",
+        "Hasta 5 imágenes cada 3 horas (eran 10 hasta finales de octubre)",
         "3 generaciones al mes entre Muse Image, Nano Banana, GPT Image 2, GPT Image 2.5 y Seedream",
         "Uso comercial: licencia mundial y libre de derechos",
         "Generación más lenta en horas punta y espera al agotar el límite"
@@ -16187,19 +16169,19 @@
       "hasWatermark": "unverified",
       "commercialUse": "yes",
       "creditReset": "intraday",
-      "creditsAmount": "10 imágenes cada 3 horas",
-      "verifiedAt": "2026-10-12",
+      "creditsAmount": "5 imágenes cada 3 horas",
+      "verifiedAt": "2026-11-02",
       "includedCapabilities": [
         {
           "capability": "text-to-image",
-          "condition": "hasta 10 imágenes cada 3 horas",
+          "condition": "hasta 5 imágenes cada 3 horas",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-22",
+            "checkedAt": "2026-11-02",
             "scope": "product",
             "sourceUrl": "https://playground.com/pricing",
             "sourceKind": "pricing",
-            "quote": "Free · For exploring and casual creation · Limited image generation · Create up to 10 images every 3 hours"
+            "quote": "Free · For exploring and casual creation · Limited image generation · Create up to 5 images every 3 hours"
           }
         }
       ]
@@ -16223,13 +16205,13 @@
         "scope": "cloud"
       },
       {
-        "checkedAt": "2026-10-12",
-        "scope": "product",
+        "checkedAt": "2026-11-02",
         "field": "freePlan.limits",
         "outcome": "stated",
+        "scope": "product",
         "sourceUrl": "https://playgroundai.com/design/pricing",
         "sourceKind": "pricing",
-        "quote": "Free · Create up to 10 images every 3 hours · 3 monthly generations across Muse Image, Nano Banana, GPT Image 2, GPT Image 2.5, and Seedream"
+        "quote": "Free · Create up to 5 images every 3 hours · 3 monthly generations across Muse Image, Nano Banana, GPT Image 2, GPT Image 2.5, and Seedream"
       },
       {
         "field": "freePlan.commercialUse",
@@ -16241,13 +16223,13 @@
         "quote": "Commercial use — World-wide, royalty free license"
       },
       {
+        "checkedAt": "2026-11-02",
         "field": "freePlan.creditReset",
         "outcome": "stated",
+        "scope": "product",
         "sourceUrl": "https://playgroundai.com/design/pricing",
         "sourceKind": "pricing",
-        "scope": "product",
-        "checkedAt": "2026-08-26",
-        "quote": "Limited image generation — Create up to 10 images every 3 hours"
+        "quote": "Limited image generation · Create up to 5 images every 3 hours"
       },
       {
         "checkedAt": "2026-10-12",
@@ -17616,7 +17598,7 @@
     "descriptionLong": "AUTOMATIC1111 Stable Diffusion WebUI es la interfaz más popular para ejecutar Stable Diffusion localmente. Ofrece txt2img, img2img, inpainting, ControlNet, upscalers, entrenamiento LoRA, y un ecosistema masivo de extensiones comunitarias. Ideal para quien tiene GPU local (especialmente NVIDIA) y quiere el máximo control sin depender de servicios cloud.",
     "kind": "interface",
     "verification": "partially_verified",
-    "nextReviewAt": "2026-10-06",
+    "nextReviewAt": "2027-01-31",
     "categorySlug": "imagen",
     "secondaryCategories": [],
     "tags": [
@@ -17641,14 +17623,14 @@
       "hasWatermark": "unverified",
       "commercialUse": "yes",
       "creditReset": "none",
-      "verifiedAt": "2026-09-16",
+      "verifiedAt": "2026-11-02",
       "includedCapabilities": [
         {
           "capability": "text-to-image",
           "condition": "en tu equipo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-02",
             "scope": "local",
             "sourceUrl": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
             "sourceKind": "repo",
@@ -17660,7 +17642,7 @@
           "condition": "en tu equipo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-02",
             "scope": "local",
             "sourceUrl": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
             "sourceKind": "repo",
@@ -17672,7 +17654,7 @@
           "condition": "en tu equipo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-02",
             "scope": "local",
             "sourceUrl": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
             "sourceKind": "repo",
@@ -17684,7 +17666,7 @@
           "condition": "en tu equipo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-02",
             "scope": "local",
             "sourceUrl": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
             "sourceKind": "repo",
@@ -17696,7 +17678,7 @@
           "condition": "en tu equipo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-02",
             "scope": "local",
             "sourceUrl": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
             "sourceKind": "repo",
@@ -17779,7 +17761,7 @@
     },
     "status": "published",
     "detectedAt": "2024-01-15",
-    "lastVerifiedAt": "2026-07-08",
+    "lastVerifiedAt": "2026-11-02",
     "updatedAt": "2026-10-23",
     "startEffort": "technical",
     "capabilities": [
@@ -17796,7 +17778,7 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-12",
+        "checkedAt": "2026-11-02",
         "quote": "can be tiled like textures Progress bar and live image generation preview Can use a separate neural network to · ature showcase with images : Original txt2img and img2img modes One click install and run script (but you stil · ou still must install python and git) Outpainting Inpainting Color Sketch Prompt Matrix Stable Diffusion Upsca",
         "scope": "local"
       },
@@ -17816,10 +17798,10 @@
         "sourceKind": "repo",
         "scope": "local",
         "quote": "NVidia (recommended) · AMD GPUs. · Intel CPUs, Intel GPUs (both integrated and discrete) · Installation on Apple Silicon · No token limit for prompts (original stable diffusion lets you use up to 75 tokens)",
-        "checkedAt": "2026-09-16"
+        "checkedAt": "2026-11-02"
       },
       {
-        "checkedAt": "2026-10-23",
+        "checkedAt": "2026-11-02",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
