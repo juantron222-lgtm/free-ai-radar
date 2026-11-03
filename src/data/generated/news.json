@@ -1,5 +1,135 @@
 [
   {
+    "id": "news-2026-11-03-transformers-mic",
+    "slug": "transformers-contratos-integracion-modelos",
+    "title": "Un fallo dejó que un modelo de Transformers viera la respuesta durante dos meses: así quieren que no vuelva a pasar",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Hugging Face contó el 3 de noviembre un fallo concreto y la respuesta que ha construido encima. El 30 de julio, al activar la atención rápida de PyTorch para T5, el decodificador de UMT5 quedó pudiendo mirar los tokens futuros: durante el entrenamiento veía la respuesta que debía predecir. Nada se rompió y el fallo siguió en la rama principal casi dos meses, hasta el 28 de septiembre.",
+    "impact": "La propuesta se llama contratos de integración de modelos, y lo interesante es la economía: en vez de correr las más de 288.000 pruebas que tienen, publican un modelo encogido —el de UMT5 pesa 66 MB frente a 1.227— con todos los tipos de capa del original, y comprueban que un ejemplo real siga dando las mismas salidas. Al repasar cinco meses de commits, ese modelo pequeño señaló la regresión en todos. Sirve incluso para modelos que no caben en sus GPU, porque el sustituto corre en CPU. Ellos avisan de que no reemplaza a las pruebas completas.",
+    "category": "programacion",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-11-03",
+    "checkedAt": "2026-11-03",
+    "officialUrl": "https://huggingface.co/blog/transformers-mic",
+    "sources": [
+      {
+        "url": "https://huggingface.co/blog/transformers-mic",
+        "kind": "official",
+        "label": "Transformers Model Integration Contracts",
+        "checkedAt": "2026-11-03",
+        "publisher": "huggingface.co/blog"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-11-02-claude-hilos-mensajes",
+    "slug": "claude-hilos-de-mensajes-beta",
+    "title": "La API de Claude ya puede guardar la conversación en su servidor, y así el agente sólo manda lo nuevo en cada turno",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Anthropic abrió el 2 de noviembre, en beta, los hilos de mensajes en su API. Hasta ahora cada turno de una conversación había que reenviarlo entero; con un hilo, la API guarda la conversación en el servidor y cada petición posterior sólo envía los mensajes nuevos. Lo que se busca con eso es un primer token más rápido en agentes de larga duración y en conversaciones largas.",
+    "impact": "Conviene leer la letra pequeña, que está toda en su documentación. El hilo es de mejor esfuerzo: caduca cinco minutos después de la última petición y se borra como máximo una hora después del último uso, así que no es memoria, es una caché de sesión. El contenido va en memoria cifrada y no se escribe en disco, pero su propia tabla dice que la función no es elegible ni para retención cero de datos ni para HIPAA. Y sólo añade: no puedes resumir los turnos anteriores, hay que abrir un hilo nuevo. El cacheo no es automático, hay que pedirlo.",
+    "category": "plataforma-agentes",
+    "eventType": "preview-beta",
+    "availability": "preview",
+    "publishedAt": "2026-11-02",
+    "checkedAt": "2026-11-03",
+    "officialUrl": "https://platform.claude.com/docs/en/build-with-claude/message-threads",
+    "sources": [
+      {
+        "url": "https://platform.claude.com/docs/en/build-with-claude/message-threads",
+        "kind": "docs",
+        "label": "Message threads",
+        "checkedAt": "2026-11-03",
+        "publisher": "platform.claude.com"
+      },
+      {
+        "url": "https://platform.claude.com/docs/en/release-notes/overview",
+        "kind": "release-notes",
+        "label": "Claude Platform release notes, 2 de noviembre de 2026",
+        "checkedAt": "2026-11-03",
+        "publisher": "platform.claude.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-30-claude-code-coste-sesion",
+    "slug": "claude-code-coste-real-por-sesion",
+    "title": "Cuánto cuesta de verdad una sesión de Claude Code: las medianas por modelo, medidas sobre sesiones reales",
+    "author": "Redacción de Free AI Radar",
+    "summary": "OpenRouter publicó el 30 de octubre las medianas de coste de sesiones reales de Claude Code pasadas por su plataforma en los 30 días hasta el 18 de octubre. La herramienta se instala gratis y lo que se paga es el modelo al que llama: con clave de API, una sesión de 2 a 9 turnos sale a 0,31 dólares con Opus 5.5 y a 0,16 con Sonnet 5.5; una larga, de 10 a 49 turnos, a 1,39 y 0,60.",
+    "impact": "El dato que cambia cómo se usa la herramienta es de dónde viene la factura: no de lo que escribes, sino del contexto propio de Claude Code. Lo midieron pidiendo una sola palabra de respuesta en una carpeta vacía —cuatro tokens de respuesta y 17.047 escritos en la caché, 0,085 dólares sólo de arranque—. De ahí sus consejos: Sonnet por defecto, Haiku para subagentes y trabajos de fondo, sesiones cortas y un límite de crédito en la clave. Dos avisos: son sus cifras y cubren la vía de clave de API, no la de suscripción.",
+    "category": "precios",
+    "eventType": "anuncio",
+    "availability": "unknown",
+    "publishedAt": "2026-10-30",
+    "checkedAt": "2026-11-03",
+    "officialUrl": "https://openrouter.ai/blog/insights/claude-code-cost/",
+    "sources": [
+      {
+        "url": "https://openrouter.ai/blog/insights/claude-code-cost/",
+        "kind": "official",
+        "label": "How Much Does Claude Code Cost? Real Session Costs by Model",
+        "checkedAt": "2026-11-03",
+        "publisher": "openrouter.ai"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-10-30-fast-mode-opus-48-retirado",
+    "slug": "modo-rapido-opus-4-8-retirada",
+    "title": "El modo rápido de Claude Opus 4.8 se retira el 30 de noviembre: después, esas peticiones devolverán error",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Anthropic anunció el 30 de octubre que el modo rápido de Claude Opus 4.8 queda obsoleto y se retira el 30 de noviembre de 2026. A partir de ahí, una petición a ese modelo pidiendo velocidad rápida devolverá un error, y la vía que indican es migrar a Opus 5.5. El modo rápido no cambia el modelo ni sus capacidades: es la misma inteligencia con una configuración de inferencia más veloz.",
+    "impact": "Si tienes código que pide velocidad rápida sobre Opus 4.8, tienes un mes para cambiarlo, y conviene mirar el precio antes: el recargo se aplica sobre toda la ventana de contexto, incluidas las peticiones de más de 200.000 tokens, y con Opus 5.5 sale a 8 dólares por millón de tokens de entrada y 40 de salida. Da hasta 2,5 veces más tokens de salida por segundo. Dos límites que no siempre se leen: no funciona con la API por lotes ni con un compromiso de nivel prioritario.",
+    "category": "modelo-lenguaje",
+    "eventType": "retirada",
+    "availability": "deprecated",
+    "publishedAt": "2026-10-30",
+    "checkedAt": "2026-11-03",
+    "officialUrl": "https://platform.claude.com/docs/en/build-with-claude/fast-mode",
+    "sources": [
+      {
+        "url": "https://platform.claude.com/docs/en/build-with-claude/fast-mode",
+        "kind": "docs",
+        "label": "Fast mode",
+        "checkedAt": "2026-11-03",
+        "publisher": "platform.claude.com"
+      },
+      {
+        "url": "https://platform.claude.com/docs/en/release-notes/overview",
+        "kind": "release-notes",
+        "label": "Claude Platform release notes, 30 de octubre de 2026",
+        "checkedAt": "2026-11-03",
+        "publisher": "platform.claude.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-10-29-anyspeech-anydecision",
     "slug": "anyspeechrecognizer-anydecisionmodel",
     "title": "Dos paquetes de Swift abren la voz y las decisiones en iPhone y Mac: la API de Apple con el motor que tú elijas",
