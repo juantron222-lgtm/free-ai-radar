@@ -1724,8 +1724,8 @@
         "sourceUrl": "https://chatgpt.com/pricing",
         "sourceKind": "pricing",
         "scope": "web",
-        "checkedAt": "2026-10-17",
-        "quote": "Free · Best for trying out ChatGPT · Unlimited text chats with GPT-6 · Limited messages with uploads · Limited image creation · Limited voice chats · Limited deep research · Limited memory and context · Limited Codex access · Unlimited text chats subject to abuse guardrails",
+        "checkedAt": "2026-11-02",
+        "quote": "Free · Intelligence for everyday tasks · Unlimited text chats with GPT-6 · Limited messages with uploads · Limited image creation · Limited voice chats · Limited deep research · Limited memory and context · Limited Codex access · Unlimited text chats subject to abuse guardrails",
         "basis": "Lista del plan Free en la página de precios."
       },
       {
@@ -1928,7 +1928,7 @@
     "descriptionLong": "Claude, de Anthropic, destaca en razonamiento, escritura larga y análisis de documentos extensos. El plan gratuito permite conversar, subir archivos y analizar imágenes, con cuenta obligatoria. Según la tabla de planes, el gratuito incluye las gamas Sonnet y Haiku; Opus y Fable son de pago. El uso se cuenta por sesiones que se reinician cada cinco horas, y cuántos mensajes caben en cada una no es una cifra fija: la propia documentación dice que varía según la demanda.",
     "kind": "app",
     "verification": "partially_verified",
-    "nextReviewAt": "2026-10-06",
+    "nextReviewAt": "2027-01-31",
     "categorySlug": "escritura",
     "secondaryCategories": [],
     "tags": [],
@@ -1953,14 +1953,14 @@
       "hasWatermark": "unverified",
       "commercialUse": "no",
       "creditReset": "none",
-      "verifiedAt": "2026-10-11",
+      "verifiedAt": "2026-11-02",
       "includedCapabilities": [
         {
           "capability": "text-generation",
           "condition": "con el límite por sesión que se reinicia cada cinco horas",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-02",
             "scope": "product",
             "sourceUrl": "https://claude.com/pricing",
             "sourceKind": "pricing",
@@ -1971,7 +1971,7 @@
           "capability": "web-browsing",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-02",
             "scope": "product",
             "sourceUrl": "https://claude.com/pricing",
             "sourceKind": "pricing",
@@ -1982,7 +1982,7 @@
           "capability": "code-execution",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-02",
             "scope": "product",
             "sourceUrl": "https://claude.com/pricing",
             "sourceKind": "pricing",
@@ -1993,7 +1993,7 @@
           "capability": "memory",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-02",
             "scope": "product",
             "sourceUrl": "https://claude.com/pricing",
             "sourceKind": "pricing",
@@ -2004,7 +2004,7 @@
           "capability": "integrations",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-02",
             "scope": "product",
             "sourceUrl": "https://claude.com/pricing",
             "sourceKind": "pricing",
@@ -2102,7 +2102,7 @@
     },
     "status": "published",
     "detectedAt": "2023-07-01",
-    "lastVerifiedAt": "2026-08-30",
+    "lastVerifiedAt": "2026-11-02",
     "updatedAt": "2026-10-17",
     "startEffort": "signup",
     "capabilities": [
@@ -2115,13 +2115,13 @@
     ],
     "evidence": [
       {
-        "checkedAt": "2026-10-17",
+        "checkedAt": "2026-11-02",
         "scope": "product",
         "field": "capabilities",
         "outcome": "stated",
         "sourceUrl": "https://claude.com/pricing",
         "sourceKind": "pricing",
-        "quote": "Models and usage · Features Free Pro Max 5x Max 20x · Opus No Yes Yes Yes · Sonnet Yes Yes Yes Yes · Haiku Yes Yes Yes Yes"
+        "quote": "Models and usage · Features Free Pro Max Ultra · Opus No Yes Yes Yes · Sonnet Yes Yes Yes Yes · Haiku Yes Yes Yes Yes"
       },
       {
         "field": "freePlan.limits",
@@ -2129,7 +2129,7 @@
         "sourceUrl": "https://support.claude.com/en/articles/8114491-getting-started-with-claude",
         "sourceKind": "docs",
         "scope": "product",
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-02",
         "quote": "While using the free Claude plan, there is a session-based usage limit that will reset every five hours. […] the number of messages you can send will vary based on demand, and we may impose other types of usage limits to ensure fair access to all users."
       },
       {
@@ -2146,7 +2146,7 @@
         "outcome": "stated",
         "sourceUrl": "https://www.anthropic.com/legal/consumer-terms",
         "sourceKind": "terms",
-        "checkedAt": "2026-09-15",
+        "checkedAt": "2026-11-02",
         "scope": "web",
         "quote": "Non-commercial use only. You agree that you will not use our Services for any commercial or business purposes",
         "basis": "Condiciones para consumidores residentes en el Espacio Económico Europeo o Suiza, las que se aplican a quien usa Claude.ai desde España. La API se rige por las condiciones comerciales, que son otras."
@@ -3625,7 +3625,7 @@
     "descriptionLong": "ComfyUI es una interfaz de nodos para Stable Diffusion que permite construir pipelines visuales complejos arrastrando y conectando nodos. Perfecto para workflows avanzados que mezclan múltiples modelos, ControlNet, IP-Adapter, upscalers y más. Los workflows se pueden compartir como archivos JSON, facilitando la reproducibilidad. Menos amigable para principiantes pero mucho más potente para uso profesional.",
     "kind": "interface",
     "verification": "partially_verified",
-    "nextReviewAt": "2026-10-06",
+    "nextReviewAt": "2027-01-31",
     "categorySlug": "imagen",
     "secondaryCategories": [],
     "tags": [
@@ -3652,14 +3652,14 @@
       "hasWatermark": "unverified",
       "commercialUse": "yes",
       "creditReset": "none",
-      "verifiedAt": "2026-09-16",
+      "verifiedAt": "2026-11-02",
       "includedCapabilities": [
         {
           "capability": "text-to-image",
           "condition": "en tu equipo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-02",
             "scope": "local",
             "sourceUrl": "https://github.com/Comfy-Org/ComfyUI",
             "sourceKind": "repo",
@@ -3748,7 +3748,7 @@
     },
     "status": "published",
     "detectedAt": "2024-02-20",
-    "lastVerifiedAt": "2026-07-08",
+    "lastVerifiedAt": "2026-11-02",
     "updatedAt": "2026-10-23",
     "auditNotes": [
       "El repositorio pasó de comfyanonymous/ComfyUI a Comfy-Org/ComfyUI. La URL anterior redirige, pero nombraba a un propietario que ya no lo es."
@@ -3765,13 +3765,13 @@
     ],
     "evidence": [
       {
+        "checkedAt": "2026-11-09",
         "field": "capabilities",
         "outcome": "stated",
+        "scope": "local",
         "sourceUrl": "https://github.com/Comfy-Org/ComfyUI",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-12",
-        "quote": "Image generation : Stable Diffusion 1 · advanced examples: “Hires Fix” aka 2 Pass Txt2Img Img2Img Inpainting Lora Hypernetworks Embeddings/Textual Inv · Image editing : Flux Kontext, Flux",
-        "scope": "local"
+        "quote": "Image generation: Stable Diffusion 1.5, SDXL, SD3.5, Flux.1, Flux.2, Qwen Image · Image editing: Flux Kontext, Flux.2 Klein, Qwen Image Edit · Built-in tools for inpainting, outpainting, reference conditioning, masks and compositing, model merging, upscaling · Reusable subgraphs, workflow templates, App Mode, and a local API for integrating workflows into applications."
       },
       {
         "field": "freePlan.hasWatermark",
@@ -3789,10 +3789,10 @@
         "sourceKind": "repo",
         "scope": "local",
         "quote": "Supports all operating systems and GPU types (NVIDIA, AMD, Intel, Apple Silicon, Ascend). · Runs fully offline: core does not download anything unless you request it. · the optional paid Comfy API nodes · There is a portable standalone build for Windows that should work for running on Nvidia GPUs or for running on your CPU only.",
-        "checkedAt": "2026-09-16"
+        "checkedAt": "2026-11-02"
       },
       {
-        "checkedAt": "2026-10-23",
+        "checkedAt": "2026-11-02",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -5989,7 +5989,7 @@
     "descriptionLong": "Fooocus reinventa la experiencia de Stable Diffusion quitando toda la complejidad técnica. Sin prompts negativos, sin samplers, sin steps — solo escribe lo que quieres y obtén imágenes de calidad. Incorpora tecnología avanzada como SDXL, refinado automático, inpainting y upscaling, todo bajo una interfaz minimalista. Creado por el mismo autor de ControlNet (lllyasviel).",
     "kind": "interface",
     "verification": "partially_verified",
-    "nextReviewAt": "2026-10-06",
+    "nextReviewAt": "2027-01-31",
     "categorySlug": "imagen",
     "secondaryCategories": [],
     "tags": [
@@ -6015,14 +6015,14 @@
       "hasWatermark": "unverified",
       "commercialUse": "yes",
       "creditReset": "none",
-      "verifiedAt": "2026-09-16",
+      "verifiedAt": "2026-11-02",
       "includedCapabilities": [
         {
           "capability": "text-to-image",
           "condition": "en tu equipo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-02",
             "scope": "local",
             "sourceUrl": "https://github.com/lllyasviel/Fooocus",
             "sourceKind": "repo",
@@ -6105,7 +6105,7 @@
     },
     "status": "published",
     "detectedAt": "2023-08-15",
-    "lastVerifiedAt": "2026-07-08",
+    "lastVerifiedAt": "2026-11-02",
     "updatedAt": "2026-10-23",
     "auditNotes": [
       "Aplicación Python local que exige GPU e instalación. Presentarla como \"beginner\" junto a generadores web es la comparación engañosa que la auditoría señaló. Último push del repositorio: 2025-12-01."
@@ -6121,13 +6121,13 @@
     ],
     "evidence": [
       {
+        "checkedAt": "2026-11-09",
         "field": "capabilities",
         "outcome": "stated",
+        "scope": "local",
         "sourceUrl": "https://github.com/lllyasviel/Fooocus",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-12",
-        "quote": "urney's examples: Midjourney Fooocus High-quality text-to-image without needing much prompt engineering or par · oint swap system of the refiner now also supports img2img and upscale in a seamless way · 5x) / Upscale (2x) Inpaint / Up / Down / Left / Right (Pan) Input Image -&gt; Inpaint",
-        "scope": "local"
+        "quote": "High-quality text-to-image without needing much prompt engineering or parameter tuning. · Input Image -> Upscale or Variation -> Vary (Subtle) / Vary (Strong) · Input Image -> Upscale or Variation -> Upscale (1.5x) / Upscale (2x) · Input Image -> Inpaint or Outpaint -> Inpaint / Up / Down / Left / Right · API access: use --share (registers an endpoint at .gradio.live)."
       },
       {
         "field": "freePlan.hasWatermark",
@@ -6145,10 +6145,10 @@
         "sourceKind": "repo",
         "scope": "local",
         "quote": "Project Status: Limited Long-Term Support (LTS) with Bug Fixes Only · built entirely on the Stable Diffusion XL architecture · Note that the minimal requirement is 4GB Nvidia GPU memory (4GB VRAM) and 8GB system memory (8GB RAM). · Note that the minimal requirement for different platforms is different.",
-        "checkedAt": "2026-09-16"
+        "checkedAt": "2026-11-02"
       },
       {
-        "checkedAt": "2026-10-23",
+        "checkedAt": "2026-11-02",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -9131,13 +9131,13 @@
     ],
     "evidence": [
       {
+        "checkedAt": "2026-11-09",
         "field": "freePlan.limits",
         "outcome": "stated",
+        "scope": "product",
         "sourceUrl": "https://higgsfield.ai/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-08-15",
-        "quote": "Compare features — Free · Free · Limited use | Starter €19/month Billed annually",
-        "scope": "cloud"
+        "quote": "Compare features · Free · Free · Limited use · Starter · €19/month · Billed annually [Tabla «Compare features», que hay que desplegar.]"
       },
       {
         "field": "capabilities",
@@ -10618,7 +10618,7 @@
         "basis": "Su página de planes da «Generated content is for commercial use» sólo a los planes de pago (Standard, Pro, Premier)."
       },
       {
-        "checkedAt": "2026-10-22",
+        "checkedAt": "2026-11-09",
         "scope": "product",
         "field": "freePlan.creditReset",
         "outcome": "stated",
@@ -10823,12 +10823,12 @@
     "descriptionShort": "Estudio de imagen, vídeo y 3D en el navegador que reúne modelos propios y de terceros. Su plan gratuito da 100 unidades de cómputo al día con Krea 3, su modelo propio más reciente, y los modelos en tiempo real; no incluye vídeo ni la licencia comercial.",
     "verdict": "Sirve para probar su modelo propio, Krea 3, y la generación en tiempo real: cien unidades al día y sin tarjeta. Lo demás —los modelos de terceros, el vídeo, el 3D y el permiso para usar el resultado en un trabajo— es de pago.",
     "freePlan": {
-      "summary": "Plan gratuito con 100 unidades de cómputo al día. Incluye Krea 3, su modelo propio más reciente, Krea Agent, los modelos en tiempo real, un entrenamiento LoRA limitado (50 imágenes) y un escalado limitado hasta 2K. La tabla marca como no incluidos el resto de modelos de imagen, los de vídeo, los de 3D, Krea Nodes, App Builder y la licencia comercial. No pide tarjeta.",
+      "summary": "Plan gratuito con 100 unidades de cómputo al día. Incluye Krea 3, su modelo propio más reciente, Krea Agent, los modelos en tiempo real y un escalado limitado hasta 2K. La tabla marca como no incluidos el resto de modelos de imagen, los de vídeo, los de 3D, el entrenamiento LoRA, Krea Nodes, App Builder y la licencia comercial. No pide tarjeta.",
       "limits": [
         "100 unidades de cómputo al día",
         "Incluye Krea 3, Krea Agent y los modelos en tiempo real",
         "El resto de modelos de imagen, los de vídeo y los de 3D no están incluidos",
-        "Entrenamiento LoRA limitado (50 imágenes) y escalado limitado hasta 2K",
+        "Escalado limitado hasta 2K; el entrenamiento LoRA ya no está incluido (hasta octubre lo estaba, con 50 imágenes)",
         "Sin licencia comercial",
         "Sin Krea Nodes ni App Builder"
       ],
@@ -10838,7 +10838,7 @@
       "commercialUse": "no",
       "creditsAmount": "100 unidades/día",
       "creditReset": "daily",
-      "verifiedAt": "2026-10-23",
+      "verifiedAt": "2026-11-09",
       "includedCapabilities": [
         {
           "capability": "text-to-image",
@@ -10927,13 +10927,13 @@
         "scope": "cloud"
       },
       {
-        "checkedAt": "2026-10-23",
-        "scope": "product",
+        "checkedAt": "2026-11-09",
         "field": "freePlan.limits",
         "outcome": "stated",
+        "scope": "product",
         "sourceUrl": "https://www.krea.ai/pricing",
         "sourceKind": "pricing",
-        "quote": "Free · 100 units / day · […] Krea 3 · Krea Agent · No credit card required · Full access to real-time models · All image models · All video models · All 3D & lipsync models · Limited LoRA training (50 images) · Limited image upscaling · Krea Nodes · App Builder · Commercial license [En la tarjeta Free llevan marca de verificación «Krea 3», «Krea Agent», «No credit card required», «Full access to real-time models», «Limited LoRA training (50 images)» y «Limited image upscaling»; llevan una cruz «All image models», «All video models», «All 3D & lipsync models», «Krea Nodes», «App Builder» y «Commercial license». Leído en la tarjeta del plan Free el 23 de octubre de 2026: los iconos no tienen texto.]"
+        "quote": "Free · 100 units / day · Krea 3 · Krea Agent · No credit card required · Full access to real-time models · All image models · All video models · All 3D & lipsync models · LoRA training · Limited image upscaling · Krea Nodes · App Builder · Commercial license [En la tarjeta Free llevan marca de verificación «Krea 3», «Krea Agent», «No credit card required», «Full access to real-time models» y «Limited image upscaling»; llevan una cruz «All image models», «All video models», «All 3D & lipsync models», «LoRA training», «Krea Nodes», «App Builder» y «Commercial license». Leído en la tarjeta del plan Free el 2026-11-09: los iconos no tienen texto.]"
       },
       {
         "field": "freePlan.requiresCreditCard",
@@ -10976,8 +10976,8 @@
     ],
     "auditNotes": "commercialUse es «no» y no «unverified» porque la tabla lo declara explícitamente: «Commercial license» aparece con aspa en la columna Free y con visto en Basic, Pro y Max. Los precios de los planes de pago no están en el DOM de la página, así que el precio mínimo queda sin verificar.",
     "nextReviewAt": "2026-12-20",
-    "lastVerifiedAt": "2026-10-23",
-    "updatedAt": "2026-10-23",
+    "lastVerifiedAt": "2026-11-09",
+    "updatedAt": "2026-11-09",
     "licences": {},
     "access": {}
   },
@@ -14322,7 +14322,7 @@
     "descriptionLong": "Ollama simplifica drásticamente la ejecución de LLMs open-source en local. Con comandos como 'ollama run llama3' puedes tener un chatbot funcionando en segundos. Soporta GPU acceleration (NVIDIA, AMD, Apple Silicon), cuantización, modelos personalizados via Modelfile, y una API REST compatible con OpenAI. Es la puerta de entrada al mundo de los LLMs locales.",
     "kind": "oss_project",
     "verification": "partially_verified",
-    "nextReviewAt": "2026-10-06",
+    "nextReviewAt": "2027-01-31",
     "categorySlug": "modelos-open-source",
     "secondaryCategories": [],
     "tags": [],
@@ -14345,14 +14345,14 @@
       "hasWatermark": "unverified",
       "commercialUse": "yes",
       "creditReset": "none",
-      "verifiedAt": "2026-09-16",
+      "verifiedAt": "2026-11-02",
       "includedCapabilities": [
         {
           "capability": "api",
           "condition": "en tu equipo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-02",
             "scope": "local",
             "sourceUrl": "https://github.com/ollama/ollama",
             "sourceKind": "repo",
@@ -14452,7 +14452,7 @@
     },
     "status": "published",
     "detectedAt": "2023-10-15",
-    "lastVerifiedAt": "2026-07-08",
+    "lastVerifiedAt": "2026-11-02",
     "updatedAt": "2026-11-02",
     "startEffort": "install",
     "capabilities": [
@@ -14467,7 +14467,7 @@
         "sourceUrl": "https://github.com/ollama/ollama",
         "sourceKind": "repo",
         "scope": "local",
-        "checkedAt": "2026-09-15",
+        "checkedAt": "2026-11-02",
         "quote": "Ollama has a REST API for running and managing models. · See ollama.com/library for the full list.",
         "basis": "El README enseña a ejecutar y chatear con modelos de lenguaje abiertos descargados de su biblioteca."
       },
@@ -14481,7 +14481,7 @@
         "quote": "Running models on your own hardware is always unlimited. · Pay as you go · $0 · Pay per token for every cloud model. · Includes: · Run models locally · No subscription · 3 concurrent requests · No service fees"
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-02",
         "scope": "local",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -17041,25 +17041,26 @@
       "web"
     ],
     "freeModel": "credits",
-    "tagline": "Uso gratuito cada día y una aplicación publicada.",
-    "descriptionShort": "Agente que construye aplicaciones completas desde una descripción: escribe el código, monta la infraestructura y prueba el resultado. El plan Starter da uso gratuito cada día y permite publicar un proyecto.",
-    "verdict": "La vía más corta que existe entre una idea y algo desplegado, sin instalar nada. El uso diario gratuito es modesto y no publican cuánto, pero se renueva.",
+    "tagline": "Créditos diarios para su Agente y una aplicación publicada durante 30 días, gratis.",
+    "descriptionShort": "Agente que construye aplicaciones completas desde una descripción: escribe el código, monta la infraestructura y prueba el resultado. El plan Starter gratuito da créditos diarios para el Agente, en modo «Lite», y permite publicar una aplicación durante 30 días.",
+    "verdict": "La vía más corta entre una idea y algo desplegado, sin instalar nada. El plan gratuito existe pero se ha escondido: ya no sale en la página de precios, sólo en la documentación. Da créditos cada día sin decir cuántos, y lo que publiques cae a los 30 días.",
     "freePlan": {
-      "summary": "Plan Starter gratuito con uso diario gratuito, cuya cantidad no se publica. Incluye base de datos integrada, crear desde diapositivas hasta aplicaciones, una tarea en segundo plano a la vez, y permite publicar 1 proyecto. El plan de pago más barato es Core, 20 $/mes (18 $/mes con facturación anual).",
+      "summary": "El plan Starter es gratuito pero ya no aparece en la página de precios: lo describe su documentación. Da créditos diarios para el Agente con un tope mensual (sin cifra publicada), sólo el modo «Lite», y una aplicación publicada que lleva su insignia y cae a los 30 días. El plan de pago más barato es Core, 20 $/mes (18 $/mes en anual).",
       "limits": [
-        "Uso diario gratuito; la cantidad no se publica",
-        "Hasta 1 proyecto publicado",
-        "Una tarea en segundo plano a la vez",
-        "Base de datos incluida",
+        "Créditos diarios para el Agente, con un tope mensual; la cantidad no se publica",
+        "Créditos mensuales para base de datos, almacenamiento y publicación",
+        "Sólo «Lite build»: el modo completo del Agente exige Core",
+        "1 aplicación publicada gratis, con la insignia «Made with Replit»; el enlace cae a los 30 días",
+        "Conectores externos e integraciones de IA: sólo desde Core",
         "Plan de pago más barato: Core, 20 $/mes (18 $/mes en anual)"
       ],
       "requiresSignup": "yes",
-      "requiresCreditCard": "no",
+      "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditsAmount": "Uso diario gratuito",
       "creditReset": "daily",
-      "verifiedAt": "2026-10-12"
+      "verifiedAt": "2026-11-09"
     },
     "capabilities": [
       "code-execution",
@@ -17089,7 +17090,7 @@
         "label": "Página oficial de precios",
         "kind": "pricing",
         "publisher": "replit.com",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-09"
       },
       {
         "url": "https://docs.replit.com/replitai/agent",
@@ -17103,17 +17104,24 @@
         "label": "Condiciones de uso",
         "kind": "docs",
         "checkedAt": "2026-09-15"
+      },
+      {
+        "url": "https://docs.replit.com/billing/plans",
+        "label": "Documentación del plan Starter",
+        "kind": "docs",
+        "publisher": "docs.replit.com",
+        "checkedAt": "2026-11-09"
       }
     ],
     "evidence": [
       {
-        "checkedAt": "2026-10-12",
-        "scope": "product",
+        "checkedAt": "2026-11-09",
         "field": "freePlan.limits",
         "outcome": "stated",
-        "sourceUrl": "https://replit.com/",
-        "sourceKind": "official",
-        "quote": "Starter · $0 · For exploring what's possible with our new generative tools. · Explore what's possible: · Free daily usage · Create anything from slides to apps · Built-in database · Publish 1 live project · Run one background task at a time · Start for free · Replit Core · $20 · $18 · per month · billed annually"
+        "scope": "product",
+        "sourceUrl": "https://docs.replit.com/billing/plans",
+        "sourceKind": "docs",
+        "quote": "Learn about the Starter plan features, limitations, and what you can build for Free. · Starter plan users receive daily credits for Agent usage, up to a monthly cap. These credits reset daily · Get 1 free published app whether you’re using Lite build or Design Canvas. This published link will automatically go down after 30 days. · Starter plan builders can only use Lite build. Full build requires Core or Pro."
       },
       {
         "field": "capabilities",
@@ -17125,13 +17133,13 @@
         "scope": "cloud"
       },
       {
-        "checkedAt": "2026-10-12",
-        "scope": "product",
+        "checkedAt": "2026-11-09",
         "field": "freePlan.requiresCreditCard",
-        "outcome": "stated",
-        "sourceUrl": "https://replit.com/",
-        "sourceKind": "official",
-        "quote": "Join millions of builders who use Replit to bring their ideas to life. Start for free — no credit card required."
+        "outcome": "not_published",
+        "scope": "product",
+        "sourceUrl": "https://docs.replit.com/billing/plans",
+        "sourceKind": "docs",
+        "lookedFor": "Si el plan Starter pide tarjeta. Su portada decía «Start for free — no credit card required» y en noviembre de 2026 ya no lo dice; ni la documentación del plan ni la página de precios mencionan la tarjeta."
       },
       {
         "field": "freePlan.commercialUse",
@@ -17141,12 +17149,21 @@
         "checkedAt": "2026-09-15",
         "scope": "product",
         "lookedFor": "Permiso explícito de uso comercial en el plan gratuito. Las condiciones remiten a un acuerdo comercial aparte para Pro y Enterprise y no dicen nada del plan gratuito."
+      },
+      {
+        "checkedAt": "2026-11-09",
+        "field": "freePlan.creditReset",
+        "outcome": "stated",
+        "scope": "product",
+        "sourceUrl": "https://docs.replit.com/billing/plans",
+        "sourceKind": "docs",
+        "quote": "Starter plan users receive daily credits for Agent usage, up to a monthly cap. These credits reset daily, giving you a fresh allowance to work with Agent each day."
       }
     ],
     "auditNotes": "La página dice «Free daily Agent credits» sin cifra. Se registra `daily` porque la renovación sí está publicada, y la cantidad se deja sin afirmar.",
     "nextReviewAt": "2026-11-17",
-    "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19",
+    "lastVerifiedAt": "2026-11-09",
+    "updatedAt": "2026-11-09",
     "access": {},
     "productType": "agent"
   },
