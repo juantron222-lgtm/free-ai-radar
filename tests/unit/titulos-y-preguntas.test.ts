@@ -22,6 +22,12 @@ describe('el título contesta «¿es gratis?»', () => {
     expect(tituloDeFicha(getTool('ollama')!)).toBe('¿Ollama es gratis? Sí, sin cuotas en tu equipo');
   });
 
+  it('sin la cifra: la cantidad exacta se lee en la ficha', () => {
+    expect(tituloDeFicha(getTool('suno-ai')!)).toBe('¿Suno AI es gratis? Con créditos diarios, sin tarjeta');
+    expect(tituloDeFicha(getTool('manus')!)).toBe('¿Manus es gratis? Con créditos diarios');
+    for (const t of vivas) expect(tituloDeFicha(t).slice(`¿${t.name} es gratis? `.length), t.slug).not.toMatch(/\d/);
+  });
+
   it('cabe antes del corte de Google salvo cuando el nombre solo ya no deja sitio', () => {
     for (const t of vivas) {
       const titulo = tituloDeFicha(t);

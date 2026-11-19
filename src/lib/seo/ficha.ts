@@ -129,7 +129,9 @@ export function tituloDeFicha(tool: Tool): string {
   if (tool.verification === 'discontinued') return `${tool.name}: retirada por su fabricante. Qué la sustituye`;
   const pregunta = `¿${tool.name} es gratis?`;
   const sinTarjeta = tool.freePlan.requiresCreditCard === 'no' && tool.freeModel !== 'paid_only' ? ', sin tarjeta' : '';
-  const candidatas = [respuesta(tool) + sinTarjeta, respuesta(tool), respuestaCorta(tool) + sinTarjeta, respuestaCorta(tool)];
+  // Sin la cifra: el título dice qué tipo de gratis es y la cantidad exacta queda
+  // en la ficha, que es motivo para entrar (decisión de Juan, 19 nov 2026).
+  const candidatas = [respuestaCorta(tool) + sinTarjeta, respuestaCorta(tool)];
   for (const r of candidatas) {
     const t = `${pregunta} ${r}`;
     if (t.length <= LARGO_TITULO) return t;
