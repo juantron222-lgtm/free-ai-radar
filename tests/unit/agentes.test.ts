@@ -178,7 +178,8 @@ describe('la verificación de agentes', () => {
   it('Claude Code no tiene plan gratuito', () => {
     const tool = bySlug.get('claude-code')!;
     expect(tool.freeModel).toBe('paid_only');
-    expect(tool.freePlan.summary).toMatch(/20 \$\/mes/);
+    // Precio de Pro en la moneda que Anthropic publica para quien entra desde España (2 nov 2026).
+    expect(tool.freePlan.summary).toMatch(/18 € al mes/);
   });
 
   it('Codex sí está incluido en el plan gratuito de ChatGPT', () => {
