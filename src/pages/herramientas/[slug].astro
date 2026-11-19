@@ -13,7 +13,7 @@ import ToolCard from '@components/tools/ToolCard.astro';
 import CompareTray from '@components/tools/CompareTray.astro';
 import AffiliatePlacement from '@components/affiliate/AffiliatePlacement.astro';
 import { getAllTools, getAlternativesFor } from '@lib/data/catalog';
-import { softwareApplicationSchema } from '@lib/seo/structured-data';
+import { faqSchema, softwareApplicationSchema } from '@lib/seo/structured-data';
 import {
   CAPABILITY_LABEL,
   CREDIT_RESET_LABEL,
@@ -31,7 +31,7 @@ import { selloDe, verificacionDe } from '@lib/domain/verification';
 import { esfuerzoDe } from '@lib/domain/esfuerzo';
 import { freeAccessLabel } from '@lib/data/category-page';
 import { filaDe } from '@lib/data/portada';
-import { descripcionDeFicha } from '@lib/seo/ficha';
+import { descripcionDeFicha, preguntasDeFicha, tituloDeFicha } from '@lib/seo/ficha';
 
 export function getStaticPaths() {
   return getAllTools().map((tool) => ({ params: { slug: tool.slug }, props: { tool } }));
@@ -102,27 +102,13 @@ const facts = [
 ];
 
 /*
- * Una ficha sin plan gratuito no se anuncia como el análisis de su plan gratuito.
- *
- * Claude Code, Midjourney o los modelos de pago salían en el buscador como
- * «¿es gratis de verdad?» y «Analizamos su plan gratuito», que es la respuesta
- * que alguien busca y no la que tiene. El título ya contesta.
+ * El título contesta la pregunta con la que llega casi todo el mundo, «¿X es
+ * gratis?», con la misma respuesta comprobada que la descripción. Una ficha
+ * sin plan gratuito lo dice («No») y una retirada se anuncia como retirada:
+ * ver tituloDeFicha en seo/ficha.ts.
  */
-const sinPlanGratuito = tool.freeModel === 'paid_only';
-/*
- * Y una retirada tampoco se anuncia como si siguiera ahí.
- *
- * El título es lo que ve quien llega desde un buscador escribiendo el nombre,
- * y es donde peor sienta enterarse tarde: «¿es gratis de verdad?» de algo que
- * su fabricante ya no sirve manda a alguien a leer una ficha entera para
- * descubrir en la primera línea que perdió el viaje.
- */
-const retirada = tool.verification === 'discontinued';
-const title = retirada
-  ? `${tool.name}: retirada por su fabricante. Qué la sustituye`
-  : sinPlanGratuito
-    ? `${tool.name}: no tiene plan gratuito. Qué ofrece y alternativas`
-    : `${tool.name}: ¿es gratis de verdad? Análisis y límites reales`;
+const title = tituloDeFicha(tool);
+const preguntas = preguntasDeFicha(tool);
 // La descripción que sale en el buscador: la respuesta primero (ver seo/ficha.ts).
 const description = descripcionDeFicha(tool);
 
@@ -152,6 +138,7 @@ const indice = [
   { id: 'privacy-title', texto: 'Privacidad', hay: true },
   { id: 'alt-title', texto: 'Alternativas', hay: alternatives.length > 0 || tool.alternativeNames.length > 0 },
   { id: 'changelog-title', texto: 'Historial', hay: tool.changelog.length > 0 },
+  { id: 'faq-title', texto: 'Preguntas frecuentes', hay: preguntas.length > 0 },
   { id: 'sources-title', texto: 'Fuentes', hay: true },
   { id: 'reportar', texto: 'Avisar de un error', hay: true },
 ].filter((e) => e.hay);
@@ -191,7 +178,10 @@ const compararHref = compararCon.length
   crumbs={crumbs}
   migasEnCabecera
   ogType="article"
-  schemas={[softwareApplicationSchema(tool)]}
+  schemas={[
+    softwareApplicationSchema(tool),
+    ...(preguntas.length > 0 ? [faqSchema(preguntas.map((p) => ({ question: p.pregunta, answer: p.respuesta })))] : []),
+  ]}
 >
   {/*
     La cabecera de la ficha, con el mismo sistema que las demás páginas.
@@ -698,6 +688,21 @@ const compararHref = compararCon.length
           </section>
         )}
 
+        {preguntas.length > 0 && (
+          <section aria-labelledby="faq-title" class="tool-section">
+            <h2 id="faq-title">Preguntas frecuentes</h2>
+            {/* El mismo texto que el marcado FAQPage: sólo se pregunta lo que la ficha sabe. */}
+            <dl class="faq">
+              {preguntas.map((p) => (
+                <div>
+                  <dt>{p.pregunta}</dt>
+                  <dd>{p.respuesta}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        )}
+
         <section aria-labelledby="sources-title" class="tool-section">
           <h2 id="sources-title">Fuentes</h2>
           <p>
@@ -1020,6 +1025,19 @@ const compararHref = compararCon.length
   }
 
   /* Índice: fuera por defecto, dentro cuando sobra ancho (mobile-first). */
+  .faq {
+    display: grid;
+    gap: var(--space-s);
+    margin: 0;
+  }
+  .faq dt {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .faq dd {
+    margin: var(--space-3xs) 0 0;
+  }
+
   .ficha-indice {
     display: none;
   }

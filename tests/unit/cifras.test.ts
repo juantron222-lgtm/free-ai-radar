@@ -7,6 +7,7 @@ import { cifraDe, cifrasDelCatalogo, devuelveElFiltro, fraseDeCobertura } from '
 import { conteosDeDecision } from '@lib/data/portada';
 import { produceMedios } from '@lib/domain/medios';
 import { COLLECTIONS, getCollection, getCollectionTools, tieneAccesoGratuito } from '@lib/data/collections';
+import { tituloDeFicha } from '@lib/seo/ficha';
 
 /**
  * Una sola fuente para cada cifra pública.
@@ -118,11 +119,10 @@ describe('«gratis» sólo donde hay acceso gratuito', () => {
     }
   });
 
-  it('una ficha sin plan gratuito no se titula «¿es gratis de verdad?»', () => {
-    const ficha = readFileSync(join(ROOT, 'src/pages/herramientas/[slug].astro'), 'utf8');
-    expect(ficha).toContain("tool.freeModel === 'paid_only'");
-    expect(ficha).toContain('no tiene plan gratuito');
-    expect(getAllTools().some((t) => t.freeModel === 'paid_only')).toBe(true);
+  it('una ficha sin plan gratuito no se titula como si lo tuviera', () => {
+    const sinPlan = getAllTools().filter((t) => t.freeModel === 'paid_only' && t.verification !== 'discontinued');
+    expect(sinPlan.length).toBeGreaterThan(0);
+    for (const t of sinPlan) expect(tituloDeFicha(t), t.slug).toMatch(/es gratis\? No: no tiene plan gratuito$/);
   });
 
   it('«en local» no promete a las híbridas lo que sólo cumple lo local', () => {
