@@ -192,13 +192,17 @@ describe('lo que se comprobó el 11 de octubre de 2026', () => {
      * tabla de precios que ya no existe: la de hoy no los menciona, y su FAQ
      * de precios y su documentación se contradicen sobre las referencias, así
      * que la ficha no afirma ni lo uno ni lo otro.
+     *
+     * Revisada otra vez el 19 de noviembre: Microsoft dejó de dar créditos.
      */
     const t = ficha('ideogram');
     const publicado = [t.freePlan.summary, ...t.freePlan.limits].join(' ');
     expect(t.freePlan.creditsAmount).toBe('30 créditos/semana');
-    expect(publicado).toContain('Google, Apple o Microsoft');
+    expect(publicado).toContain('sólo si te registras con Google o Apple');
+    expect(publicado).not.toMatch(/Google, Apple o Microsoft/);
     expect(publicado).not.toMatch(/lienzos|referencia de estilo|de personaje/i);
     expect(t.freePlan.includedCapabilities.map((i) => i.capability)).toContain('background-removal');
-    expect(t.lastVerifiedAt).toBe('2026-10-11');
+    expect(t.lastVerifiedAt >= '2026-11-19').toBe(true);
+    expect(t.changelog.some((c) => c.kind === 'free_plan_reduced' && /Microsoft/.test(c.summary))).toBe(true);
   });
 });

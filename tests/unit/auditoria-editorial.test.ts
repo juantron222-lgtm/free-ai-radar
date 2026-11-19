@@ -305,14 +305,19 @@ describe('las cifras huérfanas se retiran, no se maquillan', () => {
      * 2026 su documentación da 30 a la semana a quien entra con Google, Apple
      * o Microsoft, y su página de precios avisa de que la cantidad puede
      * variar: la ficha dice las dos cosas, con la cita de la primera.
+     *
+     * El 19 de noviembre de 2026 Microsoft ya no cuenta (sólo Google o Apple)
+     * y el aviso de que puede variar desapareció con la tarjeta del plan
+     * gratuito de su página de precios.
      */
     const ideogram = tools.find((t) => t.slug === 'ideogram')!;
     expect(ideogram.freePlan.creditsAmount).toBe('30 créditos/semana');
     expect(citaDe(evidenciaDe(ideogram, 'freePlan.limits')!)).toMatch(/30 credits each week/);
     const texto = `${ideogram.tagline} ${ideogram.descriptionShort} ${ideogram.freePlan.summary} ${ideogram.freePlan.limits.join(' ')}`;
     expect(texto).not.toMatch(/10 créditos lentos|diez créditos lentos/i);
-    expect(texto, 'debe decir a quién se los dan').toMatch(/Google, Apple o Microsoft/);
-    expect(texto, 'y que puede variar').toMatch(/puede variar/);
+    expect(texto, 'debe decir a quién se los dan').toMatch(/sólo si te registras con Google o Apple/);
+    expect(texto, 'y a quién no').toMatch(/con Microsoft o con correo y contraseña/);
+    expect(texto, 'el aviso retirado no se arrastra').not.toMatch(/puede variar/);
   });
 
   it('Cursor no arrastra en contras la cifra que su resumen niega', () => {

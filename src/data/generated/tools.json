@@ -2218,7 +2218,7 @@
       "hasWatermark": "no",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-11-02"
+      "verifiedAt": "2026-11-19"
     },
     "capabilities": [
       "terminal",
@@ -2242,19 +2242,19 @@
         "label": "Página oficial del producto",
         "kind": "official",
         "publisher": "claude.com",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://claude.com/pricing",
         "label": "Página oficial de precios",
         "kind": "pricing",
         "publisher": "claude.com",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-19"
       }
     ],
     "evidence": [
       {
-        "checkedAt": "2026-11-02",
+        "checkedAt": "2026-11-19",
         "field": "freePlan.limits",
         "outcome": "stated",
         "scope": "product",
@@ -2267,15 +2267,15 @@
         "outcome": "stated",
         "sourceUrl": "https://claude.com/product/claude-code",
         "sourceKind": "official",
-        "checkedAt": "2026-08-19",
-        "quote": "Executing across 10s to 100s of parallel subagents · the entire workflow—reading issues, writing code, running tests, and submitting PRs—all from your terminal · powerful, multi-file edits that work.",
+        "checkedAt": "2026-11-19",
+        "quote": "Claude Code works with GitHub, GitLab, and your command line tools to read issues, write code, run tests, and open pull requests. · Describe what you want and it plans, writes code, runs tests, and opens pull requests. It can work on several tasks at once, and surface decisions you need to make for it to keep going.",
         "scope": "cloud"
       }
     ],
     "auditNotes": "Ficha de la casa: Free AI Radar se construye con Claude Code. No cambia el criterio — `paid_only` es lo que dice su página de precios, y así se publica.",
-    "nextReviewAt": "2026-11-17",
-    "lastVerifiedAt": "2026-11-02",
-    "updatedAt": "2026-11-02",
+    "nextReviewAt": "2027-01-18",
+    "lastVerifiedAt": "2026-11-19",
+    "updatedAt": "2026-11-19",
     "access": {},
     "productType": "cli"
   },
@@ -3961,7 +3961,7 @@
     "descriptionLong": "Cursor es un fork de VS Code con IA integrada: entiende el proyecto entero, edita varios archivos a la vez y trabaja con agentes locales y en la nube. SpaceX completó su compra el 14 de agosto de 2026 y, desde el 12 de octubre, sus planes se venden como parte de The X Subscription, que junta Cursor, Grok y X Premium. El plan gratuito incluye peticiones de agente y de chat limitadas, de un fondo de uso compartido con Grok que se renueva cada semana. Quien ya pagaba Cursor puede quedarse en su plan anterior.",
     "kind": "agent",
     "verification": "partially_verified",
-    "nextReviewAt": "2026-11-16",
+    "nextReviewAt": "2027-01-18",
     "categorySlug": "codigo",
     "secondaryCategories": [
       "agentes"
@@ -3990,14 +3990,14 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "weekly",
-      "verifiedAt": "2026-10-17",
+      "verifiedAt": "2026-11-19",
       "includedCapabilities": [
         {
           "capability": "repository-editing",
           "condition": "peticiones de agente limitadas, sin cifra publicada, de un fondo compartido con Grok",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-17",
+            "checkedAt": "2026-11-19",
             "scope": "product",
             "sourceUrl": "https://cursor.com/pricing",
             "sourceKind": "pricing",
@@ -4028,27 +4028,27 @@
         "label": "Precios oficiales",
         "kind": "pricing",
         "publisher": "cursor.com",
-        "checkedAt": "2026-10-17"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://cursor.com/terms-of-service",
         "label": "Condiciones de uso",
         "kind": "docs",
-        "checkedAt": "2026-09-15"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://x.ai/news/x-subscription",
         "label": "Presentación de The X Subscription",
         "kind": "official",
         "publisher": "x.ai",
-        "checkedAt": "2026-10-17"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://cursor.com/blog/joining-spacex",
         "label": "Cursor pasa a ser parte de SpaceX",
         "kind": "official",
         "publisher": "cursor.com",
-        "checkedAt": "2026-10-17"
+        "checkedAt": "2026-11-19"
       }
     ],
     "scores": {
@@ -4097,11 +4097,11 @@
     },
     "status": "published",
     "detectedAt": "2023-10-01",
-    "lastVerifiedAt": "2026-10-17",
-    "updatedAt": "2026-10-17",
+    "lastVerifiedAt": "2026-11-19",
+    "updatedAt": "2026-11-19",
     "evidence": [
       {
-        "checkedAt": "2026-10-17",
+        "checkedAt": "2026-11-19",
         "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
@@ -4110,7 +4110,7 @@
         "quote": "Free · $0 · /month · Get started with: · Limited · AI usage · Limited agent requests · Limited Chat requests · Plus · $8 · /month · *Only Grok models are available on this plan · Premium · $30"
       },
       {
-        "checkedAt": "2026-10-17",
+        "checkedAt": "2026-11-19",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "not_published",
@@ -4119,7 +4119,7 @@
         "lookedFor": "Si el plan gratuito pide tarjeta. La página de precios, ya dentro de The X Subscription, dejó de decir «No credit card required»; sólo dice que los planes de pago admiten tarjeta («Self-serve plans support all major credit and debit cards»)."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-19",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "not_published",
@@ -4128,7 +4128,7 @@
         "lookedFor": "Si el plan gratuito permite usar comercialmente el código generado. Las condiciones definen las «Suggestions» y las limitaciones sobre ellas, pero no dicen nada de uso comercial."
       },
       {
-        "checkedAt": "2026-10-17",
+        "checkedAt": "2026-11-19",
         "scope": "product",
         "field": "freePlan.creditReset",
         "outcome": "stated",
@@ -6675,7 +6675,7 @@
       "hasWatermark": "no",
       "commercialUse": "unverified",
       "creditReset": "daily",
-      "verifiedAt": "2026-10-11"
+      "verifiedAt": "2026-11-19"
     },
     "capabilities": [
       "terminal",
@@ -6698,19 +6698,19 @@
         "label": "Repositorio oficial",
         "kind": "repo",
         "publisher": "github.com",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://developers.google.com/gemini-code-assist/docs/deprecations/code-assist-individuals",
         "label": "Google: retirada de Gemini Code Assist para cuentas personales",
         "kind": "docs",
         "publisher": "developers.google.com",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-19"
       }
     ],
     "evidence": [
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-19",
         "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
@@ -6723,12 +6723,12 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/google-gemini/gemini-cli",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-19",
-        "quote": "Built-in tools for file operations, shell commands, and web interactions · Built-in Google Search grounding · MCP (Model Context Protocol) support for custom integrations.",
+        "checkedAt": "2026-11-19",
+        "quote": "Query and edit large codebases · Use MCP servers to connect new capabilities, including media generation with Imagen, Veo or Lyria · Web Fetch & Search · Run non-interactively in scripts for workflow automation",
         "scope": "local"
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-19",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "not_published",
@@ -6738,9 +6738,9 @@
       }
     ],
     "auditNotes": "`memory` no se marca: el repositorio documenta «conversation checkpointing to save and resume complex sessions», que es reanudar una sesión, no recordar entre sesiones distintas.",
-    "nextReviewAt": "2026-11-10",
-    "lastVerifiedAt": "2026-10-11",
-    "updatedAt": "2026-08-19",
+    "nextReviewAt": "2027-02-17",
+    "lastVerifiedAt": "2026-11-19",
+    "updatedAt": "2026-11-19",
     "access": {},
     "productType": "cli"
   },
@@ -9520,7 +9520,14 @@
     "notFor": [],
     "alternatives": [],
     "alternativeNames": [],
-    "changelog": [],
+    "changelog": [
+      {
+        "date": "2026-11-19",
+        "kind": "free_plan_reduced",
+        "sourceUrl": "https://docs.ideogram.ai/plans-and-billing/available-plans",
+        "summary": "Las cuentas creadas con Microsoft dejan de recibir los 30 créditos semanales gratis: ahora sólo los dan las que se registran con Google o Apple. Su documentación detalla además dos topes del plan gratuito: 10 ediciones con imagen de referencia en total y 100 descripciones a la semana. Lo vimos el 19 de noviembre; no publica desde cuándo."
+      }
+    ],
     "affiliation": {
       "isAffiliate": false
     },
@@ -9546,14 +9553,16 @@
     "freeModel": "credits",
     "tagline": "30 créditos a la semana si entras con Google, Apple o Microsoft; escalar y parte de la edición, de pago.",
     "descriptionShort": "Generador de imagen conocido por escribir texto legible dentro de la imagen. Su plan gratuito da 30 créditos a la semana a quien entra con Google, Apple o Microsoft —con correo y contraseña, ninguno—; todo lo que generas es público, y escalar, Extend y Select area son de pago.",
-    "verdict": "Publica la cantidad, pero sólo para quien entra con Google, Apple o Microsoft: con correo y contraseña no hay créditos gratis. Cada imagen con sus modelos actuales gasta de 3 a 10 de esos 30 créditos semanales, todo lo que generas es público, y escalar, Extend y Select area son de pago.",
+    "verdict": "Publica la cantidad, pero sólo para quien se registra con Google o Apple: con correo y contraseña no hay créditos gratis. Cada imagen con sus modelos actuales gasta de 3 a 10 de esos 30 créditos semanales, todo lo que generas es público, y escalar, Extend y Select area son de pago.",
     "freePlan": {
-      "summary": "Plan gratuito de 0 $ con 30 créditos a la semana si entras con Google, Apple o Microsoft —su página de precios avisa de que la cantidad puede variar—; las cuentas creadas con correo y contraseña no reciben créditos gratis. Cada generación gasta créditos —de 3 a 10 por imagen con Ideogram 4.5 o 4.0, según la calidad— y, al agotarlos, toca esperar a los de la semana siguiente o comprar más. Una generación en ejecución o en cola, y todo lo que generas es público. Quitar el fondo cuesta 1 crédito; escalar, y en Studio Extend, Select area (antes Magic Fill) y Remix, requieren plan de pago.",
+      "summary": "Plan gratuito de 0 $ con 30 créditos a la semana, que se renuevan los sábados a las 00:00 UTC, sólo si te registras con Google o Apple: las cuentas creadas con Microsoft o con correo y contraseña no reciben créditos gratis. Cada generación gasta créditos —de 3 a 10 por imagen con Ideogram 4.5 o 4.0, según la calidad— y, al agotarlos, toca esperar a los de la semana siguiente o comprar más. Una generación en ejecución o en cola, y todo lo que generas es público. Quitar el fondo cuesta 1 crédito; escalar, y en Studio Extend, Select area (antes Magic Fill) y Remix, requieren plan de pago.",
       "limits": [
-        "30 créditos a la semana si entras con Google, Apple o Microsoft (su página de precios avisa de que la cantidad puede variar); con correo y contraseña, ninguno",
+        "30 créditos a la semana, renovados los sábados a las 00:00 UTC, sólo si te registras con Google o Apple; con Microsoft o con correo y contraseña, ninguno",
         "Una imagen con Ideogram 4.5 o 4.0, sin imágenes de origen, gasta de 3 a 10 créditos según la calidad",
         "Cada generación gasta créditos: al agotarlos, toca esperar a los de la semana siguiente o comprar más",
         "1 generación en ejecución o en cola",
+        "10 ediciones con imagen de referencia en total, no por semana",
+        "100 descripciones de imagen (Describe) a la semana",
         "Todo lo que generas es público: la generación privada es de pago",
         "Quitar el fondo: disponible, por 1 crédito",
         "De pago: escalar, y en Studio Extend, Select area (antes Magic Fill) y Remix",
@@ -9566,7 +9575,7 @@
       "hasWatermark": "unverified",
       "commercialUse": "yes",
       "creditReset": "weekly",
-      "verifiedAt": "2026-10-11",
+      "verifiedAt": "2026-11-19",
       "excludedCapabilities": [
         "upscaling"
       ],
@@ -9576,7 +9585,7 @@
           "capability": "text-to-image",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-19",
             "scope": "product",
             "sourceUrl": "https://docs.ideogram.ai/create/models",
             "sourceKind": "docs",
@@ -9588,7 +9597,7 @@
           "condition": "6 créditos por imagen",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-19",
             "scope": "product",
             "sourceUrl": "https://docs.ideogram.ai/edit/remix",
             "sourceKind": "docs",
@@ -9599,7 +9608,7 @@
           "capability": "background-removal",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-19",
             "scope": "product",
             "sourceUrl": "https://docs.ideogram.ai/create/transparent-backgrounds",
             "sourceKind": "docs",
@@ -9635,63 +9644,63 @@
         "label": "Web oficial",
         "kind": "official",
         "publisher": "ideogram.ai",
-        "checkedAt": "2026-08-13"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://ideogram.ai/pricing",
         "label": "Página oficial de precios",
         "kind": "pricing",
         "publisher": "ideogram.ai",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://ideogram.ai/legal/tos",
         "label": "Condiciones oficiales",
         "kind": "docs",
         "publisher": "ideogram.ai",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://docs.ideogram.ai/plans-and-billing/available-plans",
         "label": "Documentación: planes y créditos",
         "kind": "docs",
         "publisher": "docs.ideogram.ai",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://docs.ideogram.ai/get-started/signup-and-registration",
         "label": "Documentación: alta y créditos gratuitos",
         "kind": "docs",
         "publisher": "docs.ideogram.ai",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://docs.ideogram.ai/edit/upscale",
         "label": "Documentación: escalar",
         "kind": "docs",
         "publisher": "docs.ideogram.ai",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://docs.ideogram.ai/create/transparent-backgrounds",
         "label": "Documentación: fondos transparentes",
         "kind": "docs",
         "publisher": "docs.ideogram.ai",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://docs.ideogram.ai/create/models",
         "label": "Documentación: modelos",
         "kind": "docs",
         "publisher": "docs.ideogram.ai",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://docs.ideogram.ai/edit/remix",
         "label": "Documentación: Remix",
         "kind": "docs",
         "publisher": "docs.ideogram.ai",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-19"
       }
     ],
     "evidence": [
@@ -9705,7 +9714,7 @@
         "scope": "cloud"
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-19",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
         "sourceUrl": "https://ideogram.ai/legal/tos",
@@ -9714,7 +9723,7 @@
         "quote": "We do not claim any ownership rights in your User Input or User Output, and we do not restrict your ability to use User Output for your own purposes (including for commercial purposes)."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-19",
         "field": "freePlan.hasWatermark",
         "outcome": "not_published",
         "sourceUrl": "https://ideogram.ai/legal/tos",
@@ -9723,16 +9732,16 @@
         "lookedFor": "Si el plan gratuito estampa una marca. Las condiciones sólo prohíben retirar las marcas que existan («remove any watermarks included on any User Output»), sin decir si el plan gratuito las pone; ninguna de las 77 páginas de su documentación ni la de precios menciona marca de agua."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-19",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://docs.ideogram.ai/plans-and-billing/available-plans",
         "sourceKind": "docs",
         "scope": "product",
-        "quote": "Free accounts get 30 credits each week if they sign in with Google, Apple or Microsoft. Accounts created with an email and password don't get free credits; they can buy credits or subscribe."
+        "quote": "Free accounts get 30 credits each week if they signed up with Google or Apple. The credits reset every Saturday at 00:00 UTC. Accounts created with Microsoft or with an email and password don't get free credits, unless you later link a Google or Apple sign-in that uses the same verified email; they can buy credits or subscribe. · 10 edited images in total, not each week, from edits that work from reference images, such as AI edit in Studio. · 100 Describes a week. · Ideogram 4.5 image, Low, Medium or High quality\t3, 6 or 10 per image"
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-19",
         "field": "freePlan.requiresCreditCard",
         "outcome": "not_published",
         "sourceUrl": "https://docs.ideogram.ai/get-started/signup-and-registration",
@@ -9741,7 +9750,7 @@
         "lookedFor": "Si el alta o el plan gratuito piden tarjeta. La página de alta describe el registro con Google, Apple, Microsoft o correo y el paso «Skip for now to stay on the free plan» sin mencionar tarjeta; la de precios y la de compra de créditos sólo la piden para pagar un plan o comprar créditos."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-19",
         "field": "freePlan.excludedCapabilities",
         "outcome": "stated",
         "sourceUrl": "https://docs.ideogram.ai/edit/upscale",
@@ -9750,7 +9759,7 @@
         "quote": "[Tabla: Upscale app · Studio layer · Upscale & download] The Upscale app needs a paid plan or bought credits. The other two need a paid plan. Without a plan, buy credits and use the Upscale app."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-19",
         "field": "freePlan.creditReset",
         "outcome": "stated",
         "sourceUrl": "https://docs.ideogram.ai/plans-and-billing/available-plans",
@@ -9760,9 +9769,9 @@
       }
     ],
     "auditNotes": "Revisión completa el 11 de octubre de 2026 contra su documentación de planes (verificada por ellos el 1 de octubre) y su página de precios. La página de precios dice que la cantidad puede variar, y que editar con IA y usar imagen de referencia piden créditos prioritarios, que el plan gratuito no tiene; su documentación los da por disponibles en cualquier plan. Por esa contradicción la ficha no afirma si el plan gratuito incluye editar con IA ni usar imágenes de referencia. Marca de agua y tarjeta no aparecen en ninguna página oficial.",
-    "nextReviewAt": "2026-11-10",
-    "lastVerifiedAt": "2026-10-11",
-    "updatedAt": "2026-08-13",
+    "nextReviewAt": "2027-01-18",
+    "lastVerifiedAt": "2026-11-19",
+    "updatedAt": "2026-11-19",
     "licences": {},
     "access": {}
   },
@@ -10516,14 +10525,14 @@
         "Créditos gratis cada mes al iniciar sesión, válidos 31 días; la cantidad no se publica",
         "Creación de elementos: 30",
         "La eliminación de marca de agua, el 1080p y la extensión de vídeo empiezan en el plan Standard",
-        "Plan de pago más barato: Standard, 6,99 $/mes la primera suscripción"
+        "Plan de pago más barato: Standard, 660 créditos al mes; su precio cambia con ofertas temporales (el 19 de noviembre, 6,5 $/mes los tres primeros meses y después 8,8 $/mes)"
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "yes",
       "commercialUse": "no",
       "creditReset": "monthly",
-      "verifiedAt": "2026-10-17"
+      "verifiedAt": "2026-11-19"
     },
     "capabilities": [
       "text-to-video",
@@ -10547,27 +10556,27 @@
         "label": "Aplicación oficial",
         "kind": "official",
         "publisher": "klingai.com",
-        "checkedAt": "2026-08-15"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://app.klingai.com/global/membership/membership-plan",
         "label": "Planes oficiales",
         "kind": "pricing",
         "publisher": "klingai.com",
-        "checkedAt": "2026-08-15"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://kling.ai/app/membership/membership-plan",
         "label": "Página oficial de precios",
         "kind": "pricing",
-        "checkedAt": "2026-09-15"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://kling.ai/docs/user-policy",
         "label": "Política de usuario oficial",
         "kind": "docs",
         "publisher": "kling.ai",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-19"
       }
     ],
     "evidence": [
@@ -10576,7 +10585,7 @@
         "outcome": "stated",
         "sourceUrl": "https://kling.ai/app/membership/membership-plan",
         "sourceKind": "pricing",
-        "checkedAt": "2026-10-17",
+        "checkedAt": "2026-11-19",
         "quote": "Basic $ 0 Free · Element Creation Quantity 30 50 150 150 500 · Generated content is for commercial use -",
         "scope": "cloud"
       },
@@ -10590,7 +10599,7 @@
         "scope": "cloud"
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-19",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "not_published",
@@ -10599,7 +10608,7 @@
         "lookedFor": "Si el plan gratuito pide tarjeta. La página de planes no lo menciona."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-19",
         "scope": "product",
         "field": "freePlan.hasWatermark",
         "outcome": "stated",
@@ -10609,7 +10618,7 @@
         "basis": "Su página de planes da «Brand watermark removal» sólo a los planes de pago (Standard, Pro, Premier)."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-19",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -10629,9 +10638,9 @@
       }
     ],
     "auditNotes": "`hasWatermark` queda sin confirmar a propósito: que «Brand watermark removal» figure entre las características de pago sugiere que el gratuito la lleva, pero la tabla no lo afirma del plan Basic y sugerir no es afirmar. `commercialUse: no` sí es explícito.",
-    "nextReviewAt": "2026-11-13",
-    "lastVerifiedAt": "2026-10-17",
-    "updatedAt": "2026-10-17",
+    "nextReviewAt": "2027-01-18",
+    "lastVerifiedAt": "2026-11-19",
+    "updatedAt": "2026-11-19",
     "skillLevel": "beginner",
     "licences": {},
     "access": {}
@@ -13140,7 +13149,7 @@
     "descriptionLong": "Midjourney es famoso por producir las imágenes IA de mayor calidad estética y artística. Su estilo característico es instantáneamente reconocible y muy valorado en industrias creativas. Aunque es principalmente de pago, ocasionalmente ofrece pruebas gratuitas limitadas (~25 generaciones) para nuevos usuarios. La calidad de sus imágenes justifica su reputación como el estándar de oro en imagen IA.",
     "kind": "app",
     "verification": "verified",
-    "nextReviewAt": "2026-11-11",
+    "nextReviewAt": "2027-02-17",
     "categorySlug": "imagen",
     "secondaryCategories": [],
     "tags": [
@@ -13167,7 +13176,7 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-13"
+      "verifiedAt": "2026-11-19"
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -13189,28 +13198,28 @@
         "label": "Web oficial",
         "kind": "official",
         "publisher": "midjourney.com",
-        "checkedAt": "2026-08-13"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://docs.midjourney.com/hc/en-us/articles/27870484040333-Comparing-Midjourney-Plans",
         "label": "Comparación oficial de planes",
         "kind": "pricing",
         "publisher": "docs.midjourney.com",
-        "checkedAt": "2026-08-13"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://docs.midjourney.com/hc/en-us/articles/27870399340173-Free-Trials",
         "label": "Free Trials (documentación oficial)",
         "kind": "docs",
         "publisher": "docs.midjourney.com",
-        "checkedAt": "2026-08-13"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://docs.midjourney.com/hc/en-us/articles/27870375276557-Using-Images-Videos-Commercially",
         "label": "Uso comercial (documentación oficial)",
         "kind": "docs",
         "publisher": "docs.midjourney.com",
-        "checkedAt": "2026-08-13"
+        "checkedAt": "2026-11-19"
       }
     ],
     "scores": {
@@ -13252,8 +13261,8 @@
     },
     "status": "published",
     "detectedAt": "2022-07-12",
-    "lastVerifiedAt": "2026-08-13",
-    "updatedAt": "2026-08-13",
+    "lastVerifiedAt": "2026-11-19",
+    "updatedAt": "2026-11-19",
     "auditNotes": "El uso comercial está documentado («you own all the images and videos you create»), pero se refiere a los planes de pago: no hay plan gratuito al que atribuirlo, así que commercialUse queda unverified en vez de yes.",
     "startEffort": "signup",
     "capabilities": [
@@ -13274,7 +13283,7 @@
         "outcome": "stated",
         "sourceUrl": "https://docs.midjourney.com/hc/en-us/articles/27870399340173-Free-Trials",
         "sourceKind": "docs",
-        "checkedAt": "2026-08-13",
+        "checkedAt": "2026-11-19",
         "quote": "A limited trial is available on the niji · journey app, available for iOS and Android devices. No free trial is currently available in Discord or the midjourney.com website.",
         "scope": "cloud"
       },
@@ -13283,7 +13292,7 @@
         "outcome": "stated",
         "sourceUrl": "https://docs.midjourney.com/hc/en-us/articles/37460773864589-Video",
         "sourceKind": "docs",
-        "checkedAt": "2026-08-13",
+        "checkedAt": "2026-11-19",
         "quote": "Turn your images into captivating 5 second videos using Midjourney! […] feeding Midjourney an image to serve as the first frame",
         "scope": "cloud"
       }
@@ -17330,7 +17339,7 @@
     "descriptionLong": "RunwayML es una de las plataformas pioneras en vídeo generativo. Ofrece generación de vídeo texto-a-vídeo, edición con IA (motion brush, inpainting de vídeo, green screen automático), entrenamiento de modelos personalizados, y herramientas de colaboración para equipos creativos. Su modelo Gen-3 Alpha compite con Sora de OpenAI.",
     "kind": "app",
     "verification": "verified",
-    "nextReviewAt": "2026-11-13",
+    "nextReviewAt": "2027-01-18",
     "categorySlug": "video",
     "secondaryCategories": [],
     "tags": [
@@ -17357,7 +17366,7 @@
       "commercialUse": "yes",
       "creditsAmount": "125 créditos (una vez)",
       "creditReset": "one_off",
-      "verifiedAt": "2026-10-11"
+      "verifiedAt": "2026-11-19"
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -17379,26 +17388,26 @@
         "label": "Web oficial",
         "kind": "official",
         "publisher": "runway.com",
-        "checkedAt": "2026-08-15"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://runway.com/pricing",
         "label": "Página oficial de precios",
         "kind": "pricing",
         "publisher": "runway.com",
-        "checkedAt": "2026-08-15"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://runway.com/terms-of-use",
         "label": "Condiciones de uso",
         "kind": "docs",
-        "checkedAt": "2026-09-15"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://help.runwayml.com/hc/en-us/articles/50404627334547-Free-plan-details",
         "label": "Centro de ayuda oficial",
         "kind": "docs",
-        "checkedAt": "2026-09-16"
+        "checkedAt": "2026-11-19"
       }
     ],
     "scores": {
@@ -17438,8 +17447,8 @@
     },
     "status": "published",
     "detectedAt": "2023-06-01",
-    "lastVerifiedAt": "2026-08-29",
-    "updatedAt": "2026-08-15",
+    "lastVerifiedAt": "2026-11-19",
+    "updatedAt": "2026-11-19",
     "startEffort": "signup",
     "capabilities": [
       "text-to-video",
@@ -17453,7 +17462,7 @@
         "outcome": "stated",
         "sourceUrl": "https://runway.com/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-19",
         "quote": "125 one-time credits to explore Runway’s AI tools",
         "scope": "cloud"
       },
@@ -17463,11 +17472,11 @@
         "sourceUrl": "https://help.runwayml.com/hc/en-us/articles/50404627334547-Free-plan-details",
         "sourceKind": "help",
         "scope": "product",
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-19",
         "quote": "All videos generated on a Free plan feature a Runway watermark."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-19",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "not_published",
@@ -17480,7 +17489,7 @@
         "outcome": "stated",
         "sourceUrl": "https://runway.com/terms-of-use",
         "sourceKind": "terms",
-        "checkedAt": "2026-09-15",
+        "checkedAt": "2026-11-19",
         "scope": "product",
         "quote": "Subject to your compliance with the Agreement, the Company does not restrict your commercial use of your Outputs."
       }
