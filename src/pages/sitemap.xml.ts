@@ -134,11 +134,16 @@ export const GET: APIRoute = () => {
    * que un buscador señala, y el arreglo tiene que estar aquí y no en la lista
    * de categorías: en cuanto otra vertical se unifique, volvería a pasar.
    *
-   * Gana la primera aparición, que es la de mayor prioridad por construcción.
+   * Gana la primera aparición, que es la de mayor prioridad por construcción,
+   * pero con la fecha más reciente de todas: /audio enseña música y voz, y
+   * quedarse con la de voz le decía al buscador que una página con Suno
+   * revisado hoy no cambiaba desde septiembre.
    */
   const porRuta = new Map<string, Entry>();
   for (const entry of entries) {
-    if (!porRuta.has(entry.path)) porRuta.set(entry.path, entry);
+    const previa = porRuta.get(entry.path);
+    if (!previa) porRuta.set(entry.path, entry);
+    else if (entry.lastmod && (!previa.lastmod || entry.lastmod > previa.lastmod)) porRuta.set(entry.path, { ...previa, lastmod: entry.lastmod });
   }
   const unicas = [...porRuta.values()];
 
