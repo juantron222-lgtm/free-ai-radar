@@ -20,4 +20,9 @@ describe('lo que vinieron a buscar y no estaba', () => {
     expect(primera('ipencode'), 'con la errata de una letra').toBe('opencode');
     expect(primera('desarrollo con opencode')).toBe('opencode');
   });
+
+  it('Qwen Code (nov 2026: «qwen», «qwen c», «qwen code»)', () => {
+    // «qwen» a secas también es una familia de modelos: sólo se fija la búsqueda completa.
+    expect(primera('qwen code')).toBe('qwen-code');
+  });
 });

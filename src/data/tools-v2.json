@@ -19585,5 +19585,162 @@
     "nextReviewAt": "2026-12-01",
     "lastVerifiedAt": "2026-11-01",
     "updatedAt": "2026-11-01"
+  },
+  {
+    "secondaryCategories": [
+      "agentes"
+    ],
+    "tags": [],
+    "useCases": [],
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "privacy": {},
+    "descriptionLong": "",
+    "pros": [],
+    "cons": [],
+    "bestFor": [],
+    "notFor": [],
+    "alternatives": [],
+    "alternativeNames": [
+      "qwen code",
+      "qwen-code",
+      "qwen cli"
+    ],
+    "changelog": [],
+    "affiliation": {
+      "isAffiliate": false
+    },
+    "sponsorship": {
+      "isSponsored": false
+    },
+    "status": "published",
+    "detectedAt": "2026-11-19",
+    "skillLevel": "intermediate",
+    "access": {},
+    "licences": {
+      "code": "Apache-2.0"
+    },
+    "slug": "qwen-code",
+    "name": "Qwen Code",
+    "kind": "agent",
+    "productType": "agent",
+    "verification": "partially_verified",
+    "categorySlug": "codigo",
+    "officialUrl": "https://github.com/QwenLM/qwen-code",
+    "repoUrl": "https://github.com/QwenLM/qwen-code",
+    "hosting": "hybrid",
+    "openSource": "yes",
+    "licence": "Apache-2.0",
+    "platforms": [
+      "cli",
+      "extension",
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "freeModel": "open_source",
+    "tagline": "El agente de programación de Qwen para la terminal: el programa es gratis y abierto, pero desde abril de 2026 los modelos se pagan o se ponen en local.",
+    "descriptionShort": "Agente de programación de código abierto (Apache-2.0) de Alibaba Qwen, para la terminal, los editores y el escritorio. Funciona con su suscripción, con claves de API de varios proveedores o con modelos locales (Ollama o vLLM).",
+    "verdict": "El programa es gratuito, pero ya no trae nada gratis para usarlo: el acceso gratuito con cuenta de Qwen terminó el 15 de abril de 2026. Sin pagar, sólo queda conectarlo a un modelo en tu propio equipo.",
+    "freePlan": {
+      "requiresSignup": "unverified",
+      "requiresCreditCard": "unverified",
+      "hasWatermark": "unverified",
+      "commercialUse": "unverified",
+      "creditReset": "none",
+      "verifiedAt": "2026-11-19",
+      "summary": "El programa es gratuito y de código abierto (Apache-2.0). El acceso gratuito con cuenta de Qwen se cerró el 15 de abril de 2026: ahora se entra con una suscripción Plus o Pro de chat.qwen.ai, con una clave de API de pago o con un modelo local.",
+      "limits": [
+        "El programa es gratuito y de código abierto (Apache-2.0)",
+        "El acceso gratuito con cuenta de Qwen terminó el 15 de abril de 2026",
+        "Con cuenta de Qwen hace falta una suscripción Plus o Pro",
+        "Sin pagar, sólo con un modelo local (Ollama o vLLM)",
+        "Envía estadísticas de uso a Alibaba Cloud si no lo desactivas"
+      ],
+      "includedCapabilities": [],
+      "excludedCapabilities": []
+    },
+    "capabilities": [
+      "code-generation",
+      "repository-editing",
+      "terminal",
+      "tool-use"
+    ],
+    "startEffort": "install",
+    "startEffortReason": "Se instala con un comando en Linux, macOS o Windows; luego hay que elegir cómo conectar el modelo.",
+    "scores": {
+      "freeReal": 5,
+      "usefulness": 8,
+      "ease": 6,
+      "transparency": 8,
+      "creatorValue": 5
+    },
+    "sources": [
+      {
+        "url": "https://github.com/QwenLM/qwen-code",
+        "label": "Repositorio oficial",
+        "kind": "repo",
+        "publisher": "github.com",
+        "checkedAt": "2026-11-19"
+      },
+      {
+        "url": "https://qwenlm.github.io/qwen-code-docs/en/users/support/tos-privacy/",
+        "label": "Términos y privacidad",
+        "kind": "docs",
+        "publisher": "qwenlm.github.io",
+        "checkedAt": "2026-11-19"
+      },
+      {
+        "url": "https://qwenlm.github.io/qwen-code-docs/en/users/configuration/auth/",
+        "label": "Autenticación",
+        "kind": "docs",
+        "publisher": "qwenlm.github.io",
+        "checkedAt": "2026-11-19"
+      }
+    ],
+    "evidence": [
+      {
+        "checkedAt": "2026-11-19",
+        "scope": "product",
+        "field": "freePlan.limits",
+        "sourceUrl": "https://qwenlm.github.io/qwen-code-docs/en/users/support/tos-privacy/",
+        "sourceKind": "docs",
+        "outcome": "stated",
+        "quote": "Qwen Account with Subscription is separate from the legacy free Qwen OAuth allowance, which was discontinued on 2026-04-15."
+      },
+      {
+        "checkedAt": "2026-11-19",
+        "scope": "local",
+        "field": "freePlan.commercialUse",
+        "sourceUrl": "https://github.com/QwenLM/qwen-code/blob/main/LICENSE",
+        "sourceKind": "licence",
+        "outcome": "not_published",
+        "lookedFor": "Si se puede usar comercialmente. La licencia del programa es Apache-2.0, que no habla de uso comercial; lo que generes depende además del modelo o del proveedor que conectes."
+      },
+      {
+        "checkedAt": "2026-11-19",
+        "scope": "local",
+        "field": "openSource",
+        "sourceUrl": "https://github.com/QwenLM/qwen-code/blob/main/LICENSE",
+        "sourceKind": "licence",
+        "outcome": "stated",
+        "quote": "Apache License · Version 2.0, January 2004"
+      },
+      {
+        "checkedAt": "2026-11-19",
+        "scope": "local",
+        "field": "capabilities",
+        "sourceUrl": "https://github.com/QwenLM/qwen-code",
+        "sourceKind": "repo",
+        "outcome": "stated",
+        "quote": "An open-source AI coding agent that lives in your terminal. · Multi-protocol — Supports OpenAI, Anthropic, Gemini, and Qwen APIs. Any third-party provider or local model (Ollama / vLLM). Switch at runtime."
+      }
+    ],
+    "id": "tool_qwen-code",
+    "nextReviewAt": "2027-02-17",
+    "lastVerifiedAt": "2026-11-19",
+    "updatedAt": "2026-11-19"
   }
 ]
