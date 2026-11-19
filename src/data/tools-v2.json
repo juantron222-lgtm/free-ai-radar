@@ -3,7 +3,7 @@
     "id": "tool_adobe-firefly",
     "kind": "app",
     "verification": "verified",
-    "nextReviewAt": "2026-11-12",
+    "nextReviewAt": "2027-01-18",
     "categorySlug": "imagen",
     "secondaryCategories": [],
     "tags": [],
@@ -24,14 +24,14 @@
         "label": "Página oficial de precios o producto",
         "kind": "official",
         "publisher": "adobe.com",
-        "checkedAt": "2026-08-12"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://www.adobe.com/products/firefly/plans.html",
         "label": "Página oficial de planes",
         "kind": "pricing",
         "publisher": "adobe.com",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-19"
       }
     ],
     "pros": [],
@@ -49,8 +49,8 @@
     },
     "status": "published",
     "detectedAt": "2026-08-12",
-    "lastVerifiedAt": "2026-08-12",
-    "updatedAt": "2026-10-17",
+    "lastVerifiedAt": "2026-11-19",
+    "updatedAt": "2026-11-19",
     "slug": "adobe-firefly",
     "name": "Adobe Firefly",
     "tagline": "Generaciones gratuitas diarias, según la propia documentación de Adobe.",
@@ -58,29 +58,29 @@
     "officialUrl": "https://www.adobe.com/products/firefly.html",
     "freeModel": "credits",
     "freePlan": {
-      "summary": "Adobe documenta un plan gratuito con generaciones diarias para probar Firefly. No publica la cantidad en esa página, así que no la afirmamos.",
+      "summary": "Adobe tiene un plan gratuito con generaciones diarias de imagen, vídeo y audio, sin contratar nada. No publica la cantidad, así que no la afirmamos. El plan de pago más barato es Firefly Standard, 11,17 €/mes con IVA.",
       "limits": [
-        "Generaciones diarias de imagen, vídeo y audio, sin plan; la cantidad no se publica",
-        "Se renuevan cada día",
-        "Con modelos como Nano Banana y Luma Ray3.14"
+        "Generaciones gratuitas cada día, de imagen, vídeo y audio; la cantidad no se publica",
+        "Acceso limitado a los modelos de Adobe, Google, OpenAI y otros, como Nano Banana y Luma Ray 3.14",
+        "Plan de pago más barato: Firefly Standard, 11,17 €/mes con IVA (2.000 créditos al mes)"
       ],
       "requiresSignup": "unverified",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "daily",
-      "verifiedAt": "2026-10-11",
+      "verifiedAt": "2026-11-19",
       "includedCapabilities": [
         {
           "capability": "text-to-image",
           "condition": "generaciones diarias, sin cifra publicada",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-17",
+            "checkedAt": "2026-11-19",
             "scope": "product",
             "sourceUrl": "https://www.adobe.com/products/firefly/plans.html",
             "sourceKind": "pricing",
-            "quote": "You don't need a plan to get free daily generations across image, video, and audio, with access to popular models like Nano Banana and Luma Ray3.14. Limits refresh every day, so you can keep exploring, experimenting, and creating."
+            "quote": "You don't need a plan to get free daily generations for images, video, and audio, with access to popular models like Nano Banana and Luma Ray 3.14."
           }
         }
       ],
@@ -89,11 +89,11 @@
           "signal": "c2pa",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-17",
+            "checkedAt": "2026-11-19",
             "scope": "product",
             "sourceUrl": "https://www.adobe.com/products/firefly/plans.html",
             "sourceKind": "pricing",
-            "quote": "Adobe Firefly models are trained on licensed content and public domain content where copyright has expired, and Adobe automatically attaches Content Credentials for transparency."
+            "quote": "Adobe Firefly models are trained on licensed content and public domain content where copyright has expired, and Adobe automatically attaches content credentials for transparency."
           }
         }
       ]
@@ -108,25 +108,25 @@
     "verdict": "La frecuencia está documentada y la cantidad no. Se registra lo primero y se calla lo segundo.",
     "evidence": [
       {
-        "checkedAt": "2026-10-17",
+        "checkedAt": "2026-11-19",
         "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://www.adobe.com/products/firefly/plans.html",
         "sourceKind": "pricing",
-        "quote": "You don't need a plan to get free daily generations across image, video, and audio, with access to popular models like Nano Banana and Luma Ray3.14. Limits refresh every day, so you can keep exploring, experimenting, and creating."
+        "quote": "You don't need a plan to get free daily generations for images, video, and audio, with access to popular models like Nano Banana and Luma Ray 3.14. · Limited free daily generations for images and video · Limited access to top AI models from Adobe, Google, OpenAI, and more · Yes, Adobe has a free plan where users receive free daily generations to try Adobe Firefly. · Adobe Firefly Standard: 11,17 €/moincl. VAT — 2,000 generative credits"
       },
       {
         "field": "capabilities",
         "outcome": "stated",
         "sourceUrl": "https://www.adobe.com/products/firefly.html",
         "sourceKind": "official",
-        "checkedAt": "2026-10-17",
-        "quote": "Generate and edit images, video, audio, and designs using top AI models from Adobe, Google, OpenAI, Kling AI, and more",
+        "checkedAt": "2026-11-19",
+        "quote": "Generate and edit images, video, and audio all in one AI-powered creative studio.",
         "scope": "cloud"
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-19",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "not_published",
@@ -2684,6 +2684,7 @@
       "limits": [
         "Incluido en ChatGPT Free: la cantidad no se publica",
         "Descrito para tareas de programación rápidas",
+        "Sin generación de imágenes en el plan gratuito",
         "Modelo: GPT-6 Luna a velocidad estándar en la app de escritorio, según se vaya desplegando",
         "Plan de pago más barato: Go, 8 $/mes",
         "Plus: 20 $/mes · Pro: desde 100 $/mes"
@@ -2693,14 +2694,14 @@
       "hasWatermark": "no",
       "commercialUse": "yes",
       "creditReset": "unknown",
-      "verifiedAt": "2026-10-11",
+      "verifiedAt": "2026-11-19",
       "includedCapabilities": [
         {
           "capability": "repository-editing",
           "condition": "para tareas rápidas; la cantidad no se publica",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-19",
             "scope": "product",
             "sourceUrl": "https://learn.chatgpt.com/docs/pricing",
             "sourceKind": "pricing",
@@ -2730,14 +2731,14 @@
         "label": "Página oficial del producto",
         "kind": "official",
         "publisher": "openai.com",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://learn.chatgpt.com/docs/pricing",
         "label": "Precios oficiales de Codex",
         "kind": "pricing",
         "publisher": "learn.chatgpt.com",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://learn.chatgpt.com/docs",
@@ -2751,7 +2752,7 @@
         "label": "Condiciones de uso de OpenAI (UE)",
         "kind": "docs",
         "publisher": "openai.com",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-19"
       }
     ],
     "evidence": [
@@ -2760,21 +2761,21 @@
         "outcome": "stated",
         "sourceUrl": "https://learn.chatgpt.com/docs/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-10-11",
-        "quote": "ChatGPT Work and Codex are included in your ChatGPT Free, Go, Plus, Pro, Business, Edu, or Enterprise plan · Free — $0/month: Explore Codex capabilities on quick coding tasks · Go — $8/month: Use Codex for lightweight coding tasks.",
+        "checkedAt": "2026-11-19",
+        "quote": "ChatGPT Work and Codex are included in your ChatGPT Free, Go, Plus, Pro, Business, Edu, or Enterprise plan · Free — $0/month: Explore Codex capabilities on quick coding tasks · Go — $8/month: Use Codex for lightweight coding tasks. · Image generation isn’t available on the Free plan.",
         "scope": "cloud"
       },
       {
         "field": "capabilities",
         "outcome": "stated",
-        "sourceUrl": "https://learn.chatgpt.com/docs",
-        "sourceKind": "docs",
-        "checkedAt": "2026-08-19",
-        "quote": "run in the terminal/CLI, edit files in a repository, run commands and tests · Local environments and Cloud environment · Browser [listado como capacidad].",
+        "sourceUrl": "https://openai.com/codex/",
+        "sourceKind": "official",
+        "checkedAt": "2026-11-19",
+        "quote": "Give Codex your toughest engineering problems, from hard-to-find bugs to complex refactors and new features. · Codex runs many agents in parallel, using computer and browser tools to verify work until your requirements are met. · Codex keeps going when you close your laptop, with reusable cloud environments for every repo.",
         "scope": "cloud"
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-19",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "not_published",
@@ -2783,7 +2784,7 @@
         "lookedFor": "Si el plan gratuito pide tarjeta. Su página de precios no lo menciona, y las condiciones de OpenAI sólo piden un método de pago «If you purchase any Services»."
       },
       {
-        "checkedAt": "2026-10-17",
+        "checkedAt": "2026-11-19",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -2792,9 +2793,9 @@
         "quote": "Commercial and business use. If you use our Services for commercial or business use, the following terms apply."
       }
     ],
-    "nextReviewAt": "2026-11-17",
-    "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19",
+    "nextReviewAt": "2027-01-18",
+    "lastVerifiedAt": "2026-11-19",
+    "updatedAt": "2026-11-19",
     "access": {},
     "productType": "agent"
   },
@@ -10340,7 +10341,7 @@
       "commercialUse": "unverified",
       "creditsAmount": "300 créditos/día",
       "creditReset": "daily",
-      "verifiedAt": "2026-10-11",
+      "verifiedAt": "2026-11-19",
       "includedCapabilities": []
     },
     "capabilities": [
@@ -10372,32 +10373,32 @@
         "label": "Centro de ayuda: precios",
         "kind": "pricing",
         "publisher": "help.manus.im",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://help.manus.im/en/articles/11711121-will-my-daily-refresh-credits-accumulate-or-reset",
         "label": "Centro de ayuda: créditos diarios",
         "kind": "pricing",
         "publisher": "help.manus.im",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://manus.im/docs",
         "label": "Documentación oficial",
         "kind": "docs",
         "publisher": "manus.im",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://manus.im/pricing",
         "label": "Página oficial de precios",
         "kind": "pricing",
-        "checkedAt": "2026-09-15"
+        "checkedAt": "2026-11-19"
       }
     ],
     "evidence": [
       {
-        "checkedAt": "2026-11-02",
+        "checkedAt": "2026-11-19",
         "field": "freePlan.limits",
         "outcome": "stated",
         "scope": "product",
@@ -10410,12 +10411,12 @@
         "outcome": "stated",
         "sourceUrl": "https://manus.im/docs",
         "sourceKind": "docs",
-        "checkedAt": "2026-08-19",
+        "checkedAt": "2026-11-19",
         "quote": "It operates in a complete sandbox environment—a virtual computer with internet access, a persistent file system, and the ability to install software and create custom tools · Manus AI can work independently, remember context across long tasks, and deliver production-ready results.",
         "scope": "cloud"
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-19",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "not_published",
@@ -10424,7 +10425,7 @@
         "lookedFor": "Si el plan gratuito pide tarjeta. La página de precios, la de planes de su documentación y las condiciones sólo hablan de datos de pago al comprar."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-19",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "not_published",
@@ -10434,9 +10435,9 @@
       }
     ],
     "auditNotes": "`memory` se marca porque la documentación dice «remember context across long tasks», no porque prometa memoria permanente entre sesiones distintas. `computer-use` NO se marca: el ordenador es suyo, no el tuyo.",
-    "nextReviewAt": "2026-11-17",
-    "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-11-02",
+    "nextReviewAt": "2027-02-17",
+    "lastVerifiedAt": "2026-11-19",
+    "updatedAt": "2026-11-19",
     "access": {}
   },
   {
@@ -12474,8 +12475,8 @@
     "descriptionShort": "Navegador e instalador de aplicaciones IA que automatiza la instalación de herramientas complejas con un solo clic.",
     "descriptionLong": "Pinokio es una herramienta única: un navegador/instalador que automatiza la descarga, instalación y configuración de aplicaciones IA complejas. En lugar de pelearte con Python, CUDA, dependencias y entornos virtuales, Pinokio lo hace todo automáticamente. Su catálogo incluye cientos de scripts para instalar Stable Diffusion WebUI, ComfyUI, FaceFusion, RVC, y muchas más herramientas locales.",
     "kind": "app",
-    "verification": "pending_review",
-    "nextReviewAt": "2026-10-06",
+    "verification": "partially_verified",
+    "nextReviewAt": "2027-02-17",
     "categorySlug": "herramientas-locales",
     "secondaryCategories": [],
     "tags": [],
@@ -12496,7 +12497,7 @@
       "hasWatermark": "unverified",
       "commercialUse": "yes",
       "creditReset": "none",
-      "verifiedAt": "2026-09-16"
+      "verifiedAt": "2026-11-19"
     },
     "openSource": "yes",
     "hosting": "hybrid",
@@ -12520,7 +12521,7 @@
         "url": "https://pinokio.computer",
         "label": "Web oficial",
         "kind": "official",
-        "checkedAt": "2026-07-08"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://docs.pinokio.computer",
@@ -12532,20 +12533,20 @@
         "url": "https://github.com/pinokiocomputer/pinokio",
         "label": "Repositorio",
         "kind": "repo",
-        "checkedAt": "2026-07-08"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://pinokio.co/",
         "label": "Fuente oficial",
         "kind": "docs",
-        "checkedAt": "2026-09-16"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://raw.githubusercontent.com/pinokiocomputer/pinokio/main/LICENSE",
         "label": "Licencia oficial (MIT)",
         "kind": "repo",
         "publisher": "raw.githubusercontent.com",
-        "checkedAt": "2026-10-12"
+        "checkedAt": "2026-11-19"
       }
     ],
     "scores": {
@@ -12555,7 +12556,7 @@
       "transparency": 8,
       "creatorValue": 7
     },
-    "verdict": "Revolucionario para quien quiere herramientas IA locales sin ser sysadmin. Instalación en un clic que ahorra horas de frustración.",
+    "verdict": "Sirve para probar aplicaciones de IA en tu equipo sin pelearte con la terminal: instala cada una con sus dependencias en un clic. Ojo con lo que instalas: un script de Pinokio puede ejecutar cualquier comando, y sólo los de su página «Discover» los revisa el equipo de Pinokio.",
     "pros": [],
     "cons": [
       "Los scripts dependen de que la comunidad los mantenga",
@@ -12585,8 +12586,8 @@
     },
     "status": "published",
     "detectedAt": "2023-09-01",
-    "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-07-08",
+    "lastVerifiedAt": "2026-11-19",
+    "updatedAt": "2026-11-19",
     "startEffort": "install",
     "capabilities": [
       "api",
@@ -12596,10 +12597,10 @@
       {
         "field": "capabilities",
         "outcome": "stated",
-        "sourceUrl": "https://pinokio.computer",
-        "sourceKind": "official",
-        "checkedAt": "2026-08-12",
-        "quote": "More Store Type: api api plugin All Platform: All All macOS Windows Linux GPU: All A · c, a Metal-only DeepSeek V4 Flash inference server",
+        "sourceUrl": "https://github.com/pinokiocomputer/pinokio",
+        "sourceKind": "repo",
+        "checkedAt": "2026-11-19",
+        "quote": "Pinokio is a 1-click launcher for any open-source project. Think of it as a terminal application with a user-friendly interface that can programmatically interact with scripts. · Install from the \"Discover\" page: Vetted scripts are manually listed in the directory, tracked via Git, and frozen under the official GitHub organization.",
         "scope": "product"
       },
       {
@@ -12609,10 +12610,10 @@
         "sourceKind": "official",
         "scope": "product",
         "lookedFor": "Límites de uso y requisitos de hardware de la aplicación. La web oficial enumera apps instalables, algunas con requisitos propios, pero no publica ninguno para Pinokio en sí.",
-        "checkedAt": "2026-09-16"
+        "checkedAt": "2026-11-19"
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-19",
         "scope": "local",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -14444,7 +14445,7 @@
     "descriptionLong": "Suno AI genera canciones completas — con voz, letra, melodía e instrumentación — a partir de una simple descripción de texto o incluso de tus propias letras. La calidad ha mejorado drásticamente con cada versión (v3, v3.5, v4), produciendo canciones que suenan sorprendentemente profesionales. Cubre prácticamente cualquier género musical.",
     "kind": "app",
     "verification": "verified",
-    "nextReviewAt": "2026-11-16",
+    "nextReviewAt": "2027-01-18",
     "categorySlug": "musica",
     "secondaryCategories": [],
     "tags": [
@@ -14458,7 +14459,7 @@
     ],
     "freeModel": "credits",
     "freePlan": {
-      "summary": "Plan gratuito con 50 créditos que se renuevan cada día y el modelo v6-mini. Sin uso comercial, sin descargas mensuales de canciones y sin compra de créditos adicionales. El plan de pago más barato es Pro, 8 $/mes.",
+      "summary": "Plan gratuito con 50 créditos que se renuevan cada día y sus modelos gratuitos. Sin uso comercial, sin descargas mensuales de canciones y sin compra de créditos adicionales. El plan de pago más barato es Pro, 9 €/mes (7,20 €/mes en facturación anual).",
       "limits": [
         "50 créditos al día",
         "Sólo sus modelos gratuitos y funciones estándar",
@@ -14466,7 +14467,7 @@
         "Sin descargas mensuales de canciones",
         "Subidas de audio de hasta 8 minutos; cola de creación compartida",
         "Sin separación de pistas ni compra de créditos adicionales",
-        "Plan de pago más barato: Pro, 7,20 €/mes en facturación anual"
+        "Plan de pago más barato: Pro, 9 €/mes o 7,20 €/mes en facturación anual (86,40 €/año)"
       ],
       "requiresSignup": "yes",
       "requiresCreditCard": "no",
@@ -14474,18 +14475,18 @@
       "commercialUse": "no",
       "creditsAmount": "50 créditos/día",
       "creditReset": "daily",
-      "verifiedAt": "2026-10-11",
+      "verifiedAt": "2026-11-19",
       "includedCapabilities": [
         {
           "capability": "text-to-music",
           "condition": "50 créditos al día, sin descargas mensuales",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-19",
             "scope": "product",
             "sourceUrl": "https://suno.com/pricing",
             "sourceKind": "pricing",
-            "quote": "Free · Our starter plan. · 0 € /month · Access to our free models · 50 credits per day · Standard features only · Upload up to 8 min of audio · Shared creation queue · No monthly song downloads · No commercial rights · No add-on credit purchases · No stem separation"
+            "quote": "Free · Turn any idea into a song. No cost, just creativity. · 0 € · Free forever · Access to our free models · 50 song credits per day · Standard features only · Upload up to 8 min of audio · Shared creation queue · No monthly song downloads · No commercial rights · No add-on song credit purchases · No stem separation"
           }
         }
       ]
@@ -14509,14 +14510,14 @@
         "label": "Web oficial",
         "kind": "official",
         "publisher": "suno.com",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-19"
       },
       {
         "url": "https://suno.com/pricing",
         "label": "Página oficial de precios",
         "kind": "pricing",
         "publisher": "suno.com",
-        "checkedAt": "2026-08-18"
+        "checkedAt": "2026-11-19"
       }
     ],
     "scores": {
@@ -14564,39 +14565,40 @@
     },
     "status": "published",
     "detectedAt": "2024-01-20",
-    "lastVerifiedAt": "2026-08-18",
-    "updatedAt": "2026-08-18",
+    "lastVerifiedAt": "2026-11-19",
+    "updatedAt": "2026-11-19",
     "evidence": [
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-19",
         "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://suno.com/pricing",
         "sourceKind": "pricing",
-        "quote": "Free · Our starter plan. · 0 € /month · Access to our free models · 50 credits per day · Standard features only · Upload up to 8 min of audio · Shared creation queue · No monthly song downloads · No commercial rights · No add-on credit purchases · No stem separation"
+        "quote": "Free · Turn any idea into a song. No cost, just creativity. · 0 € · Free forever · Access to our free models · 50 song credits per day · Standard features only · Upload up to 8 min of audio · Shared creation queue · No monthly song downloads · No commercial rights · No add-on song credit purchases · No stem separation · Pro · Unlock our best models, song downloads and commercial use rights. · 9 € · 7,20 € · Billed 86,40 €/year"
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-19",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "stated",
         "sourceUrl": "https://suno.com/",
         "sourceKind": "official",
-        "quote": "Yes. Suno is a free AI music generator that lets you create up to 10 songs a day, no credit card required."
+        "quote": "Yes. Suno is a free AI music generator that lets you create up to 10 songs a day, no credit card required.",
+        "basis": "En la respuesta a «Is Suno free to use?» de las preguntas frecuentes de su portada, que se muestran plegadas."
       },
       {
         "field": "freePlan.commercialUse",
         "outcome": "stated",
         "sourceUrl": "https://suno.com/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-19",
         "scope": "product",
         "quote": "No commercial rights",
         "basis": "En la lista del Free Plan."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-19",
         "scope": "product",
         "field": "freePlan.hasWatermark",
         "outcome": "not_published",
