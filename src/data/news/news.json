@@ -1,5 +1,121 @@
 [
   {
+    "id": "news-2026-11-18-comfy-cloud-custom",
+    "slug": "comfy-cloud-nodos-propios",
+    "title": "Comfy Cloud ya corre tu ComfyUI con tus nodos y modelos, en los planes de pago y con la GPU que elijas",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Comfy anunció el 18 de noviembre que Comfy Cloud ya ejecuta la instalación propia de un equipo: sus nodos personalizados, sus modelos y sus LoRA, desde el navegador y en el mismo lienzo de ComfyUI. Un paquete personalizado reúne todo eso con sus dependencias, admite paquetes privados, y se arma una vez partiendo de un flujo de trabajo o de una instantánea de Comfy Desktop.",
+    "impact": "Lo que resuelve es el montaje repetido: alguien nuevo entra a mitad de un proyecto y tiene los mismos nodos y modelos sin instalar nada, y se pueden lanzar flujos más pesados de lo que aguanta la máquina de casa eligiendo la GPU, desde una RTX PRO 6000 hasta una B200 de 180 GB. Dos cosas antes de contar con ello: está sólo en los planes de pago, y se cobra mientras los trabajadores corren, también en la ventana de mantenimiento. Ellos mismos avisan de que los paquetes de nodos complejos pueden dar guerra.",
+    "category": "imagen",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-11-18",
+    "checkedAt": "2026-11-20",
+    "officialUrl": "https://blog.comfy.org/p/your-custom-comfyui-is-now-in-comfy",
+    "sources": [
+      {
+        "url": "https://blog.comfy.org/p/your-custom-comfyui-is-now-in-comfy",
+        "kind": "official",
+        "label": "Your custom ComfyUI is now in Comfy Cloud",
+        "checkedAt": "2026-11-20",
+        "publisher": "comfy.org"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-11-18-gemini-4-neon",
+    "slug": "gemini-4-neon",
+    "title": "Gemini 4 Neon sale a 3 dólares por millón de tokens de entrada, y en la aplicación sólo lo tocan quienes pagan Pro o Ultra",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Google DeepMind presentó el 18 de noviembre Gemini 4 Neon, orientado a terminar tareas largas de ingeniería de software, trabajo de conocimiento y ciencia. Sale a 3 dólares por millón de tokens de entrada y 15 por millón de salida, con un millón de tokens de contexto y la entrada en caché un 95 % más barata. Llega a la API en AI Studio, a Gemini para empresas y a Antigravity.",
+    "impact": "Para quien no paga, hoy no cambia nada: en la aplicación de Gemini está sólo para suscriptores Pro y Ultra, y en Antigravity igual. Las cifras son suyas o de índices que ellos citan, y conviene leerlas con eso delante: tercero en el índice de inteligencia de Artificial Analysis con 61 puntos en su nivel de razonamiento más alto, y primero en el de agentes de programación con 58,6. Lo que más destacan no es una nota, es corregirse a media tarea, donde se ponen segundos en dirigibilidad.",
+    "category": "modelo-lenguaje",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-11-18",
+    "checkedAt": "2026-11-20",
+    "officialUrl": "https://deepmind.google/blog/introducing-gemini-4-neon/",
+    "sources": [
+      {
+        "url": "https://deepmind.google/blog/introducing-gemini-4-neon/",
+        "kind": "official",
+        "label": "Introducing Gemini 4 Neon",
+        "checkedAt": "2026-11-20",
+        "publisher": "deepmind.google"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-11-18-moe-expert-streaming",
+    "slug": "moe-180b-en-32-gb-de-ram",
+    "title": "Un modelo de 180.000 millones de parámetros en un Mac de 32 GB: la receta, las cifras y por qué sigue siendo lento",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Un ingeniero de Hugging Face publicó el 18 de noviembre cómo hizo funcionar Qwen3.8-Flash-Next —48 capas de 512 expertos, 121 GB en FP8— en un portátil con 32 GB de memoria unificada, leyendo los expertos del SSD a medida que hacen falta. En una mezcla de expertos los expertos son más del 90 % de los pesos, así que sólo los que se usan tienen que estar en memoria.",
+    "impact": "La receta completa está publicada y es reproducible: expertos a 3 bits, 49 GB en disco con 12 GiB en caché, capas densas a 8 bits y la tabla de n-gramas de 51 GB leída por filas. Pide cinco horas de conversión, ocupa 18 GiB cargado y llega a 25,4 GiB con una petición larga, y ahí dice el autor que hay que cerrar el navegador. Lo honesto del texto es el final: 13,9 tokens por segundo, a un 6 % del motor especializado, y él mismo dice que sigue siendo demasiado lento para sus agentes de programación.",
+    "category": "local-open-source",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-11-18",
+    "checkedAt": "2026-11-20",
+    "officialUrl": "https://huggingface.co/blog/moe-expert-streaming",
+    "sources": [
+      {
+        "url": "https://huggingface.co/blog/moe-expert-streaming",
+        "kind": "official",
+        "label": "180B Parameters, 32GB of RAM: Pushing MoE Inference to the Limit with Transformers",
+        "checkedAt": "2026-11-20",
+        "publisher": "huggingface.co/blog"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-11-18-rumble-2-flash",
+    "slug": "rumble-2-flash-voz-abierta",
+    "title": "Rumble-2-Flash: medio millón de parámetros, Apache 2.0 y más de 40 idiomas para transcribir voz",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Reson8 publicó el 18 de noviembre Rumble-2-Flash con licencia Apache 2.0: un modelo de reconocimiento de voz de 500 millones de parámetros para más de 40 idiomas, que según sus medidas compite con modelos de tres a sesenta veces su tamaño. Funciona en Transformers y en vLLM sin código propio ni necesidad de confiar en código remoto, y detecta el idioma por su cuenta.",
+    "impact": "Lo interesante para quien transcribe en casa es el tamaño: medio millón de parámetros caben en cualquier sitio, y dejan controlar la salida —números en cifra o en palabra, muletillas, repeticiones literales—, que es justo lo que suele dar trabajo después. Las cifras son suyas, y una pide contexto: la hora de audio en medio segundo sale con los lotes llenos, y ellos mismos lo matizan. En la vía multilingüe promedian un 6,96 % de error y dicen quedar por delante de un modelo de Meta quince veces mayor y de Whisper large-v3.",
+    "category": "audio",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-11-18",
+    "checkedAt": "2026-11-20",
+    "officialUrl": "https://huggingface.co/blog/rumble-2-flash",
+    "sources": [
+      {
+        "url": "https://huggingface.co/blog/rumble-2-flash",
+        "kind": "official",
+        "label": "Rumble-2-Flash: an open 0.5B speech model for 40+ languages",
+        "checkedAt": "2026-11-20",
+        "publisher": "huggingface.co/blog"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-11-03-transformers-mic",
     "slug": "transformers-contratos-integracion-modelos",
     "title": "Un fallo dejó que un modelo de Transformers viera la respuesta durante dos meses: así quieren que no vuelva a pasar",
