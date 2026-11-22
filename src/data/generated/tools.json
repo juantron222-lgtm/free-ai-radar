@@ -6756,7 +6756,7 @@
     "descriptionLong": "Gemma 4 es la cuarta generación de los modelos abiertos de Google. La familia incluye variantes E2B y E4B (2B y 4B parámetros efectivos) con 128K de contexto, y variantes 12B multimodal unificada, 26B A4B de mezcla de expertos y 31B densa, con 256K de contexto. Los pesos se descargan sin coste desde Kaggle y Hugging Face.\n\nLo relevante para quien busca algo gratis de verdad: Gemma 4 cambia de licencia. Las generaciones 1 a 3 se distribuían bajo los «Gemma Terms of Use», una licencia propia de Google con una política de usos prohibidos incorporada por referencia. Gemma 4 remite a Apache 2.0. Es una diferencia práctica, no formal: bajo Apache 2.0 el permiso no depende de que Google siga considerando aceptable tu caso de uso.\n\nNo es un producto con plan gratuito, sino un modelo que descargas. Lo que te limita es tu hardware, no una cuota mensual que alguien pueda recortar.",
     "kind": "model",
     "verification": "verified",
-    "nextReviewAt": "2026-11-18",
+    "nextReviewAt": "2027-02-20",
     "version": "4",
     "categorySlug": "modelos",
     "secondaryCategories": [
@@ -6776,7 +6776,7 @@
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-20",
+      "verifiedAt": "2026-11-22",
       "commercialUse": "yes",
       "summary": "Los cinco tamaños con licencia Apache 2.0. Contexto de 128k en E2B y E4B, y de 256k en 12B, 26B A4B y 31B. Entrada de texto e imagen en todos; audio sólo en E2B, E4B y 12B. La salida es siempre texto.",
       "limits": [
@@ -6791,7 +6791,7 @@
           "condition": "pesos descargables, en tu equipo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "weights",
             "sourceUrl": "https://ai.google.dev/gemma/docs/core/model_card_4",
             "sourceKind": "repo",
@@ -6827,21 +6827,21 @@
         "label": "Ficha oficial del modelo",
         "kind": "docs",
         "publisher": "ai.google.dev",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://ai.google.dev/gemini-api/docs/pricing",
         "label": "Precios oficiales de la API",
         "kind": "pricing",
         "publisher": "ai.google.dev",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/",
         "label": "Anuncio oficial de Gemma 4",
         "kind": "official",
         "publisher": "blog.google",
-        "checkedAt": "2026-10-24"
+        "checkedAt": "2026-11-22"
       }
     ],
     "scores": {
@@ -6888,8 +6888,8 @@
     },
     "status": "published",
     "detectedAt": "2026-08-07",
-    "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-10-17",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "startEffort": "install",
     "capabilities": [
       "text-generation",
@@ -6914,12 +6914,12 @@
         "outcome": "stated",
         "sourceUrl": "https://ai.google.dev/gemma/docs/core/model_card_4",
         "sourceKind": "docs",
-        "checkedAt": "2026-10-17",
+        "checkedAt": "2026-11-22",
         "quote": "Apache 2.0 · available in five distinct sizes: E2B, E4B, 12B, 26B A4B, and 31B · The small models feature a 128K context window, while the medium models support 256K · text and image input (with audio supported on E2B, E4B, and 12B models) and generating text output",
         "scope": "api"
       },
       {
-        "checkedAt": "2026-10-24",
+        "checkedAt": "2026-11-22",
         "scope": "weights",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -6977,6 +6977,7 @@
       "summary": "Plan gratuito con 100 créditos al día hasta agotar un cupo de por vida que Genspark no cuantifica; después la recarga diaria se detiene y sólo queda el saldo que tengas. Los créditos no se acumulan. El plan Plus empieza en 10.000 créditos al mes; su precio no se publica en el centro de ayuda.",
       "limits": [
         "100 créditos al día, hasta agotar un cupo de por vida cuya cifra no publican; después la recarga diaria se detiene",
+        "Los créditos de cada día caducan a las 24 horas",
         "Los créditos no se acumulan de un periodo al siguiente",
         "Chat e imágenes sin coste de créditos sólo en los planes de pago"
       ],
@@ -6986,7 +6987,7 @@
       "commercialUse": "unverified",
       "creditsAmount": "100 créditos/día",
       "creditReset": "daily",
-      "verifiedAt": "2026-10-11"
+      "verifiedAt": "2026-11-22"
     },
     "capabilities": [
       "tool-use",
@@ -7008,21 +7009,21 @@
         "label": "Web oficial",
         "kind": "official",
         "publisher": "genspark.ai",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://www.genspark.ai/helpcenter/super-agent",
         "label": "Centro de ayuda: Super Agent",
         "kind": "docs",
         "publisher": "genspark.ai",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://www.genspark.ai/helpcenter/credits-guide",
         "label": "Centro de ayuda: créditos",
         "kind": "pricing",
         "publisher": "genspark.ai",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -7036,16 +7037,16 @@
         "scope": "cloud"
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://www.genspark.ai/helpcenter/credits-guide",
         "sourceKind": "help",
-        "quote": "Free · 100 credits/day, Free accounts have a lifetime allowance of free credits. Once your account has used its lifetime allowance, the daily free refill stops — your current balance stays and keeps working until it runs out."
+        "quote": "Free 100 credits/day. Free accounts have a lifetime allowance of free credits. Once your account has used its lifetime allowance, the daily free refill stops — your current balance stays and keeps working until it runs out. · Each day's credits expire 24 hours after they're granted."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "not_published",
@@ -7055,9 +7056,9 @@
       }
     ],
     "auditNotes": "No se marcan `code-execution` ni `memory`. «Powerful execution» no dice que ejecute código, y «SecondBrain» aparece sin definir qué persiste. El precio del plan Plus tampoco se registra: el centro de ayuda publica los créditos, no la cifra en euros.",
-    "nextReviewAt": "2026-11-18",
-    "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-08-20",
+    "nextReviewAt": "2027-01-21",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "access": {}
   },
   {
@@ -8384,14 +8385,14 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-20",
+      "verifiedAt": "2026-11-22",
       "includedCapabilities": [
         {
           "capability": "research",
           "condition": "código abierto; necesita un modelo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "local",
             "sourceUrl": "https://github.com/assafelovic/gpt-researcher",
             "sourceKind": "repo",
@@ -8420,7 +8421,7 @@
         "label": "Repositorio oficial",
         "kind": "repo",
         "publisher": "github.com",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -8429,7 +8430,7 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/assafelovic/gpt-researcher",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-20",
+        "checkedAt": "2026-11-22",
         "quote": "The first open deep research agent designed for both web and local research on any given task. [...] The planner generates research questions, while the execution agents gather relevant information [...] The publisher then aggregates all findings into a comprehensive report. Aggregate over 20 sources for objective conclusions.",
         "scope": "local"
       },
@@ -8438,15 +8439,15 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/assafelovic/gpt-researcher/blob/master/LICENSE",
         "sourceKind": "repo",
-        "checkedAt": "2026-10-17",
+        "checkedAt": "2026-11-22",
         "quote": "assafelovic/gpt-researcher is licensed under the Apache License 2.0",
         "scope": "local"
       }
     ],
     "auditNotes": "`multi-agent` se marca porque el propio README separa planificador y agentes de ejecución, no por su asistente opcional sobre LangGraph.",
-    "nextReviewAt": "2026-11-18",
-    "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-10-17",
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "access": {}
   },
   {
@@ -10393,7 +10394,7 @@
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-20",
+      "verifiedAt": "2026-11-22",
       "commercialUse": "partial",
       "summary": "Pesos descargables bajo la Kimi K3 License, que permite usar, copiar, modificar y vender copias con dos condiciones comerciales. La primera: por encima de 100 millones de usuarios activos mensuales o de 20 millones de dólares de ingresos mensuales hay que mostrar «Kimi K3» de forma destacada en la interfaz. La segunda: quien opere un negocio de modelo como servicio con más de 20 millones de dólares de ingresos agregados en doce meses consecutivos tiene que firmar un acuerdo aparte con Moonshot AI antes de usarlo con fines comerciales.",
       "limits": [
@@ -10435,7 +10436,7 @@
         "label": "Ficha oficial del modelo",
         "kind": "repo",
         "publisher": "huggingface.co",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -10444,7 +10445,7 @@
         "outcome": "stated",
         "sourceUrl": "https://huggingface.co/moonshotai/Kimi-K3/blob/main/LICENSE",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-20",
+        "checkedAt": "2026-11-22",
         "quote": "to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software [...] more than 100 million monthly active users [...] \"Kimi K3\" must be prominently displayed on the user interface of such product or service",
         "scope": "local"
       },
@@ -10458,7 +10459,7 @@
         "scope": "local"
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "weights",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -10469,9 +10470,9 @@
     ],
     "slug": "kimi-k2",
     "id": "tool_kimi-k2",
-    "nextReviewAt": "2026-11-18",
-    "lastVerifiedAt": "2026-08-29",
-    "updatedAt": "2026-08-20"
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22"
   },
   {
     "secondaryCategories": [],
@@ -11803,7 +11804,7 @@
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-20",
+      "verifiedAt": "2026-11-22",
       "commercialUse": "partial",
       "summary": "Pesos descargables bajo la Llama 4 Community License. Permite uso comercial, pero por encima de 700 millones de usuarios activos mensuales hay que solicitar licencia a Meta, y hay que mostrar «Built with Llama» y conservar el aviso de licencia.",
       "limits": [
@@ -11841,7 +11842,7 @@
         "label": "Ficha oficial del modelo",
         "kind": "repo",
         "publisher": "huggingface.co",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -11850,7 +11851,7 @@
         "outcome": "stated",
         "sourceUrl": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-20",
+        "checkedAt": "2026-11-22",
         "quote": "700 million monthly active users in the preceding calendar month, you must request a license from Meta, which Meta may grant to you in its sole discretion. [Distributors must] prominently display \"Built with Llama\" on a related website.",
         "scope": "local"
       },
@@ -11864,7 +11865,7 @@
         "scope": "local"
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "weights",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -11876,9 +11877,9 @@
     "auditNotes": "La ficha del modelo no se actualiza desde mayo de 2025, quince meses antes de esta comprobación. Es el dato que más envejece de esta vertical y por eso está escrito aquí.",
     "slug": "llama-4",
     "id": "tool_llama-4",
-    "nextReviewAt": "2026-11-18",
-    "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-08-20"
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22"
   },
   {
     "id": "tool_lm-studio",
@@ -12097,14 +12098,14 @@
       "hasWatermark": "unverified",
       "commercialUse": "yes",
       "creditReset": "none",
-      "verifiedAt": "2026-08-20",
+      "verifiedAt": "2026-11-22",
       "includedCapabilities": [
         {
           "capability": "research",
           "condition": "en tu equipo, con un modelo local",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "local",
             "sourceUrl": "https://github.com/langchain-ai/local-deep-researcher",
             "sourceKind": "repo",
@@ -12116,7 +12117,7 @@
           "condition": "en tu equipo, con un modelo local",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "local",
             "sourceUrl": "https://github.com/langchain-ai/local-deep-researcher",
             "sourceKind": "repo",
@@ -12144,14 +12145,14 @@
         "label": "Repositorio oficial",
         "kind": "repo",
         "publisher": "github.com",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://raw.githubusercontent.com/langchain-ai/local-deep-researcher/main/LICENSE",
         "label": "Licencia oficial (MIT)",
         "kind": "repo",
         "publisher": "raw.githubusercontent.com",
-        "checkedAt": "2026-10-12"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -12160,7 +12161,7 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/langchain-ai/local-deep-researcher",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-20",
+        "checkedAt": "2026-11-22",
         "quote": "A fully local web research assistant that uses any LLM hosted by Ollama or LMStudio. [Genera una consulta, busca, resume, refleja sobre el resumen para encontrar lagunas, genera una consulta nueva y repite. El número de vueltas se configura con MAX_WEB_RESEARCH_LOOPS, por defecto 3.]",
         "scope": "local"
       },
@@ -12169,12 +12170,12 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/langchain-ai/local-deep-researcher/blob/main/LICENSE",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-20",
+        "checkedAt": "2026-11-22",
         "quote": "MIT License. Copyright (c) 2025 Lance Martin",
         "scope": "local"
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "local",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -12183,9 +12184,9 @@
         "quote": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software"
       }
     ],
-    "nextReviewAt": "2026-11-18",
-    "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-08-20",
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "access": {}
   },
   {
@@ -13353,7 +13354,7 @@
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-20",
+      "verifiedAt": "2026-11-22",
       "commercialUse": "yes",
       "summary": "Tres tamaños con pesos Apache 2.0: Ministral 3 3B, 8B y 14B. Los tres aceptan texto e imagen. Sin cuotas ni cuenta.",
       "limits": [
@@ -13367,7 +13368,7 @@
           "condition": "pesos descargables, en tu equipo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "weights",
             "sourceUrl": "https://huggingface.co/mistralai/Ministral-3-14B-Instruct-2512",
             "sourceKind": "repo",
@@ -13379,7 +13380,7 @@
           "condition": "pesos descargables, en tu equipo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "weights",
             "sourceUrl": "https://huggingface.co/mistralai/Ministral-3-14B-Instruct-2512",
             "sourceKind": "repo",
@@ -13416,14 +13417,14 @@
         "label": "Documentación oficial de modelos",
         "kind": "docs",
         "publisher": "mistral.ai",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://huggingface.co/mistralai/Ministral-3-14B-Instruct-2512",
         "label": "Ficha oficial del modelo en Hugging Face",
         "kind": "repo",
         "publisher": "huggingface.co",
-        "checkedAt": "2026-10-12"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -13437,7 +13438,7 @@
         "scope": "product"
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "weights",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -13448,9 +13449,9 @@
     ],
     "slug": "ministral",
     "id": "tool_ministral",
-    "nextReviewAt": "2026-11-18",
-    "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-08-20"
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22"
   },
   {
     "skillLevel": "beginner",
@@ -13474,6 +13475,12 @@
         "kind": "other",
         "summary": "Mistral abre en vista previa pública Mistral Large 4: 1,05 billones de parámetros con 52.000 millones activos y un millón de tokens de contexto, por API. El 17 de octubre de 2026 sus pesos aún no estaban en Hugging Face, así que esta ficha sigue describiendo Large 3, el modelo estable con pesos publicados.",
         "sourceUrl": "https://docs.mistral.ai/models/mistral-large-4"
+      },
+      {
+        "date": "2026-10-31",
+        "kind": "other",
+        "sourceUrl": "https://docs.mistral.ai/getting-started/models/models_overview/",
+        "summary": "Mistral marca Large 3 como en desuso en su API, con retirada el 30 de abril de 2027, y propone en su lugar Mistral Large 4, publicado el 5 de noviembre con la Mistral Ecosystem Open Weight License en vez de Apache 2.0. Los pesos de Large 3 ya publicados conservan su licencia."
       }
     ],
     "affiliation": {
@@ -13511,13 +13518,14 @@
       "hasWatermark": "unverified",
       "commercialUse": "yes",
       "creditReset": "unknown",
-      "verifiedAt": "2026-10-11",
+      "verifiedAt": "2026-11-22",
       "summary": "Los pesos de Mistral Large 3 son Apache 2.0, y su ficha oficial permite el uso comercial. El plan gratuito de la plataforma da acceso limitado a Vibe y a Mistral Studio; su página de precios ya no publica créditos de API gratuitos.",
       "limits": [
         "Pesos: Apache 2.0",
         "Uso comercial de los pesos (Mistral Large 3, versión 2512): permitido según su ficha oficial; las preguntas frecuentes de precios de Mistral dicen en cambio que los despliegues comerciales de modelos abiertos «require a Mistral license»",
         "Plan gratuito de la plataforma: acceso limitado a Vibe y a Mistral Studio; la página de precios ya no publica créditos de API gratuitos",
-        "Plan de pago más barato: Pro, 14,99 $/mes"
+        "Plan de pago más barato: Pro, 14,99 $/mes",
+        "En la API de Mistral, Large 3 está en desuso desde el 31 de octubre de 2026 y se retira el 30 de abril de 2027; Mistral propone Large 4 en su lugar, con otra licencia (Mistral Ecosystem Open Weight License). Los pesos de Large 3 siguen siendo Apache 2.0"
       ]
     },
     "access": {
@@ -13549,33 +13557,33 @@
         "label": "Documentación oficial de modelos",
         "kind": "docs",
         "publisher": "mistral.ai",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://mistral.ai/pricing",
         "label": "Precios oficiales",
         "kind": "pricing",
         "publisher": "mistral.ai",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://huggingface.co/mistralai/Mistral-Large-3-675B-Instruct-2512",
         "label": "Ficha oficial del modelo en Hugging Face",
         "kind": "repo",
         "publisher": "huggingface.co",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://docs.mistral.ai/models/mistral-large-4",
         "label": "Mistral Large 4 en la documentación de Mistral",
         "kind": "docs",
         "publisher": "docs.mistral.ai",
-        "checkedAt": "2026-10-17"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
@@ -13593,7 +13601,7 @@
         "scope": "product"
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "api",
         "field": "freePlan.requiresCreditCard",
         "outcome": "not_published",
@@ -13602,7 +13610,7 @@
         "lookedFor": "Si el uso gratuito de la API pide tarjeta. Su documentación dice que «Free mode is the default state for new accounts», sin decir si hace falta tarjeta; la página de precios tampoco."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "weights",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -13613,9 +13621,9 @@
     ],
     "slug": "mistral-large",
     "id": "tool_mistral-large",
-    "nextReviewAt": "2026-11-18",
-    "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-10-17",
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "auditNotes": "Uso comercial comprobado el 11 de octubre de 2026 para los pesos de Mistral Large 3 (675B, versión 2512) en su ficha de Hugging Face. La página de precios de Mistral dice en sus preguntas frecuentes, sin nombrar este modelo, que los modelos abiertos son Apache 2.0 «for research/individual use» y que los despliegues comerciales requieren una licencia de Mistral: contradice la licencia y la ficha del modelo, y la ficha lo cuenta en vez de elegir. El uso por API se rige por las condiciones de la plataforma, no por la licencia de los pesos."
   },
   {
@@ -13669,7 +13677,7 @@
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-20",
+      "verifiedAt": "2026-11-22",
       "commercialUse": "yes",
       "summary": "Pesos bajo Apache 2.0. Sin cuotas ni cuenta: el coste es el equipo.",
       "limits": [
@@ -13682,7 +13690,7 @@
           "condition": "pesos descargables, en tu equipo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "weights",
             "sourceUrl": "https://huggingface.co/mistralai/Mistral-Small-4-119B-2603",
             "sourceKind": "repo",
@@ -13694,7 +13702,7 @@
           "condition": "pesos descargables, en tu equipo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "weights",
             "sourceUrl": "https://huggingface.co/mistralai/Mistral-Small-4-119B-2603",
             "sourceKind": "repo",
@@ -13731,14 +13739,14 @@
         "label": "Documentación oficial de modelos",
         "kind": "docs",
         "publisher": "mistral.ai",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://huggingface.co/mistralai/Mistral-Small-4-119B-2603",
         "label": "Ficha oficial del modelo en Hugging Face",
         "kind": "repo",
         "publisher": "huggingface.co",
-        "checkedAt": "2026-10-12"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -13752,7 +13760,7 @@
         "scope": "product"
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "weights",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -13763,9 +13771,9 @@
     ],
     "slug": "mistral-small",
     "id": "tool_mistral-small",
-    "nextReviewAt": "2026-11-18",
-    "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-08-20"
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22"
   },
   {
     "secondaryCategories": [
@@ -15515,7 +15523,7 @@
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-20",
+      "verifiedAt": "2026-11-22",
       "commercialUse": "yes",
       "summary": "Pesos bajo licencia MIT. 14.000 millones de parámetros, contexto de 16k tokens y sólo texto. Sin cuotas ni cuenta.",
       "limits": [
@@ -15554,14 +15562,14 @@
         "label": "Ficha oficial del modelo",
         "kind": "repo",
         "publisher": "huggingface.co",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://huggingface.co/microsoft/phi-4/blob/main/LICENSE",
         "label": "Licencia oficial de los pesos (MIT)",
         "kind": "repo",
         "publisher": "huggingface.co",
-        "checkedAt": "2026-10-12"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -15570,7 +15578,7 @@
         "outcome": "stated",
         "sourceUrl": "https://huggingface.co/microsoft/phi-4",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-20",
+        "checkedAt": "2026-11-22",
         "quote": "License: MIT",
         "scope": "local"
       },
@@ -15584,7 +15592,7 @@
         "scope": "local"
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "weights",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -15595,9 +15603,9 @@
     ],
     "slug": "phi-4",
     "id": "tool_phi-4",
-    "nextReviewAt": "2026-11-18",
-    "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-08-20"
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22"
   },
   {
     "id": "tool_pika-labs",
@@ -16628,7 +16636,7 @@
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-20",
+      "verifiedAt": "2026-11-22",
       "commercialUse": "yes",
       "summary": "Pesos bajo Apache 2.0, sin condiciones añadidas. 27.000 millones de parámetros, contexto nativo de 262.144 tokens ampliable a un millón, y entrada de texto, imagen y vídeo.",
       "limits": [
@@ -16643,7 +16651,7 @@
           "condition": "pesos descargables, en tu equipo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "weights",
             "sourceUrl": "https://huggingface.co/Qwen/Qwen3.8-27B",
             "sourceKind": "repo",
@@ -16655,7 +16663,7 @@
           "condition": "pesos descargables, en tu equipo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "weights",
             "sourceUrl": "https://huggingface.co/Qwen/Qwen3.8-27B",
             "sourceKind": "repo",
@@ -16695,7 +16703,7 @@
         "label": "Ficha oficial del modelo",
         "kind": "repo",
         "publisher": "huggingface.co",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -16704,7 +16712,7 @@
         "outcome": "stated",
         "sourceUrl": "https://huggingface.co/Qwen/Qwen3.8-27B",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-20",
+        "checkedAt": "2026-11-22",
         "quote": "License: apache-2.0",
         "scope": "local"
       },
@@ -16720,9 +16728,9 @@
     ],
     "slug": "qwen3-27b",
     "id": "tool_qwen3-27b",
-    "nextReviewAt": "2026-11-18",
-    "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-08-20"
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22"
   },
   {
     "skillLevel": "beginner",
@@ -16773,7 +16781,7 @@
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-20",
+      "verifiedAt": "2026-11-22",
       "commercialUse": "partial",
       "summary": "Pesos descargables bajo la licencia propia «qwen3.8-max», no OSI. Permite uso comercial con dos condiciones: mostrar el nombre del modelo de forma destacada en la interfaz por encima de 100 millones de usuarios activos mensuales o de 20 millones de dólares de ingresos mensuales, y obtener una licencia aparte quien opere un negocio de modelo como servicio o asistente de trabajo con más de 50 millones de dólares de ingresos agregados en doce meses. 2,4 billones de parámetros con 95.000 millones activos por token, sólo texto, y contexto nativo de 262.144 tokens ampliable a 1.010.000.",
       "limits": [
@@ -16812,7 +16820,7 @@
         "label": "Ficha oficial del modelo",
         "kind": "repo",
         "publisher": "huggingface.co",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -16821,7 +16829,7 @@
         "outcome": "stated",
         "sourceUrl": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-20",
+        "checkedAt": "2026-11-22",
         "quote": "License: qwen3.8-max",
         "scope": "local"
       },
@@ -16835,7 +16843,7 @@
         "scope": "local"
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "weights",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -16847,9 +16855,9 @@
     "auditNotes": "El uso comercial se queda sin afirmar: la licencia «qwen3.8-max» no es una plantilla conocida y no se leyó su texto completo en esta comprobación.",
     "slug": "qwen3-max",
     "id": "tool_qwen3-max",
-    "nextReviewAt": "2026-11-18",
-    "lastVerifiedAt": "2026-08-29",
-    "updatedAt": "2026-08-20"
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22"
   },
   {
     "id": "tool_recraft",
@@ -17022,7 +17030,7 @@
     "descriptionLong": "Replicate permite ejecutar miles de modelos IA open-source (Stable Diffusion, LLMs, upscalers, etc.) a través de una API simple, sin necesidad de GPU propia. Pagas solo por el tiempo de cómputo que usas, y hay cierta cantidad gratuita para empezar. Ideal para desarrolladores que quieren integrar IA en sus apps sin gestionar infraestructura.",
     "kind": "platform",
     "verification": "partially_verified",
-    "nextReviewAt": "2026-11-11",
+    "nextReviewAt": "2027-01-21",
     "categorySlug": "apis",
     "secondaryCategories": [],
     "tags": [],
@@ -17046,7 +17054,7 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "unknown",
-      "verifiedAt": "2026-10-11"
+      "verifiedAt": "2026-11-22"
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -17071,28 +17079,28 @@
         "label": "Web oficial",
         "kind": "official",
         "publisher": "replicate.com",
-        "checkedAt": "2026-08-13"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://replicate.com/pricing",
         "label": "Página oficial de precios",
         "kind": "pricing",
         "publisher": "replicate.com",
-        "checkedAt": "2026-08-13"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://replicate.com/docs/topics/billing",
         "label": "Facturación (documentación oficial)",
         "kind": "docs",
         "publisher": "replicate.com",
-        "checkedAt": "2026-08-13"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://replicate.com/terms",
         "label": "Términos de uso de Replicate",
         "kind": "docs",
         "publisher": "replicate.com",
-        "checkedAt": "2026-10-23"
+        "checkedAt": "2026-11-22"
       }
     ],
     "scores": {
@@ -17132,8 +17140,8 @@
     },
     "status": "published",
     "detectedAt": "2023-04-01",
-    "lastVerifiedAt": "2026-08-13",
-    "updatedAt": "2026-10-23",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "auditNotes": "«Trial» y no «credits»: no hay una cantidad de créditos ni una frecuencia de renovación, sino un acceso gratuito que termina. La página de precios no menciona plan gratuito alguno; la que lo menciona es la de facturación.",
     "startEffort": "signup",
     "capabilities": [
@@ -17146,12 +17154,12 @@
         "outcome": "stated",
         "sourceUrl": "https://replicate.com/docs/topics/billing",
         "sourceKind": "docs",
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "quote": "Free limits — You can run select models on Replicate for free, but after a bit you’ll be asked to set up billing. Some features are only available to customers with billing set up.",
         "scope": "cloud"
       },
       {
-        "checkedAt": "2026-10-23",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "not_published",
@@ -18061,14 +18069,14 @@
       "hasWatermark": "unverified",
       "commercialUse": "yes",
       "creditReset": "none",
-      "verifiedAt": "2026-08-20",
+      "verifiedAt": "2026-11-22",
       "includedCapabilities": [
         {
           "capability": "research",
           "condition": "código abierto; necesita un modelo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "local",
             "sourceUrl": "https://github.com/stanford-oval/storm",
             "sourceKind": "repo",
@@ -18096,14 +18104,14 @@
         "label": "Repositorio oficial",
         "kind": "repo",
         "publisher": "github.com",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://raw.githubusercontent.com/stanford-oval/storm/main/LICENSE",
         "label": "Licencia oficial (MIT)",
         "kind": "repo",
         "publisher": "raw.githubusercontent.com",
-        "checkedAt": "2026-10-12"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -18112,7 +18120,7 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/stanford-oval/storm",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-20",
+        "checkedAt": "2026-11-22",
         "quote": "STORM is a LLM system that writes Wikipedia-like articles from scratch based on Internet search. [Pre-writing: conduct Internet research, collect references, generate outline. Writing: use the outline and references to generate the full-length article with citations.]",
         "scope": "local"
       },
@@ -18121,12 +18129,12 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/stanford-oval/storm/blob/main/LICENSE",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-20",
+        "checkedAt": "2026-11-22",
         "quote": "MIT License. Copyright (c) 2024 Stanford Open Virtual Assistant Lab",
         "scope": "local"
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "local",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -18136,9 +18144,9 @@
       }
     ],
     "auditNotes": "La licencia MIT es la del código; el README menciona CC BY-SA aparte por el contenido de Wikipedia que usa su conjunto de datos. `requiresSignup` se queda sin afirmar: no comprobé si la vista previa pide cuenta.",
-    "nextReviewAt": "2026-11-18",
-    "lastVerifiedAt": "2026-08-20",
-    "updatedAt": "2026-08-20",
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "access": {}
   },
   {
