@@ -464,14 +464,14 @@
       "hasWatermark": "unverified",
       "commercialUse": "no",
       "creditReset": "none",
-      "verifiedAt": "2026-08-18",
+      "verifiedAt": "2026-11-22",
       "includedCapabilities": [
         {
           "capability": "text-to-music",
           "condition": "pesos descargables, en tu equipo; pesos sólo para uso no comercial",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "local",
             "sourceUrl": "https://github.com/facebookresearch/audiocraft",
             "sourceKind": "repo",
@@ -500,7 +500,7 @@
         "label": "Repositorio oficial",
         "kind": "repo",
         "publisher": "github.com",
-        "checkedAt": "2026-08-18"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -509,7 +509,7 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/facebookresearch/audiocraft",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-18",
+        "checkedAt": "2026-11-22",
         "quote": "The code in this repository is released under the MIT license as found in the LICENSE file. The models weights in this repository are released under the CC-BY-NC 4.0 license as found in the LICENSE_weights file.",
         "scope": "local"
       },
@@ -528,11 +528,11 @@
         "sourceUrl": "https://github.com/facebookresearch/audiocraft",
         "sourceKind": "repo",
         "scope": "local",
-        "checkedAt": "2026-09-16",
+        "checkedAt": "2026-11-22",
         "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice. Menciona AudioSeal, un modelo aparte para marcar audio, pero no que lo generado lo lleve."
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "weights",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -542,9 +542,9 @@
         "basis": "Su README oficial: «The models weights in this repository are released under the CC-BY-NC 4.0 license»."
       }
     ],
-    "nextReviewAt": "2026-11-16",
-    "lastVerifiedAt": "2026-08-18",
-    "updatedAt": "2026-08-18",
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "licences": {
       "code": "MIT",
       "weights": "CC-BY-NC 4.0"
@@ -783,7 +783,7 @@
       "commercialUse": "no",
       "creditsAmount": "20.000 créditos/mes (≈27 min)",
       "creditReset": "monthly",
-      "verifiedAt": "2026-10-12",
+      "verifiedAt": "2026-11-22",
       "excludedCapabilities": [
         "voice-clone"
       ],
@@ -793,7 +793,7 @@
           "condition": "20.000 créditos al mes",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-22",
             "scope": "product",
             "sourceUrl": "https://cartesia.ai/pricing",
             "sourceKind": "pricing",
@@ -805,7 +805,7 @@
           "condition": "20.000 créditos al mes",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-22",
             "scope": "product",
             "sourceUrl": "https://cartesia.ai/pricing",
             "sourceKind": "pricing",
@@ -835,26 +835,26 @@
         "label": "Web oficial",
         "kind": "official",
         "publisher": "cartesia.ai",
-        "checkedAt": "2026-08-18"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://cartesia.ai/pricing",
         "label": "Página oficial de precios",
         "kind": "pricing",
         "publisher": "cartesia.ai",
-        "checkedAt": "2026-08-18"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://cartesia.ai/legal/terms",
         "label": "Condiciones oficiales",
         "kind": "docs",
         "publisher": "cartesia.ai",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
@@ -872,7 +872,7 @@
         "scope": "cloud"
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "not_published",
@@ -881,7 +881,7 @@
         "lookedFor": "Si el plan gratuito pide tarjeta. La página de precios, la de su documentación y las condiciones sólo hablan de datos de pago para los servicios de pago."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.hasWatermark",
         "outcome": "not_published",
@@ -890,7 +890,7 @@
         "lookedFor": "Si el audio del plan gratuito lleva marca. Ni la página de precios, ni la de su documentación, ni las condiciones la mencionan."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -900,7 +900,7 @@
         "basis": "Su página de precios añade «Commercial use license» a partir de Pro («Everything in Free, plus · Commercial use license · Instant voice cloning»); el plan Free no lo incluye."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.excludedCapabilities",
         "outcome": "stated",
@@ -910,9 +910,9 @@
       }
     ],
     "auditNotes": "La equivalencia en minutos se recoge porque la publica la propia tabla. Si no la publicara, se habrían dejado los créditos a secas.",
-    "nextReviewAt": "2026-11-16",
-    "lastVerifiedAt": "2026-08-18",
-    "updatedAt": "2026-08-18",
+    "nextReviewAt": "2027-01-21",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "licences": {},
     "access": {}
   },
@@ -2803,7 +2803,7 @@
     "id": "tool_comfy-cloud",
     "kind": "platform",
     "verification": "partially_verified",
-    "nextReviewAt": "2026-11-12",
+    "nextReviewAt": "2027-01-21",
     "categorySlug": "imagen",
     "secondaryCategories": [],
     "tags": [],
@@ -2824,14 +2824,14 @@
         "label": "Página oficial de precios o producto",
         "kind": "pricing",
         "publisher": "comfy.org",
-        "checkedAt": "2026-08-12"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://comfy.org/terms-of-service",
         "label": "Términos de uso de Comfy Cloud",
         "kind": "docs",
         "publisher": "comfy.org",
-        "checkedAt": "2026-10-23"
+        "checkedAt": "2026-11-22"
       }
     ],
     "pros": [],
@@ -2856,8 +2856,8 @@
     },
     "status": "published",
     "detectedAt": "2026-08-12",
-    "lastVerifiedAt": "2026-10-17",
-    "updatedAt": "2026-10-23",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "slug": "comfy-cloud",
     "name": "Comfy Cloud",
     "tagline": "ComfyUI alojado, con cinco ejecuciones gratuitas para empezar.",
@@ -2866,19 +2866,21 @@
     "pricingUrl": "https://www.comfy.org/pricing",
     "freeModel": "credits",
     "freePlan": {
-      "summary": "Cinco ejecuciones gratuitas en GPU real y créditos gratis para Comfy Agent, para usuarios nuevos. La página no dice que se renueven, así que se registran como asignación única. Ya no dice si hace falta tarjeta.",
+      "summary": "Cinco ejecuciones gratuitas en el plan Standard de Comfy Cloud y créditos gratis para Comfy Agent, sólo para usuarios nuevos. Se dan una vez: después de las cinco, hace falta un plan de pago. La página no dice si pide tarjeta.",
       "limits": [
-        "5 free runs on real GPUs",
+        "5 ejecuciones gratis en GPU, sólo para usuarios nuevos y una sola vez",
         "Créditos gratis para Comfy Agent, sólo para usuarios nuevos",
-        "La página de precios ya no dice si pide tarjeta"
+        "Después de las 5 ejecuciones, hace falta un plan de pago",
+        "La página de precios no dice si pide tarjeta",
+        "Plan de pago más barato: Standard, 20 $/mes o 16 $/mes en anual (192 $/año)"
       ],
       "requiresSignup": "unverified",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "one_off",
-      "creditsAmount": "5 free runs",
-      "verifiedAt": "2026-10-17"
+      "creditsAmount": "5 ejecuciones",
+      "verifiedAt": "2026-11-22"
     },
     "scores": {
       "freeReal": 6,
@@ -2894,12 +2896,13 @@
         "outcome": "stated",
         "sourceUrl": "https://www.comfy.org/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-10-17",
-        "quote": "Start Comfy Cloud for free. Upgrade when ready. 5 free runs on real GPUs and free Comfy Agent credits for new users",
-        "scope": "cloud"
+        "checkedAt": "2026-11-22",
+        "quote": "FREE · $0 · For new users: · 5 free runs on Comfy Cloud Standard plan · Free Comfy Agent credits · After your 5 free runs, you’ll need a paid plan to keep using Comfy Cloud. · You can still add credits for Partner Nodes. · STANDARD · $16 · $20 · $192 billed yearly",
+        "scope": "cloud",
+        "basis": "La propia página dice que, tras las cinco ejecuciones, hace falta un plan de pago: es una asignación única."
       },
       {
-        "checkedAt": "2026-10-17",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "not_published",
@@ -2917,7 +2920,7 @@
         "scope": "cloud"
       },
       {
-        "checkedAt": "2026-10-23",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "not_published",
@@ -3842,14 +3845,14 @@
       "commercialUse": "unverified",
       "creditsAmount": "60 min de transcripción/mes",
       "creditReset": "monthly",
-      "verifiedAt": "2026-10-12",
+      "verifiedAt": "2026-11-22",
       "includedCapabilities": [
         {
           "capability": "transcription",
           "condition": "60 minutos de medios al mes",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-22",
             "scope": "product",
             "sourceUrl": "https://www.descript.com/pricing",
             "sourceKind": "pricing",
@@ -3878,31 +3881,31 @@
         "label": "Web oficial",
         "kind": "official",
         "publisher": "descript.com",
-        "checkedAt": "2026-08-15"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://www.descript.com/pricing",
         "label": "Página oficial de precios",
         "kind": "pricing",
         "publisher": "descript.com",
-        "checkedAt": "2026-08-15"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://www.descript.com/terms",
         "label": "Condiciones de uso",
         "kind": "docs",
-        "checkedAt": "2026-09-15"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://help.descript.com/hc/en-us/articles/10255814959245-Export-video-locally",
         "label": "Centro de ayuda oficial",
         "kind": "docs",
-        "checkedAt": "2026-09-16"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
@@ -3924,13 +3927,13 @@
         "outcome": "stated",
         "sourceUrl": "https://www.descript.com/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "quote": "No, Descript's Free plan includes everything you need to record, edit and mix audio and video content.",
         "basis": "Respuesta a la pregunta «Do I need to enter a credit card to try Descript?»."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "not_published",
@@ -3944,13 +3947,13 @@
         "sourceUrl": "https://help.descript.com/hc/en-us/articles/10255814959245-Export-video-locally",
         "sourceKind": "help",
         "scope": "product",
-        "checkedAt": "2026-09-16",
+        "checkedAt": "2026-11-22",
         "quote": "Exports from a Free drive will include a Descript watermark in the bottom-right corner."
       }
     ],
-    "nextReviewAt": "2026-11-16",
-    "lastVerifiedAt": "2026-08-18",
-    "updatedAt": "2026-08-18",
+    "nextReviewAt": "2027-01-21",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "skillLevel": "beginner",
     "licences": {},
     "access": {}
@@ -4767,7 +4770,7 @@
       "hasWatermark": "unverified",
       "commercialUse": "no",
       "creditReset": "monthly",
-      "verifiedAt": "2026-10-11",
+      "verifiedAt": "2026-11-22",
       "creditsAmount": "8.000 créditos/mes (≈7 min)",
       "includedCapabilities": [
         {
@@ -4775,7 +4778,7 @@
           "condition": "8.000 créditos al mes, hasta 7 minutos",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-22",
             "scope": "product",
             "sourceUrl": "https://fish.audio/plan/",
             "sourceKind": "pricing",
@@ -4805,18 +4808,18 @@
         "label": "Web oficial",
         "kind": "official",
         "publisher": "fish.audio",
-        "checkedAt": "2026-08-18"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://fish.audio/plan/",
         "label": "Página oficial de precios",
         "kind": "pricing",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
@@ -4838,7 +4841,7 @@
         "outcome": "stated",
         "sourceUrl": "https://fish.audio/plan/",
         "sourceKind": "pricing",
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "quote": "No credit card needed",
         "basis": "Aparece en la tarjeta del Free Tier, 0 $/mes."
@@ -4848,12 +4851,12 @@
         "outcome": "stated",
         "sourceUrl": "https://fish.audio/plan/",
         "sourceKind": "pricing",
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "quote": "Free plan users can only use generated content for personal, non-commercial projects."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.hasWatermark",
         "outcome": "not_published",
@@ -4863,9 +4866,9 @@
       }
     ],
     "auditNotes": "Publica modelos abiertos (Fish Speech), pero `openSource` se queda en `unverified`: no se leyó el identificador de licencia del repositorio en esta comprobación.",
-    "nextReviewAt": "2026-11-16",
-    "lastVerifiedAt": "2026-08-18",
-    "updatedAt": "2026-08-18",
+    "nextReviewAt": "2027-01-21",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "licences": {},
     "access": {}
   },
@@ -6931,7 +6934,7 @@
     "descriptionLong": "",
     "kind": "app",
     "verification": "partially_verified",
-    "nextReviewAt": "2026-11-11",
+    "nextReviewAt": "2027-01-21",
     "categorySlug": "imagen",
     "secondaryCategories": [
       "video"
@@ -6952,7 +6955,7 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "weekly",
-      "verifiedAt": "2026-10-17",
+      "verifiedAt": "2026-11-22",
       "excludedCapabilities": [
         "text-to-video",
         "image-to-video"
@@ -7019,7 +7022,7 @@
         "label": "Términos de uso de Grok Imagine",
         "kind": "docs",
         "publisher": "x.ai",
-        "checkedAt": "2026-10-23"
+        "checkedAt": "2026-11-22"
       }
     ],
     "scores": {
@@ -7052,15 +7055,15 @@
     },
     "status": "published",
     "detectedAt": "2026-08-12",
-    "lastVerifiedAt": "2026-10-17",
-    "updatedAt": "2026-10-23",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "evidence": [
       {
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://x.ai/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-10-22",
+        "checkedAt": "2026-11-22",
         "quote": "Free · $0 · /month · Limited · AI usage · Limited Chat requests · Limited agent requests · Compare features across plans · Image generation (Imagine) · Limited · Video generation · Plus · $8",
         "scope": "cloud"
       },
@@ -7092,7 +7095,7 @@
         "quote": "Every tier includes a pool of AI usage shared across Grok and Cursor. Within Grok, the pool covers Chat, Imagine, Voice, and Bot. […] Your allowance refreshes weekly"
       },
       {
-        "checkedAt": "2026-10-23",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "not_published",
@@ -7794,7 +7797,7 @@
       "hasWatermark": "unverified",
       "commercialUse": "partial",
       "creditReset": "none",
-      "verifiedAt": "2026-10-12"
+      "verifiedAt": "2026-11-22"
     },
     "capabilities": [
       "text-to-video",
@@ -7816,14 +7819,14 @@
         "label": "Repositorio oficial",
         "kind": "repo",
         "publisher": "github.com",
-        "checkedAt": "2026-08-15"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://github.com/Tencent-Hunyuan/HunyuanVideo/blob/main/LICENSE.txt",
         "label": "Licencia oficial (Tencent Hunyuan Community License)",
         "kind": "repo",
         "publisher": "github.com",
-        "checkedAt": "2026-10-23"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -7832,7 +7835,7 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/Tencent-Hunyuan/HunyuanVideo",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-15",
+        "checkedAt": "2026-11-22",
         "quote": "The minimum GPU memory required is 60GB for 720px1280px129f and 45G for 544px960px129f […] recommend using a GPU with 80GB of memory for better generation quality",
         "scope": "local"
       },
@@ -7842,11 +7845,11 @@
         "sourceUrl": "https://github.com/Tencent-Hunyuan/HunyuanVideo",
         "sourceKind": "repo",
         "scope": "local",
-        "checkedAt": "2026-09-16",
+        "checkedAt": "2026-11-22",
         "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice."
       },
       {
-        "checkedAt": "2026-10-17",
+        "checkedAt": "2026-11-22",
         "scope": "weights",
         "field": "openSource",
         "outcome": "stated",
@@ -7855,7 +7858,7 @@
         "quote": "THIS LICENSE AGREEMENT DOES NOT APPLY IN THE EUROPEAN UNION, UNITED KINGDOM AND SOUTH KOREA AND IS EXPRESSLY LIMITED TO THE TERRITORY, AS DEFINED BELOW. […] “Territory” shall mean the worldwide territory, excluding the territory of the European Union, United Kingdom and South Korea."
       },
       {
-        "checkedAt": "2026-10-23",
+        "checkedAt": "2026-11-22",
         "scope": "weights",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -7865,9 +7868,9 @@
       }
     ],
     "auditNotes": "`openSource` queda en `unverified` aunque el repositorio sea público: la regla de este catálogo exige leer el identificador de licencia, y en esta comprobación no fue posible. Repositorio abierto no es lo mismo que licencia abierta.",
-    "nextReviewAt": "2026-11-13",
-    "lastVerifiedAt": "2026-08-15",
-    "updatedAt": "2026-10-23",
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "skillLevel": "beginner",
     "licences": {
       "weights": "Tencent Hunyuan Community License"
@@ -8149,7 +8152,7 @@
     "id": "tool_invokeai",
     "kind": "interface",
     "verification": "verified",
-    "nextReviewAt": "2026-11-12",
+    "nextReviewAt": "2027-02-20",
     "categorySlug": "imagen",
     "secondaryCategories": [],
     "tags": [],
@@ -8172,7 +8175,7 @@
         "label": "Metadatos oficiales del repositorio",
         "kind": "repo",
         "publisher": "github.com/invoke-ai",
-        "checkedAt": "2026-08-12"
+        "checkedAt": "2026-11-22"
       }
     ],
     "pros": [],
@@ -8190,8 +8193,8 @@
     },
     "status": "published",
     "detectedAt": "2026-08-12",
-    "lastVerifiedAt": "2026-08-12",
-    "updatedAt": "2026-10-17",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "slug": "invokeai",
     "name": "InvokeAI",
     "tagline": "Interfaz local de generación con licencia Apache 2.0 y desarrollo activo.",
@@ -8211,7 +8214,7 @@
       "hasWatermark": "unverified",
       "commercialUse": "yes",
       "creditReset": "none",
-      "verifiedAt": "2026-08-12"
+      "verifiedAt": "2026-11-22"
     },
     "scores": {
       "freeReal": 10,
@@ -8227,7 +8230,7 @@
         "outcome": "stated",
         "sourceUrl": "https://api.github.com/repos/invoke-ai/InvokeAI",
         "sourceKind": "repo",
-        "checkedAt": "2026-10-17",
+        "checkedAt": "2026-11-22",
         "quote": "spdx_id: Apache-2.0 · archived: false",
         "scope": "local"
       },
@@ -8236,7 +8239,7 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/invoke-ai/InvokeAI",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-12",
+        "checkedAt": "2026-11-22",
         "quote": "cial-intelligence generative-art image-generation img2img inpainting latent-diffusion linux macos outpainting · elligence generative-art image-generation img2img inpainting latent-diffusion linux macos outpainting stable-d · n img2img inpainting latent-diffusion linux macos outpainting stable-diffusion txt2img windows Resources Readm",
         "scope": "local"
       },
@@ -8246,11 +8249,11 @@
         "sourceUrl": "https://github.com/invoke-ai/InvokeAI",
         "sourceKind": "repo",
         "scope": "local",
-        "checkedAt": "2026-09-16",
+        "checkedAt": "2026-11-22",
         "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice."
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "local",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -10097,7 +10100,7 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-09-16"
+      "verifiedAt": "2026-11-22"
     },
     "capabilities": [
       "text-to-video",
@@ -10121,21 +10124,21 @@
         "label": "Repositorio oficial",
         "kind": "repo",
         "publisher": "github.com",
-        "checkedAt": "2026-08-15"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://github.com/Lightricks/LTX-2",
         "label": "Repositorio de LTX-2",
         "kind": "repo",
         "publisher": "github.com",
-        "checkedAt": "2026-10-17"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://huggingface.co/Lightricks/LTX-2.5",
         "label": "LTX-2.5 en Hugging Face",
         "kind": "repo",
         "publisher": "huggingface.co",
-        "checkedAt": "2026-10-17"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -10144,7 +10147,7 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/Lightricks/LTX-Video",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-15",
+        "checkedAt": "2026-11-22",
         "quote": "Text-to-video · Image-to-video · Video extension (both forward and backward) · Keyframe-based animation · Multi-keyframe conditioning · Video-to-video transformations",
         "scope": "local"
       },
@@ -10154,7 +10157,7 @@
         "sourceUrl": "https://github.com/Lightricks/LTX-Video",
         "sourceKind": "repo",
         "scope": "local",
-        "checkedAt": "2026-09-16",
+        "checkedAt": "2026-11-22",
         "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice."
       },
       {
@@ -10164,12 +10167,12 @@
         "sourceKind": "repo",
         "scope": "local",
         "quote": "generates HD videos in 10 seconds, with low-res preview after just 3 seconds (on H100)! · Highest quality, requires more VRAM · Faster, less VRAM usage, slight quality reduction compared to 13b. · Ideal for fast generation with light VRAM usage",
-        "checkedAt": "2026-09-16"
+        "checkedAt": "2026-11-22"
       }
     ],
-    "nextReviewAt": "2026-11-13",
-    "lastVerifiedAt": "2026-08-15",
-    "updatedAt": "2026-10-17",
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "hardwareRequirements": "Referencia del repositorio: GPU H100.",
     "skillLevel": "beginner",
     "licences": {
@@ -11289,14 +11292,14 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-15",
+      "verifiedAt": "2026-11-22",
       "includedCapabilities": [
         {
           "capability": "text-to-video",
           "condition": "pesos descargables, en tu equipo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "local",
             "sourceUrl": "https://github.com/genmoai/mochi",
             "sourceKind": "repo",
@@ -11325,7 +11328,7 @@
         "label": "Repositorio oficial",
         "kind": "repo",
         "publisher": "github.com",
-        "checkedAt": "2026-08-15"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -11334,7 +11337,7 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/genmoai/mochi",
         "sourceKind": "repo",
-        "checkedAt": "2026-10-17",
+        "checkedAt": "2026-11-22",
         "quote": "We’re releasing the model under a permissive Apache 2.0 license […] requires approximately 60GB VRAM when running on a single GPU. While ComfyUI can optimize Mochi to run on less than 20GB VRAM",
         "scope": "local"
       },
@@ -11344,13 +11347,13 @@
         "sourceUrl": "https://github.com/genmoai/mochi",
         "sourceKind": "repo",
         "scope": "local",
-        "checkedAt": "2026-09-16",
+        "checkedAt": "2026-11-22",
         "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice."
       }
     ],
-    "nextReviewAt": "2026-11-13",
-    "lastVerifiedAt": "2026-08-15",
-    "updatedAt": "2026-10-17",
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "skillLevel": "beginner",
     "licences": {
       "code": "Apache-2.0",
@@ -12639,7 +12642,7 @@
     "id": "tool_pixelcut",
     "kind": "app",
     "verification": "verified",
-    "nextReviewAt": "2026-11-12",
+    "nextReviewAt": "2027-01-21",
     "categorySlug": "imagen",
     "secondaryCategories": [],
     "tags": [],
@@ -12660,14 +12663,14 @@
         "label": "Página oficial de precios o producto",
         "kind": "pricing",
         "publisher": "pixelcut.ai",
-        "checkedAt": "2026-08-12"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://www.pixelcut.ai/image-upscaler/unblur-image",
         "label": "Quitar desenfoque de Pixelcut",
         "kind": "official",
         "publisher": "pixelcut.ai",
-        "checkedAt": "2026-10-25"
+        "checkedAt": "2026-11-22"
       }
     ],
     "pros": [],
@@ -12685,8 +12688,8 @@
     },
     "status": "published",
     "detectedAt": "2026-08-12",
-    "lastVerifiedAt": "2026-08-12",
-    "updatedAt": "2026-08-12",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "slug": "pixelcut",
     "name": "Pixelcut",
     "tagline": "Edición de producto con exportación sin marca de agua en el plan gratuito.",
@@ -12706,14 +12709,14 @@
       "hasWatermark": "no",
       "commercialUse": "unverified",
       "creditReset": "unknown",
-      "verifiedAt": "2026-10-11",
+      "verifiedAt": "2026-11-22",
       "includedCapabilities": [
         {
           "capability": "background-removal",
           "condition": "limitado, sin cifra publicada",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-22",
             "scope": "product",
             "sourceUrl": "https://www.pixelcut.ai/pricing",
             "sourceKind": "pricing",
@@ -12725,7 +12728,7 @@
           "condition": "limitado, sin cifra publicada",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-22",
             "scope": "product",
             "sourceUrl": "https://www.pixelcut.ai/pricing",
             "sourceKind": "pricing",
@@ -12737,7 +12740,7 @@
           "condition": "limitado, sin cifra publicada",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-22",
             "scope": "product",
             "sourceUrl": "https://www.pixelcut.ai/pricing",
             "sourceKind": "pricing",
@@ -12749,7 +12752,7 @@
           "condition": "limitado, sin cifra publicada",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-22",
             "scope": "product",
             "sourceUrl": "https://www.pixelcut.ai/pricing",
             "sourceKind": "pricing",
@@ -12768,7 +12771,7 @@
     "verdict": "Una de las pocas donde «sin marca de agua» está escrito por el fabricante en el propio plan gratuito.",
     "evidence": [
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.hasWatermark",
         "outcome": "stated",
@@ -12786,7 +12789,7 @@
         "scope": "cloud"
       },
       {
-        "checkedAt": "2026-10-25",
+        "checkedAt": "2026-11-22",
         "scope": "web",
         "field": "freePlan.requiresCreditCard",
         "outcome": "stated",
@@ -12801,10 +12804,10 @@
         "sourceKind": "pricing",
         "scope": "product",
         "quote": "Limited Background Removal · Limited Upscale · Free export without watermark",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-22"
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "not_published",
@@ -13273,7 +13276,7 @@
     "id": "tool_recraft",
     "kind": "app",
     "verification": "verified",
-    "nextReviewAt": "2026-11-12",
+    "nextReviewAt": "2027-01-21",
     "categorySlug": "imagen",
     "secondaryCategories": [],
     "tags": [],
@@ -13294,14 +13297,14 @@
         "label": "Página oficial de precios o producto",
         "kind": "pricing",
         "publisher": "recraft.ai",
-        "checkedAt": "2026-08-12"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://www.recraft.ai/ai-image-generator",
         "label": "Generador de imágenes de Recraft",
         "kind": "official",
         "publisher": "recraft.ai",
-        "checkedAt": "2026-10-25"
+        "checkedAt": "2026-11-22"
       }
     ],
     "pros": [],
@@ -13319,8 +13322,8 @@
     },
     "status": "published",
     "detectedAt": "2026-08-12",
-    "lastVerifiedAt": "2026-08-12",
-    "updatedAt": "2026-08-12",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "slug": "recraft",
     "name": "Recraft",
     "tagline": "Generación vectorial y de marca. Lo gratuito no se puede usar comercialmente.",
@@ -13344,7 +13347,7 @@
       "hasWatermark": "unverified",
       "commercialUse": "no",
       "creditReset": "daily",
-      "verifiedAt": "2026-10-11",
+      "verifiedAt": "2026-11-22",
       "creditsAmount": "3 generaciones por estilo al día",
       "includedCapabilities": [
         {
@@ -13352,7 +13355,7 @@
           "condition": "3 generaciones por estilo al día, sólo con modelos de Recraft",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-22",
             "scope": "product",
             "sourceUrl": "https://www.recraft.ai/pricing",
             "sourceKind": "pricing",
@@ -13375,7 +13378,7 @@
         "outcome": "stated",
         "sourceUrl": "https://www.recraft.ai/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "quote": "Images generated on the Free plan are owned by Recraft. They are publicly visible in the community gallery and are not licensed for commercial use.",
         "scope": "cloud"
       },
@@ -13389,7 +13392,7 @@
         "scope": "cloud"
       },
       {
-        "checkedAt": "2026-10-25",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "stated",
@@ -13398,7 +13401,7 @@
         "quote": "GET STARTED FOR FREE · NO CREDIT CARD REQUIRED"
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.hasWatermark",
         "outcome": "not_published",
@@ -13407,7 +13410,7 @@
         "lookedFor": "Si el plan gratuito pone marca de agua. Ni la página del plan gratuito de su documentación ni la de precios la mencionan."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
@@ -13930,7 +13933,7 @@
     "id": "tool_sdnext",
     "kind": "interface",
     "verification": "verified",
-    "nextReviewAt": "2026-11-12",
+    "nextReviewAt": "2027-02-20",
     "categorySlug": "imagen",
     "secondaryCategories": [],
     "tags": [],
@@ -13953,7 +13956,7 @@
         "label": "Metadatos oficiales del repositorio",
         "kind": "repo",
         "publisher": "github.com/vladmandic",
-        "checkedAt": "2026-08-12"
+        "checkedAt": "2026-11-22"
       }
     ],
     "pros": [],
@@ -13971,8 +13974,8 @@
     },
     "status": "published",
     "detectedAt": "2026-08-12",
-    "lastVerifiedAt": "2026-08-12",
-    "updatedAt": "2026-10-22",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "slug": "sdnext",
     "name": "SD.Next",
     "tagline": "Interfaz local avanzada, Apache 2.0, con desarrollo muy activo.",
@@ -13992,14 +13995,14 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-12",
+      "verifiedAt": "2026-11-22",
       "includedCapabilities": [
         {
           "capability": "text-to-image",
           "condition": "en tu equipo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-22",
+            "checkedAt": "2026-11-22",
             "scope": "local",
             "sourceUrl": "https://github.com/vladmandic/sdnext",
             "sourceKind": "repo",
@@ -14011,7 +14014,7 @@
           "condition": "en tu equipo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-22",
+            "checkedAt": "2026-11-22",
             "scope": "local",
             "sourceUrl": "https://github.com/vladmandic/sdnext",
             "sourceKind": "repo",
@@ -14034,12 +14037,12 @@
         "outcome": "stated",
         "sourceUrl": "https://api.github.com/repos/vladmandic/sdnext",
         "sourceKind": "repo",
-        "checkedAt": "2026-10-17",
+        "checkedAt": "2026-11-22",
         "quote": "spdx_id: Apache-2.0 · archived: false",
         "scope": "local"
       },
       {
-        "checkedAt": "2026-10-22",
+        "checkedAt": "2026-11-22",
         "scope": "local",
         "field": "capabilities",
         "outcome": "stated",
@@ -14053,7 +14056,7 @@
         "sourceUrl": "https://github.com/vladmandic/sdnext",
         "sourceKind": "repo",
         "scope": "local",
-        "checkedAt": "2026-09-16",
+        "checkedAt": "2026-11-22",
         "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice."
       }
     ],
@@ -15013,14 +15016,14 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-15",
+      "verifiedAt": "2026-11-22",
       "includedCapabilities": [
         {
           "capability": "text-to-video",
           "condition": "pesos descargables, en tu equipo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "local",
             "sourceUrl": "https://github.com/Wan-Video/Wan2.2",
             "sourceKind": "repo",
@@ -15032,7 +15035,7 @@
           "condition": "pesos descargables, en tu equipo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "local",
             "sourceUrl": "https://github.com/Wan-Video/Wan2.2",
             "sourceKind": "repo",
@@ -15063,7 +15066,7 @@
         "label": "Repositorio oficial",
         "kind": "repo",
         "publisher": "github.com",
-        "checkedAt": "2026-08-15"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -15072,7 +15075,7 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/Wan-Video/Wan2.2",
         "sourceKind": "repo",
-        "checkedAt": "2026-10-17",
+        "checkedAt": "2026-11-22",
         "quote": "The models in this repository are licensed under the Apache 2.0 License […] This command can run on a GPU with at least 24GB VRAM (e.g, RTX 4090 GPU) […] This command can run on a GPU with at least 80GB VRAM",
         "scope": "local"
       },
@@ -15091,14 +15094,14 @@
         "sourceUrl": "https://github.com/Wan-Video/Wan2.2",
         "sourceKind": "repo",
         "scope": "local",
-        "checkedAt": "2026-09-16",
+        "checkedAt": "2026-11-22",
         "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice."
       }
     ],
     "auditNotes": "«Speech-to-Video» y «Animate» no tienen capacidad equivalente en la taxonomía; quedan descritas en el texto en lugar de forzarse dentro de una etiqueta que significaría otra cosa.",
-    "nextReviewAt": "2026-11-13",
-    "lastVerifiedAt": "2026-08-15",
-    "updatedAt": "2026-10-17",
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "skillLevel": "beginner",
     "licences": {
       "code": "Apache-2.0",
