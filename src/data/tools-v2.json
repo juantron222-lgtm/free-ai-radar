@@ -2447,7 +2447,7 @@
     "id": "tool_clipdrop",
     "kind": "app",
     "verification": "verified",
-    "nextReviewAt": "2026-11-24",
+    "nextReviewAt": "2027-01-21",
     "categorySlug": "imagen",
     "secondaryCategories": [],
     "tags": [],
@@ -2468,14 +2468,14 @@
         "label": "Página oficial de precios o producto",
         "kind": "pricing",
         "publisher": "clipdrop.co",
-        "checkedAt": "2026-08-12"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://clipdrop.co/text-to-image",
         "label": "Interfaz oficial del producto",
         "kind": "official",
         "publisher": "clipdrop.co",
-        "checkedAt": "2026-08-26"
+        "checkedAt": "2026-11-22"
       }
     ],
     "pros": [],
@@ -2493,8 +2493,8 @@
     },
     "status": "published",
     "detectedAt": "2026-08-12",
-    "lastVerifiedAt": "2026-08-26",
-    "updatedAt": "2026-08-12",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "slug": "clipdrop",
     "name": "Clipdrop",
     "tagline": "Edición de imagen con cuotas gratuitas que se renuevan cada 24 horas. Generar imágenes es de pago.",
@@ -2518,7 +2518,7 @@
       "commercialUse": "unverified",
       "creditReset": "daily",
       "creditsAmount": "20/24h por herramienta",
-      "verifiedAt": "2026-10-11",
+      "verifiedAt": "2026-11-22",
       "excludedCapabilities": [
         "text-to-image"
       ],
@@ -2528,7 +2528,7 @@
           "condition": "20 cada 24 horas",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-22",
             "scope": "product",
             "sourceUrl": "https://clipdrop.co/pricing",
             "sourceKind": "pricing",
@@ -2540,7 +2540,7 @@
           "condition": "x2, 20 cada 24 horas",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-22",
             "scope": "product",
             "sourceUrl": "https://clipdrop.co/pricing",
             "sourceKind": "pricing",
@@ -2552,7 +2552,7 @@
           "condition": "Cleanup, 20 cada 24 horas",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-22",
             "scope": "product",
             "sourceUrl": "https://clipdrop.co/pricing",
             "sourceKind": "pricing",
@@ -2575,12 +2575,12 @@
         "outcome": "stated",
         "sourceUrl": "https://clipdrop.co/",
         "sourceKind": "official",
-        "checkedAt": "2026-08-12",
+        "checkedAt": "2026-11-22",
         "quote": "l Resizer Resize your images for any social media Text to image Text to image Generate high-resolution realist · picture? To remove a person from a photo, use our inpainting algorithm · Uncrop Uncrop Uncrop your photos to any image format Image upscaler Image upscal",
         "scope": "cloud"
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "not_published",
@@ -2589,7 +2589,7 @@
         "lookedFor": "Si el plan gratuito pide tarjeta. Ni la página de precios ni la portada lo mencionan."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.hasWatermark",
         "outcome": "not_published",
@@ -2598,7 +2598,7 @@
         "lookedFor": "Si el plan gratuito pone marca de agua. Ni la página de precios ni la portada la mencionan."
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "web",
         "field": "freePlan.excludedCapabilities",
         "outcome": "stated",
@@ -2607,7 +2607,7 @@
         "quote": "Generate images exclusively for Pro users"
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
@@ -4305,7 +4305,7 @@
     "descriptionLong": "ElevenLabs es el estándar de oro en síntesis de voz IA. Ofrece texto a voz en decenas de idiomas con calidad casi indistinguible de una voz humana real. Permite clonar voces a partir de muestras de audio, generar locuciones con control de emoción y entonación, y crear efectos de sonido desde descripciones de texto. Usado por creadores de contenido, podcasts y audiobooks.",
     "kind": "app",
     "verification": "verified",
-    "nextReviewAt": "2026-11-22",
+    "nextReviewAt": "2027-01-21",
     "categorySlug": "voz",
     "secondaryCategories": [
       "musica"
@@ -4336,7 +4336,7 @@
       "commercialUse": "no",
       "creditsAmount": "10.000 créditos/mes",
       "creditReset": "monthly",
-      "verifiedAt": "2026-08-24",
+      "verifiedAt": "2026-11-22",
       "excludedCapabilities": [
         "voice-clone"
       ],
@@ -4390,7 +4390,7 @@
           "condition": "con marca de agua que no se puede quitar",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-22",
             "scope": "product",
             "sourceUrl": "https://elevenlabs.io/docs/help-center/product/dubbing/on-which-plans-can-i-use-dubbing",
             "sourceKind": "help",
@@ -4403,7 +4403,7 @@
           "signal": "audio-watermark",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "product",
             "sourceUrl": "https://elevenlabs.io/docs/help-center/legal/audio-detector/can-i-hear-the-watermark",
             "sourceKind": "help",
@@ -4432,42 +4432,42 @@
         "label": "Web oficial",
         "kind": "official",
         "publisher": "elevenlabs.io",
-        "checkedAt": "2026-08-18"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://elevenlabs.io/pricing",
         "label": "Página oficial de precios",
         "kind": "pricing",
         "publisher": "elevenlabs.io",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://elevenlabs.io/terms-of-use",
         "label": "Condiciones oficiales",
         "kind": "docs",
         "publisher": "elevenlabs.io",
-        "checkedAt": "2026-08-24"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://elevenlabs.io/docs/help-center/product/dubbing/on-which-plans-can-i-use-dubbing",
         "label": "Centro de ayuda: en qué planes se puede doblar",
         "kind": "docs",
         "publisher": "elevenlabs.io",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://elevenlabs.io/docs/help-center/legal/audio-detector/what-is-watermarking-and-why-is-eleven-labs-using-it",
         "label": "Centro de ayuda: marca de agua inaudible",
         "kind": "docs",
         "publisher": "elevenlabs.io",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://elevenlabs.io/v4",
         "label": "Página oficial de Eleven v4",
         "kind": "official",
         "publisher": "elevenlabs.io",
-        "checkedAt": "2026-10-25"
+        "checkedAt": "2026-11-22"
       }
     ],
     "scores": {
@@ -4509,8 +4509,8 @@
     },
     "status": "published",
     "detectedAt": "2023-03-01",
-    "lastVerifiedAt": "2026-08-29",
-    "updatedAt": "2026-08-18",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "evidence": [
       {
         "field": "freePlan.limits",
@@ -4518,11 +4518,11 @@
         "sourceUrl": "https://elevenlabs.io/pricing",
         "sourceKind": "pricing",
         "scope": "product",
-        "checkedAt": "2026-08-24",
+        "checkedAt": "2026-11-22",
         "quote": "10k credits per month"
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.creditReset",
         "outcome": "stated",
@@ -4531,7 +4531,7 @@
         "quote": "Your credit allowance resets at the start of each billing cycle, which begins on the day you subscribed. […] Rollover does not apply to the Free plan."
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -4540,7 +4540,7 @@
         "quote": "if you access or use our Services free of charge (such a user, a “Free User”), you may only use the Services for non-commercial purposes"
       },
       {
-        "checkedAt": "2026-10-25",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "stated",
@@ -4551,7 +4551,7 @@
       {
         "field": "freePlan.excludedCapabilities",
         "outcome": "stated",
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "sourceUrl": "https://elevenlabs.io/pricing",
         "sourceKind": "pricing",
@@ -4631,7 +4631,7 @@
       "hasWatermark": "unverified",
       "commercialUse": "no",
       "creditReset": "none",
-      "verifiedAt": "2026-08-24"
+      "verifiedAt": "2026-11-22"
     },
     "capabilities": [
       "text-to-speech",
@@ -4653,7 +4653,7 @@
         "label": "Repositorio oficial",
         "kind": "repo",
         "publisher": "github.com",
-        "checkedAt": "2026-08-18"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -4662,7 +4662,7 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/SWivid/F5-TTS",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-18",
+        "checkedAt": "2026-11-22",
         "quote": "The pre-trained models are licensed under the CC-BY-NC license due to the training data Emilia, which is an in-the-wild dataset.",
         "scope": "local"
       },
@@ -4671,7 +4671,7 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/SWivid/F5-TTS",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-18",
+        "checkedAt": "2026-11-22",
         "quote": "Basic TTS with Chunk Inference · Multi-Style / Multi-Speaker Generation · Voice Chat",
         "scope": "local"
       },
@@ -4681,7 +4681,7 @@
         "sourceUrl": "https://github.com/SWivid/F5-TTS",
         "sourceKind": "repo",
         "scope": "weights",
-        "checkedAt": "2026-08-24",
+        "checkedAt": "2026-11-22",
         "quote": "The pre-trained models are licensed under the CC-BY-NC license due to the training data Emilia, which is an in-the-wild dataset."
       },
       {
@@ -4690,7 +4690,7 @@
         "sourceUrl": "https://github.com/SWivid/F5-TTS",
         "sourceKind": "repo",
         "scope": "local",
-        "checkedAt": "2026-09-16",
+        "checkedAt": "2026-11-22",
         "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice."
       },
       {
@@ -4699,15 +4699,15 @@
         "sourceUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
         "sourceKind": "licence",
         "scope": "weights",
-        "checkedAt": "2026-09-21",
+        "checkedAt": "2026-11-22",
         "quote": "NonCommercial — You may not use the material for commercial purposes.",
         "basis": "El README oficial asigna esa licencia a los pesos preentrenados: «The pre-trained models are licensed under the CC-BY-NC license due to the training data Emilia, which is an in-the-wild dataset»."
       }
     ],
     "auditNotes": "`commercialUse: no` viene de la licencia de los pesos, no del código. La ficha lo dice en el titular porque es el dato que cambia la decisión.",
-    "nextReviewAt": "2026-11-22",
-    "lastVerifiedAt": "2026-08-24",
-    "updatedAt": "2026-08-18",
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "licences": {
       "code": "MIT",
       "weights": "CC-BY-NC"
@@ -5116,7 +5116,7 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "unknown",
-      "verifiedAt": "2026-10-11",
+      "verifiedAt": "2026-11-22",
       "summary": "La tabla oficial marca «Free of charge» en la capa gratuita para Gemini 3.8 Flash, 3.6 Flash, 3.5 Flash-Lite y 3.1 Flash-Lite. La capa gratuita se describe como «Limited access to certain models. Free input & output tokens. Google AI Studio access», sin publicar cifras. En pago, 3.8 Flash cuesta 0,75 $ por millón de entrada y 3,75 $ de salida hasta el 31/12/2026.",
       "limits": [
         "Capa gratuita disponible para las Flash actuales (3.8, 3.6, 3.5 Flash-Lite y 3.1 Flash-Lite); su cantidad no se publica",
@@ -5130,7 +5130,7 @@
           "condition": "capa gratuita de la API, sin cifras publicadas",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-22",
             "scope": "api",
             "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
             "sourceKind": "pricing",
@@ -5168,21 +5168,21 @@
         "label": "Documentación oficial de modelos",
         "kind": "docs",
         "publisher": "ai.google.dev",
-        "checkedAt": "2026-10-17"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://ai.google.dev/gemini-api/docs/pricing",
         "label": "Precios oficiales de la API",
         "kind": "pricing",
         "publisher": "ai.google.dev",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://ai.google.dev/gemini-api/terms",
         "label": "Condiciones adicionales de la API de Gemini",
         "kind": "docs",
         "publisher": "ai.google.dev",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -5196,7 +5196,7 @@
         "quote": "Gemini 3.8 Flash · Our most intelligent Flash model, engineered for long-horizon software engineering, autonomous agents, and complex enterprise workflows"
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "api",
         "field": "freePlan.limits",
         "outcome": "stated",
@@ -5205,7 +5205,7 @@
         "quote": "Free · For developers and small projects getting started with the Gemini API. · Limited access to certain models · Free input & output tokens · Google AI Studio access · […] Gemini 3.8 Flash · Input price: Free of charge · $0.75 through December 31, 2026. $1.50 starting January 1, 2027. · Output price (including thinking tokens): Free of charge · $3.75 through December 31, 2026. $7.50 starting January 1, 2027."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "api",
         "field": "freePlan.requiresCreditCard",
         "outcome": "not_published",
@@ -5214,7 +5214,7 @@
         "lookedFor": "Si el nivel gratuito de la API pide tarjeta. La documentación de facturación dice que las cuentas nuevas empiezan en el Free Tier y que pasar al de pago «means linking a billing account», pero no dice con todas las letras que el Free Tier no la pida."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "api",
         "field": "privacy.trainsOnUserData",
         "outcome": "stated",
@@ -5224,7 +5224,7 @@
         "basis": "Las de pago dicen: «When you use Paid Services, including, for example, the paid quota of the Gemini API, Google doesn't use your prompts […] or responses to improve our products». Fuera de esa zona, la tabla de precios marca «Used to improve our products: Yes» en la capa gratuita."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "api",
         "field": "freePlan.commercialUse",
         "outcome": "not_published",
@@ -5236,9 +5236,9 @@
     "auditNotes": "No se recogen modalidades de entrada: la tabla de precios las cobra por versión y no son iguales en toda la gama. La cadencia de la capa gratuita queda `unknown` porque la página no publica ni cantidad ni periodo.",
     "slug": "gemini-3-flash",
     "id": "tool_gemini-3-flash",
-    "nextReviewAt": "2026-11-22",
-    "lastVerifiedAt": "2026-08-24",
-    "updatedAt": "2026-10-17"
+    "nextReviewAt": "2027-01-21",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22"
   },
   {
     "skillLevel": "beginner",
@@ -5878,14 +5878,14 @@
       "commercialUse": "unverified",
       "creditsAmount": "2.000 completados/mes",
       "creditReset": "monthly",
-      "verifiedAt": "2026-09-16",
+      "verifiedAt": "2026-11-22",
       "includedCapabilities": [
         {
           "capability": "code-generation",
           "condition": "2.000 completados al mes",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-22",
             "scope": "product",
             "sourceUrl": "https://docs.github.com/en/copilot/about-github-copilot/plans-for-github-copilot",
             "sourceKind": "docs",
@@ -5897,7 +5897,7 @@
           "condition": "gasta créditos de IA; la cantidad no se publica",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-22",
             "scope": "product",
             "sourceUrl": "https://docs.github.com/en/copilot/about-github-copilot/plans-for-github-copilot",
             "sourceKind": "docs",
@@ -5928,26 +5928,26 @@
         "label": "Planes oficiales",
         "kind": "docs",
         "publisher": "github.com",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://github.com/features/copilot/plans",
         "label": "Página oficial de precios",
         "kind": "pricing",
         "publisher": "github.com",
-        "checkedAt": "2026-09-16"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://github.com/features/copilot",
         "label": "Web oficial",
         "kind": "official",
         "publisher": "github.com",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "stated",
@@ -5956,7 +5956,7 @@
         "quote": "Access to Haiku 4.5, GPT-5 mini, and more · Copilot CLI · Community Support · No credit card required."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "not_published",
@@ -5965,7 +5965,7 @@
         "lookedFor": "Si el plan Free permite usar comercialmente el código sugerido. Ni las condiciones adicionales de GitHub para Copilot ni la página de planes lo dicen."
       },
       {
-        "checkedAt": "2026-10-22",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
@@ -5980,15 +5980,15 @@
         "sourceUrl": "https://github.com/features/copilot/plans",
         "sourceKind": "pricing",
         "scope": "product",
-        "checkedAt": "2026-09-16",
+        "checkedAt": "2026-11-22",
         "quote": "Agent mode use in VS Code, Visual Studio, JetBrains, Eclipse, and Xcode · Use Copilot from your terminal · Make and commit code changes locally or on GitHub",
         "basis": "Filas de la tabla de funciones marcadas «Included» en Free."
       }
     ],
     "auditNotes": "Las capacidades describen el producto completo; lo que el plan gratuito no incluye está en los límites, que es donde decide.",
-    "nextReviewAt": "2026-11-22",
-    "lastVerifiedAt": "2026-08-29",
-    "updatedAt": "2026-10-22",
+    "nextReviewAt": "2027-01-21",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "access": {},
     "productType": "copilot"
   },
@@ -8763,14 +8763,14 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-24",
+      "verifiedAt": "2026-11-22",
       "includedCapabilities": [
         {
           "capability": "text-to-speech",
           "condition": "pesos descargables, en tu equipo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "local",
             "sourceUrl": "https://github.com/hexgrad/kokoro",
             "sourceKind": "repo",
@@ -8798,7 +8798,7 @@
         "label": "Repositorio oficial",
         "kind": "repo",
         "publisher": "github.com",
-        "checkedAt": "2026-08-18"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -8807,7 +8807,7 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/hexgrad/kokoro",
         "sourceKind": "repo",
-        "checkedAt": "2026-10-17",
+        "checkedAt": "2026-11-22",
         "quote": "Apache-2.0 · 82 million parameters · comparable quality to larger models while being significantly faster and more cost-efficient · rate=24000",
         "scope": "local"
       },
@@ -8817,7 +8817,7 @@
         "sourceUrl": "https://github.com/hexgrad/kokoro",
         "sourceKind": "repo",
         "scope": "weights",
-        "checkedAt": "2026-08-24",
+        "checkedAt": "2026-11-22",
         "quote": "With Apache-licensed weights, Kokoro can be deployed anywhere from production environments to personal projects."
       },
       {
@@ -8826,13 +8826,13 @@
         "sourceUrl": "https://github.com/hexgrad/kokoro",
         "sourceKind": "repo",
         "scope": "local",
-        "checkedAt": "2026-09-16",
+        "checkedAt": "2026-11-22",
         "lookedFor": "Si lo que se genera en local lleva marca de agua. El README oficial no lo dice."
       }
     ],
-    "nextReviewAt": "2026-11-22",
-    "lastVerifiedAt": "2026-08-24",
-    "updatedAt": "2026-10-17",
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "licences": {
       "code": "Apache-2.0",
       "weights": "Apache-2.0"
@@ -9182,7 +9182,7 @@
     "descriptionLong": "Leonardo AI es una plataforma cloud especializada en generación de imágenes para creadores de contenido, juegos y diseño. Ofrece modelos propios optimizados, fine-tuning de modelos, generación de texturas y assets para videojuegos, canvas de edición con IA, y una comunidad activa que comparte modelos y recursos. Su plan gratuito es uno de los más generosos del mercado.",
     "kind": "app",
     "verification": "verified",
-    "nextReviewAt": "2026-11-24",
+    "nextReviewAt": "2027-01-21",
     "categorySlug": "imagen",
     "secondaryCategories": [
       "video"
@@ -9213,14 +9213,14 @@
       "commercialUse": "yes",
       "creditsAmount": "150 Fast Tokens/día",
       "creditReset": "daily",
-      "verifiedAt": "2026-10-22",
+      "verifiedAt": "2026-11-22",
       "includedCapabilities": [
         {
           "capability": "text-to-image",
           "condition": "150 Fast Tokens al día",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-22",
             "scope": "cloud",
             "sourceUrl": "https://intercom.help/leonardo-ai/en/articles/8044018-commercial-usage",
             "sourceKind": "help",
@@ -9232,7 +9232,7 @@
           "condition": "150 Fast Tokens al día",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-22",
             "scope": "cloud",
             "sourceUrl": "https://intercom.help/leonardo-ai/en/articles/8044018-commercial-usage",
             "sourceKind": "help",
@@ -9244,7 +9244,7 @@
           "condition": "150 Fast Tokens al día",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-22",
             "scope": "cloud",
             "sourceUrl": "https://intercom.help/leonardo-ai/en/articles/8044018-commercial-usage",
             "sourceKind": "help",
@@ -9256,7 +9256,7 @@
           "condition": "150 Fast Tokens al día",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-22",
             "scope": "cloud",
             "sourceUrl": "https://intercom.help/leonardo-ai/en/articles/8044018-commercial-usage",
             "sourceKind": "help",
@@ -9285,35 +9285,35 @@
         "label": "Web oficial",
         "kind": "official",
         "publisher": "leonardo.ai",
-        "checkedAt": "2026-08-13"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://leonardo.ai/pricing/",
         "label": "Página oficial de precios",
         "kind": "pricing",
         "publisher": "leonardo.ai",
-        "checkedAt": "2026-10-22"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://intercom.help/leonardo-ai/en/articles/8044018-commercial-usage",
         "label": "Uso comercial (centro de ayuda oficial)",
         "kind": "docs",
         "publisher": "intercom.help",
-        "checkedAt": "2026-08-13"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://intercom.help/leonardo-ai/en/articles/8093145-how-to-use-canvas-editor-tool",
         "label": "Canvas Editor (centro de ayuda oficial)",
         "kind": "docs",
         "publisher": "intercom.help",
-        "checkedAt": "2026-08-13"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://app.leonardo.ai/",
         "label": "Interfaz oficial del producto",
         "kind": "official",
         "publisher": "app.leonardo.ai",
-        "checkedAt": "2026-08-26"
+        "checkedAt": "2026-11-22"
       }
     ],
     "scores": {
@@ -9361,8 +9361,8 @@
     },
     "status": "published",
     "detectedAt": "2023-06-15",
-    "lastVerifiedAt": "2026-10-22",
-    "updatedAt": "2026-10-22",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "auditNotes": "El uso comercial es yes para todos los planes, pero en el gratuito las creaciones son públicas y remezclables: la diferencia está en los límites, no en el permiso. Marca de agua y tarjeta siguen sin constar en ninguna página oficial.",
     "startEffort": "signup",
     "capabilities": [
@@ -9377,7 +9377,7 @@
     ],
     "evidence": [
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "cloud",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -9390,12 +9390,12 @@
         "outcome": "stated",
         "sourceUrl": "https://intercom.help/leonardo-ai/en/articles/8093145-how-to-use-canvas-editor-tool",
         "sourceKind": "help",
-        "checkedAt": "2026-08-13",
+        "checkedAt": "2026-11-22",
         "quote": "Inpainting in Canvas Editor effectively allows you to select specific areas of a base image […] Outpainting allows you to generate a coherent extension of your base image […] Text2Img […] Img2Img […] Sketch2Image",
         "scope": "cloud"
       },
       {
-        "checkedAt": "2026-10-22",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
@@ -9404,7 +9404,7 @@
         "quote": "FREE $0 /month […] Fast Tokens 150 / day · Model Access Auto Only · Creations access Public · Quality settings Basic · Personal collections 1"
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "not_published",
@@ -9413,7 +9413,7 @@
         "lookedFor": "Si el plan gratuito pide tarjeta. Ni la página de precios ni las preguntas frecuentes de precios y planes de su documentación lo mencionan."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.hasWatermark",
         "outcome": "not_published",
@@ -9920,14 +9920,14 @@
       "commercialUse": "yes",
       "creditsAmount": "5 créditos/día (tope de 30/mes)",
       "creditReset": "daily",
-      "verifiedAt": "2026-10-11",
+      "verifiedAt": "2026-11-22",
       "includedCapabilities": [
         {
           "capability": "code-generation",
           "condition": "5 créditos de construcción al día, hasta 30 al mes",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-22",
             "scope": "product",
             "sourceUrl": "https://docs.lovable.dev/introduction/credits-and-usage",
             "sourceKind": "docs",
@@ -9962,40 +9962,40 @@
         "label": "Precios oficiales",
         "kind": "pricing",
         "publisher": "lovable.dev",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://docs.lovable.dev/user-guides/messaging-limits",
         "label": "Documentación oficial",
         "kind": "docs",
         "publisher": "docs.lovable.dev",
-        "checkedAt": "2026-08-24"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://lovable.dev/terms",
         "label": "Condiciones oficiales",
         "kind": "docs",
         "publisher": "lovable.dev",
-        "checkedAt": "2026-08-24"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://docs.lovable.dev/introduction/faq",
         "label": "Documentación: preguntas frecuentes",
         "kind": "docs",
         "publisher": "docs.lovable.dev",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://docs.lovable.dev/introduction/credits-and-usage",
         "label": "Documentación: créditos y uso",
         "kind": "docs",
         "publisher": "docs.lovable.dev",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
@@ -10009,11 +10009,11 @@
         "sourceUrl": "https://docs.lovable.dev/user-guides/messaging-limits",
         "sourceKind": "docs",
         "scope": "product",
-        "checkedAt": "2026-08-24",
+        "checkedAt": "2026-11-22",
         "quote": "refresh every day at 00:00 UTC"
       },
       {
-        "checkedAt": "2026-11-02",
+        "checkedAt": "2026-11-22",
         "field": "freePlan.requiresCreditCard",
         "outcome": "stated",
         "scope": "product",
@@ -10022,7 +10022,7 @@
         "quote": "Free · Discover what Lovable can do for you · €0 · Get started · No credit card needed"
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -10033,9 +10033,9 @@
     ],
     "slug": "lovable",
     "id": "tool_lovable",
-    "nextReviewAt": "2026-11-22",
-    "lastVerifiedAt": "2026-08-24",
-    "updatedAt": "2026-08-21"
+    "nextReviewAt": "2027-01-21",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22"
   },
   {
     "secondaryCategories": [
@@ -12843,7 +12843,7 @@
     "id": "tool_playground-ai",
     "kind": "app",
     "verification": "verified",
-    "nextReviewAt": "2026-11-24",
+    "nextReviewAt": "2027-01-21",
     "categorySlug": "imagen",
     "secondaryCategories": [],
     "tags": [],
@@ -12864,14 +12864,14 @@
         "label": "Página oficial de precios o producto",
         "kind": "pricing",
         "publisher": "playground.com",
-        "checkedAt": "2026-10-22"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://playgroundai.com/design/pricing",
         "label": "Interfaz oficial del producto",
         "kind": "official",
         "publisher": "playgroundai.com",
-        "checkedAt": "2026-08-26"
+        "checkedAt": "2026-11-22"
       }
     ],
     "pros": [],
@@ -12880,7 +12880,14 @@
     "notFor": [],
     "alternatives": [],
     "alternativeNames": [],
-    "changelog": [],
+    "changelog": [
+      {
+        "date": "2026-11-22",
+        "kind": "other",
+        "sourceUrl": "https://playgroundai.com/design/pricing",
+        "summary": "El plan gratuito deja de anunciar tres generaciones al mes en los modelos premium (Muse Image, Nano Banana, GPT Image y Seedream) y pasa a dar 6 créditos al mes con «acceso limitado» a los modelos. No publica cuántos créditos cuesta cada imagen, así que no se puede decir si es más o menos. Lo vimos el 22 de noviembre."
+      }
+    ],
     "affiliation": {
       "isAffiliate": false
     },
@@ -12889,8 +12896,8 @@
     },
     "status": "published",
     "detectedAt": "2026-08-12",
-    "lastVerifiedAt": "2026-11-02",
-    "updatedAt": "2026-11-02",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "slug": "playground-ai",
     "name": "Playground",
     "tagline": "Cinco imágenes cada tres horas en el plan gratuito, con licencia comercial.",
@@ -12899,10 +12906,10 @@
     "pricingUrl": "https://playground.com/pricing",
     "freeModel": "credits",
     "freePlan": {
-      "summary": "Plan gratuito activo con hasta cinco imágenes cada tres horas (eran diez hasta finales de octubre) y tres generaciones mensuales en los modelos premium. La licencia comercial se concede también en el plan gratuito.",
+      "summary": "Plan gratuito activo con hasta cinco imágenes cada tres horas (eran diez hasta finales de octubre), 6 créditos al mes y acceso limitado a los modelos. La licencia comercial se concede también en el plan gratuito.",
       "limits": [
         "Hasta 5 imágenes cada 3 horas (eran 10 hasta finales de octubre)",
-        "3 generaciones al mes entre Muse Image, Nano Banana, GPT Image 2, GPT Image 2.5 y Seedream",
+        "6 créditos al mes y acceso limitado a los modelos (antes, 3 generaciones al mes en los modelos premium)",
         "Uso comercial: licencia mundial y libre de derechos",
         "Generación más lenta en horas punta y espera al agotar el límite"
       ],
@@ -12912,14 +12919,14 @@
       "commercialUse": "yes",
       "creditReset": "intraday",
       "creditsAmount": "5 imágenes cada 3 horas",
-      "verifiedAt": "2026-11-02",
+      "verifiedAt": "2026-11-22",
       "includedCapabilities": [
         {
           "capability": "text-to-image",
           "condition": "hasta 5 imágenes cada 3 horas",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-11-02",
+            "checkedAt": "2026-11-22",
             "scope": "product",
             "sourceUrl": "https://playground.com/pricing",
             "sourceKind": "pricing",
@@ -12947,13 +12954,13 @@
         "scope": "cloud"
       },
       {
-        "checkedAt": "2026-11-02",
+        "checkedAt": "2026-11-22",
         "field": "freePlan.limits",
         "outcome": "stated",
         "scope": "product",
         "sourceUrl": "https://playgroundai.com/design/pricing",
         "sourceKind": "pricing",
-        "quote": "Free · Create up to 5 images every 3 hours · 3 monthly generations across Muse Image, Nano Banana, GPT Image 2, GPT Image 2.5, and Seedream"
+        "quote": "Free · For exploring and casual creation · Create up to 5 images every 3 hours · Limited model access · 6 monthly credits · Commercial use · World-wide, royalty free license · Slower generation during peak hours. Waiting period after limits are reached."
       },
       {
         "field": "freePlan.commercialUse",
@@ -12961,11 +12968,11 @@
         "sourceUrl": "https://playgroundai.com/design/pricing",
         "sourceKind": "official",
         "scope": "product",
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "quote": "Commercial use — World-wide, royalty free license"
       },
       {
-        "checkedAt": "2026-11-02",
+        "checkedAt": "2026-11-22",
         "field": "freePlan.creditReset",
         "outcome": "stated",
         "scope": "product",
@@ -12974,7 +12981,7 @@
         "quote": "Limited image generation · Create up to 5 images every 3 hours"
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "stated",
@@ -12983,7 +12990,7 @@
         "quote": "Phone wallpaper · Card · Nano Banana Pro · Free to start · No credit card · Print-ready in days"
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.hasWatermark",
         "outcome": "not_published",
@@ -14813,7 +14820,7 @@
     "descriptionLong": "v0 by Vercel es un generador de UI que convierte descripciones de texto en componentes React completos con Tailwind CSS y shadcn/ui. Generas código limpio, responsive y listo para copiar y pegar en tu proyecto Next.js. Ideal para desarrolladores frontend que quieren prototipar rápido o generar componentes complejos sin escribirlos manualmente. El plan gratuito permite varias generaciones al día.",
     "kind": "agent",
     "verification": "verified",
-    "nextReviewAt": "2026-11-22",
+    "nextReviewAt": "2027-01-21",
     "categorySlug": "codigo",
     "secondaryCategories": [],
     "tags": [
@@ -14839,7 +14846,7 @@
       "commercialUse": "unverified",
       "creditsAmount": "5 $ una sola vez (cuentas nuevas) · 7 mensajes/día",
       "creditReset": "one_off",
-      "verifiedAt": "2026-10-17"
+      "verifiedAt": "2026-11-22"
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -14861,14 +14868,14 @@
         "label": "Precios oficiales",
         "kind": "pricing",
         "publisher": "v0.app",
-        "checkedAt": "2026-08-21"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://v0.app/docs/pricing",
         "label": "Documentación oficial",
         "kind": "docs",
         "publisher": "v0.app",
-        "checkedAt": "2026-10-17"
+        "checkedAt": "2026-11-22"
       }
     ],
     "scores": {
@@ -14917,8 +14924,8 @@
     },
     "status": "published",
     "detectedAt": "2023-09-15",
-    "lastVerifiedAt": "2026-10-17",
-    "updatedAt": "2026-10-17",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "startEffort": "signup",
     "capabilities": [
       "code-generation",
@@ -14926,7 +14933,7 @@
     ],
     "evidence": [
       {
-        "checkedAt": "2026-10-17",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
@@ -14935,7 +14942,7 @@
         "quote": "Free: No cost. For people looking to explore. · Plus: $30/user/month · 7 messages · New users who sign up under the one-time Free credit offer receive $5 once per user in each personal or team account. Existing Free users keep their $5 monthly allowance."
       },
       {
-        "checkedAt": "2026-10-17",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.creditReset",
         "outcome": "stated",
@@ -14944,7 +14951,7 @@
         "quote": "New users who sign up under the one-time Free credit offer receive $5 once per user in each personal or team account. […] A one-time allowance does not renew."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "not_published",
@@ -14953,7 +14960,7 @@
         "lookedFor": "Si el plan gratuito de v0 permite uso comercial. Las condiciones de Vercel limitan el plan «Hobby» a «personal or non-commercial use», pero el plan gratuito de v0 se llama «Free» y ni esas condiciones ni la documentación de precios de v0 dicen si es el mismo."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "not_published",
@@ -15176,14 +15183,14 @@
       "hasWatermark": "unverified",
       "commercialUse": "yes",
       "creditReset": "none",
-      "verifiedAt": "2026-08-24",
+      "verifiedAt": "2026-11-22",
       "includedCapabilities": [
         {
           "capability": "transcription",
           "condition": "en tu equipo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "local",
             "sourceUrl": "https://github.com/openai/whisper",
             "sourceKind": "repo",
@@ -15212,7 +15219,7 @@
         "label": "Repositorio oficial",
         "kind": "repo",
         "publisher": "github.com",
-        "checkedAt": "2026-08-18"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -15221,7 +15228,7 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/openai/whisper",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-18",
+        "checkedAt": "2026-11-22",
         "quote": "Whisper's code and model weights are released under the MIT License.",
         "scope": "local"
       },
@@ -15231,7 +15238,7 @@
         "sourceUrl": "https://github.com/openai/whisper",
         "sourceKind": "repo",
         "scope": "weights",
-        "checkedAt": "2026-08-24",
+        "checkedAt": "2026-11-22",
         "quote": "Whisper’s code and model weights are released under the MIT License."
       },
       {
@@ -15240,14 +15247,14 @@
         "sourceUrl": "https://github.com/openai/whisper/blob/main/LICENSE",
         "sourceKind": "licence",
         "scope": "weights",
-        "checkedAt": "2026-09-21",
+        "checkedAt": "2026-11-22",
         "quote": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software",
         "basis": "El README oficial asigna esa licencia a los pesos: «Whisper’s code and model weights are released under the MIT License»."
       }
     ],
-    "nextReviewAt": "2026-11-22",
-    "lastVerifiedAt": "2026-08-24",
-    "updatedAt": "2026-08-18",
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "licences": {
       "code": "MIT",
       "weights": "MIT"
