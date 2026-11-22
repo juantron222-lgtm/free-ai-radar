@@ -1,5 +1,128 @@
 [
   {
+    "id": "news-2026-11-22-openrouter-incidentes-proveedores",
+    "slug": "openrouter-retira-125-puntos-de-retencion-cero",
+    "title": "OpenRouter echa a tres proveedores y quita la etiqueta de retención cero a 125 puntos de acceso",
+    "author": "Redacción de Free AI Radar",
+    "summary": "OpenRouter publicó el 22 de noviembre que unos investigadores de seguridad encontraron proveedores de inferencia con datos comprometidos, o con indicios de que no cumplían sus propias políticas de datos. La respuesta es concreta: tres proveedores fuera de la plataforma, 125 puntos de acceso retirados de la lista que puede acogerse a retención cero de datos, y aviso a todos los clientes que podrían estar afectados.",
+    "impact": "Esto va directamente a la promesa en la que mucha gente se apoya al elegir proveedor. La retirada no se limita a los señalados: también quitaron puntos de acceso por precaución, y no devolverán la etiqueta sin garantías y validación. Lo que están comprobando ahora dice bastante del problema: los caminos de red, para encontrar casos en que las peticiones y las respuestas puedan estar reenviándose a terceros. Tres proveedores han publicado su propio aviso —Novita, Phala y Together— y ellos mismos advierten de que no todos los afectados lo han hecho.",
+    "category": "privacidad-licencias",
+    "eventType": "anuncio",
+    "availability": "unknown",
+    "publishedAt": "2026-11-22",
+    "checkedAt": "2026-11-22",
+    "officialUrl": "https://openrouter.ai/blog/announcements/data-processing-incidents-on-inference-providers/",
+    "sources": [
+      {
+        "url": "https://openrouter.ai/blog/announcements/data-processing-incidents-on-inference-providers/",
+        "kind": "official",
+        "label": "Data Processing Incidents on Inference Providers",
+        "checkedAt": "2026-11-22",
+        "publisher": "openrouter.ai"
+      },
+      {
+        "url": "https://www.together.ai/blog/security-event-prompt-leakage-for-requests-in-june-and-july-of-2026",
+        "kind": "official",
+        "label": "Together AI: Security event: Prompt leakage for requests in June and July of 2026",
+        "checkedAt": "2026-11-22",
+        "publisher": "together.ai"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-11-21-together-fuga-prompts",
+    "slug": "together-fuga-de-prompts-junio-julio",
+    "title": "Together AI admite que se filtraron peticiones de junio y julio, y que la credencial la dejó expuesta un agente de programación",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Together AI avisó el 21 de noviembre de que alguien no autorizado descargó muestras de peticiones enviadas a su servicio de inferencia en junio y julio de 2026. La cadena que describen es la parte incómoda: habían guardado esas muestras en un repositorio privado para pruebas de software, y un agente de programación de IA subió a un repositorio público la credencial que daba acceso a él.",
+    "impact": "Lo que debería hacer pensar a cualquiera que mande peticiones a una API: quien se llevó las muestras después buscó dentro de ellas credenciales de otros servicios y comprobó si funcionaban. Cinco de las que probó eran señuelos de un experimento de seguridad, lo que es como se destapó todo. Las muestras venían de peticiones a MiniMax M3, GLM-5.2 y Kimi K2.6 en cuatro días concretos. Siguen revisando si quedó expuesta información personal, así que el alcance no está cerrado. Su consejo, y conviene seguirlo: activar la retención cero de datos en la cuenta.",
+    "category": "privacidad-licencias",
+    "eventType": "anuncio",
+    "availability": "unknown",
+    "publishedAt": "2026-11-21",
+    "checkedAt": "2026-11-22",
+    "officialUrl": "https://www.together.ai/blog/security-event-prompt-leakage-for-requests-in-june-and-july-of-2026",
+    "sources": [
+      {
+        "url": "https://www.together.ai/blog/security-event-prompt-leakage-for-requests-in-june-and-july-of-2026",
+        "kind": "official",
+        "label": "Security event: Prompt leakage for requests in June and July of 2026",
+        "checkedAt": "2026-11-22",
+        "publisher": "together.ai"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-11-20-inkling-2-mini",
+    "slug": "inkling-2-mini-local",
+    "title": "Inkling 2 Mini da la vuelta a lo de siempre: 24 capas que se recorren 48 veces para ocupar menos en una máquina local",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Hugging Face recibió el 20 de noviembre Inkling 2 Mini, de Thinking Machines Lab: una mezcla de expertos multimodal con unos 26.000 millones de parámetros y 3.000 activos por token, pensada para montajes locales. Lo distinto es la arquitectura: tiene 24 capas de decodificador, pero las doce del medio se recorren tres veces reutilizando los mismos pesos, así que trabaja como si tuviera 48.",
+    "impact": "Para quien ejecuta en casa, ese bucle es lo que importa: el fichero guarda menos capas distintas, aunque el modelo siga haciendo las 48 visitas, y ahí está el ahorro de espacio. Acepta imágenes y un millón de tokens de contexto, y funciona desde el primer día con transformers, con llama.cpp y con MLX. Dos cautelas. Dicen liderar 32 de 48 pruebas frente a cuatro rivales, pero sobre lo práctico se mojan menos: en sus pruebas informales queda «al menos a la altura» de Qwen 3.8 27B y admiten que hace falta más validación. Y el anuncio no dice con qué licencia sale.",
+    "category": "local-open-source",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-11-20",
+    "checkedAt": "2026-11-22",
+    "officialUrl": "https://huggingface.co/blog/inkling2mini",
+    "sources": [
+      {
+        "url": "https://huggingface.co/blog/inkling2mini",
+        "kind": "official",
+        "label": "Welcome Inkling 2 Mini, Cutting-edge Performance for your Local Setup",
+        "checkedAt": "2026-11-22",
+        "publisher": "huggingface.co/blog"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-11-19-gemini-mac-computer-use",
+    "slug": "gemini-maneja-el-mac",
+    "title": "Gemini ya maneja el Mac por ti, en una ventana aparte: sólo en inglés, sólo en EE. UU. y sólo en los planes de pago",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Google anunció el 19 de noviembre que la aplicación de Gemini para Mac puede hacer tareas de varios pasos sobre los ficheros locales, los programas de escritorio y la web: se le describe lo que hay que hacer y se encarga de los clics, de escribir, de los menús y de los formularios. Trabaja en una ventana aislada de fondo, con una vista en directo dentro del chat, de modo que la pantalla y el ratón quedan libres.",
+    "impact": "Antes de ilusionarse conviene leer los requisitos, que son cuatro a la vez: inglés, Estados Unidos, un Mac con Apple Silicon y macOS 15 o posterior, y una cuenta de pago —AI Plus, Pro o Ultra—. Desde España, hoy, no se puede probar. Lo que sí merece nota es cómo han repartido el control: se eligen los programas a los que accede, se ve cada paso en directo, se puede pausar, y las acciones clave hay que aprobarlas antes. Los ejemplos que ponen son de los que se entienden solos, como rellenar presupuestos de envío sacando datos de PDF locales.",
+    "category": "agentes",
+    "eventType": "lanzamiento",
+    "availability": "limited",
+    "publishedAt": "2026-11-19",
+    "checkedAt": "2026-11-22",
+    "officialUrl": "https://blog.google/innovation-and-ai/products/gemini-app/computer-use-mac/",
+    "sources": [
+      {
+        "url": "https://blog.google/innovation-and-ai/products/gemini-app/computer-use-mac/",
+        "kind": "official",
+        "label": "Let Gemini tackle repetitive chores on your Mac",
+        "checkedAt": "2026-11-22",
+        "publisher": "blog.google"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-11-18-comfy-cloud-custom",
     "slug": "comfy-cloud-nodos-propios",
     "title": "Comfy Cloud ya corre tu ComfyUI con tus nodos y modelos, en los planes de pago y con la GPU que elijas",
