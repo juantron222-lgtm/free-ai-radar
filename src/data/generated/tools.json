@@ -207,14 +207,14 @@
       "hasWatermark": "no",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-19",
+      "verifiedAt": "2026-11-22",
       "includedCapabilities": [
         {
           "capability": "repository-editing",
           "condition": "en tu equipo; necesita un modelo, de pago por API o local",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "local",
             "sourceUrl": "https://github.com/Aider-AI/aider",
             "sourceKind": "repo",
@@ -243,7 +243,7 @@
         "label": "Repositorio oficial",
         "kind": "repo",
         "publisher": "github.com",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -252,14 +252,14 @@
         "outcome": "stated",
         "sourceUrl": "https://github.com/Aider-AI/aider",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-19",
+        "checkedAt": "2026-11-22",
         "quote": "Aider lets you pair program with LLMs to start a new project or build on your existing codebase · Aider automatically commits changes with sensible commit messages · [ejecuta pruebas y linters y corrige los problemas detectados] · Apache-2.0.",
         "scope": "local"
       }
     ],
-    "nextReviewAt": "2026-11-17",
-    "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19",
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "access": {},
     "productType": "cli"
   },
@@ -321,14 +321,14 @@
       "commercialUse": "unverified",
       "creditsAmount": "50 peticiones agénticas/mes",
       "creditReset": "monthly",
-      "verifiedAt": "2026-10-12",
+      "verifiedAt": "2026-11-22",
       "includedCapabilities": [
         {
           "capability": "code-generation",
           "condition": "50 peticiones agénticas al mes",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "product",
             "sourceUrl": "https://aws.amazon.com/q/developer/pricing/",
             "sourceKind": "pricing",
@@ -340,7 +340,7 @@
           "condition": "50 peticiones agénticas al mes",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "product",
             "sourceUrl": "https://aws.amazon.com/q/developer/pricing/",
             "sourceKind": "pricing",
@@ -369,7 +369,7 @@
         "label": "Precios oficiales",
         "kind": "pricing",
         "publisher": "aws.amazon.com",
-        "checkedAt": "2026-08-21"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -378,12 +378,12 @@
         "outcome": "stated",
         "sourceUrl": "https://aws.amazon.com/q/developer/pricing/",
         "sourceKind": "pricing",
-        "checkedAt": "2026-10-17",
+        "checkedAt": "2026-11-22",
         "quote": "50 agentic requests per month · 1,000 lines of code per month · Suppress public code suggestions · Pro Tier: Expanded limits $19/mo. per user",
         "scope": "cloud"
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "not_published",
@@ -392,7 +392,7 @@
         "lookedFor": "Si el nivel gratuito pide tarjeta. Ni la página de precios ni la de producto lo dicen."
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "not_published",
@@ -403,9 +403,9 @@
     ],
     "slug": "amazon-q-developer",
     "id": "tool_amazon-q-developer",
-    "nextReviewAt": "2026-11-19",
-    "lastVerifiedAt": "2026-08-21",
-    "updatedAt": "2026-10-17"
+    "nextReviewAt": "2027-01-21",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22"
   },
   {
     "skillLevel": "beginner",
@@ -753,7 +753,7 @@
     "descriptionLong": "Bolt.new de StackBlitz permite crear aplicaciones web completas (frontend + backend) describiendo lo que quieres en lenguaje natural. Genera React, Next.js, Node.js y más, con un entorno de desarrollo completo en el navegador que incluye preview en vivo, terminal, y deploy a producción. Ideal para prototipos rápidos, MVPs, y herramientas internas sin configurar nada localmente.",
     "kind": "agent",
     "verification": "verified",
-    "nextReviewAt": "2026-11-19",
+    "nextReviewAt": "2027-01-21",
     "categorySlug": "codigo",
     "secondaryCategories": [],
     "tags": [
@@ -767,10 +767,10 @@
     ],
     "freeModel": "freemium",
     "freePlan": {
-      "summary": "Plan gratuito «free forever», sin tarjeta: un millón de tokens al mes y límites diarios cuya cifra ya no se publica. Las webs que publicas llevan la marca de Bolt. El plan de pago más barato es Pro, 25 $ al mes con facturación mensual (18 $ con pago anual).",
+      "summary": "Plan gratuito «free forever», sin tarjeta: un millón de tokens al mes con un tope de 300.000 tokens al día. Las webs que publicas llevan la marca de Bolt. El plan de pago más barato es Pro, 25 $ al mes con facturación mensual (18 $ con pago anual).",
       "limits": [
         "1 millón de tokens al mes",
-        "Límites diarios, sin cifra publicada",
+        "Tope diario de 300.000 tokens",
         "Proyectos públicos y privados",
         "Las webs que publicas llevan la marca de Bolt",
         "Alojamiento web y bases de datos ilimitadas",
@@ -782,18 +782,18 @@
       "commercialUse": "yes",
       "creditsAmount": "1M tokens/mes",
       "creditReset": "daily",
-      "verifiedAt": "2026-10-22",
+      "verifiedAt": "2026-11-22",
       "includedCapabilities": [
         {
           "capability": "code-generation",
           "condition": "1 millón de tokens al mes, con límites diarios sin cifra publicada",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-22",
+            "checkedAt": "2026-11-22",
             "scope": "product",
             "sourceUrl": "https://bolt.new/pricing",
             "sourceKind": "pricing",
-            "quote": "Free · $0 · […] Try Bolt with daily limits. No credit card. · 1M tokens/month to try Bolt · Public and private projects"
+            "quote": "Free · $0 · /month · Free forever, no card required · Try Bolt with daily limits. No credit card. · 300K tokens daily limit · 1M tokens per month · Public and private projects · Bolt branding on websites · Unlimited databases · Website hosting"
           }
         }
       ]
@@ -817,20 +817,20 @@
         "label": "Precios oficiales",
         "kind": "pricing",
         "publisher": "bolt.new",
-        "checkedAt": "2026-10-22"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://stackblitz.com/terms-of-service",
         "label": "Condiciones de uso (StackBlitz)",
         "kind": "docs",
-        "checkedAt": "2026-09-15"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://support.bolt.new/account-and-subscription/corporate-commercial",
         "label": "Centro de ayuda: uso comercial",
         "kind": "docs",
         "publisher": "support.bolt.new",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-22"
       }
     ],
     "scores": {
@@ -876,24 +876,24 @@
     },
     "status": "published",
     "detectedAt": "2024-06-01",
-    "lastVerifiedAt": "2026-10-22",
-    "updatedAt": "2026-10-22",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "startEffort": "signup",
     "capabilities": [
       "code-generation"
     ],
     "evidence": [
       {
-        "checkedAt": "2026-10-22",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
         "sourceUrl": "https://bolt.new/pricing",
         "sourceKind": "pricing",
-        "quote": "Free · $0 · /month · Free forever, no card required · Try Bolt with daily limits. No credit card. · 1M tokens/month to try Bolt · Public and private projects · Bolt branding on websites · Unlimited databases · Website hosting"
+        "quote": "Free · $0 · /month · Free forever, no card required · Try Bolt with daily limits. No credit card. · 300K tokens daily limit · 1M tokens per month · Public and private projects · Bolt branding on websites · Unlimited databases · Website hosting"
       },
       {
-        "checkedAt": "2026-10-22",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "stated",
@@ -902,7 +902,7 @@
         "quote": "Free forever, no card required · Try Bolt with daily limits. No credit card."
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -3067,14 +3067,14 @@
       "hasWatermark": "no",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-19",
+      "verifiedAt": "2026-11-22",
       "includedCapabilities": [
         {
           "capability": "repository-editing",
           "condition": "en tu equipo; necesita un modelo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "local",
             "sourceUrl": "https://github.com/cline/cline",
             "sourceKind": "repo",
@@ -3104,7 +3104,7 @@
         "label": "Repositorio oficial",
         "kind": "repo",
         "publisher": "github.com",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -3118,9 +3118,9 @@
         "scope": "local"
       }
     ],
-    "nextReviewAt": "2026-11-17",
-    "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19",
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "access": {},
     "productType": "agent"
   },
@@ -3872,14 +3872,14 @@
       "hasWatermark": "no",
       "commercialUse": "yes",
       "creditReset": "none",
-      "verifiedAt": "2026-08-19",
+      "verifiedAt": "2026-11-22",
       "includedCapabilities": [
         {
           "capability": "multi-agent",
           "condition": "biblioteca de código abierto; necesita un modelo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "local",
             "sourceUrl": "https://github.com/crewAIInc/crewAI",
             "sourceKind": "repo",
@@ -3891,7 +3891,7 @@
           "condition": "biblioteca de código abierto; necesita un modelo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "local",
             "sourceUrl": "https://github.com/crewAIInc/crewAI",
             "sourceKind": "repo",
@@ -3920,14 +3920,14 @@
         "label": "Repositorio oficial",
         "kind": "repo",
         "publisher": "github.com",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://raw.githubusercontent.com/crewAIInc/crewAI/main/LICENSE",
         "label": "Licencia oficial (MIT)",
         "kind": "repo",
         "publisher": "raw.githubusercontent.com",
-        "checkedAt": "2026-10-12"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -3941,7 +3941,7 @@
         "scope": "local"
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "local",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -3950,9 +3950,9 @@
         "quote": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software"
       }
     ],
-    "nextReviewAt": "2026-11-17",
-    "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19",
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "access": {}
   },
   {
@@ -4885,14 +4885,14 @@
       "hasWatermark": "unverified",
       "commercialUse": "partial",
       "creditReset": "unknown",
-      "verifiedAt": "2026-10-12",
+      "verifiedAt": "2026-11-22",
       "includedCapabilities": [
         {
           "capability": "repository-editing",
           "condition": "uso limitado, sin cifra publicada",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "product",
             "sourceUrl": "https://docs.devin.ai/admin/billing/self-serve",
             "sourceKind": "docs",
@@ -4922,41 +4922,41 @@
         "label": "Web oficial",
         "kind": "official",
         "publisher": "devin.ai",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://docs.devin.ai/admin/billing/self-serve",
         "label": "Documentación oficial: planes",
         "kind": "pricing",
         "publisher": "docs.devin.ai",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://docs.devin.ai/get-started/devin-intro",
         "label": "Documentación oficial",
         "kind": "docs",
         "publisher": "docs.devin.ai",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://docs.devin.ai/cli",
         "label": "Documentación oficial: Devin CLI",
         "kind": "docs",
         "publisher": "docs.devin.ai",
-        "checkedAt": "2026-09-13"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://devin.ai/pricing",
         "label": "Página oficial de precios",
         "kind": "pricing",
-        "checkedAt": "2026-09-15"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://cognition.com/legal/platform-terms-of-service",
         "label": "Términos de uso de Devin",
         "kind": "docs",
         "publisher": "cognition.com",
-        "checkedAt": "2026-10-23"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -4965,7 +4965,7 @@
         "outcome": "stated",
         "sourceUrl": "https://docs.devin.ai/admin/billing/self-serve",
         "sourceKind": "docs",
-        "checkedAt": "2026-10-17",
+        "checkedAt": "2026-11-22",
         "quote": "Free | Individuals trying Devin | Free | 1 · The Free plan lets you try Devin with limited usage. It includes: Limited Devin usage Access to Devin Review Access to DeepWiki · Individual users $20/month",
         "scope": "cloud"
       },
@@ -4979,7 +4979,7 @@
         "scope": "cloud"
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "not_published",
@@ -4988,7 +4988,7 @@
         "lookedFor": "Si el plan Free pide tarjeta. Ni la página de precios ni la documentación de facturación lo dicen."
       },
       {
-        "checkedAt": "2026-10-23",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -4998,9 +4998,9 @@
       }
     ],
     "auditNotes": "La documentación afirma «if you can do it in three hours, Devin can most likely do it». Es una promesa de alcance, no un dato comprobable, y no se recoge como capacidad. Plataformas corregidas el 13 de septiembre de 2026: la documentación de Devin CLI la describe como «a local command-line coding agent» e indica cómo instalarla en macOS, Linux/WSL y Windows. Ya aparecía en las notas de versión de abril de 2026, así que era una omisión de la ficha y no un cambio del fabricante, y por eso no va al changelog. Devin Desktop no se añade por separado: ninguna página oficial consultada declara explícitamente en qué sistemas se instala. SWE-2, el modelo presentado el 10 de septiembre, no altera ningún campo de la ficha. Planes y precios comprobados el 13 de septiembre, sin cambios.",
-    "nextReviewAt": "2026-11-17",
-    "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-10-23",
+    "nextReviewAt": "2027-01-21",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "access": {},
     "productType": "agent"
   },
@@ -5069,14 +5069,14 @@
       "commercialUse": "unverified",
       "creditsAmount": "200 créditos de mensaje",
       "creditReset": "one_off",
-      "verifiedAt": "2026-10-12",
+      "verifiedAt": "2026-11-22",
       "includedCapabilities": [
         {
           "capability": "workflow-automation",
           "condition": "200 créditos de mensaje, una sola vez",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "product",
             "sourceUrl": "https://dify.ai/pricing",
             "sourceKind": "pricing",
@@ -5105,14 +5105,14 @@
         "label": "Página oficial de precios",
         "kind": "pricing",
         "publisher": "dify.ai",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://github.com/langgenius/dify",
         "label": "Repositorio oficial",
         "kind": "repo",
         "publisher": "github.com",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -5121,7 +5121,7 @@
         "outcome": "stated",
         "sourceUrl": "https://dify.ai/pricing",
         "sourceKind": "pricing",
-        "checkedAt": "2026-08-19",
+        "checkedAt": "2026-11-22",
         "quote": "Sandbox — For trying out Dify’s core features: 200 message credits · 1 Team Workspace · 1 Team Member · 5 Apps · 50 Knowledge Documents. [Professional: $590 per workspace/year.]",
         "scope": "product"
       },
@@ -5135,7 +5135,7 @@
         "scope": "local"
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "not_published",
@@ -5144,7 +5144,7 @@
         "lookedFor": "Si el plan Sandbox pide tarjeta. Ni la página de precios ni las condiciones lo mencionan."
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "not_published",
@@ -5154,9 +5154,9 @@
       }
     ],
     "auditNotes": "El Sandbox se registra como `credits` + `one_off` y no como `freemium`: la página no publica renovación, y sin renovación no hay capa permanente.",
-    "nextReviewAt": "2026-11-17",
-    "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19",
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "access": {}
   },
   {
@@ -7464,7 +7464,7 @@
       "hasWatermark": "no",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-08-19"
+      "verifiedAt": "2026-11-22"
     },
     "capabilities": [
       "multi-agent",
@@ -7486,7 +7486,7 @@
         "label": "Repositorio oficial",
         "kind": "repo",
         "publisher": "github.com",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -7500,9 +7500,9 @@
         "scope": "local"
       }
     ],
-    "nextReviewAt": "2026-11-17",
-    "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19",
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "access": {}
   },
   {
@@ -9963,7 +9963,7 @@
       "commercialUse": "unverified",
       "creditsAmount": "3 créditos/30 días",
       "creditReset": "monthly",
-      "verifiedAt": "2026-10-12"
+      "verifiedAt": "2026-11-22"
     },
     "capabilities": [
       "code-generation"
@@ -9983,13 +9983,13 @@
         "label": "Documentación oficial de licencias",
         "kind": "docs",
         "publisher": "jetbrains.com",
-        "checkedAt": "2026-08-21"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://www.jetbrains.com/legal/docs/terms/jetbrains-ai-service/",
         "label": "Condiciones de JetBrains AI",
         "kind": "docs",
-        "checkedAt": "2026-09-15"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -9998,12 +9998,12 @@
         "outcome": "stated",
         "sourceUrl": "https://www.jetbrains.com/help/ai-assistant/licensing-and-subscriptions.html",
         "sourceKind": "help",
-        "checkedAt": "2026-08-21",
+        "checkedAt": "2026-11-22",
         "quote": "3 AI Credits per 30-days. The AI Free license tier is not available in Android Studio [and] in Community Editions of PyCharm and IntelliJ IDEA.",
         "scope": "cloud"
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "not_published",
@@ -10012,7 +10012,7 @@
         "lookedFor": "Si el nivel AI Free permite usar comercialmente lo generado. Las condiciones del servicio de IA no hablan de uso comercial."
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "not_published",
@@ -10024,9 +10024,9 @@
     "auditNotes": "El precio del plan de pago se queda fuera: la misma página muestra dos cifras distintas para AI Pro (10 $ y 20 $) y no hay forma de saber cuál está vigente. Publicar una de las dos sería elegir al azar.",
     "slug": "jetbrains-ai",
     "id": "tool_jetbrains-ai",
-    "nextReviewAt": "2026-11-19",
-    "lastVerifiedAt": "2026-08-21",
-    "updatedAt": "2026-08-21"
+    "nextReviewAt": "2027-01-21",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22"
   },
   {
     "secondaryCategories": [
@@ -11315,7 +11315,7 @@
       "hasWatermark": "no",
       "commercialUse": "yes",
       "creditReset": "none",
-      "verifiedAt": "2026-08-19"
+      "verifiedAt": "2026-11-22"
     },
     "capabilities": [
       "memory"
@@ -11335,21 +11335,21 @@
         "label": "Repositorio oficial",
         "kind": "repo",
         "publisher": "github.com",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://docs.langchain.com/oss/python/langgraph/overview",
         "label": "Documentación oficial",
         "kind": "docs",
         "publisher": "docs.langchain.com",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://raw.githubusercontent.com/langchain-ai/langgraph/main/LICENSE",
         "label": "Licencia oficial (MIT)",
         "kind": "repo",
         "publisher": "raw.githubusercontent.com",
-        "checkedAt": "2026-10-12"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -11363,7 +11363,7 @@
         "scope": "local"
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "local",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -11373,9 +11373,9 @@
       }
     ],
     "auditNotes": "Sólo `memory`. La documentación se describe como orquestación y no documenta expresamente ni llamada a herramientas ni sistemas multiagente en su página general; marcarlos sería suponer.",
-    "nextReviewAt": "2026-11-17",
-    "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19",
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "access": {}
   },
   {
@@ -14237,14 +14237,14 @@
       "hasWatermark": "no",
       "commercialUse": "partial",
       "creditReset": "none",
-      "verifiedAt": "2026-10-11",
+      "verifiedAt": "2026-11-22",
       "includedCapabilities": [
         {
           "capability": "workflow-automation",
           "condition": "autoalojado, bajo Sustainable Use License",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-22",
             "scope": "product",
             "sourceUrl": "https://n8n.io/pricing/",
             "sourceKind": "pricing",
@@ -14274,21 +14274,21 @@
         "label": "Página oficial de precios",
         "kind": "pricing",
         "publisher": "n8n.io",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://github.com/n8n-io/n8n",
         "label": "Repositorio oficial",
         "kind": "repo",
         "publisher": "github.com",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://github.com/n8n-io/n8n/blob/master/LICENSE.md",
         "label": "Licencia de n8n",
         "kind": "repo",
         "publisher": "github.com",
-        "checkedAt": "2026-10-23"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -14297,7 +14297,7 @@
         "outcome": "stated",
         "sourceUrl": "https://n8n.io/pricing/",
         "sourceKind": "pricing",
-        "checkedAt": "2026-10-17",
+        "checkedAt": "2026-11-22",
         "quote": "A standard, self-hosted version of n8n is available on GitHub · No credit card is required for the n8n Cloud trial. A credit card is only required for the Business plan free trial. · 20€ /mo, billed annually · 2.5k workflow executions",
         "scope": "product"
       },
@@ -14311,7 +14311,7 @@
         "scope": "local"
       },
       {
-        "checkedAt": "2026-10-23",
+        "checkedAt": "2026-11-22",
         "scope": "local",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -14321,9 +14321,9 @@
       }
     ],
     "auditNotes": "`openSource: partial` y no `yes`: fair-code permite ver y autoalojar el código pero no es una licencia OSI, y llamarlo open source sin más induciría a error.",
-    "nextReviewAt": "2026-11-17",
-    "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-10-23",
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "access": {}
   },
   {
@@ -14567,14 +14567,14 @@
       "hasWatermark": "no",
       "commercialUse": "yes",
       "creditReset": "none",
-      "verifiedAt": "2026-08-19",
+      "verifiedAt": "2026-11-22",
       "includedCapabilities": [
         {
           "capability": "multi-agent",
           "condition": "biblioteca de código abierto; necesita un modelo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "local",
             "sourceUrl": "https://github.com/openai/openai-agents-python",
             "sourceKind": "repo",
@@ -14604,14 +14604,14 @@
         "label": "Repositorio oficial",
         "kind": "repo",
         "publisher": "github.com",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://raw.githubusercontent.com/openai/openai-agents-python/main/LICENSE",
         "label": "Licencia oficial (MIT)",
         "kind": "repo",
         "publisher": "raw.githubusercontent.com",
-        "checkedAt": "2026-10-12"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -14625,7 +14625,7 @@
         "scope": "local"
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "local",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -14635,9 +14635,9 @@
       }
     ],
     "auditNotes": "`memory` viene de «Sessions: automatic conversation history management», que es historial gestionado, no memoria permanente. Es la lectura más estrecha que sostiene la cita.",
-    "nextReviewAt": "2026-11-17",
-    "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19",
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "access": {}
   },
   {
@@ -14888,14 +14888,14 @@
       "hasWatermark": "no",
       "commercialUse": "yes",
       "creditReset": "none",
-      "verifiedAt": "2026-08-19",
+      "verifiedAt": "2026-11-22",
       "includedCapabilities": [
         {
           "capability": "repository-editing",
           "condition": "autoalojado; necesita un modelo",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-12",
+            "checkedAt": "2026-11-22",
             "scope": "local",
             "sourceUrl": "https://github.com/All-Hands-AI/OpenHands",
             "sourceKind": "repo",
@@ -14926,14 +14926,14 @@
         "label": "Repositorio oficial",
         "kind": "repo",
         "publisher": "github.com",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://raw.githubusercontent.com/All-Hands-AI/OpenHands/main/LICENSE",
         "label": "Licencia oficial (MIT)",
         "kind": "repo",
         "publisher": "raw.githubusercontent.com",
-        "checkedAt": "2026-10-12"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
@@ -14947,7 +14947,7 @@
         "scope": "local"
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-22",
         "scope": "local",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -14957,9 +14957,9 @@
       }
     ],
     "auditNotes": "`multi-agent` se marca porque orquesta agentes distintos en varios servidores, no porque reparta subtareas dentro de uno. `web-browsing` no se marca: el repositorio no lo documenta.",
-    "nextReviewAt": "2026-11-17",
-    "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-08-19",
+    "nextReviewAt": "2027-02-20",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "access": {},
     "productType": "agent"
   },
@@ -17213,7 +17213,7 @@
     "freePlan": {
       "summary": "El plan Starter es gratuito pero ya no aparece en la página de precios: lo describe su documentación. Da créditos diarios para el Agente con un tope mensual (sin cifra publicada), sólo el modo «Lite», y una aplicación publicada que lleva su insignia y cae a los 30 días. El plan de pago más barato es Core, 20 $/mes (18 $/mes en anual).",
       "limits": [
-        "Créditos diarios para el Agente, con un tope mensual; la cantidad no se publica",
+        "Créditos diarios para la IA de Replit, con un tope mensual; la cantidad no se publica",
         "Créditos mensuales para base de datos, almacenamiento y publicación",
         "Sólo «Lite build»: el modo completo del Agente exige Core",
         "1 aplicación publicada gratis, con la insignia «Made with Replit»; el enlace cae a los 30 días",
@@ -17226,7 +17226,7 @@
       "commercialUse": "unverified",
       "creditsAmount": "Uso diario gratuito",
       "creditReset": "daily",
-      "verifiedAt": "2026-11-09"
+      "verifiedAt": "2026-11-22"
     },
     "capabilities": [
       "code-execution",
@@ -17249,45 +17249,45 @@
         "label": "Web oficial",
         "kind": "official",
         "publisher": "replit.com",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://replit.com/pricing",
         "label": "Página oficial de precios",
         "kind": "pricing",
         "publisher": "replit.com",
-        "checkedAt": "2026-11-09"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://docs.replit.com/replitai/agent",
         "label": "Documentación oficial",
         "kind": "docs",
         "publisher": "docs.replit.com",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://replit.com/terms-of-service",
         "label": "Condiciones de uso",
         "kind": "docs",
-        "checkedAt": "2026-09-15"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://docs.replit.com/billing/plans",
         "label": "Documentación del plan Starter",
         "kind": "docs",
         "publisher": "docs.replit.com",
-        "checkedAt": "2026-11-09"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
       {
-        "checkedAt": "2026-11-09",
+        "checkedAt": "2026-11-22",
         "field": "freePlan.limits",
         "outcome": "stated",
         "scope": "product",
         "sourceUrl": "https://docs.replit.com/billing/plans",
         "sourceKind": "docs",
-        "quote": "Learn about the Starter plan features, limitations, and what you can build for Free. · Starter plan users receive daily credits for Agent usage, up to a monthly cap. These credits reset daily · Get 1 free published app whether you’re using Lite build or Design Canvas. This published link will automatically go down after 30 days. · Starter plan builders can only use Lite build. Full build requires Core or Pro."
+        "quote": "Learn about the Starter plan features, limitations, and what you can build for Free. · Starter plan users receive daily credits for Replit AI usage, up to a monthly cap. These credits reset daily · Get 1 free published app whether you’re using Lite build or Design Canvas. This published link will automatically go down after 30 days. · Starter plan builders can only use Lite build. Full build requires Core or Pro."
       },
       {
         "field": "capabilities",
@@ -17299,7 +17299,7 @@
         "scope": "cloud"
       },
       {
-        "checkedAt": "2026-11-09",
+        "checkedAt": "2026-11-22",
         "field": "freePlan.requiresCreditCard",
         "outcome": "not_published",
         "scope": "product",
@@ -17312,24 +17312,24 @@
         "outcome": "not_published",
         "sourceUrl": "https://replit.com/terms-of-service",
         "sourceKind": "terms",
-        "checkedAt": "2026-09-15",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "lookedFor": "Permiso explícito de uso comercial en el plan gratuito. Las condiciones remiten a un acuerdo comercial aparte para Pro y Enterprise y no dicen nada del plan gratuito."
       },
       {
-        "checkedAt": "2026-11-09",
+        "checkedAt": "2026-11-22",
         "field": "freePlan.creditReset",
         "outcome": "stated",
         "scope": "product",
         "sourceUrl": "https://docs.replit.com/billing/plans",
         "sourceKind": "docs",
-        "quote": "Starter plan users receive daily credits for Agent usage, up to a monthly cap. These credits reset daily, giving you a fresh allowance to work with Agent each day."
+        "quote": "Starter plan users receive daily credits for Replit AI usage, up to a monthly cap. These credits reset daily, giving you a fresh allowance to work with Replit each day."
       }
     ],
     "auditNotes": "La página dice «Free daily Agent credits» sin cifra. Se registra `daily` porque la renovación sí está publicada, y la cantidad se deja sin afirmar.",
-    "nextReviewAt": "2026-11-17",
-    "lastVerifiedAt": "2026-11-09",
-    "updatedAt": "2026-11-09",
+    "nextReviewAt": "2027-01-21",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "access": {},
     "productType": "agent"
   },
@@ -19432,14 +19432,14 @@
       "commercialUse": "unverified",
       "creditsAmount": "400 actividades/mes",
       "creditReset": "monthly",
-      "verifiedAt": "2026-10-11",
+      "verifiedAt": "2026-11-22",
       "includedCapabilities": [
         {
           "capability": "tool-use",
           "condition": "400 actividades de agente al mes",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-22",
             "scope": "product",
             "sourceUrl": "https://zapier.com/pricing#agents",
             "sourceKind": "pricing",
@@ -19451,7 +19451,7 @@
           "condition": "100 tareas al mes, Zaps de dos pasos",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-11",
+            "checkedAt": "2026-11-22",
             "scope": "product",
             "sourceUrl": "https://zapier.com/pricing",
             "sourceKind": "pricing",
@@ -19480,26 +19480,26 @@
         "label": "Página oficial del producto",
         "kind": "official",
         "publisher": "zapier.com",
-        "checkedAt": "2026-08-19"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://zapier.com/pricing",
         "label": "Página oficial de precios",
         "kind": "pricing",
         "publisher": "zapier.com",
-        "checkedAt": "2026-10-11"
+        "checkedAt": "2026-11-22"
       },
       {
         "url": "https://zapier.com/legal/terms-of-service",
         "label": "Términos de uso de Zapier Agents",
         "kind": "docs",
         "publisher": "zapier.com",
-        "checkedAt": "2026-10-23"
+        "checkedAt": "2026-11-22"
       }
     ],
     "evidence": [
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
@@ -19517,7 +19517,7 @@
         "scope": "cloud"
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "stated",
@@ -19526,7 +19526,7 @@
         "quote": "Yes! When you create a new Zapier account, you're instantly enrolled in a free 14-day trial of the Zapier Professional plan. No credit card is required."
       },
       {
-        "checkedAt": "2026-10-23",
+        "checkedAt": "2026-11-22",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "not_published",
@@ -19535,9 +19535,9 @@
         "lookedFor": "Si se puede usar comercialmente lo que generan sus funciones de IA. Los términos cuentan los «Outputs» dentro del «Customer Content», pero no dicen si pueden usarse con fines comerciales."
       }
     ],
-    "nextReviewAt": "2026-11-17",
-    "lastVerifiedAt": "2026-08-19",
-    "updatedAt": "2026-10-23",
+    "nextReviewAt": "2027-01-21",
+    "lastVerifiedAt": "2026-11-22",
+    "updatedAt": "2026-11-22",
     "access": {}
   },
   {
