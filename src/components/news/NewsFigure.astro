@@ -1,0 +1,80 @@
+---
+import { Picture } from 'astro:assets';
+import type { NewsImage } from '@lib/domain/news';
+import { resolveNewsImage, newsImageCredit } from '@lib/data/news-images';
+
+interface Props {
+  image: NewsImage;
+  slug: string;
+}
+
+const { image, slug } = Astro.props;
+const src = resolveNewsImage(image);
+
+/*
+ * Falta el archivo: se para el build.
+ *
+ * Una noticia que dice tener imagen y sale sin ella es un error de la
+ * redacción que conviene ver antes de publicar, no un hueco en producción.
+ */
+if (!src) {
+  throw new Error(`La noticia «${slug}» declara la imagen ${image.file}, que no está en src/assets/noticias/.`);
+}
+---
+
+{/*
+  Debajo de la cabecera, no dentro.
+
+  La cabecera es lo que se decide antes de leer —qué pasó, si está
+  disponible, si afecta al plan gratuito— y en 375 px una imagen ahí empujaría
+  todo eso fuera de la primera pantalla. La imagen acompaña; no informa.
+*/}
+<figure class="noticia-figura">
+  <Picture
+    src={src}
+    alt={image.alt}
+    formats={['avif']}
+    fallbackFormat="webp"
+    widths={[480, 800, 1200]}
+    sizes="(min-width: 52rem) 48rem, calc(100vw - 2rem)"
+    loading="eager"
+    fetchpriority="high"
+    class="noticia-figura-img"
+  />
+  <figcaption class="noticia-figura-pie">
+    {newsImageCredit(image)}
+    {image.kind === 'captura-oficial' && image.sourceUrl && (
+      <>
+        {' '}
+        <a href={image.sourceUrl} rel="nofollow noopener" target="_blank">
+          Ver la página <span aria-hidden="true">↗</span>
+          <span class="sr-only">(se abre en una pestaña nueva)</span>
+        </a>
+      </>
+    )}
+  </figcaption>
+</figure>
+
+<style>
+  .noticia-figura {
+    margin: 0;
+    max-width: 48rem;
+  }
+
+  .noticia-figura :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: var(--radius-l);
+    border: 1px solid var(--line);
+    background: var(--surface-sunken);
+  }
+
+  .noticia-figura-pie {
+    margin-block-start: var(--space-3xs);
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+  }
+</style>

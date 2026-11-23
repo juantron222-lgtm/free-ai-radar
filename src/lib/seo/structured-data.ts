@@ -137,6 +137,8 @@ export interface ArticleMeta {
   datePublished: string;
   dateModified: string;
   authorName: string;
+  /** Ruta o URL de la imagen de la noticia, si tiene. */
+  image?: string;
 }
 
 export function articleSchema(meta: ArticleMeta): JsonLd {
@@ -150,6 +152,7 @@ export function articleSchema(meta: ArticleMeta): JsonLd {
     mainEntityOfPage: { '@type': 'WebPage', '@id': absoluteUrl(meta.path) },
     author: { '@type': 'Person', name: meta.authorName },
     publisher: { '@id': `${SITE_URL}/#organization` },
+    ...(meta.image ? { image: [absoluteUrl(meta.image)] } : {}),
   };
 }
 

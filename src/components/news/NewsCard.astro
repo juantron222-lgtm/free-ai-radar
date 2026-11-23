@@ -2,6 +2,8 @@
 import type { AvailabilityTone, HydratedNewsItem } from '@lib/domain/news';
 import { getTool } from '@lib/data/catalog';
 import { ROUTES } from '@lib/nav';
+import { Picture } from 'astro:assets';
+import { resolveNewsImage, NEWS_IMAGE_BADGE } from '@lib/data/news-images';
 
 interface Props {
   item: HydratedNewsItem;
@@ -12,6 +14,7 @@ interface Props {
 const { item, headingLevel: Heading = 'h3', featured = false } = Astro.props;
 
 const related = item.relatedTools.map(getTool).filter((t) => t !== undefined);
+const imagen = item.image ? resolveNewsImage(item.image) : undefined;
 
 /**
  * Only availability is coloured. The event type is a plain label: it says what
@@ -49,6 +52,26 @@ const fmt = (iso: string) =>
   es lo único que dice de un vistazo si la noticia le cuesta algo a quien lee.
 */}
 <article class={`card card-interactive news-card ${featured ? 'is-featured' : ''}`}>
+  {/*
+    La miniatura lleva `alt=""` a propósito: en la tarjeta repite lo que ya
+    dice el titular, y un lector de pantalla la leería antes que él. El texto
+    alternativo completo va en la página de la noticia, donde la imagen se ve
+    entera. La etiqueta sí se lee: dice si es una ilustración o una captura.
+  */}
+  {imagen && item.image && (
+    <div class="news-card-media">
+      <Picture
+        src={imagen}
+        alt=""
+        formats={['avif']}
+        fallbackFormat="webp"
+        widths={[400, 800]}
+        sizes="(min-width: 64rem) 22rem, (min-width: 48rem) 45vw, calc(100vw - 2rem)"
+        loading="lazy"
+      />
+      <span class="news-card-badge">{NEWS_IMAGE_BADGE[item.image.kind]}</span>
+    </div>
+  )}
   <div class="news-card-head">
     <span class="news-cat">{item.categoryLabel}</span>
     {item.affectsFreePlan === 'yes' && (
@@ -100,6 +123,34 @@ const fmt = (iso: string) =>
 
   .is-featured {
     border-color: var(--signal-line);
+  }
+
+  .news-card-media {
+    position: relative;
+    margin-block-end: var(--space-3xs);
+  }
+
+  .news-card-media :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: var(--radius-m);
+    background: var(--surface-sunken);
+  }
+
+  /* Fondo sólido: sobre una imagen cualquiera, el texto tiene que leerse igual. */
+  .news-card-badge {
+    position: absolute;
+    inset-block-end: 0.4rem;
+    inset-inline-start: 0.4rem;
+    padding: 0.1rem 0.45rem;
+    border-radius: var(--radius-s);
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 0.6875rem;
+    font-weight: 600;
   }
 
   .news-card-head {

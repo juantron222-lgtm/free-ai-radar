@@ -2,6 +2,9 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Breadcrumbs from '@components/site/Breadcrumbs.astro';
 import NewsCard from '@components/news/NewsCard.astro';
+import NewsFigure from '@components/news/NewsFigure.astro';
+import { getImage } from 'astro:assets';
+import { resolveNewsImage } from '@lib/data/news-images';
 import ToolCard from '@components/tools/ToolCard.astro';
 import { getAllNews } from '@lib/data/news';
 import { getTool } from '@lib/data/catalog';
@@ -38,6 +41,17 @@ const crumbs = [
  * tres: lo pone el layout con `crumbs`.
  */
 const migasVisibles = crumbs.slice(0, -1);
+
+/*
+ * La imagen para compartir: 1200 × 630, recortada al centro, en JPEG.
+ *
+ * Es el formato que leen sin pegas WhatsApp, X, LinkedIn y Facebook (AVIF y
+ * WebP no los leen todos). Sin imagen propia, el layout pone la genérica.
+ */
+const archivoImagen = item.image ? resolveNewsImage(item.image) : undefined;
+const imagenCompartir = archivoImagen
+  ? await getImage({ src: archivoImagen, width: 1200, height: 630, fit: 'cover', format: 'jpg' })
+  : undefined;
 
 const fmt = (iso: string) =>
   new Date(`${iso}T00:00:00Z`).toLocaleDateString('es-ES', {
@@ -92,6 +106,7 @@ const AVAILABILITY_CHIP: Record<AvailabilityTone, string> = {
   crumbs={crumbs}
   migasEnCabecera
   ogType="article"
+  ogImage={imagenCompartir?.src}
   schemas={[
     articleSchema({
       headline: item.title,
@@ -100,6 +115,7 @@ const AVAILABILITY_CHIP: Record<AvailabilityTone, string> = {
       datePublished: item.publishedAt,
       dateModified: item.checkedAt,
       authorName: item.author,
+      image: imagenCompartir?.src,
     }),
   ]}
 >
@@ -162,6 +178,7 @@ const AVAILABILITY_CHIP: Record<AvailabilityTone, string> = {
     </header>
 
     <div class="page news-detail">
+    {item.image && <NewsFigure image={item.image} slug={item.slug} />}
     {item.verification === 'partial' && item.unconfirmed.length > 0 && (
       <div class="detail-caveat" role="note">
         <p><strong>Lo que todavía no hemos confirmado</strong></p>

@@ -265,6 +265,48 @@ export function isVendorSource(source: Pick<NewsSource, 'url' | 'publisher'>): b
   return parsed.pathname.toLowerCase().startsWith(`/${org.toLowerCase()}/`);
 }
 
+/**
+ * Qué es la imagen que acompaña a una noticia.
+ *
+ * Dos clases, y la diferencia importa más que la imagen misma:
+ *
+ * - `ilustracion-ia`: la genera quien escribe la noticia. Es decorativa y se
+ *   dice siempre, en el pie y en la tarjeta. Nunca puede pasar por una imagen
+ *   real del producto: una pantalla inventada de la web de un fabricante sería
+ *   desinformar con la misma autoridad con la que citamos sus fuentes.
+ * - `captura-oficial`: captura de una de las páginas citadas como fuente. Es
+ *   prueba, no adorno, y por eso exige la URL capturada y la fecha.
+ */
+export const NewsImageKind = z.enum(['ilustracion-ia', 'captura-oficial']);
+export type NewsImageKind = z.infer<typeof NewsImageKind>;
+
+/** Ancho mínimo: el que pide Google Discover para imágenes grandes. */
+export const NEWS_IMAGE_MIN_WIDTH = 1200;
+
+export const NewsImage = z
+  .object({
+    /** Nombre del archivo en `src/assets/noticias/`. Sin carpetas. */
+    file: z.string().regex(/^[a-z0-9][a-z0-9-]*\.(webp|png|jpe?g)$/, 'nombre de archivo no válido'),
+    /** Qué se ve, para quien no la ve. No repite el titular. */
+    alt: z.string().min(20).max(250),
+    kind: NewsImageKind,
+    /** Con qué se generó, si es una ilustración. Sale en el pie. */
+    generator: z.string().min(1).max(80).optional(),
+    /** Página capturada, si es una captura. Tiene que ser una de las fuentes. */
+    sourceUrl: HttpUrl.optional(),
+    /** Día de la captura. */
+    capturedAt: IsoDate.optional(),
+  })
+  .superRefine((img, ctx) => {
+    if (img.kind === 'ilustracion-ia' && !img.generator) {
+      ctx.addIssue({ code: 'custom', path: ['generator'], message: 'una ilustración IA tiene que decir con qué se generó' });
+    }
+    if (img.kind === 'captura-oficial' && (!img.sourceUrl || !img.capturedAt)) {
+      ctx.addIssue({ code: 'custom', path: ['sourceUrl'], message: 'una captura tiene que decir de qué página es y cuándo se tomó' });
+    }
+  });
+export type NewsImage = z.infer<typeof NewsImage>;
+
 export const NewsVerification = z.enum(['verified', 'partial', 'pending']);
 export type NewsVerification = z.infer<typeof NewsVerification>;
 
@@ -388,6 +430,9 @@ export const NewsItem = z.object({
    * algo concreto, que es una decisión editorial y debe verse como tal.
    */
   frontPage: z.boolean().default(true),
+
+  /** Imagen que acompaña a la noticia. Opcional: sin ella la noticia sale igual. */
+  image: NewsImage.optional(),
 });
 export type NewsItem = z.infer<typeof NewsItem>;
 
@@ -474,6 +519,20 @@ export function isPublishable(item: NewsItem): { ok: boolean; reasons: string[] 
   /* The strongest availability claim there is cannot rest on a partial read. */
   if (item.eventType === 'disponibilidad-general' && item.verification !== 'verified') {
     reasons.push('declara disponibilidad general sin estar completamente verificada');
+  }
+
+  /*
+   * Una captura es prueba, así que tiene que ser de algo que citamos. Si no,
+   * la imagen enseñaría una página que ninguna fuente respalda.
+   */
+  if (item.image?.kind === 'captura-oficial') {
+    const { sourceUrl, capturedAt } = item.image;
+    if (!item.sources.some((s) => s.url === sourceUrl)) {
+      reasons.push('la captura no es de ninguna de las fuentes citadas');
+    }
+    if (capturedAt && capturedAt > item.checkedAt) {
+      reasons.push('la captura es posterior a la fecha de comprobación');
+    }
   }
 
   return { ok: reasons.length === 0, reasons };
