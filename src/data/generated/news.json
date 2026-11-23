@@ -1,5 +1,34 @@
 [
   {
+    "id": "news-2026-11-23-ocria-nano-1",
+    "slug": "ocria-nano-1-pesos-abiertos",
+    "title": "OCRia-nano-1: 8,1 millones de parámetros que extraen documentos en tu CPU, con pesos abiertos pero licencia restringida",
+    "author": "Redacción de Free AI Radar",
+    "summary": "LlamaIndex publicó el 23 de noviembre los pesos de OCRia-nano-1, un modelo de extracción de documentos de 8,1 millones de parámetros pensado para correr en la CPU local, al lado de la propia aplicación. En realidad son siete modelos especializados que suman esa cifra, y aportan reconocimiento de texto, estructura de tablas y recuperación de la maquetación a LiteParse, su extractor local de código abierto.",
+    "impact": "Es el contraste con su propio OCRia-1 de octubre, que llegó sólo dentro de su servicio alojado: de este sí publican los pesos. Pero hay que leer con qué licencia, porque abierto no significa lo mismo aquí: los pesos van bajo una Open RAIL-M modificada, que impone restricciones de uso, y para licencia comercial o usos que vayan más allá hay que hablar con ellos. LiteParse sí es Apache 2.0, por separado. Sus cifras: 426 milisegundos por página en un solo núcleo, y 27,8 páginas por segundo con dieciséis trabajadores.",
+    "category": "local-open-source",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-11-23",
+    "checkedAt": "2026-11-23",
+    "officialUrl": "https://www.llamaindex.ai/blog/introducing-ocria-nano-1",
+    "sources": [
+      {
+        "url": "https://www.llamaindex.ai/blog/introducing-ocria-nano-1",
+        "kind": "official",
+        "label": "Introducing OCRia-nano-1",
+        "checkedAt": "2026-11-23",
+        "publisher": "llamaindex.ai"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-11-22-openrouter-incidentes-proveedores",
     "slug": "openrouter-retira-125-puntos-de-retencion-cero",
     "title": "OpenRouter echa a tres proveedores y quita la etiqueta de retención cero a 125 puntos de acceso",
@@ -25,6 +54,35 @@
         "kind": "official",
         "label": "Together AI: Security event: Prompt leakage for requests in June and July of 2026",
         "checkedAt": "2026-11-22",
+        "publisher": "together.ai"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-11-21-qwen4-max-together",
+    "slug": "qwen4-max-en-together",
+    "title": "Un repositorio entero en una sola petición: Qwen4 Max arregla un fallo de Tornado por 69 centavos",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Together AI anunció el 21 de noviembre que Qwen4 Max, el modelo de cabecera de Alibaba, ya corre en su inferencia con un millón de tokens de contexto. Y en vez de quedarse en el anuncio, hicieron una prueba y la contaron: le pasaron un informe de fallo y los 344 ficheros del repositorio de Tornado en una sola petición —652.519 tokens, sin herramientas y sin ningún paso de búsqueda previo—.",
+    "impact": "Setenta y dos segundos después devolvió un parche que pasa las pruebas que los propios mantenedores escribieron para ese fallo, y la petición costó 69 centavos. Encontró incluso un precedente en otro fichero que el informe no mencionaba y que los mantenedores citan en su arreglo. Dos avisos. El descuento del 30 % que acompañaba al anuncio terminó el 22 de noviembre, así que esos precios ya no valen. Y ellos mismos dicen que es un solo ejemplo; además, el razonamiento viene activado por defecto y sus tokens se cobran como salida.",
+    "category": "modelo-lenguaje",
+    "eventType": "lanzamiento",
+    "availability": "available",
+    "publishedAt": "2026-11-21",
+    "checkedAt": "2026-11-23",
+    "officialUrl": "https://www.together.ai/blog/qwen4-max",
+    "sources": [
+      {
+        "url": "https://www.together.ai/blog/qwen4-max",
+        "kind": "official",
+        "label": "Qwen4 Max is live on Together AI",
+        "checkedAt": "2026-11-23",
         "publisher": "together.ai"
       }
     ],
@@ -229,6 +287,42 @@
         "label": "Rumble-2-Flash: an open 0.5B speech model for 40+ languages",
         "checkedAt": "2026-11-20",
         "publisher": "huggingface.co/blog"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-11-10-phala-incidente",
+    "slug": "phala-incidente-peticiones-expuestas",
+    "title": "Phala pone fechas a la exposición: si pasaste peticiones por ellos entre el 21 de octubre y el 8 de noviembre, rota tus secretos",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Phala publicó el 10 de noviembre el informe preliminar de un incidente de seguridad en su infraestructura, y es el más concreto de los tres que han salido esta semana. Señala dos grupos que pueden tener que actuar. El primero: quien enviara peticiones de DeepSeek V4 Flash 0731 que OpenRouter encaminara a Phala entre el 21 de octubre a las 00:00 UTC y el 8 de noviembre a las 05:35 UTC debe dar por expuesto su contenido.",
+    "impact": "La instrucción no deja lugar a dudas y conviene seguirla: rotar cualquier clave de API, token, contraseña o secreto que viajara dentro de esas peticiones. El segundo grupo son dueños de máquinas virtuales confidenciales, de las que el atacante obtuvo credenciales. Cómo entró explica el problema: encadenó un servicio antiguo expuesto a internet con interfaces de gestión que se fiaban del acceso local sin autenticar a quien llamaba, y el despliegue afectado servía producción sin su endurecimiento completo. El análisis de causa raíz está pendiente.",
+    "category": "privacidad-licencias",
+    "eventType": "anuncio",
+    "availability": "unknown",
+    "publishedAt": "2026-11-10",
+    "checkedAt": "2026-11-23",
+    "officialUrl": "https://phala.com/posts/phala-november-preliminary-incident-report",
+    "sources": [
+      {
+        "url": "https://phala.com/posts/phala-november-preliminary-incident-report",
+        "kind": "official",
+        "label": "Phala November Preliminary Incident Report",
+        "checkedAt": "2026-11-23",
+        "publisher": "phala.com"
+      },
+      {
+        "url": "https://openrouter.ai/blog/announcements/data-processing-incidents-on-inference-providers/",
+        "kind": "official",
+        "label": "OpenRouter: Data Processing Incidents on Inference Providers",
+        "checkedAt": "2026-11-23",
+        "publisher": "openrouter.ai"
       }
     ],
     "relatedTools": [],
