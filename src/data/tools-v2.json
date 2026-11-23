@@ -3710,7 +3710,7 @@
       "requiresCreditCard": "no",
       "hasWatermark": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-09-16",
+      "verifiedAt": "2026-11-23",
       "commercialUse": "yes",
       "summary": "Repositorio y pesos bajo licencia MIT. Por API se paga por token: 1,32 $ de entrada sin caché y 3,96 $ de salida por millón en hora punta, y la mitad en hora valle. La API sigue ofreciendo DeepSeek-V4-Pro-0813.",
       "limits": [
@@ -3750,27 +3750,27 @@
         "label": "Ficha oficial del modelo",
         "kind": "repo",
         "publisher": "huggingface.co",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-11-23"
       },
       {
         "url": "https://api-docs.deepseek.com/quick_start/pricing/",
         "label": "Precios oficiales de la API",
         "kind": "pricing",
         "publisher": "deepseek.com",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-11-23"
       },
       {
         "url": "https://api-docs.deepseek.com/quick_start/pricing",
         "label": "Fuente oficial",
         "kind": "pricing",
-        "checkedAt": "2026-09-16"
+        "checkedAt": "2026-11-23"
       },
       {
         "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813/blob/main/LICENSE",
         "label": "Licencia oficial de los pesos (MIT)",
         "kind": "repo",
         "publisher": "huggingface.co",
-        "checkedAt": "2026-10-12"
+        "checkedAt": "2026-11-23"
       }
     ],
     "evidence": [
@@ -3780,20 +3780,21 @@
         "sourceUrl": "https://api-docs.deepseek.com/quick_start/pricing",
         "sourceKind": "docs",
         "scope": "api",
-        "checkedAt": "2026-08-29",
-        "quote": "deepseek-v4-pro: 1M context length, max 384K output. Peak hours: $1.32/1M input (cache miss), $3.96/1M output"
+        "checkedAt": "2026-11-23",
+        "quote": "deepseek-v4-pro · DeepSeek-V4-Pro-0813 · CONTEXT LENGTH · 1M · MAX OUTPUT · MAXIMUM: 384K · Tool Calls · Vision",
+        "basis": "Tabla de modelos de la documentación de precios: la segunda columna es deepseek-v4-pro, con 1M de contexto, salida máxima de 384K y llamadas a herramientas; la visión figura como «Not supported» para Pro."
       },
       {
         "field": "openSource",
         "outcome": "stated",
         "sourceUrl": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813",
         "sourceKind": "repo",
-        "checkedAt": "2026-08-20",
+        "checkedAt": "2026-11-23",
         "quote": "This repository and the model weights are licensed under the MIT License",
         "scope": "local"
       },
       {
-        "checkedAt": "2026-11-02",
+        "checkedAt": "2026-11-23",
         "field": "freePlan.limits",
         "outcome": "stated",
         "scope": "api",
@@ -3802,7 +3803,7 @@
         "quote": "MODEL VERSION DeepSeek-V4.1-Flash-1017 DeepSeek-V4-Pro-0813 · CONTEXT LENGTH 1M MAX OUTPUT MAXIMUM: 384K · 1M INPUT TOKENS (CACHE MISS) OFF-PEAK $0.15 $0.66 PEAK $0.3 $1.32 1M OUTPUT TOKENS OFF-PEAK $0.6 $1.98 PEAK $1.2 $3.96 [Columnas: la primera es DeepSeek-V4.1-Flash, la segunda DeepSeek-V4-Pro.]"
       },
       {
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-11-23",
         "scope": "weights",
         "field": "freePlan.commercialUse",
         "outcome": "stated",
@@ -3813,9 +3814,9 @@
     ],
     "slug": "deepseek-v4-pro",
     "id": "tool_deepseek-v4-pro",
-    "nextReviewAt": "2026-11-18",
-    "lastVerifiedAt": "2026-08-29",
-    "updatedAt": "2026-08-20"
+    "nextReviewAt": "2027-01-22",
+    "lastVerifiedAt": "2026-11-23",
+    "updatedAt": "2026-11-23"
   },
   {
     "secondaryCategories": [
