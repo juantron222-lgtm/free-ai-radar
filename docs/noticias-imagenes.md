@@ -51,6 +51,14 @@ una imagen; es opcional y la noticia sale igual sin ella.
 Es una ilustración: acompaña a la noticia, no la prueba. `generator` es
 obligatorio y sale en el pie.
 
+La redacción las genera con **Nano Banana Pro (versión low cost de
+RunningHub)**. En `generator` va `"Nano Banana Pro (RunningHub)"`. Pide
+1600 × 900 o 16:9 y di en el prompt, siempre, «sin texto, sin logotipos, sin
+personas, sin interfaces»: este modelo escribe texto en la imagen con mucha
+facilidad, y eso está prohibido. Revisa cada imagen antes de adjuntarla; si
+aparece una letra, un logotipo o algo parecido a una pantalla, se descarta y se
+genera otra.
+
 **Sí:** escenas conceptuales y abstractas del tema (privacidad, servidores,
 código, voz, imagen, un radar…).
 
