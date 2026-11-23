@@ -1765,12 +1765,12 @@
     "id": "tool_civitai",
     "slug": "civitai",
     "name": "Civitai",
-    "tagline": "La mayor comunidad de modelos y recursos para Stable Diffusion.",
-    "descriptionShort": "La mayor comunidad de modelos y recursos para Stable Diffusion. Descarga checkpoints, LoRAs, embeddings y comparte tus creaciones.",
-    "descriptionLong": "Civitai es el repositorio comunitario más grande de modelos para Stable Diffusion. Aquí encuentras miles de checkpoints, LoRAs, Textual Inversions, y embeddings subidos por la comunidad, con previews, reviews y guías de uso. También ofrece generación de imágenes online gratuita con modelos de la comunidad, entrenamiento de LoRAs en cloud, y un sistema de 'buzz' (créditos gratuitos) para usar sus servicios.",
+    "tagline": "Comunidad de modelos y recursos para generar imágenes, con generador en la web.",
+    "descriptionShort": "Comunidad donde se descargan y comparten checkpoints, LoRAs y embeddings, con un generador de imágenes en la web que funciona con Buzz.",
+    "descriptionLong": "Civitai es una comunidad de modelos de imagen: checkpoints, LoRAs, Textual Inversions y embeddings subidos por sus usuarios, con imágenes de ejemplo y valoraciones. Tiene además un generador de imágenes en la web y entrenamiento de LoRAs en la nube, que se pagan con Buzz, su moneda propia. El Buzz se compra, llega con las suscripciones o se gana: cada 24 horas se recibe una cantidad gratuita por iniciar sesión y abrir el generador.",
     "kind": "platform",
-    "verification": "pending_review",
-    "nextReviewAt": "2026-10-06",
+    "verification": "partially_verified",
+    "nextReviewAt": "2027-01-22",
     "categorySlug": "imagen",
     "secondaryCategories": [],
     "tags": [
@@ -1784,19 +1784,18 @@
     ],
     "freeModel": "credits",
     "freePlan": {
-      "summary": "Descarga ilimitada de modelos gratis. Generación online con buzz diario gratuito. Registro opcional para funciones sociales.",
+      "summary": "El generador de imágenes de la web exige cuenta y funciona con Buzz, la moneda de Civitai. Cada 24 horas da Buzz gratis por iniciar sesión y abrir el generador; Civitai no publica cuánto.",
       "limits": [
-        "Algunos modelos requieren buzz para generación online",
-        "El contenido NSFW es común (configurar filtros)",
-        "No open-source como plataforma (aunque los modelos sí lo son)",
-        "La generación online es limitada comparada con uso local"
+        "Hace falta cuenta para usar el generador",
+        "Buzz gratis cada 24 horas por iniciar sesión y abrir el generador; la cantidad no se publica",
+        "Generar imágenes cuesta Buzz; también se gana Buzz reaccionando a imágenes o publicando contenido"
       ],
-      "requiresSignup": "no",
+      "requiresSignup": "yes",
       "requiresCreditCard": "unverified",
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
-      "creditReset": "unknown",
-      "verifiedAt": "2026-08-12"
+      "creditReset": "daily",
+      "verifiedAt": "2026-11-23"
     },
     "openSource": "no",
     "hosting": "cloud",
@@ -1824,7 +1823,7 @@
         "url": "https://education.civitai.com",
         "label": "Documentación",
         "kind": "docs",
-        "checkedAt": "2026-07-08"
+        "checkedAt": "2026-11-23"
       },
       {
         "url": "https://github.com/civitai",
@@ -1837,7 +1836,21 @@
         "label": "Términos de uso de Civitai",
         "kind": "docs",
         "publisher": "civitai.com",
-        "checkedAt": "2026-10-23"
+        "checkedAt": "2026-11-23"
+      },
+      {
+        "url": "https://education.civitai.com/using-civitai-the-on-site-image-generator/",
+        "label": "Guía oficial del generador de imágenes",
+        "kind": "docs",
+        "publisher": "civitai.com",
+        "checkedAt": "2026-11-23"
+      },
+      {
+        "url": "https://civitai.com/pricing",
+        "label": "Precios de Civitai",
+        "kind": "pricing",
+        "publisher": "civitai.com",
+        "checkedAt": "2026-11-23"
       }
     ],
     "scores": {
@@ -1847,13 +1860,12 @@
       "transparency": 7,
       "creatorValue": 8
     },
-    "verdict": "El GitHub de Stable Diffusion. Imprescindible para cualquiera que use imagen IA. La comunidad de modelos más grande del mundo.",
+    "verdict": "Sitio de referencia para encontrar modelos y LoRAs de la comunidad. Su generador en la web exige cuenta y vive del Buzz: el gratuito diario sirve para probar, pero Civitai no dice cuánto da.",
     "pros": [],
     "cons": [
-      "Algunos modelos requieren buzz para generación online",
-      "El contenido NSFW es común (configurar filtros)",
-      "No open-source como plataforma (aunque los modelos sí lo son)",
-      "La generación online es limitada comparada con uso local"
+      "El Buzz gratuito diario no tiene cantidad publicada",
+      "Generar en la web cuesta Buzz",
+      "Hace falta cuenta para generar"
     ],
     "bestFor": [],
     "notFor": [],
@@ -1877,39 +1889,59 @@
     },
     "status": "published",
     "detectedAt": "2023-02-01",
-    "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-10-23",
+    "lastVerifiedAt": "2026-11-23",
+    "updatedAt": "2026-11-23",
     "evidence": [
       {
         "field": "freePlan.limits",
         "outcome": "stated",
-        "sourceUrl": "https://civitai.com/pricing",
-        "sourceKind": "pricing",
-        "checkedAt": "2026-08-12",
-        "quote": "Buzz on daily rewards",
+        "sourceUrl": "https://education.civitai.com/using-civitai-the-on-site-image-generator/",
+        "sourceKind": "docs",
+        "checkedAt": "2026-11-23",
+        "quote": "Everyone with a Civitai.com account can access the Generator · all users receive a certain amount of free Buzz every 24 hours, just for logging in and opening the Generator · There is a small Buzz · users to earn Buzz by reacting to images, posting content",
         "scope": "cloud"
       },
       {
-        "field": "capabilities",
-        "outcome": "stated",
-        "sourceUrl": "https://civitai.com",
-        "sourceKind": "official",
-        "checkedAt": "2026-08-12",
-        "quote": "re © Civitai 2026 Terms of Service Privacy Safety API Status Known Issues Education Creators 🛟 Support Home -",
-        "scope": "cloud"
-      },
-      {
-        "checkedAt": "2026-10-23",
+        "checkedAt": "2026-11-23",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "not_published",
         "sourceUrl": "https://civitai.com/content/tos",
         "sourceKind": "terms",
         "lookedFor": "Si se puede usar comercialmente lo generado. La licencia «personal, non-commercial» de la sección 6.1 es la de su aplicación; para lo generado, cada modelo arrastra sus propios términos (secciones 8.6 y 8.8) y no hay una respuesta general."
+      },
+      {
+        "field": "freePlan.requiresSignup",
+        "outcome": "stated",
+        "sourceKind": "docs",
+        "checkedAt": "2026-11-23",
+        "scope": "local",
+        "sourceUrl": "https://education.civitai.com/using-civitai-the-on-site-image-generator/",
+        "quote": "Everyone with a Civitai.com account can access the Generator · all users receive a certain amount of free Buzz every 24 hours, just for logging in and opening the Generator"
+      },
+      {
+        "field": "freePlan.creditReset",
+        "outcome": "stated",
+        "sourceKind": "docs",
+        "checkedAt": "2026-11-23",
+        "scope": "local",
+        "sourceUrl": "https://education.civitai.com/using-civitai-the-on-site-image-generator/",
+        "quote": "all users receive a certain amount of free Buzz every 24 hours, just for logging in and opening the Generator"
+      },
+      {
+        "field": "capabilities",
+        "outcome": "stated",
+        "sourceKind": "docs",
+        "checkedAt": "2026-11-23",
+        "scope": "local",
+        "sourceUrl": "https://education.civitai.com/usage-limits-on-your-account/",
+        "quote": "The same information is available as JSON from GET /api/v1/me/limits."
       }
     ],
     "auditNotes": [
-      "La página menciona recompensas diarias de Buzz, pero no documenta cuántas ni si esa es la renovación del plan gratuito. creditReset queda unknown a propósito: \"daily rewards\" no es lo mismo que \"los créditos se renuevan a diario\"."
+      "2026-11-23: la guía oficial del generador dice que todos los usuarios reciben Buzz gratis cada 24 horas por iniciar sesión y abrir el generador. Eso es una renovación diaria, así que creditReset pasa a daily. La cantidad sigue sin publicarse.",
+      "2026-11-23: requiresSignup estaba en «no» sin prueba y contradecía startEffortReason. La guía dice que el generador es para quien tiene cuenta.",
+      "2026-11-23: la página de precios dice «Unrestricted content creation has moved to civitai.red» y el plan más barato es Bronze, 10 $/mes. No van a los límites porque el validador admite una sola evidencia por campo y la de límites es la guía del generador."
     ],
     "startEffort": "signup",
     "capabilities": [
@@ -9189,7 +9221,7 @@
     "descriptionLong": "Hugging Face Spaces permite a cualquiera alojar demos de modelos IA (con Gradio, Streamlit o Docker) de forma gratuita. Como usuario, puedes descubrir y probar miles de aplicaciones IA sin instalar nada: generadores de imágenes, chatbots, clonadores de voz, detectores de deepfakes, y mucho más. La comunidad sube nuevas demos constantemente. Es como una 'App Store' de IA gratuita.",
     "kind": "platform",
     "verification": "pending_review",
-    "nextReviewAt": "2026-10-06",
+    "nextReviewAt": "2027-02-21",
     "categorySlug": "modelos-open-source",
     "secondaryCategories": [],
     "tags": [],
@@ -9214,14 +9246,14 @@
       "hasWatermark": "unverified",
       "commercialUse": "unverified",
       "creditReset": "none",
-      "verifiedAt": "2026-10-11",
+      "verifiedAt": "2026-11-23",
       "includedCapabilities": [
         {
           "capability": "model-hosting",
           "condition": "Spaces estáticos, y hasta 2 de Gradio en ZeroGPU",
           "evidence": {
             "outcome": "stated",
-            "checkedAt": "2026-10-25",
+            "checkedAt": "2026-11-23",
             "scope": "cloud",
             "sourceUrl": "https://huggingface.co/docs/hub/en/spaces-overview",
             "sourceKind": "docs",
@@ -9250,39 +9282,39 @@
         "url": "https://huggingface.co/spaces",
         "label": "Web oficial",
         "kind": "official",
-        "checkedAt": "2026-07-08"
+        "checkedAt": "2026-11-23"
       },
       {
         "url": "https://huggingface.co/pricing",
         "label": "Página de precios",
         "kind": "pricing",
-        "checkedAt": "2026-10-25"
+        "checkedAt": "2026-11-23"
       },
       {
         "url": "https://huggingface.co/docs/hub/spaces",
         "label": "Documentación",
         "kind": "docs",
-        "checkedAt": "2026-07-08"
+        "checkedAt": "2026-11-23"
       },
       {
         "url": "https://huggingface.co",
         "label": "huggingface.co",
         "kind": "community",
-        "checkedAt": "2026-07-08"
+        "checkedAt": "2026-11-23"
       },
       {
         "url": "https://huggingface.co/terms-of-service",
         "label": "Términos de uso de Hugging Face Spaces",
         "kind": "docs",
         "publisher": "huggingface.co",
-        "checkedAt": "2026-10-23"
+        "checkedAt": "2026-11-23"
       },
       {
         "url": "https://huggingface.co/docs/hub/en/spaces-overview",
         "label": "Documentación de Spaces",
         "kind": "docs",
         "publisher": "huggingface.co",
-        "checkedAt": "2026-10-25"
+        "checkedAt": "2026-11-23"
       }
     ],
     "scores": {
@@ -9323,8 +9355,8 @@
     },
     "status": "published",
     "detectedAt": "2023-01-10",
-    "lastVerifiedAt": "2026-07-08",
-    "updatedAt": "2026-10-23",
+    "lastVerifiedAt": "2026-11-23",
+    "updatedAt": "2026-11-23",
     "startEffort": "signup",
     "capabilities": [
       "api",
@@ -9334,14 +9366,14 @@
       {
         "field": "capabilities",
         "outcome": "stated",
-        "sourceUrl": "https://huggingface.co/spaces",
-        "sourceKind": "repo",
-        "checkedAt": "2026-08-12",
-        "quote": "rom the Team plan Highest storage, bandwidth, and API rate limits Automated user management with SCIM provisio · & Enterprise Hugging Face PRO Enterprise Support Inference Providers Inference Endpoints Storage Buckets Log I",
+        "sourceUrl": "https://huggingface.co/docs/hub/en/spaces-overview",
+        "sourceKind": "docs",
+        "checkedAt": "2026-11-23",
+        "quote": "three SDK options: Gradio, Docker and static HTML · Static Spaces are free for everyone.",
         "scope": "local"
       },
       {
-        "checkedAt": "2026-10-25",
+        "checkedAt": "2026-11-23",
         "scope": "product",
         "field": "freePlan.limits",
         "outcome": "stated",
@@ -9350,7 +9382,7 @@
         "quote": "PRO Account · Boost your personal HF experience · $9 /month · 8× ZeroGPU quota and highest queue priority · Host ZeroGPU, Gradio & Docker Spaces · CPU Basic 2 vCPU 16 GB - - FREE · Nvidia T4 - small 4 vCPU 15 GB Nvidia T4 16 GB $0.40"
       },
       {
-        "checkedAt": "2026-10-11",
+        "checkedAt": "2026-11-23",
         "scope": "product",
         "field": "freePlan.requiresCreditCard",
         "outcome": "not_published",
@@ -9359,7 +9391,7 @@
         "lookedFor": "Si la cuenta gratuita pide tarjeta. La página de precios y la de facturación sólo hablan de tarjeta para PRO, Team y el pago por uso."
       },
       {
-        "checkedAt": "2026-10-23",
+        "checkedAt": "2026-11-23",
         "scope": "product",
         "field": "freePlan.commercialUse",
         "outcome": "not_published",
