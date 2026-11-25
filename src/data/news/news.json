@@ -1,5 +1,92 @@
 [
   {
+    "id": "news-2026-11-23-claude-retiradas",
+    "slug": "claude-retira-sonnet-45-y-opus-45",
+    "title": "Anthropic marca la retirada de Claude Opus 4.5 para enero, y la de Sonnet 4.5 vence el 30 de noviembre",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Anthropic avisó el 23 de noviembre a quien usa Claude Opus 4.5 de que lo retira de su API el 22 de enero de 2027, con Opus 5.5 como recambio recomendado. Cae también el identificador sin fecha, no sólo el que la lleva. Pero el calendario que corre de verdad es el de al lado: Claude Sonnet 4.5, avisado el 30 de septiembre, se retira el 30 de noviembre de 2026.",
+    "impact": "Lo que pasa ese día lo dicen ellos sin rodeos: un modelo retirado deja de estar disponible y las peticiones fallan. Hasta entonces sigue funcionando, aunque avisan de que un modelo en desuso probablemente sea menos fiable que uno activo. Dos salvedades antes de apuntar las fechas. Valen para las plataformas que opera Anthropic —su API, AWS, Google Cloud gestionado por ellos y Microsoft Foundry—, mientras que Bedrock y el Google Cloud gestionado por Google ponen el suyo. Y dicen notificarlo siempre por correo a quien le afecte.",
+    "category": "modelo-lenguaje",
+    "eventType": "retirada",
+    "availability": "deprecated",
+    "publishedAt": "2026-11-23",
+    "checkedAt": "2026-11-25",
+    "officialUrl": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
+    "sources": [
+      {
+        "url": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
+        "kind": "official",
+        "label": "Model deprecations: 2026-11-23, Claude Opus 4.5",
+        "checkedAt": "2026-11-25",
+        "publisher": "platform.claude.com"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-11-23-comfy-desktop-12",
+    "slug": "comfy-desktop-12-apps",
+    "title": "Comfy Desktop 1.2 trae seis apps que evitan el grafo, y la cuenta depende del modelo: abiertas gratis en local, de socios con créditos",
+    "author": "Redacción de Free AI Radar",
+    "summary": "ComfyUI publicó el 23 de noviembre la versión 1.2 de Comfy Desktop, que deja de ser un lanzador y pasa a ser una plataforma. Lo nuevo son seis apps que hacen una sola cosa cada una —quitar el fondo, pasar de SDR a HDR, anuncios de producto, ampliar el encuadre, cambiar el personaje y cambiar el producto—: se mete la entrada, se pulsa y sale el resultado, sin tocar un nodo.",
+    "impact": "La frase que hay que leer es la del coste, porque no es una sola respuesta: las apps construidas sobre modelos abiertos son gratis si se ejecutan en tu propia GPU, y las que usan modelos de socios gastan créditos. Es la vieja distinción de ComfyUI puesta por fin en la interfaz. Dos avisos. Las seis apps las ha hecho su equipo: que las publique cualquiera sigue siendo algo en lo que trabajan. Y quien viva en el grafo no pierde nada, porque el flujo de cada app se puede abrir por dentro en el editor de siempre.",
+    "category": "local-open-source",
+    "eventType": "actualizacion",
+    "availability": "available",
+    "publishedAt": "2026-11-23",
+    "checkedAt": "2026-11-25",
+    "officialUrl": "https://blog.comfy.org/p/comfy-desktop-becomes-your-front",
+    "sources": [
+      {
+        "url": "https://blog.comfy.org/p/comfy-desktop-becomes-your-front",
+        "kind": "official",
+        "label": "Comfy Desktop becomes your front door to everything ComfyUI",
+        "checkedAt": "2026-11-25",
+        "publisher": "blog.comfy.org"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
+    "id": "news-2026-11-23-google-wallet-busqueda",
+    "slug": "google-conecta-wallet-a-la-busqueda",
+    "title": "Google conecta tu cartera a la Búsqueda: Wallet empieza hoy, Drive y Gemini en semanas, y hay que activarlo a mano",
+    "author": "Redacción de Free AI Radar",
+    "summary": "Google anunció el 23 de noviembre que se pueden conectar más aplicaciones propias a la personalización del modo IA de la Búsqueda, para que las respuestas tengan en cuenta el gasto, los documentos y las conversaciones. Conviene leer el calendario con cuidado, porque el titular y la letra no dicen lo mismo: lo que empieza ese día es Wallet, y el soporte de Drive y de la aplicación de Gemini llega «en las próximas semanas».",
+    "impact": "Gmail, Calendar y Fotos ya estaban; lo que se suma ahora es el dinero. Google pone por escrito el límite —si conectas Wallet, el modo IA sólo puede leer tus cuentas: no mueve, ni gestiona, ni invierte—, y lo que propone hacer con eso es trazar metas, recortar gasto corriente y exprimir las ventajas de las tarjetas. Nada se activa solo: hay que ir a la personalización de la Búsqueda, a aplicaciones conectadas, y elegir. Se apaga cuando se quiera. Lo que todavía no se puede es ver qué contexto está usando: ese icono llega «pronto».",
+    "category": "privacidad-licencias",
+    "eventType": "lanzamiento",
+    "availability": "limited",
+    "publishedAt": "2026-11-23",
+    "checkedAt": "2026-11-25",
+    "officialUrl": "https://blog.google/products-and-platforms/products/search/google-search-personal-intelligence-apps/",
+    "sources": [
+      {
+        "url": "https://blog.google/products-and-platforms/products/search/google-search-personal-intelligence-apps/",
+        "kind": "official",
+        "label": "A more tailored Google Search that’s uniquely yours",
+        "checkedAt": "2026-11-25",
+        "publisher": "blog.google"
+      }
+    ],
+    "relatedTools": [],
+    "affectsFreePlan": "unverified",
+    "verification": "verified",
+    "status": "published",
+    "unconfirmed": [],
+    "frontPage": true
+  },
+  {
     "id": "news-2026-11-23-ocria-nano-1",
     "slug": "ocria-nano-1-pesos-abiertos",
     "title": "OCRia-nano-1: 8,1 millones de parámetros que extraen documentos en tu CPU, con pesos abiertos pero licencia restringida",
